@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://djy2ucrmocajp"]
+[gd_scene load_steps=5 format=3 uid="uid://djy2ucrmocajp"]
 
-[ext_resource type="Texture2D" uid="uid://dmw1iamyj23e3" path="res://Cards/grass.png" id="1_vul3s"]
+[ext_resource type="Texture2D" uid="uid://dmw1iamyj23e3" path="res://sprites/grass.png" id="1_vul3s"]
+[ext_resource type="Script" uid="uid://b1j4mepnp4bsy" path="res://scripts/board_tile.gd" id="1_wissu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8tn2x"]
 size = Vector2(175, 175)
@@ -10,6 +11,7 @@ radius = 258.0
 
 [node name="BoardTile" type="Node2D"]
 scale = Vector2(0.475, 0.475)
+script = ExtResource("1_wissu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.155, 0.155)

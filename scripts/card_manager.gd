@@ -63,7 +63,6 @@ func select_raycast(mask):
 	params.collide_with_areas = true
 	params.collision_mask = mask
 	var result = space_state.intersect_point(params)
-	
 	if result.size() > 0 :
 		return topmost_card(result)
 	return null
@@ -78,7 +77,6 @@ func topmost_card(card_arr):
 		if current.z_index > max_z:
 			top_card = current
 			max_z = current.z_index
-	
 	return top_card
 
 ##
@@ -102,7 +100,7 @@ func card_hover_off(card):
 
 func highlight_card(card, hovering):
 	if hovering:
-		card.scale = Vector2(card.CARD_SIZE * 1.1, card.CARD_SIZE * 1.1)
+		card.scale = Vector2(card.CARD_SIZE * 1.05, card.CARD_SIZE * 1.05)
 		card.get_parent().move_child(card, -1)
 		card.z_index = 2
 	else:

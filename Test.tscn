@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://sjlfgs6se1t8"]
+[gd_scene load_steps=4 format=3 uid="uid://sjlfgs6se1t8"]
 
-[ext_resource type="PackedScene" uid="uid://8dgw8wdiub72" path="res://Card.tscn" id="1_myinc"]
-[ext_resource type="Script" uid="uid://q3ayn1o0618v" path="res://card_manager.gd" id="1_njov2"]
-[ext_resource type="PackedScene" uid="uid://djy2ucrmocajp" path="res://board_tile.tscn" id="3_8tn2x"]
-[ext_resource type="Script" uid="uid://b1j4mepnp4bsy" path="res://board_tile.gd" id="4_aq4fw"]
+[ext_resource type="PackedScene" uid="uid://8dgw8wdiub72" path="res://scenes/Card.tscn" id="1_myinc"]
+[ext_resource type="Script" uid="uid://q3ayn1o0618v" path="res://scripts/card_manager.gd" id="1_njov2"]
+[ext_resource type="Script" uid="uid://6i6an4l8cw12" path="res://scripts/board.gd" id="4_ivycn"]
 
 [node name="Board Manager" type="Node2D"]
 
@@ -11,11 +10,10 @@
 script = ExtResource("1_njov2")
 
 [node name="Card" parent="Card Manager" instance=ExtResource("1_myinc")]
-position = Vector2(297, 340)
+position = Vector2(798, 488)
 
 [node name="Card2" parent="Card Manager" instance=ExtResource("1_myinc")]
-position = Vector2(382, 500)
+position = Vector2(918, 482)
 
-[node name="BoardTile" parent="." instance=ExtResource("3_8tn2x")]
-position = Vector2(558, 294)
-script = ExtResource("4_aq4fw")
+[node name="Board" type="Node2D" parent="."]
+script = ExtResource("4_ivycn")
