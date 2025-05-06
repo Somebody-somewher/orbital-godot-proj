@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://6rs0eho1q85m"]
+
+[ext_resource type="Texture2D" uid="uid://bm3ecc5f1cwuq" path="res://NetworkingTest/MeowMeow.png" id="1_p7rae"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_23h7a"]
+radius = 14.0357
+
+[node name="MeowMeow" type="RigidBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2.38419e-07, 2.38419e-07)
+scale = Vector2(0.108398, 0.108398)
+texture = ExtResource("1_p7rae")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_23h7a")
