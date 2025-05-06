@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://djy2ucrmocajp"]
+
+[ext_resource type="Texture2D" uid="uid://dmw1iamyj23e3" path="res://sprites/grass.png" id="1_vul3s"]
+[ext_resource type="Script" uid="uid://b1j4mepnp4bsy" path="res://scripts/board_tile.gd" id="1_wissu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8tn2x"]
+size = Vector2(175, 175)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vul3s"]
+radius = 258.0
+
+[node name="BoardTile" type="Node2D"]
+scale = Vector2(0.475, 0.475)
+script = ExtResource("1_wissu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.155, 0.155)
+texture = ExtResource("1_vul3s")
+
+[node name="Tile Area" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tile Area"]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_8tn2x")
+
+[node name="Card flip range" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Card flip range"]
+shape = SubResource("CircleShape2D_vul3s")

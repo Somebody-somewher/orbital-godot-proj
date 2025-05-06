@@ -11,9 +11,10 @@ config_version=5
 [application]
 
 config/name="Orbital"
-run/main_scene="uid://y1cw66viiemd"
+run/main_scene="res://Test.tscn"
+
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://sprites/icon.svg"
 
 [input]
 
