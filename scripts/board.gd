@@ -1,8 +1,9 @@
 extends Node2D
 
 const spawn_pos = Vector2(200,100)
-const tile_size = 84
+const tile_size = 82
 const BOARD_SIZE = 5
+const BOARD_SCALE = 1.5
 var board_matrix
 
 
@@ -30,9 +31,10 @@ func initialise_array():
 
 func spawn_tile(i, j):
 	var tile_instance = tile.instantiate()
-	add_child(tile_instance)
-	tile_instance.position = spawn_pos + Vector2(i * tile_size, j * tile_size)
+	tile_instance.position = spawn_pos + Vector2(i * tile_size * BOARD_SCALE, j * tile_size * BOARD_SCALE)
 	if (i + j) % 2 == 0:
 		tile_instance.get_node("Sprite2D").texture = grass_dark
+	tile_instance.scale = tile_instance.scale * BOARD_SCALE
 	
+	add_child(tile_instance)
 	return tile_instance

@@ -12,9 +12,13 @@ config_version=5
 
 config/name="Orbital"
 run/main_scene="res://Test.tscn"
-
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://sprites/icon.svg"
+
+[display]
+
+window/size/viewport_width=1600
+window/size/viewport_height=900
 
 [input]
 

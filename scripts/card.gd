@@ -1,7 +1,5 @@
 extends Node2D
 
-var CARD_SIZE = 0.6
-
 signal mouse_on
 signal mouse_off
 

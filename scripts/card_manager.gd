@@ -9,8 +9,11 @@ const TILE_COLLISION_MASK = 2
 const FLIP_COLLISION_MASK = 3 ##detect if card should flip over and transform into structure
 const CARD_EASE = 0.1
 
+var player_hand_ref
+
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
+	player_hand_ref = $"../PlayerHand"
 	
 
 func _process(delta: float) -> void:
@@ -33,7 +36,7 @@ func _input(event):
 
 func start_drag(card):
 	card_dragged = card
-	
+	player_hand_ref.remove_from_hand(card_dragged)
 	var tile_check = select_raycast(TILE_COLLISION_MASK)
 	if tile_check:
 		tile_check.tile_built = false
@@ -53,6 +56,8 @@ func finish_drag():
 		card_dragged.position = tile_check.position
 		tile_check.tile_built = true
 		##card_dragged.get_node("Area2D/CollisionShape2D").disabled = true
+	else:
+		player_hand_ref.add_to_hand(card_dragged)
 	card_dragged = null
 
 ##returns id of objects clicked on (which card)
@@ -100,10 +105,16 @@ func card_hover_off(card):
 
 func highlight_card(card, hovering):
 	if hovering:
-		card.scale = Vector2(card.CARD_SIZE * 1.05, card.CARD_SIZE * 1.05)
+		card.scale *=  1.1
+		##card.position -= Vector2(0, 30)
 		card.get_parent().move_child(card, -1)
 		card.z_index = 2
 	else:
-		card.scale = Vector2(card.CARD_SIZE, card.CARD_SIZE)
+		card.scale = card.scale / 1.1
+		##card.position += Vector2(0, 30)
 		card.z_index = 1
 		
+func animate_card(card, position, scale):
+	var tween = get_tree().create_tween()
+	tween.tween_property(card, "scale", scale, 0.1)
+	tween.tween_property(card, "position", position, 0.1)
