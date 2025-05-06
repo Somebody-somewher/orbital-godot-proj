@@ -2,6 +2,7 @@ extends Control
 
 @export var ip : String = "127.0.0.1"
 @export var port : int = 8910
+@export var gameScenePath : String = "res://NetworkingTest/TestScene.tscn"
 #var multiplayer_peer = ENetMultiplayerPeer.new()
 
 
@@ -25,21 +26,28 @@ func _create_server():
 	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(port, 2)
 	if (error != OK):
-		print("cannot host: " + error)
+		print("cannot host. Error: " + str(error))
 		return error
 	multiplayer.multiplayer_peer = peer
+	_register_player($NameInput.text, multiplayer.get_unique_id())
 	
-func _connect_client(address = ""):
+func _connect_client(addr = ""):
 	var peer = ENetMultiplayerPeer.new()
-	var error = peer.create_client(ip, port)
+	
+	if addr.is_empty():
+		addr = ip
+	var error = peer.create_client(addr, port)
 	if (error != OK):
 		print("cannot host: " + error)
 		return error
 		
 	multiplayer.multiplayer_peer = peer
+	_register_player($NameInput.text, multiplayer.get_unique_id())
+
 
 func _leave_lobby():
 	multiplayer.multiplayer_peer = null
+	
 
 # This signal is emitted with the newly connected peer's ID on each other peer 
 # (inclusive of the server, which is also a peer) 
@@ -47,34 +55,51 @@ func _leave_lobby():
 func _on_peer_connected(id : int)  -> void:
 	# Note that the server's peer id will always be 1
 	print("Player Connected " + str(id))
+	
+	# When a peer connects, each already-connected peer sends their info to the new peer
+	# Likewise each connected peer receives only the new peer's data
+	_register_player.rpc_id(id, $NameInput.text)
+
+@rpc("any_peer", "reliable")
+func _register_player(newPlayerName : String, newPlayerId : int = multiplayer.get_remote_sender_id()):
+	print(newPlayerName)
+	# PlayerManager belongs to the current player is not universal
+	PlayerManager.addPlayer(newPlayerId, newPlayerName)
 
 # This signal is emitted on every remaining peer when one disconnects.
 func _on_peer_disconnected(id : int)  -> void:
+	PlayerManager.erasePlayer(id)
 	print("Player Disconnected " + str(id))
 
 # For sending info frm client -> server
 # Called only from clients
 func _on_connected_to_server()  -> void:
-	print("I've connected to the server! :D")
+	print($NameInput.text + " has connected to the server! :D")
 
 func _on_connection_failed() -> void:
 	print("Connection Failed :<")
 	_leave_lobby()
-	pass # Replace with function body.
 
 func _on_server_disconnected():
 	print("Server ded X.X")
+	PlayerManager.clearPlayers()
 	_leave_lobby()
-
 
 func _on_host_button_down() -> void:
 	_create_server()
-	print("Waiting for Players! .o.")
+	print($NameInput.text + " is waiting for Players! .o.")
 
 func _on_join_button_down() -> void:
 	_connect_client(ip)
 	pass # Replace with function body.
 
-
 func _on_start_button_down() -> void:
+	startGame.rpc()
 	pass # Replace with function body.
+
+#TODO: Change this
+@rpc("any_peer", "call_local")
+func startGame():
+	var scene = load(gameScenePath).instantiate()
+	get_tree().root.add_child(scene)
+	self.hide()

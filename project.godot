@@ -12,9 +12,12 @@ config_version=5
 
 config/name="Orbital"
 run/main_scene="res://Test.tscn"
-
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://sprites/icon.svg"
+
+[autoload]
+
+PlayerManager="*res://NetworkingTest/PlayerManager.gd"
 
 [input]
 
