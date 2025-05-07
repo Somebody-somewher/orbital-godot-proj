@@ -1,43 +1,43 @@
-[gd_scene load_steps=4 format=3 uid="uid://y1cw66viiemd"]
+[gd_scene load_steps=5 format=3 uid="uid://y1cw66viiemd"]
 
-[ext_resource type="Script" uid="uid://cdptqayxlvda4" path="res://NetworkingTest/AddBalls.gd" id="1_4ha63"]
+[ext_resource type="Script" uid="uid://cv13dunu761tt" path="res://NetworkingTest/MeowNetworking.gd" id="1_33kvf"]
 [ext_resource type="Texture2D" uid="uid://bxeoyu1wes8cm" path="res://sprites/icon.svg" id="2_33kvf"]
 [ext_resource type="PackedScene" uid="uid://6rs0eho1q85m" path="res://NetworkingTest/MeowMeow.tscn" id="3_px3be"]
+[ext_resource type="PackedScene" uid="uid://djprvn8ctcigq" path="res://NetworkingTest/meow_spawner.tscn" id="4_px3be"]
 
 [node name="CreateScene" type="Node2D"]
+script = ExtResource("1_33kvf")
+meowSpawner = ExtResource("4_px3be")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(575, 478)
 scale = Vector2(0.734375, 0.734375)
 
-[node name="Node2D" type="Node2D" parent="."]
-script = ExtResource("1_4ha63")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Node2D"]
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(574, 479)
 
-[node name="Sprite2D" type="Sprite2D" parent="Node2D/StaticBody2D"]
+[node name="MeowMeow" parent="StaticBody2D" instance=ExtResource("3_px3be")]
+position = Vector2(-205, -93)
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
 position = Vector2(6.49998, 286.5)
 scale = Vector2(9.03906, 0.648438)
 texture = ExtResource("2_33kvf")
 
-[node name="Sprite2D2" type="Sprite2D" parent="Node2D/StaticBody2D"]
+[node name="Sprite2D2" type="Sprite2D" parent="StaticBody2D"]
 position = Vector2(-493.937, 226.885)
 rotation = 0.514379
 scale = Vector2(1.92852, 0.779121)
 texture = ExtResource("2_33kvf")
 
-[node name="Sprite2D3" type="Sprite2D" parent="Node2D/StaticBody2D"]
+[node name="Sprite2D3" type="Sprite2D" parent="StaticBody2D"]
 position = Vector2(478, 221)
 rotation = -0.542405
 scale = Vector2(2.27258, 0.779121)
 texture = ExtResource("2_33kvf")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/StaticBody2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 position = Vector2(-570, -325)
 polygon = PackedVector2Array(-8, 444, -1, 651, 1153, 647, 1150, 427, 905, 570, 209, 570)
 
-[node name="Polygon2D" type="Polygon2D" parent="Node2D/StaticBody2D"]
-
-[node name="MeowMeow" parent="Node2D" instance=ExtResource("3_px3be")]
-position = Vector2(369, 386)
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D"]

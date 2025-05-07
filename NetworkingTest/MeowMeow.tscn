@@ -1,9 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://6rs0eho1q85m"]
+[gd_scene load_steps=4 format=3 uid="uid://6rs0eho1q85m"]
 
 [ext_resource type="Texture2D" uid="uid://bm3ecc5f1cwuq" path="res://NetworkingTest/MeowMeow.png" id="1_p7rae"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_23h7a"]
 radius = 14.0357
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_p7rae"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [node name="MeowMeow" type="RigidBody2D"]
 
@@ -14,3 +19,6 @@ texture = ExtResource("1_p7rae")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_23h7a")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_p7rae")

@@ -1,5 +1,7 @@
 extends Node
 
+# Player information shouldn't be changed after initialization
+
 var players = {}
 
 func _ready():
@@ -12,20 +14,20 @@ func addPlayer(id : int, name : String) -> void:
 	if hasPlayer(id):
 		return
 	
-	players[id] = {
-		"id" : id,
-		"name" : name,
-		# Not sure if we will end up using this stat
-		# for this purpose
-		"score" : 0
-	}
+	players[id] = PlayerInfo.new(id, name)
 
-func forEachPlayer(function : Callable) -> void:
-	for p in players:
-		function.call(p)
+func forEachPlayer(function : Callable) -> Array[Variant]:
+	var arr = []
+	for p in players.values():
+		arr.append(function.call(p))
+	
+	return arr
 
 func erasePlayer(id : int) -> void:
 	players.erase(id)
 
 func clearPlayers() -> void:
 	players.clear()
+
+func getNumPlayers() -> int:
+	return players.size()

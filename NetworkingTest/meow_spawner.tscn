@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://djprvn8ctcigq"]
+
+[ext_resource type="Script" uid="uid://cdptqayxlvda4" path="res://NetworkingTest/AddBalls.gd" id="1_p2doj"]
+
+[node name="MeowSpawner" type="Node2D"]
+script = ExtResource("1_p2doj")

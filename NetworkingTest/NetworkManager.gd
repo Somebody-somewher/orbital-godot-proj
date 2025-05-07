@@ -8,12 +8,11 @@ extends Control
 
 # Resources
 # Following this tutorial mainly: 
+# https://www.youtube.com/watch?v=e0JLO_5UgQo
 # https://docs.godotengine.org/en/stable/tutorials/networking/high_level_multiplayer.html
 
-
 # Peer basically means Computer
-
-# To terminate networking: multiplayer.multiplayer_peer = null
+# To debug -> Debug -> Customize Run Instances -> Enable Multiple Instances
 
 func _ready():
 	multiplayer.peer_connected.connect(_on_peer_connected)
