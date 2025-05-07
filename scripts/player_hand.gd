@@ -3,13 +3,12 @@ extends Node2D
 const card_scene = preload("res://scenes/Card.tscn")
 const SAMPLE_SIZE = 9
 
-
 var centre_x
 var screen_size
 
 const MAX_HAND_RATIO = 0.6 ##ratio of hand width to screen
+const MAX_HAND_TILT = 0.5
 const HAND_Y_RATIO = 0.8
-
 
 var hand_arr = []
 
@@ -35,18 +34,25 @@ func remove_from_hand(card):
 func update_hand_pos(): 
 	var hand_size := hand_arr.size() as float
 	var hand_ratio = clamp(hand_size * 0.07, 0, MAX_HAND_RATIO)
+	var fan_angle = clamp(hand_size * 0.05, 0, MAX_HAND_TILT)
 	for i in range(hand_size):
+		var new_tilt = 0 if hand_size == 1 else (i - (hand_size - 1)/2) * fan_angle / (hand_size - 1)
 		var new_x = centre_x if hand_size == 1 else (i - (hand_size - 1)/2) * screen_size.x * hand_ratio / (hand_size - 1) + centre_x
+		var new_y= 0.00025*(new_x - centre_x)**2 + screen_size.y * HAND_Y_RATIO
 		var card = hand_arr[i]
-		animate_card_to_pos(card, Vector2(new_x, screen_size.y * HAND_Y_RATIO))
+		card.deck_angle = new_tilt
+		card.deck_pos = Vector2(new_x, new_y)
+		card.rotation = new_tilt
+		animate_card_to_pos(card, card.deck_pos)
 
-func animate_card_to_pos(card, position):
+func animate_card_to_pos(card, new_pos):
+	card.scale = Vector2(1,1)
 	var tween = get_tree().create_tween()
-	tween.tween_property(card, "position", position, 0.2)
+	tween.parallel().tween_property(card, "position", new_pos, 0.2)
 
 func spawn_card():
 	var new_card = card_scene.instantiate()
 	new_card.position = Vector2(centre_x, get_viewport().size.y/2)
-	$"../Card Manager".add_child(new_card)
+	$"../CardManager".add_child(new_card)
 	return new_card
 	
