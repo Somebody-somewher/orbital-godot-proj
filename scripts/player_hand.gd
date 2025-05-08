@@ -46,11 +46,16 @@ func update_hand_pos():
 		card.deck_pos = Vector2(new_x, new_y)
 		card.rotation = new_tilt
 		animate_card_to_pos(card, card.deck_pos)
+	redraw_z()
 
 func animate_card_to_pos(card, new_pos):
 	card.scale = Vector2(1,1)
 	var tween = get_tree().create_tween()
 	tween.parallel().tween_property(card, "position", new_pos, 0.2)
+	
+func redraw_z():
+	for i in range(hand_arr.size()):
+		hand_arr[i].z_index = i
 
 func spawn_card():
 	var new_card = card_scene.instantiate()

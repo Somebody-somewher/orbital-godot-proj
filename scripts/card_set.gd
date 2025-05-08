@@ -18,7 +18,6 @@ var card = preload("res://scenes/Card.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print(card_manager)
 	for i in range(card_arr.size()):
 		for j in range(card_arr[i][1]):
 			var new_card = card.instantiate()

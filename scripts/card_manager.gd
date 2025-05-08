@@ -112,14 +112,14 @@ func card_hover_off(card):
 func highlight_card(card, hovering):
 	if hovering:
 		card.rotation = 0
-		animate_card(card, Vector2(1.15, 1.15), Vector2(0, -50))
+		animate_card(card, Vector2(1.15, 1.15), Vector2(0, -80))
 		card.get_parent().move_child(card, -1)
-		card.z_index = 2
+		card.z_index += 10
 	else:
 		if !card.in_tile:
 			card.rotation = card.deck_angle
 		animate_card(card, Vector2(1, 1), Vector2(0, 0))
-		card.z_index = 1
+		card.z_index -= 10
 		
 func animate_card(card, new_scale, pos):
 	if tweening and tweening.is_running():
