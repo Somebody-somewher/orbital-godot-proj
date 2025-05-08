@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://sjlfgs6se1t8"]
+[gd_scene load_steps=7 format=3 uid="uid://sjlfgs6se1t8"]
 
 [ext_resource type="Script" uid="uid://q3ayn1o0618v" path="res://scripts/card_manager.gd" id="1_njov2"]
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/player_hand.gd" id="4_8tn2x"]
 [ext_resource type="PackedScene" uid="uid://iv3w3pu8flf7" path="res://scenes/card_pack.tscn" id="4_aq4fw"]
 [ext_resource type="Script" uid="uid://6i6an4l8cw12" path="res://scripts/board.gd" id="4_ivycn"]
 [ext_resource type="Script" uid="uid://csnqlg6oxvuth" path="res://scripts/input_manager.gd" id="5_aq4fw"]
+[ext_resource type="PackedScene" uid="uid://c2phaqnk4amq0" path="res://scenes/card_set.tscn" id="6_ivycn"]
 
 [node name="Board Manager" type="Node2D"]
 
@@ -21,4 +22,6 @@ script = ExtResource("4_8tn2x")
 script = ExtResource("5_aq4fw")
 
 [node name="CardPack" parent="." instance=ExtResource("4_aq4fw")]
-position = Vector2(186, 242)
+position = Vector2(1353, 252)
+
+[node name="CardSet" parent="CardPack" instance=ExtResource("6_ivycn")]

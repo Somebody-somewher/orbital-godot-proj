@@ -7,11 +7,11 @@ var deck_angle = 0
 var deck_pos
 var in_tile = false
 
-var in_pack = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	get_parent().connect_card_signals(self)
+	##Cardmanager MUST be the first child of boardmanager
+	get_tree().root.get_child(0).get_child(0).connect_card_signals(self) 
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

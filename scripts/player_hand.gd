@@ -1,7 +1,7 @@
 extends Node2D
 
 const card_scene = preload("res://scenes/Card.tscn")
-const SAMPLE_SIZE = 9
+const SAMPLE_SIZE = 3
 
 var centre_x
 var screen_size
@@ -20,6 +20,8 @@ func _ready() -> void:
 		add_to_hand(spawn_card())
 		
 
+func add_to_hand_no_update(card):
+	hand_arr.insert(hand_arr.size(), card)
 
 func add_to_hand(card):
 	hand_arr.insert(hand_arr.size(), card)

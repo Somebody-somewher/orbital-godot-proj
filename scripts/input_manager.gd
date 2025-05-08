@@ -7,6 +7,7 @@ const CARD_COLLISION_MASK = 1
 const TILE_COLLISION_MASK = 2
 const FLIP_COLLISION_MASK = 4 ##detect if card should flip over and transform into structure
 const PACK_COLLISION_MASK = 8
+const SET_COLLISION_MASK = 16
 
 @onready
 var card_manager = $"../CardManager"
@@ -29,7 +30,6 @@ func raycast_cursor(mask):
 	if result.size() > 0 :
 		result = topmost(result)
 		var result_mask = result.collider.collision_mask
-		##print(result_mask)
 		match result_mask:
 			CARD_COLLISION_MASK:
 				var card_found = result.collider.get_parent()
@@ -39,6 +39,11 @@ func raycast_cursor(mask):
 				var pack_found = result.collider.get_parent()
 				if pack_found:
 					pack_found.open_pack()
+			SET_COLLISION_MASK:
+				var set_found = result.collider.get_parent()
+				if set_found:
+					var pack = set_found.get_parent()
+					pack.select_option(set_found)
 
 
 ##from arr selects topmost node
