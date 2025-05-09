@@ -1,7 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://iv3w3pu8flf7"]
+[gd_scene load_steps=8 format=3 uid="uid://iv3w3pu8flf7"]
 
 [ext_resource type="Script" uid="uid://conukf4ick1q8" path="res://scripts/card_pack.gd" id="1_wo5bd"]
 [ext_resource type="Texture2D" uid="uid://c6eiiyxq48g5e" path="res://sprites/dummy_card_pack.png" id="2_5xwgq"]
+[ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="3_5xwgq"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5xwgq"]
+resource_local_to_scene = true
+frequency = 0.0017
+offset = Vector3(782.61, -86.96, 0)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_17ntd"]
+noise = SubResource("FastNoiseLite_5xwgq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wwfmj"]
+shader = ExtResource("3_5xwgq")
+shader_parameter/Noise = SubResource("NoiseTexture2D_17ntd")
+shader_parameter/DissolveValue = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q1uvj"]
 size = Vector2(162, 231.5)
@@ -10,6 +24,7 @@ size = Vector2(162, 231.5)
 script = ExtResource("1_wo5bd")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_wwfmj")
 texture = ExtResource("2_5xwgq")
 
 [node name="Area2D" type="Area2D" parent="."]

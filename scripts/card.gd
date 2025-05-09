@@ -7,6 +7,11 @@ var deck_angle = 0
 var deck_pos
 var in_tile = false
 
+##shader stuff
+@onready
+var sprite_ref = $Sprite2D
+var dissolving = false
+var dissolve_value = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,7 +21,13 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if dissolving:
+		if dissolve_value > 0:
+			sprite_ref.material.set_shader_parameter("DissolveValue", dissolve_value)
+			dissolve_value -= 0.015
+		else:
+			sprite_ref.visible = false
+			free()
 
 
 func _on_area_2d_mouse_entered() -> void:

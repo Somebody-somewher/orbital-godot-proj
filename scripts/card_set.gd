@@ -4,9 +4,6 @@ var card_arr = [["dummy", 3]] ##2d array of [card, number]
 var card_set = [] ##set of actual objects
 var destroyed = false
 
-signal mouse_on
-signal mouse_off
-
 @onready
 var card_manager = get_node("/root").get_child(0).get_node("CardManager")
 @onready
@@ -14,13 +11,13 @@ var player_hand = get_node("/root").get_child(0).get_node("PlayerHand")
 @onready
 var input_manager = get_node("/root").get_child(0).get_node("InputManager")
 
-var card = preload("res://scenes/Card.tscn")
+var card_scene = preload("res://scenes/Card.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for i in range(card_arr.size()):
 		for j in range(card_arr[i][1]):
-			var new_card = card.instantiate()
+			var new_card = card_scene.instantiate()
 			new_card.get_node("Area2D/CollisionShape2D").disabled = true
 			card_set.insert(card_set.size(), new_card)
 			add_child(new_card)
