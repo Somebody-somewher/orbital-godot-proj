@@ -2,23 +2,26 @@ extends Node2D
 
 var card_dragged
 var card_hovered
+var flip_zone = 0
+var card_flipped = false
 var tweening
 var screen_size
 
 const CARD_COLLISION_MASK = 1
 const TILE_COLLISION_MASK = 2
-const FLIP_COLLISION_MASK = 4 ##detect if card should flip over and transform into structure
 const PACK_COLLISION_MASK = 8
-const CARD_EASE = 0.1
+const CARD_EASE = 0.13
 
 @onready
 var player_hand_ref = $"../PlayerHand"
 @onready
-var input_manager = $"../InputManager"
+var input_manager_ref = $"../InputManager"
+@onready
+var board_ref = $"../Board"
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	input_manager.connect("left_mouse_released", left_mouse_released)
+	input_manager_ref.connect("left_mouse_released", left_mouse_released)
 
 func _process(delta: float) -> void:
 	if card_dragged:
@@ -26,17 +29,25 @@ func _process(delta: float) -> void:
 		var new_x = (mouse_pos.x - card_dragged.position.x) * CARD_EASE + card_dragged.position.x
 		var new_y = (mouse_pos.y - card_dragged.position.y) * CARD_EASE + card_dragged.position.y
 		card_dragged.position = Vector2(clamp(new_x, 0, screen_size.x), clamp(new_y, 0, screen_size.y))
+		if !card_flipped and board_ref.mouse_near_board(mouse_pos):
+			card_flipped = true
+			card_dragged.get_node("FlipAnimation").play("card_flip_to_entity")
+		if card_flipped and !board_ref.mouse_near_board(mouse_pos):
+			card_dragged.get_node("FlipAnimation").play("entity_flip_to_card")
+			card_flipped = false
 
 func left_mouse_released():
 	if card_dragged:
 		finish_drag()
 
 func start_drag(card):
-	card_dragged = card
-	player_hand_ref.remove_from_hand(card_dragged)
 	var tile_check = select_raycast(TILE_COLLISION_MASK)
 	if tile_check:
 		tile_check.tile_built = false
+		card_flipped = true
+	
+	card_dragged = card
+	player_hand_ref.remove_from_hand(card_dragged)
 	
 	if !card_hovered:
 		highlight_card(card, true)
@@ -47,8 +58,8 @@ func start_drag(card):
 func finish_drag():
 	var tile_check = select_raycast(TILE_COLLISION_MASK)
 	if card_hovered and !tile_check: ##plonks the card down
-			highlight_card(card_hovered, false)
-			card_hovered = null
+		highlight_card(card_hovered, false)
+		card_hovered = null
 			
 	##check if dragged into a tile
 	if tile_check and !tile_check.tile_built:
@@ -59,12 +70,12 @@ func finish_drag():
 		card_dragged.scale = Vector2(1,1)
 		card_dragged.position = tile_check.position
 		##card_dragged.get_node("Area2D/CollisionShape2D").disabled = true
-		
 	else:
+		if card_flipped:
+			card_dragged.get_node("FlipAnimation").play("entity_flip_to_card")
 		player_hand_ref.add_to_hand(card_dragged)
-		
-		
 	
+	card_flipped = false
 	card_dragged = null
 
 ##returns id of objects clicked on (which card)
@@ -109,6 +120,16 @@ func card_hover_off(card):
 		if new_card_hovered:
 			card_hover_on(new_card_hovered)
 
+func connect_tile_signals(tile):
+	tile.connect("mouse_on_range", tile_range_on)
+	tile.connect("mouse_off_range", tile_range_off)
+
+func tile_range_on(_tile):
+	flip_zone += 1
+
+func tile_range_off(_tile):
+	flip_zone -= 1
+
 func highlight_card(card, hovering):
 	if hovering:
 		card.rotation = 0
@@ -126,5 +147,5 @@ func animate_card(card, new_scale, pos):
 		await tweening.finished
 	tweening = get_tree().create_tween()
 	if !card.in_tile:
-		tweening.parallel().tween_property(card, "position", card.deck_pos + pos, 0.1)
-	tweening.parallel().tween_property(card, "scale", new_scale, 0.1)
+		tweening.parallel().tween_property(card, "position", card.deck_pos + pos, 0.08)
+	tweening.parallel().tween_property(card, "scale", new_scale, 0.08)

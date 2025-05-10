@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://6i6an4l8cw12" path="res://scripts/board.gd" id="4_ivycn"]
 [ext_resource type="Script" uid="uid://csnqlg6oxvuth" path="res://scripts/input_manager.gd" id="5_aq4fw"]
 
-[node name="Board Manager" type="Node2D"]
+[node name="BoardManager" type="Node2D"]
 
 [node name="CardManager" type="Node2D" parent="."]
 script = ExtResource("1_njov2")

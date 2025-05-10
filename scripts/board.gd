@@ -4,6 +4,7 @@ const spawn_pos = Vector2(200,100)
 const tile_size = 82
 const BOARD_SIZE = 5
 const BOARD_SCALE = 1.5
+var board_coord = [spawn_pos, spawn_pos + Vector2(tile_size, tile_size) * (BOARD_SIZE-1) * BOARD_SCALE] #top left tile and bottom right tile
 var board_matrix
 
 
@@ -38,3 +39,8 @@ func spawn_tile(i, j):
 	
 	add_child(tile_instance)
 	return tile_instance
+
+func mouse_near_board(mouse_pos):
+	const THRESHOLD = 150
+	if mouse_pos.x > board_coord[0].x - THRESHOLD and mouse_pos.x < board_coord[1].x + THRESHOLD:
+		return mouse_pos.y > board_coord[0].y - THRESHOLD and mouse_pos.y < board_coord[1].y + THRESHOLD

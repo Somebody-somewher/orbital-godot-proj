@@ -1,23 +1,28 @@
 extends Node2D
 
-var card_arr = [["dummy", 3]] ##2d array of [card, number]
+var card_arr = [["dummy", 1]] ##2d array of [card, number]
 var card_set = [] ##set of actual objects
 var destroyed = false
 
 @onready
-var card_manager = get_node("/root").get_child(0).get_node("CardManager")
+var card_manager = get_tree().root.get_child(0).get_node("CardManager")
 @onready
-var player_hand = get_node("/root").get_child(0).get_node("PlayerHand")
+var player_hand = get_tree().root.get_child(0).get_node("PlayerHand")
 @onready
-var input_manager = get_node("/root").get_child(0).get_node("InputManager")
+var input_manager = get_tree().root.get_child(0).get_node("InputManager")
 
+var database_ref = preload("res://scripts/card_database.gd")
 var card_scene = preload("res://scenes/Card.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	for i in range(card_arr.size()):
-		for j in range(card_arr[i][1]):
+	for card_type in card_arr: ##card_type is of form [str, int]
+		for i in range(card_type[1]):
 			var new_card = card_scene.instantiate()
+			var card_image_path = str("res://sprites/card_sprites/"+ card_type[0] + "_card.png")
+			var tile_image_path = str("res://sprites/entity_sprites/"+ card_type[0] + ".png")
+			new_card.get_node("CardImage").texture = load(card_image_path)
+			new_card.get_node("EntityImage").texture = load(tile_image_path)
 			new_card.get_node("Area2D/CollisionShape2D").disabled = true
 			card_set.insert(card_set.size(), new_card)
 			add_child(new_card)
