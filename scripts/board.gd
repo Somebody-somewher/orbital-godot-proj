@@ -2,7 +2,7 @@ extends Node2D
 
 # Position of where the board is created on screen
 @export var spawn_pos = Vector2(200,100)
-const tile_size = 82
+const tile_size = 82 #pixel width of one tile
 
 # Length/Width (no. cells) of board
 @export var BOARD_SIZE = 5

@@ -5,11 +5,11 @@ var card_set = [] ##set of actual objects
 var destroyed = false
 
 @onready
-var card_manager = get_tree().root.get_child(0).get_node("CardManager")
+var card_manager = get_tree().root.get_node("PlayerManager/CardManager")
 @onready
-var player_hand = get_tree().root.get_child(0).get_node("PlayerHand")
+var player_hand = get_tree().root.get_node("PlayerManager/PlayerHand")
 @onready
-var input_manager = get_tree().root.get_child(0).get_node("InputManager")
+var input_manager = get_tree().root.get_node("PlayerManager/InputManager")
 
 var database_ref = preload("res://scripts/card_database.gd")
 var card_scene = preload("res://scenes/Card.tscn")

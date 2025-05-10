@@ -48,7 +48,7 @@ func raycast_cursor(mask):
 					pack.select_option(set_found)
 
 
-##from arr selects topmost node
+# from arr selects topmost node
 func topmost(result_arr):
 	var top = result_arr[0]
 	var max_z = top.collider.get_parent().z_index
