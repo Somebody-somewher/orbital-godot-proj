@@ -21,6 +21,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	
 	if dissolving:
 		if dissolve_value > 0:
 			sprite_ref.material.set_shader_parameter("DissolveValue", dissolve_value)

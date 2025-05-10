@@ -13,6 +13,8 @@ const SET_COLLISION_MASK = 16
 var card_manager = $"../CardManager"
 
 func _input(event):
+	
+	# If it helps Project Settings already has an Input Map for the leftmousebutton btw 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			emit_signal("left_mouse_click")
