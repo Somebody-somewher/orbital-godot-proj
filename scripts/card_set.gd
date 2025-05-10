@@ -50,7 +50,7 @@ func highlight_set(on):
 	for i in range(card_set.size()):
 		if on:
 			var fan_angle = clamp(card_set.size() * 0.2, 0, PI/2)
-			var new_tilt = 0 if card_set.size() == 1 else (i - (card_set.size() - 1)/2) * fan_angle / (card_set.size() - 1)
+			var new_tilt = 0 if card_set.size() == 1 else (i - (float(card_set.size()) - 1)/2) * fan_angle / (card_set.size() - 1)
 			var x = 100 * sin(new_tilt);
 			var y = -60 * cos(new_tilt) + 30;
 			animate_card(card_set[i], new_tilt, 1.1, Vector2(x, y))

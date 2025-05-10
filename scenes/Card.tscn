@@ -278,7 +278,7 @@ offset_left = -67.0
 offset_top = -101.0
 offset_right = 68.0
 offset_bottom = -60.0
-text = "Text"
+text = "Name"
 
 [node name="CardDesc" type="RichTextLabel" parent="Texts"]
 visible = false

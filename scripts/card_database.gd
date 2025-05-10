@@ -6,7 +6,7 @@ const CARDS = {#Visual Name, Effect Pattern, List of entities affected
 
 const SETS = {#arr of card type, no. of cards
 	"Dummy Set" : [["dummy", 2]],
-	"Big Dummy Set" : [["dummy", 3]],
+	"Big Dummy Set" : [["dummy", 4]],
 	"Cow Set" : [["cow", 3]],
 	"Cute Dummy Set" : [["cute_dummy", 5]],
 }
