@@ -18,6 +18,10 @@ config/icon="res://sprites/icon.svg"
 [autoload]
 
 PlayerManager="*res://NetworkingTest/PlayerManager.gd"
+[display]
+
+window/size/viewport_width=1600
+window/size/viewport_height=900
 
 [input]
 
