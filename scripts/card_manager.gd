@@ -25,10 +25,12 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if card_dragged:
+		# card sticking to mouse
 		var mouse_pos = get_global_mouse_position()
 		var new_x = (mouse_pos.x - card_dragged.position.x) * CARD_EASE + card_dragged.position.x
 		var new_y = (mouse_pos.y - card_dragged.position.y) * CARD_EASE + card_dragged.position.y
 		card_dragged.position = Vector2(clamp(new_x, 0, screen_size.x), clamp(new_y, 0, screen_size.y))
+		# card flipping when near tile
 		if !card_flipped and board_ref.mouse_near_board(mouse_pos):
 			card_flipped = true
 			card_dragged.get_node("FlipAnimation").play("card_flip_to_entity")
@@ -61,7 +63,7 @@ func finish_drag():
 		highlight_card(card_hovered, false)
 		card_hovered = null
 			
-	##check if dragged into a tile
+	# check if dragged into a tile
 	if tile_check and !tile_check.tile_built:
 		card_dragged.in_tile = true
 		tile_check.tile_built = true
@@ -78,7 +80,7 @@ func finish_drag():
 	card_flipped = false
 	card_dragged = null
 
-##returns id of objects clicked on (which card)
+# returns id of objects clicked on (which card)
 func select_raycast(mask):
 	var space_state = get_world_2d().direct_space_state
 	var params = PhysicsPointQueryParameters2D.new()
@@ -90,7 +92,7 @@ func select_raycast(mask):
 		return topmost_card(result)
 	return null
 
-##from arr picks topmost card
+# from arr picks topmost object
 func topmost_card(card_arr):
 	var top_card = card_arr[0].collider.get_parent()
 	var max_z = top_card.z_index
@@ -102,7 +104,7 @@ func topmost_card(card_arr):
 			max_z = current.z_index
 	return top_card
 
-##
+# highlighting signals for cards
 func connect_card_signals(card):
 	card.connect("mouse_on", card_hover_on)
 	card.connect("mouse_off", card_hover_off)
@@ -120,6 +122,7 @@ func card_hover_off(card):
 		if new_card_hovered:
 			card_hover_on(new_card_hovered)
 
+
 #func connect_tile_signals(tile):
 	#tile.connect("mouse_over_tile", tile_range_on)
 	#tile.connect("mouse_off_tile", tile_range_off)
@@ -130,6 +133,7 @@ func card_hover_off(card):
 #func tile_range_off(_tile):
 	#flip_zone -= 1
 
+# highlight or unhighlight card depending on second argument
 func highlight_card(card, hovering):
 	if hovering:
 		card.rotation = 0

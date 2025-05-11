@@ -5,6 +5,7 @@ class_name BoardTile
 
 var tile_built = false
 
+
 signal mouse_over_tile
 signal mouse_off_tile
 
@@ -30,9 +31,10 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-	
+
 func _on_card_flip_range_mouse_entered() -> void:
 	emit_signal("mouse_over_tile", self)
 
 func _on_card_flip_range_mouse_exited() -> void:
 	emit_signal("mouse_off_tile", self)
+

@@ -10,7 +10,7 @@ extends Node2D
 
 # TODO: Replace this with a TileMap
 # Position of where the board is created on screen
-@export var spawn_pos = Vector2(200,100)
+@export var spawn_pos = Vector2(200,100) #pixel width of one tile
 const tile_size = 82
 var board_coord = [spawn_pos, spawn_pos + Vector2(tile_size, tile_size) * (BOARD_SIZE-1) * BOARD_SCALE] #top left tile and bottom right tile
 #var grass_light = preload("res://sprites/grass.png")
