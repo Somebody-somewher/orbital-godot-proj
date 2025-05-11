@@ -13,6 +13,8 @@ const SET_COLLISION_MASK = 16
 var card_manager = $"../CardManager"
 
 func _input(event):
+	
+	# If it helps Project Settings already has an Input Map for the leftmousebutton btw 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			emit_signal("left_mouse_click")
@@ -46,7 +48,7 @@ func raycast_cursor(mask):
 					pack.select_option(set_found)
 
 
-##from arr selects topmost node
+# from arr selects topmost node
 func topmost(result_arr):
 	var top = result_arr[0]
 	var max_z = top.collider.get_parent().z_index

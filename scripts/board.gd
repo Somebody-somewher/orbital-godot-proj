@@ -1,27 +1,42 @@
 extends Node2D
 
-const spawn_pos = Vector2(200,100)
+# TODO: Eventually replace with a tilemap
+# To handle clicking on tiles: https://www.youtube.com/watch?v=PSEPHO8ukjI
+# Can just have a collision box surrounding the board for the card anim
+
+# Length/Width (no. cells) of board
+@export var BOARD_SIZE = 5
+@export var BOARD_SCALE = 1.5
+
+# TODO: Replace this with a TileMap
+# Position of where the board is created on screen
+@export var spawn_pos = Vector2(200,100) #pixel width of one tile
 const tile_size = 82
-const BOARD_SIZE = 5
-const BOARD_SCALE = 1.5
 var board_coord = [spawn_pos, spawn_pos + Vector2(tile_size, tile_size) * (BOARD_SIZE-1) * BOARD_SCALE] #top left tile and bottom right tile
+#var grass_light = preload("res://sprites/grass.png")
+#var grass_dark = preload("res://sprites/grass_dark.png")
+@export var tileSprites = preload("res://Terrain & Buildings/Terrain/TerrainSpriteHandler.tres")
+
+@export var proc_gen : ProceduralGenerator = preload("res://ProceduralGeneration/DummyProcGen.tres")
+
+# Tile instance that will contain data, such as what building is currently on this tile
+@export var tile = preload("res://scenes/board_tile.tscn")
+
+# Contains a 2d Matrix of tile instances
 var board_matrix
 
 
-var grass_light = preload("res://sprites/grass.png")
-var grass_dark = preload("res://sprites/grass_dark.png")
-
-var tile = preload("res://scenes/board_tile.tscn")
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	initialise_array()
+	proc_gen.generate_world()
+	initialise_matrix()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
-func initialise_array():
+# Initialize 2d array matrix
+func initialise_matrix() -> void:
 	board_matrix=Array()
 	board_matrix.resize(BOARD_SIZE);
 	for i in range(BOARD_SIZE):
@@ -30,13 +45,22 @@ func initialise_array():
 		for j in range(BOARD_SIZE):
 			board_matrix[i][j] = spawn_tile(i, j)
 
-func spawn_tile(i, j):
-	var tile_instance = tile.instantiate()
-	tile_instance.position = spawn_pos + Vector2(i * tile_size * BOARD_SCALE, j * tile_size * BOARD_SCALE)
-	if (i + j) % 2 == 0:
-		tile_instance.get_node("Sprite2D").texture = grass_dark
-	tile_instance.scale = tile_instance.scale * BOARD_SCALE
+func spawn_tile(i, j) -> Node2D:
+	# Terrain Data comes from card_database 
+	var terrain_data = proc_gen.getTerrainAtCell(i,j)
 	
+	# TODO: Change if we doin' TileMap, we don't need to instantiate a tile Node anymore
+	var tile_instance = tile.instantiate()
+	tile_instance.setup(terrain_data)
+	tile_instance.position = spawn_pos + Vector2(i * tile_size * BOARD_SCALE, j * tile_size * BOARD_SCALE)
+	
+	tile_instance.get_node("Sprite2D").texture = tileSprites.get_sprite_by_data(terrain_data)
+	# Different colouration for every alternate tile
+	# Uncomment this once we figure out how to deal with sprites
+	#if (i + j) % 2 == 0:
+	#	tile_instance.get_node("Sprite2D").texture = grass_dark
+		
+	tile_instance.scale = tile_instance.scale * BOARD_SCALE
 	add_child(tile_instance)
 	return tile_instance
 

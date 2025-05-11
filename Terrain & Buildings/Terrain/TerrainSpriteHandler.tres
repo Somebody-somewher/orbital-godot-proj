@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SpriteHandler" load_steps=6 format=3 uid="uid://d4h3doajqya7r"]
+
+[ext_resource type="Script" uid="uid://b1tavxiododk0" path="res://Terrain & Buildings/SpriteHandler.gd" id="1_pdqpe"]
+[ext_resource type="Texture2D" uid="uid://dmw1iamyj23e3" path="res://sprites/grass.png" id="2_oqjyl"]
+[ext_resource type="Texture2D" uid="uid://c34jxdtvmlxqy" path="res://sprites/grass_dark.png" id="3_7v07v"]
+[ext_resource type="Texture2D" uid="uid://blew8krpyan0a" path="res://sprites/desertPlaceholder.png" id="4_whpc2"]
+[ext_resource type="Texture2D" uid="uid://dkoe8dsgicjcy" path="res://sprites/waterPlaceholder.png" id="5_oqjyl"]
+
+[resource]
+script = ExtResource("1_pdqpe")
+sprites = Dictionary[String, Texture2D]({
+"Desert": ExtResource("4_whpc2"),
+"Grass": ExtResource("2_oqjyl"),
+"Grass_D": ExtResource("3_7v07v"),
+"Water": ExtResource("5_oqjyl")
+})

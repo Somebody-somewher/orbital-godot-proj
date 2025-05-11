@@ -16,11 +16,12 @@ var dissolve_value = 1
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	##Boardmanager should be first child of root
-	get_tree().root.get_child(0).get_node("CardManager").connect_card_signals(self) 
+	get_tree().root.get_node("PlayerManager/CardManager").connect_card_signals(self) 
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	
 	if dissolving:
 		if dissolve_value > 0:
 			sprite_ref.material.set_shader_parameter("DissolveValue", dissolve_value)
