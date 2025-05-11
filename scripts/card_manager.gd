@@ -120,15 +120,15 @@ func card_hover_off(card):
 		if new_card_hovered:
 			card_hover_on(new_card_hovered)
 
-func connect_tile_signals(tile):
-	tile.connect("mouse_on_range", tile_range_on)
-	tile.connect("mouse_off_range", tile_range_off)
-
-func tile_range_on(_tile):
-	flip_zone += 1
-
-func tile_range_off(_tile):
-	flip_zone -= 1
+#func connect_tile_signals(tile):
+	#tile.connect("mouse_over_tile", tile_range_on)
+	#tile.connect("mouse_off_tile", tile_range_off)
+#
+#func tile_range_on(_tile):
+	#flip_zone += 1
+#
+#func tile_range_off(_tile):
+	#flip_zone -= 1
 
 func highlight_card(card, hovering):
 	if hovering:
