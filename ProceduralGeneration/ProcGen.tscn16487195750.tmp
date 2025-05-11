@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctmxmab1ad1jc"]
+
+[ext_resource type="Script" uid="uid://6i6an4l8cw12" path="res://scripts/board.gd" id="2_ocvyk"]
+
+[node name="ProcGen" type="Node2D"]
+
+[node name="Board" type="Node2D" parent="."]
+script = ExtResource("2_ocvyk")
