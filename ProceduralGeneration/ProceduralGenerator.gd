@@ -5,9 +5,6 @@ class_name ProceduralGenerator
 @export var noise_highlight_texture : NoiseTexture2D
 var noise : Noise
 
-#TODO: replace this with CSV later
-var terrain_db = preload("res://scripts/card_database.gd")
-
 # Pair of noise_value -> terrain, noise vals should be between -0.6 to 0.5
 # Values should be sorted in ascending order
 @export var noise_terrain_threshold : Dictionary[float, String]
@@ -37,7 +34,7 @@ func generate_world() -> Array:
 			# Mapping each cell to a (pointer to) terrain-data based off noisemap
 			for noise_threshold in noise_terrain_threshold.keys():
 				if noise_val <= noise_threshold:
-					matrix[x][y] = terrain_db.getTerrain(noise_terrain_threshold[noise_threshold])
+					matrix[x][y] = noise_terrain_threshold[noise_threshold]
 					break;
 	
 	return matrix

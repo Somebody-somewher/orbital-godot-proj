@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://ctmxmab1ad1jc"]
+[gd_scene load_steps=4 format=3 uid="uid://ctmxmab1ad1jc"]
 
-[ext_resource type="Script" uid="uid://6i6an4l8cw12" path="res://scripts/board.gd" id="2_ocvyk"]
+[ext_resource type="Script" uid="uid://6i6an4l8cw12" path="res://Board/board.gd" id="2_ocvyk"]
 [ext_resource type="Resource" uid="uid://yuq7e277k7tn" path="res://ProceduralGeneration/ProcGenTest.tres" id="2_yuqnk"]
+[ext_resource type="TileSet" uid="uid://cwvj828htdyfb" path="res://Env & Buildings/EnvTerrain/EnvTerrainTileset.tres" id="3_yuqnk"]
 
 [node name="ProcGen" type="Node2D"]
 
@@ -9,3 +10,11 @@
 script = ExtResource("2_ocvyk")
 BOARD_SIZE = 8
 proc_gen = ExtResource("2_yuqnk")
+
+[node name="Buildings" type="TileMapLayer" parent="Board"]
+tile_set = ExtResource("3_yuqnk")
+
+[node name="TerrainDisplay" type="TileMapLayer" parent="Board"]
+
+[node name="TerrainActual" type="TileMapLayer" parent="Board"]
+tile_set = ExtResource("3_yuqnk")

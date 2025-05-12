@@ -21,27 +21,27 @@ var board_ref = $"../Board"
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	input_manager_ref.connect("left_mouse_released", left_mouse_released)
 
 func _process(delta: float) -> void:
 	if card_dragged:
-		# card sticking to mouse
-		var mouse_pos = get_global_mouse_position()
-		var new_x = (mouse_pos.x - card_dragged.position.x) * CARD_EASE + card_dragged.position.x
-		var new_y = (mouse_pos.y - card_dragged.position.y) * CARD_EASE + card_dragged.position.y
-		card_dragged.position = Vector2(clamp(new_x, 0, screen_size.x), clamp(new_y, 0, screen_size.y))
-		# card flipping when near tile
-		if !card_flipped and board_ref.mouse_near_board(mouse_pos):
-			card_flipped = true
-			card_dragged.get_node("FlipAnimation").play("card_flip_to_entity")
-		if card_flipped and !board_ref.mouse_near_board(mouse_pos):
-			card_dragged.get_node("FlipAnimation").play("entity_flip_to_card")
-			card_flipped = false
+		
+		if Input.is_action_just_released("leftMouseClick"):
+			finish_drag()
+		else:
+			# card sticking to mouse
+			var mouse_pos = get_global_mouse_position()
+			var new_x = (mouse_pos.x - card_dragged.position.x) * CARD_EASE + card_dragged.position.x
+			var new_y = (mouse_pos.y - card_dragged.position.y) * CARD_EASE + card_dragged.position.y
+			card_dragged.position = Vector2(clamp(new_x, 0, screen_size.x), clamp(new_y, 0, screen_size.y))
+			# card flipping when near tile
+			if !card_flipped and board_ref.mouse_near_board(mouse_pos):
+				card_flipped = true
+				card_dragged.get_node("FlipAnimation").play("card_flip_to_entity")
+			if card_flipped and !board_ref.mouse_near_board(mouse_pos):
+				card_dragged.get_node("FlipAnimation").play("entity_flip_to_card")
+				card_flipped = false
 
-func left_mouse_released():
-	if card_dragged:
-		finish_drag()
-
+		
 func start_drag(card):
 	var tile_check = select_raycast(TILE_COLLISION_MASK)
 	if tile_check:
@@ -122,7 +122,7 @@ func card_hover_off(card):
 		if new_card_hovered:
 			card_hover_on(new_card_hovered)
 
-
+# TODO: Please tell me if this impt btw
 #func connect_tile_signals(tile):
 	#tile.connect("mouse_over_tile", tile_range_on)
 	#tile.connect("mouse_off_tile", tile_range_off)

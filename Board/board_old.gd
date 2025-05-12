@@ -1,8 +1,7 @@
 extends Node2D
 
-# TODO: Eventually replace with a tilemap
-# To handle clicking on tiles: https://www.youtube.com/watch?v=PSEPHO8ukjI
-# Can just have a collision box surrounding the board for the card anim
+# TODO: DOES NOT WORK CUZ I DELETED TILESPRITES, WHOOPS
+# KEEPING THIS HERE FOR REFERENCE ONLY
 
 # Length/Width (no. cells) of board
 @export var BOARD_SIZE = 5
@@ -15,7 +14,7 @@ const tile_size = 82
 var board_coord = [spawn_pos, spawn_pos + Vector2(tile_size, tile_size) * (BOARD_SIZE-1) * BOARD_SCALE] #top left tile and bottom right tile
 #var grass_light = preload("res://sprites/grass.png")
 #var grass_dark = preload("res://sprites/grass_dark.png")
-@export var tileSprites = preload("res://Terrain & Buildings/Terrain/TerrainSpriteHandler.tres")
+#@export var tileSprites = preload("res://Terrain & Buildings/Terrain/TerrainSpriteHandler.tres")
 
 @export var proc_gen : ProceduralGenerator = preload("res://ProceduralGeneration/DummyProcGen.tres")
 

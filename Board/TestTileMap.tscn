@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://cdp6pxvmemk4u"]
+
+[ext_resource type="Script" uid="uid://q3ayn1o0618v" path="res://scripts/card_manager.gd" id="1_qcaeo"]
+[ext_resource type="Script" uid="uid://6i6an4l8cw12" path="res://Board/board.gd" id="2_d3j6i"]
+[ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/player_hand.gd" id="4_asiem"]
+[ext_resource type="TileSet" uid="uid://cwvj828htdyfb" path="res://Env & Buildings/EnvTerrain/EnvTerrainTileset.tres" id="4_d3j6i"]
+[ext_resource type="Script" uid="uid://csnqlg6oxvuth" path="res://scripts/input_manager.gd" id="5_6ixxp"]
+[ext_resource type="PackedScene" uid="uid://iv3w3pu8flf7" path="res://scenes/card_pack.tscn" id="6_5p6vv"]
+
+[node name="GameManager" type="Node2D"]
+
+[node name="Board" type="Node2D" parent="."]
+script = ExtResource("2_d3j6i")
+
+[node name="Buildings" type="TileMapLayer" parent="Board"]
+tile_set = ExtResource("4_d3j6i")
+
+[node name="TerrainDisplay" type="TileMapLayer" parent="Board"]
+
+[node name="TerrainActual" type="TileMapLayer" parent="Board"]
+tile_set = ExtResource("4_d3j6i")
+
+[node name="CardManager" type="Node2D" parent="."]
+script = ExtResource("1_qcaeo")
+
+[node name="InputManager" type="Node2D" parent="."]
+script = ExtResource("5_6ixxp")
+
+[node name="PlayerHand" type="Node2D" parent="."]
+script = ExtResource("4_asiem")
+
+[node name="CardPack" parent="." instance=ExtResource("6_5p6vv")]
+position = Vector2(186, 242)
