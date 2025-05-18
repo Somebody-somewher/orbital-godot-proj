@@ -1,4 +1,5 @@
 extends Node2D
+class_name Card
 
 signal mouse_on
 signal mouse_off
@@ -12,6 +13,9 @@ var in_tile = false
 var sprite_ref = $CardImage
 var dissolving = false
 var dissolve_value = 1
+
+#TODO: Change this in CardManager or Pack or wherever you need it
+var building : Building
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -34,6 +38,11 @@ func _process(delta: float) -> void:
 func _on_area_2d_mouse_entered() -> void:
 	emit_signal("mouse_on", self)
 
-
 func _on_area_2d_mouse_exited() -> void:
 	emit_signal("mouse_off", self)
+
+func card_flip_to_entity() -> void:
+	get_node("FlipAnimation").play("card_flip_to_entity")
+
+func entity_flip_to_card() -> void:
+	get_node("FlipAnimation").play("entity_flip_to_card")

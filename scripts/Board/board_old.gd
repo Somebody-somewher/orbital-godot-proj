@@ -1,9 +1,10 @@
 extends Node2D
 
-# TODO: DOES NOT WORK CUZ I DELETED TILESPRITES, WHOOPS
-# KEEPING THIS HERE FOR REFERENCE ONLY
+# TODO: OBSOLETE CODE: DOES NOT WORK CUZ I DELETED TILESPRITES, WHOOPS
+# KEEPING THIS HERE FOR REFERENCE ONLY, DELETE IF UNNEEDED
 
 # Length/Width (no. cells) of board
+
 @export var BOARD_SIZE = 5
 @export var BOARD_SCALE = 1.5
 
@@ -16,8 +17,7 @@ var board_coord = [spawn_pos, spawn_pos + Vector2(tile_size, tile_size) * (BOARD
 #var grass_dark = preload("res://sprites/grass_dark.png")
 #@export var tileSprites = preload("res://Terrain & Buildings/Terrain/TerrainSpriteHandler.tres")
 
-@export var proc_gen : ProceduralGenerator = preload("res://ProceduralGeneration/DummyProcGen.tres")
-
+@export var proc_gen : ProceduralGenerator = preload("res://Resources/ProcGen/DummyProcGen.tres")
 # Tile instance that will contain data, such as what building is currently on this tile
 @export var tile = preload("res://scenes/board_tile.tscn")
 

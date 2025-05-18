@@ -7,8 +7,8 @@ var choices = 1 ##how many selections of the options
 ##logic stuff
 @onready
 var player_hand = $"../PlayerHand"
-var card_sets = preload("res://scenes/card_set.tscn")
-var card_ref = preload("res://scenes/Card.tscn")
+var card_sets = preload("res://scenes/Card/card_set.tscn")
+var card_ref = preload("res://scenes/Card/Card.tscn")
 
 ##shader stuff
 @onready
@@ -18,7 +18,7 @@ var dissolve_value = 1
 
 ##database stuff
 @onready
-var database_ref = preload("res://scripts/card_database.gd")
+var database_ref = preload("res://scripts/Card/card_database.gd")
 
 func _ready() -> void:
 	pass # Replace with function body.

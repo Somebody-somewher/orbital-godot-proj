@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://ctmxmab1ad1jc"]
 
-[ext_resource type="Script" uid="uid://6i6an4l8cw12" path="res://Board/board.gd" id="2_ocvyk"]
-[ext_resource type="Resource" uid="uid://yuq7e277k7tn" path="res://ProceduralGeneration/ProcGenTest.tres" id="2_yuqnk"]
-[ext_resource type="TileSet" uid="uid://cwvj828htdyfb" path="res://Env & Buildings/EnvTerrain/EnvTerrainTileset.tres" id="3_yuqnk"]
+[ext_resource type="Script" uid="uid://6i6an4l8cw12" path="res://scripts/Board/board.gd" id="2_ocvyk"]
+[ext_resource type="Resource" uid="uid://yuq7e277k7tn" path="res://Resources/ProcGen/ProcGenTest.tres" id="2_yuqnk"]
+[ext_resource type="TileSet" uid="uid://cwvj828htdyfb" path="res://Resources/EnvTerrain/EnvTerrainTileset.tres" id="3_yuqnk"]
 
 [node name="ProcGen" type="Node2D"]
 

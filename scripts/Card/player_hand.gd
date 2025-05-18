@@ -1,6 +1,6 @@
 extends Node2D
 
-const card_scene = preload("res://scenes/Card.tscn")
+const card_scene = preload("res://scenes/Card/Card.tscn")
 const SAMPLE_SIZE = 3
 
 var centre_x

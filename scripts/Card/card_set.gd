@@ -5,14 +5,14 @@ var card_set = [] ##set of actual objects
 var destroyed = false
 
 @onready
-var card_manager = get_tree().root.get_node("PlayerManager/CardManager")
+var card_manager = get_tree().root.get_node("GameManager/CardManager")
 @onready
-var player_hand = get_tree().root.get_node("PlayerManager/PlayerHand")
+var player_hand = get_tree().root.get_node("GameManager/PlayerHand")
 @onready
-var input_manager = get_tree().root.get_node("PlayerManager/InputManager")
+var input_manager = get_tree().root.get_node("GameManager/InputManager")
 
-var database_ref = preload("res://scripts/card_database.gd")
-var card_scene = preload("res://scenes/Card.tscn")
+var database_ref = preload("res://scripts/Card/card_database.gd")
+var card_scene = preload("res://scenes/Card/Card.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

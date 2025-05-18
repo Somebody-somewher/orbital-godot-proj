@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="EnvTerrainMapping" load_steps=7 format=3 uid="uid://doq3nosdirb1v"]
+
+[ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="1_k1rc5"]
+[ext_resource type="Script" uid="uid://dcoeqccwxg41y" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrainMapping.gd" id="2_n4ada"]
+[ext_resource type="TileSet" uid="uid://cwvj828htdyfb" path="res://Resources/EnvTerrain/EnvTerrainTileset.tres" id="3_04t6x"]
+
+[sub_resource type="Resource" id="Resource_y4ebn"]
+script = ExtResource("1_k1rc5")
+tile_name = "Desert"
+tilesheet_pos = Vector2i(2, 0)
+base_score = -1
+metadata/_custom_type_script = "uid://cfj1u165lx7jl"
+
+[sub_resource type="Resource" id="Resource_74pdt"]
+script = ExtResource("1_k1rc5")
+tile_name = "Grass"
+tilesheet_pos = Vector2i(0, 0)
+base_score = 0
+metadata/_custom_type_script = "uid://cfj1u165lx7jl"
+
+[sub_resource type="Resource" id="Resource_iw17d"]
+script = ExtResource("1_k1rc5")
+tile_name = "Water"
+tilesheet_pos = Vector2i(3, 0)
+base_score = 0
+metadata/_custom_type_script = "uid://cfj1u165lx7jl"
+
+[resource]
+script = ExtResource("2_n4ada")
+environment_data = Dictionary[String, ExtResource("1_k1rc5")]({
+"Desert": SubResource("Resource_y4ebn"),
+"Grass": SubResource("Resource_74pdt"),
+"Water": SubResource("Resource_iw17d")
+})
+tileset = ExtResource("3_04t6x")
+metadata/_custom_type_script = "uid://dcoeqccwxg41y"

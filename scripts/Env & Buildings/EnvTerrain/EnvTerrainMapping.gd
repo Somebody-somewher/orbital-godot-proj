@@ -6,7 +6,7 @@ class_name EnvTerrainMapping
 
 @export var environment_data : Dictionary[String, EnvTerrain] #Visual Name, Base Score, sprite_path
 
-@export var tileset : TileSet = preload("res://Env & Buildings/EnvTerrain/EnvTerrainTileset.tres")
+@export var tileset : TileSet = preload("res://Resources/EnvTerrain/EnvTerrainTileset.tres")
 func getTilebyId(id : String) -> Vector2i:
 	return environment_data.get(id).tilesheet_pos
 

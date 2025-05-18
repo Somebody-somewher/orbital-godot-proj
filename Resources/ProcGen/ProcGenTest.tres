@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ProceduralGenerator" load_steps=4 format=3 uid="uid://yuq7e277k7tn"]
 
-[ext_resource type="Script" uid="uid://cfd7y18ct2gmf" path="res://ProceduralGeneration/ProceduralGenerator.gd" id="1_l4l4p"]
+[ext_resource type="Script" uid="uid://cfd7y18ct2gmf" path="res://scripts/ProceduralGeneration/ProceduralGenerator.gd" id="1_l4l4p"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_gupbj"]
 seed = 4

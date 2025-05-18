@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ProceduralGenerator" load_steps=4 format=3 uid="uid://ctrji0enaanxm"]
 
-[ext_resource type="Script" uid="uid://cfd7y18ct2gmf" path="res://ProceduralGeneration/ProceduralGenerator.gd" id="1_hhtup"]
+[ext_resource type="Script" uid="uid://cfd7y18ct2gmf" path="res://scripts/ProceduralGeneration/ProceduralGenerator.gd" id="1_hhtup"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_hhtup"]
 
