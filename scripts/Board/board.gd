@@ -13,7 +13,7 @@ var board_matrix
 @export var BOARD_SCALE : float = 0.13 
 
 # Position of where the board is created on screen
-@export var offset = Vector2(200,100) #pixel width of one tile
+@export var offset = Vector2(200,100)
 var board_coord : Array[Vector2] #pair of coords, top left corner and bottom right corner
 
 @export var proc_gen : ProceduralGenerator = preload("res://Resources/ProcGen/DummyProcGen.tres")
@@ -26,11 +26,9 @@ func _ready() -> void:
 	env_map.position = to_local(offset)
 	env_map.tile_set = environment.tileset
 	
-	
 	#board_coord = [offset, offset + env_map.tile_set.tile_size * (BOARD_SIZE-1) * BOARD_SCALE] 
 	board_coord = [offset, offset + env_map.tile_set.tile_size * (BOARD_SIZE) * BOARD_SCALE] 
 	
-
 	proc_gen.generate_world()
 	initialise_matrix()
 

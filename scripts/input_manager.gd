@@ -9,9 +9,6 @@ const FLIP_COLLISION_MASK = 4 ##detect if card should flip over and transform in
 const PACK_COLLISION_MASK = 8
 const SET_COLLISION_MASK = 16
 
-@onready
-var card_manager = $"../CardManager"
-
 func _input(event):
 	# If it helps Project Settings already has an Input Map for the leftmousebutton btw 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -38,6 +35,7 @@ func raycast_cursor(mask):
 			CARD_COLLISION_MASK:
 				var card_found = result.collider.get_parent()
 				if card_found:
+					var card_manager = card_found.get_parent()
 					card_manager.start_drag(card_found)
 			PACK_COLLISION_MASK:
 				var pack_found = result.collider.get_parent()

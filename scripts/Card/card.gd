@@ -47,10 +47,10 @@ func card_flip_to_entity() -> void:
 func entity_flip_to_card() -> void:
 	get_node("FlipAnimation").play("entity_flip_to_card")
 
-func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		InputManager.node_clicked(self, "card_clicked")
-	pass # Replace with function body.
+#func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		#InputManager.node_clicked(self, "card_clicked")
+	#pass # Replace with function body.
 	
 func send_click_signal():
 	emit_signal("start_drag")

@@ -19,14 +19,13 @@ const CARD_EASE = 0.13
 var player_hand_ref = $"../PlayerHand"
 @onready
 var input_manager_ref = $"../InputManager"
-#@onready
-#var board_ref = $"../Board"
 
 @export
 var board_ref : Board
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
+	board_ref = $"../Board"
 	#InputManager.connect(clicked, )
 
 func _process(delta: float) -> void:
@@ -48,10 +47,8 @@ func _process(delta: float) -> void:
 				if card_flipped and !board_ref.mouse_near_board():
 					card_dragged.entity_flip_to_card()
 					card_flipped = false
-		
-			
+
 func start_drag(card):
-	
 	var tile_check = select_raycast(TILE_COLLISION_MASK)
 	if tile_check:
 		tile_check.tile_built = false
@@ -146,17 +143,6 @@ func card_hover_off(card):
 		card_hovered = null
 		if new_card_hovered:
 			card_hover_on(new_card_hovered)
-
-# TODO: Please tell me if this impt btw
-#func connect_tile_signals(tile):
-	#tile.connect("mouse_over_tile", tile_range_on)
-	#tile.connect("mouse_off_tile", tile_range_off)
-#
-#func tile_range_on(_tile):
-	#flip_zone += 1
-#
-#func tile_range_off(_tile):
-	#flip_zone -= 1
 
 # highlight or unhighlight card depending on second argument
 func highlight_card(card : Card, hovering : bool):
