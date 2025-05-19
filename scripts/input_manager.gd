@@ -1,6 +1,5 @@
 extends Node2D
 
-# This fella is an AutoLoad
 signal left_mouse_click
 signal left_mouse_released
 
@@ -17,10 +16,10 @@ func _input(event):
 	# If it helps Project Settings already has an Input Map for the leftmousebutton btw 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			#emit_signal("left_mouse_click")
+			emit_signal("left_mouse_click")
 			raycast_cursor(0xFFFFFFFB)
-		#else:
-			#emit_signal("left_mouse_released")
+		else:
+			emit_signal("left_mouse_released")
 
 func raycast_cursor(mask):
 	var space_state : PhysicsDirectSpaceState2D = get_world_2d().direct_space_state

@@ -27,6 +27,7 @@ var board_ref : Board
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
+	#InputManager.connect(clicked, )
 
 func _process(delta: float) -> void:
 	if card_dragged:
