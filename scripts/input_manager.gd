@@ -38,7 +38,7 @@ func raycast_cursor(mask):
 			CARD_COLLISION_MASK:
 				var card_found = result.collider.get_parent()
 				if card_found:
-					card_manager.start_drag(card_found)
+					card_found.get_parent().start_drag(card_found)
 			PACK_COLLISION_MASK:
 				var pack_found = result.collider.get_parent()
 				if pack_found:

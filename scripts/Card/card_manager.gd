@@ -17,8 +17,6 @@ const CARD_EASE = 0.13
 
 @onready
 var player_hand_ref = $"../PlayerHand"
-@onready
-var input_manager_ref = $"../InputManager"
 #@onready
 #var board_ref = $"../Board"
 
@@ -27,7 +25,11 @@ var board_ref : Board
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	#InputManager.connect(clicked, )
+	InputManager.connect("clicked", process_click)
+
+func process_click(node : Node2D, sig : String):
+	if (sig == "card_clicked"):
+		start_drag(node as Card)
 
 func _process(delta: float) -> void:
 	if card_dragged:
@@ -50,12 +52,12 @@ func _process(delta: float) -> void:
 					card_flipped = false
 		
 			
-func start_drag(card):
-	
-	var tile_check = select_raycast(TILE_COLLISION_MASK)
-	if tile_check:
-		tile_check.tile_built = false
-		card_flipped = true
+func start_drag(card):	
+	# OLD RAAYCAST CODE
+	#var tile_check = select_raycast(TILE_COLLISION_MASK)
+	#if tile_check:
+		#tile_check.tile_built = false
+		#card_flipped = true
 	
 	card_dragged = card
 	player_hand_ref.remove_from_hand(card_dragged)
@@ -70,7 +72,7 @@ func start_drag(card):
 # Right now the board has the following functions which will help
 # place_on_board_if_able(Placeable) -> bool returns  
 func finish_drag():
-	var tile_check = select_raycast(TILE_COLLISION_MASK)
+	var tile_check = InputManager.select_raycast(TILE_COLLISION_MASK)
 		
 	if card_hovered and !tile_check: ##plonks the card down
 		highlight_card(card_hovered, false)
@@ -93,8 +95,6 @@ func finish_drag():
 	card_flipped = false
 	card_dragged = null
 
-# TODO: This shouldn't be the CardManager's job?
-# Can we throw this into the InputManager or CollisionManager
 func select_raycast(mask) -> Card:
 	var space_state : PhysicsDirectSpaceState2D = get_world_2d().direct_space_state 
 	
@@ -110,7 +110,6 @@ func select_raycast(mask) -> Card:
 		
 	return null
 
-# TODO: Can we throw this into the InputManager or CollisionManager
 func topmost_card(card_arr) -> Card:
 	var top_card : Card = card_arr[0].collider.get_parent()
 	var max_z : int = top_card.z_index
@@ -142,21 +141,10 @@ func card_hover_on(card):
 func card_hover_off(card):
 	if card_hovered == card and card_dragged != card:
 		highlight_card(card, false)
-		var new_card_hovered = select_raycast(CARD_COLLISION_MASK)
+		var new_card_hovered = InputManager.select_raycast(CARD_COLLISION_MASK)
 		card_hovered = null
 		if new_card_hovered:
 			card_hover_on(new_card_hovered)
-
-# TODO: Please tell me if this impt btw
-#func connect_tile_signals(tile):
-	#tile.connect("mouse_over_tile", tile_range_on)
-	#tile.connect("mouse_off_tile", tile_range_off)
-#
-#func tile_range_on(_tile):
-	#flip_zone += 1
-#
-#func tile_range_off(_tile):
-	#flip_zone -= 1
 
 # highlight or unhighlight card depending on second argument
 func highlight_card(card : Card, hovering : bool):
@@ -171,7 +159,6 @@ func highlight_card(card : Card, hovering : bool):
 		animate_card(card, Vector2(1, 1), Vector2(0, 0))
 		card.z_index -= 10
 
-# TODO: Can this be Card's job to handle?
 func animate_card(card : Card, new_scale : Vector2, pos):
 	if tweening and tweening.is_running():
 		await tweening.finished
