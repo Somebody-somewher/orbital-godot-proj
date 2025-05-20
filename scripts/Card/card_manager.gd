@@ -10,9 +10,6 @@ var screen_size : Vector2
 
 const CARD_COLLISION_MASK = 1
 
-# TODO: Ideally we can remove this once we get the CardManager -> Board Working
-const TILE_COLLISION_MASK = 2
-const PACK_COLLISION_MASK = 8
 const CARD_EASE = 0.13
 
 @onready
@@ -25,32 +22,25 @@ var board_ref : Board = $"../Board"
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 
-func _process(delta: float) -> void:
-	if card_dragged:
-		if Input.is_action_just_released("leftMouseClick"):
-			finish_drag()
-		else:
-			# dragged_card sticking to mouse
-			var mouse_pos = get_global_mouse_position()
-			var new_x = (mouse_pos.x - card_dragged.position.x) * CARD_EASE + card_dragged.position.x
-			var new_y = (mouse_pos.y - card_dragged.position.y) * CARD_EASE + card_dragged.position.y
-			card_dragged.position = Vector2(clamp(new_x, 0, screen_size.x), clamp(new_y, 0, screen_size.y))
-			
-			# card flipping when near tile
-			if board_ref != null:
-				if !card_flipped and board_ref.mouse_near_board():
-					card_flipped = true
-					card_dragged.card_flip_to_entity()
-				if card_flipped and !board_ref.mouse_near_board():
-					card_dragged.entity_flip_to_card()
-					card_flipped = false
+func _process(_delta: float) -> void:
+	if !card_dragged:
+		return
+
+	if Input.is_action_just_released("leftMouseClick"):
+		finish_drag()
+	else:
+		# dragged_card sticking to mouse
+		var mouse_pos = get_global_mouse_position()
+		var new_x = (mouse_pos.x - card_dragged.position.x) * CARD_EASE + card_dragged.position.x
+		var new_y = (mouse_pos.y - card_dragged.position.y) * CARD_EASE + card_dragged.position.y
+		card_dragged.position = Vector2(clamp(new_x, 0, screen_size.x), clamp(new_y, 0, screen_size.y))
+
+		# card effects with board interaction
+		if board_ref != null:
+			card_flip_if_near_board()
+			highlight_effects_when_hovering_card()
 
 func start_drag(card : Card):
-	var tile_check = select_raycast(TILE_COLLISION_MASK)
-	if tile_check:
-		tile_check.tile_built = false
-		card_flipped = true
-	
 	card_dragged = card
 	player_hand_ref.remove_from_hand(card_dragged)
 	
@@ -60,9 +50,6 @@ func start_drag(card : Card):
 	
 	card_dragged.in_tile = false
 
-#TODO: Need you to code the cards such that they can plop down the building onto the board
-# Right now the board has the following functions which will help
-# place_on_board_if_able(Placeable) -> bool returns  
 func finish_drag():
 	var tile_under_mouse = board_ref.get_mouse_tile_pos()
 	var card_placed : bool = board_ref.place_on_board_if_able(card_dragged.building)
@@ -79,7 +66,7 @@ func finish_drag():
 		card_dragged.position = board_ref.get_global_tile_pos(tile_under_mouse)
 		card_dragged.swap_to_building(board_ref)
 		board_ref.redraw()
-		##card_dragged.get_node("Area2D/CollisionShape2D").disabled = true
+		# card_dragged.get_node("Area2D/CollisionShape2D").disabled = true
 	else:
 		if card_flipped:
 			card_dragged.entity_flip_to_card()
@@ -90,14 +77,14 @@ func finish_drag():
 
 # TODO: This shouldn't be the CardManager's job?
 # Can we throw this into the InputManager or CollisionManager
-func select_raycast(mask) -> Card:
+func card_under_mouse() -> Card:
 	var space_state : PhysicsDirectSpaceState2D = get_world_2d().direct_space_state 
 	
 	# returns id of objects clicked on
 	var params = PhysicsPointQueryParameters2D.new()
 	params.position = get_global_mouse_position()
 	params.collide_with_areas = true
-	params.collision_mask = mask
+	params.collision_mask = CARD_COLLISION_MASK
 	var result : Array[Dictionary] = space_state.intersect_point(params)
 	
 	if !result.is_empty():
@@ -124,6 +111,31 @@ func connect_card_signals(card : Card):
 	card.connect("mouse_on", card_hover_on)
 	card.connect("mouse_off", card_hover_off)
 
+# Following functions for dragged Card interations with board
+# they are only called when board_ref != null and card is being dragged
+
+func card_flip_if_near_board() -> void:
+	if !card_flipped and board_ref.mouse_near_board():
+		card_flipped = true
+		card_dragged.card_flip_to_entity()
+	if card_flipped and !board_ref.mouse_near_board():
+		card_dragged.entity_flip_to_card()
+		card_flipped = false
+
+func highlight_effects_when_hovering_card() -> void :
+	# card ghost snapping to grid
+	var tile_pos_i = board_ref.get_mouse_tile_pos()
+	var tile_global_pos = board_ref.get_global_tile_pos(tile_pos_i)
+	if tile_global_pos != Vector2(Board.NULL_TILE):
+		card_dragged.get_node("GhostBuildingImage").global_position = tile_global_pos
+		board_ref.preview_placement(card_dragged.building, tile_pos_i)
+	else:
+		card_dragged.get_node("GhostBuildingImage").position = Vector2.ZERO
+		board_ref.reset_preview()
+
+
+
+
 # Following functions are centralized under CardManager
 # So as to prevent them all from being triggered at the same time
 
@@ -137,7 +149,7 @@ func card_hover_on(card):
 func card_hover_off(card):
 	if card_hovered == card and card_dragged != card:
 		highlight_card(card, false)
-		var new_card_hovered = select_raycast(CARD_COLLISION_MASK)
+		var new_card_hovered = card_under_mouse()
 		card_hovered = null
 		if new_card_hovered:
 			card_hover_on(new_card_hovered)

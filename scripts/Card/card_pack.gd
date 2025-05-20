@@ -1,6 +1,6 @@
 extends Node2D
 
-var pack_sets = ["Big Dummy Set", "Dummy Set", "Cow Set", "Cute Dummy Set"] ##array of sets
+var pack_sets = ["Big Cow Set", "Dummy Set", "Cow Set", "Cute Dummy Set"] ##array of sets
 var pack_arr = []
 var choices = 1 ##how many selections of the options
 
@@ -37,8 +37,8 @@ func open_pack() -> void:
 	self.get_node("Area2D/CollisionShape2D").disabled = true
 	for i in range(pack_sets.size()):
 		var new_set = card_sets.instantiate()
-		var set_name = pack_sets[i]
-		new_set.card_arr = database_ref.SETS[set_name]
+		var set_id_name = pack_sets[i]
+		new_set.card_arr = database_ref.SETS[set_id_name]
 		new_set.position = Vector2(i * 250 + 400, 300) - self.position
 		pack_arr.insert(pack_arr.size(), new_set)
 		add_child(new_set)

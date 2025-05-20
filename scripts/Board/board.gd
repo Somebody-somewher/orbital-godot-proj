@@ -1,9 +1,14 @@
 extends Node2D
 class_name Board
 
+@onready
+var highlight_map : TileMapLayer = $"./Highlights"
+
 # TerrainDisplay vs TerrainActual https://www.youtube.com/watch?v=jEWFSv3ivTg
 @onready
 var env_map : TileMapLayer = $"./TerrainActual"
+
+
 
 # Contains a 2d Matrix of tile data
 var board_matrix
@@ -27,7 +32,12 @@ func _ready() -> void:
 	# Update the positioning of the tilemaps
 	env_map.scale = Vector2(BOARD_SCALE, BOARD_SCALE)
 	env_map.position = to_local(offset)
+	env_map.z_index = -1
 	env_map.tile_set = environment.tileset
+	
+	highlight_map.scale = Vector2(BOARD_SCALE, BOARD_SCALE)
+	highlight_map.position = to_local(offset)
+	highlight_map.tile_set = environment.tileset
 	
 	board_coord = [offset, offset + env_map.tile_set.tile_size * (BOARD_SIZE) * BOARD_SCALE] 
 	
@@ -57,6 +67,8 @@ func get_tile(coord : Vector2i) -> BoardTile:
 	return board_matrix[coord.x][coord.y]
 
 func get_global_tile_pos(coords : Vector2i) -> Vector2:
+	if coords == NULL_TILE:
+		return coords
 	var tile_length : float = env_map.tile_set.tile_size.x * BOARD_SCALE
 	var local_pos = Vector2((coords.x + 0.5) * tile_length, (coords.y + 0.5) * tile_length)
 	return local_pos + offset
@@ -76,6 +88,9 @@ func get_mouse_tile_pos() -> Vector2i:
 	else:
 		return NULL_TILE
 
+func snap_mouse_to_tile_pos() -> Vector2:
+	return get_global_tile_pos(get_mouse_tile_pos())
+
 # try to place building on tile or swap terrain
 func place_building_on_tile(tile_pos : Vector2i, building: Building) -> bool:
 	var tile_data : BoardTile = board_matrix[tile_pos.x][tile_pos.y]
@@ -94,8 +109,28 @@ func place_on_board_if_able(building: Building) -> bool:
 		return place_building_on_tile(tile_mouse_pos, building)
 	return false
 
-func constrain_pattern_to_board(pattern_arr : Array) -> Array[Vector2i] :
-	return []
+func constrain_pattern_to_board(pattern_arr : Array, tile_pos : Vector2i) -> Array[Vector2i] :
+	var out_arr : Array[Vector2i] = []
+	for relative_tile in pattern_arr:
+		var true_tile = Vector2i(relative_tile[0], relative_tile[1]) + tile_pos
+		if true_tile == true_tile.clampi(0, BOARD_SIZE - 1):
+			out_arr.push_back(true_tile)
+	return out_arr
+
+# highlight affected tiles if building were to be placed
+# TODO: display cutey point totals above each tile
+func preview_placement(try_building : Building, tile_pos : Vector2i) -> void :
+	reset_preview()
+	var affected_tiles = constrain_pattern_to_board(try_building.AOE, tile_pos)
+	for highlight_tile_pos in affected_tiles:
+		highlight_map.set_cell(highlight_tile_pos,2, Vector2i(0,0),0)
+	pass
+
+func reset_preview() -> void :
+	for i in range(BOARD_SIZE):
+		for j in range(BOARD_SIZE): 
+			highlight_map.set_cell(Vector2(i,j), -1, Vector2i(0,0), 0)
+	pass
 
 #sets buildings in proper place and draw order
 func redraw() -> void :

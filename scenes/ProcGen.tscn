@@ -11,7 +11,7 @@ script = ExtResource("2_ocvyk")
 BOARD_SIZE = 8
 proc_gen = ExtResource("2_yuqnk")
 
-[node name="Buildings" type="TileMapLayer" parent="Board"]
+[node name="Highlights" type="TileMapLayer" parent="Board"]
 tile_set = ExtResource("3_yuqnk")
 
 [node name="TerrainDisplay" type="TileMapLayer" parent="Board"]

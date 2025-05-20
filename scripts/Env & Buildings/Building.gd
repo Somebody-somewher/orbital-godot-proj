@@ -7,8 +7,10 @@ class_name Building
 
 # As defined in card_database
 @export var id_name : String
-@export var AOE : String
 @export var layer : int # for stacking and rendering
+
+# array of relative coords
+@export var AOE : Array
 
 # A dictionary of pairings (which are also dicts) describing how surrounding buildings
 # in the AOE will contribute to scoring for this building
@@ -31,14 +33,16 @@ static var database_ref = preload("res://scripts/Card/card_database.gd")
 func _ready() -> void:
 	pass
 
-#constructor
-static func new_building(name : String) -> Building:
-	var new_building = building_scene.instantiate()
-	var entity_image_path = str("res://sprites/entity_sprites/" + name + ".png")
-	print(entity_image_path)
-	new_building.get_node("EntityImage").texture = load(entity_image_path)
+# factory constructor
+static func new_building(building_name : String) -> Building:
+	var ret_building = building_scene.instantiate()
+	var entity_image_path = str("res://sprites/entity_sprites/" + building_name + ".png")
+	ret_building.get_node("EntityImage").texture = load(entity_image_path)
 	# TODO: eventually use database to query name and set variables
-	return new_building
+	var aoe = database_ref.CARDS.get(building_name)[1]
+	ret_building.AOE = database_ref.AOE.get(aoe)
+	
+	return ret_building
 
 # for recalling building bakc into player hand
 # freeing done by caller

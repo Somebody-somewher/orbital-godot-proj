@@ -42,13 +42,12 @@ func stack_if_able(new_building : Building) -> bool :
 	return false
 
 # for deleting buildings from tile
-# TODO: possibility of reverting points added?
 func delete_from_tile(building : Building, add_back_to_hand : bool) -> void:
 	if building in buildings:
 		buildings.erase(building)
 		if add_back_to_hand:
-			var returned_card = building.swap_to_card()
-			# TODO: add functionality to add card bcak to hand
+			var returned_card = building.swap_to_card() # swap_to_card not implemented
+			# TODO: add functionality to add card back to hand
 		building.free()
 
 func redraw() -> void:

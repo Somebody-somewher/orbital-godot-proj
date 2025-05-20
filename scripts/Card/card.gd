@@ -28,15 +28,16 @@ var id_name : String = "cute_dummy"
 func _ready() -> void:
 	get_tree().root.get_node("GameManager/CardManager").connect_card_signals(self) 
 
-#constructor
+# factory constructor
 static func new_card(card_name : String) -> Card:
-	var new_card : Card = card_scene.instantiate()
+	var return_card : Card = card_scene.instantiate()
 	var card_image_path = str("res://sprites/card_sprites/"+ card_name + "_card.png")
 	var entity_image_path = str("res://sprites/entity_sprites/"+ card_name + ".png")
-	new_card.get_node("CardImage").texture = load(card_image_path)
-	new_card.get_node("EntityImage").texture = load(entity_image_path)
-	new_card.id_name = card_name
-	return new_card
+	return_card.get_node("CardImage").texture = load(card_image_path)
+	return_card.get_node("EntityImage").texture = load(entity_image_path)
+	return_card.get_node("GhostBuildingImage").texture = load(entity_image_path)
+	return_card.id_name = card_name
+	return return_card
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
