@@ -10,7 +10,7 @@ const MAX_HAND_RATIO = 0.6 ##ratio of hand width to screen
 const MAX_HAND_TILT = 0.5
 const HAND_Y_RATIO = 0.85
 
-var hand_arr = []
+var hand_arr : Array[Card] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -21,10 +21,11 @@ func _ready() -> void:
 		
 
 func add_to_hand_no_update(card):
+	card.initialize_building()
 	hand_arr.insert(hand_arr.size(), card)
 
 func add_to_hand(card):
-	hand_arr.insert(hand_arr.size(), card)
+	add_to_hand_no_update(card)
 	update_hand_pos()
 
 func remove_from_hand(card):

@@ -5,12 +5,9 @@ signal left_mouse_released
 
 const CARD_COLLISION_MASK = 1
 const TILE_COLLISION_MASK = 2
-const FLIP_COLLISION_MASK = 4 ##detect if card should flip over and transform into structure
+const BUILDING_COLLISION_MASK = 4
 const PACK_COLLISION_MASK = 8
 const SET_COLLISION_MASK = 16
-
-@onready
-var card_manager = $"../CardManager"
 
 func _input(event):
 	# If it helps Project Settings already has an Input Map for the leftmousebutton btw 
@@ -38,7 +35,8 @@ func raycast_cursor(mask):
 			CARD_COLLISION_MASK:
 				var card_found = result.collider.get_parent()
 				if card_found:
-					card_found.get_parent().start_drag(card_found)
+					var card_manager = card_found.get_parent()
+					card_manager.start_drag(card_found)
 			PACK_COLLISION_MASK:
 				var pack_found = result.collider.get_parent()
 				if pack_found:
