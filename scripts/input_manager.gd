@@ -5,7 +5,7 @@ signal left_mouse_released
 
 const CARD_COLLISION_MASK = 1
 const TILE_COLLISION_MASK = 2
-const FLIP_COLLISION_MASK = 4 ##detect if card should flip over and transform into structure
+const BUILDING_COLLISION_MASK = 4
 const PACK_COLLISION_MASK = 8
 const SET_COLLISION_MASK = 16
 

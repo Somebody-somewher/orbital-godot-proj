@@ -19,14 +19,11 @@ const CARD_EASE = 0.13
 var player_hand_ref = $"../PlayerHand"
 @onready
 var input_manager_ref = $"../InputManager"
-
-@export
-var board_ref : Board
+@onready
+var board_ref : Board = $"../Board"
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	board_ref = $"../Board"
-	#InputManager.connect(clicked, )
 
 func _process(delta: float) -> void:
 	if card_dragged:
@@ -48,7 +45,7 @@ func _process(delta: float) -> void:
 					card_dragged.entity_flip_to_card()
 					card_flipped = false
 
-func start_drag(card):
+func start_drag(card : Card):
 	var tile_check = select_raycast(TILE_COLLISION_MASK)
 	if tile_check:
 		tile_check.tile_built = false
@@ -67,20 +64,21 @@ func start_drag(card):
 # Right now the board has the following functions which will help
 # place_on_board_if_able(Placeable) -> bool returns  
 func finish_drag():
-	var tile_check = select_raycast(TILE_COLLISION_MASK)
+	var tile_under_mouse = board_ref.get_mouse_tile_pos()
+	var card_placed : bool = board_ref.place_on_board_if_able(card_dragged.building)
 		
-	if card_hovered and !tile_check: ##plonks the card down
+	if card_hovered and !card_placed: ##plonks the card down
 		highlight_card(card_hovered, false)
 		card_hovered = null
 	
 	# check if dragged into a tile
-	if tile_check and !tile_check.tile_built:
-		card_dragged.in_tile = true
-		tile_check.tile_built = true
+	if card_placed:
 		card_hovered = null
 		card_dragged.rotation = 0
 		card_dragged.scale = Vector2(1,1)
-		card_dragged.position = tile_check.position
+		card_dragged.position = board_ref.get_global_tile_pos(tile_under_mouse)
+		card_dragged.swap_to_building(board_ref)
+		board_ref.redraw()
 		##card_dragged.get_node("Area2D/CollisionShape2D").disabled = true
 	else:
 		if card_flipped:

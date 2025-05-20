@@ -5,8 +5,11 @@ class_name Board
 @onready
 var env_map : TileMapLayer = $"./TerrainActual"
 
-# Contains a 2d Matrix of tile instances
+# Contains a 2d Matrix of tile data
 var board_matrix
+
+# reference for non-existent tile position
+static var NULL_TILE = Vector2i(-1,-1)
 
 # Length/Width (no. cells) of board
 @export var BOARD_SIZE : int = 5
@@ -19,26 +22,17 @@ var board_coord : Array[Vector2] #pair of coords, top left corner and bottom rig
 @export var proc_gen : ProceduralGenerator = preload("res://Resources/ProcGen/DummyProcGen.tres")
 
 @export var environment : EnvTerrainMapping = preload("res://Resources/EnvTerrain/TestEnvTerrainMapping.tres")
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	# Update the positioning of the tilemaps
 	env_map.scale = Vector2(BOARD_SCALE, BOARD_SCALE)
 	env_map.position = to_local(offset)
 	env_map.tile_set = environment.tileset
 	
-	#board_coord = [offset, offset + env_map.tile_set.tile_size * (BOARD_SIZE-1) * BOARD_SCALE] 
 	board_coord = [offset, offset + env_map.tile_set.tile_size * (BOARD_SIZE) * BOARD_SCALE] 
 	
 	proc_gen.generate_world()
 	initialise_matrix()
-
-# OLD CODE DON'T WORRY ABT IT
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-	#if tile_mouse_pos.x >= 0 && tile_mouse_pos.x < BOARD_SIZE && tile_mouse_pos.y >= 0 && tile_mouse_pos.y < BOARD_SIZE:
-		#emit_signal("mouse_over_tile", func(placeable: Placeable):  place_on_tile(tile_mouse_pos, placeable))
-	#else:
-		#emit_signal("mouse_off_tile")
 
 # Initialize 2d array matrix
 func initialise_matrix() -> void:
@@ -50,14 +44,22 @@ func initialise_matrix() -> void:
 		for j in range(BOARD_SIZE): 
 			board_matrix[i][j] = spawn_tile(i, j)
 
-func spawn_tile(i, j):	
+func spawn_tile(i, j) -> BoardTile:	
 	# To achieve the alternative darkened tiles: 
 	# Shaders
 	# https://www.youtube.com/watch?v=eYlBociPwdw
 	# Or alternative tiles in the tilemap with modulation?
 	var id : String = proc_gen.getTerrainAtCell(i,j) 
 	env_map.set_cell(Vector2(i,j), 0, environment.getTilebyId(id), 0)
-	return BoardTile.new(environment.getTileDatabyId(id))
+	return BoardTile.new(environment.getTileDatabyId(id), get_global_tile_pos(Vector2i(i,j)))
+
+func get_tile(coord : Vector2i) -> BoardTile:
+	return board_matrix[coord.x][coord.y]
+
+func get_global_tile_pos(coords : Vector2i) -> Vector2:
+	var tile_length : float = env_map.tile_set.tile_size.x * BOARD_SCALE
+	var local_pos = Vector2((coords.x + 0.5) * tile_length, (coords.y + 0.5) * tile_length)
+	return local_pos + offset
 
 func mouse_near_board() -> bool:
 	var mouse_pos = get_local_mouse_position()
@@ -72,24 +74,29 @@ func get_mouse_tile_pos() -> Vector2i:
 	if tile_mouse_pos.x >= 0 && tile_mouse_pos.x < BOARD_SIZE && tile_mouse_pos.y >= 0 && tile_mouse_pos.y < BOARD_SIZE:
 		return tile_mouse_pos
 	else:
-		return Vector2i(-1,-1)
+		return NULL_TILE
 
-func place_on_tile(tile_pos : Vector2i, placeable: Placeable):
-	var tile_data = board_matrix[tile_pos.x][tile_pos.y]
-	if placeable is Building:
-		tile_data.add_building(placeable)
-		#TODO: get Buildings terrainmap up and running
-	elif placeable is EnvTerrain:
-		tile_data.change_terrain = placeable
-		env_map.set_cell(tile_pos, 0, environment.getTilebyId(placeable.tile_name), 0)
-		
+# try to place building on tile or swap terrain
+func place_building_on_tile(tile_pos : Vector2i, building: Building) -> bool:
+	var tile_data : BoardTile = board_matrix[tile_pos.x][tile_pos.y]
+	return tile_data.stack_if_able(building)
+	#if placeable is Building:
+		#
+	#elif placeable is EnvTerrain:
+		#tile_data.change_terrain(placeable)
+		#env_map.set_cell(tile_pos, 0, environment.getTilebyId(placeable.tile_name), 0)
+		#return true
 
 # Returns true if Placeable is successfully placed, else returns false
-func place_on_board_if_able(placeable: Placeable) -> bool:
+func place_on_board_if_able(building: Building) -> bool:
 	var tile_mouse_pos : Vector2i = get_mouse_tile_pos()
-	if tile_mouse_pos != Vector2i(-1,-1):
-		place_on_tile(tile_mouse_pos, placeable)
-		return true
+	if tile_mouse_pos != NULL_TILE:
+		return place_building_on_tile(tile_mouse_pos, building)
 	return false
-	
-	
+
+func constrain_pattern_to_board(pattern_arr : Array) -> Array[Vector2i] :
+	return []
+
+#sets buildings in proper place and draw order
+func redraw() -> void :
+	pass

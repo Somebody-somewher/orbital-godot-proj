@@ -20,9 +20,8 @@ tile_set = ExtResource("2_nxtc6")
 [node name="TerrainActual" type="TileMapLayer" parent="Board"]
 tile_set = ExtResource("2_nxtc6")
 
-[node name="CardManager" type="Node2D" parent="." node_paths=PackedStringArray("board_ref")]
+[node name="CardManager" type="Node2D" parent="."]
 script = ExtResource("3_jlsqs")
-board_ref = NodePath("../Board")
 
 [node name="PlayerHand" type="Node2D" parent="."]
 script = ExtResource("5_lhr70")

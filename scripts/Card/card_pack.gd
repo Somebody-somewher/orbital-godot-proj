@@ -33,7 +33,7 @@ func _process(delta: float) -> void:
 			dissolving = false
 			free()
 
-func open_pack():
+func open_pack() -> void:
 	self.get_node("Area2D/CollisionShape2D").disabled = true
 	for i in range(pack_sets.size()):
 		var new_set = card_sets.instantiate()
@@ -44,7 +44,7 @@ func open_pack():
 		add_child(new_set)
 	pass
 
-func select_option(set_option):
+func select_option(set_option : CardSet) -> void:
 	if set_option in pack_arr:
 		set_option.shift_to_hand()
 		pack_arr.erase(set_option)
@@ -53,7 +53,7 @@ func select_option(set_option):
 			destroy_pack()
 	pass
 
-func destroy_pack():
+func destroy_pack() -> void:
 	dissolving = true
 	for sets in pack_arr:
 		for unchosen_card in sets.card_set:
@@ -65,7 +65,7 @@ func _on_area_2d_mouse_entered() -> void:
 func _on_area_2d_mouse_exited() -> void:
 		highlight_pack(false)
 
-func highlight_pack(on):
+func highlight_pack(on : bool) -> void:
 	var tween = get_tree().create_tween()
 	if on:
 		tween.parallel().tween_property(self, "scale", Vector2(1.1, 1.1), 0.1)
