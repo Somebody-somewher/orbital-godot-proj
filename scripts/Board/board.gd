@@ -17,6 +17,7 @@ var board_matrix
 var board_coord : Array[Vector2] #pair of coords, top left corner and bottom right corner
 
 @export var proc_gen : ProceduralGenerator = preload("res://Resources/ProcGen/DummyProcGen.tres")
+var proc_gen_offset : Vector2i = Vector2i(0,0)
 
 @export var environment : EnvTerrainMapping = preload("res://Resources/EnvTerrain/TestEnvTerrainMapping.tres")
 # Called when the node enters the scene tree for the first time.
@@ -26,11 +27,8 @@ func _ready() -> void:
 	env_map.position = to_local(offset)
 	env_map.tile_set = environment.tileset
 	
-	
-	#board_coord = [offset, offset + env_map.tile_set.tile_size * (BOARD_SIZE-1) * BOARD_SCALE] 
 	board_coord = [offset, offset + env_map.tile_set.tile_size * (BOARD_SIZE) * BOARD_SCALE] 
 	
-
 	proc_gen.generate_world()
 	initialise_matrix()
 
@@ -57,7 +55,7 @@ func spawn_tile(i, j):
 	# Shaders
 	# https://www.youtube.com/watch?v=eYlBociPwdw
 	# Or alternative tiles in the tilemap with modulation?
-	var id : String = proc_gen.getTerrainAtCell(i,j) 
+	var id : String = proc_gen.(i,j) 
 	env_map.set_cell(Vector2(i,j), 0, environment.getTilebyId(id), 0)
 	return BoardTile.new(environment.getTileDatabyId(id))
 
@@ -80,12 +78,11 @@ func place_on_tile(tile_pos : Vector2i, placeable: Placeable):
 	var tile_data = board_matrix[tile_pos.x][tile_pos.y]
 	if placeable is Building:
 		tile_data.add_building(placeable)
-		#TODO: get Buildings terrainmap up and running
+
 	elif placeable is EnvTerrain:
 		tile_data.change_terrain = placeable
 		env_map.set_cell(tile_pos, 0, environment.getTilebyId(placeable.tile_name), 0)
 		
-
 # Returns true if Placeable is successfully placed, else returns false
 func place_on_board_if_able(placeable: Placeable) -> bool:
 	var tile_mouse_pos : Vector2i = get_mouse_tile_pos()
@@ -94,4 +91,5 @@ func place_on_board_if_able(placeable: Placeable) -> bool:
 		return true
 	return false
 	
-	
+func get_global_length() -> int:
+	return board_coord[1].x - board_coord[0].x 

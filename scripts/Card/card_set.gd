@@ -46,10 +46,6 @@ func _on_area_2d_mouse_exited() -> void:
 	if !destroyed:
 		highlight_set(false)
 
-func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		InputManager.node_clicked(self, "cardset_clicked")
-
 func highlight_set(on):
 	for i in range(card_set.size()):
 		if on:

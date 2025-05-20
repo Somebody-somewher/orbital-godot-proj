@@ -21,7 +21,6 @@ var dissolve_value = 1
 var database_ref = preload("res://scripts/Card/card_database.gd")
 
 func _ready() -> void:
-	InputManager.connect("clicked", process_click)
 	pass # Replace with function body.
 
 func process_click(node : Node2D, sig : String):
@@ -71,10 +70,6 @@ func _on_area_2d_mouse_entered() -> void:
 	
 func _on_area_2d_mouse_exited() -> void:
 	highlight_pack(false)
-
-func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		InputManager.node_clicked(self, "cardpack_clicked")
 
 func highlight_pack(on):
 	var tween = get_tree().create_tween()
