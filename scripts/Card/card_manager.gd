@@ -57,7 +57,7 @@ func finish_drag():
 	if card_hovered and !card_placed: ##plonks the card down
 		highlight_card(card_hovered, false)
 		card_hovered = null
-	
+
 	# check if dragged into a tile
 	if card_placed:
 		card_hovered = null
@@ -65,13 +65,13 @@ func finish_drag():
 		card_dragged.scale = Vector2(1,1)
 		card_dragged.position = board_ref.get_global_tile_pos(tile_under_mouse)
 		card_dragged.swap_to_building(board_ref)
-		board_ref.redraw()
 		# card_dragged.get_node("Area2D/CollisionShape2D").disabled = true
 	else:
 		if card_flipped:
 			card_dragged.entity_flip_to_card()
 		player_hand_ref.add_to_hand(card_dragged)
 	
+	board_ref.reset_preview()
 	card_flipped = false
 	card_dragged = null
 
