@@ -1,8 +1,8 @@
 extends Node2D
 
+@export var BOARD_SIZE : int = 8
 @export var NUM_OF_BOARDS : int = 4
 @export var gap_btwn_board : int = 10
-@export var z : int
 
 @export 
 var proc_generator : ProceduralGenerator
@@ -15,24 +15,31 @@ func _ready() -> void:
 # Create multiple boards in matrix formation for display
 # Or multiple players
 func create_boards() -> void:
-	
-	#if proc_generator
-	
-	
+	proc_generator.set_up()
 	var length = ceil(sqrt(NUM_OF_BOARDS))
-	var count = 0
+	var count_id = 0
 	var create_pos : Vector2i = Vector2(0,0)
 	var board_inst : Board
-	for x in range(length):
-		for y in range(length):
-			if count > NUM_OF_BOARDS:
+	var board_global_len : int 
+	for row in range(length):
+		for col in range(length):
+			if count_id >= NUM_OF_BOARDS:
 				return
 			board_inst = board.instantiate()
+			
+			board_inst.board_id = count_id
+			board_inst.BOARD_SIZE = BOARD_SIZE
+			board_inst.proc_gen = proc_generator
+			
 			add_child(board_inst)
-			z = board_inst.get_global_length()
-			board_inst.offset = Vector2i(0,0)
-			board_inst.position = Vector2i(x * (z + gap_btwn_board), y * (z + gap_btwn_board))
-			count += 1
+			board_global_len = board_inst.get_global_length()
+			
+			board_inst.position = Vector2i(col * (board_global_len + gap_btwn_board), row * (board_global_len + gap_btwn_board))
+
+			
+			# Assigning variables to Board
+			
+			count_id += 1
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

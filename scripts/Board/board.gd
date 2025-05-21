@@ -3,15 +3,16 @@ class_name Board
 
 @onready
 var highlight_map : TileMapLayer = $"./Highlights"
-
 # TerrainDisplay vs TerrainActual https://www.youtube.com/watch?v=jEWFSv3ivTg
+
 @onready
 var env_map : TileMapLayer = $"./TerrainActual"
 
-
-
-# Contains a 2d Matrix of tile data
+# Contains a 2d Matrix of BoardTiles
 var board_matrix
+
+# Every board is uniquely associated with a player
+var board_id = 0
 
 # reference for non-existent tile position
 static var NULL_TILE = Vector2i(-1,-1)
@@ -21,46 +22,44 @@ static var NULL_TILE = Vector2i(-1,-1)
 @export var BOARD_SCALE : float = 0.13 
 
 # Position of where the board is created on screen
-@export var offset = Vector2(200,100)
 var board_coord : Array[Vector2] #pair of coords, top left corner and bottom right corner
 
-@export var proc_gen : ProceduralGenerator = preload("res://Resources/ProcGen/DummyProcGen.tres")
+@export var proc_gen : ProceduralGenerator = preload("res://Resources/ProcGen/Test.tres")
 var proc_gen_offset : Vector2i = Vector2i(0,0)
+ 
 
 @export var environment : EnvTerrainMapping = preload("res://Resources/EnvTerrain/TestEnvTerrainMapping.tres")
 
 func _ready() -> void:
 	# Update the positioning of the tilemaps
 	env_map.scale = Vector2(BOARD_SCALE, BOARD_SCALE)
-	env_map.position = to_local(offset)
 	env_map.z_index = -1
 	env_map.tile_set = environment.tileset
 
 	highlight_map.scale = Vector2(BOARD_SCALE, BOARD_SCALE)
-	highlight_map.position = to_local(offset)
 	highlight_map.tile_set = environment.tileset
 	
-	board_coord = [offset, offset + env_map.tile_set.tile_size * (BOARD_SIZE) * BOARD_SCALE] 
-	
-	proc_gen.generate_world()
+	board_coord = [Vector2(0,0), env_map.tile_set.tile_size * (BOARD_SIZE) * BOARD_SCALE] 
 	initialise_matrix()
 
 # Initialize 2d array matrix
 func initialise_matrix() -> void:
+	proc_gen.set_up()
+	var terrain_matrix = proc_gen.generate_world(board_id)
 	board_matrix = Array()
 	board_matrix.resize(BOARD_SIZE)
 	for i in range(BOARD_SIZE):
 		board_matrix[i] = Array()
 		board_matrix[i].resize(BOARD_SIZE)
 		for j in range(BOARD_SIZE): 
-			board_matrix[i][j] = spawn_tile(i, j)
+			board_matrix[i][j] = spawn_tile(i, j, terrain_matrix)
 
-func spawn_tile(i, j) -> BoardTile:	
+func spawn_tile(i, j, terrain_matrix) -> BoardTile:	
 	# To achieve the alternative darkened tiles: 
 	# Shaders
 	# https://www.youtube.com/watch?v=eYlBociPwdw
 	# Or alternative tiles in the tilemap with modulation?
-	var id : String = proc_gen.(i,j) 
+	var id : String = terrain_matrix[i][j]
 	env_map.set_cell(Vector2(i,j), 0, environment.getTilebyId(id), 0)
 	return BoardTile.new(environment.getTileDatabyId(id), get_global_tile_pos(Vector2i(i,j)))
 
@@ -72,7 +71,7 @@ func get_global_tile_pos(coords : Vector2i) -> Vector2:
 		return coords
 	var tile_length : float = env_map.tile_set.tile_size.x * BOARD_SCALE
 	var local_pos = Vector2((coords.x + 0.5) * tile_length, (coords.y + 0.5) * tile_length)
-	return local_pos + offset
+	return to_global(local_pos)
 
 func mouse_near_board() -> bool:
 	var mouse_pos = get_local_mouse_position()
@@ -83,21 +82,11 @@ func mouse_near_board() -> bool:
 	
 func get_mouse_tile_pos() -> Vector2i:
 	var mouse_pos = get_local_mouse_position()
-	var tile_mouse_pos = env_map.local_to_map((mouse_pos - offset) * 1.0/BOARD_SCALE)  
+	var tile_mouse_pos = env_map.local_to_map(mouse_pos * 1.0/BOARD_SCALE)  
 	if tile_mouse_pos.x >= 0 && tile_mouse_pos.x < BOARD_SIZE && tile_mouse_pos.y >= 0 && tile_mouse_pos.y < BOARD_SIZE:
 		return tile_mouse_pos
 	else:
 		return NULL_TILE
-
-
-func place_on_tile(tile_pos : Vector2i, placeable: Placeable):
-	var tile_data = board_matrix[tile_pos.x][tile_pos.y]
-	if placeable is Building:
-		tile_data.add_building(placeable)
-
-	elif placeable is EnvTerrain:
-		tile_data.change_terrain = placeable
-		env_map.set_cell(tile_pos, 0, environment.getTilebyId(placeable.tile_name), 0)
 		
 func snap_mouse_to_tile_pos() -> Vector2:
 	return get_global_tile_pos(get_mouse_tile_pos())
@@ -149,4 +138,3 @@ func reset_preview() -> void :
 #sets buildings in proper place and draw order
 func redraw() -> void :
 	pass
-

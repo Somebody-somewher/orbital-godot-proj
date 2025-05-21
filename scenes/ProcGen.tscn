@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://ctmxmab1ad1jc"]
+[gd_scene load_steps=3 format=3 uid="uid://ctmxmab1ad1jc"]
 
-[ext_resource type="Script" uid="uid://c0jn1x2wlrg2l" path="res://scripts/ProceduralGeneration/ProcGenUnitTester.gd" id="1_ri6a5"]
+[ext_resource type="Script" uid="uid://c0jn1x2wlrg2l" path="res://scripts/ProceduralGeneration/ProcGenUnitTester.gd" id="1_q7l6t"]
+[ext_resource type="Resource" uid="uid://bwinitd3jmc2r" path="res://Resources/ProcGen/Test.tres" id="2_wx80f"]
 
 [node name="ProcGen" type="Node2D"]
+script = ExtResource("1_q7l6t")
+proc_generator = ExtResource("2_wx80f")
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(1609, 901)
+zoom = Vector2(0.5, 0.5)

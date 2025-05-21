@@ -15,10 +15,6 @@ run/main_scene="uid://cdp6pxvmemk4u"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://sprites/icon.svg"
 
-[autoload]
-
-InputManager="res://scenes/InputManager.tscn"
-
 [display]
 
 window/size/viewport_width=1600
