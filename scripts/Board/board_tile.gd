@@ -1,10 +1,10 @@
 extends Object
 class_name BoardTile
 
-var tile_built = false
 var tile_built := false
 # for hover effect
 var score_display : Label
+
 # TODO:
 # Currently we are storing all this data in card_database as an array
 # See if we want to store it as a Resource or some other data later

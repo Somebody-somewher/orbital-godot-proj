@@ -32,6 +32,7 @@ var proc_gen_offset : Vector2i = Vector2i(0,0)
 @export var environment : EnvTerrainMapping = preload("res://Resources/EnvTerrain/TestEnvTerrainMapping.tres")
 
 #################### FOR INIT ##################################
+
 @export var environment : EnvTerrainMapping = preload("res://Resources/EnvTerrain/TestEnvTerrainMapping.tres")
 
 # makes hovering on and off reset relevant tiles only and not the whole board
