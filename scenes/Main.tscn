@@ -12,6 +12,7 @@
 [node name="Board" type="Node2D" parent="."]
 position = Vector2(200, 100)
 script = ExtResource("1_c01mt")
+BOARD_SIZE = 9
 proc_gen = ExtResource("2_c01mt")
 
 [node name="Highlights" type="TileMapLayer" parent="Board"]

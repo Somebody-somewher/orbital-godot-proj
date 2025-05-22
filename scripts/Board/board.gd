@@ -62,7 +62,6 @@ func spawn_tile(i, j, terrain_matrix) -> BoardTile:
 	var darken_tile = 0
 	
 	# Alternative Tile colouring via Modulation
-	# TODO: Looks ugly? Please help
 	if (i + j) % 2 == 0:
 		darken_tile = 1
 	env_map.set_cell(Vector2(i,j), 0, environment.getTilebyId(id), darken_tile)

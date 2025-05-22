@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ctmxmab1ad1jc"]
 
-[ext_resource type="Script" path="res://scripts/ProceduralGeneration/ProcGenUnitTester.gd" id="1_q7l6t"]
+[ext_resource type="Script" uid="uid://c0jn1x2wlrg2l" path="res://scripts/ProceduralGeneration/ProcGenUnitTester.gd" id="1_q7l6t"]
 [ext_resource type="Resource" uid="uid://d0rp5plaei4ir" path="res://Resources/ProcGen/BuildingProceduralGenerator.tres" id="2_wx80f"]
 
 [node name="ProcGen" type="Node2D" node_paths=PackedStringArray("display_noise")]
