@@ -1,0 +1,11 @@
+[gd_resource type="NoiseTexture2D" load_steps=2 format=3 uid="uid://dh4lnuockri50"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wx80f"]
+noise_type = 0
+frequency = 0.058
+
+[resource]
+width = 16
+height = 16
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_wx80f")

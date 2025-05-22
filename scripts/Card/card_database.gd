@@ -2,6 +2,10 @@ const CARDS = {#Visual Name, Effect Pattern, List of entities affected
 	"dummy" : ["Dummy", "3x3", []],
 	"cow" : ["Cow", "small orth cross", []],
 	"cute_dummy" : ["Cute Dummy", "small diagonal cross", []],
+	"flower" : ["Flower", "", []],
+	"stone" : ["Stone", "", []],
+	"forrest" : ["Forrest", "", []],
+	"Mountain" : ["Mountain", "", []]
 }
 
 const SETS = {#arr of card type, no. of cards

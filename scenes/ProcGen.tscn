@@ -1,12 +1,19 @@
 [gd_scene load_steps=3 format=3 uid="uid://ctmxmab1ad1jc"]
 
 [ext_resource type="Script" uid="uid://c0jn1x2wlrg2l" path="res://scripts/ProceduralGeneration/ProcGenUnitTester.gd" id="1_q7l6t"]
-[ext_resource type="Resource" uid="uid://bwinitd3jmc2r" path="res://Resources/ProcGen/Test.tres" id="2_wx80f"]
+[ext_resource type="Resource" uid="uid://d0rp5plaei4ir" path="res://Resources/ProcGen/BuildingProceduralGenerator.tres" id="2_wx80f"]
 
-[node name="ProcGen" type="Node2D"]
+[node name="ProcGen" type="Node2D" node_paths=PackedStringArray("display_noise")]
 script = ExtResource("1_q7l6t")
+display_noise = NodePath("TextureRect")
 proc_generator = ExtResource("2_wx80f")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(1609, 901)
-zoom = Vector2(0.5, 0.5)
+position = Vector2(2463, 1385)
+zoom = Vector2(0.325, 0.325)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 4683.0
+offset_top = 51.0
+offset_right = 4866.0
+offset_bottom = 218.0

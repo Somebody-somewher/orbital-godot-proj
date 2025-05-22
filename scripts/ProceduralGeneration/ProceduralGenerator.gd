@@ -10,16 +10,19 @@ class_name ProceduralGenerator
 # Actually noise map to generate the map
 @export var noise_highlight_texture : NoiseTexture2D
 @export var noise_freq : float
-var noise : Noise
 
 # Values should be sorted in ascending order otherwise noise check die
 @export var noise_threshold : Array[float]
 @export var terrain_ids : Array[String]
 
+# Call this to start the proc_gen (can be called multiple times without error)
 func set_up() -> void:
+	randomize()
+	# If noise texture is not provided, we randomize a new one
 	if noise_highlight_texture == null:
-		noise_highlight_texture = generateNoiseTexture()	
+		noise_highlight_texture = generateNoiseTexture(noise_freq)	
 
+# Create a matrix that is the size of one board
 func create_matrix() -> Array:
 	var matrix = Array()
 	var width = board_size.x
@@ -31,8 +34,7 @@ func create_matrix() -> Array:
 		matrix[col].resize(height)
 	return matrix
 
-func generateNoiseTexture(seed : int = -1) -> NoiseTexture2D:
-	
+func generateNoiseTexture(freq : float = 0.0583, seed : int = -1) -> NoiseTexture2D:
 	# Noise Source
 	var noise = FastNoiseLite.new()
 	if seed == -1:
@@ -40,20 +42,27 @@ func generateNoiseTexture(seed : int = -1) -> NoiseTexture2D:
 		noise.seed = randi()
 	else:
 		noise.seed = seed
-	noise.frequency = 0.0583
-	
+	noise.frequency = freq
 	# Noise Texture
 	var noise_texture = NoiseTexture2D.new()
 	var noise_size_numboard : Vector2i = noiseSizeByNumBoard() 
 	noise_texture.set_width(board_size.x * noise_size_numboard.x)
 	noise_texture.set_height(board_size.y * noise_size_numboard.y)
-	noise_texture.normalize = true
-	noise_texture.set_noise(noise)
+	noise_texture.set_normalize(true)
 	
+	# I wanted to try to make this noisemap seamless
+	# i.e wrap around, but seems like it no want to cooperate
+	# noise_texture.set_seamless(true)
+	# noise_texture.set_seamless_blend_skirt(9.0)
+	
+	noise_texture.set_noise(noise)
 	return noise_texture
 
-# Generates a 2d matrix, each cell containing a terrarin resource
-# based off the noise map
+# Foreach function that takes in the board's tile create functions to generate 
+# the board
+# 
+# board_id is for multiple boards, where each other board takes a different 
+# square piece of the bigger noisemap
 func generate_world(board_id : int = 0) -> Array:
 	
 	# ERROR HANDLING
@@ -65,7 +74,7 @@ func generate_world(board_id : int = 0) -> Array:
 		board_id = 0
 	
 	var matrix = create_matrix()
-	noise = noise_highlight_texture.noise
+	var noise = noise_highlight_texture.noise
 	var noise_val : float
 	var offset : Vector2i = getOffsetByBoardId(board_id) * board_size
 	for col in range(board_size.x):
@@ -76,7 +85,8 @@ func generate_world(board_id : int = 0) -> Array:
 			# print(noise_val)
 
 			# Mapping each cell to a (pointer to) terrain-data based off noisemap
-			matrix[col][row] = map_noise_to_terrain(noise_val)
+			matrix[col][row] = Array() 
+			matrix[col][row].append(map_noise_to_terrain(noise_val))
 	
 	return matrix
 
@@ -87,7 +97,7 @@ func map_noise_to_terrain(noise_val : float) -> String:
 			return terrain_ids[i]
 		i += 1
 			
-	printerr("ProcGen cannot map noise to Terrain ID")
+	printerr("ProcGen cannot map noise to Terrain ID, noise_val:", noise_val)
 	return terrain_ids[0] 
 
 # Abstracting these functions away in case we want to change the functionality later
@@ -102,6 +112,5 @@ func getOffsetByBoardId(board_id: int) -> Vector2i:
 	var y : int = board_id / noise_width_bynumboard
 	return Vector2i(x,y)
 
-#
 #func getTerrainAtCell(x : int, y : int):
 	#return matrix[x][y]

@@ -4,6 +4,8 @@ extends Node2D
 @export var NUM_OF_BOARDS : int = 4
 @export var gap_btwn_board : int = 10
 
+@export var display_noise: TextureRect 
+
 @export 
 var proc_generator : ProceduralGenerator
 @export
@@ -16,6 +18,10 @@ func _ready() -> void:
 # Or multiple players
 func create_boards() -> void:
 	proc_generator.set_up()
+	
+	if display_noise != null:
+		display_noise.set_texture(proc_generator.noise_highlight_texture)
+	
 	var length = ceil(sqrt(NUM_OF_BOARDS))
 	var count_id = 0
 	var create_pos : Vector2i = Vector2(0,0)
@@ -36,12 +42,5 @@ func create_boards() -> void:
 			
 			board_inst.position = Vector2i(col * (board_global_len + gap_btwn_board), row * (board_global_len + gap_btwn_board))
 
-			
 			# Assigning variables to Board
-			
 			count_id += 1
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

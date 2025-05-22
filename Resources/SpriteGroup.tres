@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ResourceGroup" load_steps=2 format=3 uid="uid://dfnvqedx37h6v"]
+
+[ext_resource type="Script" uid="uid://c8qc3g5w3svt1" path="res://addons/godot_resource_groups/resource_group.gd" id="1_ns200"]
+
+[resource]
+script = ExtResource("1_ns200")
+base_folder = "res://sprites"
+includes = Array[String](["**.png"])
+excludes = Array[String]([])
+paths = Array[String](["res://sprites/desertPlaceholder.png", "res://sprites/dummy_card_pack.png", "res://sprites/grass.png", "res://sprites/grass_dark.png", "res://sprites/highlight_tile.png", "res://sprites/select_tile.png", "res://sprites/TileMap.png", "res://sprites/TileMap_extended.png", "res://sprites/waterPlaceholder.png", "res://sprites/card_sprites/cow_card.png", "res://sprites/card_sprites/cute_dummy_card.png", "res://sprites/card_sprites/dummy_card.png", "res://sprites/entity_sprites/cow.png", "res://sprites/entity_sprites/cute_dummy.png", "res://sprites/entity_sprites/dummy.png", "res://sprites/entity_sprites/flower.png", "res://sprites/entity_sprites/mountain.png", "res://sprites/entity_sprites/rock..png", "res://sprites/entity_sprites/tree.png"])
+metadata/_custom_type_script = "uid://c8qc3g5w3svt1"

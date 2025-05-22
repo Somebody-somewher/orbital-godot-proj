@@ -1,14 +1,20 @@
 extends Resource
 class_name EnvTerrainMapping
 
-# This needs to be synced together with the spritesheet
-# These default values don't work btw :< 
+# This class ensures that every tile in the tileset is mapped to a string ID
+# TODO: Maybe extend this to the building spritesheet if needed
 
-@export var environment_data : Dictionary[String, EnvTerrain] #Visual Name, Base Score, sprite_path
-
+@export var environment_data : Dictionary[String, EnvTerrain] #Visual Name, 
 @export var tileset : TileSet = preload("res://Resources/EnvTerrain/EnvTerrainTileset.tres")
+
 func getTilebyId(id : String) -> Vector2i:
 	return environment_data.get(id).tilesheet_pos
 
 func getTileDatabyId(id : String) -> EnvTerrain:
-	return environment_data.get(id, "Grass")
+	var result = environment_data.get(id) 
+	
+	if result == null:
+		printerr("TileID not recognized in EnvTerrainMapping, defaulting to Error tile")
+		return environment_data.get("Error")
+	
+	return result

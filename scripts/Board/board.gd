@@ -51,17 +51,26 @@ func initialise_matrix() -> void:
 	for i in range(BOARD_SIZE):
 		board_matrix[i] = Array()
 		board_matrix[i].resize(BOARD_SIZE)
-		for j in range(BOARD_SIZE): 
-			board_matrix[i][j] = spawn_tile(i, j, terrain_matrix)
+	
+	# Pro
+	#proc_gen.
+	
+		#for j in range(BOARD_SIZE): 
+			#board_matrix[i][j] = spawn_tile(i, j, terrain_matrix)
 
-func spawn_tile(i, j, terrain_matrix) -> BoardTile:	
-	# To achieve the alternative darkened tiles: 
-	# Shaders
-	# https://www.youtube.com/watch?v=eYlBociPwdw
-	# Or alternative tiles in the tilemap with modulation?
-	var id : String = terrain_matrix[i][j]
-	env_map.set_cell(Vector2(i,j), 0, environment.getTilebyId(id), 0)
-	return BoardTile.new(environment.getTileDatabyId(id), get_global_tile_pos(Vector2i(i,j)))
+#func spawn_terrain_tile(i, j, terrain_matrix) -> BoardTile:	
+	## To achieve the alternative darkened tiles: 
+	## Shaders
+	## https://www.youtube.com/watch?v=eYlBociPwdw
+	## Or alternative tiles in the tilemap with modulation?
+	#var id : String = terrain_matrix[i][j][0]
+	#env_map.set_cell(Vector2(i,j), 0, environment.getTilebyId(id), 0)
+	#return BoardTile.new(environment.getTileDatabyId(id), get_global_tile_pos(Vector2i(i,j)))
+
+func create_terrain_tile(i, j, terrain_id : String) -> void:
+	var tileset_tile_coords = environment.getTilebyId(terrain_id)
+	env_map.set_cell(Vector2(i,j), 0, tileset_tile_coords, 0)
+	board_matrix[i][j] = BoardTile.new(environment.getTileDatabyId(terrain_id), get_global_tile_pos(Vector2i(i,j)))
 
 func get_tile(coord : Vector2i) -> BoardTile:
 	return board_matrix[coord.x][coord.y]
