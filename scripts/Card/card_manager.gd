@@ -66,7 +66,7 @@ func finish_drag():
 		card_dragged.rotation = 0
 		card_dragged.scale = Vector2(1,1)
 		card_dragged.position = board_ref.get_global_tile_pos(tile_under_mouse)
-		card_dragged.swap_to_building(board_ref, CARD_TILE_RATIO)
+		card_dragged.swap_to_building(CARD_TILE_RATIO)
 	else:
 		if card_flipped:
 			card_dragged.entity_flip_to_card()
@@ -76,8 +76,6 @@ func finish_drag():
 	card_flipped = false
 	card_dragged = null
 
-# TODO: This shouldn't be the CardManager's job?
-# Can we throw this into the InputManager or CollisionManager
 func card_under_mouse() -> Card:
 	var space_state : PhysicsDirectSpaceState2D = get_world_2d().direct_space_state 
 	
@@ -93,7 +91,6 @@ func card_under_mouse() -> Card:
 		
 	return null
 
-# TODO: Can we throw this into the InputManager or CollisionManager
 func topmost_card(card_arr) -> Card:
 	var top_card : Card = card_arr[0].collider.get_parent()
 	var max_z : int = top_card.z_index

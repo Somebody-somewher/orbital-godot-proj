@@ -59,8 +59,7 @@ func initialize_building() -> void:
 	building.get_node("Area2D/CollisionShape2D").disabled = true
 
 # fully replace card with building, then free self instance
-func swap_to_building(new_parent, scale_by: Vector2) -> void:
-	#building.reparent(new_parent)
+func swap_to_building(scale_by: Vector2) -> void:
 	self.get_node("Area2D/CollisionShape2D").disabled = true
 	building.scale = scale_by
 	building.visible = true

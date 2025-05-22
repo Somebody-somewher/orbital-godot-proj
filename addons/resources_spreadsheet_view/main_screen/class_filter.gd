@@ -85,10 +85,8 @@ func fill(resources : Array):
 
 	else:
 		node_options.set_item_icon(-1, get_theme_icon(selected_builtin, "EditorIcons"))
-
 	show()
-
-
+	
 func clear():
 	selected_is_valid = false
 

@@ -73,13 +73,15 @@ func delete_from_tile(building : Building, add_back_to_hand : bool) -> void:
 func calculate_and_display(new_building : Building) -> void :
 	var score = calculate_score(new_building)
 	if score != 0 :
+		print(score_display)
 		score_display.text = str(score)
 		score_display.global_position = _global_board_pos + Vector2(0,-50)
 		score_display.z_index = 9
 		score_display.visible = true
 
 func off_score_display() -> void :
-	score_display.visible = false
+	# TODO
+	score_display.visible = true
 
 func redraw() -> void:
 	for building in buildings:

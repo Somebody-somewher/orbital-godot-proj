@@ -38,8 +38,8 @@ var proc_gen_offset : Vector2i = Vector2i(0,0)
 var affected_tiles : Array[Vector2i] = []
 
 # allows for scoring
-#@onready
-#var player_ref = $"../StatsManager"
+@onready
+var player_ref = $"../StatsManager"
 
 func _ready() -> void:
 	# Update the positioning of the tilemaps
@@ -65,9 +65,6 @@ func initialise_matrix() -> void:
 		
 	# Procedu
 	proc_gen.generate_world(create_terrain_tile, place_building_on_tile, board_id)
-		
-		#for j in range(BOARD_SIZE): 
-			#board_matrix[i][j] = spawn_tile(i, j, terrain_matrix)
 
 # Terrain
 func create_terrain_tile(tile_pos : Vector2i, terrain_id : String) -> void:
@@ -75,11 +72,7 @@ func create_terrain_tile(tile_pos : Vector2i, terrain_id : String) -> void:
 	var darken_tile = 0
 	
 	# tile score display (can be extracted to a function)
-	var score_label = Label.new()
-	score_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	score_label.set("theme_override_colors/font_color",Color(0,0.0,0.0,1.0))
-	score_label.set("theme_override_font_sizes/font_size",30)
-	score_label.visible = false
+	var score_label = new_tile_label()
 	self.add_child(score_label)
 
 	if (tile_pos.x + tile_pos.y) % 2 == 0:
@@ -87,14 +80,26 @@ func create_terrain_tile(tile_pos : Vector2i, terrain_id : String) -> void:
 	env_map.set_cell(tile_pos, 0, tileset_tile_coords, darken_tile)
 	var board_tile = BoardTile.new(environment.getTileDatabyId(terrain_id), get_global_tile_pos(tile_pos))
 	board_tile.score_display = score_label
+	print(board_tile.score_display, score_label.visible, score_label.position)
 	board_matrix[tile_pos.x][tile_pos.y] = board_tile
 
+func new_tile_label() -> Label:
+	var score_label = Label.new()
+	score_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	score_label.set("theme_override_colors/font_color",Color(0,0.0,0.0,1.0))
+	score_label.set("theme_override_font_sizes/font_size",30)
+	score_label.text = "whatever"
+	score_label.visible = true
+	return score_label
+	
 ################################################################
 
 func get_tile(coord : Vector2i) -> BoardTile:
 	return board_matrix[coord.x][coord.y]
 
 func get_global_tile_pos(coords : Vector2i) -> Vector2:
+	if coords == NULL_TILE:
+		return coords
 	return to_global(tilecoords_to_localpos(coords))
 
 func tilecoords_to_localpos(coords : Vector2i) -> Vector2:
@@ -130,8 +135,8 @@ func place_building_on_tile(tile_pos : Vector2i, building: Building) -> bool:
 	building.position = tilecoords_to_localpos(tile_pos)
 	var score = get_total_score(building)
 	var success = board_matrix[tile_pos.x][tile_pos.y].stack_if_able(building)
-	#if success:
-		#player_ref.add_score(score)
+	if success:
+		player_ref.add_score(score)
 	return success
 	#if placeable is Building:
 		#
@@ -169,6 +174,8 @@ func preview_placement(try_building : Building, tile_pos : Vector2i) -> void :
 	affected_tiles = constrain_pattern_to_board(try_building.AOE, tile_pos)
 	for highlight_tile_pos in affected_tiles:
 		highlight_map.set_cell(highlight_tile_pos,2, Vector2i(0,0),0)
+		var highlight_tile: BoardTile = get_tile(highlight_tile_pos)
+		print(highlight_tile)
 		get_tile(highlight_tile_pos).calculate_and_display(try_building)
 
 func reset_preview() -> void :

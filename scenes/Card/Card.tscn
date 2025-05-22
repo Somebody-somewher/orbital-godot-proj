@@ -258,11 +258,13 @@ _data = {
 script = ExtResource("1_mck3k")
 
 [node name="CardImage" type="Sprite2D" parent="."]
+z_index = 1
 material = SubResource("ShaderMaterial_4dx8l")
 texture = ExtResource("3_ietu0")
 
 [node name="EntityImage" type="Sprite2D" parent="."]
 visible = false
+z_index = 1
 texture = ExtResource("4_bl3jj")
 
 [node name="GhostBuildingImage" type="Sprite2D" parent="."]
