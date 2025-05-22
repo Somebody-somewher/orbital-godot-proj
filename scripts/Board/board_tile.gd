@@ -12,6 +12,8 @@ var _global_board_pos : Vector2
 # Should use it as a sorted array, where we calculate scoring from the base tile upwards
 var buildings : Array[Building]
 
+static var database_ref = preload("res://scripts/Card/card_database.gd")
+
 func _init(terrain : EnvTerrain, pos : Vector2):
 	_terrain = terrain
 	_global_board_pos = pos
@@ -30,16 +32,25 @@ func change_terrain(terrain : EnvTerrain):
 
 # checks if a new_building can be stacked onto current tile returns success
 func stack_if_able(new_building : Building) -> bool :
+	var stackable = can_stack(new_building)
+	if stackable:
+		add_building(new_building)
+	return stackable
+
+func can_stack(new_building : Building) -> bool :
 	# empty_tile
 	if buildings.is_empty():
-		add_building(new_building)
 		return true
 	# check if stackable
 	for building in buildings:
 		if building.id_name in new_building.stackable_buildings:
-			add_building(new_building)
 			return true
 	return false
+
+#returns nonegative int for how much a building affects this tile
+func calculate_score(new_building : Building) -> int :
+	return database_ref.get_tile_score(buildings.map(func(building): return building.id_name), new_building.id_name)
+	
 
 # for deleting buildings from tile
 func delete_from_tile(building : Building, add_back_to_hand : bool) -> void:

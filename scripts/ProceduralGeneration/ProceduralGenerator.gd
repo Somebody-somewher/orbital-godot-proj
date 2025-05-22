@@ -34,10 +34,10 @@ func create_matrix() -> Array:
 		matrix[col].resize(height)
 	return matrix
 
-func generateNoiseTexture(freq : float = 0.0583, seed : int = -1) -> NoiseTexture2D:
+func generateNoiseTexture(freq : float = 0.0583, noise_seed : int = -1) -> NoiseTexture2D:
 	# Noise Source
 	var noise = FastNoiseLite.new()
-	if seed == -1:
+	if noise_seed == -1:
 		print("RANDOMIZING TERRAIN")
 		noise.seed = randi()
 	else:

@@ -27,9 +27,11 @@ var board_coord : Array[Vector2] #pair of coords, top left corner and bottom rig
 
 @export var proc_gen : ProceduralGenerator = preload("res://Resources/ProcGen/Test.tres")
 var proc_gen_offset : Vector2i = Vector2i(0,0)
- 
 
 @export var environment : EnvTerrainMapping = preload("res://Resources/EnvTerrain/TestEnvTerrainMapping.tres")
+
+# makes hovering on and off reset relevant tiles only and not the whole board
+var affected_tiles : Array[Vector2i] = []
 
 func _ready() -> void:
 	# Update the positioning of the tilemaps
@@ -124,7 +126,7 @@ func get_global_length() -> int:
 func constrain_pattern_to_board(pattern_arr : Array, tile_pos : Vector2i) -> Array[Vector2i] :
 	var out_arr : Array[Vector2i] = []
 	for relative_tile in pattern_arr:
-		var true_tile = Vector2i(relative_tile[0], relative_tile[1]) + tile_pos
+		var true_tile = relative_tile + tile_pos
 		if true_tile == true_tile.clampi(0, BOARD_SIZE - 1):
 			out_arr.push_back(true_tile)
 	return out_arr
@@ -133,15 +135,14 @@ func constrain_pattern_to_board(pattern_arr : Array, tile_pos : Vector2i) -> Arr
 # TODO: display cutey point totals above each tile
 func preview_placement(try_building : Building, tile_pos : Vector2i) -> void :
 	reset_preview()
-	var affected_tiles = constrain_pattern_to_board(try_building.AOE, tile_pos)
+	affected_tiles = constrain_pattern_to_board(try_building.AOE, tile_pos)
 	for highlight_tile_pos in affected_tiles:
 		highlight_map.set_cell(highlight_tile_pos,2, Vector2i(0,0),0)
 	pass
 
 func reset_preview() -> void :
-	for i in range(BOARD_SIZE):
-		for j in range(BOARD_SIZE): 
-			highlight_map.set_cell(Vector2(i,j), -1, Vector2i(0,0), 0)
+	for tile_pos in affected_tiles:
+		highlight_map.set_cell(tile_pos, -1, Vector2i(0,0), 0)
 	pass
 
 #sets buildings in proper place and draw order
