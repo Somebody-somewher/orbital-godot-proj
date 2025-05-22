@@ -1,6 +1,6 @@
 const CARDS = {#Visual Name, Effect Pattern, List of entities affected, stackables
 	"dummy" : ["Dummy", "3x3", [], []],
-	"cow" : ["Cow", "small orth cross", [], []],
+	"cow" : ["Cow", "small orth cross", [["cow", 20]], []],
 	"cute_dummy" : ["Cute Dummy", "small diagonal cross", [], []],
 	"flower" : ["Flower", "", [], []],
 	"rock" : ["Rock", "", [], []],

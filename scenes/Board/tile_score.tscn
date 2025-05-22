@@ -1,9 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://crfhs4uyve07v"]
+[gd_scene load_steps=2 format=3 uid="uid://bau3imvaykhy0"]
 
-[ext_resource type="Script" uid="uid://cmytaxqoinvs1" path="res://scripts/Board/tile_score.gd" id="1_i4kn6"]
+[sub_resource type="GDScript" id="GDScript_4odwq"]
+script/source = "extends Node2D
+
+func set_text(str : String) -> void:
+	get_node(\"RichTextLabel\").text = str
+
+func show_text(on: bool) -> void:
+	get_node(\"RichTextLabel\").visible = on
+"
 
 [node name="Score" type="Node2D"]
-script = ExtResource("1_i4kn6")
+script = SubResource("GDScript_4odwq")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 offset_left = -20.0

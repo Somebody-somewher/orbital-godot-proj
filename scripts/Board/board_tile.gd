@@ -50,7 +50,6 @@ func can_stack(new_building : Building) -> bool :
 		return true
 	# check if stackable
 	var stackable_buildings = database_ref.get_card_stackables_by_id(new_building.id_name)
-	print(stackable_buildings)
 	for building in buildings:
 		if building.id_name in stackable_buildings:
 			return true
@@ -59,6 +58,7 @@ func can_stack(new_building : Building) -> bool :
 #returns nonegative int for how much a building affects this tile
 func calculate_score(new_building : Building) -> int :
 	return database_ref.get_tile_score(buildings_name_arr, new_building.id_name)
+	
 
 # for deleting buildings from tile
 func delete_from_tile(building : Building, add_back_to_hand : bool) -> void:
@@ -73,15 +73,12 @@ func delete_from_tile(building : Building, add_back_to_hand : bool) -> void:
 func calculate_and_display(new_building : Building) -> void :
 	var score = calculate_score(new_building)
 	if score != 0 :
-		print(score_display)
 		score_display.text = str(score)
-		score_display.global_position = _global_board_pos + Vector2(0,-50)
-		score_display.z_index = 9
+		score_display.global_position = _global_board_pos - score_display.size/2 + Vector2(0,-40)
 		score_display.visible = true
 
 func off_score_display() -> void :
-	# TODO
-	score_display.visible = true
+	score_display.visible = false
 
 func redraw() -> void:
 	for building in buildings:

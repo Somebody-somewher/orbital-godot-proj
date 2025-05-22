@@ -80,7 +80,6 @@ func create_terrain_tile(tile_pos : Vector2i, terrain_id : String) -> void:
 	env_map.set_cell(tile_pos, 0, tileset_tile_coords, darken_tile)
 	var board_tile = BoardTile.new(environment.getTileDatabyId(terrain_id), get_global_tile_pos(tile_pos))
 	board_tile.score_display = score_label
-	print(board_tile.score_display, score_label.visible, score_label.position)
 	board_matrix[tile_pos.x][tile_pos.y] = board_tile
 
 func new_tile_label() -> Label:
@@ -88,8 +87,8 @@ func new_tile_label() -> Label:
 	score_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	score_label.set("theme_override_colors/font_color",Color(0,0.0,0.0,1.0))
 	score_label.set("theme_override_font_sizes/font_size",30)
-	score_label.text = "whatever"
-	score_label.visible = true
+	score_label.z_index = 9
+	score_label.visible = false
 	return score_label
 	
 ################################################################
@@ -131,12 +130,12 @@ func get_global_length() -> int:
 
 # try to place building on tile or swap terrain
 func place_building_on_tile(tile_pos : Vector2i, building: Building) -> bool:
-	add_child(building)
-	building.position = tilecoords_to_localpos(tile_pos)
 	var score = get_total_score(building)
 	var success = board_matrix[tile_pos.x][tile_pos.y].stack_if_able(building)
 	if success:
 		player_ref.add_score(score)
+		add_child(building)
+		building.position = tilecoords_to_localpos(tile_pos)
 	return success
 	#if placeable is Building:
 		#
@@ -175,8 +174,7 @@ func preview_placement(try_building : Building, tile_pos : Vector2i) -> void :
 	for highlight_tile_pos in affected_tiles:
 		highlight_map.set_cell(highlight_tile_pos,2, Vector2i(0,0),0)
 		var highlight_tile: BoardTile = get_tile(highlight_tile_pos)
-		print(highlight_tile)
-		get_tile(highlight_tile_pos).calculate_and_display(try_building)
+		highlight_tile.calculate_and_display(try_building)
 
 func reset_preview() -> void :
 	for tile_pos in affected_tiles:
