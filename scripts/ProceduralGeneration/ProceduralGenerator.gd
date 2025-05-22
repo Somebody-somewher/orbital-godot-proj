@@ -39,6 +39,7 @@ func generate_noise_texture(freq : float = 0.0583, seed : int = -1) -> NoiseText
 	# Noise Source
 	var noise = FastNoiseLite.new()
 	if seed == -1:
+	if noise_seed == -1:
 		print("RANDOMIZING TERRAIN")
 		noise.seed = randi()
 	else:

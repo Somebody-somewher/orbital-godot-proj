@@ -1,9 +1,15 @@
 extends Node2D
 class_name Building
 
+# following can be retrived by database func now
 # in case we want buildings that can be placed ontop of other buildings
 # dict contains which buildings this building can be stacked onto
 @export var stackable_buildings : Dictionary = {}
+#@export var stackable_buildings
+
+# A dictionary of pairings (which are also dicts) describing how surrounding buildings
+# in the AOE will contribute to scoring for this building
+#@export var AOE_scorers : Dictionary
 
 # As defined in card_database
 @export var id_name : String
@@ -11,10 +17,7 @@ class_name Building
 
 # array of relative coords
 @export var AOE : Array
-
-# A dictionary of pairings (which are also dicts) describing how surrounding buildings
-# in the AOE will contribute to scoring for this building
-@export var AOE_scorers : Dictionary
+@export var AOE : Array[Vector2i]
 
 # A timer that counts down to events
 # maybe a building that tranforms after some time or a building that decays
@@ -41,7 +44,7 @@ static func new_building(building_name : String) -> Building:
 	#ret_building.get_node("EntityImage").texture = load(entity_image_path)
 	# TODO: eventually use database to query name and set variables
 	var aoe = database_ref.CARDS.get(building_name)[1]
-	ret_building.AOE = database_ref.AOE.get(aoe)
+	ret_building.AOE = database_ref.get_card_aoe_by_id(building_name)
 	
 	return ret_building
 

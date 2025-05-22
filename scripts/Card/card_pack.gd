@@ -44,7 +44,7 @@ func open_pack() -> void:
 	for i in range(pack_sets.size()):
 		var new_set = card_sets.instantiate()
 		var set_id_name = pack_sets[i]
-		new_set.card_arr = database_ref.SETS[set_id_name]
+		new_set.card_arr = database_ref.get_set_cards_by_set_id(set_id_name)
 		new_set.position = Vector2(i * 250 + 400, 300) - self.position
 		pack_arr.insert(pack_arr.size(), new_set)
 		add_child(new_set)

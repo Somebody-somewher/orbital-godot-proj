@@ -12,7 +12,6 @@ var player_hand = get_tree().root.get_node("GameManager/PlayerHand")
 #@onready
 #var input_manager = get_tree().root.get_node("GameManager/InputManager")
 
-var database_ref = preload("res://scripts/Card/card_database.gd")
 var card_scene = preload("res://scenes/Card/Card.tscn")
 
 # Called when the node enters the scene tree for the first time.

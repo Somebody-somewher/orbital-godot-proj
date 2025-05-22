@@ -53,7 +53,7 @@ func spawn_tile(i, j) -> Node2D:
 	tile_instance.setup(terrain_data)
 	tile_instance.position = spawn_pos + Vector2(i * tile_size * BOARD_SCALE, j * tile_size * BOARD_SCALE)
 	
-	tile_instance.get_node("Sprite2D").texture = tileSprites.get_sprite_by_data(terrain_data)
+	#tile_instance.get_node("Sprite2D").texture = tileSprites.get_sprite_by_data(terrain_data)
 	# Different colouration for every alternate tile
 	# Uncomment this once we figure out how to deal with sprites
 	#if (i + j) % 2 == 0:
