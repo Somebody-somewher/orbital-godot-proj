@@ -6,7 +6,7 @@
 script = ExtResource("1_13u0d")
 board_size = Vector2i(8, 8)
 num_board = 4
-noise_freq = 0.058
-noise_threshold = Array[float]([-0.3, 0.2, 1.0])
+terrain_noise_freq = 0.058
+terrain_noise_threshold = Array[float]([-0.1, 0.3, 0.7])
 terrain_ids = Array[String](["Water", "Grass", "Desert"])
 metadata/_custom_type_script = "uid://cfd7y18ct2gmf"

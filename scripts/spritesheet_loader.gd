@@ -15,5 +15,4 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 static func get_sprite(id : String) -> CompressedTexture2D:
-	print(sprites_dict)
 	return sprites_dict.get(id)

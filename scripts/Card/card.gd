@@ -54,13 +54,13 @@ func _process(delta: float) -> void:
 # called when added to player hand
 func initialize_building() -> void:
 	building = Building.new_building(id_name)
-	add_child(building)
+	#add_child(building)
 	building.visible = true
 	building.get_node("Area2D/CollisionShape2D").disabled = true
 
 # fully replace card with building, then free self instance
 func swap_to_building(new_parent, scale_by: Vector2) -> void:
-	building.reparent(new_parent)
+	#building.reparent(new_parent)
 	self.get_node("Area2D/CollisionShape2D").disabled = true
 	building.scale = scale_by
 	building.visible = true

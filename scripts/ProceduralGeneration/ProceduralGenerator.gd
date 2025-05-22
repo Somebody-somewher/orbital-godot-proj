@@ -9,10 +9,10 @@ class_name ProceduralGenerator
 
 # Actually noise map to generate the map
 @export var noise_highlight_texture : NoiseTexture2D
-@export var noise_freq : float
+@export var terrain_noise_freq : float =  0.0583
 
 # Values should be sorted in ascending order otherwise noise check die
-@export var noise_threshold : Array[float]
+@export var terrain_noise_threshold : Array[float]
 @export var terrain_ids : Array[String]
 
 # Call this to start the proc_gen (can be called multiple times without error)
@@ -20,7 +20,7 @@ func set_up() -> void:
 	randomize()
 	# If noise texture is not provided, we randomize a new one
 	if noise_highlight_texture == null:
-		noise_highlight_texture = generateNoiseTexture(noise_freq)	
+		noise_highlight_texture = generate_noise_texture(terrain_noise_freq)	
 
 # Create a matrix that is the size of one board
 func create_matrix() -> Array:
@@ -34,7 +34,8 @@ func create_matrix() -> Array:
 		matrix[col].resize(height)
 	return matrix
 
-func generateNoiseTexture(freq : float = 0.0583, seed : int = -1) -> NoiseTexture2D:
+# Creates randomized Noise Texture
+func generate_noise_texture(freq : float = 0.0583, seed : int = -1) -> NoiseTexture2D:
 	# Noise Source
 	var noise = FastNoiseLite.new()
 	if seed == -1:
@@ -58,16 +59,12 @@ func generateNoiseTexture(freq : float = 0.0583, seed : int = -1) -> NoiseTextur
 	noise_texture.set_noise(noise)
 	return noise_texture
 
-# Foreach function that takes in the board's tile create functions to generate 
-# the board
-# 
-# board_id is for multiple boards, where each other board takes a different 
-# square piece of the bigger noisemap
-func generate_world(board_id : int = 0) -> Array:
-	
+# Fills the Matrix with Terrain IDs
+func make_terrain_matrix(board_id : int = 0) -> Array:
 	# ERROR HANDLING
-	assert(terrain_ids.size() >= noise_threshold.size())
-	if terrain_ids.size() > noise_threshold.size():
+	assert(terrain_ids.size() != 0 && terrain_noise_threshold.size() != 0)
+	assert(terrain_ids.size() >= terrain_noise_threshold.size())
+	if terrain_ids.size() > terrain_noise_threshold.size():
 		printerr("Some Terrain tiles will not be generated")
 	if board_id > num_board:
 		printerr("ProcGen Noise cannot create Terrain for more boards, Remap to used noise")
@@ -80,19 +77,33 @@ func generate_world(board_id : int = 0) -> Array:
 	for col in range(board_size.x):
 		for row in range(board_size.y):
 			noise_val = noise.get_noise_2d(offset.x + col, offset.y + row)
-			
-			# Noise Range tends to be frm -0.6 - 0.7 for Simplex
-			# print(noise_val)
-
-			# Mapping each cell to a (pointer to) terrain-data based off noisemap
 			matrix[col][row] = Array() 
 			matrix[col][row].append(map_noise_to_terrain(noise_val))
-	
 	return matrix
 
+# Foreach function that takes in the board's tile create functions to generate 
+# the board
+#
+# board_id is for multiple boards, where each other board takes a different 
+# square piece of the bigger noisemap
+func generate_world(create_tile : Callable, create_build: Callable, board_id : int = 0):
+	set_up()
+	var matrix = make_terrain_matrix(board_id)
+	post_process(matrix)
+	
+	for col in range(board_size.x):
+		for row in range(board_size.y):
+			create_tile.call(Vector2i(col,row) ,matrix[col][row][0])
+
+	add_buildings(matrix, create_build, board_id)
+	
 func map_noise_to_terrain(noise_val : float) -> String:
 	var i = 0;
-	for level in noise_threshold:
+	# Noise Range tends to be frm -0.6 - 0.7 for Simplex
+	# print(noise_val)
+			
+	# Mapping each cell to terrain-data based off noisemap
+	for level in terrain_noise_threshold:
 		if noise_val <= level:
 			return terrain_ids[i]
 		i += 1
@@ -100,7 +111,10 @@ func map_noise_to_terrain(noise_val : float) -> String:
 	printerr("ProcGen cannot map noise to Terrain ID, noise_val:", noise_val)
 	return terrain_ids[0] 
 
+################################################################################### 
 # Abstracting these functions away in case we want to change the functionality later
+# Override if necessary
+
 # Creates a square-sized noisemap that minimally covers the number of grids needed
 func noiseSizeByNumBoard() -> Vector2:
 	var temp = ceil(sqrt(num_board))
@@ -114,3 +128,10 @@ func getOffsetByBoardId(board_id: int) -> Vector2i:
 
 #func getTerrainAtCell(x : int, y : int):
 	#return matrix[x][y]
+
+func post_process(matrix : Array) -> void:
+	pass
+	
+func add_buildings(matrix: Array, create_build: Callable, board_id: int) -> void:
+	pass
+####################################################################################

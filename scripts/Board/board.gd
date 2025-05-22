@@ -25,12 +25,13 @@ static var NULL_TILE = Vector2i(-1,-1)
 # Position of where the board is created on screen
 var board_coord : Array[Vector2] #pair of coords, top left corner and bottom right corner
 
-@export var proc_gen : ProceduralGenerator = preload("res://Resources/ProcGen/Test.tres")
+@export var proc_gen : ProceduralGenerator = preload("res://Resources/ProcGen/DummyProcGen.tres")
 var proc_gen_offset : Vector2i = Vector2i(0,0)
  
-
+# Contains the terrain_id -> terrain tileset mapping
 @export var environment : EnvTerrainMapping = preload("res://Resources/EnvTerrain/TestEnvTerrainMapping.tres")
 
+#################### FOR INIT ##################################
 func _ready() -> void:
 	# Update the positioning of the tilemaps
 	env_map.scale = Vector2(BOARD_SCALE, BOARD_SCALE)
@@ -47,15 +48,17 @@ func _ready() -> void:
 # Initialize 2d array matrix
 func initialise_matrix() -> void:
 	proc_gen.set_up()
-	var terrain_matrix = proc_gen.generate_world(board_id)
 	board_matrix = Array()
 	board_matrix.resize(BOARD_SIZE)
 	for i in range(BOARD_SIZE):
 		board_matrix[i] = Array()
 		board_matrix[i].resize(BOARD_SIZE)
-	
-		for j in range(BOARD_SIZE): 
-			board_matrix[i][j] = spawn_tile(i, j, terrain_matrix)
+		
+	# Procedu
+	proc_gen.generate_world(create_terrain_tile, place_building_on_tile, board_id)
+		
+		#for j in range(BOARD_SIZE): 
+			#board_matrix[i][j] = spawn_tile(i, j, terrain_matrix)
 
 func spawn_tile(i, j, terrain_matrix) -> BoardTile:	
 	var id : String = terrain_matrix[i][j][0]
@@ -67,19 +70,27 @@ func spawn_tile(i, j, terrain_matrix) -> BoardTile:
 	env_map.set_cell(Vector2(i,j), 0, environment.getTilebyId(id), darken_tile)
 	return BoardTile.new(environment.getTileDatabyId(id), get_global_tile_pos(Vector2i(i,j)))
 
-#func create_terrain_tile(i, j, terrain_id : String) -> void:
-	#var tileset_tile_coords = environment.getTilebyId(terrain_id)
-	#env_map.set_cell(Vector2(i,j), 0, tileset_tile_coords, 0)
-	#board_matrix[i][j] = BoardTile.new(environment.getTileDatabyId(terrain_id), get_global_tile_pos(Vector2i(i,j)))
+# Terrain
+func create_terrain_tile(tile_pos : Vector2i, terrain_id : String) -> void:
+	var tileset_tile_coords = environment.getTilebyId(terrain_id)
+	var darken_tile = 0
+	if (tile_pos.x + tile_pos.y) % 2 == 0:
+		darken_tile = 1
+	env_map.set_cell(tile_pos, 0, tileset_tile_coords, darken_tile)
+	board_matrix[tile_pos.x][tile_pos.y] = BoardTile.new(environment.getTileDatabyId(terrain_id), get_global_tile_pos(tile_pos))
 
+################################################################
 func get_tile(coord : Vector2i) -> BoardTile:
 	return board_matrix[coord.x][coord.y]
 
 func get_global_tile_pos(coords : Vector2i) -> Vector2:
+	return to_global(tilecoords_to_localpos(coords))
+
+func tilecoords_to_localpos(coords : Vector2i) -> Vector2:
 	if coords == NULL_TILE:
 		return coords
 	var local_pos = Vector2((coords.x + 0.5) * TILE_SIZE, (coords.y + 0.5) * TILE_SIZE)
-	return to_global(local_pos)
+	return local_pos
 
 func mouse_near_board() -> bool:
 	var mouse_pos = get_local_mouse_position()
@@ -101,6 +112,8 @@ func snap_mouse_to_tile_pos() -> Vector2:
 
 # try to place building on tile or swap terrain
 func place_building_on_tile(tile_pos : Vector2i, building: Building) -> bool:
+	add_child(building)
+	building.position = tilecoords_to_localpos(tile_pos)
 	var tile_data : BoardTile = board_matrix[tile_pos.x][tile_pos.y]
 	return tile_data.stack_if_able(building)
 	#if placeable is Building:

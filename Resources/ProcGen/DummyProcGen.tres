@@ -9,9 +9,9 @@ noise = SubResource("FastNoiseLite_hhtup")
 
 [resource]
 script = ExtResource("1_hhtup")
-board_size = Vector2i(16, 16)
+board_size = Vector2i(9, 9)
 num_board = 1
 noise_highlight_texture = SubResource("NoiseTexture2D_opcaf")
-noise_freq = 0.0
-noise_threshold = Array[float]([-0.02, 0.4, 0.7])
-terrain_ids = Array[String](["Water", "Grass", "Desert"])
+terrain_noise_freq = 0.0583
+terrain_noise_threshold = Array[float]([7.0])
+terrain_ids = Array[String](["Grass"])

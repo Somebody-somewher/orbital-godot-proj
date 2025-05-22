@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bkjixy0xiwh51"]
+[gd_scene load_steps=3 format=3 uid="uid://bkjixy0xiwh51"]
 
 [ext_resource type="Script" uid="uid://6i6an4l8cw12" path="res://scripts/Board/board.gd" id="1_3252h"]
+[ext_resource type="Resource" uid="uid://ctrji0enaanxm" path="res://Resources/ProcGen/DummyProcGen.tres" id="2_i1eld"]
 
 [node name="Board" type="Node2D"]
 script = ExtResource("1_3252h")
+proc_gen = ExtResource("2_i1eld")
 
 [node name="Highlights" type="TileMapLayer" parent="."]
 

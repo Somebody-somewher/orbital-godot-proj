@@ -3,9 +3,9 @@ const CARDS = {#Visual Name, Effect Pattern, List of entities affected
 	"cow" : ["Cow", "small orth cross", []],
 	"cute_dummy" : ["Cute Dummy", "small diagonal cross", []],
 	"flower" : ["Flower", "", []],
-	"stone" : ["Stone", "", []],
-	"forrest" : ["Forrest", "", []],
-	"Mountain" : ["Mountain", "", []]
+	"rock" : ["Rock", "", []],
+	"forest" : ["Forest", "", []],
+	"mountain" : ["Mountain", "", []]
 }
 
 const SETS = {#arr of card type, no. of cards
@@ -19,7 +19,8 @@ const AOE = { #arr of relative coordinates as areas of influence
 	"3x3" : [[-1, -1], [0, -1], [1, -1], [-1, 0], [0, 0], [1, 0], [-1, 1], [0, 1], [1, 1]],
 	"small orth cross" : [[0, -1], [-1, 0], [0, 0], [1, 0], [0, 1]],
 	"small diagonal cross" : [[-1, -1], [1, -1], [0, 0], [-1, 1], [1, 1]],
-	"med orth cross" : [[0, -1], [-1, 0], [0, 0], [1, 0], [0, 1], [0, -2], [-2, 0], [2, 0], [0, 2]]
+	"med orth cross" : [[0, -1], [-1, 0], [0, 0], [1, 0], [0, 1], [0, -2], [-2, 0], [2, 0], [0, 2]],
+	"" : [[0,0]]
 }
 
 	
