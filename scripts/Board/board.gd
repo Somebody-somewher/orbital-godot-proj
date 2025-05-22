@@ -18,8 +18,9 @@ var board_id = 0
 static var NULL_TILE = Vector2i(-1,-1)
 
 # Length/Width (no. cells) of board
-@export var BOARD_SIZE : int = 5
-@export var BOARD_SCALE : float = 0.13 
+@export var BOARD_SIZE : int = 6
+@export var BOARD_SCALE : float = 0.1
+@export var TILE_SIZE : float
 
 # Position of where the board is created on screen
 var board_coord : Array[Vector2] #pair of coords, top left corner and bottom right corner
@@ -39,7 +40,8 @@ func _ready() -> void:
 	highlight_map.scale = Vector2(BOARD_SCALE, BOARD_SCALE)
 	highlight_map.tile_set = environment.tileset
 	
-	board_coord = [Vector2(0,0), env_map.tile_set.tile_size * (BOARD_SIZE) * BOARD_SCALE] 
+	TILE_SIZE = env_map.tile_set.tile_size.x * BOARD_SCALE
+	board_coord = [Vector2(0,0), TILE_SIZE * Vector2.ONE * (BOARD_SIZE)] 
 	initialise_matrix()
 
 # Initialize 2d array matrix
@@ -77,8 +79,7 @@ func get_tile(coord : Vector2i) -> BoardTile:
 func get_global_tile_pos(coords : Vector2i) -> Vector2:
 	if coords == NULL_TILE:
 		return coords
-	var tile_length : float = env_map.tile_set.tile_size.x * BOARD_SCALE
-	var local_pos = Vector2((coords.x + 0.5) * tile_length, (coords.y + 0.5) * tile_length)
+	var local_pos = Vector2((coords.x + 0.5) * TILE_SIZE, (coords.y + 0.5) * TILE_SIZE)
 	return to_global(local_pos)
 
 func mouse_near_board() -> bool:

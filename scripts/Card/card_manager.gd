@@ -3,14 +3,15 @@ extends Node2D
 
 var card_dragged : Card
 var card_hovered : Card
-var flip_zone : int = 0
 var card_flipped : bool = false 
 var tweening : Tween
 var screen_size : Vector2
 
 const CARD_COLLISION_MASK = 1
 
-const CARD_EASE = 0.13
+const CARD_EASE := 0.13
+# how big a card and scaled down to the tile size of the baord as Vector2
+var CARD_TILE_RATIO : Vector2
 
 @onready
 var player_hand_ref = $"../PlayerHand"
@@ -21,6 +22,7 @@ var board_ref : Board = $"../Board"
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
+	CARD_TILE_RATIO = Vector2.ONE * board_ref.TILE_SIZE / 180
 
 func _process(_delta: float) -> void:
 	if !card_dragged:
@@ -64,8 +66,7 @@ func finish_drag():
 		card_dragged.rotation = 0
 		card_dragged.scale = Vector2(1,1)
 		card_dragged.position = board_ref.get_global_tile_pos(tile_under_mouse)
-		card_dragged.swap_to_building(board_ref)
-		# card_dragged.get_node("Area2D/CollisionShape2D").disabled = true
+		card_dragged.swap_to_building(board_ref, CARD_TILE_RATIO)
 	else:
 		if card_flipped:
 			card_dragged.entity_flip_to_card()
@@ -127,10 +128,12 @@ func highlight_effects_when_hovering_card() -> void :
 	var tile_pos_i = board_ref.get_mouse_tile_pos()
 	var tile_global_pos = board_ref.get_global_tile_pos(tile_pos_i)
 	if tile_global_pos != Vector2(Board.NULL_TILE):
+		card_dragged.get_node("GhostBuildingImage").visible = true
 		card_dragged.get_node("GhostBuildingImage").global_position = tile_global_pos
+		card_dragged.get_node("GhostBuildingImage").scale = CARD_TILE_RATIO
 		board_ref.preview_placement(card_dragged.building, tile_pos_i)
 	else:
-		card_dragged.get_node("GhostBuildingImage").position = Vector2.ZERO
+		card_dragged.get_node("GhostBuildingImage").visible = false
 		board_ref.reset_preview()
 
 
