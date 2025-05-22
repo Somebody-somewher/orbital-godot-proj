@@ -63,9 +63,6 @@ func finish_drag():
 	# check if dragged into a tile
 	if card_placed:
 		card_hovered = null
-		card_dragged.rotation = 0
-		card_dragged.scale = Vector2(1,1)
-		card_dragged.position = board_ref.get_global_tile_pos(tile_under_mouse)
 		card_dragged.swap_to_building(CARD_TILE_RATIO)
 	else:
 		if card_flipped:
