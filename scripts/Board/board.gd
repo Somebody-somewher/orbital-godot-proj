@@ -33,14 +33,13 @@ var proc_gen_offset : Vector2i = Vector2i(0,0)
 
 #################### FOR INIT ##################################
 
-@export var environment : EnvTerrainMapping = preload("res://Resources/EnvTerrain/TestEnvTerrainMapping.tres")
 
 # makes hovering on and off reset relevant tiles only and not the whole board
 var affected_tiles : Array[Vector2i] = []
 
 # allows for scoring
-@onready
-var player_ref = $"../StatsManager"
+#@onready
+#var player_ref = $"../StatsManager"
 
 func _ready() -> void:
 	# Update the positioning of the tilemaps
@@ -131,8 +130,8 @@ func place_building_on_tile(tile_pos : Vector2i, building: Building) -> bool:
 	building.position = tilecoords_to_localpos(tile_pos)
 	var score = get_total_score(building)
 	var success = board_matrix[tile_pos.x][tile_pos.y].stack_if_able(building)
-	if success:
-		player_ref.add_score(score)
+	#if success:
+		#player_ref.add_score(score)
 	return success
 	#if placeable is Building:
 		#

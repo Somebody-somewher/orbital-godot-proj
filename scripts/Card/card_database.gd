@@ -5,7 +5,8 @@ const CARDS = {#Visual Name, Effect Pattern, List of entities affected
 	"flower" : ["Flower", "", []],
 	"rock" : ["Rock", "", []],
 	"forest" : ["Forest", "", []],
-	"mountain" : ["Mountain", "", []]
+	"mountain" : ["mountain", "", []]
+	}
 
 const SETS = {#arr of card type, no. of cards
 	"Dummy Set" : [["cute_dummy", 2]],

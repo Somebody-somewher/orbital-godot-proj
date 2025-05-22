@@ -35,7 +35,7 @@ func create_matrix() -> Array:
 	return matrix
 
 # Creates randomized Noise Texture
-func generate_noise_texture(freq : float = 0.0583, seed : int = -1) -> NoiseTexture2D:
+func generate_noise_texture(freq : float = 0.0583, noise_seed : int = -1) -> NoiseTexture2D:
 	# Noise Source
 	var noise = FastNoiseLite.new()
 	if noise_seed == -1:
