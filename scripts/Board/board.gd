@@ -33,6 +33,10 @@ var proc_gen_offset : Vector2i = Vector2i(0,0)
 # makes hovering on and off reset relevant tiles only and not the whole board
 var affected_tiles : Array[Vector2i] = []
 
+#allows for scring
+@onready
+var player_ref = $"../StatsManager"
+
 func _ready() -> void:
 	# Update the positioning of the tilemaps
 	env_map.scale = Vector2(BOARD_SCALE, BOARD_SCALE)
@@ -61,14 +65,24 @@ func initialise_matrix() -> void:
 
 func spawn_tile(i, j, terrain_matrix) -> BoardTile:	
 	var id : String = terrain_matrix[i][j][0]
-	var darken_tile = 0
 	
+	# tile score display (can be extracted to a function)
+	var score_label = Label.new()
+	score_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	score_label.set("theme_override_colors/font_color",Color(0,0.0,0.0,1.0))
+	score_label.set("theme_override_font_sizes/font_size",30)
+	score_label.visible = false
+	self.add_child(score_label)
+	
+	var darken_tile = 0
 	# Alternative Tile colouring via Modulation
 	# TODO: Looks ugly? Please help
 	if (i + j) % 2 == 0:
 		darken_tile = 1
 	env_map.set_cell(Vector2(i,j), 0, environment.getTilebyId(id), darken_tile)
-	return BoardTile.new(environment.getTileDatabyId(id), get_global_tile_pos(Vector2i(i,j)))
+	var board_tile : BoardTile = BoardTile.new(environment.getTileDatabyId(id), get_global_tile_pos(Vector2i(i,j)))
+	board_tile.score_display = score_label
+	return board_tile
 
 #func create_terrain_tile(i, j, terrain_id : String) -> void:
 	#var tileset_tile_coords = environment.getTilebyId(terrain_id)
@@ -102,10 +116,16 @@ func get_mouse_tile_pos() -> Vector2i:
 func snap_mouse_to_tile_pos() -> Vector2:
 	return get_global_tile_pos(get_mouse_tile_pos())
 
+func get_global_length() -> int:
+	return board_coord[1].x - board_coord[0].x 
+
 # try to place building on tile or swap terrain
 func place_building_on_tile(tile_pos : Vector2i, building: Building) -> bool:
-	var tile_data : BoardTile = board_matrix[tile_pos.x][tile_pos.y]
-	return tile_data.stack_if_able(building)
+	var score = get_total_score(building)
+	var success = board_matrix[tile_pos.x][tile_pos.y].stack_if_able(building)
+	if success:
+		player_ref.add_score(score)
+	return success
 	#if placeable is Building:
 		#
 	#elif placeable is EnvTerrain:
@@ -113,15 +133,19 @@ func place_building_on_tile(tile_pos : Vector2i, building: Building) -> bool:
 		#env_map.set_cell(tile_pos, 0, environment.getTilebyId(placeable.tile_name), 0)
 		#return true
 
+# sums up score achieved based on current array of affected tiles
+func get_total_score(building: Building) -> int:
+	var sum : int = 0
+	for highlight_tile_pos in affected_tiles:
+		sum += get_tile(highlight_tile_pos).calculate_score(building)
+	return sum
+
 # Returns true if Placeable is successfully placed, else returns false
 func place_on_board_if_able(building: Building) -> bool:
 	var tile_mouse_pos : Vector2i = get_mouse_tile_pos()
 	if tile_mouse_pos != NULL_TILE:
 		return place_building_on_tile(tile_mouse_pos, building)
 	return false
-	
-func get_global_length() -> int:
-	return board_coord[1].x - board_coord[0].x 
 
 func constrain_pattern_to_board(pattern_arr : Array, tile_pos : Vector2i) -> Array[Vector2i] :
 	var out_arr : Array[Vector2i] = []
@@ -138,12 +162,12 @@ func preview_placement(try_building : Building, tile_pos : Vector2i) -> void :
 	affected_tiles = constrain_pattern_to_board(try_building.AOE, tile_pos)
 	for highlight_tile_pos in affected_tiles:
 		highlight_map.set_cell(highlight_tile_pos,2, Vector2i(0,0),0)
-	pass
+		get_tile(highlight_tile_pos).calculate_and_display(try_building)
 
 func reset_preview() -> void :
 	for tile_pos in affected_tiles:
 		highlight_map.set_cell(tile_pos, -1, Vector2i(0,0), 0)
-	pass
+		get_tile(tile_pos).off_score_display()
 
 #sets buildings in proper place and draw order
 func redraw() -> void :

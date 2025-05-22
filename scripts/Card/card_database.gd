@@ -1,6 +1,6 @@
 const CARDS = {#Visual Name, Effect Pattern, List of entities affected, List of stackable buildings
 	"dummy" : ["Dummy", "3x3", [], []],
-	"cow" : ["Cow", "small orth cross", [["cow", 2]], ["cow"]],
+	"cow" : ["Cow", "small orth cross", [["cow", 2]], []],
 	"cute_dummy" : ["Cute Dummy", "small diagonal cross", [], []],
 	"flower" : ["Flower", "", [], []],
 	"stone" : ["Stone", "", [], []],
@@ -38,16 +38,32 @@ static func get_aoe_by_id(aoe : String) -> Array[Vector2i] :
 
 # CARD/BUILDING Queries
 static func get_card_name_by_id(id: String) -> String:
-	return CARDS.get(id)[0]
+	var card = CARDS.get(id)
+	if card:
+		return card[0]
+	else:
+		return ""
 
 static func get_card_scorers_by_id(id: String) -> Array:
-	return get_aoe_by_id(CARDS.get(id)[2])
+	var card = CARDS.get(id)
+	if card:
+		return card[2]
+	else:
+		return []
 
-static func get_card_stackables_by_id(id: String) -> Array[String]:
-	return CARDS.get(id)[3]
+static func get_card_stackables_by_id(id: String) -> Array:
+	var card = CARDS.get(id)
+	if card:
+		return card[3]
+	else:
+		return []
 
 static func get_card_aoe_by_id(id: String) -> Array[Vector2i]:
-	return get_aoe_by_id(CARDS.get(id)[1])
+	var card = CARDS.get(id)
+	if card:
+		return get_aoe_by_id(card[1])
+	else:
+		return []
 
 static func get_building_score(building_on_board : String, building_placed : String) -> int :
 	var scorers = get_card_scorers_by_id(building_placed)

@@ -35,12 +35,3 @@ script = ExtResource("6_c01mt")
 
 [node name="StatsManager" type="Node2D" parent="."]
 script = ExtResource("7_nxtc6")
-
-[node name="ScoreLabel" type="Label" parent="StatsManager"]
-offset_left = 32.0
-offset_top = 2.0
-offset_right = 178.0
-offset_bottom = 97.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 40
-text = "0"
