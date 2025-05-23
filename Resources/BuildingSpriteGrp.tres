@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_f7c0a")
-base_folder = "res://sprites/"
+base_folder = "res://assets/entity_sprites/"
 includes = Array[String](["**entity_sprites/**.png"])
 excludes = Array[String]([])
-paths = Array[String](["res://sprites/entity_sprites/cow.png", "res://sprites/entity_sprites/cute_dummy.png", "res://sprites/entity_sprites/dummy.png", "res://sprites/entity_sprites/flower.png", "res://sprites/entity_sprites/forest.png", "res://sprites/entity_sprites/mountain.png", "res://sprites/entity_sprites/rock.png"])
+paths = Array[String](["res://assets/entity_sprites/cow.png", "res://assets/entity_sprites/cute_dummy.png", "res://assets/entity_sprites/dummy.png", "res://assets/entity_sprites/flower.png", "res://assets/entity_sprites/forest.png", "res://assets/entity_sprites/mountain.png", "res://assets/entity_sprites/rock.png"])
 metadata/_custom_type_script = "uid://c8qc3g5w3svt1"

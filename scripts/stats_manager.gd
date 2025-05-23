@@ -17,6 +17,7 @@ func _process(delta: float) -> void:
 func reset_score() -> void:
 	player_score = 0
 	score_label.text = str(player_score)
+	
 
 func add_score(score : int) -> void:
 	player_score += score

@@ -14,7 +14,7 @@ func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			emit_signal("left_mouse_click")
-			raycast_cursor(0xFFFFFFFB)
+			raycast_cursor(0xFFFFFFFF)
 		else:
 			emit_signal("left_mouse_released")
 
@@ -27,7 +27,6 @@ func raycast_cursor(mask):
 	params.collide_with_areas = true
 	params.collision_mask = mask 
 	var result = space_state.intersect_point(params)
-	
 	if result.size() > 0 :
 		result = topmost(result)
 		var result_mask = result.collider.collision_mask
@@ -46,6 +45,11 @@ func raycast_cursor(mask):
 				if set_found:
 					var pack = set_found.get_parent()
 					pack.select_option(set_found)
+			BUILDING_COLLISION_MASK:
+				var building_found = result.collider.get_parent()
+				if building_found:
+					building_found.get_node("JiggleAnimation").play("jiggle")
+				
 
 
 # from arr selects topmost node

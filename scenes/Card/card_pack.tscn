@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://iv3w3pu8flf7"]
 
 [ext_resource type="Script" uid="uid://conukf4ick1q8" path="res://scripts/Card/card_pack.gd" id="1_wo5bd"]
-[ext_resource type="Texture2D" uid="uid://c6eiiyxq48g5e" path="res://sprites/dummy_card_pack.png" id="2_5xwgq"]
+[ext_resource type="Texture2D" uid="uid://c6eiiyxq48g5e" path="res://assets/tiles/dummy_card_pack.png" id="2_5xwgq"]
 [ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="3_5xwgq"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_5xwgq"]

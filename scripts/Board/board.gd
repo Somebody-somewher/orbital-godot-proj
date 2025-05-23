@@ -136,6 +136,7 @@ func place_building_on_tile(tile_pos : Vector2i, building: Building) -> bool:
 		player_ref.add_score(score)
 		add_child(building)
 		building.position = tilecoords_to_localpos(tile_pos)
+		building.get_node("JiggleAnimation").play("jiggle")
 	return success
 	#if placeable is Building:
 		#

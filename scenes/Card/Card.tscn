@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://8dgw8wdiub72"]
+[gd_scene load_steps=14 format=3 uid="uid://8dgw8wdiub72"]
 
 [ext_resource type="Script" uid="uid://bxyph8i4gl7y6" path="res://scripts/Card/card.gd" id="1_mck3k"]
 [ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="2_dqohr"]
-[ext_resource type="Texture2D" uid="uid://blvhc88i7at8d" path="res://sprites/card_sprites/cute_dummy_card.png" id="3_ietu0"]
-[ext_resource type="Texture2D" uid="uid://de7v2txgsfhpb" path="res://sprites/entity_sprites/cute_dummy.png" id="4_bl3jj"]
+[ext_resource type="Texture2D" uid="uid://blvhc88i7at8d" path="res://assets/card_sprites/cute_dummy_card.png" id="3_ietu0"]
+[ext_resource type="Texture2D" uid="uid://de7v2txgsfhpb" path="res://assets/entity_sprites/cute_dummy.png" id="4_bl3jj"]
+[ext_resource type="Theme" uid="uid://igcyj7c6fdln" path="res://assets/fonts/cutey_card_theme.tres" id="5_dqohr"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_4dx8l"]
 frequency = 0.0017
@@ -279,12 +280,17 @@ shape = SubResource("RectangleShape2D_fdsqi")
 [node name="Texts" type="Node2D" parent="."]
 modulate = Color(0, 0, 0, 1)
 
-[node name="CardName" type="RichTextLabel" parent="Texts"]
+[node name="CardName" type="Label" parent="Texts"]
+z_index = 1
 offset_left = -67.0
 offset_top = -101.0
 offset_right = 68.0
 offset_bottom = -60.0
+theme = ExtResource("5_dqohr")
+theme_override_constants/outline_size = 1
 text = "Name"
+horizontal_alignment = 1
+uppercase = true
 
 [node name="CardDesc" type="RichTextLabel" parent="Texts"]
 visible = false

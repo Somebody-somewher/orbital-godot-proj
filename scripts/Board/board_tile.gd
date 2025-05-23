@@ -4,6 +4,8 @@ class_name BoardTile
 var tile_built := false
 # for hover effect
 var score_display : Label
+# for calculating who plays card
+var owner_id : int
 
 # TODO:
 # Currently we are storing all this data in card_database as an array

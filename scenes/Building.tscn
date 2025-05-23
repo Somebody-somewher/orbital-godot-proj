@@ -1,10 +1,70 @@
-[gd_scene load_steps=4 format=3 uid="uid://cqaqfh7wr4nux"]
+[gd_scene load_steps=7 format=3 uid="uid://cqaqfh7wr4nux"]
 
 [ext_resource type="Script" uid="uid://cs3ecb30cugu2" path="res://scripts/Env & Buildings/Building.gd" id="1_mg2bo"]
-[ext_resource type="Texture2D" uid="uid://de7v2txgsfhpb" path="res://sprites/entity_sprites/cute_dummy.png" id="4_xa05x"]
+[ext_resource type="Texture2D" uid="uid://de7v2txgsfhpb" path="res://assets/entity_sprites/cute_dummy.png" id="4_xa05x"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mg2bo"]
 radius = 80.0562
+
+[sub_resource type="Animation" id="Animation_ogyss"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EntityImage:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EntityImage:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mg2bo"]
+resource_name = "jiggle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EntityImage:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.7, 1),
+"transitions": PackedFloat32Array(1, 4.59479, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.83, 1.13), Vector2(1.2, 0.68), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EntityImage:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.201317, 0.698508, 1),
+"transitions": PackedFloat32Array(1, 3.13834, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -8.985), Vector2(0, 17.53), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vrwpd"]
+_data = {
+&"RESET": SubResource("Animation_ogyss"),
+&"jiggle": SubResource("Animation_mg2bo")
+}
 
 [node name="Building" type="Node2D"]
 script = ExtResource("1_mg2bo")
@@ -18,6 +78,12 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_mg2bo")
+
+[node name="JiggleAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_vrwpd")
+}
+speed_scale = 4.0
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

@@ -53,7 +53,6 @@ func start_drag(card : Card):
 	card_dragged.in_tile = false
 
 func finish_drag():
-	var tile_under_mouse = board_ref.get_mouse_tile_pos()
 	var card_placed : bool = board_ref.place_on_board_if_able(card_dragged.building)
 		
 	if card_hovered and !card_placed: ##plonks the card down
@@ -63,7 +62,7 @@ func finish_drag():
 	# check if dragged into a tile
 	if card_placed:
 		card_hovered = null
-		card_dragged.swap_to_building(CARD_TILE_RATIO)
+		card_dragged.swap_to_effect(CARD_TILE_RATIO)
 	else:
 		if card_flipped:
 			card_dragged.entity_flip_to_card()

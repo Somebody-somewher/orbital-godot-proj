@@ -21,7 +21,7 @@ func _ready() -> void:
 		
 
 func add_to_hand_no_update(card):
-	card.initialize_building()
+	card.initialize_card_effect()
 	hand_arr.insert(hand_arr.size(), card)
 
 func add_to_hand(card):
@@ -61,7 +61,7 @@ func redraw_z():
 
 # testing function
 func spawn_card():
-	var new_card = card_scene.instantiate()
+	var new_card = Card.new_card("cow")
 	new_card.position = Vector2(centre_x, get_viewport().size.y/2)
 	$"../CardManager".add_child(new_card)
 	return new_card
