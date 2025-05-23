@@ -39,8 +39,6 @@ static func new_building(building_name : String) -> Building:
 	var ret_building = building_scene.instantiate()
 	ret_building.get_node("EntityImage").texture = SpriteSheetLoader.get_sprite(building_name)
 	ret_building.id_name = building_name
-	#var entity_image_path = SpriteSheetLoader.get_sprite(building_name)
-	#ret_building.get_node("EntityImage").texture = load(entity_image_path)
 	# TODO: eventually use database to query name and set variables
 	ret_building.AOE = database_ref.get_card_aoe_by_id(building_name)
 	
