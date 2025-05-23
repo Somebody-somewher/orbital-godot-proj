@@ -29,7 +29,7 @@ func _process(_delta: float) -> void:
 		return
 
 	if Input.is_action_just_released("leftMouseClick"):
-		finish_drag()
+		finish_drag(true)
 	else:
 		# dragged_card sticking to mouse
 		var mouse_pos = get_global_mouse_position()
@@ -51,9 +51,14 @@ func start_drag(card : Node2D):
 			highlight_card(card, true)
 			card_hovered = card
 
-func finish_drag():
+# placing is if trying to place in tile, false if just return card to hand no matter what
+func finish_drag(placing : bool):
 	if card_dragged is Card:
-		var card_placed : bool = board_ref.place_on_board_if_able(card_dragged.building)
+		var card_placed : bool
+		if placing:
+			card_placed = board_ref.place_on_board_if_able(card_dragged.building)
+		else:
+			card_placed = false
 			
 		if card_hovered and !card_placed: ##plonks the card down
 			highlight_card(card_hovered, false)
