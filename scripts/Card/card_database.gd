@@ -11,7 +11,7 @@ const CARDS = {#Visual Name, Effect Pattern, List of entities affected, stackabl
 const SETS = {#arr of card type, no. of cards
 	"Dummy Set" : [["cute_dummy", 2]],
 	"Big Cow Set" : [["cow", 7]],
-	"Cow Set" : [["cow", 3]],
+	"Nature Set" : [["flower", 3], ["rock", 3], ["forest", 3]],
 	"Cute Dummy Set" : [["cute_dummy", 5]],
 }
 

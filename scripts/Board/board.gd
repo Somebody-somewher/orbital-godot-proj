@@ -53,6 +53,8 @@ func _ready() -> void:
 	TILE_SIZE = env_map.tile_set.tile_size.x * BOARD_SCALE
 	board_coord = [Vector2(0,0), TILE_SIZE * Vector2.ONE * (BOARD_SIZE)] 
 	initialise_matrix()
+	
+	self.position.x = get_viewport().size.x/2 - board_coord[1].x/2
 
 # Initialize 2d array matrix
 func initialise_matrix() -> void:

@@ -1,8 +1,8 @@
 # Handles Animations for Cards 
 extends Node2D
 
-var card_dragged : Card
-var card_hovered : Card
+var card_dragged : Node2D
+var card_hovered : Node2D
 var card_flipped : bool = false 
 var tweening : Tween
 var screen_size : Vector2
@@ -38,38 +38,38 @@ func _process(_delta: float) -> void:
 		card_dragged.position = Vector2(clamp(new_x, 0, screen_size.x), clamp(new_y, 0, screen_size.y))
 
 		# card effects with board interaction
-		if board_ref != null:
+		if board_ref != null and card_dragged is Card:
 			card_flip_if_near_board()
 			highlight_effects_when_hovering_card()
 
-func start_drag(card : Card):
+func start_drag(card : Node2D):
 	card_dragged = card
-	player_hand_ref.remove_from_hand(card_dragged)
+	if card_dragged is Card:
+		player_hand_ref.remove_from_hand(card_dragged)
 	
-	if !card_hovered:
-		highlight_card(card, true)
-		card_hovered = card
-	
-	card_dragged.in_tile = false
+		if !card_hovered:
+			highlight_card(card, true)
+			card_hovered = card
 
 func finish_drag():
-	var card_placed : bool = board_ref.place_on_board_if_able(card_dragged.building)
-		
-	if card_hovered and !card_placed: ##plonks the card down
-		highlight_card(card_hovered, false)
-		card_hovered = null
+	if card_dragged is Card:
+		var card_placed : bool = board_ref.place_on_board_if_able(card_dragged.building)
+			
+		if card_hovered and !card_placed: ##plonks the card down
+			highlight_card(card_hovered, false)
+			card_hovered = null
 
-	# check if dragged into a tile
-	if card_placed:
-		card_hovered = null
-		card_dragged.swap_to_effect(CARD_TILE_RATIO)
-	else:
-		if card_flipped:
-			card_dragged.entity_flip_to_card()
-		player_hand_ref.add_to_hand(card_dragged)
-	
-	board_ref.reset_preview()
-	card_flipped = false
+		# check if dragged into a tile
+		if card_placed:
+			card_hovered = null
+			card_dragged.swap_to_effect(CARD_TILE_RATIO)
+		else:
+			if card_flipped:
+				card_dragged.entity_flip_to_card()
+			player_hand_ref.add_to_hand(card_dragged)
+		
+		board_ref.reset_preview()
+		card_flipped = false
 	card_dragged = null
 
 func card_under_mouse() -> Card:
@@ -158,8 +158,7 @@ func highlight_card(card : Card, hovering : bool):
 		card.get_parent().move_child(card, -1)
 		card.z_index += 10
 	else:
-		if !card.in_tile:
-			card.rotation = card.deck_angle
+		card.rotation = card.deck_angle
 		animate_card(card, Vector2(1, 1), Vector2(0, 0))
 		card.z_index -= 10
 
@@ -168,6 +167,5 @@ func animate_card(card : Card, new_scale : Vector2, pos):
 	if tweening and tweening.is_running():
 		await tweening.finished
 	tweening = get_tree().create_tween()
-	if !card.in_tile:
-		tweening.parallel().tween_property(card, "position", card.deck_pos + pos, 0.08)
+	tweening.parallel().tween_property(card, "position", card.deck_pos + pos, 0.08)
 	tweening.parallel().tween_property(card, "scale", new_scale, 0.08)

@@ -10,7 +10,6 @@ signal mouse_off
 #animation vars for player hand
 var deck_angle = 0
 var deck_pos
-var in_tile = false
 
 ##shader stuff
 @onready
@@ -50,7 +49,7 @@ func _process(delta: float) -> void:
 			dissolve_value -= delta * 1.6
 		else:
 			sprite_ref.visible = false
-			free()
+			queue_free()
 	pass
 
 # creates building that will be passed when placed on board
@@ -67,6 +66,12 @@ func swap_to_effect(scale_by: Vector2) -> void:
 	building.visible = true
 	building.get_node("Area2D/CollisionShape2D").disabled = false
 	queue_free()
+
+func dissolve_card() -> void:
+	dissolving = true
+	self.get_node("EntityImage").visible = false
+	self.get_node("GhostBuildingImage").visible = false
+	self.get_node("Texts").visible = false
 
 func _on_area_2d_mouse_entered() -> void:
 	emit_signal("mouse_on", self)
