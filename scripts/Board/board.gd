@@ -42,6 +42,8 @@ var affected_tiles : Array[Vector2i] = []
 var player_ref = $"../StatsManager"
 
 func _ready() -> void:
+	
+	
 	# Update the positioning of the tilemaps
 	env_map.scale = Vector2(BOARD_SCALE, BOARD_SCALE)
 	env_map.z_index = -1
@@ -52,9 +54,9 @@ func _ready() -> void:
 	
 	TILE_SIZE = env_map.tile_set.tile_size.x * BOARD_SCALE
 	board_coord = [Vector2(0,0), TILE_SIZE * Vector2.ONE * (BOARD_SIZE)] 
+	self.position.x = get_viewport().size.x/2 - board_coord[1].x/2
 	initialise_matrix()
 	
-	self.position.x = get_viewport().size.x/2 - board_coord[1].x/2
 
 # Initialize 2d array matrix
 func initialise_matrix() -> void:
@@ -81,6 +83,7 @@ func create_terrain_tile(tile_pos : Vector2i, terrain_id : String) -> void:
 		darken_tile = 1
 	env_map.set_cell(tile_pos, 0, tileset_tile_coords, darken_tile)
 	var board_tile = BoardTile.new(environment.getTileDatabyId(terrain_id), get_global_tile_pos(tile_pos))
+	print(get_global_tile_pos(tile_pos))
 	board_tile.score_display = score_label
 	board_matrix[tile_pos.x][tile_pos.y] = board_tile
 
