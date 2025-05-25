@@ -1,7 +1,6 @@
 extends Node
 class_name SpriteSheetLoader
 # https://github.com/derkork/godot-resource-groups
-# Temp solution until I can figure out something better
 
 @export var sprite_grp : ResourceGroup
 
