@@ -16,12 +16,16 @@ var card_scene = preload("res://scenes/Card/Card.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var z_count = 0
 	for card_type in card_arr: ##card_type is of form [str, int]
 		for i in range(card_type[1]):
-			var new_card = Card.new_card(card_type[0])
+			var new_card = BuildingCard.new_card(card_type[0])
+			new_card.z_index = z_count
 			new_card.get_node("Area2D/CollisionShape2D").disabled = true
 			card_set.insert(card_set.size(), new_card)
 			add_child(new_card)
+			z_count += 2
+			
 	pass
 
 # adds each card to player hand

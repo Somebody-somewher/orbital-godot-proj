@@ -39,45 +39,20 @@ func custom_building_sort(a : Building, b : Building):
 func change_terrain(terrain : EnvTerrain):
 	_terrain = terrain
 
-# checks if a new_building can be stacked onto current tile returns success
-func stack_if_able(new_building : Building) -> bool :
-	var stackable = can_stack(new_building)
-	if stackable:
-		add_building(new_building)
-	return stackable
-
-func can_stack(new_building : Building) -> bool :
-	# empty_tile
-	if buildings.is_empty():
-		return true
-	# check if stackable
-	var stackable_buildings = database_ref.get_card_stackables_by_id(new_building.id_name)
-	for building in buildings:
-		if building.id_name in stackable_buildings:
-			return true
-	return false
-
-#returns nonegative int for how much a building affects this tile
-func calculate_score(new_building : Building) -> int :
-	return database_ref.get_tile_score(buildings_name_arr, new_building.id_name)
-	
-
 # for deleting buildings from tile
-func delete_from_tile(building : Building, add_back_to_hand : bool) -> void:
+func delete_from_tile(building : Building) -> void:
 	if building in buildings:
 		buildings.erase(building)
-		if add_back_to_hand:
-			var returned_card = building.swap_to_card() # swap_to_card not implemented
-			# TODO: add functionality to add card back to hand
+		#if add_back_to_hand:
+			#var returned_card = building.swap_to_card() # swap_to_card not implemented
+			## TODO: add functionality to add card back to hand
 		building.free()
 
 # cosmetic functions, score_display is guarenteed to be not null
-func calculate_and_display(new_building : Building) -> void :
-	var score = calculate_score(new_building)
-	if score != 0 :
-		score_display.text = str(score)
-		score_display.global_position = _global_board_pos - score_display.size/2 + Vector2(0,-50)
-		score_display.visible = true
+func display_score(score : int) :
+	score_display.text = str(score)
+	score_display.global_position = _global_board_pos - score_display.size/2 + Vector2(0,-50)
+	score_display.visible = true
 
 func off_score_display() -> void :
 	score_display.visible = false

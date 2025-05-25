@@ -57,11 +57,11 @@ func animate_card_to_pos(card, new_pos):
 # resets the card z to fan nicely
 func redraw_z():
 	for i in range(hand_arr.size()):
-		hand_arr[i].z_index = i
+		hand_arr[i].z_index = i*2
 
 # testing function
 func spawn_card():
-	var new_card = Card.new_card("cow")
+	var new_card = BuildingCard.new_card("cow")
 	new_card.position = Vector2(centre_x, get_viewport().size.y/2)
 	$"../CardManager".add_child(new_card)
 	return new_card

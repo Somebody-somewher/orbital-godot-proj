@@ -126,12 +126,12 @@ func highlight_effects_when_hovering_card() -> void :
 	var tile_pos_i = board_ref.get_mouse_tile_pos()
 	var tile_global_pos = board_ref.get_global_tile_pos(tile_pos_i)
 	if tile_global_pos != Vector2(Board.NULL_TILE):
-		card_dragged.get_node("GhostBuildingImage").visible = true
-		card_dragged.get_node("GhostBuildingImage").global_position = tile_global_pos
-		card_dragged.get_node("GhostBuildingImage").scale = CARD_TILE_RATIO
+		card_dragged.get_node("GhostImage").visible = true
+		card_dragged.get_node("GhostImage").global_position = tile_global_pos
+		card_dragged.get_node("GhostImage").scale = CARD_TILE_RATIO
 		board_ref.preview_placement(card_dragged.building, tile_pos_i)
 	else:
-		card_dragged.get_node("GhostBuildingImage").visible = false
+		card_dragged.get_node("GhostImage").visible = false
 		board_ref.reset_preview()
 
 
