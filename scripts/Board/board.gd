@@ -156,7 +156,7 @@ func constrain_pattern_to_board(pattern_arr : Array, tile_pos : Vector2i) -> Arr
 			out_arr.push_back(true_tile)
 	return out_arr
 
-# highlight affected tiles if building were to be placed
+# highlight scoring tiles if building were to be placed
 func preview_placement(try_building : Building, tile_pos : Vector2i) -> void :
 	reset_preview()
 	try_building.score_effect.calculate_and_display_scoring(try_building.id_name, self, tile_pos)
