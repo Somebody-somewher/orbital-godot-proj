@@ -28,7 +28,7 @@ func add_buildings(matrix : Array, create_build : Callable, board_id : int) -> v
 		for row in range(board_size.y):
 			noise_val = noise.get_noise_2d(offset.x + col, offset.y + row)
 			matrix[col][row].append(map_noise_to_building(noise_val, matrix[col][row][0]))
-			print(noise_val, matrix[col][row])
+			#print(noise_val, matrix[col][row])
 			
 	post_process(matrix)
 	for col in range(board_size.x):

@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://ctmxmab1ad1jc"]
+[gd_scene load_steps=5 format=3 uid="uid://ctmxmab1ad1jc"]
 
 [ext_resource type="Script" uid="uid://c0jn1x2wlrg2l" path="res://scripts/ProceduralGeneration/ProcGenUnitTester.gd" id="1_q7l6t"]
 [ext_resource type="Resource" uid="uid://d0rp5plaei4ir" path="res://Resources/ProcGen/BuildingProceduralGenerator.tres" id="2_wx80f"]
+[ext_resource type="Script" uid="uid://vx565sl7wiij" path="res://scripts/stats_manager.gd" id="3_ri6a5"]
+[ext_resource type="Theme" uid="uid://igcyj7c6fdln" path="res://assets/fonts/cutey_card_theme.tres" id="4_ifhyg"]
 
 [node name="ProcGen" type="Node2D" node_paths=PackedStringArray("display_noise")]
 script = ExtResource("1_q7l6t")
@@ -17,3 +19,27 @@ offset_left = 4683.0
 offset_top = 51.0
 offset_right = 4866.0
 offset_bottom = 218.0
+
+[node name="StatsManager" type="Node2D" parent="."]
+script = ExtResource("3_ri6a5")
+
+[node name="ScoreLabel" type="Label" parent="StatsManager"]
+offset_left = 37.0
+offset_top = 29.0
+offset_right = 105.0
+offset_bottom = 84.0
+theme = ExtResource("4_ifhyg")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "0"
+
+[node name="RoundLabel" type="Label" parent="StatsManager"]
+offset_left = 1478.0
+offset_top = 44.0
+offset_right = 1546.0
+offset_bottom = 129.0
+theme = ExtResource("4_ifhyg")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "1
+"
