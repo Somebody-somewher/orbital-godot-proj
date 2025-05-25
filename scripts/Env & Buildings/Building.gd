@@ -2,11 +2,11 @@ extends PlaceableObject
 class_name Building
 
 # building events
-var score_effect : Resource = preload("res://scripts/Events/ScoreScripts/standard_score.gd").new()
-var place_effect : Array[Resource] = [score_effect]
-var destroy_effect : Array[Resource]
-var round_adv_effect : Array[Resource]
-var timed_effect: Array[Resource]
+var score_effect : ScoreEffect = preload("res://scripts/Events/ScoreScripts/standard_score.gd").new()
+var place_effect : Array[BoardEvent] = [score_effect]
+var destroy_effect : Array[BoardEvent]
+var round_adv_effect : Array[BoardEvent]
+var timed_effect: Array[BoardEvent]
 
 # allows for scoring can move once scoring system is finalized
 @onready
@@ -34,6 +34,6 @@ static func new_building(building_name : String) -> Building:
 	return ret_building
 
 # triggers all events in any array, can add timing here
-func trigger_event_arr(arr : Array[Resource], board_matrix, tile_pos : Vector2i):
+func trigger_event_arr(arr : Array[BoardEvent], board_matrix, tile_pos : Vector2i):
 	for event in arr:
 		event.trigger(self.id_name, board_matrix, tile_pos)
