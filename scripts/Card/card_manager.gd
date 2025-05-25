@@ -22,7 +22,7 @@ var board_ref : Board = $"../Board"
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	CARD_TILE_RATIO = Vector2.ONE * board_ref.TILE_SIZE / 180
+	CARD_TILE_RATIO = Vector2.ONE * board_ref.TILE_SIZE / 120
 
 func _process(_delta: float) -> void:
 	if !card_dragged:

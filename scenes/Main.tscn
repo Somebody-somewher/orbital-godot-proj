@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://cdp6pxvmemk4u"]
+[gd_scene load_steps=14 format=4 uid="uid://cdp6pxvmemk4u"]
 
 [ext_resource type="Script" uid="uid://6i6an4l8cw12" path="res://scripts/Board/board.gd" id="1_c01mt"]
 [ext_resource type="Script" uid="uid://q3ayn1o0618v" path="res://scripts/Card/card_manager.gd" id="3_jlsqs"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://e20pl4ien7vb" path="res://assets/tiles/tileable_background.jpg" id="7_jlsqs"]
 [ext_resource type="Script" uid="uid://vx565sl7wiij" path="res://scripts/stats_manager.gd" id="7_nxtc6"]
 [ext_resource type="Texture2D" uid="uid://cwwp2kt2yowua" path="res://assets/tiles/tileable_background_2.jpg" id="8_jlsqs"]
+[ext_resource type="Theme" uid="uid://igcyj7c6fdln" path="res://assets/fonts/cutey_card_theme.tres" id="8_lhr70"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q8u5g"]
 texture = ExtResource("7_jlsqs")
@@ -66,11 +67,24 @@ offset_left = 37.0
 offset_top = 29.0
 offset_right = 105.0
 offset_bottom = 84.0
+theme = ExtResource("8_lhr70")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "0"
 
+[node name="RoundLabel" type="Label" parent="StatsManager"]
+offset_left = 1478.0
+offset_top = 44.0
+offset_right = 1546.0
+offset_bottom = 129.0
+theme = ExtResource("8_lhr70")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "1
+"
+
 [node name="PlaceholderBackground" type="TileMapLayer" parent="."]
+visible = false
 z_index = -4
 tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAACAAAAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_lhr70")

@@ -83,13 +83,13 @@ func create_terrain_tile(tile_pos : Vector2i, terrain_id : String) -> void:
 		darken_tile = 1
 	env_map.set_cell(tile_pos, 0, tileset_tile_coords, darken_tile)
 	var board_tile = BoardTile.new(environment.getTileDatabyId(terrain_id), get_global_tile_pos(tile_pos))
-	print(get_global_tile_pos(tile_pos))
 	board_tile.score_display = score_label
 	board_matrix[tile_pos.x][tile_pos.y] = board_tile
 
 func new_tile_label() -> Label:
 	var score_label = Label.new()
 	score_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	score_label.theme = preload("res://assets/fonts/cutey_card_theme.tres")
 	score_label.set("theme_override_colors/font_color",Color(0,0.0,0.0,1.0))
 	score_label.set("theme_override_font_sizes/font_size",30)
 	score_label.z_index = 9
@@ -173,7 +173,6 @@ func constrain_pattern_to_board(pattern_arr : Array, tile_pos : Vector2i) -> Arr
 	return out_arr
 
 # highlight affected tiles if building were to be placed
-# TODO: display cutey point totals above each tile
 func preview_placement(try_building : Building, tile_pos : Vector2i) -> void :
 	reset_preview()
 	affected_tiles = constrain_pattern_to_board(try_building.AOE, tile_pos)

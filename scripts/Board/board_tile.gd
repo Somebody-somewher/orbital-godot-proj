@@ -76,7 +76,7 @@ func calculate_and_display(new_building : Building) -> void :
 	var score = calculate_score(new_building)
 	if score != 0 :
 		score_display.text = str(score)
-		score_display.global_position = _global_board_pos - score_display.size/2 + Vector2(0,-40)
+		score_display.global_position = _global_board_pos - score_display.size/2 + Vector2(0,-50)
 		score_display.visible = true
 
 func off_score_display() -> void :
