@@ -5,7 +5,7 @@ class_name Board
 var highlight_map : TileMapLayer = $"./Highlights"
 # TerrainDisplay vs TerrainActual https://www.youtube.com/watch?v=jEWFSv3ivTg
 
-@onready
+@onready 
 var env_map : TileMapLayer = $"./TerrainActual"
 
 # Contains a 2d Matrix of BoardTiles
