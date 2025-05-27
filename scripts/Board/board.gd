@@ -38,8 +38,6 @@ var proc_gen_offset : Vector2i = Vector2i(0,0)
 var affected_tiles : Array[Vector2i] = []
 
 func _ready() -> void:
-	
-	
 	# Update the positioning of the tilemaps
 	env_map.scale = Vector2(BOARD_SCALE, BOARD_SCALE)
 	env_map.z_index = -1

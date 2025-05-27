@@ -1,22 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://8dgw8wdiub72"]
+[gd_scene load_steps=11 format=3 uid="uid://8dgw8wdiub72"]
 
+[ext_resource type="Material" uid="uid://snae8supl35" path="res://shader/dissolve_material.tres" id="1_dqohr"]
 [ext_resource type="Script" uid="uid://bxyph8i4gl7y6" path="res://scripts/Card/card.gd" id="1_mck3k"]
-[ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="2_dqohr"]
 [ext_resource type="Texture2D" uid="uid://de7v2txgsfhpb" path="res://assets/entity_sprites/cute_dummy.png" id="4_bl3jj"]
 [ext_resource type="Texture2D" uid="uid://d02is06vvdlbm" path="res://assets/card_sprites/blank_card.png" id="4_dqohr"]
 [ext_resource type="Theme" uid="uid://igcyj7c6fdln" path="res://assets/fonts/cutey_card_theme.tres" id="5_dqohr"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_4dx8l"]
-frequency = 0.0017
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qf083"]
-noise = SubResource("FastNoiseLite_4dx8l")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4dx8l"]
-resource_local_to_scene = true
-shader = ExtResource("2_dqohr")
-shader_parameter/Noise = SubResource("NoiseTexture2D_qf083")
-shader_parameter/DissolveValue = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fdsqi"]
 size = Vector2(161, 230)
@@ -220,15 +208,17 @@ _data = {
 }
 
 [node name="Card" type="Node2D"]
+material = ExtResource("1_dqohr")
 script = ExtResource("1_mck3k")
 
 [node name="EntityImage" type="Sprite2D" parent="."]
 z_index = 2
+use_parent_material = true
 texture = ExtResource("4_bl3jj")
 
 [node name="CardImage" type="Sprite2D" parent="."]
 z_index = 1
-material = SubResource("ShaderMaterial_4dx8l")
+use_parent_material = true
 texture = ExtResource("4_dqohr")
 
 [node name="GhostImage" type="Sprite2D" parent="."]
@@ -242,6 +232,7 @@ shape = SubResource("RectangleShape2D_fdsqi")
 
 [node name="Texts" type="Node2D" parent="."]
 modulate = Color(0, 0, 0, 1)
+use_parent_material = true
 
 [node name="CardName" type="Label" parent="Texts"]
 z_index = 1

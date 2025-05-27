@@ -16,7 +16,7 @@ var deck_pos
 
 ##shader stuff
 @onready
-var sprite_ref = $CardImage
+var sprite_ref = self
 var dissolving = false
 var dissolve_value = 1
 
@@ -27,7 +27,10 @@ static var database_ref = preload("res://scripts/Card/card_database.gd")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	get_tree().root.get_node("GameManager/CardManager").connect_card_signals(self) 
+	pass
+
+func connect_to_card_manager(card_man : CardManager) -> void:
+	card_man.connect_card_signals(self) 
 
 # factory constructor
 static func new_card(card_name : String) -> Card:
@@ -44,6 +47,8 @@ static func new_card(card_name : String) -> Card:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if dissolving:
+		get_node("GhostImage").visible = false
+		get_node("Texts").visible = false
 		if dissolve_value > 0:
 			sprite_ref.material.set_shader_parameter("DissolveValue", dissolve_value)
 			dissolve_value -= delta * 1.6
@@ -54,9 +59,6 @@ func _process(delta: float) -> void:
 
 func dissolve_card() -> void:
 	dissolving = true
-	self.get_node("EntityImage").visible = false
-	self.get_node("GhostImage").visible = false
-	self.get_node("Texts").visible = false
 
 ## OVERWRITE BELOW IN CHILD CLASSES
 ######################################################################

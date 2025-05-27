@@ -1,5 +1,6 @@
 # Handles Animations for Cards 
 extends Node2D
+class_name CardManager
 
 var card_dragged : Node2D
 var card_hovered : Node2D

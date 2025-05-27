@@ -32,3 +32,4 @@ func step_round() -> void:
 # highlighting signals for cards
 func connect_event_signals(event : Resource):
 	event.connect("AddScore", add_score)
+	pass

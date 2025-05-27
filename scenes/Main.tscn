@@ -1,15 +1,27 @@
-[gd_scene load_steps=14 format=4 uid="uid://cdp6pxvmemk4u"]
+[gd_scene load_steps=17 format=4 uid="uid://cdp6pxvmemk4u"]
 
 [ext_resource type="Script" uid="uid://6i6an4l8cw12" path="res://scripts/Board/board.gd" id="1_c01mt"]
 [ext_resource type="Script" uid="uid://q3ayn1o0618v" path="res://scripts/Card/card_manager.gd" id="3_jlsqs"]
+[ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="4_lhr70"]
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/player_hand.gd" id="5_lhr70"]
-[ext_resource type="Script" uid="uid://csnqlg6oxvuth" path="res://scripts/input_manager.gd" id="6_c01mt"]
-[ext_resource type="AudioStream" uid="uid://d25cqtfxtterp" path="res://assets/audio/click.mp3" id="6_q8u5g"]
+[ext_resource type="PackedScene" uid="uid://b43u6wsxnq4ai" path="res://scenes/input_manager.tscn" id="5_q8u5g"]
 [ext_resource type="PackedScene" uid="uid://iv3w3pu8flf7" path="res://scenes/Card/card_pack.tscn" id="6_wp0k4"]
 [ext_resource type="Texture2D" uid="uid://e20pl4ien7vb" path="res://assets/tiles/tileable_background.jpg" id="7_jlsqs"]
 [ext_resource type="Script" uid="uid://vx565sl7wiij" path="res://scripts/stats_manager.gd" id="7_nxtc6"]
 [ext_resource type="Texture2D" uid="uid://cwwp2kt2yowua" path="res://assets/tiles/tileable_background_2.jpg" id="8_jlsqs"]
 [ext_resource type="Theme" uid="uid://igcyj7c6fdln" path="res://assets/fonts/cutey_card_theme.tres" id="8_lhr70"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_o731e"]
+frequency = 0.0017
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_va8pk"]
+noise = SubResource("FastNoiseLite_o731e")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wp0k4"]
+resource_local_to_scene = true
+shader = ExtResource("4_lhr70")
+shader_parameter/Noise = SubResource("NoiseTexture2D_va8pk")
+shader_parameter/DissolveValue = 1.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q8u5g"]
 texture = ExtResource("7_jlsqs")
@@ -46,18 +58,13 @@ BOARD_SIZE = 9
 script = ExtResource("3_jlsqs")
 
 [node name="CardPack" parent="CardManager" instance=ExtResource("6_wp0k4")]
+material = SubResource("ShaderMaterial_wp0k4")
 position = Vector2(186, 242)
 
 [node name="PlayerHand" type="Node2D" parent="."]
 script = ExtResource("5_lhr70")
 
-[node name="InputManager" type="Node2D" parent="."]
-script = ExtResource("6_c01mt")
-
-[node name="ClickAudio" type="AudioStreamPlayer2D" parent="InputManager"]
-stream = ExtResource("6_q8u5g")
-volume_db = -5.0
-pitch_scale = 0.73
+[node name="InputManager" parent="." instance=ExtResource("5_q8u5g")]
 
 [node name="StatsManager" type="Node2D" parent="."]
 script = ExtResource("7_nxtc6")
@@ -84,7 +91,6 @@ text = "1
 "
 
 [node name="PlaceholderBackground" type="TileMapLayer" parent="."]
-visible = false
 z_index = -4
 tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAACAAAAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_lhr70")

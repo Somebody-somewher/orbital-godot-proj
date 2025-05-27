@@ -15,18 +15,20 @@ enum InputType {LEFT_CLICK, RIGHT_CLICK}
 
 var rng = RandomNumberGenerator.new()
 
+var MASK := 0xFFFFFFFF
+
 func _input(event):
 	# If it helps Project Settings already has an Input Map for the leftmousebutton btw 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			emit_signal("left_mouse_click")
-			raycast_and_click(0xFFFFFFFF, InputType.LEFT_CLICK)
+			raycast_and_click(MASK, InputType.LEFT_CLICK)
 		else:
 			emit_signal("left_mouse_released")
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
 		if event.pressed:
 			emit_signal("right_mouse_click")
-			raycast_and_click(0xFFFFFFFF, InputType.RIGHT_CLICK)
+			raycast_and_click(MASK, InputType.RIGHT_CLICK)
 		else:
 			emit_signal("right_mouse_released")
 

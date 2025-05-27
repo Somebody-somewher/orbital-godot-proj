@@ -5,7 +5,13 @@ const CARDS = {#Visual Name, Effect Pattern, List of entities affected, stackabl
 	"flower" : ["Flower", "", [], []],
 	"rock" : ["Rock", "circle", [], []],
 	"forest" : ["Forest", "", [], [], ],
-	"mountain" : ["mountain", "", [], []]
+	"mountain" : ["mountain", "", [], []],
+	"singleplayer" : ["Singleplayer", "", [], []],
+	"multiplayer" : ["multiplayer", "", [], []],
+	"exit" : ["Exit", "", [], []],
+	"start_game" : ["Start Game", "", [], []],
+	"settings" : ["Settings", "", [], []],
+	"back" : ["back", "", [], []]
 	}
 
 const SETS = {#arr of card type, no. of cards

@@ -34,6 +34,7 @@ func shift_to_hand() -> void:
 	destroyed = true
 	for set_card in card_set:
 		set_card.reparent(card_manager)
+		set_card.connect_to_card_manager(card_manager)
 		player_hand.add_to_hand(set_card)
 		set_card.get_node("Area2D/CollisionShape2D").disabled = false
 

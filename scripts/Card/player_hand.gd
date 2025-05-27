@@ -1,7 +1,7 @@
 extends Node2D
 
 const card_scene = preload("res://scenes/Card/Card.tscn")
-const SAMPLE_SIZE = 3
+const SAMPLE_SIZE = 0
 
 var centre_x
 var screen_size
@@ -17,7 +17,7 @@ func _ready() -> void:
 	screen_size = get_viewport().size
 	centre_x = screen_size.x/2
 	for i in range(SAMPLE_SIZE):
-		add_to_hand(spawn_card())
+		spawn_card("cow")
 		
 
 func add_to_hand_no_update(card):
@@ -32,6 +32,12 @@ func remove_from_hand(card):
 	if card in hand_arr:
 		hand_arr.erase(card)
 		update_hand_pos()
+
+func discard_hand():
+	for card in hand_arr:
+		card.dissolving = true
+	hand_arr = []
+	update_hand_pos()
 
 # sets card to nice positions
 func update_hand_pos(): 
@@ -60,9 +66,9 @@ func redraw_z():
 		hand_arr[i].z_index = i*2
 
 # testing function
-func spawn_card():
-	var new_card = BuildingCard.new_card("cow")
+func spawn_card(id_name : String) -> void:
+	var new_card = BuildingCard.new_card(id_name)
 	new_card.position = Vector2(centre_x, get_viewport().size.y/2)
 	$"../CardManager".add_child(new_card)
-	return new_card
-	
+	new_card.connect_to_card_manager($"../CardManager")
+	add_to_hand(new_card)

@@ -1,4 +1,5 @@
 extends Node2D
+class_name CardPack
 
 var pack_sets = ["Big Cow Set", "Dummy Set", "Nature Set", "Cute Dummy Set"] ##array of sets
 var pack_arr = []
@@ -10,7 +11,7 @@ var card_ref = preload("res://scenes/Card/Card.tscn")
 
 ##shader stuff
 @onready
-var sprite_ref = $Sprite2D
+var sprite_ref = self
 var dissolving = false
 var dissolve_value = 1
 
@@ -21,11 +22,11 @@ var database_ref = preload("res://scripts/Card/card_database.gd")
 func _ready() -> void:
 	pass # Replace with function body.
 
-func process_click(node : Node2D, sig : String):
-	if (sig == "cardpack_clicked" && node == self):
-		open_pack()
-	elif (sig == "cardset_clicked" && node.get_parent() == self):
-		select_option(node)
+#func process_click(node : Node2D, sig : String):
+	#if (sig == "cardpack_clicked" && node == self):
+		#open_pack()
+	#elif (sig == "cardset_clicked" && node.get_parent() == self):
+		#select_option(node)
 
 func _process(delta: float) -> void:
 	if dissolving:
@@ -34,7 +35,6 @@ func _process(delta: float) -> void:
 			dissolve_value -= delta * 1.6
 		else:
 			sprite_ref.visible = false
-			dissolving = false
 			queue_free()
 
 func open_pack() -> void:

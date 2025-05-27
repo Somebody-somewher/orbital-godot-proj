@@ -24,7 +24,7 @@ resources_spreadsheet_view/freeze_first_column=true
 [application]
 
 config/name="Orbital"
-run/main_scene="uid://cdp6pxvmemk4u"
+run/main_scene="uid://dehbiymvw4gq5"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://assets/icon.svg"
 

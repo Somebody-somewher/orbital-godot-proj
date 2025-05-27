@@ -1,8 +1,21 @@
-[gd_scene load_steps=8 format=3 uid="uid://iv3w3pu8flf7"]
+[gd_scene load_steps=12 format=3 uid="uid://iv3w3pu8flf7"]
 
 [ext_resource type="Script" uid="uid://conukf4ick1q8" path="res://scripts/Card/card_pack.gd" id="1_wo5bd"]
 [ext_resource type="Texture2D" uid="uid://c6eiiyxq48g5e" path="res://assets/tiles/dummy_card_pack.png" id="2_5xwgq"]
+[ext_resource type="Texture2D" uid="uid://du0ya8vm1qn3q" path="res://assets/misc_sprites/card_shine.png" id="2_o731e"]
 [ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="3_5xwgq"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_o731e"]
+frequency = 0.0017
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_va8pk"]
+noise = SubResource("FastNoiseLite_o731e")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gpkwg"]
+resource_local_to_scene = true
+shader = ExtResource("3_5xwgq")
+shader_parameter/Noise = SubResource("NoiseTexture2D_va8pk")
+shader_parameter/DissolveValue = 1.0
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_5xwgq"]
 resource_local_to_scene = true
@@ -21,10 +34,19 @@ shader_parameter/DissolveValue = 1.0
 size = Vector2(162, 231.5)
 
 [node name="CardPack" type="Node2D"]
+material = SubResource("ShaderMaterial_gpkwg")
 script = ExtResource("1_wo5bd")
+
+[node name="ShineSprite" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.282353)
+self_modulate = Color(1, 1, 1, 0.223529)
+z_index = 1
+use_parent_material = true
+texture = ExtResource("2_o731e")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_wwfmj")
+use_parent_material = true
 texture = ExtResource("2_5xwgq")
 
 [node name="Area2D" type="Area2D" parent="."]

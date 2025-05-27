@@ -1,14 +1,11 @@
 extends Object
 class_name BoardTile
 
-var tile_built := false
 # for hover effect
 var score_display : Label
 # for calculating who plays card
 var owner_id : int
 
-# TODO:
-# Currently we are storing all this data in card_database as an array
 # See if we want to store it as a Resource or some other data later
 var _terrain : EnvTerrain
 var _global_board_pos : Vector2
@@ -43,10 +40,12 @@ func change_terrain(terrain : EnvTerrain):
 func delete_from_tile(building : Building) -> void:
 	if building in buildings:
 		buildings.erase(building)
-		#if add_back_to_hand:
-			#var returned_card = building.swap_to_card() # swap_to_card not implemented
-			## TODO: add functionality to add card back to hand
 		building.free()
+
+func clear_tile() -> void:
+	for building in buildings:
+		building.dissolving = true
+	buildings = []
 
 # cosmetic functions, score_display is guarenteed to be not null
 func display_score(score : int) :
