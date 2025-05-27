@@ -1,8 +1,8 @@
 [gd_scene load_steps=3 format=3 uid="uid://blqu1sa8dhqkk"]
 
-[ext_resource type="Script" uid="uid://c1cwfvnqf5cci" path="res://scripts/sprite_loader.gd" id="1_1rqqy"]
-[ext_resource type="Resource" uid="uid://dg6oe12i637ef" path="res://Resources/BuildingSpriteGrp.tres" id="2_ioctc"]
+[ext_resource type="Script" uid="uid://c1cwfvnqf5cci" path="res://scripts/CardLoader.gd" id="1_1rqqy"]
+[ext_resource type="Resource" uid="uid://dg6oe12i637ef" path="res://Resources/BuildingGrp.tres" id="2_ioctc"]
 
 [node name="Node" type="Node"]
 script = ExtResource("1_1rqqy")
-sprite_grp = ExtResource("2_ioctc")
+building_grp = ExtResource("2_ioctc")

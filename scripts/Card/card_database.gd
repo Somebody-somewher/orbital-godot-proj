@@ -1,10 +1,10 @@
-const CARDS = {#Visual Name, Effect Pattern, List of entities affected, stackables
+const CARDS = {#Visual Name, Effect Pattern, List of entities "score", stackables
 	"dummy" : ["Dummy", "3x3", [], []],
 	"cow" : ["Cow", "med orth cross", [["cow", 20], ["flower", 10], ["cute_dummy", 10]], []],
 	"cute_dummy" : ["Cute Dummy", "small diagonal cross", [["cow", 10]], []],
 	"flower" : ["Flower", "", [], []],
 	"rock" : ["Rock", "circle", [], []],
-	"forest" : ["Forest", "", [], [], ],
+	"forest" : ["Forest", "", [], [], []],
 	"mountain" : ["mountain", "", [], []]
 	}
 

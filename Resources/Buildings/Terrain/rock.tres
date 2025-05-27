@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=6 format=3 uid="uid://yfdcha7yydfj"]
+
+[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_vmt53"]
+[ext_resource type="Texture2D" uid="uid://c77qybf4f05jr" path="res://assets/entity_sprites/rock.png" id="2_7ccgh"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/Env & Buildings/Effects&Conditions/Condition.gd" id="3_vxxxs"]
+[ext_resource type="Resource" uid="uid://ci1g32fnst1e8" path="res://Resources/Events/placeholder.tres" id="4_7ccgh"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="4_edmi8"]
+
+[resource]
+script = ExtResource("4_edmi8")
+building_sprite = ExtResource("2_7ccgh")
+id_name = "rock"
+preview_event = ExtResource("4_7ccgh")
+place_conditions = Array[ExtResource("3_vxxxs")]([])
+place_effects = Array[ExtResource("1_vmt53")]([])
+begin_round_effects = Array[ExtResource("1_vmt53")]([])
+end_round_effects = Array[ExtResource("1_vmt53")]([])
+destroyed_effects = Array[ExtResource("1_vmt53")]([])
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"
