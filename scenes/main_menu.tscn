@@ -29,7 +29,7 @@ anchors_preset = 0
 script = ExtResource("1_jk1qb")
 
 [node name="Board" type="Node2D" parent="."]
-position = Vector2(200, 500)
+position = Vector2(200, 700)
 script = ExtResource("1_rtw2f")
 
 [node name="Highlights" type="TileMapLayer" parent="Board"]
@@ -37,6 +37,7 @@ script = ExtResource("1_rtw2f")
 [node name="TerrainActual" type="TileMapLayer" parent="Board"]
 
 [node name="Timer" type="Timer" parent="Board"]
+wait_time = 0.75
 one_shot = true
 
 [node name="CardManager" type="Node2D" parent="."]

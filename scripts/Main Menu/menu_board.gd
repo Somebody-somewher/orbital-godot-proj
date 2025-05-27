@@ -23,7 +23,7 @@ func _ready() -> void:
 	
 	TILE_SIZE = env_map.tile_set.tile_size.x * BOARD_SCALE
 	board_coord = [Vector2(0,0), TILE_SIZE * Vector2.ONE * (BOARD_SIZE)] 
-	self.position.x = get_viewport().size.x/2 - TILE_SIZE/2
+	self.position = Vector2(get_viewport().size.x/2 - TILE_SIZE/2, 530)
 	board_matrix = Array()
 	board_matrix.resize(1)
 	board_matrix[0] = Array()
