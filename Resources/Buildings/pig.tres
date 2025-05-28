@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://c6wwrowxn11bp"]
+
+[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_83n83"]
+[ext_resource type="Texture2D" uid="uid://buhdvnjujp6tk" path="res://assets/entity_sprites/pig.PNG" id="2_83n83"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_6ixvm"]
+[ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_2ierp"]
+[ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events/cow_scoring.tres" id="5_b6gel"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_gwava"]
+
+[resource]
+script = ExtResource("6_gwava")
+building_sprite = ExtResource("2_83n83")
+stackable = false
+id_name = "pig"
+display_name = "Pig"
+desc = ""
+preview_event = ExtResource("5_b6gel")
+place_conditions = Array[ExtResource("3_6ixvm")]([ExtResource("4_2ierp")])
+place_effects = Array[ExtResource("1_83n83")]([])
+begin_round_effects = Array[ExtResource("1_83n83")]([])
+end_round_effects = Array[ExtResource("1_83n83")]([])
+destroyed_effects = Array[ExtResource("1_83n83")]([])
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"

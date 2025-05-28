@@ -6,5 +6,7 @@ class_name BoardEvent
 func trigger(board_matrix, tile_pos : Vector2i) -> void:
 	pass
 
-func get_preview(board_matrix, tile_pos : Vector2i) -> Array[Vector2i]:
-	return []
+func get_preview(board, tile_pos : Vector2i) -> Array[Vector2i]:
+	var arr : Array[Vector2i]
+	arr.assign(aoe.get_scored_tiles(board, tile_pos)[0])
+	return arr

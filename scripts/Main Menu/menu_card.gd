@@ -6,7 +6,7 @@ func _ready() -> void:
 	pass
 
 #for constructor
-static var menu_card_scene: PackedScene = load("res://scenes/Card/menu_card.tscn")
+static var menu_card_scene: PackedScene = load("res://scenes/Main Menu/menu_card.tscn")
 
 var building : Building
 

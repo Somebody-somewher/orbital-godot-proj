@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://hb8psjmb0raq"]
+
+[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_62hwb"]
+[ext_resource type="Texture2D" uid="uid://ccck0pjrkxq4k" path="res://assets/entity_sprites/lighthouse.PNG" id="2_62hwb"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_mr3iw"]
+[ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_il22t"]
+[ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events/cow_scoring.tres" id="5_f3b5a"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_icoac"]
+
+[resource]
+script = ExtResource("6_icoac")
+building_sprite = ExtResource("2_62hwb")
+stackable = false
+id_name = "lighthouse"
+display_name = "Lighthouse"
+desc = ""
+preview_event = ExtResource("5_f3b5a")
+place_conditions = Array[ExtResource("3_mr3iw")]([ExtResource("4_il22t")])
+place_effects = Array[ExtResource("1_62hwb")]([])
+begin_round_effects = Array[ExtResource("1_62hwb")]([])
+end_round_effects = Array[ExtResource("1_62hwb")]([])
+destroyed_effects = Array[ExtResource("1_62hwb")]([])
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"

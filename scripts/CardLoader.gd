@@ -13,16 +13,16 @@ static var buildings : Array[BuildingData] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
 	# Load all buildings data 
 	building_grp.load_all_into(buildings)
 	for b in buildings:
-		buildings_dict.get_or_add(b.id_name, b)
+		if b:
+			buildings_dict.get_or_add(b.id_name, b)
 		
 	cardset_grp.load_all_into(buildings)
 	for b in buildings:
-		buildings_dict.get_or_add(b.id_name, b) 
-	pass # Replace with function body.
+		if b:
+			buildings_dict.get_or_add(b.id_name, b) 
 
 static func get_building_data(id : String) -> BuildingData:
 	return buildings_dict.get(id)

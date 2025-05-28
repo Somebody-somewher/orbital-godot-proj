@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://bj7kjf4kbsf1a"]
 
 [ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_qy2nn"]
-[ext_resource type="Texture2D" uid="uid://de7v2txgsfhpb" path="res://assets/entity_sprites/cute_dummy.png" id="2_qy2nn"]
+[ext_resource type="Texture2D" uid="uid://dajjwe5q0ox20" path="res://assets/entity_sprites/cute_dummy.png" id="2_qy2nn"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_75rt3"]
 [ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_1gi41"]
 [ext_resource type="Resource" uid="uid://bddwoefbu6t16" path="res://Resources/Events/cute_dummy_scoring.tres" id="4_dujx5"]
@@ -12,6 +12,7 @@ script = ExtResource("5_bvvf1")
 building_sprite = ExtResource("2_qy2nn")
 stackable = false
 id_name = "cute_dummy"
+display_name = "Cute dummy"
 desc = ""
 preview_event = ExtResource("4_dujx5")
 place_conditions = Array[ExtResource("3_75rt3")]([ExtResource("4_1gi41")])

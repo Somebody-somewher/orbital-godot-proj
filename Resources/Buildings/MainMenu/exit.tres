@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://baerrp1bt8lot"]
 
 [ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_emapj"]
-[ext_resource type="Texture2D" uid="uid://lfswtjldi1yi" path="res://assets/entity_sprites/exit.PNG" id="2_emapj"]
+[ext_resource type="Texture2D" uid="uid://bhvlx0hfrae18" path="res://assets/entity_sprites/exit.PNG" id="2_emapj"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_j7jxg"]
 [ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_a6bpj"]
 [ext_resource type="Resource" uid="uid://ci1g32fnst1e8" path="res://Resources/Events/placeholder.tres" id="5_nhxe2"]

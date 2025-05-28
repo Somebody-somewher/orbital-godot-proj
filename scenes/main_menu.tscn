@@ -1,17 +1,19 @@
-[gd_scene load_steps=16 format=3 uid="uid://dehbiymvw4gq5"]
+[gd_scene load_steps=18 format=3 uid="uid://dehbiymvw4gq5"]
 
 [ext_resource type="Script" uid="uid://baxm1vpvlaqw2" path="res://scripts/Main Menu/main_menu.gd" id="1_jk1qb"]
 [ext_resource type="Script" uid="uid://duu3dx0n1l1gg" path="res://scripts/Main Menu/menu_board.gd" id="1_rtw2f"]
 [ext_resource type="Script" uid="uid://q3ayn1o0618v" path="res://scripts/Card/card_manager.gd" id="2_oa1go"]
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/player_hand.gd" id="4_jk1qb"]
-[ext_resource type="PackedScene" uid="uid://dyaq4288p4ik4" path="res://scenes/Card/tutorial_card_pack.tscn" id="4_lgwnu"]
+[ext_resource type="PackedScene" uid="uid://dyaq4288p4ik4" path="res://scenes/Main Menu/tutorial_card_pack.tscn" id="4_lgwnu"]
 [ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="5_5dd4i"]
 [ext_resource type="PackedScene" uid="uid://b43u6wsxnq4ai" path="res://scenes/input_manager.tscn" id="6_oa1go"]
 [ext_resource type="Script" uid="uid://vx565sl7wiij" path="res://scripts/stats_manager.gd" id="8_jk1qb"]
 [ext_resource type="Script" uid="uid://bvoajtpxmv7lr" path="res://scripts/Main Menu/menu_logic.gd" id="9_jk1qb"]
-[ext_resource type="PackedScene" uid="uid://bogg4d6s1y1og" path="res://scenes/Main Menus/title_menu.tscn" id="11_flqon"]
+[ext_resource type="PackedScene" uid="uid://dtsfmua37k8xq" path="res://scenes/Main Menu/singleplayer_menu.tscn" id="10_rcqid"]
+[ext_resource type="Script" uid="uid://qkqxxbklqyym" path="res://scripts/Main Menu/singleplayer_menu.gd" id="11_1ajci"]
+[ext_resource type="PackedScene" uid="uid://bogg4d6s1y1og" path="res://scenes/Main Menu/title_menu.tscn" id="11_flqon"]
 [ext_resource type="Texture2D" uid="uid://c88sgkqa5s3er" path="res://assets/misc_sprites/menu_bgd.jpg" id="11_lgwnu"]
-[ext_resource type="PackedScene" uid="uid://bapjcj4rxrxaj" path="res://scenes/Main Menus/options_menu.tscn" id="12_flqon"]
+[ext_resource type="PackedScene" uid="uid://bapjcj4rxrxaj" path="res://scenes/Main Menu/options_menu.tscn" id="12_flqon"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_4dx8l"]
 frequency = 0.0017
@@ -83,6 +85,10 @@ mouse_filter = 1
 
 [node name="TitleMenu" parent="Menus" instance=ExtResource("11_flqon")]
 layout_mode = 1
+
+[node name="SingleplayerMenu" parent="Menus" instance=ExtResource("10_rcqid")]
+layout_mode = 1
+script = ExtResource("11_1ajci")
 
 [node name="CardManager" type="Node2D" parent="."]
 z_index = 2

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cs3ecb30cugu2" path="res://scripts/Env & Buildings/Building.gd" id="1_mg2bo"]
 [ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="2_ogyss"]
-[ext_resource type="Texture2D" uid="uid://de7v2txgsfhpb" path="res://assets/entity_sprites/cute_dummy.png" id="4_xa05x"]
+[ext_resource type="Texture2D" uid="uid://dajjwe5q0ox20" path="res://assets/entity_sprites/cute_dummy.png" id="4_xa05x"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ogyss"]
 frequency = 0.0017

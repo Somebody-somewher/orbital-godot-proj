@@ -7,12 +7,13 @@ const SINGLEPLAYER = preload("res://scenes/Main.tscn")
 
 @onready var title_menu: TitleMenu = $Menus/TitleMenu
 @onready var options_menu: OptionMenu = $Menus/OptionsMenu
-
+@onready var singleplayer_menu: SingleplayerMenu = $Menus/SingleplayerMenu
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	title_menu.visible = true
 	options_menu.visible = false
+	singleplayer_menu.visible = false
 	connect_signals()
 
 func connect_signals() -> void:
@@ -34,10 +35,12 @@ func on_close_settings() -> void:
 	title_menu.animate(true)
 
 func on_open_singleplayer() -> void:
-	pass
+	title_menu.animate(false)
+	singleplayer_menu.animate(true)
 
 func on_close_singleplayer() -> void:
-	pass
+	singleplayer_menu.animate(false)
+	title_menu.animate(true)
 
 func on_open_multiplayer() -> void:
 	pass

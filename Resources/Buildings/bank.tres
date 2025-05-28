@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://dkx3lqqy3yupn"]
+
+[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_crayo"]
+[ext_resource type="Texture2D" uid="uid://c5bclvo13g8nb" path="res://assets/entity_sprites/bank.PNG" id="2_crayo"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_nn3os"]
+[ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_otbdh"]
+[ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events/cow_scoring.tres" id="5_14442"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_fhcv3"]
+
+[resource]
+script = ExtResource("6_fhcv3")
+building_sprite = ExtResource("2_crayo")
+stackable = false
+id_name = "bank"
+display_name = "Bank"
+desc = ""
+preview_event = ExtResource("5_14442")
+place_conditions = Array[ExtResource("3_nn3os")]([ExtResource("4_otbdh")])
+place_effects = Array[ExtResource("1_crayo")]([])
+begin_round_effects = Array[ExtResource("1_crayo")]([])
+end_round_effects = Array[ExtResource("1_crayo")]([])
+destroyed_effects = Array[ExtResource("1_crayo")]([])
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://bqomt4pwcixli"]
+
+[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_xsndr"]
+[ext_resource type="Texture2D" uid="uid://bouexy46iwty0" path="res://assets/entity_sprites/lotus.PNG" id="2_xsndr"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_cyxoy"]
+[ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_jy5mo"]
+[ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events/cow_scoring.tres" id="5_foy7g"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_6r3sw"]
+
+[resource]
+script = ExtResource("6_6r3sw")
+building_sprite = ExtResource("2_xsndr")
+stackable = true
+id_name = "lotus"
+display_name = "Lotus"
+desc = ""
+preview_event = ExtResource("5_foy7g")
+place_conditions = Array[ExtResource("3_cyxoy")]([ExtResource("4_jy5mo")])
+place_effects = Array[ExtResource("1_xsndr")]([])
+begin_round_effects = Array[ExtResource("1_xsndr")]([])
+end_round_effects = Array[ExtResource("1_xsndr")]([])
+destroyed_effects = Array[ExtResource("1_xsndr")]([])
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"

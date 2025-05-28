@@ -32,5 +32,11 @@ shader_parameter/DissolveValue = 1.0
 material = SubResource("ShaderMaterial_pqbld")
 script = ExtResource("2_r1n0u")
 
+[node name="EntityImage" parent="." index="0"]
+texture = null
+
 [node name="CardImage" parent="." index="1"]
 material = SubResource("ShaderMaterial_r1n0u")
+
+[node name="GhostImage" parent="." index="2"]
+texture = null

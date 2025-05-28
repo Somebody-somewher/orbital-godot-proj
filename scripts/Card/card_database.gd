@@ -10,7 +10,7 @@ const CARDS = {#Visual Name, Effect Pattern, List of entities "score", stackable
 	"multiplayer" : ["multiplayer", "", [], []],
 	"exit" : ["Exit", "", [], []],
 	"start_game" : ["Start Game", "", [], []],
-	"settings" : ["Settings", "", [], []],
+	"settings" : ["Options", "", [], []],
 	"back" : ["back", "", [], []]
 	}
 
