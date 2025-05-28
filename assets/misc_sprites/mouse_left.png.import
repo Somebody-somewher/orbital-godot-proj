@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6eiiyxq48g5e"
-path="res://.godot/imported/dummy_card_pack.png-19db4f9793234041e245c09ad05852e4.ctex"
+uid="uid://ce1iyind0ehym"
+path="res://.godot/imported/mouse_left.png-3358fbfd041de14f870dbf52a289d66f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tiles/dummy_card_pack.png"
-dest_files=["res://.godot/imported/dummy_card_pack.png-19db4f9793234041e245c09ad05852e4.ctex"]
+source_file="res://assets/misc_sprites/mouse_left.png"
+dest_files=["res://.godot/imported/mouse_left.png-3358fbfd041de14f870dbf52a289d66f.ctex"]
 
 [params]
 

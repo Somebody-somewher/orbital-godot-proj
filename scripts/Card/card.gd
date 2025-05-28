@@ -58,6 +58,7 @@ func _process(delta: float) -> void:
 	pass
 
 func dissolve_card() -> void:
+	get_node("Area2D/CollisionShape2D").disabled = true
 	dissolving = true
 
 ## OVERWRITE BELOW IN CHILD CLASSES

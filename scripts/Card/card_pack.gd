@@ -20,7 +20,7 @@ var dissolve_value = 1
 var database_ref = preload("res://scripts/Card/card_database.gd")
 
 func _ready() -> void:
-	pass
+	get_node("AnimationPlayer").play("fall animation")
 
 #func process_click(node : Node2D, sig : String):
 	#if (sig == "cardpack_clicked" && node == self):
@@ -57,6 +57,7 @@ func select_option(set_option : CardSet) -> void:
 
 func destroy_pack() -> void:
 	for sets in pack_arr:
+		sets.get_node("Area2D/CollisionShape2D").disabled = true
 		for unchosen_card in sets.card_set:
 			unchosen_card.dissolve_card()
 	dissolving = true

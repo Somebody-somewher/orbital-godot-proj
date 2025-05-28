@@ -17,7 +17,7 @@ frequency = 0.0017
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_va8pk"]
 noise = SubResource("FastNoiseLite_o731e")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wp0k4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lhr70"]
 resource_local_to_scene = true
 shader = ExtResource("4_lhr70")
 shader_parameter/Noise = SubResource("NoiseTexture2D_va8pk")
@@ -58,7 +58,7 @@ BOARD_SIZE = 9
 script = ExtResource("3_jlsqs")
 
 [node name="CardPack" parent="CardManager" instance=ExtResource("6_wp0k4")]
-material = SubResource("ShaderMaterial_wp0k4")
+material = SubResource("ShaderMaterial_lhr70")
 position = Vector2(186, 242)
 
 [node name="PlayerHand" type="Node2D" parent="."]

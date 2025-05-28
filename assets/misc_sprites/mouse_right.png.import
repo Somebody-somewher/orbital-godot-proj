@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3kh2qq6nboem"
-path="res://.godot/imported/card_shine.png-e5ffffdd2cad6c51cab7f6c85306919a.ctex"
+uid="uid://b2im0mpr43dxu"
+path="res://.godot/imported/mouse_right.png-8b8fb90f2bf74ccb0e6c60b9734c59ef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/misc_sprites/card_shine.png"
-dest_files=["res://.godot/imported/card_shine.png-e5ffffdd2cad6c51cab7f6c85306919a.ctex"]
+source_file="res://assets/misc_sprites/mouse_right.png"
+dest_files=["res://.godot/imported/mouse_right.png-8b8fb90f2bf74ccb0e6c60b9734c59ef.ctex"]
 
 [params]
 

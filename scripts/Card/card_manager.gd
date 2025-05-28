@@ -54,7 +54,7 @@ func start_drag(card : Node2D):
 
 # placing is if trying to place in tile, false if just return card to hand no matter what
 func finish_drag(placing : bool):
-	if card_dragged is Card:
+	if card_dragged and card_dragged is Card:
 		var card_placed : bool
 		if placing:
 			card_placed = board_ref.place_on_board_if_able(card_dragged.building)

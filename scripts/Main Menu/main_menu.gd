@@ -3,11 +3,16 @@ extends Control
 @onready
 var menu_logic = $MenuLogic
 
-const MAIN = preload("res://scenes/Main.tscn")
+const SINGLEPLAYER = preload("res://scenes/Main.tscn")
+
+@onready var title_menu: TitleMenu = $Menus/TitleMenu
+@onready var options_menu: OptionMenu = $Menus/OptionsMenu
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	title_menu.visible = true
+	options_menu.visible = false
 	connect_signals()
 
 func connect_signals() -> void:
@@ -21,10 +26,12 @@ func connect_signals() -> void:
 	menu_logic.start_singleplayer_game.connect(on_start_singleplayer)
 
 func on_open_settings() -> void:
-	pass
+	title_menu.animate(false)
+	options_menu.animate(true)
 
 func on_close_settings() -> void:
-	pass
+	options_menu.animate(false)
+	title_menu.animate(true)
 
 func on_open_singleplayer() -> void:
 	pass
@@ -39,7 +46,7 @@ func on_close_multiplayer() -> void:
 	pass
 
 func on_start_singleplayer() -> void:
-	get_tree().change_scene_to_packed(MAIN)
+	get_tree().change_scene_to_packed(SINGLEPLAYER)
 
 func on_exit_game() -> void:
 	get_tree().quit()
