@@ -1,6 +1,94 @@
 {
   "column_properties": {
+    "res://Resources/AOE/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
     "res://Resources/BuildingData/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/Buildings/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/Buildings/BuildingData/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/Buildings/BuildingData/Terrain/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/Buildings/CardSetData/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/CardSet/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/CardSetData/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/Events/": {
       "metadata/_custom_type_script": {
         "visibility": 0.0
       },
@@ -13,7 +101,15 @@
     }
   },
   "recent_paths": [
-    "res://Resources/BuildingData/"
+    "res://Resources/BuildingData/",
+    "res://Resources/Buildings/BuildingData/",
+    "res://Resources/AOE/",
+    "res://Resources/Buildings/BuildingData/Terrain/",
+    "res://Resources/Buildings/CardSetData/",
+    "res://Resources/CardSetData/",
+    "res://Resources/Buildings/",
+    "res://Resources/Events/",
+    "res://Resources/CardSet/"
   ],
   "table_functions": {
     "filter": [

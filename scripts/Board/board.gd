@@ -22,7 +22,7 @@ static var NULL_TILE = Vector2i(-1,-1)
 @export var BOARD_SCALE : float = 0.1
 @export var TILE_SIZE : float
 
-# Position of where the board is created on screen
+# Global Coords of where board spans on screen
 var board_coord : Array[Vector2] #pair of coords, top left corner and bottom right corner
 
 @export var proc_gen : ProceduralGenerator = preload("res://Resources/ProcGen/DummyProcGen.tres")
@@ -32,8 +32,6 @@ var proc_gen_offset : Vector2i = Vector2i(0,0)
 @export var environment : EnvTerrainMapping = preload("res://Resources/EnvTerrain/TestEnvTerrainMapping.tres")
 
 #################### FOR INIT ##################################
-
-
 # makes hovering on and off reset relevant tiles only and not the whole board
 var affected_tiles : Array[Vector2i] = []
 
@@ -131,7 +129,7 @@ func get_global_length() -> int:
 func place_building_on_tile(tile_pos : Vector2i, building: Building) -> void:
 	add_child(building)
 	# MUST ADD CHILD BEFORE TRIGGER PLACE EVENT (add child initlizes the build which connects signals for scoring)
-	building.trigger_event_arr(building.place_effect, board_matrix, tile_pos)
+	building.trigger_place_effects(board_matrix, tile_pos)
 	# MUST TRIGGER BEFORE ADDING (otherwise places self on board then can score against itself)
 	board_matrix[tile_pos.x][tile_pos.y].add_building(building)
 	
@@ -141,7 +139,7 @@ func place_building_on_tile(tile_pos : Vector2i, building: Building) -> void:
 # Returns true if Placeable is successfully placed, else returns false
 func place_on_board_if_able(building: Building) -> bool:
 	var tile_mouse_pos : Vector2i = get_mouse_tile_pos()
-	if tile_mouse_pos != NULL_TILE and building.placeable(board_matrix, tile_mouse_pos):
+	if tile_mouse_pos != NULL_TILE and building.placeable(self, tile_mouse_pos):
 		place_building_on_tile(tile_mouse_pos, building)
 		return true
 	return false
@@ -155,20 +153,27 @@ func constrain_pattern_to_board(pattern_arr : Array, tile_pos : Vector2i) -> Arr
 	return out_arr
 
 # highlight scoring tiles if building were to be placed
-func preview_placement(try_building : Building, tile_pos : Vector2i) -> void :
+func preview_placement(try_building : PlaceableNode, tile_pos : Vector2i) -> void :
 	reset_preview()
-	try_building.score_effect.calculate_and_display_scoring(try_building.id_name, self, tile_pos)
+	affected_tiles = try_building.data.get_preview(self, tile_pos)
+	highlight_affected()
 
+# There might be a scenario where affected_tiles is changed before we can reset_preview
+# If that's the case, just do a full reset?
 func reset_preview() -> void :
 	for tile_pos in affected_tiles:
 		highlight_tile(tile_pos, false)
-
+		
 func highlight_tile(coord : Vector2i, on : bool) -> void:
 	if on:
 		highlight_map.set_cell(coord,2, Vector2i(0,0),0)
 	else:
 		highlight_map.set_cell(coord, -1, Vector2i(0,0), 0)
 		get_tile(coord).off_score_display()
+		
+func highlight_affected() -> void:
+	for highlight_tile_pos in affected_tiles:
+		highlight_tile(highlight_tile_pos, true)
 
 #sets buildings in proper place and draw order
 func redraw() -> void :

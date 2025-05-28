@@ -30,7 +30,7 @@ config/icon="res://assets/icon.svg"
 
 [autoload]
 
-SpritesheetLoader="*res://scenes/SpritesheetLoader.tscn"
+CardLoaderr="*res://scenes/CardLoader.tscn"
 
 [display]
 

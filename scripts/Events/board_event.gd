@@ -1,7 +1,10 @@
-extends Resource
+extends Resource # Pretend this is a Functional Interface
 class_name BoardEvent
 
-static var database_ref = preload("res://scripts/Card/card_database.gd")
+@export var aoe : AOE
 
-func trigger(id_name : String, board_matrix, tile_pos : Vector2i) -> void:
+func trigger(board_matrix, tile_pos : Vector2i) -> void:
 	pass
+
+func get_preview(board_matrix, tile_pos : Vector2i) -> Array[Vector2i]:
+	return []
