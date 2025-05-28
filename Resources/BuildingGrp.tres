@@ -7,5 +7,5 @@ script = ExtResource("1_f7c0a")
 base_folder = "res://Resources/Buildings/"
 includes = Array[String](["**.tres"])
 excludes = Array[String]([])
-paths = Array[String](["res://Resources/Buildings/cow.tres", "res://Resources/Buildings/cute_dummy.tres", "res://Resources/Buildings/dummy.tres", "res://Resources/Buildings/Terrain/flower.tres", "res://Resources/Buildings/Terrain/forest.tres", "res://Resources/Buildings/Terrain/mountain.tres", "res://Resources/Buildings/Terrain/rock.tres"])
+paths = Array[String](["res://Resources/Buildings/cow.tres", "res://Resources/Buildings/cute_dummy.tres", "res://Resources/Buildings/dummy.tres", "res://Resources/Buildings/MainMenu/back.tres", "res://Resources/Buildings/MainMenu/exit.tres", "res://Resources/Buildings/MainMenu/multiplayer.tres", "res://Resources/Buildings/MainMenu/settings.tres", "res://Resources/Buildings/MainMenu/singleplayer.tres", "res://Resources/Buildings/MainMenu/start_game.tres", "res://Resources/Buildings/Terrain/flower.tres", "res://Resources/Buildings/Terrain/forest.tres", "res://Resources/Buildings/Terrain/mountain.tres", "res://Resources/Buildings/Terrain/rock.tres"])
 metadata/_custom_type_script = "uid://c8qc3g5w3svt1"

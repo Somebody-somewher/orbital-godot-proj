@@ -10,6 +10,8 @@ static var building_scene: PackedScene = load("res://scenes/Building.tscn")
 
 static var database_ref = preload("res://scripts/Card/card_database.gd")
 
+var dissolving = false
+var dissolve_value = 1
 
 func _ready() -> void:
 	# TODO: again, can remove this when scoring manager is finalized

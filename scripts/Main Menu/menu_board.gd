@@ -41,7 +41,7 @@ func place_building_on_tile(tile_pos : Vector2i, building: Building) -> void:
 	building.position = tilecoords_to_localpos(tile_pos)
 	building.get_node("JiggleAnimation").play("jiggle")
 	player_hand_ref.discard_hand()
-	menu_state = menu_logic_ref.select_option(menu_state, building.id_name)
+	menu_state = menu_logic_ref.select_option(menu_state, building.data.id_name)
 	
 	timer.start()
 
