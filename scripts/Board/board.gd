@@ -139,7 +139,7 @@ func place_building_on_tile(tile_pos : Vector2i, building: Building) -> void:
 # Returns true if Placeable is successfully placed, else returns false
 func place_on_board_if_able(building: Building) -> bool:
 	var tile_mouse_pos : Vector2i = get_mouse_tile_pos()
-	if tile_mouse_pos != NULL_TILE and building.placeable(board_matrix, tile_mouse_pos):
+	if tile_mouse_pos != NULL_TILE and building.placeable(self, tile_mouse_pos):
 		place_building_on_tile(tile_mouse_pos, building)
 		return true
 	return false

@@ -1,17 +1,20 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=6 format=3 uid="uid://dk7iio2goxfk"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://dk7iio2goxfk"]
 
 [ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_xjls2"]
-[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/Env & Buildings/Effects&Conditions/Condition.gd" id="2_evjhv"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="2_evjhv"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="3_e61nv"]
 [ext_resource type="Resource" uid="uid://ci1g32fnst1e8" path="res://Resources/Events/placeholder.tres" id="4_ek4gq"]
 [ext_resource type="Texture2D" uid="uid://doaryg22mqed3" path="res://assets/entity_sprites/dummy.png" id="4_evjhv"]
+[ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_jppyh"]
 
 [resource]
 script = ExtResource("3_e61nv")
 building_sprite = ExtResource("4_evjhv")
+stackable = false
 id_name = "dummy"
+desc = ""
 preview_event = ExtResource("4_ek4gq")
-place_conditions = Array[ExtResource("2_evjhv")]([])
+place_conditions = Array[ExtResource("2_evjhv")]([ExtResource("4_jppyh")])
 place_effects = Array[ExtResource("1_xjls2")]([])
 begin_round_effects = Array[ExtResource("1_xjls2")]([])
 end_round_effects = Array[ExtResource("1_xjls2")]([])

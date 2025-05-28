@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="StackableCondition" load_steps=2 format=3 uid="uid://drnfeaq3u5mli"]
+
+[ext_resource type="Script" uid="uid://jaa3dquffbvf" path="res://scripts/PlaceConditions/StackableCondition.gd" id="1_r1yge"]
+
+[resource]
+script = ExtResource("1_r1yge")
+reminder_msg = ""
+metadata/_custom_type_script = "uid://jaa3dquffbvf"

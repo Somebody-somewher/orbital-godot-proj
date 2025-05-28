@@ -10,8 +10,6 @@ static var building_scene: PackedScene = load("res://scenes/Building.tscn")
 
 static var database_ref = preload("res://scripts/Card/card_database.gd")
 
-# resource loading, can remove once script laoder is up and running
-static var stack_pred = preload("res://scripts/PlaceConditions/placeable_if_stackable.gd").new()
 
 func _ready() -> void:
 	# TODO: again, can remove this when scoring manager is finalized
