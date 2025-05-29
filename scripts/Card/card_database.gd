@@ -1,3 +1,5 @@
+class_name OldDataBase
+
 const CARDS = {#Visual Name, Effect Pattern, List of entities "score", stackables
 	"dummy" : ["Dummy", "3x3", [], []],
 	"cow" : ["Cow", "med orth cross", [["cow", 20], ["flower", 10], ["cute_dummy", 10]], []],
@@ -15,9 +17,7 @@ const CARDS = {#Visual Name, Effect Pattern, List of entities "score", stackable
 	}
 
 const SETS = {#arr of card type, no. of cards
-	"Dummy Set" : [["cute_dummy", 2]],
 	"Big Cow Set" : [["cow", 7]],
-	"Nature Set" : [["flower", 3], ["rock", 3], ["forest", 3]],
 	"Alcohol" : [["bar", 1],["brewery", 1],["trash", 2]],
 	"Worship" : [["temple", 1],["obelisk", 2]],
 	"Homeless" : [["hobo_tent", 3],["campfire", 1],["trash", 1]],
@@ -34,7 +34,7 @@ const SETS = {#arr of card type, no. of cards
 	"Curiosities" : [["summoning_circle", 1],["obelisk",3]],
 	"Animal Farm" : [["pig", 2],["cow",2], ["chicken", 2]],
 	"RATS" : [["rat", 4],["rat_swarm",1]],
-	"Rat King" : [["rat_king", 1],["rats",2]],
+	"Rat King" : [["rat_king", 1],["rat",2]],
 	"Wheat" : [["wheat_field", 2],["silo",1], ["chicken",1]],
 	"Market" : [["market", 3],["wagon",1]],
 	"Housing" : [["hut", 2],["cottage",2], ["farmhouse", 1]],
@@ -49,6 +49,13 @@ const AOE = { #arr of relative coordinates as areas of influence
 	"" : [[0,0]],
 	"circle" : [[0, 0], [1, 2], [0, 2], [-1, 2], [1, -2], [0, -2], [-1, -2],[2, 1], [2, 0], [2, -1],[-2, 1], [-2, 0], [-2, -1]]
 }
+
+static func get_random_set(n : int) -> Array[String]:
+	var size = SETS.size()
+	var arr : Array[String] = []
+	for i in range(n):
+		arr.append(SETS.keys()[randi() % size])
+	return arr
 
 # Set queries
 static func get_set_cards_by_set_id(id: String) -> Array:

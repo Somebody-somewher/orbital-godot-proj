@@ -12,6 +12,7 @@ script = ExtResource("6_ixg5o")
 building_sprite = ExtResource("2_vqe3g")
 stackable = false
 id_name = "singleplayer"
+display_name = ""
 desc = ""
 preview_event = ExtResource("5_61hkv")
 place_conditions = Array[ExtResource("3_ipx1i")]([ExtResource("4_1htiq")])

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AOE" load_steps=2 format=3 uid="uid://bqj6plgggbig8"]
+[gd_resource type="Resource" script_class="AOE" load_steps=2 format=3 uid="uid://bw4fr7b37hpod"]
 
 [ext_resource type="Script" uid="uid://c7e63aqn2ejbs" path="res://scripts/Env & Buildings/AOE.gd" id="1_n21cj"]
 

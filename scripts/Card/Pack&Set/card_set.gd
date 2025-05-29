@@ -16,7 +16,7 @@ var card_scene = preload("res://scenes/Card/Card.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var z_count = 0
+	var z_count = 10
 	for card_type in card_arr: ##card_type is of form [str, int]
 		for i in range(card_type[1]):
 			var new_card = BuildingCard.new_card(card_type[0])

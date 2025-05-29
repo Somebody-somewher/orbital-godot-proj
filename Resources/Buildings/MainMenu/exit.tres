@@ -12,6 +12,7 @@ script = ExtResource("6_i6www")
 building_sprite = ExtResource("2_emapj")
 stackable = false
 id_name = "exit"
+display_name = ""
 desc = ""
 preview_event = ExtResource("5_nhxe2")
 place_conditions = Array[ExtResource("3_j7jxg")]([ExtResource("4_a6bpj")])

@@ -120,6 +120,17 @@
       "resource_name": {
         "visibility": 0.0
       }
+    },
+    "res://Resources/Events/Scoring/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
     }
   },
   "recent_paths": [
@@ -133,7 +144,8 @@
     "res://Resources/Events/",
     "res://Resources/CardSet/",
     "res://Resources/Buildings/MainMenu/",
-    "res://Resources/Buildings/Terrain/"
+    "res://Resources/Buildings/Terrain/",
+    "res://Resources/Events/Scoring/"
   ],
   "table_functions": {
     "filter": [

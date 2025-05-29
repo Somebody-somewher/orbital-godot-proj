@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Score_BoardEffect" load_steps=3 format=3 uid="uid://by2gagjkifvdo"]
+
+[ext_resource type="Resource" uid="uid://ci7hb7fl2b4jp" path="res://Resources/AOE/3x3.tres" id="1_w6482"]
+[ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/score_board_event.gd" id="2_aatbi"]
+
+[resource]
+script = ExtResource("2_aatbi")
+effect_buildings_score = Dictionary[String, int]({
+"belltower": 2,
+"castle": 5,
+"cottage": 5,
+"farmhouse": 2,
+"well": 5
+})
+base_score = 0
+aoe = ExtResource("1_w6482")
+metadata/_custom_type_script = "uid://dcbw4orenctn8"

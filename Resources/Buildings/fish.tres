@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dqvfytb2ehvoo" path="res://assets/entity_sprites/fish.PNG" id="2_j2wxc"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_ge8fs"]
 [ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_3yx6s"]
-[ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events/Scoring/cow_scoring.tres" id="5_l2kgl"]
+[ext_resource type="Resource" uid="uid://cfvqq8226f2sc" path="res://Resources/Events/Scoring/fish_scoring.tres" id="5_j2wxc"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_dea2g"]
 
 [resource]
@@ -14,7 +14,7 @@ stackable = false
 id_name = "fish"
 display_name = "Fish"
 desc = ""
-preview_event = ExtResource("5_l2kgl")
+preview_event = ExtResource("5_j2wxc")
 place_conditions = Array[ExtResource("3_ge8fs")]([ExtResource("4_3yx6s")])
 place_effects = Array[ExtResource("1_j2wxc")]([])
 begin_round_effects = Array[ExtResource("1_j2wxc")]([])

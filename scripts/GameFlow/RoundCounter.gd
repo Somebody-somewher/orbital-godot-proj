@@ -27,7 +27,6 @@ func _ready() -> void:
 	Signalbus.end_turn.connect(_player_end_turn)
 	curr_timer = rounds[0][1]
 	prev_s = int(curr_timer)
-	pass # Replace with function body.
 
 func _process(delta: float) -> void:
 	

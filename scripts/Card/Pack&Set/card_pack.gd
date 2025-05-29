@@ -1,7 +1,7 @@
 extends Node2D
 class_name CardPack
 
-var pack_sets = ["Big Cow Set", "Alcohol", "Worship", "Farm"] ##array of sets
+var pack_sets = ["Village", "Housing", "Worship", "Farm"] ##array of sets
 var pack_arr = []
 var choices := 1
 
@@ -22,13 +22,7 @@ var database_ref = preload("res://scripts/Card/card_database.gd")
 
 func _ready() -> void:
 	get_node("AnimationPlayer").play("fall animation")
-
-#func process_click(node : Node2D, sig : String):
-	#if (sig == "cardpack_clicked" && node == self):
-		#open_pack()
-	#elif (sig == "cardset_clicked" && node.get_parent() == self):
-		#select_option(node)
-
+	
 # factory constructor
 # TODO: pass the placeabale_data as the param instead?
 static func new_pack(setdata : Array[String]) -> CardPack:

@@ -43,6 +43,8 @@ func left_click_logic(result) -> void:
 	var result_found = result.collider.get_parent()
 	match result_mask:
 		CARD_COLLISION_MASK:
+			if result_found.dissolving:
+				return
 			play_click(.7)
 			var card_manager = result_found.get_parent()
 			card_manager.start_drag(result_found)
@@ -67,7 +69,8 @@ func right_click_logic(result) -> void:
 			result_found.open_pack()
 			var card_manager = result_found.get_parent()
 			card_manager.finish_drag(false)
-			curr_mask = MASKS.get("set_only")
+			if !result_found is MenuPack:
+				curr_mask = MASKS.get("set_only")
 
 func raycast_and_click(mask, input_type : int):
 	var space_state : PhysicsDirectSpaceState2D = get_world_2d().direct_space_state

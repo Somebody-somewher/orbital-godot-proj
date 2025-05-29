@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dqpv03qpq24vj" path="res://assets/entity_sprites/tombstone.PNG" id="2_m6jgl"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_1sjlg"]
 [ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_ugoco"]
-[ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events/Scoring/cow_scoring.tres" id="5_ieiie"]
+[ext_resource type="Resource" uid="uid://npmjdfbkaqh" path="res://Resources/Events/Scoring/tombstone_scoring.tres" id="5_m6jgl"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_s3uoj"]
 
 [resource]
@@ -14,7 +14,7 @@ stackable = false
 id_name = "tombstone"
 display_name = "Grave"
 desc = ""
-preview_event = ExtResource("5_ieiie")
+preview_event = ExtResource("5_m6jgl")
 place_conditions = Array[ExtResource("3_1sjlg")]([ExtResource("4_ugoco")])
 place_effects = Array[ExtResource("1_m6jgl")]([])
 begin_round_effects = Array[ExtResource("1_m6jgl")]([])
