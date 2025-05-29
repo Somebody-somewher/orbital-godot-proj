@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://daqcqd2xya2my" path="res://assets/entity_sprites/mine.PNG" id="2_25vpq"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_py65h"]
 [ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_n1s3d"]
-[ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events/Scoring/cow_scoring.tres" id="5_1r2li"]
+[ext_resource type="Resource" uid="uid://c0ouls6omx0x8" path="res://Resources/Events/Scoring/mine_scoring.tres" id="5_25vpq"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_rpess"]
 
 [resource]
@@ -14,7 +14,7 @@ stackable = false
 id_name = "mine"
 display_name = "Mine"
 desc = ""
-preview_event = ExtResource("5_1r2li")
+preview_event = ExtResource("5_25vpq")
 place_conditions = Array[ExtResource("3_py65h")]([ExtResource("4_n1s3d")])
 place_effects = Array[ExtResource("1_25vpq")]([])
 begin_round_effects = Array[ExtResource("1_25vpq")]([])

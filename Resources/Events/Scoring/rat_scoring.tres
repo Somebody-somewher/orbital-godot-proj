@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Score_BoardEffect" load_steps=3 format=3 uid="uid://c7o0kgompkfmu"]
+
+[ext_resource type="Resource" uid="uid://duwyfru3v1ktu" path="res://Resources/AOE/small orth cross.tres" id="1_a3pdh"]
+[ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/score_board_event.gd" id="2_utrcr"]
+
+[resource]
+script = ExtResource("2_utrcr")
+effect_buildings_score = Dictionary[String, int]({
+"rat": 1,
+"rat_king": 10,
+"rat_swarm": 3
+})
+base_score = 0
+aoe = ExtResource("1_a3pdh")
+metadata/_custom_type_script = "uid://dcbw4orenctn8"

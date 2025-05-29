@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bs7wki2sk1dng" path="res://assets/entity_sprites/chicken.PNG" id="2_0chn6"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_h7ays"]
 [ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_y341o"]
-[ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events/Scoring/cow_scoring.tres" id="5_al1xu"]
+[ext_resource type="Resource" uid="uid://c5eabtc2um2tf" path="res://Resources/Events/Scoring/chicken_scoring.tres" id="5_0chn6"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_nh12u"]
 
 [resource]
@@ -14,7 +14,7 @@ stackable = false
 id_name = "chicken"
 display_name = "Chicken"
 desc = ""
-preview_event = ExtResource("5_al1xu")
+preview_event = ExtResource("5_0chn6")
 place_conditions = Array[ExtResource("3_h7ays")]([ExtResource("4_y341o")])
 place_effects = Array[ExtResource("1_0chn6")]([])
 begin_round_effects = Array[ExtResource("1_0chn6")]([])

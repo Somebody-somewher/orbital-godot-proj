@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Score_BoardEffect" load_steps=3 format=3 uid="uid://bk2h44tin70a7"]
+
+[ext_resource type="Resource" uid="uid://bqj6plgggbig8" path="res://Resources/AOE/5x5.tres" id="1_0ohux"]
+[ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/score_board_event.gd" id="2_cd24q"]
+
+[resource]
+script = ExtResource("2_cd24q")
+effect_buildings_score = Dictionary[String, int]({
+"fountain": 10,
+"statue": 5,
+"tower": 10
+})
+base_score = 0
+aoe = ExtResource("1_0ohux")
+metadata/_custom_type_script = "uid://dcbw4orenctn8"

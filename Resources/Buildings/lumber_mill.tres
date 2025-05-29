@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://tgmlei158ywi" path="res://assets/entity_sprites/lumber_mill.PNG" id="2_655yj"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_asja7"]
 [ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_0woec"]
-[ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events/Scoring/cow_scoring.tres" id="5_dlvg1"]
+[ext_resource type="Resource" uid="uid://d1440mswfb5l7" path="res://Resources/Events/Scoring/lumber_mill_scoring.tres" id="5_655yj"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_cwisb"]
 
 [resource]
@@ -14,7 +14,7 @@ stackable = false
 id_name = "lumber_mill"
 display_name = "Lumber Mill"
 desc = ""
-preview_event = ExtResource("5_dlvg1")
+preview_event = ExtResource("5_655yj")
 place_conditions = Array[ExtResource("3_asja7")]([ExtResource("4_0woec")])
 place_effects = Array[ExtResource("1_655yj")]([])
 begin_round_effects = Array[ExtResource("1_655yj")]([])

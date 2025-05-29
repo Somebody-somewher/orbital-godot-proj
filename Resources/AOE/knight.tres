@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_6s0a7")
-aoe_tile_positions = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 2), Vector2i(-1, 2), Vector2i(1, -2), Vector2i(-1, -2), Vector2i(2, 1), Vector2i(2, -1), Vector2i(-2, 1), Vector2i(2, -1)])
+aoe_tile_positions = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 2), Vector2i(-1, 2), Vector2i(1, -2), Vector2i(-1, -2), Vector2i(2, 1), Vector2i(2, -1), Vector2i(-2, 1), Vector2i(2, -1), Vector2i(-2, -1)])
 metadata/_custom_type_script = "uid://c7e63aqn2ejbs"

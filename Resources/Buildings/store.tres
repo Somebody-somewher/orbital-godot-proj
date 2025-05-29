@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cmjkydg2tn62q" path="res://assets/entity_sprites/store.PNG" id="2_0owbc"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_0t3s5"]
 [ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_qe1yt"]
-[ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events/Scoring/cow_scoring.tres" id="5_g7vtu"]
+[ext_resource type="Resource" uid="uid://bwtyis8yhxr21" path="res://Resources/Events/Scoring/store_scoring.tres" id="5_0owbc"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_de6wx"]
 
 [resource]
@@ -14,7 +14,7 @@ stackable = false
 id_name = "store"
 display_name = "Store"
 desc = ""
-preview_event = ExtResource("5_g7vtu")
+preview_event = ExtResource("5_0owbc")
 place_conditions = Array[ExtResource("3_0t3s5")]([ExtResource("4_qe1yt")])
 place_effects = Array[ExtResource("1_0owbc")]([])
 begin_round_effects = Array[ExtResource("1_0owbc")]([])

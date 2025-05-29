@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://doys56emuovhp" path="res://assets/entity_sprites/carrots.PNG" id="2_0dghj"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_3dr4x"]
 [ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_cqpmw"]
-[ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events/Scoring/cow_scoring.tres" id="5_xc2se"]
+[ext_resource type="Resource" uid="uid://dilo0bb7o7p6n" path="res://Resources/Events/Scoring/carrots_scoring.tres" id="5_0dghj"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_bpte0"]
 
 [resource]
@@ -14,7 +14,7 @@ stackable = false
 id_name = "carrots"
 display_name = "Carrots"
 desc = ""
-preview_event = ExtResource("5_xc2se")
+preview_event = ExtResource("5_0dghj")
 place_conditions = Array[ExtResource("3_3dr4x")]([ExtResource("4_cqpmw")])
 place_effects = Array[ExtResource("1_0dghj")]([])
 begin_round_effects = Array[ExtResource("1_0dghj")]([])

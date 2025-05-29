@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Score_BoardEffect" load_steps=3 format=3 uid="uid://dtanb0etdnafe"]
+
+[ext_resource type="Resource" uid="uid://duwyfru3v1ktu" path="res://Resources/AOE/small orth cross.tres" id="1_ddj64"]
+[ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/score_board_event.gd" id="2_gokmw"]
+
+[resource]
+script = ExtResource("2_gokmw")
+effect_buildings_score = Dictionary[String, int]({
+"brewery": 5,
+"campfire": 5,
+"hobo_tent": -3
+})
+base_score = 0
+aoe = ExtResource("1_ddj64")
+metadata/_custom_type_script = "uid://dcbw4orenctn8"
