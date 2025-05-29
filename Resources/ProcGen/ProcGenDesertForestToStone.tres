@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ProcGenPostProabilitySwitch" load_steps=2 format=3 uid="uid://pql73viwb0oq"]
+
+[ext_resource type="Script" uid="uid://bk7ad1qnu3k12" path="res://scripts/ProceduralGeneration/PostProcessors/ProcGenPostProbabilitySwitch.gd" id="1_mtsp0"]
+
+[resource]
+script = ExtResource("1_mtsp0")
+conversion_list = Dictionary[String, String]({
+"forest": "rock"
+})
+terrain = "Desert"
+probability = Dictionary[String, int]({
+"forest": 70
+})
+metadata/_custom_type_script = "uid://bk7ad1qnu3k12"
