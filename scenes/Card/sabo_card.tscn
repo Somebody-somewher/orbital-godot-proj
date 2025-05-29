@@ -1,0 +1,23 @@
+[gd_scene load_steps=7 format=3 uid="uid://dkt5tpnpmfhde"]
+
+[ext_resource type="PackedScene" uid="uid://8dgw8wdiub72" path="res://scenes/Card/Card.tscn" id="1_yha33"]
+[ext_resource type="Script" uid="uid://464u6c7oxq1w" path="res://scripts/Card/sabo_card.gd" id="2_hbnxi"]
+[ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="3_t4yfk"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4dx8l"]
+frequency = 0.0017
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qf083"]
+noise = SubResource("FastNoiseLite_4dx8l")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gp6yf"]
+resource_local_to_scene = true
+shader = ExtResource("3_t4yfk")
+shader_parameter/Noise = SubResource("NoiseTexture2D_qf083")
+shader_parameter/DissolveValue = 1.0
+
+[node name="SaboCard" instance=ExtResource("1_yha33")]
+script = ExtResource("2_hbnxi")
+
+[node name="CardImage" parent="." index="1"]
+material = SubResource("ShaderMaterial_gp6yf")

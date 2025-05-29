@@ -5,7 +5,7 @@ class_name Board
 var highlight_map : TileMapLayer = $"./Highlights"
 # TerrainDisplay vs TerrainActual https://www.youtube.com/watch?v=jEWFSv3ivTg
 
-@onready
+@onready 
 var env_map : TileMapLayer = $"./TerrainActual"
 
 # Contains a 2d Matrix of BoardTiles
@@ -22,7 +22,7 @@ static var NULL_TILE = Vector2i(-1,-1)
 @export var BOARD_SCALE : float = 0.1
 @export var TILE_SIZE : float
 
-# Position of where the board is created on screen
+# Global Coords of where board spans on screen
 var board_coord : Array[Vector2] #pair of coords, top left corner and bottom right corner
 
 @export var proc_gen : ProceduralGenerator = preload("res://Resources/ProcGen/DummyProcGen.tres")
@@ -32,18 +32,10 @@ var proc_gen_offset : Vector2i = Vector2i(0,0)
 @export var environment : EnvTerrainMapping = preload("res://Resources/EnvTerrain/TestEnvTerrainMapping.tres")
 
 #################### FOR INIT ##################################
-
-
 # makes hovering on and off reset relevant tiles only and not the whole board
 var affected_tiles : Array[Vector2i] = []
 
-# allows for scoring
-@onready
-var player_ref = $"../StatsManager"
-
 func _ready() -> void:
-	
-	
 	# Update the positioning of the tilemaps
 	env_map.scale = Vector2(BOARD_SCALE, BOARD_SCALE)
 	env_map.z_index = -1
@@ -134,34 +126,23 @@ func get_global_length() -> int:
 	return board_coord[1].x - board_coord[0].x 
 
 # try to place building on tile or swap terrain
-func place_building_on_tile(tile_pos : Vector2i, building: Building) -> bool:
-	var score = get_total_score(building)
-	var success = board_matrix[tile_pos.x][tile_pos.y].stack_if_able(building)
-	if success:
-		player_ref.add_score(score)
-		add_child(building)
-		building.position = tilecoords_to_localpos(tile_pos)
-		building.get_node("JiggleAnimation").play("jiggle")
-	return success
-	#if placeable is Building:
-		#
-	#elif placeable is EnvTerrain:
-		#tile_data.change_terrain(placeable)
-		#env_map.set_cell(tile_pos, 0, environment.getTilebyId(placeable.tile_name), 0)
-		#return true
-
-# sums up score achieved based on current array of affected tiles
-func get_total_score(building: Building) -> int:
-	var sum : int = 0
-	for highlight_tile_pos in affected_tiles:
-		sum += get_tile(highlight_tile_pos).calculate_score(building)
-	return sum
+func place_building_on_tile(tile_pos : Vector2i, building: Building) -> void:
+	building.z_index = tile_pos.y
+	add_child(building)
+	# MUST ADD CHILD BEFORE TRIGGER PLACE EVENT (add child initlizes the build which connects signals for scoring)
+	building.trigger_place_effects(self, tile_pos)
+	# MUST TRIGGER BEFORE ADDING (otherwise places self on board then can score against itself)
+	board_matrix[tile_pos.x][tile_pos.y].add_building(building)
+	
+	building.position = tilecoords_to_localpos(tile_pos)
+	building.get_node("JiggleAnimation").play("jiggle")
 
 # Returns true if Placeable is successfully placed, else returns false
 func place_on_board_if_able(building: Building) -> bool:
 	var tile_mouse_pos : Vector2i = get_mouse_tile_pos()
-	if tile_mouse_pos != NULL_TILE:
-		return place_building_on_tile(tile_mouse_pos, building)
+	if tile_mouse_pos != NULL_TILE and building.placeable(self, tile_mouse_pos):
+		place_building_on_tile(tile_mouse_pos, building)
+		return true
 	return false
 
 func constrain_pattern_to_board(pattern_arr : Array, tile_pos : Vector2i) -> Array[Vector2i] :
@@ -172,19 +153,28 @@ func constrain_pattern_to_board(pattern_arr : Array, tile_pos : Vector2i) -> Arr
 			out_arr.push_back(true_tile)
 	return out_arr
 
-# highlight affected tiles if building were to be placed
-func preview_placement(try_building : Building, tile_pos : Vector2i) -> void :
+# highlight scoring tiles if building were to be placed
+func preview_placement(try_building : PlaceableNode, tile_pos : Vector2i) -> void :
 	reset_preview()
-	affected_tiles = constrain_pattern_to_board(try_building.AOE, tile_pos)
-	for highlight_tile_pos in affected_tiles:
-		highlight_map.set_cell(highlight_tile_pos,2, Vector2i(0,0),0)
-		var highlight_tile: BoardTile = get_tile(highlight_tile_pos)
-		highlight_tile.calculate_and_display(try_building)
+	affected_tiles = try_building.data.get_preview(self, tile_pos)
+	highlight_affected()
 
+# There might be a scenario where affected_tiles is changed before we can reset_preview
+# If that's the case, just do a full reset?
 func reset_preview() -> void :
 	for tile_pos in affected_tiles:
-		highlight_map.set_cell(tile_pos, -1, Vector2i(0,0), 0)
-		get_tile(tile_pos).off_score_display()
+		highlight_tile(tile_pos, false)
+		
+func highlight_tile(coord : Vector2i, on : bool) -> void:
+	if on:
+		highlight_map.set_cell(coord,2, Vector2i(0,0),0)
+	else:
+		highlight_map.set_cell(coord, -1, Vector2i(0,0), 0)
+		get_tile(coord).off_score_display()
+		
+func highlight_affected() -> void:
+	for highlight_tile_pos in affected_tiles:
+		highlight_tile(highlight_tile_pos, true)
 
 #sets buildings in proper place and draw order
 func redraw() -> void :

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://wv050wjwbkma"]
+
+[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_mfkyx"]
+[ext_resource type="Texture2D" uid="uid://tj64456xab8i" path="res://assets/entity_sprites/knight.PNG" id="2_mfkyx"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_lce05"]
+[ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_66dks"]
+[ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events/Scoring/cow_scoring.tres" id="5_t8tie"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_xc2ll"]
+
+[resource]
+script = ExtResource("6_xc2ll")
+building_sprite = ExtResource("2_mfkyx")
+stackable = false
+id_name = "knight"
+display_name = "Knight"
+desc = ""
+preview_event = ExtResource("5_t8tie")
+place_conditions = Array[ExtResource("3_lce05")]([ExtResource("4_66dks")])
+place_effects = Array[ExtResource("1_mfkyx")]([])
+begin_round_effects = Array[ExtResource("1_mfkyx")]([])
+end_round_effects = Array[ExtResource("1_mfkyx")]([])
+destroyed_effects = Array[ExtResource("1_mfkyx")]([])
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"

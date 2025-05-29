@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://f5xpot80o7ki"]
+
+[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_ln6nj"]
+[ext_resource type="Texture2D" uid="uid://cxpinfoya3k27" path="res://assets/entity_sprites/bush.PNG" id="2_ln6nj"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_e7b6i"]
+[ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_vrfe2"]
+[ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events/Scoring/cow_scoring.tres" id="5_nn0ws"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_walet"]
+
+[resource]
+script = ExtResource("6_walet")
+building_sprite = ExtResource("2_ln6nj")
+stackable = false
+id_name = "bush"
+display_name = "Bush"
+desc = ""
+preview_event = ExtResource("5_nn0ws")
+place_conditions = Array[ExtResource("3_e7b6i")]([ExtResource("4_vrfe2")])
+place_effects = Array[ExtResource("1_ln6nj")]([])
+begin_round_effects = Array[ExtResource("1_ln6nj")]([])
+end_round_effects = Array[ExtResource("1_ln6nj")]([])
+destroyed_effects = Array[ExtResource("1_ln6nj")]([])
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"

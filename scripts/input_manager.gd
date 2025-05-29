@@ -15,18 +15,26 @@ enum InputType {LEFT_CLICK, RIGHT_CLICK}
 
 var rng = RandomNumberGenerator.new()
 
+var MASKS := {
+	"all" : 0xFFFFFFFF,
+	"set_only" : 0x00000010,
+	"pack_only" : 0x00000008
+}
+
+var curr_mask := 0xFFFFFFFF
+
 func _input(event):
 	# If it helps Project Settings already has an Input Map for the leftmousebutton btw 
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			emit_signal("left_mouse_click")
-			raycast_and_click(0xFFFFFFFF, InputType.LEFT_CLICK)
+			raycast_and_click(curr_mask, InputType.LEFT_CLICK)
 		else:
 			emit_signal("left_mouse_released")
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
 		if event.pressed:
 			emit_signal("right_mouse_click")
-			raycast_and_click(0xFFFFFFFF, InputType.RIGHT_CLICK)
+			raycast_and_click(curr_mask, InputType.RIGHT_CLICK)
 		else:
 			emit_signal("right_mouse_released")
 
@@ -35,6 +43,7 @@ func left_click_logic(result) -> void:
 	var result_found = result.collider.get_parent()
 	match result_mask:
 		CARD_COLLISION_MASK:
+			play_click(.7)
 			var card_manager = result_found.get_parent()
 			card_manager.start_drag(result_found)
 		PACK_COLLISION_MASK:
@@ -43,6 +52,7 @@ func left_click_logic(result) -> void:
 		SET_COLLISION_MASK:
 			var pack = result_found.get_parent()
 			pack.select_option(result_found)
+			curr_mask = MASKS.get("all")
 		BUILDING_COLLISION_MASK:
 			result_found.get_node("JiggleAnimation").play("jiggle")
 
@@ -57,6 +67,7 @@ func right_click_logic(result) -> void:
 			result_found.open_pack()
 			var card_manager = result_found.get_parent()
 			card_manager.finish_drag(false)
+			curr_mask = MASKS.get("set_only")
 
 func raycast_and_click(mask, input_type : int):
 	var space_state : PhysicsDirectSpaceState2D = get_world_2d().direct_space_state

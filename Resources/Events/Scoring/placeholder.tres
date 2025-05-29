@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BoardEvent" load_steps=3 format=3 uid="uid://ci1g32fnst1e8"]
+
+[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_1gyjp"]
+[ext_resource type="Resource" uid="uid://hu4yh8trux8f" path="res://Resources/AOE/single_tile.tres" id="1_eotr8"]
+
+[resource]
+script = ExtResource("1_1gyjp")
+aoe = ExtResource("1_eotr8")
+metadata/_custom_type_script = "uid://bobjhb6fpbeu4"

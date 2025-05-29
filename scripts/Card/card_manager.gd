@@ -1,5 +1,6 @@
 # Handles Animations for Cards 
 extends Node2D
+class_name CardManager
 
 var card_dragged : Node2D
 var card_hovered : Node2D
@@ -53,7 +54,7 @@ func start_drag(card : Node2D):
 
 # placing is if trying to place in tile, false if just return card to hand no matter what
 func finish_drag(placing : bool):
-	if card_dragged is Card:
+	if card_dragged and card_dragged is Card:
 		var card_placed : bool
 		if placing:
 			card_placed = board_ref.place_on_board_if_able(card_dragged.building)
@@ -126,16 +127,13 @@ func highlight_effects_when_hovering_card() -> void :
 	var tile_pos_i = board_ref.get_mouse_tile_pos()
 	var tile_global_pos = board_ref.get_global_tile_pos(tile_pos_i)
 	if tile_global_pos != Vector2(Board.NULL_TILE):
-		card_dragged.get_node("GhostBuildingImage").visible = true
-		card_dragged.get_node("GhostBuildingImage").global_position = tile_global_pos
-		card_dragged.get_node("GhostBuildingImage").scale = CARD_TILE_RATIO
+		card_dragged.get_node("GhostImage").visible = true
+		card_dragged.get_node("GhostImage").global_position = tile_global_pos
+		card_dragged.get_node("GhostImage").scale = CARD_TILE_RATIO
 		board_ref.preview_placement(card_dragged.building, tile_pos_i)
 	else:
-		card_dragged.get_node("GhostBuildingImage").visible = false
+		card_dragged.get_node("GhostImage").visible = false
 		board_ref.reset_preview()
-
-
-
 
 # Following functions are centralized under CardManager
 # So as to prevent them all from being triggered at the same time

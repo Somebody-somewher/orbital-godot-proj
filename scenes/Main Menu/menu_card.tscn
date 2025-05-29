@@ -1,0 +1,42 @@
+[gd_scene load_steps=10 format=3 uid="uid://b1ajr40q17fg5"]
+
+[ext_resource type="PackedScene" uid="uid://8dgw8wdiub72" path="res://scenes/Card/Card.tscn" id="1_0h4xo"]
+[ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="2_hpw4l"]
+[ext_resource type="Script" uid="uid://7rcwky80yamc" path="res://scripts/Main Menu/menu_card.gd" id="3_15rps"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4dx8l"]
+frequency = 0.0017
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qf083"]
+noise = SubResource("FastNoiseLite_4dx8l")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_grtyi"]
+resource_local_to_scene = true
+shader = ExtResource("2_hpw4l")
+shader_parameter/Noise = SubResource("NoiseTexture2D_qf083")
+shader_parameter/DissolveValue = 1.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gnf8m"]
+frequency = 0.0017
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_j2pkj"]
+noise = SubResource("FastNoiseLite_gnf8m")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gnf8m"]
+resource_local_to_scene = true
+shader = ExtResource("2_hpw4l")
+shader_parameter/Noise = SubResource("NoiseTexture2D_j2pkj")
+shader_parameter/DissolveValue = 1.0
+
+[node name="MenuCard" instance=ExtResource("1_0h4xo")]
+material = SubResource("ShaderMaterial_grtyi")
+script = ExtResource("3_15rps")
+
+[node name="EntityImage" parent="." index="0"]
+texture = null
+
+[node name="CardImage" parent="." index="1"]
+material = SubResource("ShaderMaterial_gnf8m")
+
+[node name="GhostImage" parent="." index="2"]
+texture = null

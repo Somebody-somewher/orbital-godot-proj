@@ -1,18 +1,44 @@
-const CARDS = {#Visual Name, Effect Pattern, List of entities affected, stackables
+const CARDS = {#Visual Name, Effect Pattern, List of entities "score", stackables
 	"dummy" : ["Dummy", "3x3", [], []],
 	"cow" : ["Cow", "med orth cross", [["cow", 20], ["flower", 10], ["cute_dummy", 10]], []],
 	"cute_dummy" : ["Cute Dummy", "small diagonal cross", [["cow", 10]], []],
 	"flower" : ["Flower", "", [], []],
 	"rock" : ["Rock", "circle", [], []],
 	"forest" : ["Forest", "", [], [], ],
-	"mountain" : ["mountain", "", [], []]
+	"mountain" : ["mountain", "", [], []],
+	"singleplayer" : ["Singleplayer", "", [], []],
+	"multiplayer" : ["multiplayer", "", [], []],
+	"exit" : ["Exit", "", [], []],
+	"start_game" : ["Start Game", "", [], []],
+	"settings" : ["Options", "", [], []],
+	"back" : ["back", "", [], []]
 	}
 
 const SETS = {#arr of card type, no. of cards
 	"Dummy Set" : [["cute_dummy", 2]],
 	"Big Cow Set" : [["cow", 7]],
 	"Nature Set" : [["flower", 3], ["rock", 3], ["forest", 3]],
-	"Cute Dummy Set" : [["cute_dummy", 5], ["cow", 3]],
+	"Alcohol" : [["bar", 1],["brewery", 1],["trash", 2]],
+	"Worship" : [["temple", 1],["obelisk", 2]],
+	"Homeless" : [["hobo_tent", 3],["campfire", 1],["trash", 1]],
+	"Lumber" : [["lumber_mill", 1],["beaver", 2]],
+	"Town Square" : [["belltower", 1],["fountain", 1],["statue", 1]],
+	"Carrot" : [["carrots", 4], ["pig", 1]],
+	"Empire" : [["castle", 1],["tower",2]],
+	"Warfare" : [["cannon", 2],["knight",2]],
+	"Chicken" : [["chicken", 3],["wheat_field",1]],
+	"Circus" : [["circus", 1],["scryer_tent",1], ["wagon",1]],
+	"Village" : [["cottage", 3],["well",1]],
+	"Farm" : [["farmhouse", 1],["wheat_field",2], ["mill",1]],
+	"Self Sustaining" : [["garden", 2],["carrots",2], ["market",1]],
+	"Curiosities" : [["summoning_circle", 1],["obelisk",3]],
+	"Animal Farm" : [["pig", 2],["cow",2], ["chicken", 2]],
+	"RATS" : [["rat", 4],["rat_swarm",1]],
+	"Rat King" : [["rat_king", 1],["rats",2]],
+	"Wheat" : [["wheat_field", 2],["silo",1], ["chicken",1]],
+	"Market" : [["market", 3],["wagon",1]],
+	"Housing" : [["hut", 2],["cottage",2], ["farmhouse", 1]],
+	"Modern" : [["bank", 1],["store",1], ["cottage",2]],
 }
 
 const AOE = { #arr of relative coordinates as areas of influence

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://c1cu34fya1h74"]
+
+[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_mdjjk"]
+[ext_resource type="Texture2D" uid="uid://bsm2sktw6m8j3" path="res://assets/entity_sprites/flower.png" id="2_2o7g5"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_u5qik"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="4_ftxdv"]
+[ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_u5qik"]
+
+[sub_resource type="Resource" id="Resource_2o7g5"]
+metadata/__load_path__ = "res://Resources/Events/placeholder.tres"
+
+[resource]
+script = ExtResource("4_ftxdv")
+building_sprite = ExtResource("2_2o7g5")
+stackable = true
+id_name = "flower"
+display_name = ""
+desc = ""
+preview_event = SubResource("Resource_2o7g5")
+place_conditions = Array[ExtResource("3_u5qik")]([ExtResource("4_u5qik")])
+place_effects = Array[ExtResource("1_mdjjk")]([])
+begin_round_effects = Array[ExtResource("1_mdjjk")]([])
+end_round_effects = Array[ExtResource("1_mdjjk")]([])
+destroyed_effects = Array[ExtResource("1_mdjjk")]([])
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"

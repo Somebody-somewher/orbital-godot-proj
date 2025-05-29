@@ -1,0 +1,407 @@
+[gd_scene load_steps=8 format=3 uid="uid://dtsfmua37k8xq"]
+
+[ext_resource type="Script" uid="uid://c057jbxetj07s" path="res://scripts/Main Menu/options_menu.gd" id="1_wkpc6"]
+[ext_resource type="FontFile" uid="uid://bw124sa6qjoe5" path="res://assets/fonts/Pixel Game.otf" id="2_0u5pt"]
+
+[sub_resource type="Theme" id="Theme_1d4sf"]
+
+[sub_resource type="Animation" id="Animation_1d4sf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SettingsTabs/RightTab:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(960, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Title/VBoxContainer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SettingsTabs/LeftTab:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1t40g"]
+resource_name = "enter"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SettingsTabs/RightTab:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Vector2(1610, 0), Vector2(960, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Title/VBoxContainer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.234325, 0.3),
+"transitions": PackedFloat32Array(2.07053, 0.450625, 1),
+"update": 0,
+"values": [Vector2(0, -900), Vector2(0, 30), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SettingsTabs/LeftTab:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.234325),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Vector2(-650, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_c2ct2"]
+resource_name = "exit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SettingsTabs/RightTab:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.499999, 1),
+"update": 0,
+"values": [Vector2(960, 0), Vector2(1610, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Title/VBoxContainer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -900)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SettingsTabs/LeftTab:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-650, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1d4sf"]
+_data = {
+&"RESET": SubResource("Animation_1d4sf"),
+&"enter": SubResource("Animation_1t40g"),
+&"exit": SubResource("Animation_c2ct2")
+}
+
+[node name="SingleplayerMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_wkpc6")
+
+[node name="Title" type="Control" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Title"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+metadata/_edit_use_anchors_ = true
+
+[node name="Separator" type="Control" parent="Title/VBoxContainer"]
+layout_mode = 2
+
+[node name="GameTitle" type="Label" parent="Title/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_shadow_color = Color(0.221331, 0.419319, 0.580994, 1)
+theme_override_constants/shadow_offset_x = 8
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 35
+theme_override_constants/shadow_outline_size = 55
+theme_override_fonts/font = ExtResource("2_0u5pt")
+theme_override_font_sizes/font_size = 180
+text = "singleplayer"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SettingsTabs" type="Control" parent="."]
+layout_mode = 2
+anchors_preset = 0
+offset_right = 1600.0
+offset_bottom = 900.0
+
+[node name="LeftTab" type="Control" parent="SettingsTabs"]
+z_index = 2
+layout_mode = 1
+anchor_right = 0.4
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TabContainer" type="TabContainer" parent="SettingsTabs/LeftTab"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.25
+anchor_right = 1.0
+anchor_bottom = 0.85
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_1d4sf")
+tab_alignment = 2
+current_tab = 1
+
+[node name="Round Settings" type="TabBar" parent="SettingsTabs/LeftTab/TabContainer"]
+visible = false
+layout_mode = 2
+tab_alignment = 1
+metadata/_tab_index = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/LeftTab/TabContainer/Round Settings"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 75
+
+[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Number of Rounds"
+
+[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Sabotage on/off"
+
+[node name="Label3" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Aura pick frequency"
+
+[node name="Difficulty" type="TabBar" parent="SettingsTabs/LeftTab/TabContainer"]
+layout_mode = 2
+mouse_filter = 1
+tab_alignment = 1
+metadata/_tab_index = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/LeftTab/TabContainer/Difficulty"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 75
+
+[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Point needed scaling"
+
+[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "blah"
+
+[node name="Label3" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "blah"
+
+[node name="RightTab" type="Control" parent="SettingsTabs"]
+z_index = 2
+layout_mode = 1
+anchor_left = 0.6
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -6.10352e-05
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="TabContainer" type="TabContainer" parent="SettingsTabs/RightTab"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.25
+anchor_right = 1.0
+anchor_bottom = 0.85
+grow_horizontal = 0
+grow_vertical = 2
+current_tab = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Generation" type="TabBar" parent="SettingsTabs/RightTab/TabContainer"]
+layout_mode = 2
+mouse_filter = 1
+tab_alignment = 1
+metadata/_tab_index = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/RightTab/TabContainer/Generation"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 75
+
+[node name="Label" type="Label" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Board size"
+
+[node name="Label2" type="Label" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Terrain variation"
+
+[node name="Label3" type="Label" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Spawnables"
+
+[node name="Accessiblity" type="TabBar" parent="SettingsTabs/RightTab/TabContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 1
+tab_alignment = 1
+metadata/_tab_index = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/RightTab/TabContainer/Accessiblity"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/RightTab/TabContainer/Accessiblity/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 75
+
+[node name="Label" type="Label" parent="SettingsTabs/RightTab/TabContainer/Accessiblity/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Option"
+
+[node name="Label2" type="Label" parent="SettingsTabs/RightTab/TabContainer/Accessiblity/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Example Option"
+
+[node name="Label3" type="Label" parent="SettingsTabs/RightTab/TabContainer/Accessiblity/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Example Option"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_1d4sf")
+}
