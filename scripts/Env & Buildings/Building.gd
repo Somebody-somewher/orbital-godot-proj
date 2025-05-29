@@ -2,22 +2,13 @@ extends PlaceableNode
 class_name Building
 
 # allows for scoring can move once scoring system is finalized
-# TODO: CHANGE THIS
-@onready
-var statmanager_ref = $"../../PlayerUI"
-
-#for constructor
 static var building_scene: PackedScene = load("res://scenes/Building.tscn")
-
-static var database_ref = preload("res://scripts/Card/card_database.gd")
 
 var dissolving = false
 var dissolve_value = 1
 
 func _ready() -> void:
-	# TODO: again, can remove this when scoring manager is finalized
-	# Scoring function may also not be the preview function. Let data do this?
-	statmanager_ref.connect_event_signals(data.preview_event)
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

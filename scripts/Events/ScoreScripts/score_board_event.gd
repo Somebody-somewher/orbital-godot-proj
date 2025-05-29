@@ -10,8 +10,6 @@ class_name Score_BoardEffect
 var cache_total_score : int = 0
 var cache_position : Vector2i
 
-signal AddScore(score: int)
-
 # Actual code that uses the aoe to figure out which tiles should be scored, then assigns each tile a score
 func score_tiles(board_matrix, tile_pos : Vector2i) -> Array[Array]:
 	var score : int = 0
@@ -49,7 +47,7 @@ func get_preview(board : Board, tile_pos : Vector2i) -> Array[Vector2i]:
 	arr.assign(tile_pos_data_score[0])
 	return arr
 
-func get_score(board : Board, tile_pos : Vector2i) -> void:
+func trigger(board : Board, tile_pos : Vector2i) -> void:
 	# Checked if the scored tiles are different from the cached ones
 	var total_score : int = 0
 	
@@ -63,11 +61,7 @@ func get_score(board : Board, tile_pos : Vector2i) -> void:
 		total_score = cache_total_score
 		cache_total_score = 0
 		cache_position = Vector2i.ZERO
-	signal_add_score(total_score)
-
-# Communicates with ScoreUI
-func signal_add_score(score : int) :
-	AddScore.emit(score)
+	Signalbus.emit_signal("add_score", total_score)
 
 # TO OVERRIDE
 # In case we need to multiply / add score based on tile / building info

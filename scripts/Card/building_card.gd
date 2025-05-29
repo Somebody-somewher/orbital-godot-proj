@@ -21,6 +21,7 @@ static func new_card(card_name : String) -> Card:
 # called when added to player hand
 func initialize_card_effect() -> void:
 	building = Building.new_building(id_name)
+	building.data = CardLoader.get_building_data(id_name)
 	building.visible = true
 	building.get_node("Area2D/CollisionShape2D").disabled = true
 

@@ -13,6 +13,8 @@ func _ready() -> void:
 	Signalbus.connect("round_timer_update",_update_timer_ui)
 	Signalbus.connect("round_start",_update_round_label)
 
+	# TODO: See if this needs removing later
+	Signalbus.connect("add_score", add_score)
 
 func reset_score() -> void:
 	player_score = 0
@@ -21,13 +23,7 @@ func reset_score() -> void:
 func add_score(score : int) -> void:
 	player_score += score
 	score_label.text = "Score: " + str(player_score)
-
-# highlighting signals for cards
-func connect_event_signals(event : Resource):
-	event.connect("AddScore", add_score)
-	pass
-
-
+	
 ### ROUND RELATED ###
 func _update_timer_ui(time : int) -> void:
 	round_timer_label.text = "Time: " + str(time)

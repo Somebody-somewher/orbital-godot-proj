@@ -4,6 +4,7 @@ class_name CardLoader
 
 @export var building_grp : ResourceGroup
 
+
 static var buildings_dict = {}
 
 static var cardset_types : Array[CardSet] = []
@@ -17,7 +18,6 @@ func _ready() -> void:
 	for b in buildings:
 		buildings_dict.get_or_add(b.id_name, b)
 		
-
 	pass # Replace with function body.
 
 static func get_building_data(id : String) -> BuildingData:
