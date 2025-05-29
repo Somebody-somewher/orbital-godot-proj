@@ -10,8 +10,8 @@ var round_timer_label = get_node("RoundTimerLabel")
 var round_label = get_node("RoundLabel")
 
 func _ready() -> void:
-	Eventbus.connect("round_timer_update",_update_timer_ui)
-	Eventbus.connect("round_start",_update_round_label)
+	Signalbus.connect("round_timer_update",_update_timer_ui)
+	Signalbus.connect("round_start",_update_round_label)
 
 
 func reset_score() -> void:
@@ -36,5 +36,5 @@ func _update_round_label(round_id : int, round_total : int) -> void:
 	round_label.text = "Round: " + str(round_id + 1)
 
 func _on_end_turn_pressed() -> void:
-	Eventbus.emit_signal("end_turn", 0)
+	Signalbus.emit_signal("end_turn", 0)
 	pass # Replace with function body.

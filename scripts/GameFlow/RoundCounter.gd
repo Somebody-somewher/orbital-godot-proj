@@ -24,7 +24,7 @@ var pause_timer : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	Eventbus.end_turn.connect(_player_end_turn)
+	Signalbus.end_turn.connect(_player_end_turn)
 	curr_timer = rounds[0][1]
 	prev_s = int(curr_timer)
 	pass # Replace with function body.
@@ -35,7 +35,7 @@ func _process(delta: float) -> void:
 		curr_timer -= delta
 		if int(curr_timer) != prev_s:
 			prev_s = int(curr_timer)
-			Eventbus.emit_signal("round_timer_update", prev_s)
+			Signalbus.emit_signal("round_timer_update", prev_s)
 
 		if curr_timer < 0.0:
 			end_round()
@@ -48,7 +48,7 @@ func _player_end_turn(player_id : int):
 func end_round() -> void:
 	players_ready = [false]
 	pause_timer = true
-	Eventbus.emit_signal("round_end", round_id, round_count)
+	Signalbus.emit_signal("round_end", round_id, round_count)
 
 # In the actual game this will be called by gameplay manager after all end_of_round effects occur?
 func start_round() -> void:
@@ -58,7 +58,7 @@ func start_round() -> void:
 	round_count += 1
 	players_ready = [false]
 	reset_timer()
-	Eventbus.emit_signal("round_start", round_id, round_count)
+	Signalbus.emit_signal("round_start", round_id, round_count)
 
 func reset_timer() -> void:
 	curr_timer = rounds[round_id][1]

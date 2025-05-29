@@ -31,7 +31,7 @@ config/icon="res://assets/icon.svg"
 [autoload]
 
 CardLoaderr="*res://scenes/CardLoader.tscn"
-Eventbus="*res://scenes/Game Flow/Eventbus.tscn"
+Signalbus="*res://scenes/Game Flow/Signalbus.tscn"
 
 [display]
 
