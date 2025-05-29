@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://iv3w3pu8flf7"]
 
 [ext_resource type="Material" uid="uid://snae8supl35" path="res://shader/dissolve_material.tres" id="1_va8pk"]
-[ext_resource type="Script" uid="uid://conukf4ick1q8" path="res://scripts/Card/card_pack.gd" id="1_wo5bd"]
+[ext_resource type="Script" uid="uid://conukf4ick1q8" path="res://scripts/Card/Pack&Set/card_pack.gd" id="1_wo5bd"]
 [ext_resource type="Texture2D" uid="uid://b3kh2qq6nboem" path="res://assets/misc_sprites/card_shine.png" id="2_o731e"]
 [ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="3_5xwgq"]
 [ext_resource type="Texture2D" uid="uid://dn6735uees2i1" path="res://assets/card_packs/dummy_card_pack.png" id="5_va8pk"]

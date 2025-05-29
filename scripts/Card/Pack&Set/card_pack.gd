@@ -3,11 +3,10 @@ class_name CardPack
 
 var pack_sets = ["Big Cow Set", "Alcohol", "Worship", "Farm"] ##array of sets
 var pack_arr = []
-var choices = 1 ##how many selections of the options
+
 
 ##logic stuff
 var card_sets = preload("res://scenes/Card/card_set.tscn")
-var card_ref = preload("res://scenes/Card/Card.tscn")
 
 ##shader stuff
 @onready

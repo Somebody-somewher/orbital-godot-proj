@@ -135,9 +135,6 @@ func highlight_effects_when_hovering_card() -> void :
 		card_dragged.get_node("GhostImage").visible = false
 		board_ref.reset_preview()
 
-
-
-
 # Following functions are centralized under CardManager
 # So as to prevent them all from being triggered at the same time
 

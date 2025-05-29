@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="AOE" load_steps=2 format=3 uid="uid://be3viu88jgymx"]
 
-[ext_resource type="Script" uid="uid://c7e63aqn2ejbs" path="res://scripts/AOE.gd" id="1_0y8aw"]
+[ext_resource type="Script" uid="uid://c7e63aqn2ejbs" path="res://scripts/Env & Buildings/AOE.gd" id="1_0y8aw"]
 
 [resource]
 script = ExtResource("1_0y8aw")

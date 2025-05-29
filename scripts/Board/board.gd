@@ -129,7 +129,7 @@ func get_global_length() -> int:
 func place_building_on_tile(tile_pos : Vector2i, building: Building) -> void:
 	add_child(building)
 	# MUST ADD CHILD BEFORE TRIGGER PLACE EVENT (add child initlizes the build which connects signals for scoring)
-	building.trigger_place_effects(board_matrix, tile_pos)
+	building.trigger_place_effects(self, tile_pos)
 	# MUST TRIGGER BEFORE ADDING (otherwise places self on board then can score against itself)
 	board_matrix[tile_pos.x][tile_pos.y].add_building(building)
 	
