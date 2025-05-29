@@ -22,10 +22,14 @@ func _ready() -> void:
 	cardset_grp.load_all_into(buildings)
 	for b in buildings:
 		if b:
-			buildings_dict.get_or_add(b.id_name, b) 
+			buildings_dict.get_or_add(b.id_name, b)
 
 static func get_building_data(id : String) -> BuildingData:
 	return buildings_dict.get(id)
 
 static func get_cardset_data(id : String) -> CardSet:
 	return cardset_dict.get(id)
+
+static func get_display_name(id : String) -> String:
+	print(buildings_dict.get(id).display_name)
+	return buildings_dict.get(id).display_name
