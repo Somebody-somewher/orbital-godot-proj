@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/player_hand.gd" id="4_jk1qb"]
 [ext_resource type="PackedScene" uid="uid://dyaq4288p4ik4" path="res://scenes/Card/tutorial_card_pack.tscn" id="4_lgwnu"]
 [ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="5_5dd4i"]
-[ext_resource type="PackedScene" uid="uid://b43u6wsxnq4ai" path="res://scenes/input_manager.tscn" id="6_oa1go"]
+[ext_resource type="PackedScene" uid="uid://b43u6wsxnq4ai" path="res://scenes/Game Flow/input_manager.tscn" id="6_oa1go"]
 [ext_resource type="Script" uid="uid://vx565sl7wiij" path="res://scripts/stats_manager.gd" id="8_jk1qb"]
 [ext_resource type="Script" uid="uid://bvoajtpxmv7lr" path="res://scripts/Main Menu/menu_logic.gd" id="9_jk1qb"]
 [ext_resource type="PackedScene" uid="uid://bogg4d6s1y1og" path="res://scenes/Main Menus/title_menu.tscn" id="11_flqon"]

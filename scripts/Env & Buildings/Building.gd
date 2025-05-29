@@ -2,8 +2,9 @@ extends PlaceableNode
 class_name Building
 
 # allows for scoring can move once scoring system is finalized
+# TODO: CHANGE THIS
 @onready
-var statmanager_ref = $"../../StatsManager"
+var statmanager_ref = $"../../PlayerUI"
 
 #for constructor
 static var building_scene: PackedScene = load("res://scenes/Building.tscn")
