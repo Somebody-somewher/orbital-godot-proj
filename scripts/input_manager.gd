@@ -52,8 +52,6 @@ func left_click_logic(result) -> void:
 			var card_manager = result_found.get_parent()
 			card_manager.start_drag(result_found)
 		SET_COLLISION_MASK:
-			if result_found.dissolving:
-				return
 			var pack = result_found.get_parent()
 			pack.select_option(result_found)
 			curr_mask = MASKS.get("all")
