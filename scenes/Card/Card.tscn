@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://snae8supl35" path="res://shader/dissolve_material.tres" id="1_dqohr"]
 [ext_resource type="Script" uid="uid://bxyph8i4gl7y6" path="res://scripts/Card/card.gd" id="1_mck3k"]
-[ext_resource type="Texture2D" uid="uid://de7v2txgsfhpb" path="res://assets/entity_sprites/cute_dummy.png" id="4_bl3jj"]
+[ext_resource type="Texture2D" uid="uid://dajjwe5q0ox20" path="res://assets/entity_sprites/cute_dummy.png" id="4_bl3jj"]
 [ext_resource type="Texture2D" uid="uid://d02is06vvdlbm" path="res://assets/card_sprites/blank_card.png" id="4_dqohr"]
 [ext_resource type="Theme" uid="uid://igcyj7c6fdln" path="res://assets/fonts/cutey_card_theme.tres" id="5_dqohr"]
 
