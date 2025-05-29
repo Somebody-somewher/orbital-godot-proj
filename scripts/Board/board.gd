@@ -127,6 +127,7 @@ func get_global_length() -> int:
 
 # try to place building on tile or swap terrain
 func place_building_on_tile(tile_pos : Vector2i, building: Building) -> void:
+	building.z_index = tile_pos.y
 	add_child(building)
 	# MUST ADD CHILD BEFORE TRIGGER PLACE EVENT (add child initlizes the build which connects signals for scoring)
 	building.trigger_place_effects(self, tile_pos)

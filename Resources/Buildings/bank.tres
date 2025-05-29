@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c5bclvo13g8nb" path="res://assets/entity_sprites/bank.PNG" id="2_crayo"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_nn3os"]
 [ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_otbdh"]
-[ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events/cow_scoring.tres" id="5_14442"]
+[ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events/Scoring/cow_scoring.tres" id="5_14442"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_fhcv3"]
 
 [resource]
