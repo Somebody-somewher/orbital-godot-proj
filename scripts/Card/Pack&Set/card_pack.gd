@@ -7,6 +7,8 @@ var choices := 1
 
 ##logic stuff
 var card_sets = preload("res://scenes/Card/card_set.tscn")
+static var card_pack = preload("res://scenes/Card/card_pack.tscn")
+
 
 ##shader stuff
 @onready
@@ -26,6 +28,15 @@ func _ready() -> void:
 		#open_pack()
 	#elif (sig == "cardset_clicked" && node.get_parent() == self):
 		#select_option(node)
+
+# factory constructor
+# TODO: pass the placeabale_data as the param instead?
+static func new_pack(setdata : Array[String]) -> CardPack:
+	var return_pack : CardPack = card_pack.instantiate()
+	return_pack.pack_sets = setdata
+
+	return return_pack
+
 
 func _process(delta: float) -> void:
 	if dissolving:
