@@ -77,11 +77,9 @@ func swap_to_effect(scale_by: Vector2) -> void:
 ######################################################################
 
 func _on_area_2d_mouse_entered() -> void:
-	print("on")
 	emit_signal("mouse_on", self)
 
 func _on_area_2d_mouse_exited() -> void:
-	print("off")
 	emit_signal("mouse_off", self)
 
 func card_flip_to_entity() -> void:

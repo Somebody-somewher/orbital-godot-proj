@@ -33,7 +33,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 1
 script = ExtResource("1_jk1qb")
 
 [node name="Board" type="Node2D" parent="."]
@@ -74,6 +74,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="OptionsMenu" parent="Menus" instance=ExtResource("12_flqon")]
 layout_mode = 1

@@ -66,6 +66,7 @@ script = ExtResource("3_jlsqs")
 
 [node name="CardPack" parent="CardManager" instance=ExtResource("6_wp0k4")]
 material = SubResource("ShaderMaterial_mwfav")
+position = Vector2(198, 396)
 
 [node name="PlayerHand" type="Node2D" parent="."]
 z_index = 1

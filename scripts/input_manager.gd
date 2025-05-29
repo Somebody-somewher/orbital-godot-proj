@@ -43,6 +43,8 @@ func left_click_logic(result) -> void:
 	var result_found = result.collider.get_parent()
 	match result_mask:
 		CARD_COLLISION_MASK:
+			if result_found.dissolving:
+				return
 			play_click(.7)
 			var card_manager = result_found.get_parent()
 			card_manager.start_drag(result_found)
@@ -50,6 +52,8 @@ func left_click_logic(result) -> void:
 			var card_manager = result_found.get_parent()
 			card_manager.start_drag(result_found)
 		SET_COLLISION_MASK:
+			if result_found.dissolving:
+				return
 			var pack = result_found.get_parent()
 			pack.select_option(result_found)
 			curr_mask = MASKS.get("all")
