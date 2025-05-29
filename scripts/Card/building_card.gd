@@ -7,14 +7,17 @@ static var building_card_scene: PackedScene = load("res://scenes/Card/building_c
 var building : Building
 
 # factory constructor
+# TODO: pass the placeabale_data as the param instead?
 static func new_card(card_name : String) -> Card:
+	
+	#TODO: Remove this
+	var data = CardLoader.get_building_data(card_name)
 	var return_card : BuildingCard = building_card_scene.instantiate()
 	var card_image_path = str("res://assets/card_sprites/blank_card.png")
-	var entity_image_path = str("res://assets/entity_sprites/"+ card_name + ".png")
 	return_card.get_node("CardImage").texture = load(card_image_path)
-	return_card.get_node("EntityImage").texture = load(entity_image_path)
-	return_card.get_node("GhostImage").texture = load(entity_image_path)
-	return_card.get_node("Texts/CardName").text = CardLoader.get_display_name(card_name)
+	return_card.get_node("EntityImage").texture = data.building_sprite
+	return_card.get_node("GhostImage").texture = data.building_sprite
+	return_card.get_node("Texts/CardName").text = data.display_name
 	return_card.id_name = card_name
 	return return_card
 
