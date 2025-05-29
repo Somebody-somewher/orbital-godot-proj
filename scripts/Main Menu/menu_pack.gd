@@ -1,4 +1,6 @@
 extends CardPack
+class_name MenuPack
+
 var menu_card := ["singleplayer", "multiplayer", "settings", "exit"]
 
 @onready
@@ -19,8 +21,9 @@ func open_pack() -> void:
 	for card in menu_card:
 		var new_card = MenuCard.new_card(card)
 		new_card.position = position
-		player_hand.add_to_hand(new_card)
 		card_manager.add_child(new_card)
 		new_card.connect_to_card_manager(card_manager)
+		player_hand.add_to_hand(new_card)
+		new_card.get_node("Area2D/CollisionShape2D").disabled = false
 	self.dissolving = true
 	get_node("AnimatedSprite2D/MouseFade").play("fade")

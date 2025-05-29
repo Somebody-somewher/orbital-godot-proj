@@ -136,16 +136,15 @@ material = ExtResource("1_va8pk")
 scale = Vector2(2, 2)
 script = ExtResource("1_wo5bd")
 
-[node name="ShineSprite" type="Sprite2D" parent="."]
-self_modulate = Color(1, 1, 1, 0.223529)
-z_index = 1
-use_parent_material = true
-texture = ExtResource("2_o731e")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_wwfmj")
 use_parent_material = true
 texture = ExtResource("5_va8pk")
+
+[node name="ShineSprite" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.223529)
+use_parent_material = true
+texture = ExtResource("2_o731e")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8

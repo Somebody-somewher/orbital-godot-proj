@@ -17,9 +17,7 @@ const CARDS = {#Visual Name, Effect Pattern, List of entities "score", stackable
 	}
 
 const SETS = {#arr of card type, no. of cards
-	"Dummy Set" : [["cute_dummy", 2]],
 	"Big Cow Set" : [["cow", 7]],
-	"Nature Set" : [["flower", 3], ["rock", 3], ["forest", 3]],
 	"Alcohol" : [["bar", 1],["brewery", 1],["trash", 2]],
 	"Worship" : [["temple", 1],["obelisk", 2]],
 	"Homeless" : [["hobo_tent", 3],["campfire", 1],["trash", 1]],

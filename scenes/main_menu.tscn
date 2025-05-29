@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dehbiymvw4gq5"]
+[gd_scene load_steps=17 format=3 uid="uid://dehbiymvw4gq5"]
 
 [ext_resource type="Script" uid="uid://baxm1vpvlaqw2" path="res://scripts/Main Menu/main_menu.gd" id="1_jk1qb"]
 [ext_resource type="Script" uid="uid://duu3dx0n1l1gg" path="res://scripts/Main Menu/menu_board.gd" id="1_rtw2f"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://dyaq4288p4ik4" path="res://scenes/Main Menu/tutorial_card_pack.tscn" id="4_lgwnu"]
 [ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="5_5dd4i"]
 [ext_resource type="PackedScene" uid="uid://b43u6wsxnq4ai" path="res://scenes/Game Flow/input_manager.tscn" id="6_oa1go"]
-[ext_resource type="Script" uid="uid://vx565sl7wiij" path="res://scripts/stats_manager.gd" id="8_jk1qb"]
 [ext_resource type="Script" uid="uid://bvoajtpxmv7lr" path="res://scripts/Main Menu/menu_logic.gd" id="9_jk1qb"]
 [ext_resource type="PackedScene" uid="uid://dtsfmua37k8xq" path="res://scenes/Main Menu/singleplayer_menu.tscn" id="10_rcqid"]
 [ext_resource type="Script" uid="uid://qkqxxbklqyym" path="res://scripts/Main Menu/singleplayer_menu.gd" id="11_1ajci"]
@@ -46,16 +45,13 @@ script = ExtResource("1_rtw2f")
 [node name="TerrainActual" type="TileMapLayer" parent="Board"]
 
 [node name="Timer" type="Timer" parent="Board"]
-wait_time = 0.75
+wait_time = 0.5
 one_shot = true
 
 [node name="PlayerHand" type="Node2D" parent="."]
 script = ExtResource("4_jk1qb")
 
 [node name="InputManager" parent="." instance=ExtResource("6_oa1go")]
-
-[node name="StatsManager" type="Node2D" parent="."]
-script = ExtResource("8_jk1qb")
 
 [node name="MenuLogic" type="Node2D" parent="."]
 script = ExtResource("9_jk1qb")

@@ -141,6 +141,7 @@ func highlight_effects_when_hovering_card() -> void :
 # Do the card hovering animation if there are no cards
 # currently hovering or being dragged
 func card_hover_on(card):
+	print("hover called")
 	if !card_dragged and !card_hovered:
 		card_hovered = card
 		highlight_card(card, true)
