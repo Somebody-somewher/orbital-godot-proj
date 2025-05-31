@@ -4,7 +4,6 @@ class_name BuildingProceduralGenerator
 # Actually noise map to generate the map
 @export var noise_building_texture : NoiseTexture2D
 @export var noise_building_freq : float
-var noise_building : Noise
 
 @export var building_noise_threshold : Array[float]
 @export var building_ids : Array[String]

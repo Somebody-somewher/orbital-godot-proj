@@ -30,7 +30,7 @@ class_name PlaceableData
 @export var end_round_effects : Array[BoardEvent]
 @export var destroyed_effects : Array[BoardEvent]
 
-func get_preview(matrix, tile_pos : Vector2i):
+func get_preview(matrix, tile_pos : Vector2i) -> Array[Vector2i]:
 	return preview_event.get_preview(matrix, tile_pos)
 	
 func placeable(board, pos : Vector2i) -> bool:
