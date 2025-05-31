@@ -112,7 +112,7 @@ _data = {
 material = SubResource("ShaderMaterial_p267w")
 script = ExtResource("3_sidds")
 
-[node name="Sprite2D" parent="." index="1"]
+[node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("4_3vpdm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="4"]
