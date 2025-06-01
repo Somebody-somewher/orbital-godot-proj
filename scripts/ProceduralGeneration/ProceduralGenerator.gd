@@ -15,6 +15,8 @@ class_name ProceduralGenerator
 @export var terrain_noise_threshold : Array[float]
 @export var terrain_ids : Array[String]
 
+@export var post_processors : Array[ProcGenPostBase] = []
+
 # Call this to start the proc_gen (can be called multiple times without error)
 func set_up() -> void:
 	randomize()
@@ -89,13 +91,15 @@ func make_terrain_matrix(board_id : int = 0) -> Array:
 func generate_world(create_tile : Callable, create_build: Callable, board_id : int = 0):
 	set_up()
 	var matrix = make_terrain_matrix(board_id)
-	post_process(matrix)
 	
 	for col in range(board_size.x):
 		for row in range(board_size.y):
 			create_tile.call(Vector2i(col,row) ,matrix[col][row][0])
+	
+	assign_buildings(matrix, board_id)
+	post_process(matrix, board_size.x, board_size.y)
+	add_buildings(matrix, create_build)
 
-	add_buildings(matrix, create_build, board_id)
 	
 func map_noise_to_terrain(noise_val : float) -> String:
 	var i = 0;
@@ -129,9 +133,14 @@ func getOffsetByBoardId(board_id: int) -> Vector2i:
 #func getTerrainAtCell(x : int, y : int):
 	#return matrix[x][y]
 
-func post_process(matrix : Array) -> void:
+func post_process(matrix : Array, sizex: int, sizey: int) -> void:
+	for post in post_processors:
+		post.process(matrix, sizex, sizey)
+	pass
+
+func assign_buildings(matrix : Array, board_id : int) -> void:
 	pass
 	
-func add_buildings(matrix: Array, create_build: Callable, board_id: int) -> void:
+func add_buildings(matrix: Array, create_build: Callable) -> void:
 	pass
 ####################################################################################

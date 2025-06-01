@@ -121,6 +121,28 @@
         "visibility": 0.0
       }
     },
+    "res://Resources/Events/Building/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/Events/Buildings/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
     "res://Resources/Events/Scoring/": {
       "metadata/_custom_type_script": {
         "visibility": 0.0
@@ -145,7 +167,9 @@
     "res://Resources/CardSet/",
     "res://Resources/Buildings/MainMenu/",
     "res://Resources/Buildings/Terrain/",
-    "res://Resources/Events/Scoring/"
+    "res://Resources/Events/Scoring/",
+    "res://Resources/Events/Buildings/",
+    "res://Resources/Events/Building/"
   ],
   "table_functions": {
     "filter": [

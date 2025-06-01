@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="ProceduralGenerator" load_steps=4 format=3 uid="uid://ctrji0enaanxm"]
+[gd_resource type="Resource" script_class="ProceduralGenerator" load_steps=5 format=3 uid="uid://ctrji0enaanxm"]
 
 [ext_resource type="Script" uid="uid://cfd7y18ct2gmf" path="res://scripts/ProceduralGeneration/ProceduralGenerator.gd" id="1_hhtup"]
+[ext_resource type="Script" uid="uid://cwgkuosbhxg8v" path="res://scripts/ProceduralGeneration/PostProcessors/ProcGenPostBase.gd" id="1_kytxn"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_hhtup"]
 
@@ -15,3 +16,4 @@ noise_highlight_texture = SubResource("NoiseTexture2D_opcaf")
 terrain_noise_freq = 0.0583
 terrain_noise_threshold = Array[float]([7.0])
 terrain_ids = Array[String](["Grass"])
+post_processors = Array[ExtResource("1_kytxn")]([])

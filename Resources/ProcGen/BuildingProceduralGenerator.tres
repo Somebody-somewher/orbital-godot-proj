@@ -1,6 +1,8 @@
-[gd_resource type="Resource" script_class="BuildingProceduralGenerator" load_steps=2 format=3 uid="uid://d0rp5plaei4ir"]
+[gd_resource type="Resource" script_class="BuildingProceduralGenerator" load_steps=4 format=3 uid="uid://d0rp5plaei4ir"]
 
 [ext_resource type="Script" uid="uid://poxoc1qxkqqm" path="res://scripts/ProceduralGeneration/BuildingProceduralGenerator.gd" id="1_d4ovu"]
+[ext_resource type="Script" uid="uid://cwgkuosbhxg8v" path="res://scripts/ProceduralGeneration/PostProcessors/ProcGenPostBase.gd" id="1_efgxf"]
+[ext_resource type="Resource" uid="uid://pql73viwb0oq" path="res://Resources/ProcGen/ProcGenDesertForestToStone.tres" id="1_ppo21"]
 
 [resource]
 script = ExtResource("1_d4ovu")
@@ -10,7 +12,8 @@ building_ids = Array[String](["mountain", "rock", "flower", "forest"])
 terrain_conditions = Array[Array]([["Grass", "Desert"], ["Grass", "Desert"], ["Grass"], ["Grass", "Desert"]])
 board_size = Vector2i(8, 8)
 num_board = 4
-terrain_noise_freq = 0.0583
+terrain_noise_freq = null
 terrain_noise_threshold = Array[float]([-0.2, 0.3, 0.7])
 terrain_ids = Array[String](["Water", "Grass", "Desert"])
+post_processors = Array[ExtResource("1_efgxf")]([ExtResource("1_ppo21")])
 metadata/_custom_type_script = "uid://poxoc1qxkqqm"

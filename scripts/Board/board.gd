@@ -26,7 +26,6 @@ static var NULL_TILE = Vector2i(-1,-1)
 var board_coord : Array[Vector2] #pair of coords, top left corner and bottom right corner
 
 @export var proc_gen : ProceduralGenerator = preload("res://Resources/ProcGen/DummyProcGen.tres")
-var proc_gen_offset : Vector2i = Vector2i(0,0)
  
 # Contains the terrain_id -> terrain tileset mapping
 @export var environment : EnvTerrainMapping = preload("res://Resources/EnvTerrain/TestEnvTerrainMapping.tres")
@@ -52,7 +51,6 @@ func _ready() -> void:
 
 # Initialize 2d array matrix
 func initialise_matrix() -> void:
-	proc_gen.set_up()
 	board_matrix = Array()
 	board_matrix.resize(BOARD_SIZE)
 	for i in range(BOARD_SIZE):

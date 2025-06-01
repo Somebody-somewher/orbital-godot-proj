@@ -4,7 +4,6 @@ class_name BuildingProceduralGenerator
 # Actually noise map to generate the map
 @export var noise_building_texture : NoiseTexture2D
 @export var noise_building_freq : float
-var noise_building : Noise
 
 @export var building_noise_threshold : Array[float]
 @export var building_ids : Array[String]
@@ -15,7 +14,7 @@ func set_up() -> void:
 	if noise_building_texture == null:
 		noise_building_texture = generate_noise_texture(0.9)
 
-func add_buildings(matrix : Array, create_build : Callable, board_id : int) -> void:
+func assign_buildings(matrix : Array, board_id : int) -> void:
 	assert(building_ids.size() >= building_noise_threshold.size())
 	assert(building_ids.size() == terrain_conditions.size())
 	if building_ids.size() > building_noise_threshold.size():
@@ -30,15 +29,12 @@ func add_buildings(matrix : Array, create_build : Callable, board_id : int) -> v
 			matrix[col][row].append(map_noise_to_building(noise_val, matrix[col][row][0]))
 			#print(noise_val, matrix[col][row])
 			
-	post_process(matrix)
+func add_buildings(matrix : Array, create_build : Callable) -> void:			
 	for col in range(board_size.x):
 		for row in range(board_size.y):
 			if matrix[col][row][1] != "":
 				create_build.call(Vector2i(col,row), Building.new_building(matrix[col][row][1]))
 			
-func generate_world(create_tile : Callable, create_build: Callable, board_id : int = 0):
-	super.generate_world(create_tile, create_build, board_id)
-
 	
 func map_noise_to_building(noise_val : float, current_terrain : String) -> String:
 	var i = 0;
