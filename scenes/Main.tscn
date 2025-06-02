@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://bbbnlosaie474" path="res://scripts/player_ui.gd" id="7_wp0k4"]
 [ext_resource type="Texture2D" uid="uid://cwwp2kt2yowua" path="res://assets/tiles/tileable_background_2.jpg" id="8_jlsqs"]
 [ext_resource type="Theme" uid="uid://igcyj7c6fdln" path="res://assets/fonts/cutey_card_theme.tres" id="8_lhr70"]
-[ext_resource type="Script" uid="uid://bc4th2e5h0hj8" path="res://scripts/GameFlow/RoundCounter.gd" id="11_wp0k4"]
+[ext_resource type="PackedScene" uid="uid://klvllydgi5tw" path="res://scenes/GameFlow/round_manager.tscn" id="12_mwfav"]
 [ext_resource type="Script" uid="uid://b2bvfgo8adhft" path="res://scripts/Card/Pack&Set/CardPackManager.gd" id="13_qmy6f"]
 [ext_resource type="Resource" uid="uid://dfnvqedx37h6v" path="res://Resources/CardSet.tres" id="14_mwfav"]
 
@@ -45,9 +45,8 @@ tile_size = Vector2i(612, 612)
 sources/0 = SubResource("TileSetAtlasSource_q8u5g")
 sources/1 = SubResource("TileSetAtlasSource_lhr70")
 
-[node name="GameManager" type="Node" node_paths=PackedStringArray("round_manager", "card_pack_manager")]
+[node name="GameManager" type="Node" node_paths=PackedStringArray("card_pack_manager")]
 script = ExtResource("1_bjd11")
-round_manager = NodePath("RoundCounter")
 card_pack_manager = NodePath("CardPackManager")
 
 [node name="Board" type="Node2D" parent="."]
@@ -74,13 +73,10 @@ script = ExtResource("5_lhr70")
 
 [node name="InputManager" parent="." instance=ExtResource("5_q8u5g")]
 
-[node name="PlayerUI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
+[node name="PlayerUI" type="CanvasLayer" parent="."]
 script = ExtResource("7_wp0k4")
 
 [node name="ScoreLabel" type="Label" parent="PlayerUI"]
-layout_mode = 0
 offset_left = 37.0
 offset_top = 29.0
 offset_right = 105.0
@@ -91,7 +87,6 @@ theme_override_font_sizes/font_size = 40
 text = "Score: 0"
 
 [node name="RoundLabel" type="Label" parent="PlayerUI"]
-layout_mode = 0
 offset_left = 1397.0
 offset_top = 12.0
 offset_right = 1568.0
@@ -102,7 +97,6 @@ theme_override_font_sizes/font_size = 40
 text = "Round: 1"
 
 [node name="EndTurn" type="Button" parent="PlayerUI"]
-layout_mode = 0
 offset_left = 1369.0
 offset_top = 800.0
 offset_right = 1560.0
@@ -112,7 +106,6 @@ theme_override_font_sizes/font_size = 40
 text = "End Turn"
 
 [node name="RoundTimerLabel" type="Label" parent="PlayerUI"]
-layout_mode = 0
 offset_left = 1371.0
 offset_top = 737.0
 offset_right = 1566.0
@@ -127,8 +120,7 @@ z_index = -4
 tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAACAAAAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_lhr70")
 
-[node name="RoundCounter" type="Node" parent="."]
-script = ExtResource("11_wp0k4")
+[node name="RoundManager" parent="." instance=ExtResource("12_mwfav")]
 
 [node name="CardPackManager" type="Node" parent="." node_paths=PackedStringArray("spawn_node")]
 script = ExtResource("13_qmy6f")

@@ -32,10 +32,8 @@ config/icon="uid://n2jiuhsqeh1s"
 
 CardLoaderr="*res://scenes/CardLoader.tscn"
 Signalbus="*res://scenes/Game Flow/Signalbus.tscn"
-
-[autoload]
-
 PlayerManager="*res://NetworkingTest/PlayerManager.gd"
+
 [display]
 
 window/size/viewport_width=1600
