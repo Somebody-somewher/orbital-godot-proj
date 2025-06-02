@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Score_BoardEffect" load_steps=3 format=3 uid="uid://dcem3h51oryd5"]
+
+[ext_resource type="Resource" uid="uid://ci7hb7fl2b4jp" path="res://Resources/AOE/3x3.tres" id="1_u4vqd"]
+[ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/score_board_event.gd" id="2_n4t0u"]
+
+[resource]
+script = ExtResource("2_n4t0u")
+effect_buildings_score = Dictionary[String, int]({
+"bar": 20,
+"cow": 1,
+"hobo_tent": 10,
+"mushroom": 3
+})
+base_score = 0
+aoe = ExtResource("1_u4vqd")
+metadata/_custom_type_script = "uid://dcbw4orenctn8"

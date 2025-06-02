@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://dehbiymvw4gq5"]
+
+[ext_resource type="Script" uid="uid://duu3dx0n1l1gg" path="res://scripts/Main Menu/menu_board.gd" id="1_rtw2f"]
+[ext_resource type="Script" uid="uid://q3ayn1o0618v" path="res://scripts/Card/card_manager.gd" id="2_oa1go"]
+[ext_resource type="PackedScene" uid="uid://iv3w3pu8flf7" path="res://scenes/Card/card_pack.tscn" id="3_tbmy8"]
+[ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/player_hand.gd" id="4_jk1qb"]
+[ext_resource type="Script" uid="uid://bcpbmavb3hrg1" path="res://scripts/Main Menu/menu_pack.gd" id="4_oa1go"]
+[ext_resource type="PackedScene" uid="uid://b43u6wsxnq4ai" path="res://scenes/input_manager.tscn" id="6_oa1go"]
+[ext_resource type="Script" uid="uid://vx565sl7wiij" path="res://scripts/stats_manager.gd" id="8_jk1qb"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Board" type="Node2D" parent="."]
+position = Vector2(200, 500)
+script = ExtResource("1_rtw2f")
+BOARD_SIZE = null
+BOARD_SCALE = null
+TILE_SIZE = null
+proc_gen = null
+environment = null
+
+[node name="Highlights" type="TileMapLayer" parent="Board"]
+
+[node name="TerrainActual" type="TileMapLayer" parent="Board"]
+
+[node name="CardManager" type="Node2D" parent="."]
+script = ExtResource("2_oa1go")
+
+[node name="CardPack" parent="CardManager" instance=ExtResource("3_tbmy8")]
+position = Vector2(814, 478)
+script = ExtResource("4_oa1go")
+
+[node name="PlayerHand" type="Node2D" parent="."]
+script = ExtResource("4_jk1qb")
+
+[node name="InputManager" parent="." instance=ExtResource("6_oa1go")]
+
+[node name="StatsManager" type="Node2D" parent="."]
+script = ExtResource("8_jk1qb")

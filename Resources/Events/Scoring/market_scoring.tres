@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Score_BoardEffect" load_steps=3 format=3 uid="uid://bkmtjkwgk3axj"]
+
+[ext_resource type="Resource" uid="uid://bw4fr7b37hpod" path="res://Resources/AOE/med diamond.tres" id="1_ojuaa"]
+[ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/score_board_event.gd" id="2_vl5th"]
+
+[resource]
+script = ExtResource("2_vl5th")
+effect_buildings_score = Dictionary[String, int]({
+"bar": -2,
+"cottage": 2,
+"fountain": 3,
+"market": 5,
+"rat": -2,
+"wagon": 5
+})
+base_score = 0
+aoe = ExtResource("1_ojuaa")
+metadata/_custom_type_script = "uid://dcbw4orenctn8"

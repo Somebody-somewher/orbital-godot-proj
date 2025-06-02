@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://igcyj7c6fdln"]
+
+[ext_resource type="FontFile" uid="uid://dj85nkjpq655u" path="res://assets/fonts/cjkFonts-allseto-v1.11-2.ttf" id="1_odip6"]
+
+[resource]
+default_font = ExtResource("1_odip6")
+default_font_size = 20

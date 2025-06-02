@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://dbvx3qkfrdy0n"]
+
+[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_m7vhl"]
+[ext_resource type="Texture2D" uid="uid://63p5v0ll20ab" path="res://assets/entity_sprites/statue.PNG" id="2_m7vhl"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_qsdxj"]
+[ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_nwmy3"]
+[ext_resource type="Resource" uid="uid://dpmbyv2sjqqps" path="res://Resources/Events/Scoring/statue_scoring.tres" id="5_m7vhl"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_v3jmf"]
+
+[resource]
+script = ExtResource("6_v3jmf")
+building_sprite = ExtResource("2_m7vhl")
+stackable = false
+id_name = "statue"
+display_name = "Statue"
+desc = ""
+preview_event = ExtResource("5_m7vhl")
+place_conditions = Array[ExtResource("3_qsdxj")]([ExtResource("4_nwmy3")])
+place_effects = Array[ExtResource("1_m7vhl")]([])
+begin_round_effects = Array[ExtResource("1_m7vhl")]([])
+end_round_effects = Array[ExtResource("1_m7vhl")]([])
+destroyed_effects = Array[ExtResource("1_m7vhl")]([])
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"

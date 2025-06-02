@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://bau3imvaykhy0"]
+
+[sub_resource type="GDScript" id="GDScript_4odwq"]
+script/source = "extends Node2D
+
+func set_text(str : String) -> void:
+	get_node(\"RichTextLabel\").text = str
+
+func show_text(on: bool) -> void:
+	get_node(\"RichTextLabel\").visible = on
+"
+
+[node name="Score" type="Node2D"]
+script = SubResource("GDScript_4odwq")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+horizontal_alignment = 1
+vertical_alignment = 1

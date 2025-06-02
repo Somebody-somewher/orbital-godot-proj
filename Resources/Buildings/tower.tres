@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://u8skr6pd17kd"]
+
+[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_bi0xr"]
+[ext_resource type="Texture2D" uid="uid://p8ij6224pxyn" path="res://assets/entity_sprites/tower.PNG" id="2_bi0xr"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_377gk"]
+[ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_d7c05"]
+[ext_resource type="Resource" uid="uid://oekevyc3300x" path="res://Resources/Events/Scoring/tower_scoring.tres" id="5_bi0xr"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_30ofi"]
+
+[resource]
+script = ExtResource("6_30ofi")
+building_sprite = ExtResource("2_bi0xr")
+stackable = false
+id_name = "tower"
+display_name = "Tower"
+desc = ""
+preview_event = ExtResource("5_bi0xr")
+place_conditions = Array[ExtResource("3_377gk")]([ExtResource("4_d7c05")])
+place_effects = Array[ExtResource("1_bi0xr")]([])
+begin_round_effects = Array[ExtResource("1_bi0xr")]([])
+end_round_effects = Array[ExtResource("1_bi0xr")]([])
+destroyed_effects = Array[ExtResource("1_bi0xr")]([])
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=4 format=3 uid="uid://c70hg6fki1wm3"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_f1l6b"]
+[ext_resource type="Resource" uid="uid://bj7kjf4kbsf1a" path="res://Resources/Buildings/cute_dummy.tres" id="1_oc7es"]
+[ext_resource type="Resource" uid="uid://dlvu1fiagysa0" path="res://Resources/Buildings/cow.tres" id="2_h20le"]
+
+[resource]
+script = ExtResource("1_f1l6b")
+cards = Array[Array]([[ExtResource("1_oc7es"), 5], [ExtResource("2_h20le"), 3]])
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

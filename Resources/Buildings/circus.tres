@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://b3li1to3sqjwv"]
+
+[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_reya2"]
+[ext_resource type="Texture2D" uid="uid://bp77dbp7af16q" path="res://assets/entity_sprites/circus.PNG" id="2_reya2"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_nedsp"]
+[ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_73jln"]
+[ext_resource type="Resource" uid="uid://dax6womcu15ju" path="res://Resources/Events/Scoring/circus_scoring.tres" id="5_reya2"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_sfwxb"]
+
+[resource]
+script = ExtResource("6_sfwxb")
+building_sprite = ExtResource("2_reya2")
+stackable = false
+id_name = "circus"
+display_name = "Circus"
+desc = ""
+preview_event = ExtResource("5_reya2")
+place_conditions = Array[ExtResource("3_nedsp")]([ExtResource("4_73jln")])
+place_effects = Array[ExtResource("1_reya2")]([])
+begin_round_effects = Array[ExtResource("1_reya2")]([])
+end_round_effects = Array[ExtResource("1_reya2")]([])
+destroyed_effects = Array[ExtResource("1_reya2")]([])
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"

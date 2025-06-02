@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Score_BoardEffect" load_steps=3 format=3 uid="uid://dkue24mqo80pj"]
+
+[ext_resource type="Resource" uid="uid://43wm1g8pxxxj" path="res://Resources/AOE/knight.tres" id="1_p4o5h"]
+[ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/score_board_event.gd" id="2_8o1ku"]
+
+[resource]
+script = ExtResource("2_8o1ku")
+effect_buildings_score = Dictionary[String, int]({
+"bar": 4,
+"castle": 10,
+"tower": 5
+})
+base_score = 0
+aoe = ExtResource("1_p4o5h")
+metadata/_custom_type_script = "uid://dcbw4orenctn8"

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://bcttd7odceugv"]
+
+[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_wcsa0"]
+[ext_resource type="Texture2D" uid="uid://cxflpeok3bqjx" path="res://assets/entity_sprites/chest.PNG" id="2_wcsa0"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_wwikr"]
+[ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_8krku"]
+[ext_resource type="Resource" uid="uid://doeijga2o7usc" path="res://Resources/Events/Scoring/chest_scoring.tres" id="5_wcsa0"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_mkg4y"]
+
+[resource]
+script = ExtResource("6_mkg4y")
+building_sprite = ExtResource("2_wcsa0")
+stackable = false
+id_name = "chest"
+display_name = "Chest"
+desc = ""
+preview_event = ExtResource("5_wcsa0")
+place_conditions = Array[ExtResource("3_wwikr")]([ExtResource("4_8krku")])
+place_effects = Array[ExtResource("1_wcsa0")]([])
+begin_round_effects = Array[ExtResource("1_wcsa0")]([])
+end_round_effects = Array[ExtResource("1_wcsa0")]([])
+destroyed_effects = Array[ExtResource("1_wcsa0")]([])
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"

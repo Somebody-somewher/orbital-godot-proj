@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=3 uid="uid://cdp6pxvmemk4u"]
+
+[ext_resource type="Script" uid="uid://6i6an4l8cw12" path="res://scripts/Board/board.gd" id="1_c01mt"]
+[ext_resource type="Resource" uid="uid://ctrji0enaanxm" path="res://Resources/ProcGen/DummyProcGen.tres" id="2_c01mt"]
+[ext_resource type="Script" uid="uid://q3ayn1o0618v" path="res://scripts/Card/card_manager.gd" id="3_jlsqs"]
+[ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/player_hand.gd" id="5_lhr70"]
+[ext_resource type="Script" uid="uid://csnqlg6oxvuth" path="res://scripts/input_manager.gd" id="6_c01mt"]
+[ext_resource type="PackedScene" uid="uid://iv3w3pu8flf7" path="res://scenes/Card/card_pack.tscn" id="6_wp0k4"]
+[ext_resource type="Script" uid="uid://vx565sl7wiij" path="res://scripts/stats_manager.gd" id="7_nxtc6"]
+
+[node name="GameManager" type="Node2D"]
+
+[node name="Board" type="Node2D" parent="."]
+position = Vector2(200, 100)
+script = ExtResource("1_c01mt")
+proc_gen = ExtResource("2_c01mt")
+
+[node name="Highlights" type="TileMapLayer" parent="Board"]
+
+[node name="TerrainDisplay" type="TileMapLayer" parent="Board"]
+
+[node name="TerrainActual" type="TileMapLayer" parent="Board"]
+
+[node name="CardManager" type="Node2D" parent="."]
+script = ExtResource("3_jlsqs")
+
+[node name="PlayerHand" type="Node2D" parent="."]
+script = ExtResource("5_lhr70")
+
+[node name="CardPack" parent="." instance=ExtResource("6_wp0k4")]
+position = Vector2(186, 242)
+
+[node name="InputManager" type="Node2D" parent="."]
+script = ExtResource("6_c01mt")
+
+[node name="StatsManager" type="Node2D" parent="."]
+script = ExtResource("7_nxtc6")

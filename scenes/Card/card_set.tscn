@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2phaqnk4amq0"]
+
+[ext_resource type="Script" uid="uid://oc68vey2r0x3" path="res://scripts/Card/Pack&Set/card_set.gd" id="1_7swmd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r3wsh"]
+size = Vector2(161, 230)
+
+[node name="CardSet" type="Node2D"]
+script = ExtResource("1_7swmd")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+light_mask = 16
+visibility_layer = 16
+shape = SubResource("RectangleShape2D_r3wsh")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://yand8w0sftmy"]
+
+[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_eolt2"]
+[ext_resource type="Texture2D" uid="uid://cyxumyliw33iu" path="res://assets/entity_sprites/cannon.PNG" id="2_eolt2"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_h2yxn"]
+[ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_g2ag7"]
+[ext_resource type="Resource" uid="uid://d16nje3eqxn5a" path="res://Resources/Events/Scoring/cannon_scoring.tres" id="5_eolt2"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_ri5d0"]
+
+[resource]
+script = ExtResource("6_ri5d0")
+building_sprite = ExtResource("2_eolt2")
+stackable = false
+id_name = "cannon"
+display_name = "Cannon"
+desc = ""
+preview_event = ExtResource("5_eolt2")
+place_conditions = Array[ExtResource("3_h2yxn")]([ExtResource("4_g2ag7")])
+place_effects = Array[ExtResource("1_eolt2")]([])
+begin_round_effects = Array[ExtResource("1_eolt2")]([])
+end_round_effects = Array[ExtResource("1_eolt2")]([])
+destroyed_effects = Array[ExtResource("1_eolt2")]([])
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"

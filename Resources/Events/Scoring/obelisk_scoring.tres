@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Score_BoardEffect" load_steps=3 format=3 uid="uid://pj48hdsbw66m"]
+
+[ext_resource type="Resource" uid="uid://blagb6rkmq7vw" path="res://Resources/AOE/med orth cross.tres" id="1_lh8xj"]
+[ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/score_board_event.gd" id="2_kvq5g"]
+
+[resource]
+script = ExtResource("2_kvq5g")
+effect_buildings_score = Dictionary[String, int]({
+"bar": -3,
+"hut": 2,
+"summoning_circle": 1,
+"temple": 10
+})
+base_score = 0
+aoe = ExtResource("1_lh8xj")
+metadata/_custom_type_script = "uid://dcbw4orenctn8"

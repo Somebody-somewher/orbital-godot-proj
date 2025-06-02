@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://cpmhqwkx6q4xg"]
+
+[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_0uweu"]
+[ext_resource type="Texture2D" uid="uid://3lwl0emtknb1" path="res://assets/entity_sprites/water_wheel.PNG" id="2_0uweu"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_ogrxi"]
+[ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_isols"]
+[ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events/Scoring/cow_scoring.tres" id="5_afavb"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_d2k8b"]
+
+[resource]
+script = ExtResource("6_d2k8b")
+building_sprite = ExtResource("2_0uweu")
+stackable = false
+id_name = "water_wheel"
+display_name = "Water Wheel"
+desc = ""
+preview_event = ExtResource("5_afavb")
+place_conditions = Array[ExtResource("3_ogrxi")]([ExtResource("4_isols")])
+place_effects = Array[ExtResource("1_0uweu")]([])
+begin_round_effects = Array[ExtResource("1_0uweu")]([])
+end_round_effects = Array[ExtResource("1_0uweu")]([])
+destroyed_effects = Array[ExtResource("1_0uweu")]([])
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"

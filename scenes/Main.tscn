@@ -1,0 +1,138 @@
+[gd_scene load_steps=21 format=4 uid="uid://cdp6pxvmemk4u"]
+
+[ext_resource type="Script" uid="uid://dq7q74qaf5hj8" path="res://scripts/GameFlow/GameManager.gd" id="1_bjd11"]
+[ext_resource type="Script" uid="uid://6i6an4l8cw12" path="res://scripts/Board/board.gd" id="1_c01mt"]
+[ext_resource type="Script" uid="uid://q3ayn1o0618v" path="res://scripts/Card/card_manager.gd" id="3_jlsqs"]
+[ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="4_lhr70"]
+[ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/player_hand.gd" id="5_lhr70"]
+[ext_resource type="PackedScene" uid="uid://b43u6wsxnq4ai" path="res://scenes/Game Flow/input_manager.tscn" id="5_q8u5g"]
+[ext_resource type="PackedScene" uid="uid://iv3w3pu8flf7" path="res://scenes/Card/card_pack.tscn" id="6_wp0k4"]
+[ext_resource type="Texture2D" uid="uid://e20pl4ien7vb" path="res://assets/tiles/tileable_background.jpg" id="7_jlsqs"]
+[ext_resource type="Script" uid="uid://bbbnlosaie474" path="res://scripts/player_ui.gd" id="7_wp0k4"]
+[ext_resource type="Texture2D" uid="uid://cwwp2kt2yowua" path="res://assets/tiles/tileable_background_2.jpg" id="8_jlsqs"]
+[ext_resource type="Theme" uid="uid://igcyj7c6fdln" path="res://assets/fonts/cutey_card_theme.tres" id="8_lhr70"]
+[ext_resource type="Script" uid="uid://bc4th2e5h0hj8" path="res://scripts/GameFlow/RoundCounter.gd" id="11_wp0k4"]
+[ext_resource type="Script" uid="uid://b2bvfgo8adhft" path="res://scripts/Card/Pack&Set/CardPackManager.gd" id="13_qmy6f"]
+[ext_resource type="Resource" uid="uid://dfnvqedx37h6v" path="res://Resources/CardSet.tres" id="14_mwfav"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4dx8l"]
+frequency = 0.0017
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qf083"]
+noise = SubResource("FastNoiseLite_4dx8l")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mwfav"]
+resource_local_to_scene = true
+shader = ExtResource("4_lhr70")
+shader_parameter/Noise = SubResource("NoiseTexture2D_qf083")
+shader_parameter/DissolveValue = 1.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q8u5g"]
+texture = ExtResource("7_jlsqs")
+texture_region_size = Vector2i(612, 612)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lhr70"]
+texture = ExtResource("8_jlsqs")
+texture_region_size = Vector2i(1300, 1300)
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_lhr70"]
+tile_size = Vector2i(612, 612)
+sources/0 = SubResource("TileSetAtlasSource_q8u5g")
+sources/1 = SubResource("TileSetAtlasSource_lhr70")
+
+[node name="GameManager" type="Node" node_paths=PackedStringArray("round_manager", "card_pack_manager")]
+script = ExtResource("1_bjd11")
+round_manager = NodePath("RoundCounter")
+card_pack_manager = NodePath("CardPackManager")
+
+[node name="Board" type="Node2D" parent="."]
+position = Vector2(200, 0)
+script = ExtResource("1_c01mt")
+BOARD_SIZE = 9
+
+[node name="Highlights" type="TileMapLayer" parent="Board"]
+
+[node name="TerrainDisplay" type="TileMapLayer" parent="Board"]
+
+[node name="TerrainActual" type="TileMapLayer" parent="Board"]
+
+[node name="CardManager" type="Node2D" parent="."]
+script = ExtResource("3_jlsqs")
+
+[node name="CardPack" parent="CardManager" instance=ExtResource("6_wp0k4")]
+material = SubResource("ShaderMaterial_mwfav")
+position = Vector2(198, 396)
+
+[node name="PlayerHand" type="Node2D" parent="."]
+z_index = 1
+script = ExtResource("5_lhr70")
+
+[node name="InputManager" parent="." instance=ExtResource("5_q8u5g")]
+
+[node name="PlayerUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("7_wp0k4")
+
+[node name="ScoreLabel" type="Label" parent="PlayerUI"]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 29.0
+offset_right = 105.0
+offset_bottom = 84.0
+theme = ExtResource("8_lhr70")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "Score: 0"
+
+[node name="RoundLabel" type="Label" parent="PlayerUI"]
+layout_mode = 0
+offset_left = 1397.0
+offset_top = 12.0
+offset_right = 1568.0
+offset_bottom = 56.0
+theme = ExtResource("8_lhr70")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "Round: 1"
+
+[node name="EndTurn" type="Button" parent="PlayerUI"]
+layout_mode = 0
+offset_left = 1369.0
+offset_top = 800.0
+offset_right = 1560.0
+offset_bottom = 849.0
+theme = ExtResource("8_lhr70")
+theme_override_font_sizes/font_size = 40
+text = "End Turn"
+
+[node name="RoundTimerLabel" type="Label" parent="PlayerUI"]
+layout_mode = 0
+offset_left = 1371.0
+offset_top = 737.0
+offset_right = 1566.0
+offset_bottom = 778.0
+theme = ExtResource("8_lhr70")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "Timer: 30"
+
+[node name="PlaceholderBackground" type="TileMapLayer" parent="."]
+z_index = -4
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAACAAAAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_lhr70")
+
+[node name="RoundCounter" type="Node" parent="."]
+script = ExtResource("11_wp0k4")
+
+[node name="CardPackManager" type="Node" parent="." node_paths=PackedStringArray("spawn_node")]
+script = ExtResource("13_qmy6f")
+spawn_node = NodePath("../CardManager")
+cardset_grp = ExtResource("14_mwfav")
+
+[connection signal="pressed" from="PlayerUI/EndTurn" to="PlayerUI" method="_on_end_turn_pressed"]

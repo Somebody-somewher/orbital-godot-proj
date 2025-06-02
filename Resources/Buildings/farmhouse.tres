@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://cyfytxcmvivx6"]
+
+[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_6bpdu"]
+[ext_resource type="Texture2D" uid="uid://buyr1tm7qa3hq" path="res://assets/entity_sprites/farmhouse.PNG" id="2_6bpdu"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_jaf6o"]
+[ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_ms6rv"]
+[ext_resource type="Resource" uid="uid://dd70pvnfnkvgw" path="res://Resources/Events/Scoring/farmhouse.tres" id="5_6bpdu"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_g3hxk"]
+
+[resource]
+script = ExtResource("6_g3hxk")
+building_sprite = ExtResource("2_6bpdu")
+stackable = false
+id_name = "farmhouse"
+display_name = "Farmhouse"
+desc = ""
+preview_event = ExtResource("5_6bpdu")
+place_conditions = Array[ExtResource("3_jaf6o")]([ExtResource("4_ms6rv")])
+place_effects = Array[ExtResource("1_6bpdu")]([])
+begin_round_effects = Array[ExtResource("1_6bpdu")]([])
+end_round_effects = Array[ExtResource("1_6bpdu")]([])
+destroyed_effects = Array[ExtResource("1_6bpdu")]([])
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"

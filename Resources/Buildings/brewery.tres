@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://d3jelb6vv5loi"]
+
+[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_to0ct"]
+[ext_resource type="Texture2D" uid="uid://be1pg6v0ki31s" path="res://assets/entity_sprites/brewery.PNG" id="2_to0ct"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_i1shp"]
+[ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_48gim"]
+[ext_resource type="Resource" uid="uid://dcem3h51oryd5" path="res://Resources/Events/Scoring/brewery_scoring.tres" id="5_to0ct"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_i5qt5"]
+
+[resource]
+script = ExtResource("6_i5qt5")
+building_sprite = ExtResource("2_to0ct")
+stackable = false
+id_name = "brewery"
+display_name = "Brewery"
+desc = ""
+preview_event = ExtResource("5_to0ct")
+place_conditions = Array[ExtResource("3_i1shp")]([ExtResource("4_48gim")])
+place_effects = Array[ExtResource("1_to0ct")]([])
+begin_round_effects = Array[ExtResource("1_to0ct")]([])
+end_round_effects = Array[ExtResource("1_to0ct")]([])
+destroyed_effects = Array[ExtResource("1_to0ct")]([])
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"

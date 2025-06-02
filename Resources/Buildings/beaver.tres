@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://dt5mxvq6htbc1"]
+
+[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_wxf2c"]
+[ext_resource type="Texture2D" uid="uid://bckn4epcm0scv" path="res://assets/entity_sprites/beaver.PNG" id="2_gdtt4"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_6d1em"]
+[ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_w05fh"]
+[ext_resource type="Resource" uid="uid://bq7j40x7mcm0t" path="res://Resources/Events/Scoring/beaver_scoring.tres" id="5_wxf2c"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_r877x"]
+
+[resource]
+script = ExtResource("6_r877x")
+building_sprite = ExtResource("2_gdtt4")
+stackable = false
+id_name = "beaver"
+display_name = "Beaver"
+desc = ""
+preview_event = ExtResource("5_wxf2c")
+place_conditions = Array[ExtResource("3_6d1em")]([ExtResource("4_w05fh")])
+place_effects = Array[ExtResource("1_wxf2c")]([])
+begin_round_effects = Array[ExtResource("1_wxf2c")]([])
+end_round_effects = Array[ExtResource("1_wxf2c")]([])
+destroyed_effects = Array[ExtResource("1_wxf2c")]([])
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"
