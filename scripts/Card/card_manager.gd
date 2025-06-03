@@ -5,8 +5,8 @@ class_name CardManager
 var card_dragged : Node2D
 var card_hovered : Node2D
 var card_flipped : bool = false 
+var hover_enabled : bool = true
 var tweening : Tween
-var screen_size : Vector2
 
 const CARD_COLLISION_MASK = 1
 
@@ -22,7 +22,6 @@ var input_manager_ref = $"../InputManager"
 var board_ref : Board = $"../Board"
 
 func _ready() -> void:
-	screen_size = get_viewport_rect().size
 	CARD_TILE_RATIO = Vector2.ONE * board_ref.TILE_SIZE / 120
 
 func _process(_delta: float) -> void:
@@ -36,7 +35,7 @@ func _process(_delta: float) -> void:
 		var mouse_pos = get_global_mouse_position()
 		var new_x = (mouse_pos.x - card_dragged.position.x) * CARD_EASE + card_dragged.position.x
 		var new_y = (mouse_pos.y - card_dragged.position.y) * CARD_EASE + card_dragged.position.y
-		card_dragged.position = Vector2(clamp(new_x, 0, screen_size.x), clamp(new_y, 0, screen_size.y))
+		card_dragged.position = player_hand_ref.clamp_pos_to_screen(new_x, new_y)
 
 		# card effects with board interaction
 		if board_ref != null and card_dragged is Card:
@@ -59,6 +58,7 @@ func finish_drag(placing : bool):
 		if placing:
 			card_placed = board_ref.place_on_board_if_able(card_dragged.building)
 		else:
+			card_dragged.get_node("GhostImage").visible = false
 			card_placed = false
 			
 		if card_hovered and !card_placed: ##plonks the card down
@@ -141,17 +141,20 @@ func highlight_effects_when_hovering_card() -> void :
 # Do the card hovering animation if there are no cards
 # currently hovering or being dragged
 func card_hover_on(card):
-	if !card_dragged and !card_hovered:
+	if !card_dragged and !card_hovered and hover_enabled:
 		card_hovered = card
 		highlight_card(card, true)
 
 func card_hover_off(card):
 	if card_hovered == card and card_dragged != card:
 		highlight_card(card, false)
-		var new_card_hovered = card_under_mouse()
-		card_hovered = null
-		if new_card_hovered:
-			card_hover_on(new_card_hovered)
+		card_hover_if_able()
+
+func card_hover_if_able():
+	var new_card_hovered = card_under_mouse()
+	card_hovered = null
+	if new_card_hovered:
+		card_hover_on(new_card_hovered)
 
 # highlight or unhighlight card depending on second argument
 func highlight_card(card : Card, hovering : bool):

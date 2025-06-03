@@ -15,6 +15,8 @@ enum InputType {LEFT_CLICK, RIGHT_CLICK}
 
 var rng = RandomNumberGenerator.new()
 
+@onready var camera_ref: Camera2D = $"../Camera2D"
+
 var MASKS := {
 	"all" : 0xFFFFFFFF,
 	"set_only" : 0x00000010,
@@ -25,18 +27,24 @@ var curr_mask := 0xFFFFFFFF
 
 func _input(event):
 	# If it helps Project Settings already has an Input Map for the leftmousebutton btw 
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed:
-			emit_signal("left_mouse_click")
-			raycast_and_click(curr_mask, InputType.LEFT_CLICK)
-		else:
-			emit_signal("left_mouse_released")
-	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
-		if event.pressed:
-			emit_signal("right_mouse_click")
-			raycast_and_click(curr_mask, InputType.RIGHT_CLICK)
-		else:
-			emit_signal("right_mouse_released")
+	if event is InputEventMouseButton:
+		match event.button_index:
+			MOUSE_BUTTON_LEFT:
+				if event.pressed:
+					raycast_and_click(curr_mask, InputType.LEFT_CLICK)
+				else:
+					emit_signal("left_mouse_released")
+			MOUSE_BUTTON_RIGHT:
+				if event.pressed:
+					raycast_and_click(curr_mask, InputType.RIGHT_CLICK)
+				else:
+					emit_signal("right_mouse_released")
+			MOUSE_BUTTON_WHEEL_DOWN:
+				if event.pressed:
+					camera_ref.zoom_cam(false)
+			MOUSE_BUTTON_WHEEL_UP:
+				if event.pressed:
+					camera_ref.zoom_cam(true)
 
 func left_click_logic(result) -> void:
 	var result_mask = result.collider.collision_mask
@@ -82,6 +90,8 @@ func raycast_and_click(mask, input_type : int):
 	params.collision_mask = mask 
 	var result = space_state.intersect_point(params)
 	if result.size() <= 0 :
+		if input_type == InputType.LEFT_CLICK:
+				camera_ref.start_camera_drag()
 		return
 	result = topmost(result)
 	match input_type:
