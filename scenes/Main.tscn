@@ -80,12 +80,14 @@ script = ExtResource("5_lhr70")
 [node name="InputManager" parent="." instance=ExtResource("5_q8u5g")]
 position = Vector2(879, 480)
 
-[node name="PlayerUI" type="Control" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PlayerUI" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("7_wp0k4")
 
-[node name="ScoreLabel" type="Label" parent="PlayerUI"]
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/PlayerUI"]
 layout_mode = 0
 offset_left = 37.0
 offset_top = 29.0
@@ -96,7 +98,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "Score: 0"
 
-[node name="RoundLabel" type="Label" parent="PlayerUI"]
+[node name="RoundLabel" type="Label" parent="CanvasLayer/PlayerUI"]
 layout_mode = 0
 offset_left = 1397.0
 offset_top = 12.0
@@ -107,7 +109,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "Round: 1"
 
-[node name="EndTurn" type="Button" parent="PlayerUI"]
+[node name="EndTurn" type="Button" parent="CanvasLayer/PlayerUI"]
 layout_mode = 0
 offset_left = 1369.0
 offset_top = 800.0
@@ -117,7 +119,7 @@ theme = ExtResource("8_lhr70")
 theme_override_font_sizes/font_size = 40
 text = "End Turn"
 
-[node name="RoundTimerLabel" type="Label" parent="PlayerUI"]
+[node name="RoundTimerLabel" type="Label" parent="CanvasLayer/PlayerUI"]
 layout_mode = 0
 offset_left = 1371.0
 offset_top = 737.0
@@ -141,4 +143,4 @@ script = ExtResource("13_qmy6f")
 spawn_node = NodePath("../CardManager")
 cardset_grp = ExtResource("14_mwfav")
 
-[connection signal="pressed" from="PlayerUI/EndTurn" to="PlayerUI" method="_on_end_turn_pressed"]
+[connection signal="pressed" from="CanvasLayer/PlayerUI/EndTurn" to="CanvasLayer/PlayerUI" method="_on_end_turn_pressed"]
