@@ -32,6 +32,10 @@ func _physics_process(delta: float) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if !camera_dragged:
+		var delta_pos =  restrict_camera_to_board()
+		global_position -= delta_pos
+		player_hand.pos_offset -= delta_pos
+		player_hand.snap_to_hand_pos()
 		return
 	if Input.is_action_just_released("leftMouseClick"):
 		finish_camera_drag()
@@ -59,3 +63,11 @@ func zoom_cam(out: bool) -> void:
 	else:
 		_target_zoom = max(_target_zoom - ZOOM_INC, MIN_ZOOM)
 	set_physics_process(true)
+
+# returns the vector required to adjust camera back to near board
+func restrict_camera_to_board() -> Vector2:
+	var minXY = board.board_coord[0] + screen_size/zoom/5
+	var maxXY = board.board_coord[1] + screen_size/zoom/5
+	var clamped_x = clamp(global_position.x, minXY.x,maxXY.x)
+	var clamped_y = clamp(global_position.y, minXY.y,maxXY.y)
+	return (global_position - Vector2(clamped_x, clamped_y)) * 0.3

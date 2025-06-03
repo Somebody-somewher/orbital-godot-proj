@@ -16,6 +16,7 @@ enum InputType {LEFT_CLICK, RIGHT_CLICK}
 var rng = RandomNumberGenerator.new()
 
 @onready var camera_ref: Camera2D = $"../Camera2D"
+var camera_enabled := true
 
 var MASKS := {
 	"all" : 0xFFFFFFFF,
@@ -40,10 +41,10 @@ func _input(event):
 				else:
 					emit_signal("right_mouse_released")
 			MOUSE_BUTTON_WHEEL_DOWN:
-				if event.pressed:
+				if event.pressed and camera_enabled:
 					camera_ref.zoom_cam(false)
 			MOUSE_BUTTON_WHEEL_UP:
-				if event.pressed:
+				if event.pressed and camera_enabled:
 					camera_ref.zoom_cam(true)
 
 func left_click_logic(result) -> void:
@@ -90,7 +91,7 @@ func raycast_and_click(mask, input_type : int):
 	params.collision_mask = mask 
 	var result = space_state.intersect_point(params)
 	if result.size() <= 0 :
-		if input_type == InputType.LEFT_CLICK:
+		if input_type == InputType.LEFT_CLICK and camera_enabled:
 				camera_ref.start_camera_drag()
 		return
 	result = topmost(result)
