@@ -10,7 +10,7 @@
 [resource]
 script = ExtResource("6_6r3sw")
 building_sprite = ExtResource("2_xsndr")
-stackable = true
+layer = 1
 id_name = "lotus"
 display_name = "Lotus"
 desc = ""

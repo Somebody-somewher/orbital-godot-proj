@@ -10,7 +10,7 @@
 [resource]
 script = ExtResource("6_rxiao")
 building_sprite = ExtResource("2_d26kk")
-stackable = false
+layer = 0
 id_name = "lilypad"
 display_name = "Lilypad"
 desc = ""

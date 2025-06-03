@@ -10,7 +10,7 @@
 [resource]
 script = ExtResource("6_x88es")
 building_sprite = ExtResource("2_8nrum")
-stackable = true
+layer = 3
 id_name = "raincloud"
 display_name = "Raincloud"
 desc = ""

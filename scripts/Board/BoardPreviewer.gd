@@ -41,5 +41,5 @@ func _set_preview(tiles_to_preview : Array[Vector2i], tile_scoring : Array[int] 
 	for highlight_tile_pos in preview_highlight_tiles:
 		highlight_tile(highlight_tile_pos, true)
 	 
-func set_preview(placeable : PlaceableNode, tile_pos : Vector2i) -> void:
-	placeable.data.preview(_set_preview, tile_pos)
+func set_preview(board: Board, placeable : PlaceableNode, tile_pos : Vector2i) -> void:
+	placeable.data.preview(board, _set_preview, tile_pos)

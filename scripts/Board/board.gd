@@ -125,7 +125,7 @@ func place_building_on_tile(tile_pos : Vector2i, placeable: PlaceableNode) -> vo
 # Client facing function
 func place_on_board_if_able(placeable: PlaceableNode) -> bool:
 	var tile_mouse_pos : Vector2i = get_mouse_tile_pos()
-	if tile_mouse_pos != NULL_TILE and placeable.placeable(tile_mouse_pos):
+	if tile_mouse_pos != NULL_TILE and placeable.placeable(self, tile_mouse_pos):
 		place_building_on_tile(tile_mouse_pos, placeable)
 		return true
 	return false
@@ -134,7 +134,7 @@ func place_on_board_if_able(placeable: PlaceableNode) -> bool:
 # CARDMANAGER highlight_effects_when_hovering_card -> preview placement -> BoardPreviewer preview 
 # -> calls placeable data's preview event which is a board event
 func preview_placement(try_placeable : PlaceableNode, tile_pos : Vector2i) -> void:
-	board_preview.set_preview(try_placeable, tile_pos)
+	board_preview.set_preview(self, try_placeable, tile_pos)
 
 func reset_preview() -> void :
 	board_preview.reset_preview()

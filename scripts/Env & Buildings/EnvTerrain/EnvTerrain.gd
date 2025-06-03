@@ -5,6 +5,3 @@ class_name EnvTerrain
 
 @export var tilesheet_pos : Vector2i
 @export var score_modifier : int
-
-# is neater 
-#

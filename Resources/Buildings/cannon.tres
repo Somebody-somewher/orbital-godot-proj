@@ -10,7 +10,7 @@
 [resource]
 script = ExtResource("6_ri5d0")
 building_sprite = ExtResource("2_eolt2")
-stackable = false
+layer = 1
 id_name = "cannon"
 display_name = "Cannon"
 desc = ""

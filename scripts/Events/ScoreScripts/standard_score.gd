@@ -1,14 +1,5 @@
-extends BoardEvent
-class_name Score_BoardEffect
-
-@export_category("Scoring")
-@export var effect_buildings_score : Dictionary[String, int]
-@export var base_score : int = 0
-
-# TODO: This form of caching may pose a problem later?
-# This assumes that the same typeof building (separate from buildingdata) will not have differences between one another
-var cache_total_score : int = 0
-var cache_position : Vector2i
+extends ScoreBoardEffect
+class_name StandardScoreEffect
 
 # Actual code that uses the aoe to figure out which tiles should be scored, then assigns each tile a score
 func score_tiles(tile_pos : Vector2i) -> Array[Array]:
@@ -30,15 +21,12 @@ func score_tiles(tile_pos : Vector2i) -> Array[Array]:
 
 # Displays the textlabel scoring above each tile. Board calls this function during preview_placement
 # Note that this does not finalize the scoring
-func preview(previewer : Callable, tile_pos : Vector2i) -> void:
+func preview(board : Board, previewer : Callable, tile_pos : Vector2i) -> void:
 	# Reset the cached score when recalculating, so we don't include old previews
 	cache_total_score = 0
 	var tile_pos_arr : Array[Vector2i]
 	var scores : Array[int]
 	
-	
-	
-	print("preview")
 	var tile_pos_data_score = score_tiles(tile_pos)
 	
 	for i in range(len(tile_pos_data_score[0])):
@@ -46,26 +34,20 @@ func preview(previewer : Callable, tile_pos : Vector2i) -> void:
 		scores.append(tile_pos_data_score[2][i])
 		cache_total_score += tile_pos_data_score[2][i]
 	cache_position = tile_pos
-		
 	previewer.call(tile_pos_arr, scores)
 
 
-func trigger(tile_pos : Vector2i) -> void:
+func trigger(_board : Board, tile_pos : Vector2i) -> void:
 	# Checked if the scored tiles are different from the cached ones
 	var total_score : int = 0
 	
-	# TODO: This form of caching may pose a problem later?
-	# This assumes that buildings nodes with the same buildingdata are the same though that may not be true later
-	# Try not to introduce a circular dependency
-	if cache_total_score != 0 && cache_position != tile_pos:
-		
+	if cache_total_score:
+		total_score = cache_total_score
+	else:
 		# Force a recalculation of the score
 		for score in score_tiles(tile_pos)[2]:
 			total_score += score
-	else:
-		total_score = cache_total_score
-		cache_total_score = 0
-		cache_position = Vector2i.ZERO
+			
 	Signalbus.emit_signal("add_score", total_score)
 
 # TO OVERRIDE

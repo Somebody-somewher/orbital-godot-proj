@@ -7,5 +7,5 @@ func process(matrix, xlen : int, ylen : int) -> void:
 			process_per_tile(matrix[x][y])
 	pass
 
-func process_per_tile(tile_contents : Array) -> void:
+func process_per_tile(_tile_contents : Array) -> void:
 	pass

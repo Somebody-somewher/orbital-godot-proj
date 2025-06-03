@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://jaa3dquffbvf" path="res://scripts/PlaceConditions/StackableCondition.gd" id="1_r1yge"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_r1yge")
-reminder_msg = ""
+layer = null
+reminder_msg = null
 metadata/_custom_type_script = "uid://jaa3dquffbvf"

@@ -5,4 +5,4 @@ class_name BuildingData
 
 @export_category("Basic Properties")
 @export var building_sprite : Texture2D
-@export var stackable : bool
+@export var layer : int = 1
