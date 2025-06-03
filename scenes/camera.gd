@@ -4,6 +4,8 @@ extends Camera2D
 @onready var player_hand: PlayerHand = $"../PlayerHand"
 @onready var card_manager: CardManager = $"../CardManager"
 
+var cam_enabled = true
+
 var screen_size : Vector2
 var camera_dragged := false
 var drag_offset := Vector2.ZERO
@@ -31,6 +33,8 @@ func _physics_process(delta: float) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if !cam_enabled:
+		return
 	if !camera_dragged:
 		var delta_pos =  restrict_camera_to_board()
 		global_position -= delta_pos

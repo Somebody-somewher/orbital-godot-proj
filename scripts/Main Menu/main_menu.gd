@@ -9,6 +9,7 @@ const SINGLEPLAYER = preload("res://scenes/Main.tscn")
 @onready var options_menu: OptionMenu = $Menus/OptionsMenu
 @onready var singleplayer_menu: SingleplayerMenu = $Menus/SingleplayerMenu
 @onready var input_manager: Node2D = $InputManager
+@onready var camera_2d: Camera2D = $Camera2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,6 +17,7 @@ func _ready() -> void:
 	options_menu.visible = false
 	singleplayer_menu.visible = false
 	input_manager.camera_enabled = false
+	camera_2d.cam_enabled = false
 	connect_signals()
 
 func connect_signals() -> void:
