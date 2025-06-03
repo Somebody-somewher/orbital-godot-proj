@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bhvlx0hfrae18" path="res://assets/entity_sprites/exit.PNG" id="2_emapj"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_j7jxg"]
 [ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_a6bpj"]
-[ext_resource type="Resource" uid="uid://ci1g32fnst1e8" path="res://Resources/Events/Scoring/placeholder.tres" id="5_nhxe2"]
+[ext_resource type="Resource" uid="uid://co5t8yoldc0dc" path="res://Resources/Events/Scoring/single_tile_dummy.tres" id="5_emapj"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_i6www"]
 
 [resource]
@@ -14,7 +14,7 @@ stackable = false
 id_name = "exit"
 display_name = ""
 desc = ""
-preview_event = ExtResource("5_nhxe2")
+preview_event = ExtResource("5_emapj")
 place_conditions = Array[ExtResource("3_j7jxg")]([ExtResource("4_a6bpj")])
 place_effects = Array[ExtResource("1_emapj")]([])
 begin_round_effects = Array[ExtResource("1_emapj")]([])

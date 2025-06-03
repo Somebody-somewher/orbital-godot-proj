@@ -33,10 +33,12 @@ func score_tiles(tile_pos : Vector2i) -> Array[Array]:
 func preview(previewer : Callable, tile_pos : Vector2i) -> void:
 	# Reset the cached score when recalculating, so we don't include old previews
 	cache_total_score = 0
-	
 	var tile_pos_arr : Array[Vector2i]
 	var scores : Array[int]
 	
+	
+	
+	print("preview")
 	var tile_pos_data_score = score_tiles(tile_pos)
 	
 	for i in range(len(tile_pos_data_score[0])):
