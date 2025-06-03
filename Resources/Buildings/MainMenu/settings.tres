@@ -1,21 +1,27 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://c86kk0jr6mf54"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=8 format=3 uid="uid://c86kk0jr6mf54"]
 
 [ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_3lfyg"]
 [ext_resource type="Texture2D" uid="uid://cdf4w4ypj4dfo" path="res://assets/entity_sprites/settings.PNG" id="2_3lfyg"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_qn776"]
-[ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_x7av0"]
+[ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="4_3lfyg"]
 [ext_resource type="Resource" uid="uid://co5t8yoldc0dc" path="res://Resources/Events/Scoring/single_tile_dummy.tres" id="5_3lfyg"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_3aq7w"]
+
+[sub_resource type="Resource" id="Resource_gvpou"]
+script = ExtResource("4_3lfyg")
+layer = 1
+reminder_msg = ""
+metadata/_custom_type_script = "uid://wuau4rxg1ej4"
 
 [resource]
 script = ExtResource("6_3aq7w")
 building_sprite = ExtResource("2_3lfyg")
-stackable = false
+layer = 1
 id_name = "settings"
 display_name = ""
 desc = ""
 preview_event = ExtResource("5_3lfyg")
-place_conditions = Array[ExtResource("3_qn776")]([ExtResource("4_x7av0")])
+place_conditions = Array[ExtResource("3_qn776")]([SubResource("Resource_gvpou")])
 place_effects = Array[ExtResource("1_3lfyg")]([])
 begin_round_effects = Array[ExtResource("1_3lfyg")]([])
 end_round_effects = Array[ExtResource("1_3lfyg")]([])

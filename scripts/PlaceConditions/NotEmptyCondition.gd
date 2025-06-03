@@ -1,12 +1,9 @@
 extends Condition
-class_name StackableCondition
+class_name NotEmptyCondition
 
-@export var layer : int = 1
-
+#for some power cards
 func test(board : Board, tile_pos : Vector2i) -> bool:
 	var placeable_arr = board.board_matrix.get_tile(tile_pos).placeable_arr
-		
-	for pn in placeable_arr:
-		if pn.data.layer == layer:
-			return false
+	if placeable_arr.is_empty():
+		return false
 	return true

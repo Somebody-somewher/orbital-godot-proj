@@ -45,5 +45,5 @@ func constrain_pattern_to_board(tile_pos : Vector2i, pattern_arr : Array[Vector2
 			output_tile_pos[0].append(true_tile)
 			output_tile_pos[1].append(get_tile(true_tile))
 
-func search_matrix_readonly(c : Callable) -> void:
+func search_matrix_readonly(c : Callable):
 	c.call(board_matrix)
