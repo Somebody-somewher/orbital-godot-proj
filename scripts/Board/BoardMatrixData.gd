@@ -23,8 +23,8 @@ func _init(board_size : int) -> void:
 func add_tile(tilePos : Vector2i, terrain_env : EnvTerrain) -> void:
 	board_matrix[tilePos.x][tilePos.y] = BoardTile.new(terrain_env)
 	
-func add_building_to_tile(tilePos : Vector2i, building : Building) -> void:
-	board_matrix[tilePos.x][tilePos.y].add_building(building)
+func add_placeable_to_tile(tilePos : Vector2i, placeable : PlaceableNode) -> void:
+	board_matrix[tilePos.x][tilePos.y].add_placeable(placeable)
 
 func get_tile(tilePos : Vector2i) -> BoardTile:
 	return board_matrix[tilePos.x][tilePos.y]

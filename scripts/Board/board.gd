@@ -107,30 +107,32 @@ func create_terrain_tile(tile_pos : Vector2i, terrain_id : String) -> void:
 	
 	board_matrix.add_tile(tile_pos, environment.getTileDatabyId(terrain_id))
 
-# try to place building on tile or swap terrain
-func place_building_on_tile(tile_pos : Vector2i, building: Building) -> void:
-	building.z_index = tile_pos.y
-	add_child(building)
+# try to place placeable on tile
+# Private function
+func place_building_on_tile(tile_pos : Vector2i, placeable: PlaceableNode) -> void:
+	placeable.z_index = tile_pos.y
+	add_child(placeable)
 	
 	# MUST ADD CHILD BEFORE TRIGGER PLACE EVENT (add child initlizes the build which connects signals for scoring)
-	building.trigger_place_effects(self, tile_pos)
+	placeable.trigger_place_effects(self, tile_pos)
 	# MUST TRIGGER BEFORE ADDING (otherwise places self on board then can score against itself)
-	board_matrix.add_building_to_tile(tile_pos, building)
+	board_matrix.add_placeable_to_tile(tile_pos, placeable)
 	
-	building.position = get_local_centre_of_tile(tile_pos)
-	building.get_node("JiggleAnimation").play("jiggle")
+	placeable.position = get_local_centre_of_tile(tile_pos)
+	placeable.get_node("JiggleAnimation").play("jiggle")
 
 # Returns true if Placeable is successfully placed, else returns false
-func place_on_board_if_able(building: Building) -> bool:
+# Client facing function
+func place_on_board_if_able(placeable: PlaceableNode) -> bool:
 	var tile_mouse_pos : Vector2i = get_mouse_tile_pos()
-	if tile_mouse_pos != NULL_TILE and building.placeable(tile_mouse_pos):
-		place_building_on_tile(tile_mouse_pos, building)
+	if tile_mouse_pos != NULL_TILE and placeable.placeable(tile_mouse_pos):
+		place_building_on_tile(tile_mouse_pos, placeable)
 		return true
 	return false
 
 # highlight scoring tiles if building were to be placed
-# highlight_effects_when_hovering_card
-# remove tile_pos? make board get mouse position and apply ghost image itself?
+# CARDMANAGER highlight_effects_when_hovering_card -> preview placement -> BoardPreviewer preview 
+# -> calls placeable data's preview event which is a board event
 func preview_placement(try_placeable : PlaceableNode, tile_pos : Vector2i) -> void:
 	board_preview.set_preview(try_placeable, tile_pos)
 

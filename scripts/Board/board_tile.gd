@@ -13,16 +13,16 @@ signal hide_score(score : int)
 
 # Array in case we have stackable buildings
 # Should use it as a sorted array, where we calculate scoring from the base tile upwards
-var buildings : Array[Building]
+var placeable_arr : Array[Building]
 
 func _init(terrain : EnvTerrain):
 	_terrain = terrain
 
-func add_building(building : Building):
-	buildings.push_back(building)
-	buildings.sort_custom(custom_building_sort);
+func add_placeable(placed_thing : PlaceableNode):
+	placeable_arr.push_back(placed_thing)
+	placeable_arr.sort_custom(custom_placeable_sort);
 
-func custom_building_sort(a : Building, b : Building):
+func custom_placeable_sort(a : PlaceableNode, b : PlaceableNode):
 	if a.layer > b.layer:
 		return true;
 	return false
@@ -31,15 +31,15 @@ func change_terrain(terrain : EnvTerrain):
 	_terrain = terrain
 
 # for deleting buildings from tile
-func delete_from_tile(building : Building) -> void:
-	if building in buildings:
-		buildings.erase(building)
-		building.free()
+func delete_from_tile(placed_thing : PlaceableNode) -> void:
+	if placed_thing in placeable_arr:
+		placeable_arr.erase(placed_thing)
+		placed_thing.free()
 
 func clear_tile() -> void:
-	for building in buildings:
-		building.dissolving = true
-	buildings = []
+	for placeable in placeable_arr:
+		placeable.dissolving = true
+	placeable_arr = []
 
 # cosmetic functions, score_display is guarenteed to be not null
 #func display_score(score : int) :
@@ -52,5 +52,5 @@ func clear_tile() -> void:
 	#score_display.visible = false
 
 func redraw() -> void:
-	for building in buildings:
-		building.global_position = _global_board_pos
+	for placeable in placeable_arr:
+		placeable.global_position = _global_board_pos

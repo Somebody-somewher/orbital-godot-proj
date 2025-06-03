@@ -20,7 +20,7 @@ func score_tiles(tile_pos : Vector2i) -> Array[Array]:
 	
 	# Assign a score to each tile based on its tiledata 
 	for tile_data in tile_pos_data[1]:
-		for building in tile_data.buildings:
+		for building in tile_data.placeable_arr:
 			score += modifier(effect_buildings_score.get(building.data.id_name, 0), tile_data)
 		tile_pos_data[2].append(score)
 		score = 0

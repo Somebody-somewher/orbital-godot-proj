@@ -54,6 +54,7 @@ card_pack_manager = NodePath("CardPackManager")
 position = Vector2(200, 0)
 script = ExtResource("1_c01mt")
 BOARD_SIZE = 9
+proc_gen = null
 
 [node name="Highlights" type="TileMapLayer" parent="Board"]
 

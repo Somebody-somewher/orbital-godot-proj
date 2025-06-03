@@ -12,10 +12,10 @@ func _ready() -> void:
 	super._ready()
 	self.position = Vector2(get_viewport().size.x/2 - TILE_SIZE/2, 400)
 
-func place_building_on_tile(tile_pos : Vector2i, building: Building) -> void:
-	super.place_building_on_tile(tile_pos, building)
+func place_building_on_tile(tile_pos : Vector2i, placeable : PlaceableNode) -> void:
+	super.place_building_on_tile(tile_pos, placeable)
 	player_hand_ref.discard_hand()
-	menu_state = menu_logic_ref.select_option(menu_state, building.data.id_name)
+	menu_state = menu_logic_ref.select_option(menu_state, placeable.data.id_name)
 	
 	timer.start()
 
