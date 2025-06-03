@@ -12,4 +12,13 @@ signal cache_score(score : int)
 signal add_score(score_to_add : int)
 signal update_score_ui(score : int)
 
-#signal request_board_state()
+# BOARD
+#signal run_func_on_board(c : Callable)
+
+# Supply board_tile_positions_data with [[tile_pos], [tile_data]]  
+signal get_tile_pos_from_AOE(tile_pos : Vector2i, aoe_tiles : Array[Vector2i], board_tile_positions_data : Array[Vector2i])
+
+# For Pathfinding for boats, Floodfill for castle
+signal run_search_on_board(c : Callable)
+
+#signal set_score_preview(tile_pos : Array[Vector2i], scores : Array[int])
