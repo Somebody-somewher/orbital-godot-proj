@@ -174,4 +174,4 @@ func animate_card(card : Card, new_scale : Vector2, pos):
 		await tweening.finished
 	tweening = get_tree().create_tween()
 	tweening.parallel().tween_property(card, "position", card.deck_pos + pos, 0.08)
-	tweening.parallel().tween_property(card, "scale", new_scale, 0.08)
+	tweening.parallel().tween_property(card, "scale", new_scale * card.deck_scale, 0.08)

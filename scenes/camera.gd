@@ -37,9 +37,10 @@ func _process(delta: float) -> void:
 		return
 	if !camera_dragged:
 		var delta_pos =  restrict_camera_to_board()
-		global_position -= delta_pos
-		player_hand.pos_offset -= delta_pos
-		player_hand.snap_to_hand_pos()
+		if not (is_equal_approx(delta_pos.x, 0) and is_equal_approx(delta_pos.y, 0)):
+			global_position -= delta_pos
+			player_hand.pos_offset -= delta_pos
+			player_hand.snap_to_hand_pos()
 		return
 	if Input.is_action_just_released("leftMouseClick"):
 		finish_camera_drag()

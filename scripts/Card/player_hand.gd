@@ -53,7 +53,8 @@ func update_hand_pos():
 		card.deck_angle = new_tilt
 		card.deck_pos = Vector2(new_x, new_y)
 		card.rotation = new_tilt
-		card.scale = Vector2.ONE / zoom_var
+		card.deck_scale = 1 / zoom_var
+		card.scale = Vector2.ONE * card.deck_scale
 		animate_card_to_pos(card, card.deck_pos)
 	redraw_z()
 
@@ -69,7 +70,8 @@ func snap_to_hand_pos():
 		var new_y= 0.00025* zoom_var *(new_x - centre_x)**2 + screen_size.y * HAND_Y_RATIO + pos_offset.y
 		var card = hand_arr[i]
 		card.deck_pos = Vector2(new_x, new_y)
-		card.scale = Vector2.ONE / zoom_var
+		card.deck_scale = 1 / zoom_var
+		card.scale = Vector2.ONE * card.deck_scale
 		card.position = card.deck_pos
 
 func animate_card_to_pos(card, new_pos):
