@@ -1,0 +1,45 @@
+extends Node2D
+
+@onready var bgm_stream: AudioStreamPlayer2D
+
+#next bgm to play in queue for smooth transitions
+var next_bgm : String = "desert"
+
+#does nothing currently
+@export var master_volume : float = 100
+@export var bgm_volume : float = 100
+@export var sfx_volume : float = 100
+
+# for stacking SFX isntances
+@export var sfx_instance_scene: PackedScene
+@export var SFX_AUDIOS : Dictionary[String, AudioData] = {
+	"grass" : "res://Resources/Audio/grass_sfx.tres"
+	
+}
+
+#stops current bgm and immediately plays new one
+func play_bgm(audio_name : String, from_position : float = 0.0) -> void:
+	#currently playing requested track
+	if bgm_stream.name == audio_name:
+		return
+	
+	# stop previous
+	if bgm_stream:
+		bgm_stream.stop()
+	bgm_stream = get_node("BGM").get_node(audio_name)
+	bgm_stream.play(from_position)
+
+func play_sfx(audio_name : String, from_position : float = 0.0) -> void:
+	var instance : SFXInstance = sfx_instance_scene.instantiate()
+	#TODO
+	instance.stream = SFX_AUDIOS.get(audio_name)
+	instance.from_position = from_position
+	get_node("SFX").add_child(instance)
+
+#queues bmg to play after current loop
+func queue_bgm(audio_name : String) -> void:
+	next_bgm = audio_name
+
+#signal received that bgm has finished, to start playing new loop
+func _on_bgm_finished() -> void:
+	play_bgm(next_bgm)

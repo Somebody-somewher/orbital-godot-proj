@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="AudioData" load_steps=2 format=3 uid="uid://d24jrof4yhcv6"]
+
+[ext_resource type="Script" uid="uid://cats7srje6wix" path="res://scripts/Audio/AudioData.gd" id="1_dhiv0"]
+
+[resource]
+script = ExtResource("1_dhiv0")
+group_name = "grass"
+variations = Array[AudioStream]([null, null, null])

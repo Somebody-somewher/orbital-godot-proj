@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://cyka8ysyph1xg"]
+
+[ext_resource type="Script" uid="uid://brc8yf4w711qw" path="res://scripts/Audio/audio_manager.gd" id="1_yxyf6"]
+[ext_resource type="AudioStream" uid="uid://x5qh1o7cv2t2" path="res://assets/audio/bgm/theme_plains.ogg" id="2_8fcqh"]
+[ext_resource type="PackedScene" uid="uid://chn00ihl4da0o" path="res://scenes/Audio/sfx_instance.tscn" id="2_fil8k"]
+[ext_resource type="AudioStream" uid="uid://04qho4qbwm8j" path="res://assets/audio/bgm/theme_forest.ogg" id="3_fil8k"]
+[ext_resource type="AudioStream" uid="uid://cs0piv34w52k" path="res://assets/audio/bgm/theme_desert.ogg" id="4_a2iv4"]
+[ext_resource type="AudioStream" uid="uid://2w4qn7ixt0nr" path="res://assets/audio/bgm/theme_mountain.ogg" id="5_0wblh"]
+[ext_resource type="AudioStream" uid="uid://iilru2qvdo2a" path="res://assets/audio/bgm/theme_snowy.ogg" id="6_ih3d7"]
+
+[node name="AudioManager" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_yxyf6")
+master_volume = null
+bgm_volume = null
+sfx_volume = null
+sfx_instance_scene = ExtResource("2_fil8k")
+SFX_AUDIOS = null
+
+[node name="BGM" type="Node2D" parent="."]
+
+[node name="plains" type="AudioStreamPlayer2D" parent="BGM"]
+stream = ExtResource("2_8fcqh")
+max_distance = 4096.0
+
+[node name="forest" type="AudioStreamPlayer2D" parent="BGM"]
+stream = ExtResource("3_fil8k")
+max_distance = 4096.0
+
+[node name="desert" type="AudioStreamPlayer2D" parent="BGM"]
+stream = ExtResource("4_a2iv4")
+max_distance = 4096.0
+
+[node name="mountain" type="AudioStreamPlayer2D" parent="BGM"]
+stream = ExtResource("5_0wblh")
+max_distance = 4096.0
+
+[node name="snow" type="AudioStreamPlayer2D" parent="BGM"]
+stream = ExtResource("6_ih3d7")
+max_distance = 4096.0
+
+[node name="SFX" type="Node2D" parent="."]
+
+[connection signal="finished" from="BGM/plains" to="." method="_on_bgm_finished"]
+[connection signal="finished" from="BGM/forest" to="." method="_on_bgm_finished"]
+[connection signal="finished" from="BGM/desert" to="." method="_on_bgm_finished"]
+[connection signal="finished" from="BGM/mountain" to="." method="_on_bgm_finished"]
+[connection signal="finished" from="BGM/snow" to="." method="_on_bgm_finished"]

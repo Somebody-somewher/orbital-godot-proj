@@ -1,8 +1,6 @@
 extends Node2D
 
-signal left_mouse_click
 signal left_mouse_released
-signal right_mouse_click
 signal right_mouse_released
 
 const CARD_COLLISION_MASK = 1
@@ -11,9 +9,7 @@ const BUILDING_COLLISION_MASK = 4
 const PACK_COLLISION_MASK = 8
 const SET_COLLISION_MASK = 16
 
-enum InputType {LEFT_CLICK, RIGHT_CLICK}
-
-var rng = RandomNumberGenerator.new()
+enum InputType {LEFT_CLICK, RIGHT_CLICK, MIDDLE_CLICK}
 
 @onready var camera_ref: Camera2D = $"../Camera2D"
 var camera_enabled := true
