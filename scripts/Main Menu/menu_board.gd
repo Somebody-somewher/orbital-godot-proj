@@ -12,8 +12,8 @@ func _ready() -> void:
 	super._ready()
 	self.position = Vector2(get_viewport().size.x/2 - TILE_SIZE/2, 400)
 
-func place_building_on_tile(tile_pos : Vector2i, placeable : PlaceableNode) -> void:
-	super.place_building_on_tile(tile_pos, placeable)
+func place_building_on_tile(placeable : PlaceableNode, tile_pos : Vector2i) -> void:
+	super.place_building_on_tile(placeable, tile_pos)
 	player_hand_ref.discard_hand()
 	menu_state = menu_logic_ref.select_option(menu_state, placeable.data.id_name)
 	
@@ -31,7 +31,6 @@ func spawn_card(id_name : String) -> void:
 	card_manager_ref.add_child(new_card)
 	new_card.connect_to_card_manager(card_manager_ref)
 	player_hand_ref.add_to_hand(new_card)
-
 
 func _on_timer_timeout() -> void:
 	board_matrix.get_tile(Vector2i(0,0)).clear_tile()

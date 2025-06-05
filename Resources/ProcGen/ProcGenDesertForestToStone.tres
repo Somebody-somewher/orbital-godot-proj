@@ -1,14 +1,18 @@
-[gd_resource type="Resource" script_class="ProcGenPostProabilitySwitch" load_steps=2 format=3 uid="uid://pql73viwb0oq"]
+[gd_resource type="Resource" script_class="ProcGenPostProabilitySwitch" load_steps=6 format=3 uid="uid://pql73viwb0oq"]
 
 [ext_resource type="Script" uid="uid://bk7ad1qnu3k12" path="res://scripts/ProceduralGeneration/PostProcessors/ProcGenPostProbabilitySwitch.gd" id="1_mtsp0"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="1_rg1xd"]
+[ext_resource type="Resource" uid="uid://dsqu3wnhxngey" path="res://Resources/Buildings/Terrain/forest.tres" id="2_juh4u"]
+[ext_resource type="Resource" uid="uid://dctu4sqtncbb3" path="res://Resources/EnvTerrain/TerrainTiles/Desert.tres" id="3_71wms"]
+[ext_resource type="Texture2D" uid="uid://cfktdhjpch2tg" path="res://assets/entity_sprites/rock.png" id="3_ia4l4"]
 
 [resource]
 script = ExtResource("1_mtsp0")
-conversion_list = Dictionary[String, String]({
-"forest": "rock"
+conversion_list = Dictionary[ExtResource("1_rg1xd"), Array]({
+ExtResource("2_juh4u"): [ExtResource("3_ia4l4")]
 })
-terrain = "Desert"
-probability = Dictionary[String, int]({
-"forest": 70
+terrain = ExtResource("3_71wms")
+probability = Dictionary[ExtResource("1_rg1xd"), int]({
+ExtResource("2_juh4u"): 85
 })
 metadata/_custom_type_script = "uid://bk7ad1qnu3k12"

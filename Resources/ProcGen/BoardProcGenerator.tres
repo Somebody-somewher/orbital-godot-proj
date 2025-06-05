@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BoardProcGenerator" load_steps=5 format=3 uid="uid://b2ockuqgtwo7k"]
+
+[ext_resource type="Resource" uid="uid://doq3nosdirb1v" path="res://Resources/EnvTerrain/TestEnvTerrainMapping.tres" id="1_e2cs7"]
+[ext_resource type="Script" uid="uid://dhrt73uqbk2ke" path="res://scripts/ProceduralGeneration/BoardProcGenerator.gd" id="1_hto6s"]
+[ext_resource type="Resource" uid="uid://cp5qiwhn3pyq2" path="res://Resources/ProcGen/BuildingProcGen.tres" id="1_n7xii"]
+[ext_resource type="Resource" uid="uid://g5o7j8q3ofjf" path="res://Resources/ProcGen/TerrainProcGen.tres" id="2_dlryf"]
+
+[resource]
+script = ExtResource("1_hto6s")
+terrain_gen = ExtResource("2_dlryf")
+building_gen = ExtResource("1_n7xii")
+env_map = ExtResource("1_e2cs7")
+terrain_seed = -1
+building_seed = -1
+metadata/_custom_type_script = "uid://dhrt73uqbk2ke"

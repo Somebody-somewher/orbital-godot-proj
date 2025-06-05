@@ -3,7 +3,7 @@ class_name CardLoader
 # https://github.com/derkork/godot-resource-groups
 
 @export var building_grp : ResourceGroup
-@export var event_grp : ResourceGroup
+#@export var event_grp : ResourceGroup
 
 
 static var buildings_dict = {}
@@ -11,7 +11,7 @@ static var buildings_dict = {}
 
 static var cardset_types : Array[CardSet] = []
 static var buildings : Array[BuildingData] = []
-static var events : Array[Event] = []
+#static var events : Array[Event] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

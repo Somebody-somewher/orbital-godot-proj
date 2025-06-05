@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="ResourceGroup" load_steps=2 format=3 uid="uid://c6ebcmvadff41"]
 
-[ext_resource type="Script" uid="uid://c8qc3g5w3svt1" path="res://addons/godot_resource_groups/resource_group.gd" id="1_mbtlj"]
+[ext_resource type="Script" uid="uid://c8qc3g5w3svt1" path="res://addons/godot_resource_groups/resource_group.gd" id="1_ws48f"]
 
 [resource]
-script = ExtResource("1_mbtlj")
+script = ExtResource("1_ws48f")
 base_folder = "res://Resources/Events"
 includes = Array[String](["**.tres"])
 excludes = Array[String]([])

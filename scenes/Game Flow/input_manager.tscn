@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b43u6wsxnq4ai"]
 
-[ext_resource type="Script" uid="uid://csnqlg6oxvuth" path="res://scripts/input_manager.gd" id="1_qavl1"]
+[ext_resource type="Script" uid="uid://csnqlg6oxvuth" path="res://scripts/GameFlow/input_manager.gd" id="1_qavl1"]
 [ext_resource type="AudioStream" uid="uid://d25cqtfxtterp" path="res://assets/audio/click.mp3" id="2_v1pmh"]
 
 [node name="InputManager" type="Node2D"]

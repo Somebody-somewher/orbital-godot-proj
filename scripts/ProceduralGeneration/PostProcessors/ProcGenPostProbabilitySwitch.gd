@@ -1,16 +1,22 @@
-extends ProcGenPostBase
+extends ProcGenPostProcessBuildingInterface
 class_name ProcGenPostProabilitySwitch
 
-@export var conversion_list : Dictionary[String, String]
-@export var terrain : String
+@export var conversion_list : Dictionary[BuildingData, Array]
+@export var terrain : EnvTerrain
 # Probability chance out of 100
-@export var probability : Dictionary[String, int]
+@export var probability : Dictionary[BuildingData, int]
+var _terrain_matrix : Array
 
-func process_per_tile(tile_contents : Array) -> void:
-	var item
-	for i in range(1, len(tile_contents)):
-		item = tile_contents[i]
-		if tile_contents[0] == terrain && item in conversion_list:
-			if probability[item] > randi_range(0, 100):
-				tile_contents[i] = conversion_list[item]
+func process(building_iterator : ProcGenBoardIterator, terrain_iterator : ProcGenBoardIterator) -> void:
+	_terrain_matrix = terrain_iterator.retrieve_matrix()
+	for bd in conversion_list.keys():
+		building_iterator.foreach_ele(bd, convert)
+	
+
+func convert(b : BuildingData, pos : Vector2i) -> void:
+	var choices
+	if _terrain_matrix[pos.x][pos.y] == terrain:
+		if randi_range(0,100) < probability.get(b, 101):
+			choices = conversion_list.get(b)	
+			conversion_list.get(choices[randi_range(0, len(choices-1))])
 	

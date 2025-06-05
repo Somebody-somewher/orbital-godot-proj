@@ -6,3 +6,4 @@ class_name BuildingData
 @export_category("Basic Properties")
 @export var building_sprite : Texture2D
 @export var layer : int = 1
+@export var nonplaceable_terrain : Array[EnvTerrain] = [preload("res://Resources/EnvTerrain/TerrainTiles/Water.tres")]

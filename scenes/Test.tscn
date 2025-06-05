@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ceunkao5iunho"]
+
+[ext_resource type="Resource" uid="uid://b2ockuqgtwo7k" path="res://Resources/ProcGen/BoardProcGenerator.tres" id="2_0d6la"]
+[ext_resource type="PackedScene" uid="uid://bkjixy0xiwh51" path="res://scenes/Board/board.tscn" id="2_w8un3"]
+
+[node name="Test" type="Node2D"]
+
+[node name="Board" parent="." instance=ExtResource("2_w8un3")]
+BOARD_SIZE = 8
+proc_gen = ExtResource("2_0d6la")

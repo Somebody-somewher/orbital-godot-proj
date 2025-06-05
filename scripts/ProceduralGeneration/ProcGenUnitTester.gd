@@ -6,8 +6,7 @@ extends Node2D
 
 @export var display_noise: TextureRect 
 
-@export 
-var proc_generator : ProceduralGenerator
+
 @export
 var board : PackedScene = preload("res://scenes/Board/board.tscn")
 
@@ -35,7 +34,7 @@ func create_boards() -> void:
 			
 			board_inst.board_id = count_id
 			board_inst.BOARD_SIZE = BOARD_SIZE
-			board_inst.proc_gen = proc_generator
+			#board_inst.proc_gen = proc_generator
 			
 			add_child(board_inst)
 			board_global_len = board_inst.get_global_length()
