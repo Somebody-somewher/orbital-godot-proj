@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AudioData" load_steps=8 format=3 uid="uid://cauqp7kqx7tr3"]
+
+[ext_resource type="Script" uid="uid://cats7srje6wix" path="res://scripts/Audio/AudioData.gd" id="1_4te4v"]
+[ext_resource type="AudioStream" uid="uid://dbylambtaxmo4" path="res://assets/audio/sfx/placing/gravel/gravel1.mp3" id="2_vkgxm"]
+[ext_resource type="AudioStream" uid="uid://dorfgnq1f2w4c" path="res://assets/audio/sfx/placing/gravel/gravel2.mp3" id="3_p7a0a"]
+[ext_resource type="AudioStream" uid="uid://dcitrnnlkb6o3" path="res://assets/audio/sfx/placing/gravel/gravel3.mp3" id="4_kiwyg"]
+[ext_resource type="AudioStream" uid="uid://bkrxewr1llci7" path="res://assets/audio/sfx/placing/gravel/gravel4.mp3" id="5_k45yp"]
+[ext_resource type="AudioStream" uid="uid://cbrnqnd6bxysw" path="res://assets/audio/sfx/placing/gravel/gravel5.mp3" id="6_xl5tx"]
+[ext_resource type="AudioStream" uid="uid://bwu0em52q6qd7" path="res://assets/audio/sfx/placing/gravel/gravel6.mp3" id="7_ung0c"]
+
+[resource]
+script = ExtResource("1_4te4v")
+group_name = "gravel"
+variations = Array[AudioStream]([ExtResource("2_vkgxm"), ExtResource("3_p7a0a"), ExtResource("4_kiwyg"), ExtResource("5_k45yp"), ExtResource("6_xl5tx"), ExtResource("7_ung0c")])

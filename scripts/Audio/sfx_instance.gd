@@ -9,4 +9,5 @@ func _ready() -> void:
 
 
 func _on_finished() -> void:
+	AudioManager.current_instances -= 1
 	queue_free()

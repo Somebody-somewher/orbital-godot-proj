@@ -1,8 +1,14 @@
-[gd_resource type="Resource" script_class="AudioData" load_steps=2 format=3 uid="uid://d24jrof4yhcv6"]
+[gd_resource type="Resource" script_class="AudioData" load_steps=8 format=3 uid="uid://d24jrof4yhcv6"]
 
 [ext_resource type="Script" uid="uid://cats7srje6wix" path="res://scripts/Audio/AudioData.gd" id="1_dhiv0"]
+[ext_resource type="AudioStream" uid="uid://dixhx4hotur2" path="res://assets/audio/sfx/placing/grass/grass1.mp3" id="2_s3g2j"]
+[ext_resource type="AudioStream" uid="uid://b0rjps62vpuvp" path="res://assets/audio/sfx/placing/grass/grass2.mp3" id="3_638jx"]
+[ext_resource type="AudioStream" uid="uid://dl43s7b2o0g06" path="res://assets/audio/sfx/placing/grass/grass3.mp3" id="4_7j8u6"]
+[ext_resource type="AudioStream" uid="uid://chxbsnqmqph6l" path="res://assets/audio/sfx/placing/grass/grass4.mp3" id="5_ylu1r"]
+[ext_resource type="AudioStream" uid="uid://p7atomxyhl4e" path="res://assets/audio/sfx/placing/grass/grass5.mp3" id="6_c4nfw"]
+[ext_resource type="AudioStream" uid="uid://5h0o0jh6h1f" path="res://assets/audio/sfx/placing/grass/grass6.mp3" id="7_o4c8q"]
 
 [resource]
 script = ExtResource("1_dhiv0")
 group_name = "grass"
-variations = Array[AudioStream]([null, null, null])
+variations = Array[AudioStream]([ExtResource("2_s3g2j"), ExtResource("3_638jx"), ExtResource("4_7j8u6"), ExtResource("5_ylu1r"), ExtResource("6_c4nfw"), ExtResource("7_o4c8q")])

@@ -50,7 +50,7 @@ func left_click_logic(result) -> void:
 		CARD_COLLISION_MASK:
 			if result_found.dissolving:
 				return
-			play_click(.7)
+			AudioManager.play_sfx("click", 0.7)
 			var card_manager = result_found.get_parent()
 			card_manager.start_drag(result_found)
 		PACK_COLLISION_MASK:
@@ -108,8 +108,3 @@ func topmost(result_arr):
 			top = current
 			max_z = current.collider.get_parent().z_index
 	return top
-
-func play_click(pitch : float):
-	self.get_node("ClickAudio").pitch_scale = pitch
-	self.get_node("ClickAudio").play()
-	

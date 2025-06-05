@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://cdp6pxvmemk4u"]
+[gd_scene load_steps=24 format=4 uid="uid://cdp6pxvmemk4u"]
 
 [ext_resource type="Script" uid="uid://dq7q74qaf5hj8" path="res://scripts/GameFlow/GameManager.gd" id="1_bjd11"]
 [ext_resource type="Script" uid="uid://6i6an4l8cw12" path="res://scripts/Board/board.gd" id="1_c01mt"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://b2bvfgo8adhft" path="res://scripts/Card/Pack&Set/CardPackManager.gd" id="13_qmy6f"]
 [ext_resource type="Resource" uid="uid://dfnvqedx37h6v" path="res://Resources/CardSet.tres" id="14_mwfav"]
 [ext_resource type="PackedScene" uid="uid://cyka8ysyph1xg" path="res://scenes/Audio/audio_manager.tscn" id="16_cvmbd"]
+[ext_resource type="Script" uid="uid://cats7srje6wix" path="res://scripts/Audio/AudioData.gd" id="17_ft6cd"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_4dx8l"]
 frequency = 0.0017
@@ -145,5 +146,9 @@ spawn_node = NodePath("../CardManager")
 cardset_grp = ExtResource("14_mwfav")
 
 [node name="AudioManager" parent="." instance=ExtResource("16_cvmbd")]
+master_volume = 1.0
+bgm_volume = 0.4
+sfx_volume = 1.0
+SFX_AUDIOS = Dictionary[String, ExtResource("17_ft6cd")]({})
 
 [connection signal="pressed" from="CanvasLayer/PlayerUI/EndTurn" to="CanvasLayer/PlayerUI" method="_on_end_turn_pressed"]

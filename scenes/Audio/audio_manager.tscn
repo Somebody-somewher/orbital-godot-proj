@@ -1,21 +1,36 @@
-[gd_scene load_steps=8 format=3 uid="uid://cyka8ysyph1xg"]
+[gd_scene load_steps=17 format=3 uid="uid://cyka8ysyph1xg"]
 
 [ext_resource type="Script" uid="uid://brc8yf4w711qw" path="res://scripts/Audio/audio_manager.gd" id="1_yxyf6"]
 [ext_resource type="AudioStream" uid="uid://x5qh1o7cv2t2" path="res://assets/audio/bgm/theme_plains.ogg" id="2_8fcqh"]
 [ext_resource type="PackedScene" uid="uid://chn00ihl4da0o" path="res://scenes/Audio/sfx_instance.tscn" id="2_fil8k"]
 [ext_resource type="AudioStream" uid="uid://04qho4qbwm8j" path="res://assets/audio/bgm/theme_forest.ogg" id="3_fil8k"]
+[ext_resource type="Script" uid="uid://cats7srje6wix" path="res://scripts/Audio/AudioData.gd" id="3_m00wg"]
 [ext_resource type="AudioStream" uid="uid://cs0piv34w52k" path="res://assets/audio/bgm/theme_desert.ogg" id="4_a2iv4"]
+[ext_resource type="Resource" uid="uid://d24jrof4yhcv6" path="res://Resources/Audio/grass_sfx.tres" id="4_nit56"]
 [ext_resource type="AudioStream" uid="uid://2w4qn7ixt0nr" path="res://assets/audio/bgm/theme_mountain.ogg" id="5_0wblh"]
+[ext_resource type="Resource" uid="uid://cauqp7kqx7tr3" path="res://Resources/Audio/gravel_sfx.tres" id="5_7ucqt"]
+[ext_resource type="Resource" uid="uid://xqvm0eyuqm7r" path="res://Resources/Audio/sand_sfx.tres" id="6_cmggu"]
 [ext_resource type="AudioStream" uid="uid://iilru2qvdo2a" path="res://assets/audio/bgm/theme_snowy.ogg" id="6_ih3d7"]
+[ext_resource type="Resource" uid="uid://cckhakjd7cgeh" path="res://Resources/Audio/dirt_sfx.tres" id="7_dbfxl"]
+[ext_resource type="Resource" uid="uid://cg2yfki3wcb6w" path="res://Resources/Audio/water_sfx.tres" id="8_vetfx"]
+[ext_resource type="Resource" uid="uid://b556q57ubjqwp" path="res://Resources/Audio/click_sfx.tres" id="9_8fw56"]
+[ext_resource type="Resource" uid="uid://dgwkvgrtnwnuk" path="res://Resources/Audio/card_swipe_sfx.tres" id="10_qdupe"]
+[ext_resource type="Resource" uid="uid://dfntpybf8cls3" path="res://Resources/Audio/card_tear_sfx.tres" id="11_oj3bt"]
 
 [node name="AudioManager" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_yxyf6")
-master_volume = null
-bgm_volume = null
-sfx_volume = null
 sfx_instance_scene = ExtResource("2_fil8k")
-SFX_AUDIOS = null
+SFX_AUDIOS = Dictionary[String, ExtResource("3_m00wg")]({
+"click": ExtResource("9_8fw56"),
+"dirt": ExtResource("7_dbfxl"),
+"grass": ExtResource("4_nit56"),
+"gravel": ExtResource("5_7ucqt"),
+"sand": ExtResource("6_cmggu"),
+"swipe": ExtResource("10_qdupe"),
+"tear": ExtResource("11_oj3bt"),
+"water": ExtResource("8_vetfx")
+})
 
 [node name="BGM" type="Node2D" parent="."]
 

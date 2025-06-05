@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AudioData" load_steps=8 format=3 uid="uid://cckhakjd7cgeh"]
+
+[ext_resource type="Script" uid="uid://cats7srje6wix" path="res://scripts/Audio/AudioData.gd" id="1_kr57l"]
+[ext_resource type="AudioStream" uid="uid://rh0prb0koamy" path="res://assets/audio/sfx/placing/dirt/dirt1.mp3" id="2_kt51l"]
+[ext_resource type="AudioStream" uid="uid://c8lgge3os2r0y" path="res://assets/audio/sfx/placing/dirt/dirt2.mp3" id="3_vav14"]
+[ext_resource type="AudioStream" uid="uid://brqq4xy8w3uys" path="res://assets/audio/sfx/placing/dirt/dirt3.mp3" id="4_ae43s"]
+[ext_resource type="AudioStream" uid="uid://cva0jwdc0vana" path="res://assets/audio/sfx/placing/dirt/dirt4.mp3" id="5_a6foi"]
+[ext_resource type="AudioStream" uid="uid://cy57brextdt7y" path="res://assets/audio/sfx/placing/dirt/dirt5.mp3" id="6_eu4s1"]
+[ext_resource type="AudioStream" uid="uid://cj6ix404vpe3o" path="res://assets/audio/sfx/placing/dirt/dirt6.mp3" id="7_vocy0"]
+
+[resource]
+script = ExtResource("1_kr57l")
+group_name = "dirt"
+variations = Array[AudioStream]([ExtResource("2_kt51l"), ExtResource("3_vav14"), ExtResource("4_ae43s"), ExtResource("5_a6foi"), ExtResource("6_eu4s1"), ExtResource("7_vocy0")])

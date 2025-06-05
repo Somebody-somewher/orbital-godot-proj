@@ -18,6 +18,7 @@ func _ready() -> void:
 	og_screen_size = get_viewport().size
 
 func add_to_hand_no_update(card):
+	AudioManager.play_sfx("swipe")
 	card.initialize_card_effect()
 	hand_arr.insert(hand_arr.size(), card)
 
