@@ -46,11 +46,11 @@ func _input(event):
 func left_click_logic(result) -> void:
 	var result_mask = result.collider.collision_mask
 	var result_found = result.collider.get_parent()
+	AudioManager.play_sfx("click", 0.7)
 	match result_mask:
 		CARD_COLLISION_MASK:
 			if result_found.dissolving:
 				return
-			AudioManager.play_sfx("click", 0.7)
 			var card_manager = result_found.get_parent()
 			card_manager.start_drag(result_found)
 		PACK_COLLISION_MASK:
@@ -71,6 +71,7 @@ func right_click_logic(result) -> void:
 			var card_manager = result_found.get_parent()
 			card_manager.finish_drag(false)
 		PACK_COLLISION_MASK:
+			AudioManager.play_sfx("click", 0.5)
 			result_found.open_pack()
 			var card_manager = result_found.get_parent()
 			card_manager.finish_drag(false)

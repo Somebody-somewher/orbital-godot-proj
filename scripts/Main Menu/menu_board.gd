@@ -9,6 +9,7 @@ var menu_state = "main_menu"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	proc_gen = null
 	super._ready()
 	self.position = Vector2(get_viewport().size.x/2 - TILE_SIZE/2, 400)
 

@@ -7,3 +7,4 @@
 script = ExtResource("1_rboc3")
 group_name = "card_swipe"
 variations = Array[AudioStream]([ExtResource("2_qeoy6")])
+default = null

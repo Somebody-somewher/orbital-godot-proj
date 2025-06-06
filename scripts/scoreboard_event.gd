@@ -1,14 +1,13 @@
 extends BoardEvent
-class_name ScoreBoardEffect
+class_name ScoreEffect
 
 @export_category("Scoring")
 @export var effect_buildings_score : Dictionary[String, int]
 @export var base_score : int = 0
 
-# TODO: This form of caching may pose a problem later?
-# This assumes that the same typeof building (separate from buildingdata) will not have differences between one another
-var cache_total_score : int
-var cache_position : Vector2i
+# variables that can change by auras
+var multiplier := 1.0
+var addition := 0
 
 # Actual code that uses the aoe to figure out which tiles should be scored, then assigns each tile a score
 func score_tiles(tile_pos : Vector2i) -> Array[Array]:
@@ -20,7 +19,7 @@ func preview(board : Board, previewer : Callable, tile_pos : Vector2i) -> void:
 	pass
 
 
-func trigger(_board : Board, _tile_pos : Vector2i) -> void:
+func trigger(_board : Board, _tile_pos : Vector2i, caller : Object) -> void:
 	pass
 
 # TO OVERRIDE

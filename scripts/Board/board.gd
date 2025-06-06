@@ -112,7 +112,6 @@ func create_terrain_tile(tile_pos : Vector2i, terrain_id : String) -> void:
 func place_building_on_tile(tile_pos : Vector2i, placeable: PlaceableNode) -> void:
 	placeable.z_index = tile_pos.y
 	add_child(placeable)
-	
 	# MUST ADD CHILD BEFORE TRIGGER PLACE EVENT (add child initlizes the build which connects signals for scoring)
 	placeable.trigger_place_effects(self, tile_pos)
 	# MUST TRIGGER BEFORE ADDING (otherwise places self on board then can score against itself)

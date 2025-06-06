@@ -42,7 +42,6 @@ position = Vector2(200, 500)
 script = ExtResource("1_rtw2f")
 BOARD_SIZE = 1
 BOARD_SCALE = 0.15
-proc_gen = null
 
 [node name="Highlights" type="TileMapLayer" parent="Board"]
 

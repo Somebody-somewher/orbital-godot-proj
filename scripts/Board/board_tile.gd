@@ -38,7 +38,7 @@ func delete_from_tile(placed_thing : PlaceableNode) -> void:
 
 func clear_tile() -> void:
 	for placeable in placeable_arr:
-		placeable.dissolving = true
+		placeable.dissolve()
 	placeable_arr = []
 
 

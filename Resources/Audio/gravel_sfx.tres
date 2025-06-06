@@ -12,3 +12,4 @@
 script = ExtResource("1_4te4v")
 group_name = "gravel"
 variations = Array[AudioStream]([ExtResource("2_vkgxm"), ExtResource("3_p7a0a"), ExtResource("4_kiwyg"), ExtResource("5_k45yp"), ExtResource("6_xl5tx"), ExtResource("7_ung0c")])
+default = null

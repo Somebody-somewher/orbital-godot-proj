@@ -12,3 +12,4 @@
 script = ExtResource("1_dhiv0")
 group_name = "grass"
 variations = Array[AudioStream]([ExtResource("2_s3g2j"), ExtResource("3_638jx"), ExtResource("4_7j8u6"), ExtResource("5_ylu1r"), ExtResource("6_c4nfw"), ExtResource("7_o4c8q")])
+default = null

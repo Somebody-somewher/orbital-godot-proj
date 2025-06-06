@@ -7,12 +7,15 @@
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_833t1"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("6_833t1")
 building_sprite = ExtResource("2_27t32")
 layer = 1
 id_name = "cottage"
 display_name = "Cottage"
 desc = ""
+category = 0
+tags = Array[String]([])
 preview_event = ExtResource("5_27t32")
 place_conditions = Array[ExtResource("3_fjwxk")]([])
 place_effects = Array[ExtResource("1_27t32")]([])

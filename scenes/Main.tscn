@@ -57,7 +57,6 @@ card_pack_manager = NodePath("CardPackManager")
 position = Vector2(200, 0)
 script = ExtResource("1_c01mt")
 BOARD_SIZE = 9
-proc_gen = null
 
 [node name="Highlights" type="TileMapLayer" parent="Board"]
 
@@ -146,9 +145,6 @@ spawn_node = NodePath("../CardManager")
 cardset_grp = ExtResource("14_mwfav")
 
 [node name="AudioManager" parent="." instance=ExtResource("16_cvmbd")]
-master_volume = 1.0
-bgm_volume = 0.4
-sfx_volume = 1.0
 SFX_AUDIOS = Dictionary[String, ExtResource("17_ft6cd")]({})
 
 [connection signal="pressed" from="CanvasLayer/PlayerUI/EndTurn" to="CanvasLayer/PlayerUI" method="_on_end_turn_pressed"]

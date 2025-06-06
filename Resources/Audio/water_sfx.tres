@@ -9,3 +9,4 @@
 script = ExtResource("1_aadnq")
 group_name = "water"
 variations = Array[AudioStream]([ExtResource("2_w8qmb"), ExtResource("3_6jgfw"), ExtResource("4_yrf43")])
+default = null
