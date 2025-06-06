@@ -22,3 +22,6 @@ signal get_tile_pos_from_AOE(tile_pos : Vector2i, aoe_tiles : Array[Vector2i], b
 signal run_search_on_board(c : Callable)
 
 #signal set_score_preview(tile_pos : Array[Vector2i], scores : Array[int])
+
+# sends to baord to spawn card
+signal spawn_card(id : String, pos : Vector2)

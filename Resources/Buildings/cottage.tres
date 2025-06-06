@@ -1,10 +1,23 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=6 format=3 uid="uid://c35rbfyobw7ud"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=10 format=3 uid="uid://c35rbfyobw7ud"]
 
 [ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_27t32"]
 [ext_resource type="Texture2D" uid="uid://bre3qqnc8kynq" path="res://assets/entity_sprites/cottage.PNG" id="2_27t32"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_fjwxk"]
 [ext_resource type="Resource" uid="uid://by2gagjkifvdo" path="res://Resources/Events/Scoring/cottage_scoring.tres" id="5_27t32"]
+[ext_resource type="Script" uid="uid://cux3jvyk6llof" path="res://scripts/Events/create_cards_event.gd" id="5_fjwxk"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_833t1"]
+[ext_resource type="Script" uid="uid://c5t7qdcdn01ia" path="res://scripts/Events/destroy_self_event.gd" id="6_fjwxk"]
+
+[sub_resource type="Resource" id="Resource_kt7lp"]
+script = ExtResource("5_fjwxk")
+cards = Dictionary[String, int]({
+"apple": 2
+})
+metadata/_custom_type_script = "uid://cux3jvyk6llof"
+
+[sub_resource type="Resource" id="Resource_fjwxk"]
+script = ExtResource("6_fjwxk")
+metadata/_custom_type_script = "uid://c5t7qdcdn01ia"
 
 [resource]
 resource_local_to_scene = true
@@ -18,7 +31,8 @@ category = 0
 tags = Array[String]([])
 preview_event = ExtResource("5_27t32")
 place_conditions = Array[ExtResource("3_fjwxk")]([])
-place_effects = Array[ExtResource("1_27t32")]([])
+place_effects = Array[ExtResource("1_27t32")]([SubResource("Resource_kt7lp")])
+post_place_effects = Array[ExtResource("1_27t32")]([SubResource("Resource_fjwxk")])
 begin_round_effects = Array[ExtResource("1_27t32")]([])
 end_round_effects = Array[ExtResource("1_27t32")]([])
 destroyed_effects = Array[ExtResource("1_27t32")]([])

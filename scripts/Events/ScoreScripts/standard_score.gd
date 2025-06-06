@@ -34,7 +34,7 @@ func preview(board : Board, previewer : Callable, tile_pos : Vector2i) -> void:
 	previewer.call(tile_pos_arr, scores)
 
 
-func trigger(_board : Board, tile_pos : Vector2i, caller : Object) -> void:
+func trigger(board : Board, tile_pos : Vector2i, caller : Node2D) -> void:
 	# Checked if the scored tiles are different from the cached ones
 	var total_score : int = 0
 	# recalculation of the score

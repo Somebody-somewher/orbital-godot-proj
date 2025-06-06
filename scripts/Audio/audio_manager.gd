@@ -43,4 +43,5 @@ func queue_bgm(audio_name : String) -> void:
 
 #signal received that bgm has finished, to start playing new loop
 func _on_bgm_finished() -> void:
+	bgm_stream = null
 	play_bgm(next_bgm)

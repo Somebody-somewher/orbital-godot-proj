@@ -38,6 +38,7 @@ enum Category {
 # Scoring will be done here 
 # TODO: May lump this up into one class called EventGroup for the inheritance
 @export var place_effects : Array[BoardEvent]
+@export var post_place_effects : Array[BoardEvent]
 @export var begin_round_effects : Array[BoardEvent]
 @export var end_round_effects : Array[BoardEvent]
 @export var destroyed_effects : Array[BoardEvent]

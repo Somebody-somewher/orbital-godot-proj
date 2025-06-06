@@ -54,7 +54,6 @@ func update_hand_pos():
 		card.deck_angle = new_tilt
 		card.deck_pos = Vector2(new_x, new_y)
 		card.rotation = new_tilt
-		card.deck_scale = 1 / zoom_var
 		card.scale = Vector2.ONE * card.deck_scale
 		animate_card_to_pos(card, card.deck_pos)
 	redraw_z()
@@ -76,7 +75,7 @@ func snap_to_hand_pos():
 		card.position = card.deck_pos
 
 func animate_card_to_pos(card, new_pos):
-	card.scale = Vector2(1,1)
+	card.scale = Vector2.ONE * card.deck_scale
 	var tween = get_tree().create_tween()
 	tween.parallel().tween_property(card, "position", new_pos, 0.2)
 

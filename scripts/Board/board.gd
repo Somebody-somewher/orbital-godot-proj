@@ -59,7 +59,6 @@ func _ready() -> void:
 				create_terrain_tile(Vector2i(x,y), "Grass")
 	else:
 		proc_gen.generate_world(create_terrain_tile, place_building_on_tile, board_id)
-	
 ########################## POSITIONING HELPER FUNCTIONS #############################################
 
 func get_global_tile_pos(coords : Vector2i) -> Vector2:
@@ -117,6 +116,7 @@ func place_building_on_tile(tile_pos : Vector2i, placeable: PlaceableNode) -> vo
 	# MUST TRIGGER BEFORE ADDING (otherwise places self on board then can score against itself)
 	board_matrix.add_placeable_to_tile(tile_pos, placeable)
 	
+	placeable.trigger_post_place_effects(self, tile_pos)
 	placeable.position = get_local_centre_of_tile(tile_pos)
 	placeable.get_node("JiggleAnimation").play("jiggle")
 

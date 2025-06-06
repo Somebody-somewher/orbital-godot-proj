@@ -23,6 +23,7 @@ var board_ref : Board = $"../Board"
 
 func _ready() -> void:
 	CARD_TILE_RATIO = Vector2.ONE * board_ref.TILE_SIZE / 120
+	Signalbus.connect("spawn_card", spawn_card)
 
 func _process(_delta: float) -> void:
 	if !card_dragged:
@@ -127,13 +128,21 @@ func highlight_effects_when_hovering_card() -> void :
 	var tile_pos_i = board_ref.get_mouse_tile_pos()
 	var tile_global_pos = board_ref.get_global_tile_pos(tile_pos_i)
 	if tile_global_pos != Vector2(Board.NULL_TILE):
+		card_dragged.get_node("GhostImage").scale = CARD_TILE_RATIO * player_hand_ref.zoom_var
 		card_dragged.get_node("GhostImage").visible = true
 		card_dragged.get_node("GhostImage").global_position = tile_global_pos
-		card_dragged.get_node("GhostImage").scale = CARD_TILE_RATIO
 		board_ref.preview_placement(card_dragged.building, tile_pos_i)
 	else:
 		card_dragged.get_node("GhostImage").visible = false
 		board_ref.reset_preview()
+
+# position as global position to spawn card
+func spawn_card(id_name : String, pos : Vector2) -> void:
+	var new_card = BuildingCard.new_card(id_name)
+	new_card.global_position = pos
+	self.add_child(new_card)
+	new_card.connect_to_card_manager(self)
+	player_hand_ref.add_to_hand(new_card)
 
 # Following functions are centralized under CardManager
 # So as to prevent them all from being triggered at the same time
@@ -160,7 +169,7 @@ func card_hover_if_able():
 func highlight_card(card : Card, hovering : bool):
 	if hovering:
 		card.rotation = 0
-		animate_card(card, Vector2(1.15, 1.15), Vector2(0, -80))
+		animate_card(card, Vector2(1.15, 1.15), Vector2(0, -80*card.deck_scale))
 		card.get_parent().move_child(card, -1)
 		card.z_index += 10
 	else:

@@ -32,9 +32,9 @@ func change_terrain(terrain : EnvTerrain):
 
 # for deleting buildings from tile
 func delete_from_tile(placed_thing : PlaceableNode) -> void:
-	if placed_thing in placeable_arr:
-		placeable_arr.erase(placed_thing)
-		placed_thing.free()
+	var index = placeable_arr.find(placed_thing)
+	if index != -1:
+		placeable_arr.remove_at(index)
 
 func clear_tile() -> void:
 	for placeable in placeable_arr:

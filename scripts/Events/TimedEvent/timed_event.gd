@@ -1,10 +1,10 @@
 extends BoardEvent
 class_name TimedEvent
 
-var effect_when_time : BoardEvent
-var round_count : int = 0
+@export var effect_when_time : BoardEvent
+@export var round_count : int = 0
 
-func trigger(board_matrix, tile_pos : Vector2i, caller : Object) -> void:
+func trigger(board : Board, tile_pos : Vector2i, caller : Node2D) -> void:
 	if round_count > 0:
 		round_count -= 1
 	elif round_count == 0:

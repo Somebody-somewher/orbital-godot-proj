@@ -19,7 +19,7 @@ func preview(board : Board, previewer : Callable, tile_pos : Vector2i) -> void:
 	pass
 
 
-func trigger(_board : Board, _tile_pos : Vector2i, caller : Object) -> void:
+func trigger(board : Board, tile_pos : Vector2i, caller : Node2D) -> void:
 	pass
 
 # TO OVERRIDE
