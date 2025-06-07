@@ -15,13 +15,7 @@ metadata/_custom_type_script = "uid://wuau4rxg1ej4"
 
 [resource]
 script = ExtResource("6_u6oau")
-building_sprite = ExtResource("2_xugn4")
 layer = 1
-id_name = "multiplayer"
-display_name = ""
-desc = ""
-category = 0
-tags = Array[String]([])
 preview_event = ExtResource("5_xugn4")
 place_conditions = Array[ExtResource("3_gsi67")]([SubResource("Resource_pvf6b")])
 place_effects = Array[ExtResource("1_xugn4")]([])
@@ -29,4 +23,10 @@ post_place_effects = Array[ExtResource("1_xugn4")]([])
 begin_round_effects = Array[ExtResource("1_xugn4")]([])
 end_round_effects = Array[ExtResource("1_xugn4")]([])
 destroyed_effects = Array[ExtResource("1_xugn4")]([])
+id_name = "multiplayer"
+display_name = ""
+card_sprite = ExtResource("2_xugn4")
+desc = ""
+category = 0
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

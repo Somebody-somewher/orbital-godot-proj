@@ -8,15 +8,18 @@
 
 [resource]
 script = ExtResource("3_e61nv")
-building_sprite = ExtResource("4_evjhv")
 layer = 1
-id_name = "dummy"
-display_name = "Dummy"
-desc = ""
 preview_event = ExtResource("4_ek4gq")
 place_conditions = Array[ExtResource("2_evjhv")]([])
 place_effects = Array[ExtResource("1_xjls2")]([])
+post_place_effects = Array[ExtResource("1_xjls2")]([])
 begin_round_effects = Array[ExtResource("1_xjls2")]([])
 end_round_effects = Array[ExtResource("1_xjls2")]([])
 destroyed_effects = Array[ExtResource("1_xjls2")]([])
+id_name = "dummy"
+display_name = "Dummy"
+card_sprite = ExtResource("4_evjhv")
+desc = ""
+category = 0
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

@@ -9,15 +9,18 @@
 
 [resource]
 script = ExtResource("6_x88es")
-building_sprite = ExtResource("2_8nrum")
 layer = 3
-id_name = "raincloud"
-display_name = "Raincloud"
-desc = ""
 preview_event = ExtResource("5_dvwdu")
 place_conditions = Array[ExtResource("3_rkmy5")]([ExtResource("4_ukleb")])
 place_effects = Array[ExtResource("1_8nrum")]([])
+post_place_effects = Array[ExtResource("1_8nrum")]([])
 begin_round_effects = Array[ExtResource("1_8nrum")]([])
 end_round_effects = Array[ExtResource("1_8nrum")]([])
 destroyed_effects = Array[ExtResource("1_8nrum")]([])
+id_name = "raincloud"
+display_name = "Raincloud"
+card_sprite = ExtResource("2_8nrum")
+desc = ""
+category = 0
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

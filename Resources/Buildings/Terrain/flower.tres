@@ -8,13 +8,7 @@
 
 [resource]
 script = ExtResource("4_ftxdv")
-building_sprite = ExtResource("2_2o7g5")
 layer = 2
-id_name = "flower"
-display_name = ""
-desc = ""
-category = 0
-tags = Array[String]([])
 preview_event = ExtResource("5_u5qik")
 place_conditions = Array[ExtResource("3_u5qik")]([])
 place_effects = Array[ExtResource("1_mdjjk")]([])
@@ -22,4 +16,10 @@ post_place_effects = Array[ExtResource("1_mdjjk")]([])
 begin_round_effects = Array[ExtResource("1_mdjjk")]([])
 end_round_effects = Array[ExtResource("1_mdjjk")]([])
 destroyed_effects = Array[ExtResource("1_mdjjk")]([])
+id_name = "flower"
+display_name = ""
+card_sprite = ExtResource("2_2o7g5")
+desc = ""
+category = 0
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

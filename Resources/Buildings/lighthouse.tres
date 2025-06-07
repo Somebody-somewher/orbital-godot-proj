@@ -3,21 +3,24 @@
 [ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_62hwb"]
 [ext_resource type="Texture2D" uid="uid://ccck0pjrkxq4k" path="res://assets/entity_sprites/lighthouse.PNG" id="2_62hwb"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_mr3iw"]
-[ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_il22t"]
+[ext_resource type="Resource" uid="uid://bsrnk44vhb58o" path="res://Resources/Conditions/StackableCondition.tres" id="4_il22t"]
 [ext_resource type="Resource" uid="uid://c3lkjxpneu7dh" path="res://Resources/Events/Scoring/lighthouse_scoring.tres" id="5_62hwb"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_icoac"]
 
 [resource]
 script = ExtResource("6_icoac")
-building_sprite = ExtResource("2_62hwb")
-stackable = false
-id_name = "lighthouse"
-display_name = "Lighthouse"
-desc = ""
+layer = 1
 preview_event = ExtResource("5_62hwb")
 place_conditions = Array[ExtResource("3_mr3iw")]([ExtResource("4_il22t")])
 place_effects = Array[ExtResource("1_62hwb")]([])
+post_place_effects = Array[ExtResource("1_62hwb")]([])
 begin_round_effects = Array[ExtResource("1_62hwb")]([])
 end_round_effects = Array[ExtResource("1_62hwb")]([])
 destroyed_effects = Array[ExtResource("1_62hwb")]([])
+id_name = "lighthouse"
+display_name = "Lighthouse"
+card_sprite = ExtResource("2_62hwb")
+desc = ""
+category = 0
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

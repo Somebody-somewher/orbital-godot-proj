@@ -14,8 +14,9 @@ static var buildings : Array[BuildingData] = []
 static var events : Array[Event] = []
 
 
-#for constructor
+#for constructors
 static var building_card_scene: PackedScene = preload("res://scenes/Card/building_card.tscn")
+static var aura_card_scene: PackedScene = preload("res://scenes/Card/aura_card.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

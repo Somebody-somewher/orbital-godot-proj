@@ -9,13 +9,7 @@
 
 [resource]
 script = ExtResource("6_kj3s8")
-building_sprite = ExtResource("2_mvprs")
 layer = 2
-id_name = "flies"
-display_name = "Flies"
-desc = ""
-category = 0
-tags = Array[String]([])
 preview_event = ExtResource("5_8fnbk")
 place_conditions = Array[ExtResource("3_xxylv")]([ExtResource("4_kwp5o")])
 place_effects = Array[ExtResource("1_mvprs")]([])
@@ -23,4 +17,10 @@ post_place_effects = Array[ExtResource("1_mvprs")]([])
 begin_round_effects = Array[ExtResource("1_mvprs")]([])
 end_round_effects = Array[ExtResource("1_mvprs")]([])
 destroyed_effects = Array[ExtResource("1_mvprs")]([])
+id_name = "flies"
+display_name = "Flies"
+card_sprite = ExtResource("2_mvprs")
+desc = ""
+category = 0
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

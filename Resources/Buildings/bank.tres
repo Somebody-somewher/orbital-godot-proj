@@ -15,13 +15,7 @@ metadata/_custom_type_script = "uid://wuau4rxg1ej4"
 
 [resource]
 script = ExtResource("6_fhcv3")
-building_sprite = ExtResource("2_crayo")
 layer = 1
-id_name = "bank"
-display_name = "Bank"
-desc = ""
-category = 0
-tags = Array[String]([])
 preview_event = ExtResource("5_14442")
 place_conditions = Array[ExtResource("3_nn3os")]([SubResource("Resource_641m4")])
 place_effects = Array[ExtResource("1_crayo")]([])
@@ -29,4 +23,10 @@ post_place_effects = Array[ExtResource("1_crayo")]([])
 begin_round_effects = Array[ExtResource("1_crayo")]([])
 end_round_effects = Array[ExtResource("1_crayo")]([])
 destroyed_effects = Array[ExtResource("1_crayo")]([])
+id_name = "bank"
+display_name = "Bank"
+card_sprite = ExtResource("2_crayo")
+desc = ""
+category = 0
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

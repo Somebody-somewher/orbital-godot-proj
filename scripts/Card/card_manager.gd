@@ -38,8 +38,11 @@ func _process(_delta: float) -> void:
 		var new_y = (mouse_pos.y - card_dragged.position.y) * CARD_EASE + card_dragged.position.y
 		card_dragged.position = player_hand_ref.clamp_pos_to_screen(new_x, new_y)
 
+		if card_dragged is AuraCard:
+			return
+		
 		# card effects with board interaction
-		if board_ref != null and card_dragged is Card:
+		if board_ref and card_dragged is Card:
 			card_flip_if_near_board()
 			highlight_effects_when_hovering_card()
 

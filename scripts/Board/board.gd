@@ -91,7 +91,7 @@ func snap_mouse_to_tile_pos() -> Vector2:
 	return get_global_tile_pos(get_mouse_tile_pos())
 
 func get_global_length() -> int:
-	return board_coord[1].x - board_coord[0].x 
+	return int(board_coord[1].x - board_coord[0].x)
 
 ############################### PLACEMENT FUNCTIONS ##################################################
 # Terrain

@@ -126,8 +126,8 @@ func noiseSizeByNumBoard() -> Vector2:
 	
 func getOffsetByBoardId(board_id: int) -> Vector2i:
 	var noise_width_bynumboard : int = noiseSizeByNumBoard().x 
-	var x : int = board_id % noise_width_bynumboard
-	var y : int = board_id / noise_width_bynumboard
+	var x : int = int(board_id % noise_width_bynumboard)
+	var y : int = int(board_id / noise_width_bynumboard)
 	return Vector2i(x,y)
 
 #func getTerrainAtCell(x : int, y : int):

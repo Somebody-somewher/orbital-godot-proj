@@ -15,13 +15,7 @@ metadata/_custom_type_script = "uid://wuau4rxg1ej4"
 
 [resource]
 script = ExtResource("6_rxiao")
-building_sprite = ExtResource("2_d26kk")
 layer = 0
-id_name = "lilypad"
-display_name = "Lilypad"
-desc = ""
-category = 0
-tags = Array[String]([])
 preview_event = ExtResource("5_d6v8x")
 place_conditions = Array[ExtResource("3_3hys5")]([SubResource("Resource_k5r5m")])
 place_effects = Array[ExtResource("1_d26kk")]([])
@@ -29,4 +23,10 @@ post_place_effects = Array[ExtResource("1_d26kk")]([])
 begin_round_effects = Array[ExtResource("1_d26kk")]([])
 end_round_effects = Array[ExtResource("1_d26kk")]([])
 destroyed_effects = Array[ExtResource("1_d26kk")]([])
+id_name = "lilypad"
+display_name = "Lilypad"
+card_sprite = ExtResource("2_d26kk")
+desc = ""
+category = 0
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

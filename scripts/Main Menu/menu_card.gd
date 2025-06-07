@@ -16,8 +16,8 @@ static func new_card(card_name : String) -> Card:
 	var data : BuildingData = CardLoader.get_building_data(card_name) 
 	var card_image_path = str("res://assets/card_sprites/blank_card.png")
 	return_card.get_node("CardImage").texture = load(card_image_path)
-	return_card.get_node("EntityImage").texture = data.building_sprite
-	return_card.get_node("GhostImage").texture = data.building_sprite
+	return_card.get_node("EntityImage").texture = data.card_sprite
+	return_card.get_node("GhostImage").texture = data.card_sprite
 	return_card.get_node("Texts/CardName").text = database_ref.get_card_name_by_id(card_name)
 	return_card.id_name = card_name
 	return return_card

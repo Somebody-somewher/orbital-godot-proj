@@ -15,13 +15,7 @@ metadata/_custom_type_script = "uid://wuau4rxg1ej4"
 
 [resource]
 script = ExtResource("6_ixg5o")
-building_sprite = ExtResource("2_vqe3g")
 layer = 1
-id_name = "singleplayer"
-display_name = ""
-desc = ""
-category = 0
-tags = Array[String]([])
 preview_event = ExtResource("5_vqe3g")
 place_conditions = Array[ExtResource("3_ipx1i")]([SubResource("Resource_aswlx")])
 place_effects = Array[ExtResource("1_78c04")]([])
@@ -29,4 +23,10 @@ post_place_effects = Array[ExtResource("1_78c04")]([])
 begin_round_effects = Array[ExtResource("1_78c04")]([])
 end_round_effects = Array[ExtResource("1_78c04")]([])
 destroyed_effects = Array[ExtResource("1_78c04")]([])
+id_name = "singleplayer"
+display_name = ""
+card_sprite = ExtResource("2_vqe3g")
+desc = ""
+category = 0
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

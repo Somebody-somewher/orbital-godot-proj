@@ -3,21 +3,24 @@
 [ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_25vpq"]
 [ext_resource type="Texture2D" uid="uid://daqcqd2xya2my" path="res://assets/entity_sprites/mine.PNG" id="2_25vpq"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_py65h"]
-[ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_n1s3d"]
+[ext_resource type="Resource" uid="uid://bsrnk44vhb58o" path="res://Resources/Conditions/StackableCondition.tres" id="4_n1s3d"]
 [ext_resource type="Resource" uid="uid://c0ouls6omx0x8" path="res://Resources/Events/Scoring/mine_scoring.tres" id="5_25vpq"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_rpess"]
 
 [resource]
 script = ExtResource("6_rpess")
-building_sprite = ExtResource("2_25vpq")
-stackable = false
-id_name = "mine"
-display_name = "Mine"
-desc = ""
+layer = 1
 preview_event = ExtResource("5_25vpq")
 place_conditions = Array[ExtResource("3_py65h")]([ExtResource("4_n1s3d")])
 place_effects = Array[ExtResource("1_25vpq")]([])
+post_place_effects = Array[ExtResource("1_25vpq")]([])
 begin_round_effects = Array[ExtResource("1_25vpq")]([])
 end_round_effects = Array[ExtResource("1_25vpq")]([])
 destroyed_effects = Array[ExtResource("1_25vpq")]([])
+id_name = "mine"
+display_name = "Mine"
+card_sprite = ExtResource("2_25vpq")
+desc = ""
+category = 0
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

@@ -8,13 +8,7 @@
 
 [resource]
 script = ExtResource("5_eokuo")
-building_sprite = ExtResource("2_m38rd")
 layer = 1
-id_name = "cow"
-display_name = "Cow"
-desc = ""
-category = 0
-tags = Array[String]([])
 preview_event = ExtResource("4_b0dtr")
 place_conditions = Array[ExtResource("3_lpscb")]([])
 place_effects = Array[ExtResource("1_7wndr")]([])
@@ -22,4 +16,10 @@ post_place_effects = Array[ExtResource("1_7wndr")]([])
 begin_round_effects = Array[ExtResource("1_7wndr")]([])
 end_round_effects = Array[ExtResource("1_7wndr")]([])
 destroyed_effects = Array[ExtResource("1_7wndr")]([])
+id_name = "cow"
+display_name = "Cow"
+card_sprite = ExtResource("2_m38rd")
+desc = ""
+category = 0
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

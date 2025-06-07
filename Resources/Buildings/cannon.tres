@@ -9,13 +9,7 @@
 
 [resource]
 script = ExtResource("6_ri5d0")
-building_sprite = ExtResource("2_eolt2")
 layer = 1
-id_name = "cannon"
-display_name = "Cannon"
-desc = ""
-category = 0
-tags = Array[String]([])
 preview_event = ExtResource("5_eolt2")
 place_conditions = Array[ExtResource("3_h2yxn")]([ExtResource("4_g2ag7")])
 place_effects = Array[ExtResource("1_eolt2")]([])
@@ -23,4 +17,10 @@ post_place_effects = Array[ExtResource("1_eolt2")]([])
 begin_round_effects = Array[ExtResource("1_eolt2")]([])
 end_round_effects = Array[ExtResource("1_eolt2")]([])
 destroyed_effects = Array[ExtResource("1_eolt2")]([])
+id_name = "cannon"
+display_name = "Cannon"
+card_sprite = ExtResource("2_eolt2")
+desc = ""
+category = 0
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

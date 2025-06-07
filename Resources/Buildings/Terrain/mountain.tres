@@ -8,12 +8,18 @@
 
 [resource]
 script = ExtResource("3_eimf2")
-building_sprite = ExtResource("4_koxdv")
-id_name = "mountain"
+layer = 1
 preview_event = ExtResource("4_x7e04")
 place_conditions = Array[ExtResource("2_koxdv")]([])
 place_effects = Array[ExtResource("1_oo15j")]([])
+post_place_effects = Array[ExtResource("1_oo15j")]([])
 begin_round_effects = Array[ExtResource("1_oo15j")]([])
 end_round_effects = Array[ExtResource("1_oo15j")]([])
 destroyed_effects = Array[ExtResource("1_oo15j")]([])
+id_name = "mountain"
+display_name = ""
+card_sprite = ExtResource("4_koxdv")
+desc = ""
+category = 0
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

@@ -15,13 +15,7 @@ metadata/_custom_type_script = "uid://wuau4rxg1ej4"
 
 [resource]
 script = ExtResource("6_r877x")
-building_sprite = ExtResource("2_gdtt4")
 layer = 1
-id_name = "beaver"
-display_name = "Beaver"
-desc = ""
-category = 0
-tags = Array[String]([])
 preview_event = ExtResource("5_wxf2c")
 place_conditions = Array[ExtResource("3_6d1em")]([SubResource("Resource_gdtt4")])
 place_effects = Array[ExtResource("1_wxf2c")]([])
@@ -29,4 +23,10 @@ post_place_effects = Array[ExtResource("1_wxf2c")]([])
 begin_round_effects = Array[ExtResource("1_wxf2c")]([])
 end_round_effects = Array[ExtResource("1_wxf2c")]([])
 destroyed_effects = Array[ExtResource("1_wxf2c")]([])
+id_name = "beaver"
+display_name = "Beaver"
+card_sprite = ExtResource("2_gdtt4")
+desc = ""
+category = 0
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"
