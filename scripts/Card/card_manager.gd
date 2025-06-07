@@ -5,8 +5,8 @@ class_name CardManager
 var card_dragged : Node2D
 var card_hovered : Node2D
 var card_flipped : bool = false 
+var hover_enabled : bool = true
 var tweening : Tween
-var screen_size : Vector2
 
 const CARD_COLLISION_MASK = 1
 
@@ -22,8 +22,8 @@ var input_manager_ref = $"../InputManager"
 var board_ref : Board = $"../Board"
 
 func _ready() -> void:
-	screen_size = get_viewport_rect().size
 	CARD_TILE_RATIO = Vector2.ONE * board_ref.TILE_SIZE / 120
+	Signalbus.connect("spawn_card", spawn_card)
 
 func _process(_delta: float) -> void:
 	if !card_dragged:
@@ -36,7 +36,7 @@ func _process(_delta: float) -> void:
 		var mouse_pos = get_global_mouse_position()
 		var new_x = (mouse_pos.x - card_dragged.position.x) * CARD_EASE + card_dragged.position.x
 		var new_y = (mouse_pos.y - card_dragged.position.y) * CARD_EASE + card_dragged.position.y
-		card_dragged.position = Vector2(clamp(new_x, 0, screen_size.x), clamp(new_y, 0, screen_size.y))
+		card_dragged.position = player_hand_ref.clamp_pos_to_screen(new_x, new_y)
 
 		# card effects with board interaction
 		if board_ref != null and card_dragged is Card:
@@ -59,6 +59,7 @@ func finish_drag(placing : bool):
 		if placing:
 			card_placed = board_ref.place_on_board_if_able(card_dragged.building)
 		else:
+			card_dragged.get_node("GhostImage").visible = false
 			card_placed = false
 			
 		if card_hovered and !card_placed: ##plonks the card down
@@ -127,13 +128,21 @@ func highlight_effects_when_hovering_card() -> void :
 	var tile_pos_i = board_ref.get_mouse_tile_pos()
 	var tile_global_pos = board_ref.get_global_tile_pos(tile_pos_i)
 	if tile_global_pos != Vector2(Board.NULL_TILE):
+		card_dragged.get_node("GhostImage").scale = CARD_TILE_RATIO * player_hand_ref.zoom_var
 		card_dragged.get_node("GhostImage").visible = true
 		card_dragged.get_node("GhostImage").global_position = tile_global_pos
-		card_dragged.get_node("GhostImage").scale = CARD_TILE_RATIO
 		board_ref.preview_placement(card_dragged.building, tile_pos_i)
 	else:
 		card_dragged.get_node("GhostImage").visible = false
 		board_ref.reset_preview()
+
+# position as global position to spawn card
+func spawn_card(id_name : String, pos : Vector2) -> void:
+	var new_card = BuildingCard.new_card(id_name)
+	new_card.global_position = pos
+	self.add_child(new_card)
+	new_card.connect_to_card_manager(self)
+	player_hand_ref.add_to_hand(new_card)
 
 # Following functions are centralized under CardManager
 # So as to prevent them all from being triggered at the same time
@@ -141,23 +150,26 @@ func highlight_effects_when_hovering_card() -> void :
 # Do the card hovering animation if there are no cards
 # currently hovering or being dragged
 func card_hover_on(card):
-	if !card_dragged and !card_hovered:
+	if !card_dragged and !card_hovered and hover_enabled:
 		card_hovered = card
 		highlight_card(card, true)
 
 func card_hover_off(card):
 	if card_hovered == card and card_dragged != card:
 		highlight_card(card, false)
-		var new_card_hovered = card_under_mouse()
-		card_hovered = null
-		if new_card_hovered:
-			card_hover_on(new_card_hovered)
+		card_hover_if_able()
+
+func card_hover_if_able():
+	var new_card_hovered = card_under_mouse()
+	card_hovered = null
+	if new_card_hovered:
+		card_hover_on(new_card_hovered)
 
 # highlight or unhighlight card depending on second argument
 func highlight_card(card : Card, hovering : bool):
 	if hovering:
 		card.rotation = 0
-		animate_card(card, Vector2(1.15, 1.15), Vector2(0, -80))
+		animate_card(card, Vector2(1.15, 1.15), Vector2(0, -80*card.deck_scale))
 		card.get_parent().move_child(card, -1)
 		card.z_index += 10
 	else:
@@ -171,4 +183,4 @@ func animate_card(card : Card, new_scale : Vector2, pos):
 		await tweening.finished
 	tweening = get_tree().create_tween()
 	tweening.parallel().tween_property(card, "position", card.deck_pos + pos, 0.08)
-	tweening.parallel().tween_property(card, "scale", new_scale, 0.08)
+	tweening.parallel().tween_property(card, "scale", new_scale * card.deck_scale, 0.08)

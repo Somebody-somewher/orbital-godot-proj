@@ -1,9 +1,7 @@
 extends Node2D
 class_name InputManager
 
-signal left_mouse_click
 signal left_mouse_released
-signal right_mouse_click
 signal right_mouse_released
 
 const CARD_COLLISION_MASK = 1
@@ -12,9 +10,10 @@ const BUILDING_COLLISION_MASK = 4
 const PACK_COLLISION_MASK = 8
 const SET_COLLISION_MASK = 16
 
-enum InputType {LEFT_CLICK, RIGHT_CLICK}
+enum InputType {LEFT_CLICK, RIGHT_CLICK, MIDDLE_CLICK}
 
-var rng = RandomNumberGenerator.new()
+@onready var camera_ref: Camera2D = $"../Camera2D"
+var camera_enabled := true
 
 var MASKS := {
 	"all" : 0xFFFFFFFF,
@@ -26,27 +25,33 @@ var curr_mask := 0xFFFFFFFF
 
 func _input(event):
 	# If it helps Project Settings already has an Input Map for the leftmousebutton btw 
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed:
-			emit_signal("left_mouse_click")
-			raycast_and_click(curr_mask, InputType.LEFT_CLICK)
-		else:
-			emit_signal("left_mouse_released")
-	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
-		if event.pressed:
-			emit_signal("right_mouse_click")
-			raycast_and_click(curr_mask, InputType.RIGHT_CLICK)
-		else:
-			emit_signal("right_mouse_released")
+	if event is InputEventMouseButton:
+		match event.button_index:
+			MOUSE_BUTTON_LEFT:
+				if event.pressed:
+					raycast_and_click(curr_mask, InputType.LEFT_CLICK)
+				else:
+					emit_signal("left_mouse_released")
+			MOUSE_BUTTON_RIGHT:
+				if event.pressed:
+					raycast_and_click(curr_mask, InputType.RIGHT_CLICK)
+				else:
+					emit_signal("right_mouse_released")
+			MOUSE_BUTTON_WHEEL_DOWN:
+				if event.pressed and camera_enabled:
+					camera_ref.zoom_cam(false)
+			MOUSE_BUTTON_WHEEL_UP:
+				if event.pressed and camera_enabled:
+					camera_ref.zoom_cam(true)
 
 func left_click_logic(result) -> void:
 	var result_mask = result.collider.collision_mask
 	var result_found = result.collider.get_parent()
+	AudioManager.play_sfx("click", 0.7)
 	match result_mask:
 		CARD_COLLISION_MASK:
 			if result_found.dissolving:
 				return
-			play_click(.7)
 			var card_manager = result_found.get_parent()
 			card_manager.start_drag(result_found)
 		PACK_COLLISION_MASK:
@@ -67,6 +72,7 @@ func right_click_logic(result) -> void:
 			var card_manager = result_found.get_parent()
 			card_manager.finish_drag(false)
 		PACK_COLLISION_MASK:
+			AudioManager.play_sfx("click", 0.5)
 			result_found.open_pack()
 			var card_manager = result_found.get_parent()
 			card_manager.finish_drag(false)
@@ -83,6 +89,8 @@ func raycast_and_click(mask, input_type : int):
 	params.collision_mask = mask 
 	var result = space_state.intersect_point(params)
 	if result.size() <= 0 :
+		if input_type == InputType.LEFT_CLICK and camera_enabled:
+				camera_ref.start_camera_drag()
 		return
 	result = topmost(result)
 	match input_type:
@@ -102,8 +110,3 @@ func topmost(result_arr):
 			top = current
 			max_z = current.collider.get_parent().z_index
 	return top
-
-func play_click(pitch : float):
-	self.get_node("ClickAudio").pitch_scale = pitch
-	self.get_node("ClickAudio").play()
-	

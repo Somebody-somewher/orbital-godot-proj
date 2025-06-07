@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="AudioData" load_steps=5 format=3 uid="uid://dgwkvgrtnwnuk"]
+
+[ext_resource type="Script" uid="uid://cats7srje6wix" path="res://scripts/Audio/AudioData.gd" id="1_he6vk"]
+[ext_resource type="AudioStream" uid="uid://fpqev8yn3x4u" path="res://assets/audio/sfx/placing/card/card swipe 2.mp3" id="2_2kfmt"]
+[ext_resource type="AudioStream" uid="uid://bsft00h1o30k3" path="res://assets/audio/sfx/placing/card/card swipe.mp3" id="3_a20cl"]
+[ext_resource type="AudioStream" uid="uid://cxusr1xf2aqy8" path="res://assets/audio/sfx/placing/card/card swipe 3.mp3" id="4_yauvy"]
+
+[resource]
+script = ExtResource("1_he6vk")
+group_name = "card_swipe"
+variations = Array[AudioStream]([ExtResource("4_yauvy"), ExtResource("3_a20cl"), ExtResource("2_2kfmt")])
+default = null

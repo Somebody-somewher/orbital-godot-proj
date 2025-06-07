@@ -10,7 +10,7 @@ extends Node
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Signalbus.round_end.connect(_pick_round)
-	pass # Replace with function body.
+	AudioManager.play_bgm("plains")
 
 func _pick_round(round_id : int, round_total : int) -> void:
 	if round_id == 1:

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AudioData" load_steps=3 format=3 uid="uid://dfntpybf8cls3"]
+
+[ext_resource type="Script" uid="uid://cats7srje6wix" path="res://scripts/Audio/AudioData.gd" id="1_dwm24"]
+[ext_resource type="AudioStream" uid="uid://bgt6yqfhb7vu8" path="res://assets/audio/sfx/placing/card/card tear.mp3" id="2_h4n7u"]
+
+[resource]
+script = ExtResource("1_dwm24")
+group_name = "card_swipe"
+variations = Array[AudioStream]([ExtResource("2_h4n7u")])
+default = null

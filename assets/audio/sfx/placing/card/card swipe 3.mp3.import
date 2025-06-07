@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cxusr1xf2aqy8"
+path="res://.godot/imported/card swipe 3.mp3-b3043019a937925f6cf0d56eb158effa.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sfx/placing/card/card swipe 3.mp3"
+dest_files=["res://.godot/imported/card swipe 3.mp3-b3043019a937925f6cf0d56eb158effa.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

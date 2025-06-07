@@ -2,12 +2,24 @@ extends Resource
 class_name PlaceableData
 # Tiles, Terrain or etc
 
+
+
 @export_category("Basic Properties")
 @export var id_name : String
 @export var display_name : String
 
 # Description to show the user whenever they select or hover over the card?
 @export_multiline var desc : String
+
+@export_category("Tags and Combos")
+enum Category { 
+	SABOTAGE, ECONOMY, RELIGION, 
+	INFRASTRUCTURE, FARMING, SCIENCE, 
+	CULTURE, NATURE, INDUSTRY, POWER }
+
+# influences some auras and card back colour
+@export var category: Category
+@export var tags : Array[String]
 
 @export_category("Events and Conditions")
 #################################### EFFECTS ##########################################
@@ -26,6 +38,7 @@ class_name PlaceableData
 # Scoring will be done here 
 # TODO: May lump this up into one class called EventGroup for the inheritance
 @export var place_effects : Array[BoardEvent]
+@export var post_place_effects : Array[BoardEvent]
 @export var begin_round_effects : Array[BoardEvent]
 @export var end_round_effects : Array[BoardEvent]
 @export var destroyed_effects : Array[BoardEvent]

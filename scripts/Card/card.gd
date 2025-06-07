@@ -13,6 +13,7 @@ var owner_id : int
 #animation vars for player hand
 var deck_angle = 0
 var deck_pos
+var deck_scale := 1.0
 
 ##shader stuff
 @onready

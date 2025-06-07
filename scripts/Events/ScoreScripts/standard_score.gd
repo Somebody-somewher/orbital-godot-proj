@@ -1,4 +1,4 @@
-extends ScoreBoardEffect
+extends ScoreEffect
 class_name StandardScoreEffect
 
 # Actual code that uses the aoe to figure out which tiles should be scored, then assigns each tile a score
@@ -12,7 +12,7 @@ func score_tiles(tile_pos : Vector2i) -> Array[Array]:
 	# Assign a score to each tile based on its tiledata 
 	for tile_data in tile_pos_data[1]:
 		for building in tile_data.placeable_arr:
-			score += modifier(effect_buildings_score.get(building.data.id_name, 0), tile_data)
+			score = effect_buildings_score.get(building.data.id_name, 0)
 		tile_pos_data[2].append(score)
 		score = 0
 		
@@ -23,7 +23,6 @@ func score_tiles(tile_pos : Vector2i) -> Array[Array]:
 # Note that this does not finalize the scoring
 func preview(board : Board, previewer : Callable, tile_pos : Vector2i) -> void:
 	# Reset the cached score when recalculating, so we don't include old previews
-	cache_total_score = 0
 	var tile_pos_arr : Array[Vector2i]
 	var scores : Array[int]
 	
@@ -32,25 +31,18 @@ func preview(board : Board, previewer : Callable, tile_pos : Vector2i) -> void:
 	for i in range(len(tile_pos_data_score[0])):
 		tile_pos_arr.append(tile_pos_data_score[0][i])
 		scores.append(tile_pos_data_score[2][i])
-		cache_total_score += tile_pos_data_score[2][i]
-	cache_position = tile_pos
 	previewer.call(tile_pos_arr, scores)
 
 
-func trigger(_board : Board, tile_pos : Vector2i) -> void:
+func trigger(board : Board, tile_pos : Vector2i, caller : Node2D) -> void:
 	# Checked if the scored tiles are different from the cached ones
 	var total_score : int = 0
-	
-	if cache_total_score:
-		total_score = cache_total_score
-	else:
-		# Force a recalculation of the score
-		for score in score_tiles(tile_pos)[2]:
-			total_score += score
+	# recalculation of the score
+	for score in score_tiles(tile_pos)[2]:
+		total_score += score
 			
 	Signalbus.emit_signal("add_score", total_score)
 
-# TO OVERRIDE
 # In case we need to multiply / add score based on tile / building info
 func modifier(score : int, tile_data : BoardTile):
-	return score
+	return (score + addition) * multiplier
