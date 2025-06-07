@@ -13,10 +13,15 @@
 
 [node name="BoardManager" type="Node2D" parent="." node_paths=PackedStringArray("terrain_tilemap")]
 script = ExtResource("1_d0npd")
+BOARD_SIZE = null
+BOARDS_LAYOUT = null
+BORDER_DIM = null
 terrain_tilemap = NodePath("TerrainActual")
 
 [node name="Preview" type="TileMapLayer" parent="BoardManager"]
 script = ExtResource("2_psmhi")
+
+[node name="GhostPlaceable" type="Sprite2D" parent="BoardManager/Preview"]
 
 [node name="Darken" type="TileMapLayer" parent="BoardManager"]
 modulate = Color(0.168235, 0.184866, 0.176556, 0.352941)
@@ -25,22 +30,21 @@ modulate = Color(0.168235, 0.184866, 0.176556, 0.352941)
 z_index = -1
 script = ExtResource("2_y0c26")
 proc_gen = ExtResource("3_nknjn")
-env_map = ExtResource("4_mtbkw")
 darken_tilemap = NodePath("../Darken")
+env_map = ExtResource("4_mtbkw")
 object = NodePath("../Node")
 
 [node name="Node" type="Node" parent="BoardManager"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-visible = false
 position = Vector2(1578, 1208)
 zoom = Vector2(0.345, 0.345)
 
 [node name="CardManager" type="Node2D" parent="." node_paths=PackedStringArray("board_ref", "player_hand_ref", "input_manager_ref")]
 script = ExtResource("5_y0c26")
 board_ref = NodePath("../BoardManager")
-player_hand_ref = NodePath("")
-input_manager_ref = NodePath("")
+player_hand_ref = NodePath("../PlayerHand")
+input_manager_ref = NodePath("../InputManager")
 
 [node name="PlayerHand" type="Node2D" parent="."]
 script = ExtResource("6_mtbkw")

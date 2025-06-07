@@ -21,6 +21,7 @@ var CARD_TILE_RATIO : Vector2
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
+	spawn_card("cow", Vector2i(0,0))
 	#CARD_TILE_RATIO = Vector2.ONE * board_ref.TILE_SIZE / 120
 
 func _process(_delta: float) -> void:
@@ -34,7 +35,8 @@ func _process(_delta: float) -> void:
 		var mouse_pos = get_global_mouse_position()
 		var new_x = (mouse_pos.x - card_dragged.position.x) * CARD_EASE + card_dragged.position.x
 		var new_y = (mouse_pos.y - card_dragged.position.y) * CARD_EASE + card_dragged.position.y
-		card_dragged.position = Vector2(clamp(new_x, 0, screen_size.x), clamp(new_y, 0, screen_size.y))
+		card_dragged.position = Vector2(new_x, new_y)
+		#card_dragged.position = Vector2(clamp(new_x, 0, screen_size.x), clamp(new_y, 0, screen_size.y))
 
 		# card effects with board interaction
 		if board_ref != null and card_dragged is Card:
@@ -122,20 +124,29 @@ func card_flip_if_near_board() -> void:
 
 func highlight_effects_when_hovering_card() -> void :
 	# card ghost snapping to grid
-	board_ref.preview_placement()
-	var tile_pos_i = board_ref.get_mouse_tile_pos()
-	var tile_global_pos = board_ref.get_global_tile_pos(tile_pos_i)
-	if tile_global_pos != Vector2(Board.NULL_TILE):
-		card_dragged.get_node("GhostImage").visible = true
-		card_dragged.get_node("GhostImage").global_position = tile_global_pos
-		card_dragged.get_node("GhostImage").scale = CARD_TILE_RATIO
-		board_ref.preview_placement(card_dragged.building, tile_pos_i)
-	else:
-		card_dragged.get_node("GhostImage").visible = false
-		board_ref.reset_preview()
+	#board_ref.preview_placement()
+	#var tile_pos_i = board_ref.get_mouse_tile_pos()
+	#var tile_global_pos = board_ref.get_global_tile_pos(tile_pos_i)
+	#if tile_global_pos != Vector2(Board.NULL_TILE):
+		#card_dragged.get_node("GhostImage").visible = true
+		#card_dragged.get_node("GhostImage").global_position = tile_global_pos
+		#card_dragged.get_node("GhostImage").scale = CARD_TILE_RATIO
+		#board_ref.preview_placement(card_dragged.building, tile_pos_i)
+	#else:
+		#card_dragged.get_node("GhostImage").visible = false
+		#board_ref.reset_preview()
+	pass
 
 # Following functions are centralized under CardManager
 # So as to prevent them all from being triggered at the same time
+# position as global position to spawn card
+func spawn_card(id_name : String, pos : Vector2) -> void:
+	var new_card = BuildingCard.new_card(id_name)
+	new_card.global_position = pos
+	self.add_child(new_card)
+	connect_card_signals(new_card)
+	#new_card.connect_to_card_manager(self)
+	player_hand_ref.add_to_hand(new_card)
 
 # Do the card hovering animation if there are no cards
 # currently hovering or being dragged

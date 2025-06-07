@@ -1,8 +1,9 @@
-extends TileMapLayer
+extends BoardTileMapLayer
 class_name BoardPreviewerTileMap
 
 var tile_score_previewer : BoardTileScorePreviewer
 
+@export var ghost_image : Sprite2D
 # Hopefully array will not be overwritten before visual reset
 var preview_highlight_tiles : Array[Vector2i]
 
@@ -41,3 +42,9 @@ func _set_preview(tiles_to_preview : Array[Vector2i], tile_scoring : Array[int] 
 	 
 func set_preview(board: Board, placeable : PlaceableNode, tile_pos : Vector2i) -> void:
 	placeable.data.preview(board, _set_preview, tile_pos)
+	
+func place_ghost(placeable_data : PlaceableData, tile_pos : Vector2i) -> void:
+	get_node("GhostPlaceable").visible = true
+	get_node("GhostPlaceable").global_position = local_to_map(tile_pos)
+		#board_ref.preview_placement(card_dragged.building, tile_pos_i)
+	

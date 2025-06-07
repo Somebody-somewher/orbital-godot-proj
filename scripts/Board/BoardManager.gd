@@ -5,8 +5,13 @@ class_name BoardManager
 @export var BOARD_SIZE : Vector2i = Vector2i(8,8)
 @export var BOARDS_LAYOUT : Vector2i = Vector2i(2,2)
 @export var BORDER_DIM : Vector2i = Vector2i(4,4)
+@export var BOARD_SCALE : Vector2i
+var PLAYABLE_SPACE : Array[Vector2i]
 
 @export var terrain_tilemap : BoardVisualManager
+
+# reference for non-existent tile position
+static var NULL_TILE = Vector2i(-1,-1)
 
 # Global Coords of where board spans on screen
 var boards : Array[BoardMatrixData]
@@ -35,6 +40,9 @@ func _ready() -> void:
 			boards.append(curr_board)
 			boards_near_mouse.append(false)
 			board_id += 1
+	
+	PLAYABLE_SPACE = [boards[0].start_end_pos[0], boards[len(boards)].start_end_pos[1]]
+	
 	pass # Replace with function body.
 
 func update_mouse_near_board() -> void:
@@ -72,3 +80,24 @@ func _process(delta: float) -> void:
 		else:
 			terrain_tilemap.shade_area(boards[b].start_end_pos[0],boards[b].start_end_pos[1])
 	pass
+
+func get_mouse_tile_pos() -> Vector2i:
+	var mouse_pos = get_local_mouse_position()
+	var tile_mouse_pos = terrain_tilemap.local_to_map(mouse_pos * 1.0/BOARD_SCALE)  
+	if tile_mouse_pos.x >= 0 && tile_mouse_pos.x < BOARD_SIZE && tile_mouse_pos.y >= 0 && tile_mouse_pos.y < BOARD_SIZE:
+		return tile_mouse_pos
+	else:
+		return NULL_TILE
+
+# Returns true if Placeable is successfully placed, else returns false
+# Client facing function
+func place_on_board_if_able(placeable: PlaceableData) -> bool:
+	var tile_mouse_pos : Vector2i = get_local_mouse_position()
+	
+	if tile_mouse_pos != NULL_TILE and placeable.placeable(self, tile_mouse_pos):
+		# MUST ADD CHILD BEFORE TRIGGER PLACE EVENT (add child initlizes the build which connects signals for scoring)
+		placeable.trigger_place_effects(self, tile_mouse_pos)
+		place_building_on_tile(placeable, tile_mouse_pos)
+		
+		return true
+	return false

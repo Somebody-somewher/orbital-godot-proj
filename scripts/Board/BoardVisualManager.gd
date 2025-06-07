@@ -1,50 +1,39 @@
-extends TileMapLayer
+extends BoardTileMapLayer
 class_name BoardVisualManager
 
 @export var proc_gen : BoardProcGenerator
-@export var env_map : EnvTerrainMapping
+
+# Due to my bad coding there are two layers of shading.
+# This is a tilemap specifically to darken non-interactive tiles
 @export var darken_tilemap : TileMapLayer
-@export var object : Node
-
-# reference for non-existent tile position
-static var NULL_TILE = Vector2i(-1,-1)
-var TILE_SIZE : float
-
-var colouration : int = 0
-# Length/Width (no. cells) of board
-@export var BOARD_SCALE : float = 0.1
-var player_id : int = 0
-var board_layout : Vector2i = Vector2i(2,2)
+# This is the inder for the alternative tiles in the tileset
+var border_colouration : int = 0
 
 func set_up(board_size : Vector2i = Vector2i(8,8), board_num : Vector2i = Vector2i(1,1), border_width : Vector2i = Vector2i(0,0)) -> void:
 	proc_gen.set_up(board_size, board_num, border_width)
 	for i in range(4):
-		#if player_id == i:
-		#	colouration = 0
-		#	proc_gen.generate_board(create_terrain_tile,place_building_on_tile, i)
-		#else:
-			colouration = 0
+			border_colouration = 0
 			proc_gen.generate_board(create_terrain_tile, place_building_on_tile, i)
 	
-	colouration = 4 
+	border_colouration = 4 
 	proc_gen.generate_border(create_terrain_tile,place_fake_building)
 
 
 func _ready() -> void:
 	# Update the positioning of the tilemaps
-	scale = Vector2(BOARD_SCALE, BOARD_SCALE)
+	super._ready()
 	darken_tilemap.scale = Vector2(BOARD_SCALE, BOARD_SCALE)
-	z_index = -1
-	tile_set = env_map.tileset
-	TILE_SIZE = tile_set.tile_size.x * BOARD_SCALE
 	darken_tilemap.tile_set = env_map.tileset
+	fake_colouration = Color.DIM_GRAY
+	z_index = -1
+
 
 func create_terrain_tile(terrain : EnvTerrain, tile_pos : Vector2i) -> void:
-	var darken_tile = colouration
+	var darken_tile = border_colouration
 	
 	# Every alternate tile, set the alternate colour in the tilemap
 	if (tile_pos.x + tile_pos.y) % 2 == 1:
-		darken_tile = colouration + 1
+		darken_tile = border_colouration + 1
 	
 	set_cell(tile_pos, 0, env_map.getTilePosbyEnv(terrain), darken_tile)
 	darken_tilemap.set_cell(tile_pos, 1, Vector2(0,0), 0)
@@ -70,16 +59,6 @@ func place_fake_building(data: BuildingData, tile_pos : Vector2i) -> void:
 		fake_building.z_index = tile_pos.y
 		fake_building.position = get_local_centre_of_tile(tile_pos)
 
-func get_local_centre_of_tile(coords : Vector2i) -> Vector2:
-	if coords == NULL_TILE:
-		return coords
-	var local_pos = Vector2((coords.x + 0.5) * TILE_SIZE, (coords.y + 0.5) * TILE_SIZE)
-	return local_pos
-
-#func get_global_tile_pos(coords : Vector2i) -> Vector2:
-	#if coords == NULL_TILE:
-		#return coords
-	#return to_global(get_local_centre_of_tile(coords))
 	
 func unshade_area(start_coords : Vector2i, end_coords : Vector2i) -> void:
 	for x in range(start_coords.x, end_coords.x + 1):

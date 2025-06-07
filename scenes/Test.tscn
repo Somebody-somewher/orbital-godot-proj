@@ -20,8 +20,8 @@ modulate = Color(0.168235, 0.184866, 0.176556, 0.352941)
 z_index = -1
 script = ExtResource("1_wen4y")
 proc_gen = ExtResource("2_0d6la")
-env_map = ExtResource("3_0d6la")
 darken_tilemap = NodePath("../Darken")
+env_map = ExtResource("3_0d6la")
 object = NodePath("../Node")
 
 [node name="Node" type="Node" parent="BoardManager"]
