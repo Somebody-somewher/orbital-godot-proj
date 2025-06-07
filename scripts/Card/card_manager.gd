@@ -128,6 +128,7 @@ func highlight_effects_when_hovering_card() -> void :
 	var tile_pos_i = board_ref.get_mouse_tile_pos()
 	var tile_global_pos = board_ref.get_global_tile_pos(tile_pos_i)
 	if tile_global_pos != Vector2(Board.NULL_TILE):
+		card_dragged.scale = Vector2.ONE * card_dragged.deck_scale
 		card_dragged.get_node("GhostImage").scale = CARD_TILE_RATIO * player_hand_ref.zoom_var
 		card_dragged.get_node("GhostImage").visible = true
 		card_dragged.get_node("GhostImage").global_position = tile_global_pos
