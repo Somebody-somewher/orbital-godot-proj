@@ -1,5 +1,7 @@
 extends Object
 class_name BoardTileScorePreviewer
+# Generates the TileScore label.
+# Can be used to generate any other UI node label ontop of the tilemap
 
 var BOARD_SIZE : int
 

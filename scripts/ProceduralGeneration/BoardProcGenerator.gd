@@ -8,6 +8,8 @@ class_name BoardProcGenerator
 @export var terrain_seed : int = -1
 @export var building_seed : int = -1
 
+var procgen_building_iter : ProcGenBoardIterator
+var procgen_terrain_iter : ProcGenBoardIterator
 var has_setup : bool = false
 
 func set_up(board_size : Vector2i = Vector2i(8,8), board_num : Vector2i = Vector2i(1,1), border_width : Vector2i = Vector2i(0,0)) -> void:
@@ -15,26 +17,33 @@ func set_up(board_size : Vector2i = Vector2i(8,8), board_num : Vector2i = Vector
 	
 	# Debug check
 	assert(check_terrain_valid(terrain_gen))
-	
+	procgen_terrain_iter = terrain_gen.generate_world() 
+
 	if building_gen != null:
 		building_gen.set_up(board_size, board_num, border_width)
-
-func generate_world(terrain_create : Callable, building_create : Callable, board_id : int) -> void:
+		building_gen.set_up_terrain(procgen_terrain_iter)
+		procgen_building_iter = building_gen.generate_world()
+	
+	has_setup = true
+	
+func generate_board(terrain_create : Callable, building_create : Callable, board_id : int) -> void:
 	if !has_setup:
 		set_up()
-		has_setup = true
+		
 	
-	var procgen_terrain_iter : ProcGenBoardIterator = terrain_gen.generate_world() 
-	var procgen_building_iter : ProcGenBoardIterator
-
 	procgen_terrain_iter.skip_to_board(board_id)
 	procgen_terrain_iter.foreach_tile_in_board(terrain_create)
 	
 	if building_gen != null:
-		building_gen.set_up_terrain(procgen_terrain_iter)
-		procgen_building_iter = building_gen.generate_world()
 		procgen_building_iter.skip_to_board(board_id)
 		procgen_building_iter.foreach_tile_in_board(building_create)
+
+func generate_border(terrain_create : Callable, building_create : Callable) -> void:
+	if !has_setup:
+		set_up()
+		
+	procgen_terrain_iter.foreach_border(terrain_create)
+	procgen_building_iter.foreach_border(building_create)
 
 func check_terrain_valid(terrain_gen : TerrainGenerator) -> bool:
 	for t in terrain_gen.terrains:

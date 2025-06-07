@@ -8,13 +8,20 @@ var board_matrix
 # Length/Width (no. cells) of board
 var BOARD_SIZE : int
 
+var board_id : int
+var start_end_pos : Array[Vector2i]
+var interactable : bool = false
+
 # Initialize 2d array matrix
-func _init(board_size : int) -> void:
+func _init(board_id : int, board_size : int, start_end_pos : Array[Vector2i]) -> void:
 	Signalbus.connect("get_tile_pos_from_AOE",constrain_pattern_to_board)
 	Signalbus.connect("run_search_on_board", search_matrix_readonly)
 	BOARD_SIZE = board_size
 	board_matrix = Array()
 	board_matrix.resize(BOARD_SIZE)
+	
+	self.board_id = board_id
+	self.start_end_pos = start_end_pos
 	
 	for i in range(BOARD_SIZE):
 		board_matrix[i] = Array()

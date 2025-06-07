@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://ceunkao5iunho"]
+
+[ext_resource type="Script" uid="uid://dq6l63on5mqf7" path="res://scripts/Board/BoardVisualManager.gd" id="1_wen4y"]
+[ext_resource type="Resource" uid="uid://b2ockuqgtwo7k" path="res://Resources/ProcGen/BoardProcGenerator.tres" id="2_0d6la"]
+[ext_resource type="Resource" uid="uid://doq3nosdirb1v" path="res://Resources/EnvTerrain/TestEnvTerrainMapping.tres" id="3_0d6la"]
+
+[node name="Test" type="Node2D"]
+
+[node name="TerrainActual" type="TileMapLayer" parent="."]
+enabled = false
+script = ExtResource("1_wen4y")
+proc_gen = ExtResource("2_0d6la")
+env_map = ExtResource("3_0d6la")
+BOARD_SCALE = null
+board_layout = null

@@ -11,8 +11,6 @@
 script = ExtResource("1_di7wo")
 terrain_tilemap = NodePath("TerrainActual")
 
-[node name="Preview" type="TileMapLayer" parent="BoardManager"]
-
 [node name="Darken" type="TileMapLayer" parent="BoardManager"]
 modulate = Color(0.168235, 0.184866, 0.176556, 0.352941)
 

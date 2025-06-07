@@ -1,6 +1,6 @@
 extends Node2D
+class_name PlayerHand
 
-const card_scene = preload("res://scenes/Card/Card.tscn")
 const SAMPLE_SIZE = 0
 
 var centre_x

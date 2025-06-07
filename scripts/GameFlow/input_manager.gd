@@ -1,4 +1,5 @@
 extends Node2D
+class_name InputManager
 
 signal left_mouse_click
 signal left_mouse_released

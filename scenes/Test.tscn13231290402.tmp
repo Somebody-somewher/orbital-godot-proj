@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ceunkao5iunho"]
+
+[ext_resource type="Script" uid="uid://dq6l63on5mqf7" path="res://scripts/Board/BoardVisualManager.gd" id="1_wen4y"]
+
+[node name="Test" type="Node2D"]
+
+[node name="TerrainActual" type="TileMapLayer" parent="."]
+script = ExtResource("1_wen4y")

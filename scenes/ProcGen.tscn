@@ -73,9 +73,9 @@ script = ExtResource("1_q7l6t")
 BOARD_SIZE = null
 NUM_OF_BOARDS = null
 gap_btwn_board = null
-display_noise = NodePath("TextureRect")
 proc_generator = SubResource("Resource_r1mx5")
 board = null
+display_noise = NodePath("TextureRect")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(2463, 1385)

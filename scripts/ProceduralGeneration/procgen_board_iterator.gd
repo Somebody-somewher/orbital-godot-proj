@@ -21,16 +21,20 @@ func _init(matrix : Array, board_size : Vector2i, board_num : Vector2i, border_w
 	reset_board()
 	
 func foreach_tile_in_board(c : Callable):
+	if curr_board == Vector2i(0,1):
+		next_board()
+		
 	var element 
 	for y in range(_board_size.y):
 		for x in range(_board_size.x):
 			element = _matrix[board_start_tile.y + y][board_start_tile.x + x]
 			if element != null:
-				c.call(element, Vector2i(x,y))
+				c.call(element, Vector2i(board_start_tile.x + x,board_start_tile.y + y))
 
 func reset_board() -> void:
 	board_start_tile = Vector2i(_border_width.x, _border_width.y)
 	curr_board = Vector2i(0,1)
+
 
 func next_board() -> bool:
 	if curr_board.y > _board_num_width_height.y:
@@ -40,17 +44,19 @@ func next_board() -> bool:
 	
 	if curr_board.x > _board_num_width_height.x:
 		curr_board.y += 1
-		curr_board.x = 0
+		curr_board.x = 1
 		if curr_board.y > _board_num_width_height.y:
+			print(curr_board, _board_num_width_height)
 			return false
 			
 	board_start_tile.x = _border_width.x + (curr_board.x - 1) * _board_size.x
 	board_start_tile.y = _border_width.y + (curr_board.y - 1) * _board_size.y
+	#print(board_start_tile)
 	return true
 
 func skip_to_board(board_id : int) -> void:
 	reset_board()
-	for i in range(board_id):
+	for i in range(board_id + 1):
 		next_board()
 
 func retrieve_matrix() -> Array:

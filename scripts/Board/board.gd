@@ -50,7 +50,7 @@ func _ready() -> void:
 	self.position.x = get_viewport().size.x/2 - board_coord[1].x/2
 	
 	board_preview = BoardPreviewer.new(self, highlight_map, get_global_tile_pos, BOARD_SIZE)
-	board_matrix = BoardMatrixData.new(BOARD_SIZE)
+	#board_matrix = BoardMatrixData.new(BOARD_SIZE)
 	
 	# Get Procedural Generation Matrix
 	if proc_gen == null:
