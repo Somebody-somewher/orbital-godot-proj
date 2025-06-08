@@ -21,6 +21,7 @@ static var NULL_TILE = Vector2i(-1,-1)
 
 # Global Coords of where board spans on screen
 var boards_near_mouse : Array[bool]
+var board_coord  
 
 var prev_tile_pos : Vector2i = Vector2i(-1,-1)
 
@@ -37,7 +38,8 @@ func _ready() -> void:
 			proc_gen.generate_board(create_terrain, place_on_board_if_abled, i)
 	
 	proc_gen.generate_border(terrain_tilemap.change_border_terrain_tile, terrain_tilemap.place_fake_building)
-	#PLAYABLE_SPACE = [boards[0].start_end_pos[0], boards[len(boards)].start_end_pos[1]]
+	
+	previewer_tilemap.set_board_data(matrix_data)
 	previewer_tilemap.set_up(object, BOARD_SIZE.x * BOARDS_LAYOUT.x, matrix_data.check_tilemap_tile_in_playable, BORDER_DIM)
 	
 	pass # Replace with function body.

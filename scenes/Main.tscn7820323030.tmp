@@ -68,9 +68,8 @@ preview_board_ref = NodePath("../BoardManager/Preview")
 material = SubResource("ShaderMaterial_mwfav")
 position = Vector2(198, 396)
 
-[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("board")]
+[node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("6_3p2gp")
-board = NodePath("../BoardManager/TerrainActual")
 
 [node name="PlayerHand" type="Node2D" parent="."]
 z_index = 1

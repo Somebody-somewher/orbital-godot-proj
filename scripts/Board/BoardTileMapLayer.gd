@@ -11,12 +11,16 @@ var TILE_SIZE : float
 # Length/Width (no. cells) of board
 @export var BOARD_SCALE : float = 0.1
 
+var board_coord = []
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Update the positioning of the tilemaps
 	scale = Vector2(BOARD_SCALE, BOARD_SCALE)
 	tile_set = env_map.tileset
 	TILE_SIZE = tile_set.tile_size.x * BOARD_SCALE
+	board_coord = [Vector2(0,0), TILE_SIZE * Vector2.ONE * 8 * 2 + Vector2(4,4) * 2] 
+
 	
 func place_fake_building(data: BuildingData, tile_pos : Vector2i) -> void:
 	if data != null:

@@ -1,6 +1,6 @@
 extends Camera2D
 
-@onready var board: Board = $"../Board"
+@export var board: BoardTileMapLayer
 @onready var player_hand: PlayerHand = $"../PlayerHand"
 @onready var card_manager: CardManager = $"../CardManager"
 

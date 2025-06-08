@@ -48,7 +48,6 @@ static func new_card(card_name : String) -> Card:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if dissolving:
-		get_node("GhostImage").visible = false
 		get_node("Texts").visible = false
 		if dissolve_value > 0:
 			sprite_ref.material.set_shader_parameter("DissolveValue", dissolve_value)

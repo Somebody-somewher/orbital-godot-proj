@@ -20,14 +20,14 @@ func make_matrix() -> Array:
 		printerr("Some Buildings tiles will not be generated")
 	
 	var matrix = Array()
-	matrix.resize(_gen_size.x);
-	for x in range(_gen_size.x):
-		matrix[x] = Array()
-		matrix[x].resize(_gen_size.y)
+	matrix.resize(_gen_size.y);
+	for y in range(_gen_size.y):
+		matrix[y] = Array()
+		matrix[y].resize(_gen_size.x)
 		
-		for y in range(_gen_size.y):
-			matrix[x][y] = map_noise_to_building(noise_highlight_texture.noise.get_noise_2d(x,y), _terrain_iterator.retrieve_matrix()[x][y])
-			buildings_placed.get_or_add(matrix[x][y], []).append(Vector2i(x,y))
+		for x in range(_gen_size.x):
+			matrix[y][x] = map_noise_to_building(noise_highlight_texture.noise.get_noise_2d(x,y), _terrain_iterator.retrieve_matrix()[y][x])
+			buildings_placed.get_or_add(matrix[y][x], []).append(Vector2i(x,y))
 			
 	return matrix
 

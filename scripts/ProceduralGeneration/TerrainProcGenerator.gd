@@ -16,14 +16,14 @@ func make_matrix() -> Array:
 		printerr("Some Terrain tiles will not be generated")
 	
 	var matrix = Array()
-	matrix.resize(_gen_size.x);
-	for x in range(_gen_size.x):
-		matrix[x] = Array()
-		matrix[x].resize(_gen_size.y)
+	matrix.resize(_gen_size.y);
+	for y in range(_gen_size.y):
+		matrix[y] = Array()
+		matrix[y].resize(_gen_size.x)
 		
-		for y in range(_gen_size.y):
-			matrix[x][y] = map_noise_to_terrain(noise_highlight_texture.noise.get_noise_2d(x,y))
-			cache.get_or_add(matrix[x][y], []).append(Vector2i(x,y))
+		for x in range(_gen_size.x):
+			matrix[y][x] = map_noise_to_terrain(noise_highlight_texture.noise.get_noise_2d(x,y))
+			cache.get_or_add(matrix[y][x], []).append(Vector2i(x,y))
 			
 	return matrix
 

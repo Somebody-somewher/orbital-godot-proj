@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://dq6l63on5mqf7" path="res://scripts/Board/BoardVisualManager.gd" id="2_y0c26"]
 [ext_resource type="Resource" uid="uid://b2ockuqgtwo7k" path="res://Resources/ProcGen/BoardProcGenerator.tres" id="3_nknjn"]
 [ext_resource type="Resource" uid="uid://doq3nosdirb1v" path="res://Resources/EnvTerrain/TestEnvTerrainMapping.tres" id="4_mtbkw"]
-[ext_resource type="Script" uid="uid://cep46bfjthrc7" path="res://scripts/Card/card_manager2.gd" id="5_y0c26"]
+[ext_resource type="Script" uid="uid://cep46bfjthrc7" path="res://scripts/Card/card_manager.gd" id="5_y0c26"]
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/player_hand.gd" id="6_mtbkw"]
 [ext_resource type="Script" uid="uid://csnqlg6oxvuth" path="res://scripts/GameFlow/input_manager.gd" id="6_nknjn"]
 

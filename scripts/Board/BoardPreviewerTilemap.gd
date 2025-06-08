@@ -24,7 +24,7 @@ func set_up(parent : Node, playable_size : int, check_in_playable_area : Callabl
 	tile_score_previewer = BoardTileScorePreviewer.new(parent, get_local_centre_of_tile, playable_size, border_dim)
 
 #TODO :<
-func get_board_data(matrix : BoardMatrixData) -> void:
+func set_board_data(matrix : BoardMatrixData) -> void:
 	_matrix = matrix
 	
 # There might be a scenario where affected_tiles is changed before we can reset_preview
@@ -62,21 +62,17 @@ func preview_placement(placeable : PlaceableData, tile_pos : Vector2i = NULL_TIL
 	if tile_pos == NULL_TILE:
 		tile_pos = get_mouse_tile_pos()
 		
-	if _check_in_playable_area.call(tile_pos - _border_dim):
+	if _check_in_playable_area.call(tile_pos - _border_dim) and placeable.placeable(_matrix, tile_pos - _border_dim):
 		placeable.preview(_matrix, _set_preview, tile_pos - _border_dim)
 		place_ghost(placeable, tile_pos)
 
 func place_ghost(placeable_data : PlaceableData, tile_pos : Vector2i) -> void:
 	# TODO: PAIN
-	if placeable_data.placeable(_matrix, tile_pos):
-		if placeable_data is BuildingData:
+	if placeable_data is BuildingData:
 			
-			# TODO: Check if building is placeable is stackable, if so then show the image
+		# TODO: Check if building is placeable is stackable, if so then show the image
 			
-			ghost_image.texture = (placeable_data as BuildingData).building_sprite
-			ghost_image.visible = true
+		ghost_image.texture = (placeable_data as BuildingData).building_sprite
+		ghost_image.visible = true
 	
-	ghost_image.global_position = get_local_centre_of_tile(tile_pos)
-	
-		#board_ref.preview_placement(card_dragged.building, tile_pos_i)
-	
+	ghost_image.global_position = get_local_centre_of_tile(tile_pos)	

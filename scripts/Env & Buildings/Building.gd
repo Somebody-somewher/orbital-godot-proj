@@ -17,4 +17,5 @@ static func new_building_frm_data(data : BuildingData) -> Building:
 	ret_building.data = data
 	ret_building.get_node("EntityImage").texture = ret_building.data.building_sprite
 	ret_building.data.place_effects.append(ret_building.data.preview_event)
+	ret_building.z_index = 1
 	return ret_building

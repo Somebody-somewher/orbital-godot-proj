@@ -37,12 +37,12 @@ func _input(event):
 					raycast_and_click(curr_mask, InputType.RIGHT_CLICK)
 				else:
 					emit_signal("right_mouse_released")
-			#MOUSE_BUTTON_WHEEL_DOWN:
-				#if event.pressed and camera_enabled:
-					#camera_ref.zoom_cam(false)
-			#MOUSE_BUTTON_WHEEL_UP:
-				#if event.pressed and camera_enabled:
-					#camera_ref.zoom_cam(true)
+			MOUSE_BUTTON_WHEEL_DOWN:
+				if event.pressed and camera_enabled:
+					camera_ref.zoom_cam(false)
+			MOUSE_BUTTON_WHEEL_UP:
+				if event.pressed and camera_enabled:
+					camera_ref.zoom_cam(true)
 
 func left_click_logic(result) -> void:
 	var result_mask = result.collider.collision_mask
@@ -88,10 +88,10 @@ func raycast_and_click(mask, input_type : int):
 	params.collide_with_areas = true
 	params.collision_mask = mask 
 	var result = space_state.intersect_point(params)
-	#if result.size() <= 0 :
-		#if input_type == InputType.LEFT_CLICK and camera_enabled:
-				#camera_ref.start_camera_drag()
-		#return
+	if result.size() <= 0 :
+		if input_type == InputType.LEFT_CLICK and camera_enabled:
+				camera_ref.start_camera_drag()
+		return
 	result = topmost(result)
 	match input_type:
 		InputType.LEFT_CLICK:

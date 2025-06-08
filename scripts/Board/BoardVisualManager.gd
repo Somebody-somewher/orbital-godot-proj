@@ -13,7 +13,6 @@ func _ready() -> void:
 	fake_building_colouration = Color.DIM_GRAY
 	z_index = -1
 
-
 func create_terrain_tile(terrain : EnvTerrain, tile_pos : Vector2i) -> void:
 	change_terrain_tile(terrain, tile_pos)
 	darken_tilemap.set_cell(tile_pos, 1, Vector2(0,0), 0)

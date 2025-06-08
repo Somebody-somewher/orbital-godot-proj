@@ -95,5 +95,6 @@ func is_tilepos_in_interactable(tilepos : Vector2i) -> bool:
 			return true
 	return false
 
+
 #func get_playable_area_coords() -> Array[Vector2i]:
 #	return [_border_dim + boards_coords[0][0], _border_dim + boards_coords[len(boards_coords) - 1][1]]
