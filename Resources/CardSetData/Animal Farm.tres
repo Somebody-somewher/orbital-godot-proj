@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://bi4digtetm3tx"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_mcb35"]
+
+[resource]
+script = ExtResource("1_mcb35")
+set_name = "Animal Farm"
+cards = Dictionary[String, int]({
+"chicken": 2,
+"cow": 2,
+"pig": 2
+})
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

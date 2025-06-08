@@ -1,7 +1,7 @@
 extends Node2D
 class_name CardSet
 
-var card_arr = [["dummy", 1]] ##2d array of [card, number]
+var card_dict : Dictionary[String, int] = {"dummy" : 1}
 var card_set : Array[Card] = [] ##set of actual objects
 var destroyed : bool = false
 
@@ -17,9 +17,9 @@ var card_scene = preload("res://scenes/Card/Card.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var z_count = 10
-	for card_type in card_arr: ##card_type is of form [str, int]
-		for i in range(card_type[1]):
-			var new_card = BuildingCard.new_card(card_type[0])
+	for key in card_dict: ##card_type is of form [str, int]
+		for i in range(card_dict.get(key)):
+			var new_card = BuildingCard.new_card(key)
 			new_card.z_index = z_count
 			new_card.get_node("Area2D/CollisionShape2D").disabled = true
 			card_set.insert(card_set.size(), new_card)

@@ -24,8 +24,6 @@ var dissolve_value = 1
 # name to find references in database
 var id_name : String = "cute_dummy"
 
-static var database_ref = preload("res://scripts/Card/card_database.gd")
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass

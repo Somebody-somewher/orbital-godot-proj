@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://koj4dhp8n8a0"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_p1br4"]
+
+[resource]
+script = ExtResource("1_p1br4")
+set_name = "RATS"
+cards = Dictionary[String, int]({
+"rat": 4
+})
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

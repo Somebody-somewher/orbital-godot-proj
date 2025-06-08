@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://byktx3gluy71c"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_a0nn7"]
+
+[resource]
+script = ExtResource("1_a0nn7")
+set_name = "Modern"
+cards = Dictionary[String, int]({
+"bank": 1,
+"cottage": 2,
+"store": 1
+})
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

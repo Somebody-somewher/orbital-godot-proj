@@ -28,5 +28,6 @@ display_name = "Apple"
 card_sprite = ExtResource("2_phc5i")
 desc = ""
 category = 0
+is_aura = false
 tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

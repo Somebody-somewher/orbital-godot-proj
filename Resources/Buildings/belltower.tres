@@ -28,5 +28,6 @@ display_name = "Bell Tower"
 card_sprite = ExtResource("2_i48l2")
 desc = ""
 category = 0
+is_aura = false
 tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="CardSetData" load_steps=3 format=3 uid="uid://cuv88abxcqx04"]
-
-[ext_resource type="Resource" uid="uid://511m4bwcgfkd" path="res://Resources/Buildings/cow.tres" id="1_4dsrb"]
-[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_x6gsy"]
-
-[resource]
-script = ExtResource("1_x6gsy")
-cards = Array[Array]([[ExtResource("1_4dsrb"), 7]])
-metadata/_custom_type_script = "uid://bs6cynon1r4yq"

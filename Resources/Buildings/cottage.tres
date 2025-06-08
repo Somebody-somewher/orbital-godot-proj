@@ -42,5 +42,6 @@ display_name = "Cottage"
 card_sprite = ExtResource("2_27t32")
 desc = ""
 category = 0
+is_aura = false
 tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

@@ -2,7 +2,7 @@ extends Card
 class_name BuildingCard
 
 
-var building : Building
+var building : PlaceableNode
 
 # factory constructor
 # TODO: pass the placeabale_data as the param instead?

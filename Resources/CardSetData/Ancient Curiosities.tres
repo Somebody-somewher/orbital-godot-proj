@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://bby6lqmtwbi0k"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_qqvpx"]
+
+[resource]
+script = ExtResource("1_qqvpx")
+set_name = "Ancient Curiosities"
+cards = Dictionary[String, int]({
+"obelisk": 3,
+"summoning_circle": 1
+})
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"
