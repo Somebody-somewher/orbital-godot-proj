@@ -67,12 +67,8 @@ func preview_placement(placeable : PlaceableData, tile_pos : Vector2i = NULL_TIL
 		place_ghost(placeable, tile_pos)
 
 func place_ghost(placeable_data : PlaceableData, tile_pos : Vector2i) -> void:
-	# TODO: PAIN
-	if placeable_data is BuildingData:
 			
-		# TODO: Check if building is placeable is stackable, if so then show the image
-			
-		ghost_image.texture = (placeable_data as BuildingData).building_sprite
-		ghost_image.visible = true
+	ghost_image.texture = placeable_data.card_sprite
+	ghost_image.visible = true
 	
 	ghost_image.global_position = get_local_centre_of_tile(tile_pos)	

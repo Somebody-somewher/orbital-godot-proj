@@ -25,7 +25,7 @@ func _ready() -> void:
 func place_fake_building(data: BuildingData, tile_pos : Vector2i) -> void:
 	if data != null:
 		var fake_placeable : Sprite2D = Sprite2D.new()
-		fake_placeable.set_texture(data.building_sprite)
+		fake_placeable.set_texture(data.card_sprite)
 		fake_placeable.set_modulate(fake_building_colouration)
 		object.add_child(fake_placeable)
 		fake_placeable.z_index = tile_pos.y

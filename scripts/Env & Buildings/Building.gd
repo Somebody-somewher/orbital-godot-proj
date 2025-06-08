@@ -15,7 +15,7 @@ static func new_building(building_name : String) -> Building:
 static func new_building_frm_data(data : BuildingData) -> Building:
 	var ret_building : Building = building_scene.instantiate()
 	ret_building.data = data
-	ret_building.get_node("EntityImage").texture = ret_building.data.building_sprite
+	ret_building.get_node("EntityImage").texture = ret_building.data.card_sprite
 	ret_building.data.place_effects.append(ret_building.data.preview_event)
 	ret_building.z_index = 1
 	return ret_building
