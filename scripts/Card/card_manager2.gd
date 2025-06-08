@@ -18,8 +18,11 @@ var CARD_TILE_RATIO : Vector2
 @export var board_ref : BoardManager
 @export var player_hand_ref : PlayerHand
 @export var input_manager_ref : InputManager 
+@export var preview_board_ref : BoardPreviewerTileMap 
+
 
 func _ready() -> void:
+	Signalbus.connect("mouse_enter_interactable_board_tile", highlight_effects_when_hovering_card)
 	screen_size = get_viewport_rect().size
 	spawn_card("cow", Vector2i(0,0))
 	#CARD_TILE_RATIO = Vector2.ONE * board_ref.TILE_SIZE / 120
@@ -41,7 +44,7 @@ func _process(_delta: float) -> void:
 		# card effects with board interaction
 		if board_ref != null and card_dragged is Card:
 			card_flip_if_near_board()
-			highlight_effects_when_hovering_card()
+			#highlight_effects_when_hovering_card()
 
 func start_drag(card : Node2D):
 	card_dragged = card
@@ -74,7 +77,7 @@ func finish_drag(placing : bool):
 				card_dragged.entity_flip_to_card()
 			player_hand_ref.add_to_hand(card_dragged)
 		
-		board_ref.reset_preview()
+		preview_board_ref.reset_preview()
 		card_flipped = false
 	card_dragged = null
 
@@ -115,16 +118,18 @@ func connect_card_signals(card : Card):
 # they are only called when board_ref != null and card is being dragged
 
 func card_flip_if_near_board() -> void:
-	if !card_flipped and board_ref.is_mouse_near_board():
+	if !card_flipped and board_ref.is_mouse_near_interactable_board():
 		card_flipped = true
 		card_dragged.card_flip_to_entity()
-	if card_flipped and !board_ref.is_mouse_near_board():
+	if card_flipped and !board_ref.is_mouse_near_interactable_board():
 		card_dragged.entity_flip_to_card()
 		card_flipped = false
 
 func highlight_effects_when_hovering_card() -> void :
 	# card ghost snapping to grid
-	#board_ref.preview_placement()
+	if card_dragged != null and card_dragged is Card:
+		preview_board_ref.reset_preview()
+		preview_board_ref.preview_placement(card_dragged.building.data)
 	#var tile_pos_i = board_ref.get_mouse_tile_pos()
 	#var tile_global_pos = board_ref.get_global_tile_pos(tile_pos_i)
 	#if tile_global_pos != Vector2(Board.NULL_TILE):
@@ -132,10 +137,10 @@ func highlight_effects_when_hovering_card() -> void :
 		#card_dragged.get_node("GhostImage").global_position = tile_global_pos
 		#card_dragged.get_node("GhostImage").scale = CARD_TILE_RATIO
 		#board_ref.preview_placement(card_dragged.building, tile_pos_i)
-	#else:
+	else:
 		#card_dragged.get_node("GhostImage").visible = false
-		#board_ref.reset_preview()
-	pass
+		preview_board_ref.reset_preview()
+	#pass
 
 # Following functions are centralized under CardManager
 # So as to prevent them all from being triggered at the same time

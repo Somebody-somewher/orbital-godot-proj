@@ -30,8 +30,8 @@ static var database_ref = preload("res://scripts/Card/card_database.gd")
 func _ready() -> void:
 	pass
 
-func connect_to_card_manager(card_man : CardManager) -> void:
-	card_man.connect_card_signals(self) 
+#func connect_to_card_manager(card_man : CardManager) -> void:
+	#card_man.connect_card_signals(self) 
 
 # factory constructor
 static func new_card(card_name : String) -> Card:

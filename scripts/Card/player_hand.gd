@@ -20,7 +20,6 @@ func _ready() -> void:
 func add_to_hand_no_update(card):
 	AudioManager.play_sfx("swipe")
 	card.deck_scale = 1 / zoom_var
-	card.get_node("GhostImage").visible = false
 	card.initialize_card_effect()
 	hand_arr.insert(hand_arr.size(), card)
 

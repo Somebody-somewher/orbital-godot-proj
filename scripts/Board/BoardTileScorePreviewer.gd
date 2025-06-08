@@ -3,29 +3,22 @@ class_name BoardTileScorePreviewer
 # Generates the TileScore label.
 # Can be used to generate any other UI node label ontop of the tilemap
 
-var BOARD_SIZE : int
 
-var tile_score_matrix
+var tile_score_labels : Dictionary[Vector2i, Label]
 
 var displayed_labels : Array[Label] 
 var label_parent : Node2D
 
 
-func _init(parent : Node2D, get_global : Callable, board_size : int) -> void:
-	BOARD_SIZE = board_size
-	tile_score_matrix = Array()
-	tile_score_matrix.resize(BOARD_SIZE)
+func _init(parent : Node2D, get_position : Callable, playable_size : int, border_dim : Vector2i) -> void:
+
 	label_parent = parent
 	Signalbus.connect("set_score_preview", display_tile_scores)
 	
-	for row in range(BOARD_SIZE):
-		tile_score_matrix[row] = Array()
-		tile_score_matrix[row].resize(BOARD_SIZE)
-		
+	for row in range(playable_size):
 		# tile score display (can be extracted to a function)
-		for col in range(BOARD_SIZE):
-			tile_score_matrix[row][col] = add_tile_label(get_global.call(Vector2i(row,col)))
-	
+		for col in range(playable_size):
+			tile_score_labels.get_or_add(Vector2i(row,col) + border_dim, add_tile_label(get_position.call(Vector2i(row,col) + border_dim)))	
 
 func add_tile_label(global_tile_pos : Vector2) -> Label:
 	var score_label = Label.new()
@@ -45,7 +38,7 @@ func display_tile_scores(tile_positions : Array[Vector2i], scores : Array[int]):
 	var label : Label
 	for i in range(len(tile_positions)):
 		if scores[i] != 0:
-			label = tile_score_matrix[tile_positions[i].x][tile_positions[i].y]
+			label = tile_score_labels.get(tile_positions[i])
 			label.set_text(str(scores[i]))
 			label.set_visible(true)
 			displayed_labels.append(label)

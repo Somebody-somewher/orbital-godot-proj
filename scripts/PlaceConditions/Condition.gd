@@ -6,5 +6,5 @@ class_name Condition
 
 var return_bool := true
 
-func test(board : Board, _tile_pos : Vector2i) -> bool:
+func test(board : BoardMatrixData, _tile_pos : Vector2i) -> bool:
 	return return_bool

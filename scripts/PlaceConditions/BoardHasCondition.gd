@@ -7,9 +7,9 @@ class_name BoardHasCondition
 var _count_current := 0
 
 #checks if the entire board contains at least X amount of such placeable
-func test(board : Board, tile_pos : Vector2i) -> bool:
+func test(board : BoardMatrixData, tile_pos : Vector2i) -> bool:
 	_count_current = 0
-	board.board_matrix.for_each_tile(count_building, [])
+	board.for_each_tile(count_building, [])
 	return _count_current >= count_needed
 
 func count_building(tile : BoardTile):

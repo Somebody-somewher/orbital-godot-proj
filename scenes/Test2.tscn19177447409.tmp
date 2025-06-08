@@ -11,21 +11,14 @@
 
 [node name="Test" type="Node2D"]
 
-[node name="BoardManager" type="Node2D" parent="." node_paths=PackedStringArray("terrain_tilemap", "previewer_tilemap", "object")]
+[node name="BoardManager" type="Node2D" parent="." node_paths=PackedStringArray("terrain_tilemap")]
 script = ExtResource("1_d0npd")
 terrain_tilemap = NodePath("TerrainActual")
-previewer_tilemap = NodePath("Preview")
-proc_gen = ExtResource("3_nknjn")
-object = NodePath("Building_Manager")
 
-[node name="Preview" type="TileMapLayer" parent="BoardManager" node_paths=PackedStringArray("ghost_image", "object")]
+[node name="Preview" type="TileMapLayer" parent="BoardManager"]
 script = ExtResource("2_psmhi")
-ghost_image = NodePath("GhostPlaceable")
-env_map = ExtResource("4_mtbkw")
-object = NodePath("../Building_Manager")
 
 [node name="GhostPlaceable" type="Sprite2D" parent="BoardManager/Preview"]
-modulate = Color(0.568627, 0.552941, 0.576471, 0.623529)
 
 [node name="Darken" type="TileMapLayer" parent="BoardManager"]
 modulate = Color(0.168235, 0.184866, 0.176556, 0.352941)
@@ -33,22 +26,22 @@ modulate = Color(0.168235, 0.184866, 0.176556, 0.352941)
 [node name="TerrainActual" type="TileMapLayer" parent="BoardManager" node_paths=PackedStringArray("darken_tilemap", "object")]
 z_index = -1
 script = ExtResource("2_y0c26")
+proc_gen = ExtResource("3_nknjn")
 darken_tilemap = NodePath("../Darken")
 env_map = ExtResource("4_mtbkw")
-object = NodePath("../Building_Manager")
+object = NodePath("../Node")
 
-[node name="Building_Manager" type="Node2D" parent="BoardManager"]
+[node name="Node" type="Node" parent="BoardManager"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(1578, 1208)
 zoom = Vector2(0.345, 0.345)
 
-[node name="CardManager" type="Node2D" parent="." node_paths=PackedStringArray("board_ref", "player_hand_ref", "input_manager_ref", "preview_board_ref")]
+[node name="CardManager" type="Node2D" parent="." node_paths=PackedStringArray("board_ref", "player_hand_ref", "input_manager_ref")]
 script = ExtResource("5_y0c26")
 board_ref = NodePath("../BoardManager")
 player_hand_ref = NodePath("../PlayerHand")
 input_manager_ref = NodePath("../InputManager")
-preview_board_ref = NodePath("../BoardManager/Preview")
 
 [node name="PlayerHand" type="Node2D" parent="."]
 script = ExtResource("6_mtbkw")

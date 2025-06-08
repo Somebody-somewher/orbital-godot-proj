@@ -40,8 +40,6 @@ script = ExtResource("1_jk1qb")
 [node name="Board" type="Node2D" parent="."]
 position = Vector2(200, 500)
 script = ExtResource("1_rtw2f")
-BOARD_SIZE = 1
-BOARD_SCALE = 0.15
 
 [node name="Highlights" type="TileMapLayer" parent="Board"]
 

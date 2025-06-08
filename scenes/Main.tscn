@@ -56,7 +56,6 @@ card_pack_manager = NodePath("CardPackManager")
 [node name="Board" type="Node2D" parent="."]
 position = Vector2(200, 0)
 script = ExtResource("1_c01mt")
-BOARD_SIZE = 9
 
 [node name="Highlights" type="TileMapLayer" parent="Board"]
 
@@ -141,8 +140,8 @@ script = ExtResource("11_wp0k4")
 
 [node name="CardPackManager" type="Node" parent="." node_paths=PackedStringArray("spawn_node")]
 script = ExtResource("13_qmy6f")
-spawn_node = NodePath("../CardManager")
 cardset_grp = ExtResource("14_mwfav")
+spawn_node = NodePath("../CardManager")
 
 [node name="AudioManager" parent="." instance=ExtResource("16_cvmbd")]
 SFX_AUDIOS = Dictionary[String, ExtResource("17_ft6cd")]({})

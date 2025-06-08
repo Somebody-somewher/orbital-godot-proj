@@ -3,7 +3,7 @@ class_name StackOnSomeCondition
 
 @export var stackable_buildings : Array[String]
 
-func test(board : Board, tile_pos : Vector2i) -> bool:
+func test(board : BoardMatrixData, tile_pos : Vector2i) -> bool:
 	var placeable_arr = board.board_matrix.get_tile(tile_pos).placeable_arr
 		
 	for pn in placeable_arr:

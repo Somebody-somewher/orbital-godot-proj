@@ -37,7 +37,7 @@ darken_tilemap = NodePath("../Darken")
 env_map = ExtResource("4_mtbkw")
 object = NodePath("../Building_Manager")
 
-[node name="Building_Manager" type="Node2D" parent="BoardManager"]
+[node name="Building_Manager" type="Node" parent="BoardManager"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(1578, 1208)

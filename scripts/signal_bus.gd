@@ -17,6 +17,8 @@ signal update_score_ui(score : int)
 
 # Supply board_tile_positions_data with [[tile_pos], [tile_data]]  
 signal get_tile_pos_from_AOE(tile_pos : Vector2i, aoe_tiles : Array[Vector2i], board_tile_positions_data : Array[Vector2i])
+signal mouse_enter_interactable_board_tile()
+signal mouse_enter_board()
 
 # For Pathfinding for boats, Floodfill for castle
 signal run_search_on_board(c : Callable)
