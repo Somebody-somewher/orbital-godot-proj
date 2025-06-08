@@ -8,15 +8,19 @@
 
 [resource]
 script = ExtResource("6_adboa")
-building_sprite = ExtResource("2_5tayn")
 layer = 1
-id_name = "cheeky_rock"
-display_name = "Rock"
-desc = ""
 preview_event = ExtResource("5_jgn5l")
 place_conditions = Array[ExtResource("3_kb3c8")]([])
 place_effects = Array[ExtResource("1_5tayn")]([])
+post_place_effects = Array[ExtResource("1_5tayn")]([])
 begin_round_effects = Array[ExtResource("1_5tayn")]([])
 end_round_effects = Array[ExtResource("1_5tayn")]([])
 destroyed_effects = Array[ExtResource("1_5tayn")]([])
+id_name = "cheeky_rock"
+display_name = "Rock"
+card_sprite = ExtResource("2_5tayn")
+desc = ""
+category = 0
+is_aura = false
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

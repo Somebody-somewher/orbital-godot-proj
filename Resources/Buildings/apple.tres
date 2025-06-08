@@ -15,13 +15,7 @@ metadata/_custom_type_script = "uid://wuau4rxg1ej4"
 
 [resource]
 script = ExtResource("6_ja64q")
-building_sprite = ExtResource("2_phc5i")
 layer = 1
-id_name = "apple"
-display_name = "Apple"
-desc = ""
-category = 0
-tags = Array[String]([])
 preview_event = ExtResource("5_7pddj")
 place_conditions = Array[ExtResource("3_2exna")]([SubResource("Resource_gd34s")])
 place_effects = Array[ExtResource("1_phc5i")]([])
@@ -29,4 +23,11 @@ post_place_effects = Array[ExtResource("1_phc5i")]([])
 begin_round_effects = Array[ExtResource("1_phc5i")]([])
 end_round_effects = Array[ExtResource("1_phc5i")]([])
 destroyed_effects = Array[ExtResource("1_phc5i")]([])
+id_name = "apple"
+display_name = "Apple"
+card_sprite = ExtResource("2_phc5i")
+desc = ""
+category = 0
+is_aura = false
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

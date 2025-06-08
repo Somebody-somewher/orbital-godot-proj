@@ -1,4 +1,4 @@
-extends Resource
+extends CardData
 class_name PlaceableData
 # Tiles, Terrain or etc
 @export_category("Basic Properties")

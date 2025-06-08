@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://cggiwamgd6hyw"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_2h7at"]
+
+[resource]
+script = ExtResource("1_2h7at")
+set_name = "Farm"
+cards = Dictionary[String, int]({
+"farmhouse": 1,
+"mill": 1,
+"wheat_field": 2
+})
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

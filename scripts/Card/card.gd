@@ -24,8 +24,6 @@ var dissolve_value = 1
 # name to find references in database
 var id_name : String = "cute_dummy"
 
-static var database_ref = preload("res://scripts/Card/card_database.gd")
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
@@ -38,7 +36,7 @@ static func new_card(card_name : String) -> Card:
 	var return_card : Card = card_scene.instantiate()
 	var card_image_path = str("res://assets/card_sprites/blank_card.png")
 	var entity_image_path = str("res://assets/entity_sprites/"+ card_name + ".png")
-	#return_card.get_node("CardImage").texture = load(card_image_path)
+	return_card.get_node("CardImage").texture = load(card_image_path)
 	return_card.get_node("EntityImage").texture = load(entity_image_path)
 	return_card.get_node("GhostImage").texture = load(entity_image_path)
 	return_card.get_node("Texts/CardName").text = CardLoader.get_display_name(card_name)

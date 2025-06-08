@@ -3,21 +3,25 @@
 [ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_yl1k6"]
 [ext_resource type="Texture2D" uid="uid://succloxvekn8" path="res://assets/entity_sprites/summoning_circle.PNG" id="2_yl1k6"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_o1dh5"]
-[ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_c5ni0"]
+[ext_resource type="Resource" uid="uid://bsrnk44vhb58o" path="res://Resources/Conditions/StackableCondition.tres" id="4_c5ni0"]
 [ext_resource type="Resource" uid="uid://bg30qi2vufcym" path="res://Resources/Events/Scoring/summoning_circle_scoring.tres" id="5_yl1k6"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_7s6wl"]
 
 [resource]
 script = ExtResource("6_7s6wl")
-building_sprite = ExtResource("2_yl1k6")
-stackable = false
-id_name = "summoning_circle"
-display_name = "???"
-desc = ""
+layer = 1
 preview_event = ExtResource("5_yl1k6")
 place_conditions = Array[ExtResource("3_o1dh5")]([ExtResource("4_c5ni0")])
 place_effects = Array[ExtResource("1_yl1k6")]([])
+post_place_effects = Array[ExtResource("1_yl1k6")]([])
 begin_round_effects = Array[ExtResource("1_yl1k6")]([])
 end_round_effects = Array[ExtResource("1_yl1k6")]([])
 destroyed_effects = Array[ExtResource("1_yl1k6")]([])
+id_name = "summoning_circle"
+display_name = "???"
+card_sprite = ExtResource("2_yl1k6")
+desc = ""
+category = 0
+is_aura = false
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

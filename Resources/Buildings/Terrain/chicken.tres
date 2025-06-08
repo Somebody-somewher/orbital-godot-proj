@@ -1,25 +1,15 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=10 format=3 uid="uid://dx0bbc0qt4mws"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://dx0bbc0qt4mws"]
 
 [ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_0chn6"]
 [ext_resource type="Texture2D" uid="uid://bs7wki2sk1dng" path="res://assets/entity_sprites/chicken.PNG" id="2_0chn6"]
-[ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_1j2a6"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_h7ays"]
-[ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_n3hyg"]
 [ext_resource type="Resource" uid="uid://bsrnk44vhb58o" path="res://Resources/Conditions/StackableCondition.tres" id="4_y341o"]
 [ext_resource type="Resource" uid="uid://c5eabtc2um2tf" path="res://Resources/Events/Scoring/chicken_scoring.tres" id="5_0chn6"]
-[ext_resource type="Resource" uid="uid://dctu4sqtncbb3" path="res://Resources/EnvTerrain/TerrainTiles/Desert.tres" id="5_wt7xg"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_nh12u"]
 
 [resource]
 script = ExtResource("6_nh12u")
-building_sprite = ExtResource("2_0chn6")
 layer = 1
-nonplaceable_terrain = Array[ExtResource("3_1j2a6")]([ExtResource("4_n3hyg"), ExtResource("5_wt7xg")])
-id_name = "chicken"
-display_name = "Chicken"
-desc = ""
-category = 0
-tags = Array[String]([])
 preview_event = ExtResource("5_0chn6")
 place_conditions = Array[ExtResource("3_h7ays")]([ExtResource("4_y341o")])
 place_effects = Array[ExtResource("1_0chn6")]([])
@@ -27,4 +17,11 @@ post_place_effects = Array[ExtResource("1_0chn6")]([])
 begin_round_effects = Array[ExtResource("1_0chn6")]([])
 end_round_effects = Array[ExtResource("1_0chn6")]([])
 destroyed_effects = Array[ExtResource("1_0chn6")]([])
+id_name = "chicken"
+display_name = "Chicken"
+card_sprite = ExtResource("2_0chn6")
+desc = ""
+category = 0
+is_aura = false
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

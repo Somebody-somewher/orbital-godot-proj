@@ -17,29 +17,31 @@ var hand_arr : Array[Card] = []
 func _ready() -> void:
 	og_screen_size = get_viewport().size
 
-func add_to_hand_no_update(card):
+func add_to_hand_no_update(card) -> void:
+	if card is AuraCard:
+		return
 	AudioManager.play_sfx("swipe")
 	card.deck_scale = 1 / zoom_var
 	card.initialize_card_effect()
 	hand_arr.insert(hand_arr.size(), card)
 
-func add_to_hand(card):
+func add_to_hand(card) -> void:
 	add_to_hand_no_update(card)
 	update_hand_pos()
 
-func remove_from_hand(card):
+func remove_from_hand(card) -> void:
 	if card in hand_arr:
 		hand_arr.erase(card)
 		update_hand_pos()
 
-func discard_hand():
+func discard_hand() -> void:
 	for card in hand_arr:
 		card.dissolving = true
 	hand_arr = []
 	update_hand_pos()
 
 # sets card to nice positions
-func update_hand_pos(): 
+func update_hand_pos() -> void:
 	var hand_size := hand_arr.size() as float
 	var hand_ratio = clamp(hand_size * 0.07, 0, MAX_HAND_RATIO)
 	var fan_angle = clamp(hand_size * 0.05, 0, MAX_HAND_TILT)
@@ -60,7 +62,7 @@ func update_hand_pos():
 	redraw_z()
 
 # only used for camera panning and zoom
-func snap_to_hand_pos():
+func snap_to_hand_pos() -> void:
 	var hand_size := hand_arr.size() as float
 	var hand_ratio = clamp(hand_size * 0.07, 0, MAX_HAND_RATIO)
 	var screen_size = og_screen_size/zoom_var
@@ -75,13 +77,13 @@ func snap_to_hand_pos():
 		card.scale = Vector2.ONE * card.deck_scale
 		card.position = card.deck_pos
 
-func animate_card_to_pos(card, new_pos):
+func animate_card_to_pos(card, new_pos) -> void:
 	card.scale = Vector2.ONE * card.deck_scale
 	var tween = get_tree().create_tween()
 	tween.parallel().tween_property(card, "position", new_pos, 0.2)
 
 # resets the card z to fan nicely
-func redraw_z():
+func redraw_z() -> void:
 	for i in range(hand_arr.size()):
 		hand_arr[i].z_index = 10 + i*2
 

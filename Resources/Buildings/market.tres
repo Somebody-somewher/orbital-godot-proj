@@ -9,13 +9,7 @@
 
 [resource]
 script = ExtResource("6_2oqtt")
-building_sprite = ExtResource("2_h3yft")
 layer = 1
-id_name = "market"
-display_name = "Market"
-desc = ""
-category = 0
-tags = Array[String]([])
 preview_event = ExtResource("5_h3yft")
 place_conditions = Array[ExtResource("3_ihge8")]([ExtResource("4_5mvby")])
 place_effects = Array[ExtResource("1_h3yft")]([])
@@ -23,4 +17,11 @@ post_place_effects = Array[ExtResource("1_h3yft")]([])
 begin_round_effects = Array[ExtResource("1_h3yft")]([])
 end_round_effects = Array[ExtResource("1_h3yft")]([])
 destroyed_effects = Array[ExtResource("1_h3yft")]([])
+id_name = "market"
+display_name = "Market"
+card_sprite = ExtResource("2_h3yft")
+desc = ""
+category = 0
+is_aura = false
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

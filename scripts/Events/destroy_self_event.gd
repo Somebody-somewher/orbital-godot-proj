@@ -8,6 +8,6 @@ func preview(board : BoardMatrixData, previewer : Callable, tile_pos : Vector2i)
 # destroys the building, #TODO building should trigger its own OnDestroyEvents
 func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : Node2D) -> void:
 	caller as PlaceableNode
-	await board.get_tile(tile_pos).delete_from_tile(caller)
+	board.get_tile(tile_pos).delete_from_tile(caller)
 	caller.destroy()
 	

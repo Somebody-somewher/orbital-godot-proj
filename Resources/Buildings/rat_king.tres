@@ -3,21 +3,25 @@
 [ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_wirky"]
 [ext_resource type="Texture2D" uid="uid://cp4ye1lxh4701" path="res://assets/entity_sprites/rat_king.PNG" id="2_wirky"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_wkjp3"]
-[ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_sqdvp"]
+[ext_resource type="Resource" uid="uid://bsrnk44vhb58o" path="res://Resources/Conditions/StackableCondition.tres" id="4_sqdvp"]
 [ext_resource type="Resource" uid="uid://bjmpphwwcgrlg" path="res://Resources/Events/Scoring/rat_king_scoring.tres" id="5_wirky"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_wrdxa"]
 
 [resource]
 script = ExtResource("6_wrdxa")
-building_sprite = ExtResource("2_wirky")
-stackable = false
-id_name = "rat_king"
-display_name = "Rat King"
-desc = ""
+layer = 1
 preview_event = ExtResource("5_wirky")
 place_conditions = Array[ExtResource("3_wkjp3")]([ExtResource("4_sqdvp")])
 place_effects = Array[ExtResource("1_wirky")]([])
+post_place_effects = Array[ExtResource("1_wirky")]([])
 begin_round_effects = Array[ExtResource("1_wirky")]([])
 end_round_effects = Array[ExtResource("1_wirky")]([])
 destroyed_effects = Array[ExtResource("1_wirky")]([])
+id_name = "rat_king"
+display_name = "Rat King"
+card_sprite = ExtResource("2_wirky")
+desc = ""
+category = 0
+is_aura = false
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

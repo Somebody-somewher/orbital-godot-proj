@@ -41,8 +41,11 @@ func _process(_delta: float) -> void:
 		card_dragged.position = Vector2(new_x, new_y)
 		#card_dragged.position = Vector2(clamp(new_x, 0, screen_size.x), clamp(new_y, 0, screen_size.y))
 
+		if card_dragged is AuraCard:
+			return
+		
 		# card effects with board interaction
-		if board_ref != null and card_dragged is Card:
+		if board_ref and card_dragged is Card:
 			card_flip_if_near_board()
 			#highlight_effects_when_hovering_card()
 

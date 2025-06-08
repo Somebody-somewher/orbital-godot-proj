@@ -10,7 +10,7 @@ var multiplier := 1.0
 var addition := 0
 
 # Actual code that uses the aoe to figure out which tiles should be scored, then assigns each tile a score
-func score_tiles(tile_pos : Vector2i) -> Array[Array]:
+func score_tiles(_tile_pos : Vector2i) -> Array[Array]:
 	return []
 
 # Displays the textlabel scoring above each tile. Board calls this function during preview_placement
@@ -24,5 +24,5 @@ func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : Node2D) -> v
 
 # TO OVERRIDE
 # In case we need to multiply / add score based on tile / building info
-func modifier(score : int, tile_data : BoardTile):
+func modifier(score : int, _tile_data : BoardTile):
 	return score
