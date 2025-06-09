@@ -1,25 +1,26 @@
-[gd_scene load_steps=24 format=3 uid="uid://cdp6pxvmemk4u"]
+[gd_scene load_steps=25 format=3 uid="uid://cdp6pxvmemk4u"]
 
 [ext_resource type="Script" uid="uid://dq7q74qaf5hj8" path="res://scripts/GameFlow/GameManager.gd" id="1_bjd11"]
 [ext_resource type="Script" uid="uid://cep46bfjthrc7" path="res://scripts/Card/card_manager.gd" id="3_jlsqs"]
 [ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="4_lhr70"]
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="5_1iba3"]
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/player_hand.gd" id="5_lhr70"]
 [ext_resource type="PackedScene" uid="uid://b43u6wsxnq4ai" path="res://scenes/Game Flow/input_manager.tscn" id="5_q8u5g"]
 [ext_resource type="Script" uid="uid://c5fouuecjsld6" path="res://scenes/camera.gd" id="6_3p2gp"]
 [ext_resource type="PackedScene" uid="uid://iv3w3pu8flf7" path="res://scenes/Card/card_pack.tscn" id="6_wp0k4"]
-[ext_resource type="Script" uid="uid://bbbnlosaie474" path="res://scripts/GameFlow/player_ui.gd" id="7_wp0k4"]
+[ext_resource type="Script" path="res://scripts/GameFlow/player_ui.gd" id="7_wp0k4"]
 [ext_resource type="Theme" uid="uid://igcyj7c6fdln" path="res://assets/fonts/cutey_card_theme.tres" id="8_lhr70"]
 [ext_resource type="PackedScene" uid="uid://bkog375sxl1lg" path="res://scenes/Compendium/compendium_container.tscn" id="10_1nqs0"]
 [ext_resource type="Script" uid="uid://bc4th2e5h0hj8" path="res://scripts/GameFlow/RoundCounter.gd" id="11_wp0k4"]
 [ext_resource type="Script" uid="uid://b2bvfgo8adhft" path="res://scripts/Card/Pack&Set/CardPackManager.gd" id="13_qmy6f"]
 [ext_resource type="Resource" uid="uid://dfnvqedx37h6v" path="res://Resources/ResourceGrps/CardSet.tres" id="14_mwfav"]
 [ext_resource type="PackedScene" uid="uid://cyka8ysyph1xg" path="res://scenes/Audio/audio_manager.tscn" id="16_cvmbd"]
-[ext_resource type="Script" uid="uid://voc0ihu6a5tc" path="res://scripts/Board/BoardManager.gd" id="17_1iba3"]
+[ext_resource type="Script" path="res://scripts/Board/BoardManager.gd" id="17_1iba3"]
 [ext_resource type="Script" uid="uid://cats7srje6wix" path="res://scripts/Audio/AudioData.gd" id="17_ft6cd"]
-[ext_resource type="Resource" uid="uid://b2ockuqgtwo7k" path="res://Resources/ProcGen/BoardProcGenerator.tres" id="18_yxlcp"]
-[ext_resource type="Script" uid="uid://dls3y3sngygdn" path="res://scripts/Board/BoardPreviewerTilemap.gd" id="19_ebg2g"]
+[ext_resource type="Resource" path="res://Resources/ProcGen/BoardProcGenerator.tres" id="18_yxlcp"]
+[ext_resource type="Script" path="res://scripts/Board/BoardPreviewerTilemap.gd" id="19_ebg2g"]
 [ext_resource type="Resource" uid="uid://doq3nosdirb1v" path="res://Resources/EnvTerrain/TestEnvTerrainMapping.tres" id="20_2ofn6"]
-[ext_resource type="Script" uid="uid://dq6l63on5mqf7" path="res://scripts/Board/BoardVisualManager.gd" id="21_xa025"]
+[ext_resource type="Script" path="res://scripts/Board/BoardVisualManager.gd" id="21_xa025"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_4dx8l"]
 frequency = 0.0017
@@ -49,6 +50,7 @@ preview_board_ref = NodePath("../BoardManager/Preview")
 z_index = 99
 material = SubResource("ShaderMaterial_mwfav")
 position = Vector2(1268, 1274)
+pack_sets = Array[ExtResource("5_1iba3")]([])
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("board")]
 script = ExtResource("6_3p2gp")
@@ -130,9 +132,9 @@ SFX_AUDIOS = Dictionary[String, ExtResource("17_ft6cd")]({})
 [node name="BoardManager" type="Node2D" parent="." node_paths=PackedStringArray("terrain_tilemap", "previewer_tilemap", "object")]
 script = ExtResource("17_1iba3")
 BORDER_DIM = Vector2i(10, 10)
+proc_gen = ExtResource("18_yxlcp")
 terrain_tilemap = NodePath("TerrainActual")
 previewer_tilemap = NodePath("Preview")
-proc_gen = ExtResource("18_yxlcp")
 object = NodePath("Building_Manager")
 
 [node name="Preview" type="TileMapLayer" parent="BoardManager" node_paths=PackedStringArray("ghost_image", "object")]

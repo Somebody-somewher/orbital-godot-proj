@@ -7,9 +7,9 @@
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_833t1"]
 [ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="4_fjwxk"]
 [ext_resource type="Resource" uid="uid://by2gagjkifvdo" path="res://Resources/Events/Scoring/cottage_scoring.tres" id="5_27t32"]
-[ext_resource type="Script" uid="uid://cux3jvyk6llof" path="res://scripts/Events/create_cards_event.gd" id="5_fjwxk"]
+[ext_resource type="Script" path="res://scripts/Events/create_cards_event.gd" id="5_fjwxk"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_833t1"]
-[ext_resource type="Script" uid="uid://c5t7qdcdn01ia" path="res://scripts/Events/destroy_self_event.gd" id="6_fjwxk"]
+[ext_resource type="Script" path="res://scripts/Events/destroy_self_event.gd" id="6_fjwxk"]
 
 [sub_resource type="Resource" id="Resource_c8ass"]
 script = ExtResource("4_fjwxk")
@@ -44,7 +44,9 @@ id_name = "cottage"
 display_name = "Cottage"
 card_sprite = ExtResource("2_27t32")
 desc = ""
+flavor = ""
 category = 3
-is_aura = false
 tags = Array[String]([])
+is_aura = false
+hidden = false
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"
