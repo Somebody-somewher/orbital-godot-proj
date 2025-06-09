@@ -12,14 +12,8 @@
 
 [resource]
 script = ExtResource("9_ae0mv")
-building_sprite = ExtResource("2_ihv0i")
 layer = 1
 nonplaceable_terrain = Array[ExtResource("3_qkdm6")]([ExtResource("4_addsg"), ExtResource("5_ctbtr")])
-id_name = "cactus"
-display_name = "Cactus"
-desc = ""
-category = 0
-tags = Array[String]([])
 preview_event = ExtResource("8_cx6rg")
 place_conditions = Array[ExtResource("6_dlb8t")]([ExtResource("7_b7fn4")])
 place_effects = Array[ExtResource("1_qtfsc")]([])
@@ -27,4 +21,11 @@ post_place_effects = Array[ExtResource("1_qtfsc")]([])
 begin_round_effects = Array[ExtResource("1_qtfsc")]([])
 end_round_effects = Array[ExtResource("1_qtfsc")]([])
 destroyed_effects = Array[ExtResource("1_qtfsc")]([])
+id_name = "cactus"
+display_name = "Cactus"
+card_sprite = ExtResource("2_ihv0i")
+desc = ""
+category = 0
+is_aura = false
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

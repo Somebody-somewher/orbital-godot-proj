@@ -1,14 +1,17 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=6 format=3 uid="uid://bj7kjf4kbsf1a"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=8 format=3 uid="uid://bj7kjf4kbsf1a"]
 
 [ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_qy2nn"]
 [ext_resource type="Texture2D" uid="uid://dajjwe5q0ox20" path="res://assets/entity_sprites/cute_dummy.png" id="2_qy2nn"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_75rt3"]
+[ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_dujx5"]
+[ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_bvvf1"]
 [ext_resource type="Resource" uid="uid://bddwoefbu6t16" path="res://Resources/Events/Scoring/cute_dummy_scoring.tres" id="4_dujx5"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="5_bvvf1"]
 
 [resource]
 script = ExtResource("5_bvvf1")
 layer = 1
+nonplaceable_terrain = Array[ExtResource("3_dujx5")]([ExtResource("4_bvvf1")])
 preview_event = ExtResource("4_dujx5")
 place_conditions = Array[ExtResource("3_75rt3")]([])
 place_effects = Array[ExtResource("1_qy2nn")]([])
@@ -20,7 +23,9 @@ id_name = "cute_dummy"
 display_name = "Cute dummy"
 card_sprite = ExtResource("2_qy2nn")
 desc = ""
+flavor = ""
 category = 0
-is_aura = false
 tags = Array[String]([])
+is_aura = false
+hidden = true
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"
