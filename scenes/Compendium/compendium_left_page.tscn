@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://dw6t8olk48epw"]
+
+[ext_resource type="FontFile" uid="uid://dj85nkjpq655u" path="res://assets/fonts/cjkFonts-allseto-v1.11-2.ttf" id="1_aswkd"]
+[ext_resource type="Script" uid="uid://cr5mqiqucip4p" path="res://scripts/Compendium/compendium_left_page.gd" id="1_hd657"]
+[ext_resource type="FontFile" uid="uid://v66tkdbnak7b" path="res://assets/fonts/friendlyscribbles.ttf" id="2_hd657"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q68in"]
+bg_color = Color(0.905882, 0.831373, 0.745098, 0)
+border_width_left = 6
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.631929, 0.521834, 0.42636, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="LeftPage" type="VBoxContainer"]
+size_flags_horizontal = 3
+script = ExtResource("1_hd657")
+
+[node name="SearchBar" type="LineEdit" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_aswkd")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_q68in")
+
+[node name="ToolTip" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_hd657")
+theme_override_font_sizes/font_size = 20
+text = "Tip: Middle click a card in hand to search it immediately"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 20
+columns = 3
+
+[connection signal="text_changed" from="SearchBar" to="." method="_on_search_bar_text_changed"]

@@ -8,14 +8,17 @@ class_name CardData
 
 # Description to show the user whenever they select or hover over the card?
 @export_multiline var desc : String
+@export_multiline var flavor : String
 
 @export_category("Tags and Combos")
-enum Category { 
-	SABOTAGE, ECONOMY, RELIGION, 
-	INFRASTRUCTURE, FARMING, SCIENCE, 
-	CULTURE, NATURE, INDUSTRY, POWER }
+enum CATEGORY { 
+	Sabotage, Economy, Religion, 
+	Infrastructure, Farming, Science, 
+	Culture, Nature, Industry, Power }
 
 # influences some auras and card back colour
-@export var category: Category
-@export var is_aura : bool = false
+@export var category: CATEGORY
 @export var tags : Array[String]
+@export var is_aura : bool = false
+# hidden cards are not shown in compendium
+@export var hidden : bool = false

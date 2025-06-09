@@ -12,14 +12,8 @@
 
 [resource]
 script = ExtResource("9_87bs8")
-building_sprite = ExtResource("2_0utjk")
 layer = 1
 nonplaceable_terrain = Array[ExtResource("3_vciea")]([ExtResource("4_gusbi"), ExtResource("5_t32u3")])
-id_name = "bush"
-display_name = "Bush"
-desc = ""
-category = 0
-tags = Array[String]([])
 preview_event = ExtResource("8_wps4d")
 place_conditions = Array[ExtResource("6_lt4od")]([ExtResource("7_4rtce")])
 place_effects = Array[ExtResource("1_fbwkw")]([])
@@ -27,4 +21,11 @@ post_place_effects = Array[ExtResource("1_fbwkw")]([])
 begin_round_effects = Array[ExtResource("1_fbwkw")]([])
 end_round_effects = Array[ExtResource("1_fbwkw")]([])
 destroyed_effects = Array[ExtResource("1_fbwkw")]([])
+id_name = "bush"
+display_name = "Bush"
+card_sprite = ExtResource("2_0utjk")
+desc = ""
+category = 0
+is_aura = false
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://dth3ynbihd8ve"]
+
+[ext_resource type="Script" uid="uid://c4k7oxhktay6e" path="res://scripts/Compendium/compendium_card.gd" id="1_ck5q7"]
+[ext_resource type="Texture2D" uid="uid://d02is06vvdlbm" path="res://assets/card_sprites/blank_card.png" id="1_rqcs6"]
+[ext_resource type="Texture2D" uid="uid://c54j4w4r8ncaw" path="res://assets/entity_sprites/apple.PNG" id="2_ck5q7"]
+[ext_resource type="Theme" uid="uid://igcyj7c6fdln" path="res://assets/fonts/cutey_card_theme.tres" id="3_0gfnt"]
+
+[node name="CompendiumCard" type="Control"]
+custom_minimum_size = Vector2(170, 240)
+layout_mode = 3
+anchors_preset = 0
+size_flags_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_ck5q7")
+
+[node name="CardBackButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("1_rqcs6")
+
+[node name="CardImage" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -81.5
+offset_top = -232.0
+offset_right = 81.5
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("2_ck5q7")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.069
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_0gfnt")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+text = "Apple"
+horizontal_alignment = 1
+uppercase = true
+
+[connection signal="pressed" from="CardBackButton" to="." method="_on_button_pressed"]

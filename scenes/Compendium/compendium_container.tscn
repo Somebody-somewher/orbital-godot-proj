@@ -1,0 +1,145 @@
+[gd_scene load_steps=9 format=3 uid="uid://bkog375sxl1lg"]
+
+[ext_resource type="PackedScene" uid="uid://cvvrt6omulqvi" path="res://scenes/Compendium/compendium.tscn" id="1_7rmcu"]
+[ext_resource type="Script" uid="uid://b4bajafgouyoi" path="res://scripts/Compendium/compendium_menu.gd" id="1_068sj"]
+[ext_resource type="Texture2D" uid="uid://dww58uihkxd7q" path="res://assets/compendium/book_2.png" id="2_sjac0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sjac0"]
+size = Vector2(100, 391)
+
+[sub_resource type="Animation" id="Animation_7rmcu"]
+resource_name = "enter_scene"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CompendiumMargins:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.533333, 0.6),
+"transitions": PackedFloat32Array(1, 2.07053, 0.535887, 1),
+"update": 0,
+"values": [Vector2(0, -900), Vector2(0, -900), Vector2(0, 50), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bookmark:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.266667),
+"transitions": PackedFloat32Array(0.5, 1.68179, 1),
+"update": 0,
+"values": [Vector2(467, -62), Vector2(467, 0), Vector2(467, -300)]
+}
+
+[sub_resource type="Animation" id="Animation_sjac0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CompendiumMargins:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -900)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bookmark:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(467, -62)]
+}
+
+[sub_resource type="Animation" id="Animation_068sj"]
+resource_name = "exit_scene"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CompendiumMargins:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.299173),
+"transitions": PackedFloat32Array(0.517632, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -900)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bookmark:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.233333, 0.5),
+"transitions": PackedFloat32Array(0.392292, 1),
+"update": 0,
+"values": [Vector2(467, -235), Vector2(467, -62)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_068sj"]
+_data = {
+&"RESET": SubResource("Animation_sjac0"),
+&"enter_scene": SubResource("Animation_7rmcu"),
+&"exit_scene": SubResource("Animation_068sj")
+}
+
+[node name="CompendiumContainer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_068sj")
+
+[node name="CompendiumMargins" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -900.0
+offset_bottom = -900.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="Compendium" parent="CompendiumMargins" instance=ExtResource("1_7rmcu")]
+layout_mode = 2
+
+[node name="Bookmark" type="Node2D" parent="."]
+position = Vector2(467, -62)
+
+[node name="Sprite2D" type="Sprite2D" parent="Bookmark"]
+scale = Vector2(1.10526, 1.10526)
+texture = ExtResource("2_sjac0")
+
+[node name="Area2D" type="Area2D" parent="Bookmark"]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bookmark/Area2D"]
+position = Vector2(3, 31.5)
+shape = SubResource("RectangleShape2D_sjac0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_068sj")
+}
