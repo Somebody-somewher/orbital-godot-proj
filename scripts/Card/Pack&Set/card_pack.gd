@@ -24,7 +24,7 @@ func _ready() -> void:
 static func new_pack(setdata : Array[CardSetData]) -> CardPack:
 	var return_pack : CardPack = card_pack.instantiate()
 	return_pack.pack_sets = setdata
-
+	return_pack.z_index = 50
 	return return_pack
 
 

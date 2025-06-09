@@ -12,14 +12,8 @@
 
 [resource]
 script = ExtResource("9_6vmlx")
-building_sprite = ExtResource("2_eoeg1")
 layer = 1
 nonplaceable_terrain = Array[ExtResource("3_v0xm7")]([ExtResource("4_x7cl8"), ExtResource("5_jjw5t")])
-id_name = "island"
-display_name = "Island"
-desc = ""
-category = 0
-tags = Array[String]([])
 preview_event = ExtResource("8_5p57h")
 place_conditions = Array[ExtResource("6_62jpd")]([ExtResource("7_kwuqp")])
 place_effects = Array[ExtResource("1_x1l7i")]([])
@@ -27,4 +21,11 @@ post_place_effects = Array[ExtResource("1_x1l7i")]([])
 begin_round_effects = Array[ExtResource("1_x1l7i")]([])
 end_round_effects = Array[ExtResource("1_x1l7i")]([])
 destroyed_effects = Array[ExtResource("1_x1l7i")]([])
+id_name = "island"
+display_name = "Island"
+card_sprite = ExtResource("2_eoeg1")
+desc = ""
+category = 0
+is_aura = false
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

@@ -12,14 +12,8 @@
 
 [resource]
 script = ExtResource("9_rwuwh")
-building_sprite = ExtResource("2_oyxtv")
 layer = 1
 nonplaceable_terrain = Array[ExtResource("3_iv7xy")]([ExtResource("4_s3js7"), ExtResource("5_2132m")])
-id_name = "pig"
-display_name = "Pig"
-desc = ""
-category = 0
-tags = Array[String]([])
 preview_event = ExtResource("8_w1rqa")
 place_conditions = Array[ExtResource("6_7a4j0")]([ExtResource("7_7k8js")])
 place_effects = Array[ExtResource("1_2pfho")]([])
@@ -27,4 +21,11 @@ post_place_effects = Array[ExtResource("1_2pfho")]([])
 begin_round_effects = Array[ExtResource("1_2pfho")]([])
 end_round_effects = Array[ExtResource("1_2pfho")]([])
 destroyed_effects = Array[ExtResource("1_2pfho")]([])
+id_name = "pig"
+display_name = "Pig"
+card_sprite = ExtResource("2_oyxtv")
+desc = ""
+category = 0
+is_aura = false
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"
