@@ -111,10 +111,10 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "Timer: 30"
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CompendiumLayer" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="CompendiumContainer" parent="CanvasLayer" instance=ExtResource("10_1nqs0")]
+[node name="CompendiumContainer" parent="CompendiumLayer" instance=ExtResource("10_1nqs0")]
 
 [node name="RoundCounter" type="Node" parent="."]
 script = ExtResource("11_wp0k4")
