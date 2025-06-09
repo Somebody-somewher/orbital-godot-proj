@@ -1,11 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://bkog375sxl1lg"]
+[gd_scene load_steps=8 format=3 uid="uid://bkog375sxl1lg"]
 
 [ext_resource type="PackedScene" uid="uid://cvvrt6omulqvi" path="res://scenes/Compendium/compendium.tscn" id="1_7rmcu"]
 [ext_resource type="Script" uid="uid://b4bajafgouyoi" path="res://scripts/Compendium/compendium_menu.gd" id="1_068sj"]
 [ext_resource type="Texture2D" uid="uid://dww58uihkxd7q" path="res://assets/compendium/book_2.png" id="2_sjac0"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sjac0"]
-size = Vector2(100, 391)
 
 [sub_resource type="Animation" id="Animation_7rmcu"]
 resource_name = "enter_scene"
@@ -25,14 +22,14 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Bookmark:position")
+tracks/1/path = NodePath("BookMark:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0333333, 0.266667),
-"transitions": PackedFloat32Array(0.5, 1.68179, 1),
+"times": PackedFloat32Array(0, 0.033669, 0.267428),
+"transitions": PackedFloat32Array(1, 1.68179, 1),
 "update": 0,
-"values": [Vector2(467, -62), Vector2(467, 0), Vector2(467, -300)]
+"values": [Vector2(391, -255), Vector2(391, -215), Vector2(391, -420)]
 }
 
 [sub_resource type="Animation" id="Animation_sjac0"]
@@ -52,14 +49,14 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Bookmark:position")
+tracks/1/path = NodePath("BookMark:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(467, -62)]
+"values": [Vector2(391, -255)]
 }
 
 [sub_resource type="Animation" id="Animation_068sj"]
@@ -80,14 +77,14 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Bookmark:position")
+tracks/1/path = NodePath("BookMark:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.233333, 0.5),
-"transitions": PackedFloat32Array(0.392292, 1),
+"times": PackedFloat32Array(0.232797, 0.5),
+"transitions": PackedFloat32Array(0.4, 1),
 "update": 0,
-"values": [Vector2(467, -235), Vector2(467, -62)]
+"values": [Vector2(391, -400), Vector2(391, -255)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_068sj"]
@@ -107,20 +104,17 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_068sj")
 
-[node name="Bookmark" type="Node2D" parent="."]
-position = Vector2(467, -62)
-
-[node name="Sprite2D" type="Sprite2D" parent="Bookmark"]
-scale = Vector2(1.10526, 1.10526)
-texture = ExtResource("2_sjac0")
-
-[node name="Area2D" type="Area2D" parent="Bookmark"]
-collision_layer = 16
-collision_mask = 16
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bookmark/Area2D"]
-position = Vector2(3, 31.5)
-shape = SubResource("RectangleShape2D_sjac0")
+[node name="BookMark" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.05
+anchor_top = -0.215
+anchor_bottom = -0.195
+offset_left = 471.0
+offset_top = -25.1086
+offset_right = 623.0
+offset_bottom = 387.891
+texture_normal = ExtResource("2_sjac0")
 
 [node name="CompendiumMargins" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -143,3 +137,5 @@ layout_mode = 2
 libraries = {
 &"": SubResource("AnimationLibrary_068sj")
 }
+
+[connection signal="pressed" from="BookMark" to="." method="_on_texture_button_pressed"]

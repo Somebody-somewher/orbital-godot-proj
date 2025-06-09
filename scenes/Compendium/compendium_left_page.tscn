@@ -5,12 +5,16 @@
 [ext_resource type="FontFile" uid="uid://v66tkdbnak7b" path="res://assets/fonts/friendlyscribbles.ttf" id="2_hd657"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q68in"]
+content_margin_left = 7.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 7.0
 bg_color = Color(0.905882, 0.831373, 0.745098, 0)
 border_width_left = 6
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(0.631929, 0.521834, 0.42636, 1)
+border_color = Color(0.45098, 0.388235, 0.309804, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -22,7 +26,9 @@ script = ExtResource("1_hd657")
 
 [node name="SearchBar" type="LineEdit" parent="."]
 layout_mode = 2
+theme_override_colors/font_placeholder_color = Color(0.584314, 0.513726, 0.380392, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("1_aswkd")
 theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxFlat_q68in")
