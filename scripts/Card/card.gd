@@ -28,9 +28,6 @@ var id_name : String = "cute_dummy"
 func _ready() -> void:
 	pass
 
-#func connect_to_card_manager(card_man : CardManager) -> void:
-	#card_man.connect_card_signals(self) 
-
 # factory constructor
 static func new_card(card_name : String) -> Card:
 	var return_card : Card = card_scene.instantiate()

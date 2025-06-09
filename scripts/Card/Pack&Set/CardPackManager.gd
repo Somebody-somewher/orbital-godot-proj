@@ -19,5 +19,5 @@ func _ready() -> void:
 
 func create_pack() -> void:
 	var card_pack = CardPack.new_pack(CardLoaderr.get_random_set(4))
-	card_pack.set_position(Vector2i(300,300))
+	card_pack.set_position(Vector2i(2000,2000))
 	spawn_node.add_child(card_pack)
