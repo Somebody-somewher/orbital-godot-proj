@@ -42,12 +42,18 @@ func _ready() -> void:
 	previewer_tilemap.set_up(object, matrix_data, BORDER_DIM)
 	terrain_tilemap.set_up(object, BORDER_DIM)
 	
-	# Procedural Generation setup
-	proc_gen.set_up(BOARD_SIZE, BOARDS_LAYOUT, BORDER_DIM)
-	for i in range(4):
-			proc_gen.generate_board(create_terrain, place_on_board_if_able_data, i)
-	
-	proc_gen.generate_border(terrain_tilemap.change_border_terrain_tile, terrain_tilemap.place_fake_building)
+	if proc_gen != null:
+		# Procedural Generation setup
+		proc_gen.set_up(BOARD_SIZE, BOARDS_LAYOUT, BORDER_DIM)
+		for i in range(BOARDS_LAYOUT.x * BOARDS_LAYOUT.y):
+				proc_gen.generate_board(create_terrain, place_on_board_if_able_data, i)
+		
+		proc_gen.generate_border(terrain_tilemap.change_border_terrain_tile, terrain_tilemap.place_fake_building)
+	else:
+		var placeholder_env = terrain_tilemap.env_map.getPlaceholderTile()
+		for x in range(BOARD_SIZE.x * BOARDS_LAYOUT.x):
+			for y in range(BOARD_SIZE.y * BOARDS_LAYOUT.y):
+				create_terrain(placeholder_env, Vector2i(x,y))
 	pass # Replace with function body.
 
 ## Called in _process to check each board is being hovered over, update the array if so
@@ -138,7 +144,7 @@ func create_building(placeable: PlaceableNode, tile_pos : Vector2i) -> void:
 
 ## Initial creation of terrain tiles for procgen
 func create_terrain(terrain : EnvTerrain, tile_pos : Vector2i) -> void:
-	matrix_data.add_tile(tile_pos - BORDER_DIM, terrain)
+	matrix_data.add_tile(terrain_tilemap.tilemap_to_matrix(tile_pos), terrain)
 	terrain_tilemap.change_terrain_tile(terrain, tile_pos)
 
 ## Change terrain, data + visual
@@ -154,8 +160,8 @@ func highlight_interactable_board() -> void:
 	var start_pos : Vector2i 
 	var end_pos : Vector2i
 	for b in len(matrix_data.boards_coords):
-		start_pos = matrix_data.boards_coords[b][0] + BORDER_DIM
-		end_pos = matrix_data.boards_coords[b][1] + BORDER_DIM
+		start_pos = terrain_tilemap.matrix_to_tilepos(matrix_data.boards_coords[b][0])
+		end_pos = terrain_tilemap.matrix_to_tilepos(matrix_data.boards_coords[b][1])
 		if boards_near_mouse[b] and matrix_data.interactable[b]:
 			terrain_tilemap.unshade_area(start_pos, end_pos)
 		else:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dehbiymvw4gq5"]
+[gd_scene load_steps=22 format=3 uid="uid://dehbiymvw4gq5"]
 
 [ext_resource type="Script" uid="uid://baxm1vpvlaqw2" path="res://scripts/Main Menu/main_menu.gd" id="1_jk1qb"]
 [ext_resource type="Script" uid="uid://duu3dx0n1l1gg" path="res://scripts/Main Menu/menu_board.gd" id="1_rtw2f"]
@@ -15,6 +15,9 @@
 [ext_resource type="PackedScene" uid="uid://bapjcj4rxrxaj" path="res://scenes/Main Menu/options_menu.tscn" id="12_flqon"]
 [ext_resource type="Script" uid="uid://c5fouuecjsld6" path="res://scenes/camera.gd" id="14_1ajci"]
 [ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="14_7b55j"]
+[ext_resource type="Script" uid="uid://dls3y3sngygdn" path="res://scripts/Board/BoardPreviewerTilemap.gd" id="16_a8gd2"]
+[ext_resource type="Resource" uid="uid://doq3nosdirb1v" path="res://Resources/EnvTerrain/TestEnvTerrainMapping.tres" id="17_hstxw"]
+[ext_resource type="Script" uid="uid://dq6l63on5mqf7" path="res://scripts/Board/BoardVisualManager.gd" id="18_8egab"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_4dx8l"]
 frequency = 0.0017
@@ -37,18 +40,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_jk1qb")
-
-[node name="Board" type="Node2D" parent="."]
-position = Vector2(200, 500)
-script = ExtResource("1_rtw2f")
-
-[node name="Highlights" type="TileMapLayer" parent="Board"]
-
-[node name="TerrainActual" type="TileMapLayer" parent="Board"]
-
-[node name="Timer" type="Timer" parent="Board"]
-wait_time = 0.5
-one_shot = true
 
 [node name="PlayerHand" type="Node2D" parent="."]
 script = ExtResource("4_jk1qb")
@@ -89,9 +80,13 @@ layout_mode = 1
 layout_mode = 1
 script = ExtResource("11_1ajci")
 
-[node name="CardManager" type="Node2D" parent="."]
+[node name="CardManager" type="Node2D" parent="." node_paths=PackedStringArray("board_ref", "player_hand_ref", "input_manager_ref", "preview_board_ref")]
 z_index = 2
 script = ExtResource("2_oa1go")
+board_ref = NodePath("../BoardManager")
+player_hand_ref = NodePath("../PlayerHand")
+input_manager_ref = NodePath("../InputManager")
+preview_board_ref = NodePath("../BoardManager/Preview")
 
 [node name="TutorialCardPack" parent="CardManager" instance=ExtResource("4_lgwnu")]
 material = SubResource("ShaderMaterial_flqon")
@@ -102,4 +97,33 @@ pack_sets = Array[ExtResource("14_7b55j")]([])
 position = Vector2(200, 500)
 script = ExtResource("14_1ajci")
 
-[connection signal="timeout" from="Board/Timer" to="Board" method="_on_timer_timeout"]
+[node name="BoardManager" type="Node2D" parent="." node_paths=PackedStringArray("terrain_tilemap", "previewer_tilemap", "object")]
+script = ExtResource("1_rtw2f")
+terrain_tilemap = NodePath("TerrainActual")
+previewer_tilemap = NodePath("Preview")
+object = NodePath("Building_Manager")
+
+[node name="Preview" type="TileMapLayer" parent="BoardManager" node_paths=PackedStringArray("ghost_image", "object")]
+script = ExtResource("16_a8gd2")
+ghost_image = NodePath("GhostPlaceable")
+env_map = ExtResource("17_hstxw")
+object = NodePath("../Building_Manager")
+
+[node name="GhostPlaceable" type="Sprite2D" parent="BoardManager/Preview"]
+modulate = Color(0.568627, 0.552941, 0.576471, 0.623529)
+
+[node name="Darken" type="TileMapLayer" parent="BoardManager"]
+modulate = Color(0.168235, 0.184866, 0.176556, 0.352941)
+
+[node name="TerrainActual" type="TileMapLayer" parent="BoardManager" node_paths=PackedStringArray("darken_tilemap", "object")]
+z_index = -1
+script = ExtResource("18_8egab")
+darken_tilemap = NodePath("../Darken")
+env_map = ExtResource("17_hstxw")
+object = NodePath("../Building_Manager")
+
+[node name="Building_Manager" type="Node2D" parent="BoardManager"]
+
+[node name="Timer" type="Timer" parent="BoardManager"]
+wait_time = 0.5
+one_shot = true
