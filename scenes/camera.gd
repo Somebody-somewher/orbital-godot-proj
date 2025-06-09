@@ -27,7 +27,7 @@ func _physics_process(delta: float) -> void:
 	zoom = lerp(zoom, _target_zoom * Vector2.ONE, ZOOM_RATE * delta)
 	var zoom_ratio = player_hand.zoom_var /zoom.x
 	player_hand.pos_offset = player_hand.pos_offset + screen_size/player_hand.zoom_var/2 *(1 - zoom_ratio)
-	if card_manager.card_dragged:
+	if card_manager.card_dragged is Card:
 		card_manager.card_dragged.deck_scale = 1/zoom.x
 	player_hand.zoom_var = zoom.x
 	player_hand.snap_to_hand_pos()

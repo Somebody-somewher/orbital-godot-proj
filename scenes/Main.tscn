@@ -1,17 +1,17 @@
-[gd_scene load_steps=28 format=4 uid="uid://cdp6pxvmemk4u"]
+[gd_scene load_steps=25 format=3 uid="uid://cdp6pxvmemk4u"]
 
 [ext_resource type="Script" uid="uid://dq7q74qaf5hj8" path="res://scripts/GameFlow/GameManager.gd" id="1_bjd11"]
 [ext_resource type="Script" uid="uid://cep46bfjthrc7" path="res://scripts/Card/card_manager.gd" id="3_jlsqs"]
 [ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="4_lhr70"]
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="5_1iba3"]
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/player_hand.gd" id="5_lhr70"]
 [ext_resource type="PackedScene" uid="uid://b43u6wsxnq4ai" path="res://scenes/Game Flow/input_manager.tscn" id="5_q8u5g"]
 [ext_resource type="Script" uid="uid://c5fouuecjsld6" path="res://scenes/camera.gd" id="6_3p2gp"]
 [ext_resource type="PackedScene" uid="uid://iv3w3pu8flf7" path="res://scenes/Card/card_pack.tscn" id="6_wp0k4"]
-[ext_resource type="Texture2D" uid="uid://e20pl4ien7vb" path="res://assets/tiles/tileable_background.jpg" id="7_jlsqs"]
 [ext_resource type="Script" uid="uid://bbbnlosaie474" path="res://scripts/GameFlow/player_ui.gd" id="7_wp0k4"]
-[ext_resource type="Texture2D" uid="uid://cwwp2kt2yowua" path="res://assets/tiles/tileable_background_2.jpg" id="8_jlsqs"]
 [ext_resource type="Theme" uid="uid://igcyj7c6fdln" path="res://assets/fonts/cutey_card_theme.tres" id="8_lhr70"]
-[ext_resource type="PackedScene" uid="uid://klvllydgi5tw" path="res://scenes/GameFlow/round_manager.tscn" id="12_mwfav"]
+[ext_resource type="PackedScene" uid="uid://bkog375sxl1lg" path="res://scenes/Compendium/compendium_container.tscn" id="10_1nqs0"]
+[ext_resource type="Script" uid="uid://bc4th2e5h0hj8" path="res://scripts/GameFlow/RoundCounter.gd" id="11_wp0k4"]
 [ext_resource type="Script" uid="uid://b2bvfgo8adhft" path="res://scripts/Card/Pack&Set/CardPackManager.gd" id="13_qmy6f"]
 [ext_resource type="Resource" uid="uid://dfnvqedx37h6v" path="res://Resources/ResourceGrps/CardSet.tres" id="14_mwfav"]
 [ext_resource type="PackedScene" uid="uid://cyka8ysyph1xg" path="res://scenes/Audio/audio_manager.tscn" id="16_cvmbd"]
@@ -34,26 +34,9 @@ shader = ExtResource("4_lhr70")
 shader_parameter/Noise = SubResource("NoiseTexture2D_qf083")
 shader_parameter/DissolveValue = 1.0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q8u5g"]
-texture = ExtResource("7_jlsqs")
-texture_region_size = Vector2i(612, 612)
-0:0/0 = 0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lhr70"]
-texture = ExtResource("8_jlsqs")
-texture_region_size = Vector2i(1300, 1300)
-0:0/0 = 0
-1:0/0 = 0
-0:1/0 = 0
-1:1/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_lhr70"]
-tile_size = Vector2i(612, 612)
-sources/0 = SubResource("TileSetAtlasSource_q8u5g")
-sources/1 = SubResource("TileSetAtlasSource_lhr70")
-
-[node name="GameManager" type="Node" node_paths=PackedStringArray("card_pack_manager")]
+[node name="GameManager" type="Node" node_paths=PackedStringArray("round_manager", "card_pack_manager")]
 script = ExtResource("1_bjd11")
+round_manager = NodePath("RoundCounter")
 card_pack_manager = NodePath("CardPackManager")
 
 [node name="CardManager" type="Node2D" parent="." node_paths=PackedStringArray("board_ref", "player_hand_ref", "input_manager_ref", "preview_board_ref")]
@@ -67,10 +50,11 @@ preview_board_ref = NodePath("../BoardManager/Preview")
 z_index = 99
 material = SubResource("ShaderMaterial_mwfav")
 position = Vector2(1268, 1274)
+pack_sets = Array[ExtResource("5_1iba3")]([])
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("board")]
 script = ExtResource("6_3p2gp")
-board = NodePath("../BoardManager/Preview")
+board = NodePath("../BoardManager/TerrainActual")
 
 [node name="PlayerHand" type="Node2D" parent="."]
 z_index = 1
@@ -79,14 +63,14 @@ script = ExtResource("5_lhr70")
 [node name="InputManager" parent="." instance=ExtResource("5_q8u5g")]
 position = Vector2(879, 480)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="."]
 
-[node name="PlayerUI" type="Control" parent="CanvasLayer"]
+[node name="PlayerUI" type="Control" parent="UILayer"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("7_wp0k4")
 
-[node name="ScoreLabel" type="Label" parent="CanvasLayer/PlayerUI"]
+[node name="ScoreLabel" type="Label" parent="UILayer/PlayerUI"]
 layout_mode = 0
 offset_left = 37.0
 offset_top = 29.0
@@ -97,7 +81,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "Score: 0"
 
-[node name="RoundLabel" type="Label" parent="CanvasLayer/PlayerUI"]
+[node name="RoundLabel" type="Label" parent="UILayer/PlayerUI"]
 layout_mode = 0
 offset_left = 1397.0
 offset_top = 12.0
@@ -108,7 +92,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "Round: 1"
 
-[node name="EndTurn" type="Button" parent="CanvasLayer/PlayerUI"]
+[node name="EndTurn" type="Button" parent="UILayer/PlayerUI"]
 layout_mode = 0
 offset_left = 1369.0
 offset_top = 800.0
@@ -118,7 +102,7 @@ theme = ExtResource("8_lhr70")
 theme_override_font_sizes/font_size = 40
 text = "End Turn"
 
-[node name="RoundTimerLabel" type="Label" parent="CanvasLayer/PlayerUI"]
+[node name="RoundTimerLabel" type="Label" parent="UILayer/PlayerUI"]
 layout_mode = 0
 offset_left = 1371.0
 offset_top = 737.0
@@ -129,13 +113,13 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "Timer: 30"
 
-[node name="PlaceholderBackground" type="TileMapLayer" parent="."]
-visible = false
-z_index = -4
-tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=")
-tile_set = SubResource("TileSet_lhr70")
+[node name="CompendiumLayer" type="CanvasLayer" parent="."]
+layer = 2
 
-[node name="RoundManager" parent="." instance=ExtResource("12_mwfav")]
+[node name="CompendiumContainer" parent="CompendiumLayer" instance=ExtResource("10_1nqs0")]
+
+[node name="RoundCounter" type="Node" parent="."]
+script = ExtResource("11_wp0k4")
 
 [node name="CardPackManager" type="Node" parent="." node_paths=PackedStringArray("spawn_node")]
 script = ExtResource("13_qmy6f")
@@ -174,6 +158,4 @@ object = NodePath("../Building_Manager")
 
 [node name="Building_Manager" type="Node2D" parent="BoardManager"]
 
-[node name="MultiplayerController" type="Node" parent="."]
-
-[connection signal="pressed" from="CanvasLayer/PlayerUI/EndTurn" to="CanvasLayer/PlayerUI" method="_on_end_turn_pressed"]
+[connection signal="pressed" from="UILayer/PlayerUI/EndTurn" to="UILayer/PlayerUI" method="_on_end_turn_pressed"]

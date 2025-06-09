@@ -32,6 +32,9 @@ func _ready() -> void:
 static func get_building_data(id : String) -> BuildingData:
 	return buildings_dict.get(id).duplicate(true)
 
+static func get_card_data(id : String) -> CardData:
+	return buildings_dict.get(id)
+
 static func get_display_name(id : String) -> String:
 	print(buildings_dict)
 	return buildings_dict.get(id).display_name
