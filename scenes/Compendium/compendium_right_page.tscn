@@ -8,14 +8,17 @@
 
 [node name="RightPage" type="VBoxContainer"]
 size_flags_horizontal = 3
+mouse_filter = 2
 script = ExtResource("1_wribc")
 
 [node name="BaseInfo" type="HBoxContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="CardBack" type="TextureRect" parent="BaseInfo"]
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("1_t1t2w")
 expand_mode = 3
 
@@ -26,12 +29,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("3_syxxc")
 expand_mode = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="BaseInfo"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
@@ -39,10 +44,12 @@ theme_override_constants/margin_bottom = 15
 [node name="VBoxContainer" type="VBoxContainer" parent="BaseInfo/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 theme_override_constants/separation = 8
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BaseInfo/MarginContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="CardName" type="Label" parent="BaseInfo/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -74,6 +81,7 @@ uppercase = true
 [node name="DescContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="Description" type="Label" parent="DescContainer"]
 custom_minimum_size = Vector2(100, 10)
@@ -90,6 +98,7 @@ autowrap_mode = 2
 [node name="FlavourContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="FlavorText" type="Label" parent="FlavourContainer"]
 custom_minimum_size = Vector2(100, 10)

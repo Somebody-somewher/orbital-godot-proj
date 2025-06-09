@@ -127,3 +127,15 @@ func topmost(result_arr):
 			top = current
 			max_z = current.collider.get_parent().z_index
 	return top
+
+func _ready() -> void:
+	Signalbus.connect("open_compendium", open_compendium)
+	Signalbus.connect("close_compendium", close_compendium)
+
+func open_compendium(_id : String):
+	curr_mask = MASKS.get("none")
+	camera_enabled = false
+
+func close_compendium():
+	curr_mask = MASKS.get("all")
+	camera_enabled = true

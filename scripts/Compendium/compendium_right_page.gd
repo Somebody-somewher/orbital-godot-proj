@@ -8,13 +8,13 @@ func _ready() -> void:
 
 func display_card(id : String) -> void:
 	var data : CardData = CardLoaderr.get_card_data(id)
-	#if data:
-		#$BaseInfo/CardBack/CardImage.texture = data.card_sprite
-		#$BaseInfo/MarginContainer/VBoxContainer/CardName.text = data.display_name
-		#$BaseInfo/MarginContainer/VBoxContainer/Category.text = data.CATEGORY.keys()[data.category] + " Card"
-		#$BaseInfo/MarginContainer/VBoxContainer/Tags.text = tag_array_to_str(data.tags)
-		#$DescContainer/Description.text = data.desc
-		#$FlavourContainer/FlavorText.text = data.flavor
+	if data:
+		$BaseInfo/CardBack/CardImage.texture = data.card_sprite
+		$BaseInfo/MarginContainer/VBoxContainer/HBoxContainer/CardName.text = data.display_name
+		$BaseInfo/MarginContainer/VBoxContainer/Category.text = data.CATEGORY.keys()[data.category] + " Card"
+		$BaseInfo/MarginContainer/VBoxContainer/Tags.text = tag_array_to_str(data.tags)
+		$DescContainer/Description.text = data.desc
+		$FlavourContainer/FlavorText.text = data.flavor
 
 func tag_array_to_str(arr : Array[String]) -> String:
 	var ret = ""

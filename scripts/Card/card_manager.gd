@@ -24,6 +24,7 @@ var CARD_TILE_RATIO : Vector2
 
 func _ready() -> void:
 	Signalbus.connect("mouse_enter_interactable_board_tile", highlight_effects_when_hovering_card)
+	Signalbus.connect("open_compendium", opening_ui)
 	screen_size = get_viewport_rect().size
 	
 
@@ -146,6 +147,11 @@ func spawn_card(id_name : String, pos : Vector2) -> void:
 	self.add_child(new_card)
 	new_card.connect_to_card_manager(self)
 	player_hand_ref.add_to_hand(new_card)
+
+
+func opening_ui(_id : String) -> void :
+	finish_drag(false)
+
 #
 ## Following functions are centralized under CardManager
 ## So as to prevent them all from being triggered at the same time
