@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://c2ir4qvocok3n"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_vtqe6"]
+
+[resource]
+script = ExtResource("1_vtqe6")
+set_name = "Self Sustaining"
+cards = Dictionary[String, int]({
+"carrots": 1,
+"garden": 2,
+"market": 1
+})
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

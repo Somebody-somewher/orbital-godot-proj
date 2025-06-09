@@ -1,13 +1,5 @@
-extends Resource
+extends CardData
 class_name PlaceableData
-# Tiles, Terrain or etc
-
-@export_category("Basic Properties")
-@export var id_name : String
-@export var display_name : String
-
-# Description to show the user whenever they select or hover over the card?
-@export_multiline var desc : String
 
 @export_category("Events and Conditions")
 #################################### EFFECTS ##########################################
@@ -26,15 +18,16 @@ class_name PlaceableData
 # Scoring will be done here 
 # TODO: May lump this up into one class called EventGroup for the inheritance
 @export var place_effects : Array[BoardEvent]
+@export var post_place_effects : Array[BoardEvent]
 @export var begin_round_effects : Array[BoardEvent]
 @export var end_round_effects : Array[BoardEvent]
 @export var destroyed_effects : Array[BoardEvent]
 
-func preview(previewer : Callable, tile_pos : Vector2i) -> void:
-	return preview_event.preview(previewer, tile_pos)
+func preview(board : BoardMatrixData, previewer : Callable, tile_pos : Vector2i) -> void:
+	return preview_event.preview(board, previewer, tile_pos)
 	
-func placeable(pos : Vector2i) -> bool:
+func placeable(board : BoardMatrixData, pos : Vector2i) -> bool:
 	for condition in place_conditions:
-		if !condition.test(pos):
+		if !condition.test(board, pos):
 			return false
 	return true

@@ -8,12 +8,19 @@
 
 [resource]
 script = ExtResource("4_edmi8")
-building_sprite = ExtResource("2_7ccgh")
-id_name = "rock"
+layer = 1
 preview_event = ExtResource("4_7ccgh")
 place_conditions = Array[ExtResource("3_vxxxs")]([])
 place_effects = Array[ExtResource("1_vmt53")]([])
+post_place_effects = Array[ExtResource("1_vmt53")]([])
 begin_round_effects = Array[ExtResource("1_vmt53")]([])
 end_round_effects = Array[ExtResource("1_vmt53")]([])
 destroyed_effects = Array[ExtResource("1_vmt53")]([])
+id_name = "rock"
+display_name = "rock"
+card_sprite = ExtResource("2_7ccgh")
+desc = ""
+category = 0
+is_aura = false
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

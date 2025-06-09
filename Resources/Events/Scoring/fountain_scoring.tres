@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="Score_BoardEffect" load_steps=3 format=3 uid="uid://bsf26dthg0jog"]
+[gd_resource type="Resource" script_class="StandardScoreEffect" load_steps=3 format=3 uid="uid://bsf26dthg0jog"]
 
 [ext_resource type="Resource" uid="uid://bi1js42egmwds" path="res://Resources/AOE/circle.tres" id="1_ecglv"]
-[ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/score_board_event.gd" id="2_qpfjw"]
+[ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/standard_score.gd" id="2_qpfjw"]
 
 [resource]
 script = ExtResource("2_qpfjw")

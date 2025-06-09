@@ -4,5 +4,7 @@ class_name Condition
 # Pop-up msg explain to the user why they cant place the placeable or why something is happenin?
 @export_multiline var reminder_msg : String
 
-func test(_tile_pos : Vector2i) -> bool:
-	return true
+var return_bool := true
+
+func test(board : BoardMatrixData, _tile_pos : Vector2i) -> bool:
+	return return_bool

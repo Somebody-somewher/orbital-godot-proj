@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EnvTerrain" load_steps=2 format=3 uid="uid://pxsa1td76bvc"]
+
+[ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="1_1xq51"]
+
+[resource]
+script = ExtResource("1_1xq51")
+name_id = "Water"
+tilesheet_pos = Vector2i(3, 0)
+score_modifier = 0
+metadata/_custom_type_script = "uid://cfj1u165lx7jl"

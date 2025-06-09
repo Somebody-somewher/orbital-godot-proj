@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AudioData" load_steps=4 format=3 uid="uid://xqvm0eyuqm7r"]
+
+[ext_resource type="Script" uid="uid://cats7srje6wix" path="res://scripts/Audio/AudioData.gd" id="1_tlo8g"]
+[ext_resource type="AudioStream" uid="uid://dci8hon6tw5ls" path="res://assets/audio/sfx/placing/sand/tsk 2.mp3" id="2_1q201"]
+[ext_resource type="AudioStream" uid="uid://dmx3hivmh6h5c" path="res://assets/audio/sfx/placing/sand/tsk.mp3" id="3_cjiv5"]
+
+[resource]
+script = ExtResource("1_tlo8g")
+group_name = "sand"
+variations = Array[AudioStream]([ExtResource("2_1q201"), ExtResource("3_cjiv5")])
+default = null

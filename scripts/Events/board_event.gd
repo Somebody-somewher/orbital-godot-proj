@@ -1,10 +1,7 @@
-extends Resource # Pretend this is a Functional Interface
+extends Event 
 class_name BoardEvent
 
 @export var aoe : AOE
 
-func trigger(tile_pos : Vector2i) -> void:
-	pass
-
-func preview(previewer : Callable, tile_pos : Vector2i) -> void:
+func preview(_board : BoardMatrixData, _previewer : Callable, _tile_pos : Vector2i) -> void:
 	pass

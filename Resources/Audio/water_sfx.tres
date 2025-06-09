@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="AudioData" load_steps=5 format=3 uid="uid://cg2yfki3wcb6w"]
+
+[ext_resource type="Script" uid="uid://cats7srje6wix" path="res://scripts/Audio/AudioData.gd" id="1_aadnq"]
+[ext_resource type="AudioStream" uid="uid://dbaugf8obqo4i" path="res://assets/audio/sfx/placing/water/splash1.mp3" id="2_w8qmb"]
+[ext_resource type="AudioStream" uid="uid://cdm73smtr0wg5" path="res://assets/audio/sfx/placing/water/splash2.mp3" id="3_6jgfw"]
+[ext_resource type="AudioStream" uid="uid://c8lovuho84gde" path="res://assets/audio/sfx/placing/water/splash3.mp3" id="4_yrf43"]
+
+[resource]
+script = ExtResource("1_aadnq")
+group_name = "water"
+variations = Array[AudioStream]([ExtResource("2_w8qmb"), ExtResource("3_6jgfw"), ExtResource("4_yrf43")])
+default = null

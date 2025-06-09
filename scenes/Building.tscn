@@ -18,7 +18,7 @@ shader_parameter/Noise = SubResource("NoiseTexture2D_vrwpd")
 shader_parameter/DissolveValue = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mg2bo"]
-radius = 80.0562
+radius = 66.0681
 
 [sub_resource type="Animation" id="Animation_ogyss"]
 length = 0.001

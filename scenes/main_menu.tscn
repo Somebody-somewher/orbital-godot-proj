@@ -1,8 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://dehbiymvw4gq5"]
+[gd_scene load_steps=19 format=3 uid="uid://dehbiymvw4gq5"]
 
 [ext_resource type="Script" uid="uid://baxm1vpvlaqw2" path="res://scripts/Main Menu/main_menu.gd" id="1_jk1qb"]
 [ext_resource type="Script" uid="uid://duu3dx0n1l1gg" path="res://scripts/Main Menu/menu_board.gd" id="1_rtw2f"]
-[ext_resource type="Script" uid="uid://q3ayn1o0618v" path="res://scripts/Card/card_manager.gd" id="2_oa1go"]
+[ext_resource type="Script" uid="uid://q3ayn1o0618v" path="res://scripts/Card/card_manager_old.gd" id="2_oa1go"]
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/player_hand.gd" id="4_jk1qb"]
 [ext_resource type="PackedScene" uid="uid://dyaq4288p4ik4" path="res://scenes/Main Menu/tutorial_card_pack.tscn" id="4_lgwnu"]
 [ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="5_5dd4i"]
@@ -13,6 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://bogg4d6s1y1og" path="res://scenes/Main Menu/title_menu.tscn" id="11_flqon"]
 [ext_resource type="Texture2D" uid="uid://c88sgkqa5s3er" path="res://assets/misc_sprites/menu_bgd.jpg" id="11_lgwnu"]
 [ext_resource type="PackedScene" uid="uid://bapjcj4rxrxaj" path="res://scenes/Main Menu/options_menu.tscn" id="12_flqon"]
+[ext_resource type="Script" uid="uid://c5fouuecjsld6" path="res://scenes/camera.gd" id="14_1ajci"]
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="14_7b55j"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_4dx8l"]
 frequency = 0.0017
@@ -39,9 +41,6 @@ script = ExtResource("1_jk1qb")
 [node name="Board" type="Node2D" parent="."]
 position = Vector2(200, 500)
 script = ExtResource("1_rtw2f")
-BOARD_SIZE = 1
-BOARD_SCALE = 0.15
-proc_gen = null
 
 [node name="Highlights" type="TileMapLayer" parent="Board"]
 
@@ -97,5 +96,10 @@ script = ExtResource("2_oa1go")
 [node name="TutorialCardPack" parent="CardManager" instance=ExtResource("4_lgwnu")]
 material = SubResource("ShaderMaterial_flqon")
 position = Vector2(378.725, 233.18)
+pack_sets = Array[ExtResource("14_7b55j")]([])
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(200, 500)
+script = ExtResource("14_1ajci")
 
 [connection signal="timeout" from="Board/Timer" to="Board" method="_on_timer_timeout"]

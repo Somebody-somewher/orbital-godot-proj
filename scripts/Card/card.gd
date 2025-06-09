@@ -13,6 +13,7 @@ var owner_id : int
 #animation vars for player hand
 var deck_angle = 0
 var deck_pos
+var deck_scale := 1.0
 
 ##shader stuff
 @onready
@@ -23,23 +24,17 @@ var dissolve_value = 1
 # name to find references in database
 var id_name : String = "cute_dummy"
 
-static var database_ref = preload("res://scripts/Card/card_database.gd")
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
-
-func connect_to_card_manager(card_man : CardManager) -> void:
-	card_man.connect_card_signals(self) 
 
 # factory constructor
 static func new_card(card_name : String) -> Card:
 	var return_card : Card = card_scene.instantiate()
 	var card_image_path = str("res://assets/card_sprites/blank_card.png")
 	var entity_image_path = str("res://assets/entity_sprites/"+ card_name + ".png")
-	#return_card.get_node("CardImage").texture = load(card_image_path)
+	return_card.get_node("CardImage").texture = load(card_image_path)
 	return_card.get_node("EntityImage").texture = load(entity_image_path)
-	return_card.get_node("GhostImage").texture = load(entity_image_path)
 	return_card.get_node("Texts/CardName").text = CardLoader.get_display_name(card_name)
 	return_card.id_name = card_name
 	return return_card
@@ -47,7 +42,6 @@ static func new_card(card_name : String) -> Card:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if dissolving:
-		get_node("GhostImage").visible = false
 		get_node("Texts").visible = false
 		if dissolve_value > 0:
 			sprite_ref.material.set_shader_parameter("DissolveValue", dissolve_value)

@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://wdsvfvg5y4xq"]
+
+[ext_resource type="Script" uid="uid://voc0ihu6a5tc" path="res://scripts/Board/BoardManager.gd" id="1_d0npd"]
+[ext_resource type="Script" uid="uid://dls3y3sngygdn" path="res://scripts/Board/BoardPreviewerTilemap.gd" id="2_psmhi"]
+[ext_resource type="Script" uid="uid://dq6l63on5mqf7" path="res://scripts/Board/BoardVisualManager.gd" id="2_y0c26"]
+[ext_resource type="Resource" uid="uid://b2ockuqgtwo7k" path="res://Resources/ProcGen/BoardProcGenerator.tres" id="3_nknjn"]
+[ext_resource type="Resource" uid="uid://doq3nosdirb1v" path="res://Resources/EnvTerrain/TestEnvTerrainMapping.tres" id="4_mtbkw"]
+[ext_resource type="Script" uid="uid://cep46bfjthrc7" path="res://scripts/Card/card_manager2.gd" id="5_y0c26"]
+[ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/player_hand.gd" id="6_mtbkw"]
+[ext_resource type="Script" uid="uid://csnqlg6oxvuth" path="res://scripts/GameFlow/input_manager.gd" id="6_nknjn"]
+
+[node name="Test" type="Node2D"]
+
+[node name="BoardManager" type="Node2D" parent="." node_paths=PackedStringArray("terrain_tilemap")]
+script = ExtResource("1_d0npd")
+terrain_tilemap = NodePath("TerrainActual")
+
+[node name="Preview" type="TileMapLayer" parent="BoardManager"]
+script = ExtResource("2_psmhi")
+
+[node name="GhostPlaceable" type="Sprite2D" parent="BoardManager/Preview"]
+
+[node name="Darken" type="TileMapLayer" parent="BoardManager"]
+modulate = Color(0.168235, 0.184866, 0.176556, 0.352941)
+
+[node name="TerrainActual" type="TileMapLayer" parent="BoardManager" node_paths=PackedStringArray("darken_tilemap", "object")]
+z_index = -1
+script = ExtResource("2_y0c26")
+proc_gen = ExtResource("3_nknjn")
+darken_tilemap = NodePath("../Darken")
+env_map = ExtResource("4_mtbkw")
+object = NodePath("../Node")
+
+[node name="Node" type="Node" parent="BoardManager"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(1578, 1208)
+zoom = Vector2(0.345, 0.345)
+
+[node name="CardManager" type="Node2D" parent="." node_paths=PackedStringArray("board_ref", "player_hand_ref", "input_manager_ref")]
+script = ExtResource("5_y0c26")
+board_ref = NodePath("../BoardManager")
+player_hand_ref = NodePath("../PlayerHand")
+input_manager_ref = NodePath("../InputManager")
+
+[node name="PlayerHand" type="Node2D" parent="."]
+script = ExtResource("6_mtbkw")
+
+[node name="InputManager" type="Node2D" parent="."]
+script = ExtResource("6_nknjn")

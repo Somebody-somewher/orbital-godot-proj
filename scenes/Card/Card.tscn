@@ -221,10 +221,6 @@ z_index = 1
 use_parent_material = true
 texture = ExtResource("4_dqohr")
 
-[node name="GhostImage" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.72549)
-texture = ExtResource("4_bl3jj")
-
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]

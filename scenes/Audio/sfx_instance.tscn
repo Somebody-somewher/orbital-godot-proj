@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://chn00ihl4da0o"]
+
+[ext_resource type="Script" uid="uid://dsha4vtbjpb46" path="res://scripts/Audio/sfx_instance.gd" id="1_gysvx"]
+
+[node name="SFXInstance" type="AudioStreamPlayer"]
+script = ExtResource("1_gysvx")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

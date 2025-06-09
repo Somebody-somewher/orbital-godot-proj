@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://cpfvsurqlhm80"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_suwv7"]
+
+[resource]
+script = ExtResource("1_suwv7")
+set_name = "Warfare"
+cards = Dictionary[String, int]({
+"cannon": 2,
+"knight": 2
+})
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

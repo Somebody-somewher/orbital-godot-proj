@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="BuildingProcGenerator" load_steps=9 format=3 uid="uid://cp5qiwhn3pyq2"]
+
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="1_iob1u"]
+[ext_resource type="Resource" uid="uid://b3i31ir4c3fhs" path="res://Resources/Buildings/Terrain/mountain.tres" id="2_g0hqf"]
+[ext_resource type="Script" uid="uid://bwqcucmawcaj0" path="res://scripts/ProceduralGeneration/BuildingProcGenerator.gd" id="3_6p3k0"]
+[ext_resource type="Resource" uid="uid://yfdcha7yydfj" path="res://Resources/Buildings/Terrain/rock.tres" id="3_767pq"]
+[ext_resource type="Resource" uid="uid://c1cu34fya1h74" path="res://Resources/Buildings/Terrain/flower.tres" id="4_ojfkx"]
+[ext_resource type="Resource" uid="uid://dsqu3wnhxngey" path="res://Resources/Buildings/Terrain/forest.tres" id="5_sn1bh"]
+[ext_resource type="Script" uid="uid://cwgkuosbhxg8v" path="res://scripts/ProceduralGeneration/PostProcessors/ProcGenPostProcessBuildingInterface.gd" id="6_767pq"]
+[ext_resource type="Resource" uid="uid://pql73viwb0oq" path="res://Resources/ProcGen/ProcGenDesertForestToStone.tres" id="6_g0hqf"]
+
+[resource]
+script = ExtResource("3_6p3k0")
+building_noise_threshold = Array[float]([-0.5, -0.45, -0.3, -0.2])
+env_buildings = Array[ExtResource("1_iob1u")]([ExtResource("2_g0hqf"), ExtResource("3_767pq"), ExtResource("4_ojfkx"), ExtResource("5_sn1bh")])
+post_processors = Array[ExtResource("6_767pq")]([ExtResource("6_g0hqf")])
+terrain_noise_freq = 0.8
+_gen_size = null
+metadata/_custom_type_script = "uid://bwqcucmawcaj0"

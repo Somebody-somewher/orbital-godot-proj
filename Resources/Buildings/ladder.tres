@@ -1,23 +1,27 @@
 [gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://d1sqyblfs35l6"]
 
 [ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_3wy62"]
-[ext_resource type="Texture2D" uid="uid://c8guvug1x74j8" path="res://assets/entity_sprites/ladder.PNG" id="2_3wy62"]
+[ext_resource type="Texture2D" uid="uid://bsu8tmyrg8wgd" path="res://assets/entity_sprites/kraken.PNG" id="2_3wy62"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_phb4n"]
-[ext_resource type="Resource" uid="uid://drnfeaq3u5mli" path="res://Resources/Conditions/StackableCondition.tres" id="4_m5wa1"]
+[ext_resource type="Resource" uid="uid://bsrnk44vhb58o" path="res://Resources/Conditions/StackableCondition.tres" id="4_m5wa1"]
 [ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events/Scoring/cow_scoring.tres" id="5_1p70f"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_lll1r"]
 
 [resource]
 script = ExtResource("6_lll1r")
-building_sprite = ExtResource("2_3wy62")
-stackable = true
-id_name = "ladder"
-display_name = "Ladder"
-desc = ""
+layer = 2
 preview_event = ExtResource("5_1p70f")
 place_conditions = Array[ExtResource("3_phb4n")]([ExtResource("4_m5wa1")])
 place_effects = Array[ExtResource("1_3wy62")]([])
+post_place_effects = Array[ExtResource("1_3wy62")]([])
 begin_round_effects = Array[ExtResource("1_3wy62")]([])
 end_round_effects = Array[ExtResource("1_3wy62")]([])
 destroyed_effects = Array[ExtResource("1_3wy62")]([])
+id_name = "ladder"
+display_name = "Ladder"
+card_sprite = ExtResource("2_3wy62")
+desc = ""
+category = 0
+is_aura = false
+tags = Array[String]([])
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

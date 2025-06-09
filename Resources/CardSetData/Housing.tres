@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://casnoqtppk56"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_vbs3b"]
+
+[resource]
+script = ExtResource("1_vbs3b")
+set_name = "Housing"
+cards = Dictionary[String, int]({
+"cottage": 2,
+"farmhouse": 1,
+"hut": 2
+})
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

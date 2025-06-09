@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="StandardScoreEffect" load_steps=3 format=3 uid="uid://co5t8yoldc0dc"]
+
+[ext_resource type="Resource" uid="uid://hu4yh8trux8f" path="res://Resources/AOE/single_tile.tres" id="1_pne5w"]
+[ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/standard_score.gd" id="2_pne5w"]
+
+[resource]
+script = ExtResource("2_pne5w")
+effect_buildings_score = Dictionary[String, int]({})
+base_score = 0
+aoe = ExtResource("1_pne5w")
+metadata/_custom_type_script = "uid://dcbw4orenctn8"

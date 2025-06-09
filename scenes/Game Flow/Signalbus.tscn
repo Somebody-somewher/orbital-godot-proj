@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://7hagpjiqbrqj"]
 
-[ext_resource type="Script" uid="uid://cc7u1rlyttcad" path="res://scripts/ProceduralGeneration/signal_bus.gd" id="1_utxvn"]
+[ext_resource type="Script" uid="uid://cc7u1rlyttcad" path="res://scripts/signal_bus.gd" id="1_utxvn"]
 
 [node name="Signalbus" type="Node"]
 script = ExtResource("1_utxvn")
