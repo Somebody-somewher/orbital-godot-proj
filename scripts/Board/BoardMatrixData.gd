@@ -77,24 +77,24 @@ func constrain_pattern_to_board(tile_pos : Vector2i, pattern_arr : Array[Vector2
 func search_matrix_readonly(c : Callable):
 	c.call(board_matrix)
 
-func check_tilemap_tile_in_playable(tilepos : Vector2i) -> bool:
+func check_tilepos_in_playable(tilepos : Vector2i) -> bool:
 	if tilepos.x >=  boards_coords[0][0].x and tilepos.x <= boards_coords[len(boards_coords) - 1][1].x:
 		if tilepos.y >= boards_coords[0][0].y and tilepos.y <= boards_coords[len(boards_coords) - 1][1].y:
 			return true
 	return false
 
-func check_if_tilepos_in_board(tilepos : Vector2i, board_start_end_pos : Array) -> bool:
+func get_playable_area_coords() -> Array[Vector2i]:
+	return [boards_coords[0][0], boards_coords[len(boards_coords) - 1][1]]
+
+func check_tilepos_in_board(tilepos : Vector2i, board_start_end_pos : Array) -> bool:
 	if tilepos.x >=  board_start_end_pos[0].x and tilepos.x <= board_start_end_pos[1].x:
 		if tilepos.y >= board_start_end_pos[0].y and tilepos.y <= board_start_end_pos[1].y:
 			return true
 	return false
 
-func is_tilepos_in_interactable(tilepos : Vector2i) -> bool:
+func get_boardcoords_of_tilepos(tilepos : Vector2i) -> Array:
 	for i in range(len(boards_coords)):
-		if interactable[i] and check_if_tilepos_in_board(tilepos, boards_coords[i]):
-			return true
-	return false
-
-
-#func get_playable_area_coords() -> Array[Vector2i]:
-#	return [_border_dim + boards_coords[0][0], _border_dim + boards_coords[len(boards_coords) - 1][1]]
+		if interactable[i] and check_tilepos_in_board(tilepos, boards_coords[i]):
+			return boards_coords[i]
+	return []
+	

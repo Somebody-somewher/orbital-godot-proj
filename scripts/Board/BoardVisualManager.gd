@@ -5,8 +5,6 @@ class_name BoardVisualManager
 # This is a tilemap specifically to darken non-interactive tiles
 @export var darken_tilemap : TileMapLayer
 
-var playable_area_coords : Array[Vector2]  
-
 func _ready() -> void:
 	# Update the positioning of the tilemaps
 	super._ready()
@@ -15,9 +13,8 @@ func _ready() -> void:
 	fake_building_colouration = Color.DIM_GRAY
 	z_index = -1
 
-func set_up(board_size : Vector2i, board_layout : Vector2i, border_dim : Vector2i) -> void:
-	playable_area_coords = [border_dim * TILE_SIZE, Vector2(border_dim) + board_size * board_layout * TILE_SIZE]
-
+func set_up(parent : Node2D, border_dim : Vector2i) -> void:
+	super._set_up(parent, border_dim)
 
 func create_terrain_tile(terrain : EnvTerrain, tile_pos : Vector2i) -> void:
 	change_terrain_tile(terrain, tile_pos)
@@ -62,6 +59,3 @@ func shade_area(start_coords : Vector2i, end_coords : Vector2i) -> void:
 	for x in range(start_coords.x, end_coords.x + 1):
 		for y in range(start_coords.y, end_coords.y + 1):
 			darken_tilemap.set_cell(Vector2i(x,y), 1, Vector2(0,0), 0)
-
-func get_board_coords() -> Array[Vector2]:
-	return playable_area_coords

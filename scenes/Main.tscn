@@ -70,7 +70,7 @@ position = Vector2(1751, 1421)
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("board")]
 script = ExtResource("6_3p2gp")
-board = NodePath("../BoardManager/TerrainActual")
+board = NodePath("../BoardManager/Preview")
 
 [node name="PlayerHand" type="Node2D" parent="."]
 z_index = 1

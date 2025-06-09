@@ -10,15 +10,15 @@ var displayed_labels : Array[Label]
 var label_parent : Node2D
 
 
-func _init(parent : Node2D, get_position : Callable, playable_size : int, border_dim : Vector2i) -> void:
+func _init(parent : Node2D, get_position : Callable, start_pos : Vector2i, end_pos : Vector2i) -> void:
 
 	label_parent = parent
 	Signalbus.connect("set_score_preview", display_tile_scores)
 	
-	for row in range(playable_size):
+	for row in range(start_pos.x, end_pos.x + 1):
 		# tile score display (can be extracted to a function)
-		for col in range(playable_size):
-			tile_score_labels.get_or_add(Vector2i(row,col) + border_dim, add_tile_label(get_position.call(Vector2i(row,col) + border_dim)))	
+		for col in range(start_pos.y, end_pos.y + 1):
+			tile_score_labels.get_or_add(Vector2i(row,col), add_tile_label(get_position.call(Vector2i(row,col))))	
 
 func add_tile_label(global_tile_pos : Vector2) -> Label:
 	var score_label = Label.new()

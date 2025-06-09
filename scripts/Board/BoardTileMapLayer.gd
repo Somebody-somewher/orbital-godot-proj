@@ -11,6 +11,7 @@ var TILE_SIZE : float
 # Length/Width (no. cells) of board
 @export var BOARD_SCALE : float = 0.1
 
+var _border_dim
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Update the positioning of the tilemaps
@@ -18,7 +19,10 @@ func _ready() -> void:
 	tile_set = env_map.tileset
 	TILE_SIZE = tile_set.tile_size.x * BOARD_SCALE
 
-	
+func _set_up(parent : Node, border_dim : Vector2i) -> void:
+	_border_dim = border_dim
+	object = parent
+
 func place_fake_building(data: BuildingData, tile_pos : Vector2i) -> void:
 	if data != null:
 		var fake_placeable : Sprite2D = Sprite2D.new()
@@ -36,3 +40,9 @@ func get_local_centre_of_tile(coords : Vector2i) -> Vector2:
 	
 func get_mouse_tile_pos() -> Vector2i:
 	return local_to_map(get_local_mouse_position())
+
+func tilemap_to_matrix(tilemap_pos : Vector2i) -> Vector2i:
+	return tilemap_pos - _border_dim 
+
+func matrix_to_tilepos(matrix_pos : Vector2i) -> Vector2i:
+	return _border_dim + matrix_pos

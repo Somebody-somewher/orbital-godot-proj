@@ -1,5 +1,7 @@
 extends Node2D
 class_name BoardManager
+# Main class that handles all "board" functionality. 
+# Technically the "board" is made up of smaller "sub"-boards where each "sub"-board belongs to a player
 
 # Length/Width (no. cells) of board
 ## PLEASE KEEP THE BOARD a square
@@ -34,16 +36,14 @@ func _ready() -> void:
 	matrix_data = BoardMatrixData.new(BOARD_SIZE.x, BOARDS_LAYOUT)
 	boards_near_mouse.resize(BOARDS_LAYOUT.x + BOARDS_LAYOUT.y)
 	
+	previewer_tilemap.set_up(object, matrix_data, BORDER_DIM)
+	terrain_tilemap.set_up(object, BORDER_DIM)
+	
 	proc_gen.set_up(BOARD_SIZE, BOARDS_LAYOUT, BORDER_DIM)
 	for i in range(4):
 			proc_gen.generate_board(create_terrain, place_on_board_if_abled, i)
 	
 	proc_gen.generate_border(terrain_tilemap.change_border_terrain_tile, terrain_tilemap.place_fake_building)
-	
-	terrain_tilemap.set_up(BOARD_SIZE, BOARDS_LAYOUT, BORDER_DIM)
-	
-	previewer_tilemap.set_board_data(matrix_data)
-	previewer_tilemap.set_up(object, BOARD_SIZE.x * BOARDS_LAYOUT.x, matrix_data.check_tilemap_tile_in_playable, BORDER_DIM)
 	pass # Replace with function body.
 
 func update_mouse_near_board() -> void:
@@ -74,7 +74,7 @@ func is_mouse_near_interactable_board() -> bool:
 func _process(delta: float) -> void:
 	update_mouse_near_board()
 	var curr_tile_pos : Vector2i = get_mouse_tile_pos() 
-	if curr_tile_pos != prev_tile_pos and matrix_data.is_tilepos_in_interactable(curr_tile_pos - BORDER_DIM):
+	if curr_tile_pos != prev_tile_pos and matrix_data.get_boardcoords_of_tilepos(terrain_tilemap.tilemap_to_matrix(curr_tile_pos)) != []:
 		Signalbus.emit_signal("mouse_enter_interactable_board_tile")
 		prev_tile_pos = curr_tile_pos
 	
@@ -91,7 +91,7 @@ func _process(delta: float) -> void:
 
 func get_mouse_tile_pos() -> Vector2i:
 	var tile_mouse_pos = terrain_tilemap.get_mouse_tile_pos()
-	if matrix_data.check_tilemap_tile_in_playable(tile_mouse_pos - BORDER_DIM):
+	if matrix_data.check_tilepos_in_playable(terrain_tilemap.tilemap_to_matrix(tile_mouse_pos)):
 		return tile_mouse_pos
 	else:
 		return NULL_TILE
@@ -103,12 +103,12 @@ func place_on_board_if_abled(placeable: PlaceableData, tile_pos : Vector2i = NUL
 	if tile_pos == NULL_TILE:
 		tile_pos = get_mouse_tile_pos()
 		
-	if tile_pos != NULL_TILE and placeable.placeable(matrix_data, tile_pos - BORDER_DIM):
+	if tile_pos != NULL_TILE and placeable.placeable(matrix_data, terrain_tilemap.tilemap_to_matrix(tile_pos)):
 		#placeable.trigger_place_effects(matrix_data, tile_mouse_pos - BORDER_DIM)
 		if placeable is BuildingData:
 			terrain_tilemap.place_building_on_tile(placeable as BuildingData, tile_pos)
 		
-		matrix_data.add_placeable_to_tile(tile_pos - BORDER_DIM, Building.new_building_frm_data(placeable as BuildingData))
+		matrix_data.add_placeable_to_tile(terrain_tilemap.tilemap_to_matrix(tile_pos), Building.new_building_frm_data(placeable as BuildingData))
 
 		return true
 	return false
@@ -117,14 +117,14 @@ func place_on_board_if_able(placeable: PlaceableNode, tile_pos : Vector2i = NULL
 	if tile_pos == NULL_TILE:
 		tile_pos = get_mouse_tile_pos()
 	
-	if tile_pos != NULL_TILE and placeable.placeable(matrix_data, tile_pos - BORDER_DIM):
+	if tile_pos != NULL_TILE and placeable.placeable(matrix_data, terrain_tilemap.tilemap_to_matrix(tile_pos)):
 		#placeable.trigger_place_effects(matrix_data, tile_pos - BORDER_DIM)
 		create_building(placeable, tile_pos)
 		return true
 	return false
 
 func create_building(placeable: PlaceableNode, tile_pos : Vector2i) -> void:
-	matrix_data.add_placeable_to_tile(tile_pos - BORDER_DIM, placeable)
+	matrix_data.add_placeable_to_tile(terrain_tilemap.tilemap_to_matrix(tile_pos), placeable)
 	terrain_tilemap.place_building_on_tile(placeable.data, tile_pos)
 
 func create_terrain(terrain : EnvTerrain, tile_pos : Vector2i) -> void:
