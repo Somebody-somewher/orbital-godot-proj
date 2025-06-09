@@ -66,7 +66,7 @@ preview_board_ref = NodePath("../BoardManager/Preview")
 
 [node name="CardPack" parent="CardManager" instance=ExtResource("6_wp0k4")]
 material = SubResource("ShaderMaterial_mwfav")
-position = Vector2(198, 396)
+position = Vector2(1751, 1421)
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("board")]
 script = ExtResource("6_3p2gp")
@@ -130,8 +130,9 @@ theme_override_font_sizes/font_size = 40
 text = "Timer: 30"
 
 [node name="PlaceholderBackground" type="TileMapLayer" parent="."]
+visible = false
 z_index = -4
-tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAACAAAAAAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_lhr70")
 
 [node name="RoundCounter" type="Node" parent="."]
@@ -147,6 +148,7 @@ SFX_AUDIOS = Dictionary[String, ExtResource("17_ft6cd")]({})
 
 [node name="BoardManager" type="Node2D" parent="." node_paths=PackedStringArray("terrain_tilemap", "previewer_tilemap", "object")]
 script = ExtResource("17_1iba3")
+BORDER_DIM = Vector2i(10, 10)
 terrain_tilemap = NodePath("TerrainActual")
 previewer_tilemap = NodePath("Preview")
 proc_gen = ExtResource("18_yxlcp")

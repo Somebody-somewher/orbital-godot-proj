@@ -1,6 +1,6 @@
 extends Camera2D
 
-@export var board: BoardTileMapLayer
+@export var board: BoardVisualManager
 @onready var player_hand: PlayerHand = $"../PlayerHand"
 @onready var card_manager: CardManager = $"../CardManager"
 
@@ -73,8 +73,8 @@ func zoom_cam(out: bool) -> void:
 
 # returns the vector required to adjust camera back to near board
 func restrict_camera_to_board() -> Vector2:
-	var minXY = board.board_coord[0] + screen_size/zoom/5
-	var maxXY = board.board_coord[1] + screen_size/zoom/5
+	var minXY = board.get_board_coords()[0] + screen_size/zoom/5
+	var maxXY = board.get_board_coords()[1] + screen_size/zoom/5
 	var clamped_x = clamp(global_position.x, minXY.x,maxXY.x)
 	var clamped_y = clamp(global_position.y, minXY.y,maxXY.y)
 	return (global_position - Vector2(clamped_x, clamped_y)) * 0.3
