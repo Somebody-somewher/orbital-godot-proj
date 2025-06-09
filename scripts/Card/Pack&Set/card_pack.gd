@@ -39,11 +39,14 @@ func _process(delta: float) -> void:
 
 func open_pack() -> void:
 	self.get_node("Area2D/CollisionShape2D").disabled = true
-	for i in range(pack_sets.size()):
+	var pack_size = pack_sets.size()
+	var set_angle = 2 * PI / pack_size
+	var set_radius_from_pack = 100
+	for i in range(pack_size):
 		var new_set = card_sets.instantiate()
 		var set_data = pack_sets[i]
 		new_set.card_dict = set_data.cards
-		new_set.global_position = Vector2(i * 250 + 400, 300) - self.position
+		new_set.global_position = Vector2(200 * cos(set_angle* i), 200 * sin(set_angle* i))
 		pack_arr.insert(pack_arr.size(), new_set)
 		add_child(new_set)
 

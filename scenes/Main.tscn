@@ -65,8 +65,9 @@ input_manager_ref = NodePath("../InputManager")
 preview_board_ref = NodePath("../BoardManager/Preview")
 
 [node name="CardPack" parent="CardManager" instance=ExtResource("6_wp0k4")]
+z_index = 99
 material = SubResource("ShaderMaterial_mwfav")
-position = Vector2(1751, 1421)
+position = Vector2(1268, 1274)
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("board")]
 script = ExtResource("6_3p2gp")
