@@ -33,7 +33,6 @@ func preview(board : BoardMatrixData, previewer : Callable, tile_pos : Vector2i)
 		scores.append(tile_pos_data_score[2][i])
 	previewer.call(tile_pos_arr, scores)
 
-
 func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : Node2D) -> void:
 	# Checked if the scored tiles are different from the cached ones
 	var total_score : int = 0

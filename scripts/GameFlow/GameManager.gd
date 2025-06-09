@@ -11,6 +11,7 @@ extends Node
 func _ready() -> void:
 	Signalbus.round_end.connect(_pick_round)
 	AudioManager.play_bgm("plains")
+	print(multiplayer.get_unique_id())
 
 func _pick_round(round_id : int, round_total : int) -> void:
 	if round_id == 1:

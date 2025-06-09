@@ -75,6 +75,5 @@ func _on_join_button_down() -> void:
 	_connect_client(ip)
 	pass # Replace with function body.
 
-
 func _on_start_button_down() -> void:
 	pass # Replace with function body.

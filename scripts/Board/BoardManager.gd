@@ -24,7 +24,6 @@ static var NULL_TILE = Vector2i(-1,-1)
 # Global Coords of where board spans on screen
 var boards_near_mouse : Array[bool]
 
-
 var prev_tile_pos : Vector2i = Vector2i(-1,-1)
 
 # Called when the node enters the scene tree for the first time.
@@ -32,20 +31,27 @@ func _ready() -> void:
 	var start_pos : Vector2i
 	var end_pos : Vector2i
 	var board_id : int = 0
-			
+	
+	# Actual Board Data, contains all playable boards 
 	matrix_data = BoardMatrixData.new(BOARD_SIZE.x, BOARDS_LAYOUT)
+	
+	# Array of booleans to check which boards are being hovered over by mouse
 	boards_near_mouse.resize(BOARDS_LAYOUT.x + BOARDS_LAYOUT.y)
 	
+	# Tilemaps setup
 	previewer_tilemap.set_up(object, matrix_data, BORDER_DIM)
 	terrain_tilemap.set_up(object, BORDER_DIM)
 	
+	# Procedural Generation setup
 	proc_gen.set_up(BOARD_SIZE, BOARDS_LAYOUT, BORDER_DIM)
 	for i in range(4):
-			proc_gen.generate_board(create_terrain, place_on_board_if_abled, i)
+			proc_gen.generate_board(create_terrain, place_on_board_if_able_data, i)
 	
 	proc_gen.generate_border(terrain_tilemap.change_border_terrain_tile, terrain_tilemap.place_fake_building)
 	pass # Replace with function body.
 
+## Called in _process to check each board is being hovered over, update the array if so
+## In case it matters "which" board is being hovered over
 func update_mouse_near_board() -> void:
 	var mouse_pos = get_local_mouse_position()
 	for b in len(matrix_data.boards_coords):
@@ -54,6 +60,7 @@ func update_mouse_near_board() -> void:
 		else:
 			boards_near_mouse[b] = false
 
+## Actual chec whether the mouse is near board
 func is_pos_near_board(mouse_pos : Vector2i, board_start_end_pos : Array) -> bool:
 	# Roughly one cell away
 	var THRESHOLD = 1.5 * terrain_tilemap.TILE_SIZE
@@ -65,6 +72,7 @@ func is_pos_near_board(mouse_pos : Vector2i, board_start_end_pos : Array) -> boo
 			return mouse_pos.y > start_pos.y - THRESHOLD and mouse_pos.y < end_pos.y + THRESHOLD
 	return false
 
+## Checks if any of the interactable boards are being hovered over 
 func is_mouse_near_interactable_board() -> bool:
 	for b in len(matrix_data.boards_coords):
 		if boards_near_mouse[b] and matrix_data.interactable[b]:
@@ -72,23 +80,20 @@ func is_mouse_near_interactable_board() -> bool:
 	return false
 
 func _process(delta: float) -> void:
+	# Update the array which represents on all boards (on whether they are being hovered over)
 	update_mouse_near_board()
+	
+	# Checks whether the mouse is hovering over a new interactable tile, sends a signal out if so
+	# Impt for card_manager to show indicator that the card can be placed on the board
 	var curr_tile_pos : Vector2i = get_mouse_tile_pos() 
 	if curr_tile_pos != prev_tile_pos and matrix_data.get_boardcoords_of_tilepos(terrain_tilemap.tilemap_to_matrix(curr_tile_pos)) != []:
 		Signalbus.emit_signal("mouse_enter_interactable_board_tile")
 		prev_tile_pos = curr_tile_pos
 	
-	var start_pos : Vector2i 
-	var end_pos : Vector2i
-	for b in len(matrix_data.boards_coords):
-		start_pos = matrix_data.boards_coords[b][0] + BORDER_DIM
-		end_pos = matrix_data.boards_coords[b][1] + BORDER_DIM
-		if boards_near_mouse[b] and matrix_data.interactable[b]:
-			terrain_tilemap.unshade_area(start_pos, end_pos)
-		else:
-			terrain_tilemap.shade_area(start_pos, end_pos)
+	highlight_interactable_board()
 	pass
 
+## Get the tilepos of mouse
 func get_mouse_tile_pos() -> Vector2i:
 	var tile_mouse_pos = terrain_tilemap.get_mouse_tile_pos()
 	if matrix_data.check_tilepos_in_playable(terrain_tilemap.tilemap_to_matrix(tile_mouse_pos)):
@@ -96,10 +101,10 @@ func get_mouse_tile_pos() -> Vector2i:
 	else:
 		return NULL_TILE
 
-# Returns true if Placeable is successfully placed, else returns false
+## Returns true if Placeable is successfully placed, else returns false
 # Client facing function
 @rpc("authority", "call_local")
-func place_on_board_if_abled(placeable: PlaceableData, tile_pos : Vector2i = NULL_TILE) -> bool:
+func place_on_board_if_able_data(placeable: PlaceableData, tile_pos : Vector2i = NULL_TILE) -> bool:
 	if tile_pos == NULL_TILE:
 		tile_pos = get_mouse_tile_pos()
 		
@@ -113,27 +118,45 @@ func place_on_board_if_abled(placeable: PlaceableData, tile_pos : Vector2i = NUL
 		return true
 	return false
 
+## Returns true if Placeable is successfully placed, else returns false
+# Client facing function
+@rpc("authority", "call_local")
 func place_on_board_if_able(placeable: PlaceableNode, tile_pos : Vector2i = NULL_TILE) -> bool:
 	if tile_pos == NULL_TILE:
 		tile_pos = get_mouse_tile_pos()
 	
 	if tile_pos != NULL_TILE and placeable.placeable(matrix_data, terrain_tilemap.tilemap_to_matrix(tile_pos)):
-		#placeable.trigger_place_effects(matrix_data, tile_pos - BORDER_DIM)
+		placeable.trigger_place_effects(matrix_data, terrain_tilemap.tilemap_to_matrix(tile_pos))
 		create_building(placeable, tile_pos)
 		return true
 	return false
 
+## Create a buildindg on a givne tilepos, data + visual
 func create_building(placeable: PlaceableNode, tile_pos : Vector2i) -> void:
 	matrix_data.add_placeable_to_tile(terrain_tilemap.tilemap_to_matrix(tile_pos), placeable)
 	terrain_tilemap.place_building_on_tile(placeable.data, tile_pos)
 
+## Initial creation of terrain tiles for procgen
 func create_terrain(terrain : EnvTerrain, tile_pos : Vector2i) -> void:
 	matrix_data.add_tile(tile_pos - BORDER_DIM, terrain)
 	terrain_tilemap.change_terrain_tile(terrain, tile_pos)
 
+## Change terrain, data + visual
 func change_terrain(terrain : EnvTerrain, tile_pos : Vector2i = NULL_TILE) -> void:
 	if tile_pos == NULL_TILE:
 		tile_pos = get_mouse_tile_pos()
 	
 	if tile_pos != NULL_TILE:
 		create_terrain(terrain, tile_pos)
+
+## Shade and unshade the individual boards that are interactable
+func highlight_interactable_board() -> void:
+	var start_pos : Vector2i 
+	var end_pos : Vector2i
+	for b in len(matrix_data.boards_coords):
+		start_pos = matrix_data.boards_coords[b][0] + BORDER_DIM
+		end_pos = matrix_data.boards_coords[b][1] + BORDER_DIM
+		if boards_near_mouse[b] and matrix_data.interactable[b]:
+			terrain_tilemap.unshade_area(start_pos, end_pos)
+		else:
+			terrain_tilemap.shade_area(start_pos, end_pos)

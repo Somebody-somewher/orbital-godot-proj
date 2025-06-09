@@ -35,7 +35,6 @@ static func new_card(card_name : String) -> Card:
 	var entity_image_path = str("res://assets/entity_sprites/"+ card_name + ".png")
 	return_card.get_node("CardImage").texture = load(card_image_path)
 	return_card.get_node("EntityImage").texture = load(entity_image_path)
-	return_card.get_node("GhostImage").texture = load(entity_image_path)
 	return_card.get_node("Texts/CardName").text = CardLoader.get_display_name(card_name)
 	return_card.id_name = card_name
 	return return_card
