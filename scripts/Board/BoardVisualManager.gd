@@ -1,7 +1,11 @@
 extends BoardTileMapLayer
 class_name BoardVisualManager
 
-# Due to my bad coding there are two layers of shading.
+var fake_building_colouration : Color
+
+#var buildings : Dictionary
+
+# Due to my bad coding there are two layers of shading. One for non-interactive tiles, one for the border
 # This is a tilemap specifically to darken non-interactive tiles
 @export var darken_tilemap : TileMapLayer
 
@@ -40,16 +44,25 @@ func change_border_terrain_tile(terrain : EnvTerrain, tile_pos : Vector2i) -> vo
 
 # try to place placeable on tile
 # Private function
-func place_building_on_tile(data: BuildingData, tile_pos : Vector2i) -> void:
-	if data != null:
-		var building : Building = Building.new_building_frm_data(data)
+func place_building_on_tile(building: Building, tile_pos : Vector2i) -> void:
+	if building != null:
 		object.add_child(building)
 		building.z_index = tile_pos.y
 		building.position = get_local_centre_of_tile(tile_pos)
 		building.get_node("JiggleAnimation").play("jiggle")
+		building.name = building.data.display_name
 	# MUST TRIGGER BEFORE ADDING (otherwise places self on board then can score against itself)
 	#board_matrix.add_placeable_to_tile(tile_pos, placeable)
 	
+func place_fake_building(data: BuildingData, tile_pos : Vector2i) -> void:
+	if data != null:
+		var fake_placeable : Sprite2D = Sprite2D.new()
+		fake_placeable.set_texture(data.card_sprite)
+		fake_placeable.set_modulate(fake_building_colouration)
+		object.add_child(fake_placeable)
+		fake_placeable.z_index = tile_pos.y
+		fake_placeable.position = get_local_centre_of_tile(tile_pos)	
+
 func unshade_area(start_coords : Vector2i, end_coords : Vector2i) -> void:
 	for x in range(start_coords.x, end_coords.x + 1):
 		for y in range(start_coords.y, end_coords.y + 1):

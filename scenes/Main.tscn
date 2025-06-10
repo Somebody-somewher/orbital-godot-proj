@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cdp6pxvmemk4u"]
+[gd_scene load_steps=21 format=3 uid="uid://cdp6pxvmemk4u"]
 
 [ext_resource type="Script" uid="uid://dq7q74qaf5hj8" path="res://scripts/GameFlow/GameManager.gd" id="1_bjd11"]
 [ext_resource type="Script" uid="uid://cep46bfjthrc7" path="res://scripts/Card/card_manager.gd" id="3_jlsqs"]
@@ -15,12 +15,8 @@
 [ext_resource type="Script" uid="uid://b2bvfgo8adhft" path="res://scripts/Card/Pack&Set/CardPackManager.gd" id="13_qmy6f"]
 [ext_resource type="Resource" uid="uid://dfnvqedx37h6v" path="res://Resources/ResourceGrps/CardSet.tres" id="14_mwfav"]
 [ext_resource type="PackedScene" uid="uid://cyka8ysyph1xg" path="res://scenes/Audio/audio_manager.tscn" id="16_cvmbd"]
-[ext_resource type="Script" uid="uid://voc0ihu6a5tc" path="res://scripts/Board/BoardManager.gd" id="17_1iba3"]
+[ext_resource type="PackedScene" uid="uid://bxiy7ajwus31g" path="res://scenes/Board/board_manager.tscn" id="17_bb450"]
 [ext_resource type="Script" uid="uid://cats7srje6wix" path="res://scripts/Audio/AudioData.gd" id="17_ft6cd"]
-[ext_resource type="Resource" uid="uid://b2ockuqgtwo7k" path="res://Resources/ProcGen/BoardProcGenerator.tres" id="18_yxlcp"]
-[ext_resource type="Script" uid="uid://dls3y3sngygdn" path="res://scripts/Board/BoardPreviewerTilemap.gd" id="19_ebg2g"]
-[ext_resource type="Resource" uid="uid://doq3nosdirb1v" path="res://Resources/EnvTerrain/TestEnvTerrainMapping.tres" id="20_2ofn6"]
-[ext_resource type="Script" uid="uid://dq6l63on5mqf7" path="res://scripts/Board/BoardVisualManager.gd" id="21_xa025"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_4dx8l"]
 frequency = 0.0017
@@ -129,33 +125,8 @@ cardset_grp = ExtResource("14_mwfav")
 [node name="AudioManager" parent="." instance=ExtResource("16_cvmbd")]
 SFX_AUDIOS = Dictionary[String, ExtResource("17_ft6cd")]({})
 
-[node name="BoardManager" type="Node2D" parent="." node_paths=PackedStringArray("terrain_tilemap", "previewer_tilemap", "object")]
-script = ExtResource("17_1iba3")
-BORDER_DIM = Vector2i(10, 10)
-terrain_tilemap = NodePath("TerrainActual")
-previewer_tilemap = NodePath("Preview")
-proc_gen = ExtResource("18_yxlcp")
-object = NodePath("Building_Manager")
-
-[node name="Preview" type="TileMapLayer" parent="BoardManager" node_paths=PackedStringArray("ghost_image", "object")]
-script = ExtResource("19_ebg2g")
-ghost_image = NodePath("GhostPlaceable")
-env_map = ExtResource("20_2ofn6")
-object = NodePath("../Building_Manager")
-
-[node name="GhostPlaceable" type="Sprite2D" parent="BoardManager/Preview"]
-modulate = Color(0.568627, 0.552941, 0.576471, 0.623529)
-
-[node name="Darken" type="TileMapLayer" parent="BoardManager"]
-modulate = Color(0.168235, 0.184866, 0.176556, 0.352941)
-
-[node name="TerrainActual" type="TileMapLayer" parent="BoardManager" node_paths=PackedStringArray("darken_tilemap", "object")]
-z_index = -1
-script = ExtResource("21_xa025")
-darken_tilemap = NodePath("../Darken")
-env_map = ExtResource("20_2ofn6")
-object = NodePath("../Building_Manager")
-
-[node name="Building_Manager" type="Node2D" parent="BoardManager"]
+[node name="BoardManager" parent="." instance=ExtResource("17_bb450")]
 
 [connection signal="pressed" from="UILayer/PlayerUI/EndTurn" to="UILayer/PlayerUI" method="_on_end_turn_pressed"]
+
+[editable path="BoardManager"]

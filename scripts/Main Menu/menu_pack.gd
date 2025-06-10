@@ -22,7 +22,6 @@ func open_pack() -> void:
 		var new_card = MenuCard.new_card(card)
 		new_card.position = position
 		card_manager.add_child(new_card)
-		new_card.connect_to_card_manager(card_manager)
 		player_hand.add_to_hand(new_card)
 		new_card.get_node("Area2D/CollisionShape2D").disabled = false
 	self.dissolving = true

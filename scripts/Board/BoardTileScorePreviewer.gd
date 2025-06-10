@@ -3,12 +3,10 @@ class_name BoardTileScorePreviewer
 # Generates the TileScore label.
 # Can be used to generate any other UI node label ontop of the tilemap
 
-
 var tile_score_labels : Dictionary[Vector2i, Label]
 
 var displayed_labels : Array[Label] 
 var label_parent : Node2D
-
 
 func _init(parent : Node2D, get_position : Callable, start_pos : Vector2i, end_pos : Vector2i) -> void:
 

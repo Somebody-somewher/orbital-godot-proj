@@ -17,7 +17,7 @@ var _matrix : BoardMatrixData
 
 func _ready() -> void:
 	super._ready()
-	ghost_image.scale = Vector2(1.0/BOARD_SCALE, 1.0/BOARD_SCALE)
+	#ghost_image.scale = Vector2(1.0/BOARD_SCALE, 1.0/BOARD_SCALE)
 
 func set_up(parent : Node, matrix : BoardMatrixData, border_dim : Vector2i):
 	super._set_up(parent, border_dim)
@@ -76,7 +76,7 @@ func preview_placement(placeable : PlaceableData, tile_pos : Vector2i = NULL_TIL
 func place_ghost(placeable_data : PlaceableData, tile_pos : Vector2i) -> void:
 	ghost_image.texture = placeable_data.card_sprite
 	ghost_image.visible = true
-	ghost_image.global_position = get_local_centre_of_tile(tile_pos)	
+	ghost_image.position = get_local_centre_of_tile(tile_pos)
 
 func get_board_coords() -> Array[Vector2]:
 	return viewable_area_coords

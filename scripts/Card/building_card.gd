@@ -26,7 +26,6 @@ func initialize_card_effect() -> void:
 # fully replace card with effect, then free self instance
 func swap_to_effect(scale_by: Vector2) -> void:
 	self.get_node("Area2D/CollisionShape2D").disabled = true
-	building.scale = scale_by
 	building.visible = true
 	building.get_node("Area2D/CollisionShape2D").disabled = false
 	queue_free()

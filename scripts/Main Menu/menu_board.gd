@@ -33,7 +33,7 @@ func spawn_card(id_name : String) -> void:
 	#new_card.position = get_global_tile_pos(Vector2i(0,0))
 	new_card.position = terrain_tilemap.get_local_centre_of_tile(Vector2i(0,0))
 	card_manager_ref.add_child(new_card)
-	new_card.connect_to_card_manager(card_manager_ref)
+	card_manager_ref.connect_card_signals(new_card)
 	player_hand_ref.add_to_hand(new_card)
 
 func _on_timer_timeout() -> void:
