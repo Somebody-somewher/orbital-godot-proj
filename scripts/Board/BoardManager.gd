@@ -14,6 +14,7 @@ var PLAYABLE_SPACE : Array[Vector2i]
 @export var terrain_tilemap : BoardVisualManager
 @export var previewer_tilemap : BoardPreviewerTileMap
 @export var proc_gen : BoardProcGenerator
+var board_layout : BoardLayout
 
 @export var object : Node
 var matrix_data : BoardMatrixData
@@ -27,10 +28,13 @@ var boards_near_mouse : Array[bool]
 var prev_tile_pos : Vector2i = Vector2i(-1,-1)
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+func set_up(num_players : int = -1) -> void:
 	var start_pos : Vector2i
 	var end_pos : Vector2i
 	var board_id : int = 0
+	
+	if num_players == -1:
+		BOARDS_LAYOUT = BoardLayout.get_board_layout(num_players)
 	
 	# Actual Board Data, contains all playable boards 
 	matrix_data = BoardMatrixData.new(BOARD_SIZE.x, BOARDS_LAYOUT)
@@ -54,7 +58,10 @@ func _ready() -> void:
 		for x in range(BOARD_SIZE.x * BOARDS_LAYOUT.x):
 			for y in range(BOARD_SIZE.y * BOARDS_LAYOUT.y):
 				create_terrain(placeholder_env, Vector2i(x,y))
-	pass # Replace with function body.
+
+func _ready() -> void:
+	if BOARDS_LAYOUT != Vector2i(-1, -1):
+		set_up()
 
 ## Called in _process to check each board is being hovered over, update the array if so
 ## In case it matters "which" board is being hovered over
@@ -167,6 +174,3 @@ func highlight_interactable_board() -> void:
 func remove_building(tile_pos : Vector2i = NULL_TILE) -> void:
 	if tile_pos == NULL_TILE:
 		tile_pos = get_mouse_tile_pos()
-		
-	#if tile_pos != NULL_TILE:
-		
