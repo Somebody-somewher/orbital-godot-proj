@@ -2,6 +2,7 @@
 extends Node2D
 class_name CardManager
 
+# for highlighting and animations
 var card_dragged : Node2D
 var card_hovered : Node2D
 var card_flipped : bool = false 
@@ -15,12 +16,12 @@ const CARD_EASE := 0.13
 # how big a card and scaled down to the tile size of the baord as Vector2
 var CARD_TILE_RATIO : Vector2
 
-
+# important references
 @export var board_ref : BoardManager
 @export var player_hand_ref : PlayerHand
 @export var input_manager_ref : InputManager 
-@export var preview_board_ref : BoardPreviewerTileMap 
-
+@export var preview_board_ref : BoardPreviewerTileMap
+var aura_cards = AuraGroup.new()
 
 func _ready() -> void:
 	Signalbus.connect("mouse_enter_interactable_board_tile", highlight_effects_when_hovering_card)
@@ -48,13 +49,11 @@ func _process(_delta: float) -> void:
 		# card effects with board interaction
 		if board_ref and card_dragged is Card:
 			card_flip_if_near_board()
-			#highlight_effects_when_hovering_card()
 
 func start_drag(card : Node2D):
 	card_dragged = card
-	if card_dragged is Card:
+	if card_dragged is PlaceableCard:
 		player_hand_ref.remove_from_hand(card_dragged)
-	
 		if !card_hovered:
 			highlight_card(card, true)
 			card_hovered = card
@@ -62,6 +61,9 @@ func start_drag(card : Node2D):
 # placing is if trying to place in tile, false if just return card to hand no matter what
 func finish_drag(placing : bool):
 	if card_dragged and card_dragged is Card:
+		if card_dragged is AuraCard:
+			placing = false
+		
 		var card_placed : bool
 		if placing:
 			card_placed = board_ref.place_on_board_if_able(card_dragged.building)
@@ -79,7 +81,8 @@ func finish_drag(placing : bool):
 		else:
 			if card_flipped:
 				card_dragged.entity_flip_to_card()
-			player_hand_ref.add_to_hand(card_dragged)
+			if card_dragged is PlaceableCard:
+				player_hand_ref.add_to_hand(card_dragged)
 		
 		preview_board_ref.reset_preview()
 		card_flipped = false
@@ -131,18 +134,17 @@ func card_flip_if_near_board() -> void:
 
 func highlight_effects_when_hovering_card() -> void :
 	# card ghost snapping to grid
-	if card_dragged != null and card_dragged is Card:
+	if card_dragged != null and card_dragged is PlaceableCard:
 		preview_board_ref.reset_preview()
 		preview_board_ref.preview_placement(card_dragged.building.data)
 
 	else:
 		preview_board_ref.reset_preview()
-	#pass
 
 
 ## position as global position to spawn card
 func spawn_card(id_name : String, pos : Vector2) -> void:
-	var new_card = BuildingCard.new_card(id_name)
+	var new_card = CardLoaderr.new_card(id_name)
 	new_card.global_position = pos
 	self.add_child(new_card)
 	new_card.connect_to_card_manager(self)
@@ -177,19 +179,7 @@ func card_hover_if_able():
 ## highlight or unhighlight card depending on second argument
 func highlight_card(card : Card, hovering : bool):
 	if hovering:
-		card.rotation = 0
-		animate_card(card, Vector2(1.15, 1.15), Vector2(0, -80*card.deck_scale))
-		card.get_parent().move_child(card, -1)
 		card.z_index += 10
 	else:
-		card.rotation = card.deck_angle
-		animate_card(card, Vector2(1, 1), Vector2(0, 0))
 		card.z_index -= 10
-#
-## TODO: Can this be Card's job to handle?
-func animate_card(card : Card, new_scale : Vector2, pos):
-	if tweening and tweening.is_running():
-		await tweening.finished
-	tweening = get_tree().create_tween()
-	tweening.parallel().tween_property(card, "position", card.deck_pos + pos, 0.08)
-	tweening.parallel().tween_property(card, "scale", new_scale * card.deck_scale, 0.08)
+	card.highlight_card(hovering, tweening)

@@ -1,8 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://cebgwyf4lnw5p"]
+[gd_scene load_steps=10 format=3 uid="uid://gbnbr6a5682m"]
 
 [ext_resource type="PackedScene" uid="uid://8dgw8wdiub72" path="res://scenes/Card/Card.tscn" id="1_yfvoy"]
 [ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="2_pqbld"]
-[ext_resource type="Script" uid="uid://dmnncj0v3af8y" path="res://scripts/Card/building_card.gd" id="2_r1n0u"]
+[ext_resource type="Script" uid="uid://dmnncj0v3af8y" path="res://scripts/Card/placeable_card.gd" id="2_r1n0u"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_4dx8l"]
 frequency = 0.0017
@@ -37,6 +37,3 @@ texture = null
 
 [node name="CardImage" parent="." index="1"]
 material = SubResource("ShaderMaterial_r1n0u")
-
-[node name="GhostImage" parent="." index="2"]
-texture = null

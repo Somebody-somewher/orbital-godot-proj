@@ -126,7 +126,7 @@ func place_on_board_if_able_data(placeable: PlaceableData, tile_pos : Vector2i =
 func place_on_board_if_able(placeable: PlaceableNode, tile_pos : Vector2i = NULL_TILE) -> bool:
 	if tile_pos == NULL_TILE:
 		tile_pos = get_mouse_tile_pos()
-	print(placeable)
+	#print(placeable)
 	
 	if tile_pos != NULL_TILE and placeable.placeable(matrix_data, terrain_tilemap.tilemap_to_matrix(tile_pos)):
 		#placeable.trigger_place_effects(matrix_data, terrain_tilemap.tilemap_to_matrix(tile_pos))

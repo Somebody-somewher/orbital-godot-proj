@@ -12,7 +12,7 @@ var owner_id : int
 
 #animation vars for player hand
 var deck_angle = 0
-var deck_pos
+var deck_pos = Vector2.ZERO
 var deck_scale := 1.0
 
 ##shader stuff
@@ -28,16 +28,16 @@ var id_name : String = "cute_dummy"
 func _ready() -> void:
 	pass
 
-# factory constructor
-static func new_card(card_name : String) -> Card:
-	var return_card : Card = card_scene.instantiate()
-	var card_image_path = str("res://assets/card_sprites/blank_card.png")
-	var entity_image_path = str("res://assets/entity_sprites/"+ card_name + ".png")
-	return_card.get_node("CardImage").texture = load(card_image_path)
-	return_card.get_node("EntityImage").texture = load(entity_image_path)
-	return_card.get_node("Texts/CardName").text = CardLoader.get_display_name(card_name)
-	return_card.id_name = card_name
-	return return_card
+## factory constructor
+#static func new_card(card_name : String) -> Card:
+	#var return_card : Card = card_scene.instantiate()
+	#var card_image_path = str("res://assets/card_sprites/blank_card.png")
+	#var entity_image_path = str("res://assets/entity_sprites/"+ card_name + ".png")
+	#return_card.get_node("CardImage").texture = load(card_image_path)
+	#return_card.get_node("EntityImage").texture = load(entity_image_path)
+	#return_card.get_node("Texts/CardName").text = CardLoader.get_display_name(card_name)
+	#return_card.id_name = card_name
+	#return return_card
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -68,6 +68,9 @@ func swap_to_effect(scale_by: Vector2) -> void:
 	self.get_node("Area2D/CollisionShape2D").disabled = true
 	dissolve_card()
 
+#called by cardmanager when highlighting
+func highlight_card(on : bool, tweening : Tween) -> void :
+	pass
 ######################################################################
 
 func _on_area_2d_mouse_entered() -> void:

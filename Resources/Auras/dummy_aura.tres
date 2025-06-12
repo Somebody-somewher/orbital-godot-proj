@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="AuraCardData" load_steps=4 format=3 uid="uid://b7yevb6mg7dpt"]
+
+[ext_resource type="Script" uid="uid://dadgmay5t5j7r" path="res://scripts/Events/EventModifier/event_modifier.gd" id="1_gtias"]
+[ext_resource type="Script" uid="uid://dlprgxm2nrn2w" path="res://scripts/Env & Buildings/AuraCardData.gd" id="2_0s033"]
+[ext_resource type="Texture2D" uid="uid://bd3yosptgpypv" path="res://assets/entity_sprites/dummy.png" id="2_k303k"]
+
+[resource]
+script = ExtResource("2_0s033")
+aura_array = Array[ExtResource("1_gtias")]([])
+id_name = "dummy_aura"
+display_name = "Dummy Aura"
+card_sprite = ExtResource("2_k303k")
+desc = ""
+flavor = ""
+category = 0
+tags = Array[String]([])
+is_aura = false
+hidden = false

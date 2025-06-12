@@ -1,20 +1,7 @@
 extends Card
 class_name AuraCard
 
-var auras : Array[EventModifier]
-
-# factory constructor
-# TODO: pass the placeabale_data as the param instead?
-static func new_card(card_name : String) -> Card:
-	var data = CardLoader.get_building_data(card_name)
-	var return_card : AuraCard = CardLoaderr.aura_card_scene.instantiate()
-	var card_image_path = str("res://assets/card_sprites/blank_card.png")
-	return_card.get_node("CardImage").texture = load(card_image_path)
-	return_card.get_node("EntityImage").texture = data.card_sprite
-	return_card.get_node("Texts/CardName").text = data.display_name
-	return_card.id_name = card_name
-	return return_card
-	
+var auras : Array[EventModifier]	
 
 # called when added to player hand
 func initialize_card_effect() -> void:
@@ -25,3 +12,19 @@ func initialize_card_effect() -> void:
 # fully replace card with effect, then free self instance
 func swap_to_effect(scale_by: Vector2) -> void:
 	pass
+
+func modify_events(arr : Array[BoardEvent]) -> Array[BoardEvent]:
+	var ret_arr = arr
+	for modifier in auras:
+		ret_arr = modifier.flat_modify(ret_arr)
+	return ret_arr
+
+
+func highlight_card(on : bool, tweening : Tween):
+	if tweening and tweening.is_running():
+		await tweening.finished
+	tweening = get_tree().create_tween()
+	if on:
+		tweening.parallel().tween_property(self, "scale", Vector2(1.15, 1.15), 0.08)
+	else:
+		tweening.parallel().tween_property(self, "scale", Vector2.ONE, 0.08)

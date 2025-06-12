@@ -1,7 +1,7 @@
 extends Node2D
 class_name CardPack
 
-@export var pack_sets : Array[CardSetData]# = ["Village", "Housing", "Worship", "Farm"] ##array of sets
+@export var pack_sets : Array[CardSetData]
 var pack_arr = []
 var choices := 1
 
@@ -40,6 +40,11 @@ func _process(delta: float) -> void:
 func open_pack() -> void:
 	self.get_node("Area2D/CollisionShape2D").disabled = true
 	var pack_size = pack_sets.size()
+	
+	if pack_size == 0:
+		destroy_pack()
+		return
+	
 	var set_angle = 2 * PI / pack_size
 	var set_radius_from_pack = 100
 	for i in range(pack_size):
