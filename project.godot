@@ -34,6 +34,7 @@ CardLoaderr="*res://scenes/CardLoader.tscn"
 Signalbus="*res://scenes/Game Flow/Signalbus.tscn"
 PlayerManager="*res://NetworkingTest/PlayerManager.gd"
 AudioManager="*res://scenes/Audio/audio_manager.tscn"
+NetworkManager="*res://scenes/Networking/NetworkManager.tscn"
 
 [display]
 

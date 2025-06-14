@@ -3,39 +3,39 @@ class_name BoardManager
 # Main class that handles all "board" functionality. 
 # Technically the "board" is made up of smaller "sub"-boards where each "sub"-board belongs to a player
 
+####################### KEY DEFINING BOARD VARS ##########################
+######### ALL TO BE STANDARDIZED BY SERVER BOARDMANAGER INSTANCE #########
 # Length/Width (no. cells) of board
-## PLEASE KEEP THE BOARD a square
+## PLEASE KEEP THE BOARD SQUARE FOR NOW
 @export var BOARD_SIZE : Vector2i = Vector2i(8,8)
+
 @export var BOARDS_LAYOUT : Vector2i = Vector2i(2,2)
 @export var BORDER_DIM : Vector2i = Vector2i(4,4)
 @export var BOARD_SCALE : float
-var PLAYABLE_SPACE : Array[Vector2i]
+#########################################################################
 
 @export var terrain_tilemap : BoardVisualManager
 @export var previewer_tilemap : BoardPreviewerTileMap
-@export var proc_gen : BoardProcGenerator
-var board_layout : BoardLayout
-
 @export var object : Node
+# The "true" matrix data is stored on server
+# Every client has its own client-side matrix for preview of ghost placeable image
 var matrix_data : BoardMatrixData
 
 # reference for non-existent tile position
 static var NULL_TILE = Vector2i(-1,-1)
 
-# Global Coords of where board spans on screen
+# For the hover_over_tile signal
+var prev_tile_pos : Vector2i = Vector2i(-1,-1)
 var boards_near_mouse : Array[bool]
 
-var prev_tile_pos : Vector2i = Vector2i(-1,-1)
+var player_board_ids : Array[int] 
+######### These components only exist server side ########### 
+@export var proc_gen : BoardProcGenerator
+var board_layout : BoardLayout
+##############################################################
 
 # Called when the node enters the scene tree for the first time.
-func set_up(num_players : int = -1) -> void:
-	var start_pos : Vector2i
-	var end_pos : Vector2i
-	var board_id : int = 0
-	
-	if num_players == -1:
-		BOARDS_LAYOUT = BoardLayout.get_board_layout(num_players)
-	
+func set_up() -> void:	
 	# Actual Board Data, contains all playable boards 
 	matrix_data = BoardMatrixData.new(BOARD_SIZE.x, BOARDS_LAYOUT)
 	
@@ -45,23 +45,44 @@ func set_up(num_players : int = -1) -> void:
 	# Tilemaps setup
 	previewer_tilemap.set_up(object, matrix_data, BORDER_DIM)
 	terrain_tilemap.set_up(object, BORDER_DIM)
-	
+
+@rpc("authority", "call_local")
+func client_procgen_init(create_terrain : Callable, create_border_tile : Callable, create_building : Callable, create_fake_building : Callable) -> void:
 	if proc_gen != null:
 		# Procedural Generation setup
-		proc_gen.set_up(BOARD_SIZE, BOARDS_LAYOUT, BORDER_DIM)
 		for i in range(BOARDS_LAYOUT.x * BOARDS_LAYOUT.y):
-				proc_gen.generate_board(create_terrain, place_on_board_if_able_data, i)
-		
-		proc_gen.generate_border(terrain_tilemap.change_border_terrain_tile, terrain_tilemap.place_fake_building)
+				proc_gen.generate_board(create_terrain, create_building, i)
+		proc_gen.generate_border(create_border_tile, create_fake_building)
 	else:
 		var placeholder_env = terrain_tilemap.env_map.getPlaceholderTile()
 		for x in range(BOARD_SIZE.x * BOARDS_LAYOUT.x):
 			for y in range(BOARD_SIZE.y * BOARDS_LAYOUT.y):
-				create_terrain(placeholder_env, Vector2i(x,y))
+				create_terrain.call(placeholder_env, Vector2i(x,y))
+
+@rpc("any_peer", "call_local")
+func server_supply_init_data(board_size : Vector2i, board_layout : Vector2i, border_dim : Vector2i) -> void:
+	BOARD_SIZE = board_size
+	BOARDS_LAYOUT = board_layout
+	BORDER_DIM = border_dim
+	set_up()
+	print("Setting up BoardManager for ", multiplayer.get_unique_id())
+	if NetworkManager.is_client():
+		client_procgen_init.rpc_id(1, create_terrain, terrain_tilemap.change_border_terrain_tile, place_on_board_if_able_data, terrain_tilemap.place_fake_building)
+	pass
 
 func _ready() -> void:
-	if BOARDS_LAYOUT != Vector2i(-1, -1):
-		set_up()
+	print("BOARDMANAGER READY FOR ", multiplayer.get_unique_id())
+	if multiplayer.is_server(): #and BOARDS_LAYOUT = Vector2i(-1, -1):
+		print("SERVER ACTIVATE")
+		NetworkManager.connect("all_clients_ready", init_clients)
+		BOARDS_LAYOUT = BoardLayout.new().get_board_layout(PlayerManager.getNumPlayers())
+		if proc_gen != null:
+			proc_gen.set_up(BOARD_SIZE, BOARDS_LAYOUT, BORDER_DIM)
+	NetworkManager.mark_client_ready(self)	
+
+func init_clients() -> void:
+	print("init clients!")
+	server_supply_init_data.rpc(BOARD_SIZE, BOARDS_LAYOUT, BORDER_DIM)
 
 ## Called in _process to check each board is being hovered over, update the array if so
 ## In case it matters "which" board is being hovered over
@@ -100,6 +121,7 @@ func _process(delta: float) -> void:
 		Signalbus.emit_signal("mouse_enter_interactable_board_tile")
 		prev_tile_pos = curr_tile_pos
 	highlight_interactable_board()
+	
 	pass
 
 ## Get the tilepos of mouse
@@ -112,7 +134,7 @@ func get_mouse_tile_pos() -> Vector2i:
 
 ## Returns true if Placeable is successfully placed, else returns false
 # Client facing function
-@rpc("authority", "call_local")
+@rpc("any_peer", "call_local")
 func place_on_board_if_able_data(placeable: PlaceableData, tile_pos : Vector2i = NULL_TILE) -> bool:
 	if tile_pos == NULL_TILE:
 		tile_pos = get_mouse_tile_pos()
@@ -129,11 +151,10 @@ func place_on_board_if_able_data(placeable: PlaceableData, tile_pos : Vector2i =
 
 ## Returns true if Placeable is successfully placed, else returns false
 # Client facing function
-@rpc("authority", "call_local")
+@rpc("any_peer", "call_local")
 func place_on_board_if_able(placeable: PlaceableNode, tile_pos : Vector2i = NULL_TILE) -> bool:
 	if tile_pos == NULL_TILE:
 		tile_pos = get_mouse_tile_pos()
-	print(placeable)
 	
 	if tile_pos != NULL_TILE and placeable.placeable(matrix_data, terrain_tilemap.tilemap_to_matrix(tile_pos)):
 		#placeable.trigger_place_effects(matrix_data, terrain_tilemap.tilemap_to_matrix(tile_pos))

@@ -1,15 +1,19 @@
 class_name  PlayerInfo
 extends Object
 
-var _pid : int
-var _pName : String
+var pid : int
+var pName : String
+
+# Board data
+var _boards_interactable : Array[bool] = []
 
 func _init(id : int, pName : String) -> void:
-	_pid = id
-	_pName = pName 
+	pid = id
+	pName = pName 
+ 
 
 func getPlayerId():
-	return _pid
+	return pid
 
 func getPlayerName():
-	return _pName
+	return pName

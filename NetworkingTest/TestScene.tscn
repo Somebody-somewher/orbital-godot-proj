@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://klvllydgi5tw" path="res://scenes/GameFlow/round_manager.tscn" id="3_5xn7d"]
 [ext_resource type="PackedScene" uid="uid://6rs0eho1q85m" path="res://NetworkingTest/MeowMeow.tscn" id="3_px3be"]
 [ext_resource type="PackedScene" uid="uid://djprvn8ctcigq" path="res://NetworkingTest/meow_spawner.tscn" id="4_px3be"]
-[ext_resource type="Script" uid="uid://bbbnlosaie474" path="res://scripts/player_ui.gd" id="5_53tsm"]
+[ext_resource type="Script" uid="uid://bbbnlosaie474" path="res://scripts/GameFlow/player_ui.gd" id="5_53tsm"]
 [ext_resource type="Theme" uid="uid://igcyj7c6fdln" path="res://assets/fonts/cutey_card_theme.tres" id="6_5xn7d"]
 
 [node name="CreateScene" type="Node2D"]
@@ -47,19 +47,25 @@ polygon = PackedVector2Array(-8, 444, -1, 651, 1153, 647, 1150, 427, 905, 570, 2
 [node name="Polygon2D" type="Polygon2D" parent="StaticBody2D"]
 
 [node name="PlayerUI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="PlayerUI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 script = ExtResource("5_53tsm")
 
-[node name="ScoreLabel" type="Label" parent="PlayerUI"]
+[node name="ScoreLabel" type="Label" parent="PlayerUI/Control"]
 offset_left = 37.0
 offset_top = 29.0
-offset_right = 105.0
+offset_right = 205.0
 offset_bottom = 84.0
 theme = ExtResource("6_5xn7d")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "Score: 0"
 
-[node name="RoundLabel" type="Label" parent="PlayerUI"]
+[node name="RoundLabel" type="Label" parent="PlayerUI/Control"]
 offset_left = 1397.0
 offset_top = 12.0
 offset_right = 1568.0
@@ -69,7 +75,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "Round: 1"
 
-[node name="EndTurn" type="Button" parent="PlayerUI"]
+[node name="EndTurn" type="Button" parent="PlayerUI/Control"]
 offset_left = 1369.0
 offset_top = 800.0
 offset_right = 1560.0
@@ -78,7 +84,7 @@ theme = ExtResource("6_5xn7d")
 theme_override_font_sizes/font_size = 40
 text = "End Turn"
 
-[node name="RoundTimerLabel" type="Label" parent="PlayerUI"]
+[node name="RoundTimerLabel" type="Label" parent="PlayerUI/Control"]
 offset_left = 1371.0
 offset_top = 737.0
 offset_right = 1566.0
@@ -88,4 +94,4 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "Timer: 30"
 
-[connection signal="pressed" from="PlayerUI/EndTurn" to="PlayerUI" method="_on_end_turn_pressed"]
+[connection signal="pressed" from="PlayerUI/Control/EndTurn" to="PlayerUI" method="_on_end_turn_pressed"]

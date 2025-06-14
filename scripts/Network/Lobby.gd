@@ -2,7 +2,7 @@ extends Control
 
 @export var ip : String = "127.0.0.1"
 @export var port : int = 8910
-@export var gameScenePath : String = "res://NetworkingTest/TestScene.tscn"
+@export var gameScene : PackedScene 
 #var multiplayer_peer = ENetMultiplayerPeer.new()
 
 
@@ -99,6 +99,7 @@ func _on_start_button_down() -> void:
 #TODO: Change this
 @rpc("any_peer", "call_local")
 func startGame():
-	var scene = load(gameScenePath).instantiate()
+	NetworkManager.set_up()
+	var scene = gameScene.instantiate()
 	get_tree().root.add_child(scene)
 	self.hide()

@@ -11,10 +11,9 @@ func _ready() -> void:
 	for s in spawners:
 		add_child(s)
 	
-	if multiplayer.is_server():		
+	if multiplayer.is_server():
+		print("created roundmanager for ", multiplayer.get_unique_id())
 		add_child(manager.instantiate())
-		
-
 
 func createSpawner(pi : PlayerInfo) -> Node2D:
 	var meowSpawner = meowSpawner.instantiate()

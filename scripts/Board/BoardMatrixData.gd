@@ -83,7 +83,6 @@ func constrain_pattern_to_board(tile_pos : Vector2i, pattern_arr : Array[Vector2
 func search_matrix_readonly(c : Callable):
 	c.call(board_matrix)
 
-
 ## Check if tilepos inside playable area
 func check_tilepos_in_playable(tilepos : Vector2i) -> bool:
 	if tilepos.x >=  boards_coords[0][0].x and tilepos.x <= boards_coords[len(boards_coords) - 1][1].x:
