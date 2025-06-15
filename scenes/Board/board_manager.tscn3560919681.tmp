@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://bxiy7ajwus31g"]
+
+[ext_resource type="Script" uid="uid://voc0ihu6a5tc" path="res://scripts/Board/BoardManager.gd" id="1_k6d4x"]
+[ext_resource type="Script" uid="uid://dls3y3sngygdn" path="res://scripts/Board/BoardPreviewerTilemap.gd" id="2_k6d4x"]
+[ext_resource type="Resource" uid="uid://b2ockuqgtwo7k" path="res://Resources/ProcGen/BoardProcGenerator.tres" id="2_vgsob"]
+[ext_resource type="Resource" uid="uid://doq3nosdirb1v" path="res://Resources/EnvTerrain/TestEnvTerrainMapping.tres" id="3_vgsob"]
+[ext_resource type="Script" uid="uid://dq6l63on5mqf7" path="res://scripts/Board/BoardVisualManager.gd" id="4_c64v0"]
+
+[node name="BoardManager" type="Node2D" node_paths=PackedStringArray("terrain_tilemap", "previewer_tilemap", "object")]
+script = ExtResource("1_k6d4x")
+BORDER_DIM = Vector2i(1, 1)
+terrain_tilemap = NodePath("TerrainActual")
+previewer_tilemap = NodePath("Preview")
+object = NodePath("Building_Manager")
+proc_gen = ExtResource("2_vgsob")
+
+[node name="Preview" type="TileMapLayer" parent="." node_paths=PackedStringArray("ghost_image", "object")]
+script = ExtResource("2_k6d4x")
+ghost_image = NodePath("../Building_Manager/GhostPlaceable")
+env_map = ExtResource("3_vgsob")
+object = NodePath("../Building_Manager")
+
+[node name="Darken" type="TileMapLayer" parent="."]
+modulate = Color(0.168235, 0.184866, 0.176556, 0.352941)
+
+[node name="TerrainActual" type="TileMapLayer" parent="." node_paths=PackedStringArray("darken_tilemap", "object")]
+z_index = -1
+script = ExtResource("4_c64v0")
+darken_tilemap = NodePath("../Darken")
+env_map = ExtResource("3_vgsob")
+object = NodePath("../Building_Manager")
+
+[node name="Building_Manager" type="Node2D" parent="."]
+
+[node name="GhostPlaceable" type="Sprite2D" parent="Building_Manager"]
+modulate = Color(0.568627, 0.552941, 0.576471, 0.623529)

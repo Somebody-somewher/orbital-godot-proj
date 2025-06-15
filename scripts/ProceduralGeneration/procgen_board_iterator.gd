@@ -29,7 +29,7 @@ func foreach_tile_in_board(c : Callable):
 		for x in range(_board_size.x):
 			element = _matrix[board_start_tile.y + y][board_start_tile.x + x]
 			if element != null:
-				c.call(element, Vector2i(board_start_tile.x + x,board_start_tile.y + y))
+				c.call(element.get_id(), Vector2i(board_start_tile.x + x,board_start_tile.y + y))
 
 func reset_board() -> void:
 	board_start_tile = Vector2i(_border_width.x, _border_width.y)
@@ -46,7 +46,6 @@ func next_board() -> bool:
 		curr_board.y += 1
 		curr_board.x = 1
 		if curr_board.y > _board_num_width_height.y:
-			print(curr_board, _board_num_width_height)
 			return false
 			
 	board_start_tile.x = _border_width.x + (curr_board.x - 1) * _board_size.x
@@ -65,23 +64,27 @@ func retrieve_matrix() -> Array:
 func foreach_ele(o : Object, c : Callable) -> void:
 	if o in cache.keys():
 		for pos in cache.get(o):
-			c.call(_matrix[pos.y][pos.x], Vector2i(pos.x,pos.y))
+			c.call(_matrix[pos.y][pos.x].get_id(), Vector2i(pos.x,pos.y))
 
 func foreach_ele_in_board(o : Object, c : Callable) -> void:
 	if cache.has(o):
 		for pos in cache.get(o):
 			if pos.x >= board_start_tile.x and pos.x < board_start_tile.x + _board_num_width_height.x and pos.y >= board_start_tile.y and  pos.y < board_start_tile.y + _board_num_width_height.y:
-				c.call(_matrix[pos.y][pos.x], Vector2i(pos.x,pos.y))
+				c.call(_matrix[pos.y][pos.x].get_id(), Vector2i(pos.x,pos.y))
 
 func foreach_border(c : Callable) -> void:
 	var ylen : int = len(_matrix) 
 	var xlen : int = len(_matrix[0]) 
 	for y in range(ylen):
 		for x in range(_border_width.x):
-			c.call(_matrix[y][x], Vector2i(x,y))
-			c.call(_matrix[y][xlen-1-x], Vector2i(xlen-1-x,y))
+			if _matrix[y][x]:
+				c.call(_matrix[y][x].get_id(), Vector2i(x,y))
+			if _matrix[y][xlen-1-x]:
+				c.call(_matrix[y][xlen-1-x].get_id(), Vector2i(xlen-1-x,y))
 	
 	for y in range(_border_width.y):
 		for x in range(_border_width.x, xlen-_border_width.x):
-			c.call(_matrix[y][x], Vector2i(x,y))
-			c.call(_matrix[ylen-1-y][x], Vector2i(x,ylen-1-y))
+			if _matrix[y][x]:
+				c.call(_matrix[y][x].get_id(), Vector2i(x,y))
+			if _matrix[ylen-1-y][x]:
+				c.call(_matrix[ylen-1-y][x].get_id(), Vector2i(x,ylen-1-y))

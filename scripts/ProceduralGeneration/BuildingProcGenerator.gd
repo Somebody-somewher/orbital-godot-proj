@@ -33,7 +33,7 @@ func make_matrix() -> Array:
 
 func post_process(procgen_iterator : ProcGenBoardIterator) -> void:
 	for p in post_processors:
-		p.process(procgen_iterator, _terrain_iterator)
+		p.process_building(procgen_iterator, _terrain_iterator)
 
 func map_noise_to_building(noise_val : float, terrain : EnvTerrain) -> BuildingData:
 	var i = 0;

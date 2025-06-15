@@ -8,7 +8,7 @@ var server_net : ServerNetworkManager
 var is_server_client : bool = true
 
 @export var check_lobby : String
-
+var is_sync_fin : bool = false
 # These components have some game logic functionality
 # As such the server must have authoritative control over them
 # However, in order for the server to supply data the components
@@ -16,7 +16,6 @@ var is_server_client : bool = true
 @export var components : Dictionary[String, bool]
 
 func set_up() -> void:
-	print("NETWORK ", multiplayer.get_unique_id())
 	if multiplayer.get_unique_id() == 1:
 		server_net = ServerNetworkManager.new()
 		if is_server_client:

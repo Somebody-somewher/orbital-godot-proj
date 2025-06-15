@@ -26,7 +26,7 @@ func add_score(score : int) -> void:
 	score_label.text = "Score: " + str(player_score)
 	
 ### ROUND RELATED ###	
-@rpc("authority", "call_local")
+@rpc("any_peer", "call_local")
 func _update_timer_ui(time : int) -> void:
 	round_timer_label.text = "Time: " + str(time)
 

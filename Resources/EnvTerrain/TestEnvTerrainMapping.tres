@@ -9,10 +9,15 @@
 
 [resource]
 script = ExtResource("2_n4ada")
-environment_data = Dictionary[ExtResource("1_k1rc5"), Vector2i]({
-ExtResource("3_645lu"): Vector2i(0, 0),
-ExtResource("4_t3dtq"): Vector2i(3, 0),
-ExtResource("2_qyu27"): Vector2i(2, 0)
+environment_pos = Dictionary[String, Vector2i]({
+"Desert": Vector2i(2, 0),
+"Grass": Vector2i(0, 0),
+"Water": Vector2i(3, 0)
+})
+environment_data = Dictionary[String, ExtResource("1_k1rc5")]({
+"Desert": ExtResource("2_qyu27"),
+"Grass": ExtResource("3_645lu"),
+"Water": ExtResource("4_t3dtq")
 })
 tileset = ExtResource("3_04t6x")
 metadata/_custom_type_script = "uid://dcoeqccwxg41y"

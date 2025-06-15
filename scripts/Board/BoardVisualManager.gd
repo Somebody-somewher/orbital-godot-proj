@@ -20,27 +20,28 @@ func _ready() -> void:
 func set_up(parent : Node2D, border_dim : Vector2i) -> void:
 	super._set_up(parent, border_dim)
 
-func create_terrain_tile(terrain : EnvTerrain, tile_pos : Vector2i) -> void:
-	change_terrain_tile(terrain, tile_pos)
+func create_terrain_tile(terrain_id : String, tile_pos : Vector2i) -> void:
+	change_terrain_tile(terrain_id, tile_pos)
 	darken_tilemap.set_cell(tile_pos, 1, Vector2(0,0), 0)
 
-func change_terrain_tile(terrain : EnvTerrain, tile_pos : Vector2i) -> void:
+func change_terrain_tile(terrain_id : String, tile_pos : Vector2i) -> void:
 	var darken_tile = 0
 	
 	# Every alternate tile, set the alternate colour in the tilemap
 	if (tile_pos.x + tile_pos.y) % 2 == 1:
 		darken_tile += 1
 	
-	set_cell(tile_pos, 0, env_map.getTilePosbyEnv(terrain), darken_tile)
+	set_cell(tile_pos, 0, env_map.getTilePosbyEnv(terrain_id), darken_tile)
 
-func change_border_terrain_tile(terrain : EnvTerrain, tile_pos : Vector2i) -> void:
+@rpc("any_peer", "call_local")
+func change_border_terrain_tile(terrain_id : String, tile_pos : Vector2i) -> void:
 	var darken_tile = 4
 	
 	# Every alternate tile, set the alternate colour in the tilemap
 	if (tile_pos.x + tile_pos.y) % 2 == 1:
 		darken_tile += 1
-	
-	set_cell(tile_pos, 0, env_map.getTilePosbyEnv(terrain), darken_tile)
+			
+	set_cell(tile_pos, 0, env_map.getTilePosbyEnv(terrain_id), darken_tile)
 
 # try to place placeable on tile
 # Private function
@@ -53,7 +54,8 @@ func place_building_on_tile(building: Building, tile_pos : Vector2i) -> void:
 		building.name = building.data.display_name
 	# MUST TRIGGER BEFORE ADDING (otherwise places self on board then can score against itself)
 	#board_matrix.add_placeable_to_tile(tile_pos, placeable)
-	
+
+@rpc("any_peer", "call_local")
 func place_fake_building(data: BuildingData, tile_pos : Vector2i) -> void:
 	if data != null:
 		var fake_placeable : Sprite2D = Sprite2D.new()

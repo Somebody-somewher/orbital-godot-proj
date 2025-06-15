@@ -47,6 +47,6 @@ func generate_border(terrain_create : Callable, building_create : Callable) -> v
 
 func check_terrain_valid(terrain_gen : TerrainGenerator) -> bool:
 	for t in terrain_gen.terrains:
-		if !env_map.checkEnvExists(t):
+		if !env_map.checkEnvExists(t.get_id()):
 			return false
 	return true

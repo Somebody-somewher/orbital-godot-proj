@@ -39,15 +39,27 @@ func set_up() -> void:
 	# Actual Board Data, contains all playable boards 
 	matrix_data = BoardMatrixData.new(BOARD_SIZE.x, BOARDS_LAYOUT)
 	
-	# Array of booleans to check which boards are being hovered over by mouse
-	boards_near_mouse.resize(BOARDS_LAYOUT.x * BOARDS_LAYOUT.y)
-	
-	# Tilemaps setup
-	previewer_tilemap.set_up(object, matrix_data, BORDER_DIM)
-	terrain_tilemap.set_up(object, BORDER_DIM)
+	if NetworkManager.is_client():
+		# Array of booleans to check which boards are being hovered over by mouse
+		boards_near_mouse.resize(BOARDS_LAYOUT.x * BOARDS_LAYOUT.y)
+		
+		# Tilemaps setup
+		previewer_tilemap.set_up(object, matrix_data, BORDER_DIM)
+		terrain_tilemap.set_up(object, BORDER_DIM)
 
-@rpc("authority", "call_local")
-func client_procgen_init(create_terrain : Callable, create_border_tile : Callable, create_building : Callable, create_fake_building : Callable) -> void:
+## This is run by the server to supply data to all clients
+## Signal-activated by NetworkManager "all_clients_ready"
+func init_clients() -> void:
+	#print("INIT CLIENTS FROM ", multiplayer.get_remote_sender_id())
+	#print("INIT CLIENTS ", multiplayer.get_unique_id())
+	receive_init_data.rpc(BOARD_SIZE, BOARDS_LAYOUT, BORDER_DIM)
+	procgen_init(func(tid : String, tile_pos : Vector2i): create_terrain.rpc(tid, tile_pos) \
+	, func(tid : String, tile_pos : Vector2i): terrain_tilemap.change_border_terrain_tile.rpc(tid, tile_pos) \
+	, func(bid : String, tile_pos : Vector2i): place_on_board_if_able.rpc(bid, tile_pos) \
+	, func(bid : String, tile_pos : Vector2i): terrain_tilemap.place_fake_building.rpc(bid, tile_pos))
+
+func procgen_init(create_terrain : Callable, create_border_tile : Callable, create_building : Callable, create_fake_building : Callable) -> void:
+	print("PROCGEN ", multiplayer.get_remote_sender_id())
 	if proc_gen != null:
 		# Procedural Generation setup
 		for i in range(BOARDS_LAYOUT.x * BOARDS_LAYOUT.y):
@@ -57,32 +69,31 @@ func client_procgen_init(create_terrain : Callable, create_border_tile : Callabl
 		var placeholder_env = terrain_tilemap.env_map.getPlaceholderTile()
 		for x in range(BOARD_SIZE.x * BOARDS_LAYOUT.x):
 			for y in range(BOARD_SIZE.y * BOARDS_LAYOUT.y):
-				create_terrain.call(placeholder_env, Vector2i(x,y))
+				create_terrain.rpc(placeholder_env, Vector2i(x,y))
 
+## Params supplied by server, called by all clients
 @rpc("any_peer", "call_local")
-func server_supply_init_data(board_size : Vector2i, board_layout : Vector2i, border_dim : Vector2i) -> void:
+func receive_init_data(board_size : Vector2i, board_layout : Vector2i, border_dim : Vector2i) -> void:
 	BOARD_SIZE = board_size
 	BOARDS_LAYOUT = board_layout
 	BORDER_DIM = border_dim
 	set_up()
-	print("Setting up BoardManager for ", multiplayer.get_unique_id())
-	if NetworkManager.is_client():
-		client_procgen_init.rpc_id(1, create_terrain, terrain_tilemap.change_border_terrain_tile, place_on_board_if_able_data, terrain_tilemap.place_fake_building)
+	print("RECIEVE ", multiplayer.get_unique_id(), " ", Time.get_time_string_from_system())
 	pass
 
 func _ready() -> void:
-	print("BOARDMANAGER READY FOR ", multiplayer.get_unique_id())
-	if multiplayer.is_server(): #and BOARDS_LAYOUT = Vector2i(-1, -1):
-		print("SERVER ACTIVATE")
+	#print("BOARDMANAGER READY FOR ", multiplayer.get_unique_id())
+	# Server setup code
+	if multiplayer.is_server():
+		# Signal telling server that all clients are ready to receive info
 		NetworkManager.connect("all_clients_ready", init_clients)
 		BOARDS_LAYOUT = BoardLayout.new().get_board_layout(PlayerManager.getNumPlayers())
 		if proc_gen != null:
 			proc_gen.set_up(BOARD_SIZE, BOARDS_LAYOUT, BORDER_DIM)
-	NetworkManager.mark_client_ready(self)	
-
-func init_clients() -> void:
-	print("init clients!")
-	server_supply_init_data.rpc(BOARD_SIZE, BOARDS_LAYOUT, BORDER_DIM)
+			
+	# Client code, networkmanager collates all clients "ready" to later on send "all_clients_ready"
+	if NetworkManager.is_client():
+		NetworkManager.mark_client_ready(self)	
 
 ## Called in _process to check each board is being hovered over, update the array if so
 ## In case it matters "which" board is being hovered over
@@ -112,6 +123,9 @@ func is_mouse_near_interactable_board() -> bool:
 	return false
 
 func _process(delta: float) -> void:
+	if !NetworkManager.is_sync_fin:
+		return
+		
 	# Update the array which represents on all boards (on whether they are being hovered over)
 	update_mouse_near_board()
 	# Checks whether the mouse is hovering over a new interactable tile, sends a signal out if so
@@ -135,14 +149,16 @@ func get_mouse_tile_pos() -> Vector2i:
 ## Returns true if Placeable is successfully placed, else returns false
 # Client facing function
 @rpc("any_peer", "call_local")
-func place_on_board_if_able_data(placeable: PlaceableData, tile_pos : Vector2i = NULL_TILE) -> bool:
+func place_on_board_if_able(placeable_id: String, tile_pos : Vector2i = NULL_TILE) -> bool:
 	if tile_pos == NULL_TILE:
 		tile_pos = get_mouse_tile_pos()
-		
-	if tile_pos != NULL_TILE and placeable.placeable(matrix_data, terrain_tilemap.tilemap_to_matrix(tile_pos)):
+	
+	var pd : PlaceableData = CardLoader.get_building_data(placeable_id)
+	
+	if tile_pos != NULL_TILE and pd.placeable(matrix_data, terrain_tilemap.tilemap_to_matrix(tile_pos)):
 		#placeable.trigger_place_effects(matrix_data, tile_mouse_pos - BORDER_DIM)
-		if placeable is BuildingData:
-			var building = Building.new_building_frm_data(placeable as BuildingData)
+		if pd is BuildingData:
+			var building = Building.new_building_frm_data(pd as BuildingData)
 			create_building(building, tile_pos)
 			#terrain_tilemap.place_building_on_tile(building, tile_pos)
 			#matrix_data.add_placeable_to_tile(terrain_tilemap.tilemap_to_matrix(tile_pos), building)
@@ -151,34 +167,42 @@ func place_on_board_if_able_data(placeable: PlaceableData, tile_pos : Vector2i =
 
 ## Returns true if Placeable is successfully placed, else returns false
 # Client facing function
-@rpc("any_peer", "call_local")
-func place_on_board_if_able(placeable: PlaceableNode, tile_pos : Vector2i = NULL_TILE) -> bool:
-	if tile_pos == NULL_TILE:
-		tile_pos = get_mouse_tile_pos()
-	
-	if tile_pos != NULL_TILE and placeable.placeable(matrix_data, terrain_tilemap.tilemap_to_matrix(tile_pos)):
-		#placeable.trigger_place_effects(matrix_data, terrain_tilemap.tilemap_to_matrix(tile_pos))
-		create_building(placeable, tile_pos)
-		return true
-	return false
+#@rpc("any_peer", "call_local")
+#func place_on_board_if_able(placeable: PlaceableNode, tile_pos : Vector2i = NULL_TILE) -> bool:
+	#if tile_pos == NULL_TILE:
+		#tile_pos = get_mouse_tile_pos()
+	#
+	#if tile_pos != NULL_TILE and placeable.placeable(matrix_data, terrain_tilemap.tilemap_to_matrix(tile_pos)):
+		##placeable.trigger_place_effects(matrix_data, terrain_tilemap.tilemap_to_matrix(tile_pos))
+		#create_building(placeable, tile_pos)
+		#return true
+	#return false
 
 ## Create a buildindg on a givne tilepos, data + visual
+@rpc("any_peer","call_local")
 func create_building(placeable: PlaceableNode, tile_pos : Vector2i) -> void:
 	matrix_data.add_placeable_to_tile(terrain_tilemap.tilemap_to_matrix(tile_pos), placeable)
 	terrain_tilemap.place_building_on_tile(placeable, tile_pos)
 
 ## Initial creation of terrain tiles for procgen
-func create_terrain(terrain : EnvTerrain, tile_pos : Vector2i) -> void:
+@rpc("any_peer","call_local")
+func create_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
+	#print(multiplayer.get_remote_sender_id())
+	var terrain : EnvTerrain = terrain_tilemap.env_map.getTileDatabyId(terrain_id)
 	matrix_data.add_tile(terrain_tilemap.tilemap_to_matrix(tile_pos), terrain)
-	terrain_tilemap.change_terrain_tile(terrain, tile_pos)
+	terrain_tilemap.change_terrain_tile(terrain_id, tile_pos)
 
 ## Change terrain, data + visual
-func change_terrain(terrain : EnvTerrain, tile_pos : Vector2i = NULL_TILE) -> void:
+@rpc("any_peer","call_local")
+func change_terrain(terrain_id : String, tile_pos : Vector2i = NULL_TILE) -> void:
 	if tile_pos == NULL_TILE:
 		tile_pos = get_mouse_tile_pos()
 	
+	var terrain : EnvTerrain = terrain_tilemap.env_map.getTileDatabyId(terrain_id)
+	
 	if tile_pos != NULL_TILE:
-		create_terrain(terrain, tile_pos)
+		matrix_data.change_terrain_of_tile(tile_pos, terrain)
+		terrain_tilemap.change_terrain_tile(terrain_id, tile_pos)
 
 ## Shade and unshade the individual boards that are interactable
 func highlight_interactable_board() -> void:
@@ -192,6 +216,7 @@ func highlight_interactable_board() -> void:
 		else:
 			terrain_tilemap.shade_area(start_pos, end_pos)
 
+@rpc("any_peer", "call_local")
 func remove_building(tile_pos : Vector2i = NULL_TILE) -> void:
 	if tile_pos == NULL_TILE:
 		tile_pos = get_mouse_tile_pos()

@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_l85ng")
-name_id = "Desert"
+id_name = "Desert"
 score_modifier = -1
 metadata/_custom_type_script = "uid://cfj1u165lx7jl"

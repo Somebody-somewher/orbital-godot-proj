@@ -22,3 +22,6 @@ enum CATEGORY {
 @export var is_aura : bool = false
 # hidden cards are not shown in compendium
 @export var hidden : bool = false
+
+func get_id() -> String:
+	return id_name

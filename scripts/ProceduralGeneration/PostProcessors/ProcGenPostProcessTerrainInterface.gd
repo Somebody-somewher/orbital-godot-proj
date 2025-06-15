@@ -2,5 +2,5 @@ extends Resource
 class_name ProcGenPostProcessTerrainInterface
 
 
-func process(iterator : ProcGenBoardIterator) -> void:
+func process_terrain(iterator : ProcGenBoardIterator) -> void:
 	pass
