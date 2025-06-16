@@ -53,7 +53,12 @@ func on_close_multiplayer() -> void:
 	pass
 
 func on_start_singleplayer() -> void:
+	initialize_game()
 	get_tree().change_scene_to_packed(SINGLEPLAYER)
+	
 
 func on_exit_game() -> void:
 	get_tree().quit()
+
+func initialize_game() -> void:
+	NetworkManager.reset_networking()

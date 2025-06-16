@@ -50,26 +50,27 @@ func set_up() -> void:
 ## This is run by the server to supply data to all clients
 ## Signal-activated by NetworkManager "all_clients_ready"
 func init_clients() -> void:
-	#print("INIT CLIENTS FROM ", multiplayer.get_remote_sender_id())
-	#print("INIT CLIENTS ", multiplayer.get_unique_id())
 	receive_init_data.rpc(BOARD_SIZE, BOARDS_LAYOUT, BORDER_DIM)
 	procgen_init(func(tid : String, tile_pos : Vector2i): create_terrain.rpc(tid, tile_pos) \
 	, func(tid : String, tile_pos : Vector2i): terrain_tilemap.change_border_terrain_tile.rpc(tid, tile_pos) \
 	, func(bid : String, tile_pos : Vector2i): place_on_board_if_able.rpc(bid, tile_pos) \
 	, func(bid : String, tile_pos : Vector2i): terrain_tilemap.place_fake_building.rpc(bid, tile_pos))
+	
+	# This is to mark the client as synced up
+	print(multiplayer.get_remote_sender_id())
+	NetworkManager.mark_client_ready.rpc(self.name)
 
 func procgen_init(create_terrain : Callable, create_border_tile : Callable, create_building : Callable, create_fake_building : Callable) -> void:
-	print("PROCGEN ", multiplayer.get_remote_sender_id())
 	if proc_gen != null:
 		# Procedural Generation setup
 		for i in range(BOARDS_LAYOUT.x * BOARDS_LAYOUT.y):
 				proc_gen.generate_board(create_terrain, create_building, i)
 		proc_gen.generate_border(create_border_tile, create_fake_building)
 	else:
-		var placeholder_env = terrain_tilemap.env_map.getPlaceholderTile()
+		var placeholder_id = terrain_tilemap.env_map.getPlaceholderTile().get_id()
 		for x in range(BOARD_SIZE.x * BOARDS_LAYOUT.x):
 			for y in range(BOARD_SIZE.y * BOARDS_LAYOUT.y):
-				create_terrain.rpc(placeholder_env, Vector2i(x,y))
+				create_terrain.call(placeholder_id, Vector2i(x,y))
 
 ## Params supplied by server, called by all clients
 @rpc("any_peer", "call_local")
@@ -78,7 +79,6 @@ func receive_init_data(board_size : Vector2i, board_layout : Vector2i, border_di
 	BOARDS_LAYOUT = board_layout
 	BORDER_DIM = border_dim
 	set_up()
-	print("RECIEVE ", multiplayer.get_unique_id(), " ", Time.get_time_string_from_system())
 	pass
 
 func _ready() -> void:
@@ -93,7 +93,7 @@ func _ready() -> void:
 			
 	# Client code, networkmanager collates all clients "ready" to later on send "all_clients_ready"
 	if NetworkManager.is_client():
-		NetworkManager.mark_client_ready(self)	
+		NetworkManager.mark_client_ready(self.name)	
 
 ## Called in _process to check each board is being hovered over, update the array if so
 ## In case it matters "which" board is being hovered over

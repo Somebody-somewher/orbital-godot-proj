@@ -56,14 +56,15 @@ func place_building_on_tile(building: Building, tile_pos : Vector2i) -> void:
 	#board_matrix.add_placeable_to_tile(tile_pos, placeable)
 
 @rpc("any_peer", "call_local")
-func place_fake_building(data: BuildingData, tile_pos : Vector2i) -> void:
-	if data != null:
-		var fake_placeable : Sprite2D = Sprite2D.new()
-		fake_placeable.set_texture(data.card_sprite)
-		fake_placeable.set_modulate(fake_building_colouration)
-		object.add_child(fake_placeable)
-		fake_placeable.z_index = tile_pos.y
-		fake_placeable.position = get_local_centre_of_tile(tile_pos)	
+func place_fake_building(building_id: String, tile_pos : Vector2i) -> void:
+	
+	var data : BuildingData = CardLoader.get_building_data(building_id)
+	var fake_placeable : Sprite2D = Sprite2D.new()
+	fake_placeable.set_texture(data.card_sprite)
+	fake_placeable.set_modulate(fake_building_colouration)
+	object.add_child(fake_placeable)
+	fake_placeable.z_index = tile_pos.y
+	fake_placeable.position = get_local_centre_of_tile(tile_pos)	
 
 func unshade_area(start_coords : Vector2i, end_coords : Vector2i) -> void:
 	for x in range(start_coords.x, end_coords.x + 1):

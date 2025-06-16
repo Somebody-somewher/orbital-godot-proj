@@ -26,7 +26,7 @@ func checkEnvExists(terrain_id : String) -> bool:
 	return environment_pos.has(terrain_id)
 
 func getPlaceholderTile() -> EnvTerrain:
-	return environment_data.values()[0]
+	return environment_data.get("Grass")
 
 #func getTilebyId(id : String) -> Vector2i:
 	#return environment_data.get(id).tilesheet_pos

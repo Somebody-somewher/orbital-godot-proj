@@ -64,7 +64,7 @@ func finish_drag(placing : bool):
 	if card_dragged and card_dragged is Card:
 		var card_placed : bool
 		if placing:
-			card_placed = board_ref.place_on_board_if_able(card_dragged.building)
+			card_placed = board_ref.place_on_board_if_able(card_dragged.building.data.get_id())
 		else:
 			card_placed = false
 			

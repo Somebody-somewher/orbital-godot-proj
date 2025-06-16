@@ -13,11 +13,11 @@ func _ready() -> void:
 	super._ready()
 	self.position = Vector2(get_viewport().size.x/2 - terrain_tilemap.TILE_SIZE/2, 400)
 
-func place_on_board_if_able(placeable : PlaceableNode, tile_pos : Vector2i = Vector2i(-1,-1)) -> bool:
-	var result = super.place_on_board_if_able(placeable, tile_pos)
+func place_on_board_if_able(pid : String, tile_pos : Vector2i = Vector2i(-1,-1)) -> bool:
+	var result = super.place_on_board_if_able(pid, tile_pos)
 	if result:
 		player_hand_ref.discard_hand()
-		menu_state = menu_logic_ref.select_option(menu_state, placeable.data.id_name)
+		menu_state = menu_logic_ref.select_option(menu_state, pid)
 		
 		timer.start()
 	return result

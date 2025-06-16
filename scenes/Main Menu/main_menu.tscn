@@ -81,10 +81,10 @@ script = ExtResource("9_m0e23")
 [node name="CardManager" type="Node2D" parent="." node_paths=PackedStringArray("board_ref", "player_hand_ref", "input_manager_ref", "preview_board_ref")]
 z_index = 2
 script = ExtResource("10_jl12q")
-board_ref = NodePath("../BoardManager2")
+board_ref = NodePath("../BoardManager")
 player_hand_ref = NodePath("../PlayerHand")
 input_manager_ref = NodePath("../InputManager")
-preview_board_ref = NodePath("../BoardManager2/Preview")
+preview_board_ref = NodePath("../BoardManager/Preview")
 
 [node name="TutorialCardPack" parent="CardManager" instance=ExtResource("11_26fkh")]
 material = SubResource("ShaderMaterial_flqon")
@@ -94,19 +94,19 @@ pack_sets = Array[ExtResource("13_tp8iy")]([])
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("board")]
 position = Vector2(200, 500)
 script = ExtResource("14_mdse0")
-board = NodePath("../BoardManager2/Preview")
+board = NodePath("../BoardManager/Preview")
 
-[node name="BoardManager2" parent="." instance=ExtResource("15_fa6rk")]
+[node name="BoardManager" parent="." instance=ExtResource("15_fa6rk")]
 script = ExtResource("16_bso06")
 BOARD_SIZE = Vector2i(1, 1)
 BOARDS_LAYOUT = Vector2i(1, 1)
 BORDER_DIM = Vector2i(0, 0)
 proc_gen = null
 
-[node name="Timer" type="Timer" parent="BoardManager2"]
+[node name="Timer" type="Timer" parent="BoardManager"]
 wait_time = 0.5
 one_shot = true
 
-[connection signal="timeout" from="BoardManager2/Timer" to="BoardManager2" method="_on_timer_timeout"]
+[connection signal="timeout" from="BoardManager/Timer" to="BoardManager" method="_on_timer_timeout"]
 
-[editable path="BoardManager2"]
+[editable path="BoardManager"]

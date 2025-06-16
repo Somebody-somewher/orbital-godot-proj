@@ -36,7 +36,6 @@ static func get_card_data(id : String) -> CardData:
 	return buildings_dict.get(id)
 
 static func get_display_name(id : String) -> String:
-	print(buildings_dict)
 	return buildings_dict.get(id).display_name
 
 static func get_texture(id : String) -> Texture2D:

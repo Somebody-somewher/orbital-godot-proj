@@ -7,8 +7,13 @@ var server_net : ServerNetworkManager
 
 var is_server_client : bool = true
 
+# A stupid check to see if whether we are starting from the multiplayer lobby
+# If we aren't then the default is that each debug instance is a separate game
 @export var check_lobby : String
+
+# If sync is finished, we can start normal gameplay-interactivity like camera
 var is_sync_fin : bool = false
+
 # These components have some game logic functionality
 # As such the server must have authoritative control over them
 # However, in order for the server to supply data the components
@@ -23,9 +28,10 @@ func set_up() -> void:
 	else:
 		client_net = ClientNetworkManager.new(components, client_ready_to_server)
 
-func mark_client_ready(node : Node) -> void:
+@rpc("any_peer","call_local")
+func mark_client_ready(node_name : String) -> void:
 	if client_net != null:
-		client_net.mark_ready(node)
+		client_net.mark_ready(node_name)
 	else:
 		printerr("Non-client trying to mark ready")
 
@@ -35,6 +41,16 @@ func client_ready_to_server() -> void:
 	
 func is_client() -> bool:
 	return multiplayer.get_unique_id() != 1 or is_server_client
+
+@rpc("any_peer", "call_local")
+func toggle_sync_finish() -> void:
+	is_sync_fin = !is_sync_fin
+
+@rpc("any_peer", "call_local")
+func reset_networking() -> void:
+	is_sync_fin = false
+	if server_net != null:
+		server_net.is_syncing = false
 
 func _ready() -> void:
 	## TODO: Need a better system than this
