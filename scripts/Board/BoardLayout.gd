@@ -12,11 +12,17 @@ var player_native_boards : Dictionary[int, Array]
 # the board ids represent the boards that the player can interact with
 var player_interactable_boards : Dictionary[int, Array]
 
+# Boards currently in use by players
 var used_boards : Array
+
+var _set_interactable_func : Callable
 
 var starting_player_board : Vector2i = Vector2i(1,1)
 var curr_player_board : Vector2i = starting_player_board
 
+func _init(set_interactable_func : Callable) -> void:
+	_set_interactable_func = set_interactable_func
+	
 func get_board_layout(num_players : int) -> Vector2i:
 	match num_players:
 		0:
@@ -46,7 +52,9 @@ func default_assign_board_to_player(player : PlayerInfo) -> void:
 	
 	if curr_player_board.x > BOARDS_LAYOUT.x:
 		curr_player_board.y += 1
-		curr_player_board.x = starting_player_board.x
+		curr_player_board.x = 1
+	else:
+		curr_player_board.x += 1
 	
 func set_sabo_interactable() -> void:
 	for player in player_interactable_boards.keys():
@@ -55,5 +63,7 @@ func set_sabo_interactable() -> void:
 func reset_interactable() -> void:
 	player_interactable_boards = player_native_boards
 	
-			
+func set_ui_interactable() -> void:
+	for pi in player_interactable_boards.keys():
+		_set_interactable_func.call(pi, player_interactable_boards[pi])	
 			

@@ -31,7 +31,7 @@ var boards_near_mouse : Array[bool]
 var player_board_ids : Array[int] 
 ######### These components only exist server side ########### 
 @export var proc_gen : BoardProcGenerator
-var board_layout : BoardLayout
+var board_layout_gen : BoardLayout
 ##############################################################
 
 # Called when the node enters the scene tree for the first time.
@@ -46,6 +46,9 @@ func set_up() -> void:
 		# Tilemaps setup
 		previewer_tilemap.set_up(object, matrix_data, BORDER_DIM)
 		terrain_tilemap.set_up(object, BORDER_DIM)
+		
+		var playable_area = matrix_data.get_playable_area_coords()
+		terrain_tilemap.shade_area(playable_area[0], playable_area[1])
 
 ## This is run by the server to supply data to all clients
 ## Signal-activated by NetworkManager "all_clients_ready"
@@ -55,9 +58,8 @@ func init_clients() -> void:
 	, func(tid : String, tile_pos : Vector2i): terrain_tilemap.change_border_terrain_tile.rpc(tid, tile_pos) \
 	, func(bid : String, tile_pos : Vector2i): place_on_board_if_able.rpc(bid, tile_pos) \
 	, func(bid : String, tile_pos : Vector2i): terrain_tilemap.place_fake_building.rpc(bid, tile_pos))
-	
+	board_layout_gen.set_ui_interactable()
 	# This is to mark the client as synced up
-	print(multiplayer.get_remote_sender_id())
 	NetworkManager.mark_client_ready.rpc(self.name)
 
 func procgen_init(create_terrain : Callable, create_border_tile : Callable, create_building : Callable, create_fake_building : Callable) -> void:
@@ -87,7 +89,10 @@ func _ready() -> void:
 	if multiplayer.is_server():
 		# Signal telling server that all clients are ready to receive info
 		NetworkManager.connect("all_clients_ready", init_clients)
-		BOARDS_LAYOUT = BoardLayout.new().get_board_layout(PlayerManager.getNumPlayers())
+		board_layout_gen = BoardLayout.new(func(player_id : int, boards : Array): \
+		set_interactable_board.rpc_id(player_id, boards))
+		
+		BOARDS_LAYOUT = board_layout_gen.get_board_layout(PlayerManager.getNumPlayers())
 		if proc_gen != null:
 			proc_gen.set_up(BOARD_SIZE, BOARDS_LAYOUT, BORDER_DIM)
 			
@@ -134,7 +139,7 @@ func _process(delta: float) -> void:
 	if curr_tile_pos != prev_tile_pos: #and matrix_data.get_boardcoords_of_tilepos(terrain_tilemap.tilemap_to_matrix(curr_tile_pos)) != []:
 		Signalbus.emit_signal("mouse_enter_interactable_board_tile")
 		prev_tile_pos = curr_tile_pos
-	highlight_interactable_board()
+	#highlight_interactable_board()
 	
 	pass
 
@@ -205,17 +210,26 @@ func change_terrain(terrain_id : String, tile_pos : Vector2i = NULL_TILE) -> voi
 		terrain_tilemap.change_terrain_tile(terrain_id, tile_pos)
 
 ## Shade and unshade the individual boards that are interactable
-func highlight_interactable_board() -> void:
-	var start_pos : Vector2i 
-	var end_pos : Vector2i
-	for b in len(matrix_data.boards_coords):
-		start_pos = terrain_tilemap.matrix_to_tilepos(matrix_data.boards_coords[b][0])
-		end_pos = terrain_tilemap.matrix_to_tilepos(matrix_data.boards_coords[b][1])
-		if boards_near_mouse[b] and matrix_data.interactable[b]:
-			terrain_tilemap.unshade_area(start_pos, end_pos)
-		else:
-			terrain_tilemap.shade_area(start_pos, end_pos)
-
+#func highlight_interactable_board() -> void:
+	#var start_pos : Vector2i 
+	#var end_pos : Vector2i
+	#for b in len(matrix_data.boards_coords):
+		#start_pos = terrain_tilemap.matrix_to_tilepos(matrix_data.boards_coords[b][0])
+		#end_pos = terrain_tilemap.matrix_to_tilepos(matrix_data.boards_coords[b][1])
+		#if boards_near_mouse[b] and matrix_data.interactable[b]:
+			#terrain_tilemap.unshade_area(start_pos, end_pos)
+		#else:
+			#terrain_tilemap.shade_area(start_pos, end_pos)
+			
+## Shade and unshade the individual boards that are interactable
+@rpc("any_peer","call_local")
+func set_interactable_board(boards: Array) -> void:
+	var board_coords 
+	for b in boards:
+		board_coords = matrix_data.set_board_interactable(b)
+		terrain_tilemap.unshade_area(board_coords[0] \
+			, board_coords[1])
+		
 @rpc("any_peer", "call_local")
 func remove_building(tile_pos : Vector2i = NULL_TILE) -> void:
 	if tile_pos == NULL_TILE:

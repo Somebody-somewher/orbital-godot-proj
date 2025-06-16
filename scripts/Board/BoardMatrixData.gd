@@ -20,8 +20,10 @@ func _init(board_size : int, boards_layout : Vector2i) -> void:
 	
 	# Init matrix
 	board_matrix = Array()
+	interactable = []
 	board_matrix.resize(board_size * boards_layout.x)
-		
+	interactable.resize(board_size * boards_layout.x)	
+	
 	for i in range(board_size * boards_layout.x):
 		board_matrix[i] = Array()
 		board_matrix[i].resize(board_size * boards_layout.y)
@@ -32,21 +34,12 @@ func _init(board_size : int, boards_layout : Vector2i) -> void:
 	var board_id: int = 0
 	for y in range(boards_layout.y):
 		for x in range(boards_layout.x):
-			start_pos = Vector2i(x  * board_size, y * board_size)
+			start_pos = Vector2i(x * board_size, y * board_size)
 			end_pos = start_pos + Vector2i(board_size,board_size) - Vector2i(1,1)
 			
 			boards_coords.append([start_pos, end_pos])
 			board_id += 1
-			
-			#######################################
-			##TODO: only for testing, remove later
-			if x + y % 2 == 1:
-				interactable.append(false)
-			else:
-				interactable.append(true)
-			#######################################
-			
-			board_id += 1
+		
 	
 ## Create a board tile for each cell in the matrix (passed indirectly to procgen via board_manager)
 func add_tile(tilePos : Vector2i, terrain_env : EnvTerrain) -> void:
@@ -108,3 +101,8 @@ func get_boardcoords_of_tilepos(tilepos : Vector2i) -> Array:
 			return boards_coords[i]
 	return []
 	
+func set_board_interactable(boardlayout_pos : Vector2i) -> Array:
+	assert(boardlayout_pos.x <= _boards_layout.x and boardlayout_pos.y <= _boards_layout.y)
+	var index : int = boardlayout_pos.x + (boardlayout_pos.y - 1) * _boards_layout.x - 1
+	interactable[index] = true
+	return boards_coords[index]

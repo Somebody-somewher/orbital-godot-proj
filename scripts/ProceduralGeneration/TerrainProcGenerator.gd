@@ -28,6 +28,7 @@ func make_matrix() -> Array:
 	return matrix
 
 func post_process(procgen_iterator : ProcGenBoardIterator) -> void:
+	print(post_processors)
 	for p in post_processors:
 		p.process_terrain(procgen_iterator)
 

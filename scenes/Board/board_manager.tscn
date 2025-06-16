@@ -22,6 +22,7 @@ object = NodePath("../Building_Manager")
 
 [node name="Darken" type="TileMapLayer" parent="."]
 modulate = Color(0.168235, 0.184866, 0.176556, 0.352941)
+z_index = 5
 
 [node name="TerrainActual" type="TileMapLayer" parent="." node_paths=PackedStringArray("darken_tilemap", "object")]
 z_index = -1

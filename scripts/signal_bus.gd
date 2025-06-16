@@ -25,7 +25,7 @@ signal mouse_enter_board()
 # For Pathfinding for boats, Floodfill for castle
 signal run_search_on_board(c : Callable)
 
-#signal set_score_preview(tile_pos : Array[Vector2i], scores : Array[int])
+signal set_score_preview(tile_pos : Array[Vector2i], scores : Array[int])
 
 # COMPENDIUM
 signal show_card_information(card_id : String)

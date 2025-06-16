@@ -67,11 +67,15 @@ func place_fake_building(building_id: String, tile_pos : Vector2i) -> void:
 	fake_placeable.position = get_local_centre_of_tile(tile_pos)	
 
 func unshade_area(start_coords : Vector2i, end_coords : Vector2i) -> void:
+	start_coords = matrix_to_tilepos(start_coords)
+	end_coords = matrix_to_tilepos(end_coords)
 	for x in range(start_coords.x, end_coords.x + 1):
 		for y in range(start_coords.y, end_coords.y + 1):
 			darken_tilemap.erase_cell(Vector2i(x,y))
 
 func shade_area(start_coords : Vector2i, end_coords : Vector2i) -> void:
+	start_coords = matrix_to_tilepos(start_coords)
+	end_coords = matrix_to_tilepos(end_coords)
 	for x in range(start_coords.x, end_coords.x + 1):
 		for y in range(start_coords.y, end_coords.y + 1):
 			darken_tilemap.set_cell(Vector2i(x,y), 1, Vector2(0,0), 0)

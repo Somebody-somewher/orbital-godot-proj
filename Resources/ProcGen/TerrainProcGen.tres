@@ -10,7 +10,7 @@
 script = ExtResource("2_pa1sh")
 terrain_noise_threshold = Array[float]([-0.2, 0.3, 0.7])
 terrains = Array[ExtResource("3_xywe2")]([ExtResource("4_btrxs"), ExtResource("5_km5d8"), ExtResource("6_j5vv5")])
-post_processors = null
+post_processors = []
 terrain_noise_freq = 0.0583
 _gen_size = Vector2i(0, 0)
 metadata/_custom_type_script = "uid://binsf4y58rdey"
