@@ -34,7 +34,6 @@ func shift_to_hand() -> void:
 	destroyed = true
 	for set_card in card_set:
 		
-		
 		set_card.reparent(card_manager)
 		card_manager.connect_card_signals(set_card)
 		player_hand.add_to_hand(set_card)
