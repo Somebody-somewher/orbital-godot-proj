@@ -53,6 +53,8 @@ func open_pack() -> void:
 func select_option(set_option : CardSet) -> void:
 	if set_option in pack_arr:
 		set_option.shift_to_hand()
+		
+		# Remove choices from the card pack options
 		pack_arr.erase(set_option)
 		choices -= 1
 		if choices == 0:

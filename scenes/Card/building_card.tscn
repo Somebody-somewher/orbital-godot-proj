@@ -37,6 +37,3 @@ texture = null
 
 [node name="CardImage" parent="." index="1"]
 material = SubResource("ShaderMaterial_r1n0u")
-
-[node name="GhostImage" parent="." index="2"]
-texture = null

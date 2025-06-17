@@ -7,7 +7,7 @@ func _ready() -> void:
 	display_card("apple")
 
 func display_card(id : String) -> void:
-	var data : CardData = CardLoaderr.get_card_data(id)
+	var data : CardData = CardLoader.get_card_data(id)
 	if data:
 		$BaseInfo/CardBack/CardImage.texture = data.card_sprite
 		$BaseInfo/MarginContainer/VBoxContainer/HBoxContainer/CardName.text = data.display_name

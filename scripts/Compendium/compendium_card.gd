@@ -7,7 +7,7 @@ var search_name : String
 static var button_scene : PackedScene = preload("res://scenes/Compendium/compendium_card.tscn")
 
 func _ready() -> void:
-	var data = CardLoaderr.get_card_data(id_name)
+	var data = CardLoader.get_card_data(id_name)
 	$CardImage.texture = data.card_sprite
 	search_name =  data.display_name
 	$Label.text = data.display_name

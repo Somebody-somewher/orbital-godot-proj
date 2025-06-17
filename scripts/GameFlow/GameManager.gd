@@ -13,6 +13,6 @@ func _ready() -> void:
 	AudioManager.play_bgm("plains")
 
 func _pick_round(round_id : int, round_total : int) -> void:
-	if round_id == 1:
-		card_pack_manager.create_pack()
+	#if round_id == 1:
+		#card_pack_manager.create_pack()
 	round_manager.start_round()

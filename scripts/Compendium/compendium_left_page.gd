@@ -5,7 +5,7 @@ var matches : Array[CompendiumCard] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	for b_data in CardLoaderr.buildings:
+	for b_data in CardLoader.buildings:
 		if !b_data.hidden:
 			var new_child = CompendiumCard.new_button(b_data.id_name)
 			$ScrollContainer/GridContainer.add_child(new_child)
