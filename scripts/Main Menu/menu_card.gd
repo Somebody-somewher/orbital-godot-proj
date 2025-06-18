@@ -1,4 +1,4 @@
-extends Card
+extends PlaceableCard
 class_name MenuCard
 
 # Called when the node enters the scene tree for the first time.
@@ -8,7 +8,6 @@ func _ready() -> void:
 #for constructor
 static var menu_card_scene: PackedScene = load("res://scenes/Main Menu/menu_card.tscn")
 
-var building : Building
 
 # factory constructor
 static func new_card(card_name : String) -> Card:
@@ -34,3 +33,12 @@ func swap_to_effect(scale_by: Vector2) -> void:
 	building.visible = true
 	building.get_node("Area2D/CollisionShape2D").disabled = false
 	queue_free()
+
+func highlight_card(on : bool, tweening : Tween):
+	if tweening and tweening.is_running():
+		await tweening.finished
+	tweening = get_tree().create_tween()
+	if on:
+		tweening.parallel().tween_property(self, "scale", Vector2(1.15, 1.15), 0.08)
+	else:
+		tweening.parallel().tween_property(self, "scale", Vector2.ONE, 0.08)
