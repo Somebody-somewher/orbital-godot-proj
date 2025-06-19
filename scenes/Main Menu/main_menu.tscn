@@ -77,6 +77,7 @@ layout_mode = 1
 [node name="SingleplayerMenu" parent="Menus" instance=ExtResource("8_jo2uk")]
 layout_mode = 1
 script = ExtResource("9_m0e23")
+board_size_grp = null
 
 [node name="CardManager" type="Node2D" parent="." node_paths=PackedStringArray("board_ref", "player_hand_ref", "input_manager_ref", "preview_board_ref")]
 z_index = 2
