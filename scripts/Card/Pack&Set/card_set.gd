@@ -14,6 +14,9 @@ var player_hand = get_tree().root.get_node("GameManager/PlayerHand")
 
 var card_scene = preload("res://scenes/Card/Card.tscn")
 
+func set_up() -> void:
+	pass
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var z_count = 100

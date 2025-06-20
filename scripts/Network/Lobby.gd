@@ -63,7 +63,7 @@ func _on_peer_connected(id : int)  -> void:
 func _register_player(newPlayerName : String, newPlayerId : int = multiplayer.get_remote_sender_id()):
 	print(newPlayerName)
 	# PlayerManager belongs to the current player is not universal
-	PlayerManager.addPlayer(newPlayerId, newPlayerName)
+	PlayerManager.addPlayer(PlayerInfo.generateUUID(newPlayerName), newPlayerId, newPlayerName)
 
 # This signal is emitted on every remaining peer when one disconnects.
 func _on_peer_disconnected(id : int)  -> void:

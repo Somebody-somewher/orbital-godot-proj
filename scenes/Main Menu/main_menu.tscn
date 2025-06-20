@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dyaq4288p4ik4" path="res://scenes/Main Menu/tutorial_card_pack.tscn" id="11_26fkh"]
 [ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="12_10p5i"]
 [ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="13_tp8iy"]
-[ext_resource type="Script" uid="uid://c5fouuecjsld6" path="res://scenes/camera.gd" id="14_mdse0"]
+[ext_resource type="Script" uid="uid://c5fouuecjsld6" path="res://scripts/camera.gd" id="14_mdse0"]
 [ext_resource type="PackedScene" uid="uid://bxiy7ajwus31g" path="res://scenes/Board/board_manager.tscn" id="15_fa6rk"]
 [ext_resource type="Script" uid="uid://duu3dx0n1l1gg" path="res://scripts/Main Menu/menu_board.gd" id="16_bso06"]
 

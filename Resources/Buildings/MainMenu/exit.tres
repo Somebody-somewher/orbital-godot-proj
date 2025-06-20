@@ -19,6 +19,7 @@ metadata/_custom_type_script = "uid://wuau4rxg1ej4"
 script = ExtResource("6_i6www")
 layer = 1
 nonplaceable_terrain = Array[ExtResource("3_a6bpj")]([ExtResource("4_nhxe2")])
+foil_probability = 0
 preview_event = ExtResource("5_emapj")
 place_conditions = Array[ExtResource("3_j7jxg")]([SubResource("Resource_ydt0e")])
 place_effects = Array[ExtResource("1_emapj")]([])

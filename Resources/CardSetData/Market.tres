@@ -8,4 +8,5 @@ set_name = "Market"
 cards = Dictionary[String, int]({
 "market": 3
 })
+is_multiplayer = false
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

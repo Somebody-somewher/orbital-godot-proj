@@ -8,7 +8,6 @@ extends Node
 var buildings : Array[BuildingData] = []
 var buildings_dict = {}
 
-
 #TODO: Would like to deprecate this if thatsok. CardPackManagerBase handles this job now
 # CardSetData
 #@export var sets_grp : ResourceGroup
@@ -16,7 +15,7 @@ var buildings_dict = {}
 #var cardset_dict = {}
 #static var events : Array[Event] = []
 
-var card_set_manager
+var server_card_memory : ServerNetworkManager
 
 #for constructors
 var building_card_scene: PackedScene = preload("res://scenes/Card/building_card.tscn")
@@ -39,6 +38,9 @@ func _ready() -> void:
 	#for cs in cardset_types:
 		#if cs:
 			#cardset_dict.get_or_add(cs.get_id(), cs)
+
+func create_building_card(building_id : String) -> BuildingCard:
+	return 
 
 func get_building_data(id : String) -> BuildingData:
 	return buildings_dict.get(id).duplicate(true)

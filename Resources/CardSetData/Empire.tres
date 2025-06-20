@@ -9,4 +9,5 @@ cards = Dictionary[String, int]({
 "castle": 1,
 "tower": 4
 })
+is_multiplayer = false
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

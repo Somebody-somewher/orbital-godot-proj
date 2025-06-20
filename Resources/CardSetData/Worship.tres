@@ -4,9 +4,10 @@
 
 [resource]
 script = ExtResource("1_voxn0")
-set_name = "Wheat"
+set_name = "Worship"
 cards = Dictionary[String, int]({
 "obelisk": 2,
 "temple": 1
 })
+is_multiplayer = false
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

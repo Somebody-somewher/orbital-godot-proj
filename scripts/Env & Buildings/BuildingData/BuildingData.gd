@@ -6,3 +6,4 @@ class_name BuildingData
 @export_category("Building Properties")
 @export var layer : int = 1
 @export var nonplaceable_terrain : Array[EnvTerrain] = [preload("res://Resources/EnvTerrain/TerrainTiles/Water.tres")]
+@export var foil_probability : int

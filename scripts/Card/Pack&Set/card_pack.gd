@@ -20,7 +20,6 @@ func _ready() -> void:
 	get_node("AnimationPlayer").play("fall animation")
 	
 # factory constructor
-# TODO: pass the placeabale_data as the param instead?
 static func new_pack(setdata : Array[CardSetData]) -> CardPack:
 	var return_pack : CardPack = card_pack.instantiate()
 	return_pack.pack_sets = setdata
@@ -43,6 +42,7 @@ func open_pack() -> void:
 	var set_angle = 2 * PI / pack_size
 	var set_radius_from_pack = 100
 	for i in range(pack_size):
+		# Creation of cards
 		var new_set = card_sets.instantiate()
 		var set_data = pack_sets[i]
 		new_set.card_dict = set_data.cards

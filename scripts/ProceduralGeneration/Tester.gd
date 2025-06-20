@@ -3,13 +3,24 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var matrix : Array[Array] = [[0, 1, 2, 3, 4, 5, 6, 7], [8, 9, 10, 11, 12, 13, 14, 15], [16, 17, 18, 19, 20, 21, 22, 23], [24, 25, 26, 27, 28, 29, 30, 31], [32, 33, 34, 35, 36, 37, 38, 39], [40, 41, 42, 43, 44, 45, 46, 47]]
+	var stupid : Array = [[{"test":2, "beep":1, "fool":4}, {"fake":2, "pool":1, "zool":2}], [{"test":2, "beep":1, "fool":4}, {"fake":1, "pool":1, "zool":1}]]
 	#print(matrix)
-	var z = ProcGenBoardIterator.new(matrix, Vector2i(2,2), Vector2i(2,2), Vector2i(2,1))
-	while z.next_board():
-		z.foreach_tile_in_board(print)
-		print("NEXT BOARD\n")
-	z.foreach_border(print)
+	var z = CardAttributeGenerator.new()
+	_get_cards_for_pack(stupid, z.generate_cardpackstream(stupid))
 
+
+func _get_cards_for_pack(cardpacks : Array, attribute_numbers : Array) -> void:
+	var output :  = []
+	var cardpack_out : Array = []
+	var cardset_out : Array = []
 	
-	pass # Replace with function body.
+	for pack in range(len(cardpacks)):
+		cardpack_out = Array()
+		for cset in range(len(cardpacks[pack])):
+			cardset_out = Array()
+			for card in range(len(cardpacks[pack][cset].keys())):
+				for count in range(cardpacks[pack][cset][cardpacks[pack][cset].keys()[card]]):
+					cardset_out.append(cardpacks[pack][cset].keys()[card] + " " + str(attribute_numbers[pack][cset][count]))
+			cardpack_out.append(cardset_out)
+		output.append(cardpack_out)
+	print(output)

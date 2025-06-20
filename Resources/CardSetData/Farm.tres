@@ -10,4 +10,5 @@ cards = Dictionary[String, int]({
 "mill": 1,
 "wheat_field": 2
 })
+is_multiplayer = false
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

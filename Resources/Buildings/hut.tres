@@ -13,6 +13,7 @@
 script = ExtResource("6_4osjj")
 layer = 1
 nonplaceable_terrain = Array[ExtResource("3_mqpox")]([ExtResource("4_ulnxp")])
+foil_probability = 0
 preview_event = ExtResource("5_hl324")
 place_conditions = Array[ExtResource("3_nwtha")]([ExtResource("4_mqpox")])
 place_effects = Array[ExtResource("1_hl324")]([])

@@ -7,22 +7,22 @@ signal mouse_off
 #for constructor
 static var card_scene: PackedScene = load("res://scenes/Card/Card.tscn")
 
-# for differentiating player vs eligible board to be played on
-var owner_id : int
+
 
 #animation vars for player hand
 var deck_angle = 0
 var deck_pos
 var deck_scale := 1.0
 
+# name to find references in database
+var id_name : String = "cute_dummy"
+
 ##shader stuff
 @onready
 var sprite_ref = self
+
 var dissolving = false
 var dissolve_value = 1
-
-# name to find references in database
-var id_name : String = "cute_dummy"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

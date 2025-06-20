@@ -6,4 +6,5 @@
 script = ExtResource("1_h01vu")
 set_name = ""
 cards = Dictionary[String, int]({})
+is_multiplayer = false
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

@@ -1,12 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://blqu1sa8dhqkk"]
+[gd_scene load_steps=3 format=3 uid="uid://blqu1sa8dhqkk"]
 
-[ext_resource type="Script" uid="uid://c1cwfvnqf5cci" path="res://scripts/GameFlow/CardLoader.gd" id="1_1rqqy"]
+[ext_resource type="Script" uid="uid://c1cwfvnqf5cci" path="res://scripts/Card/CardDatabase/CardLoader.gd" id="1_1rqqy"]
 [ext_resource type="Resource" uid="uid://dg6oe12i637ef" path="res://Resources/ResourceGrps/BuildingGrp.tres" id="2_ioctc"]
-[ext_resource type="Resource" uid="uid://bjli4jlyc3byr" path="res://Resources/ResourceGrps/EventGrp.tres" id="3_k601j"]
-[ext_resource type="Resource" uid="uid://dsnjlsa6s1cki" path="res://Resources/CardSetGrp.tres" id="4_rbqvw"]
 
 [node name="Node" type="Node"]
 script = ExtResource("1_1rqqy")
-event_grp = ExtResource("3_k601j")
 building_grp = ExtResource("2_ioctc")
-sets_grp = ExtResource("4_rbqvw")
