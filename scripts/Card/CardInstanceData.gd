@@ -19,3 +19,5 @@ func get_data() -> CardData:
 
 func get_data_instance_id() -> String:
 	return data_instance_id
+	
+ 

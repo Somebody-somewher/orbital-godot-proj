@@ -1,8 +1,7 @@
 extends Node2D
 class_name CardSet
 
-var card_dict : Dictionary[String, int] = {"dummy" : 1}
-var card_set : Array[Card] = [] ##set of actual objects
+var cards_in_set : Array[Card]
 var destroyed : bool = false
 
 @onready
@@ -14,20 +13,18 @@ var player_hand = get_tree().root.get_node("GameManager/PlayerHand")
 
 var card_scene = preload("res://scenes/Card/Card.tscn")
 
-func set_up() -> void:
+func set_up(card_set : Array) -> void:
+	cards_in_set.assign(card_set)
 	pass
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var z_count = 100
-	for key in card_dict: ##card_type is of form [str, int]
-		for i in range(card_dict.get(key)):
-			var new_card = BuildingCard.new_card(key)
-			new_card.z_index = z_count
-			new_card.get_node("Area2D/CollisionShape2D").disabled = true
-			card_set.insert(card_set.size(), new_card)
-			add_child(new_card)
-			z_count += 2
+	for card_instance in cards_in_set: ##card_type is of form [CardInstance]
+		card_instance.z_index = z_count
+		card_instance.get_node("Area2D/CollisionShape2D").disabled = true
+		add_child(card_instance)
+		z_count += 2
 			
 	pass
 
@@ -35,8 +32,7 @@ func _ready() -> void:
 func shift_to_hand() -> void:
 	self.get_node("Area2D/CollisionShape2D").disabled = true
 	destroyed = true
-	for set_card in card_set:
-		
+	for set_card in cards_in_set:
 		set_card.reparent(card_manager)
 		card_manager.connect_card_signals(set_card)
 		player_hand.add_to_hand(set_card)
@@ -51,19 +47,22 @@ func _on_area_2d_mouse_exited() -> void:
 
 # fans out cards
 func highlight_set(on : bool) -> void:
-	for i in range(card_set.size()):
+	for i in range(cards_in_set.size()):
 		if on:
-			var fan_angle = clamp(card_set.size() * 0.2, 0, PI/2)
-			var new_tilt = 0 if card_set.size() == 1 else (i - (float(card_set.size()) - 1)/2) * fan_angle / (card_set.size() - 1)
+			var fan_angle = clamp(cards_in_set.size() * 0.2, 0, PI/2)
+			var new_tilt = 0 if cards_in_set.size() == 1 else (i - (float(cards_in_set.size()) - 1)/2) * fan_angle / (cards_in_set.size() - 1)
 			var x = 100 * sin(new_tilt);
 			var y = -60 * cos(new_tilt) + 30;
-			animate_card(card_set[i], new_tilt, 1.1, Vector2(x, y))
+			animate_card(cards_in_set[i], new_tilt, 1.1, Vector2(x, y))
 		else:
-			animate_card(card_set[i], 0, 1, Vector2(0,0))
-
+			animate_card(cards_in_set[i], 0, 1, Vector2(0,0))
 
 func animate_card(card : Card, new_angle : float, new_scale : float, pos : Vector2) -> void:
 	var tween = get_tree().create_tween()
 	tween.parallel().tween_property(card, "position", pos, 0.05)
 	tween.parallel().tween_property(card, "rotation", new_angle, 0.1)
 	tween.parallel().tween_property(card, "scale", Vector2(new_scale, new_scale), 0.1)
+
+func dissolve_set() -> void:
+	for unchosen_card in cards_in_set:
+		unchosen_card.dissolve_card()

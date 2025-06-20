@@ -20,5 +20,6 @@ func create_pack(sets : Array[Array]) -> void:
 	pass
 
 func query_server_for_cards() -> void:
-	print(cardset_allocator.get_packs())
-	CardLoader.get_cards_for_pack(cardset_allocator.get_packs(), cardset_allocator.get_player_num_options())
+	var cardpacks = cardset_allocator.get_packs()
+	print("GETTIN PACKSET", cardpacks)
+	CardLoader.get_cards_for_pack(cardpacks, cardset_allocator.get_player_num_options())

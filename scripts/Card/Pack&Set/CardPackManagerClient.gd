@@ -12,8 +12,14 @@ func _ready() -> void:
 	NetworkManager.mark_client_ready(self.name)
 	pass # Replace with function body.
 #
-func create_pack(sets : Array[Array]) -> void:
-	print(sets)
+func create_pack(packs : Array[Array]) -> void:
+	var card_pack : CardPack
+	print(packs)
+	for p in packs:
+		card_pack = CardPack.new_pack(p)
+		card_pack.set_position(Vector2i(0,0))
+		spawn_node.add_child(card_pack)
+		
 	print("TEST")
 	#var card_pack = CardPack.new_pack(sets)
 	#card_pack.set_position(Vector2i(0,0))

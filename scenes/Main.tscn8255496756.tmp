@@ -45,7 +45,6 @@ preview_board_ref = NodePath("../BoardManager/Preview")
 z_index = 99
 material = SubResource("ShaderMaterial_mwfav")
 position = Vector2(1268, 1274)
-pack_sets = null
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("board")]
 script = ExtResource("6_3p2gp")

@@ -45,7 +45,6 @@ preview_board_ref = NodePath("../BoardManager/Preview")
 z_index = 99
 material = SubResource("ShaderMaterial_mwfav")
 position = Vector2(1268, 1274)
-pack_sets = null
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("board")]
 script = ExtResource("6_3p2gp")
@@ -119,6 +118,7 @@ script = ExtResource("11_wp0k4")
 [node name="CardPackManager" type="Node" parent="." node_paths=PackedStringArray("spawn_node")]
 script = ExtResource("13_cvmbd")
 spawn_node = NodePath("../CardManager")
+remove_used_sets = null
 cardset_grp = ExtResource("14_ft6cd")
 
 [node name="AudioManager" parent="." instance=ExtResource("16_cvmbd")]

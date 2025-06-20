@@ -142,7 +142,7 @@ func highlight_effects_when_hovering_card() -> void :
 
 ## position as global position to spawn card
 func spawn_card(id_name : String, pos : Vector2) -> void:
-	var new_card = BuildingCard.new_card(id_name)
+	var new_card = CardLoader.create_card(id_name)
 	new_card.global_position = pos
 	self.add_child(new_card)
 	new_card.connect_to_card_manager(self)

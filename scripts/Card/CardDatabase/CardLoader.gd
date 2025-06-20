@@ -1,11 +1,13 @@
 extends Node
 # https://github.com/derkork/godot-resource-groups
 
+@export var card_scene : PackedScene
+
 var card_attribute_gen : CardAttributeGenerator
 
 @export_category("BuildingCard Creation")
-
 # BuildingData
+@export var buildingcard_img : Texture2D
 @export var building_grp : ResourceGroup
 var buildings : Array[BuildingData] = []
 var buildings_dict = {}
@@ -50,7 +52,7 @@ func get_cards_for_pack(cardpacks : Array[Array], player_options_num : Dictionar
 		print("NUMSTREAM ", numstream); \
 		print("TRUNCATED CARDPACKS ", truncate_pack(cardpacks, player_options_num[pi.getPlayerUUID()])); \
 		print("TRUNCATED NUMSTREAM ", truncate_pack(numstream, player_options_num[pi.getPlayerUUID()])); \
-		_get_cards_for_pack.rpc(truncate_pack(cardpacks,player_options_num[pi.getPlayerUUID()]), \
+		_get_cards_for_pack.rpc_id(pi.getPlayerId(), truncate_pack(cardpacks,player_options_num[pi.getPlayerUUID()]), \
 			truncate_pack(numstream, player_options_num[pi.getPlayerUUID()])))
 
 func truncate_pack(packs : Array[Array], truncate_size : int) -> Array[Array]:
@@ -63,7 +65,7 @@ func truncate_pack(packs : Array[Array], truncate_size : int) -> Array[Array]:
 # uuids : Array[int]
 @rpc("any_peer","call_local")
 func _get_cards_for_pack(cardpacks : Array, attribute_numbers : Array) -> void:
-	var output :  = []
+	var output : Array[Array] = []
 	var cardpack_out : Array = []
 	var cardset_out : Array = []
 	
@@ -73,17 +75,17 @@ func _get_cards_for_pack(cardpacks : Array, attribute_numbers : Array) -> void:
 			cardset_out = Array()
 			for card in range(len(cardpacks[pack][cset].keys())):
 				for count in range(cardpacks[pack][cset][cardpacks[pack][cset].keys()[card]]):
-					cardset_out.append(create_card_instance(cardpacks[pack][cset].keys()[card] \
+					cardset_out.append(create_card(cardpacks[pack][cset].keys()[card] \
 						, attribute_numbers[pack][cset][count]))
 			cardpack_out.append(cardset_out)
 		output.append(cardpack_out)
 
 	if multiplayer.is_server():
 		var remote_uuid = PlayerManager.getUUID_from_PeerID(multiplayer.get_remote_sender_id())
-		server_card_memory.store_player_cardpack_options(remote_uuid,cardpack_out)
+		server_card_memory.store_player_cardpack_options(remote_uuid,output)
 	
 	if NetworkManager.is_client():
-		create_pack.call(cardpack_out)
+		create_pack.call(output)
 
 func create_card_instance(data_id : String, attribute_number : int) -> CardInstanceData:
 	# Add more to this dict for diff types of card-datas
@@ -94,6 +96,20 @@ func create_card_instance(data_id : String, attribute_number : int) -> CardInsta
 	else:
 		return null
 
+# Add to scene must be done by manually by node calling this method
+@rpc("any_peer","call_local")
+func create_card(data_id : String, attribute_number : int = -1) -> Card:
+	var data_instance : CardInstanceData
+	var card : Card
+	if attribute_number == -1:
+		attribute_number = card_attribute_gen.generate_random_attribute()
+	data_instance = create_card_instance(data_id, attribute_number)
+	if data_instance is BuildingInstanceData:
+		card = card_scene.instantiate()
+		card.set_up(data_instance, buildingcard_img)
+		return card
+	return null
+	
 func create_building_card(building_id : String) -> BuildingCard:
 	return 
 

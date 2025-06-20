@@ -4,18 +4,15 @@ class_name Card
 signal mouse_on
 signal mouse_off
 
+@export var card_image : Texture2D
+
 #for constructor
 static var card_scene: PackedScene = load("res://scenes/Card/Card.tscn")
-
-
 
 #animation vars for player hand
 var deck_angle = 0
 var deck_pos
 var deck_scale := 1.0
-
-# name to find references in database
-var id_name : String = "cute_dummy"
 
 ##shader stuff
 @onready
@@ -28,16 +25,12 @@ var dissolve_value = 1
 func _ready() -> void:
 	pass
 
-# factory constructor
-static func new_card(card_name : String) -> Card:
-	var return_card : Card = card_scene.instantiate()
-	var card_image_path = str("res://assets/card_sprites/blank_card.png")
-	var entity_image_path = str("res://assets/entity_sprites/"+ card_name + ".png")
-	return_card.get_node("CardImage").texture = load(card_image_path)
-	return_card.get_node("EntityImage").texture = load(entity_image_path)
-	return_card.get_node("Texts/CardName").text = CardLoader.get_display_name(card_name)
-	return_card.id_name = card_name
-	return return_card
+# factory constructor, to override
+func set_up(cardinstance_data : CardInstanceData, cardimg_bg : Texture2D) -> void:
+	get_node("CardImage").texture = cardimg_bg
+	get_node("EntityImage").texture = cardinstance_data.get_data().card_sprite
+	get_node("Texts/CardName").text = cardinstance_data.get_data().display_name
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

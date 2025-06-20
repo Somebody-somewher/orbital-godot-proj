@@ -1,7 +1,7 @@
 extends CardPack
 class_name MenuPack
 
-var menu_card := ["singleplayer", "multiplayer", "settings", "exit"]
+var menu_cards := ["singleplayer", "multiplayer", "settings", "exit"]
 
 @onready
 var card_manager = get_tree().root.get_node("MainMenu/CardManager")
@@ -18,8 +18,8 @@ func _ready() -> void:
 
 func open_pack() -> void:
 	self.get_node("Area2D/CollisionShape2D").disabled = true
-	for card in menu_card:
-		var new_card = MenuCard.new_card(card)
+	for card_id in menu_cards:
+		var new_card = CardLoader.create_card(card_id)
 		new_card.position = position
 		card_manager.add_child(new_card)
 		player_hand.add_to_hand(new_card)

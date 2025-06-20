@@ -1,7 +1,7 @@
 extends Node2D
 class_name CardPack
 
-@export var pack_sets : Array[CardSetData]# = ["Village", "Housing", "Worship", "Farm"] ##array of sets
+@export var pack_sets : Array[Array]##array of sets
 var pack_arr = []
 var choices := 1
 
@@ -20,9 +20,15 @@ func _ready() -> void:
 	get_node("AnimationPlayer").play("fall animation")
 	
 # factory constructor
-static func new_pack(setdata : Array[CardSetData]) -> CardPack:
+#static func new_pack(setdata : Array[CardSetData]) -> CardPack:
+	#var return_pack : CardPack = card_pack.instantiate()
+	#return_pack.pack_sets = setdata
+	#return_pack.z_index = 50
+	#return return_pack
+
+static func new_pack(setdata : Array) -> CardPack:
 	var return_pack : CardPack = card_pack.instantiate()
-	return_pack.pack_sets = setdata
+	return_pack.pack_sets.assign(setdata)
 	return_pack.z_index = 50
 	return return_pack
 
@@ -44,8 +50,7 @@ func open_pack() -> void:
 	for i in range(pack_size):
 		# Creation of cards
 		var new_set = card_sets.instantiate()
-		var set_data = pack_sets[i]
-		new_set.card_dict = set_data.cards
+		new_set.set_up(pack_sets[i])
 		new_set.global_position = Vector2(200 * cos(set_angle* i), 200 * sin(set_angle* i))
 		pack_arr.insert(pack_arr.size(), new_set)
 		add_child(new_set)
@@ -61,10 +66,10 @@ func select_option(set_option : CardSet) -> void:
 			destroy_pack()
 
 func destroy_pack() -> void:
-	for sets in pack_arr:
-		sets.get_node("Area2D/CollisionShape2D").disabled = true
-		for unchosen_card in sets.card_set:
-			unchosen_card.dissolve_card()
+	for cardset in pack_arr:
+		cardset.get_node("Area2D/CollisionShape2D").disabled = true
+		cardset.dissolve_set()
+
 	dissolving = true
 
 func _on_area_2d_mouse_entered() -> void:

@@ -36,3 +36,6 @@ func generate_cardpackstream(cardpacks : Array) -> Array:
 		output.append(cardpacks_out)
 		
 	return output
+
+func generate_random_attribute() -> int:
+	return randi_range(0, 100)

@@ -15,6 +15,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func create_pack(sets : Array[CardSetData]) -> void:
-	var card_pack = CardPack.new_pack(CardLoader.get_random_set(4))
-	card_pack.set_position(Vector2i(0,0))
-	spawn_node.add_child(card_pack)
+	pass
+	#var card_pack = CardPack.new_pack(CardLoader.get_random_set(4))
+	#card_pack.set_position(Vector2i(0,0))
+	#spawn_node.add_child(card_pack)
