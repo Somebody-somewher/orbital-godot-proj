@@ -7,6 +7,7 @@ var foil : bool
 
 func _init(data : BuildingData, card_attr : int):
 	super._init(data)
+	self.data = data
 	if card_attr > 90:
 		foil = true
 

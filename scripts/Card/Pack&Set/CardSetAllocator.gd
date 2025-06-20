@@ -21,34 +21,36 @@ func _init(sets_grp : ResourceGroup, remove_prev : bool) -> void:
 	
 	for cardset in cardset_options:
 		if cardset:
-			print(cardset.resource_path)
-			print(cardset.set_name)
 			avail_sets.get_or_add(cardset.get_id(), cardset)
 			
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo) : \
-		num_options_per_player.get_or_add(pi.getPlayerId(), DEFAULT_NUM_OPTIONS))
-
+		num_options_per_player.get_or_add(pi.getPlayerUUID(), DEFAULT_NUM_OPTIONS))
 	
 func get_random_set(n : int) -> Array[CardSetData]:
 	var size = avail_sets.size()
 	var arr : Array[CardSetData]
 	for i in range(n):
-		arr.append(avail_sets[avail_sets.keys()[randi() % size]].get_id())
+		arr.append(avail_sets[avail_sets.keys()[randi() % size]])
 	return arr
 
 # This returns an Array of CardData ids
 func get_sets() -> Array[Dictionary]:
-	var cardset_ids : Array[CardSetData] = get_random_set(max(num_options_per_player.values()))
+	var max_options = DEFAULT_NUM_OPTIONS
+	for player in num_options_per_player.keys():
+		max_options = max(max_options, num_options_per_player[player])
+	
+	var cardsets : Array[CardSetData] = get_random_set(max_options)
 	
 	# Card counts of every card, each element in the array is a cardset
 	var output : Array[Dictionary] = []
-	for cardset in cardset_ids:
+	for cardset in cardsets:
 		output.append(cardset.cards)
 	return output
 
 func get_packs() -> Array[Array]:
 	var output : Array[Array] = []
-	PlayerManager.forEachPlayer(func(): output.append(get_sets()))
+	PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
+		output.append(get_sets()))
 	return output
 
 func get_player_num_options() -> Dictionary[String,int]:

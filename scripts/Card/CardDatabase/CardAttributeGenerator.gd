@@ -12,27 +12,27 @@ func _init() -> void:
 func generate_cardpackstream(cardpacks : Array) -> Array:
 	var cardpacks_out : Array = []
 	var cardsets_out : Array = []
-	var cards_out : Array
+	var output : Array[Array] = []
 	
 	var is_special_pack := false
 	
 	for cardpack in cardpacks:
-		cardsets_out = Array()
+		cardpacks_out = Array()
 		for card_set in cardpack:
 			if randi_range(0, 100) >= 99:
 				is_special_pack = true
-			cards_out = Array()
+			cardsets_out = Array()
 			for card in card_set.keys():
 				
 				for count in range(card_set[card]):
 					if !is_special_pack:
-						cards_out.append(randi_range(0,100))
+						cardsets_out.append(randi_range(0,100))
 					else:
-						cards_out.append(100)
+						cardsets_out.append(100)
 			
-			cardsets_out.append(cards_out)
+			cardpacks_out.append(cardsets_out)
 			is_special_pack = false
 	
-		cardpacks_out.append(cardsets_out)
+		output.append(cardpacks_out)
 		
-	return cardpacks_out
+	return output

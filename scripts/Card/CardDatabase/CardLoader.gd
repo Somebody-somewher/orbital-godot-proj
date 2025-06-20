@@ -30,6 +30,7 @@ func _ready() -> void:
 
 	if multiplayer.is_server():
 		card_attribute_gen = CardAttributeGenerator.new()
+		server_card_memory = ServerCardManager.new()
 	#NetworkManager.mark_client_ready(self.name)
 
 func setup_pack_creator(c : Callable) -> void:
@@ -37,16 +38,19 @@ func setup_pack_creator(c : Callable) -> void:
 
 # Called by CardPack to obtain data for each Cardset 
 func get_cards_for_pack(cardpacks : Array[Array], player_options_num : Dictionary[String, int]) -> void:
-	# Get card_set allocated to player
-	var remote_sender : int = multiplayer.get_remote_sender_id()
-	
 	# Card counts of every card, each element in the array is a cardset
-	var numstream : Array = card_attribute_gen.generate_cardpackstream(cardpacks)
-
+	var numstream : Array[Array] = card_attribute_gen.generate_cardpackstream(cardpacks)
+	print(player_options_num)
 	# Get attributes for cards
 	var total_count : int = 0
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
-		_get_cards_for_pack.rpc(pi.getPlayerId(), truncate_pack(cardpacks,player_options_num[pi.getPlayerUUID()]), \
+		print(pi.getPlayerName(), " ", pi.getPlayerId()); \
+		print("PLAYER OPTIONS ", player_options_num); \
+		print("CARDPACKS ", cardpacks); \
+		print("NUMSTREAM ", numstream); \
+		print("TRUNCATED CARDPACKS ", truncate_pack(cardpacks, player_options_num[pi.getPlayerUUID()])); \
+		print("TRUNCATED NUMSTREAM ", truncate_pack(numstream, player_options_num[pi.getPlayerUUID()])); \
+		_get_cards_for_pack.rpc(truncate_pack(cardpacks,player_options_num[pi.getPlayerUUID()]), \
 			truncate_pack(numstream, player_options_num[pi.getPlayerUUID()])))
 
 func truncate_pack(packs : Array[Array], truncate_size : int) -> Array[Array]:
@@ -76,12 +80,12 @@ func _get_cards_for_pack(cardpacks : Array, attribute_numbers : Array) -> void:
 
 	if multiplayer.is_server():
 		var remote_uuid = PlayerManager.getUUID_from_PeerID(multiplayer.get_remote_sender_id())
-		server_card_memory.store_player_cardpack_options(remote_uuid,cardpacks)
+		server_card_memory.store_player_cardpack_options(remote_uuid,cardpack_out)
 	
 	if NetworkManager.is_client():
-		create_pack.call(cardpacks)
+		create_pack.call(cardpack_out)
 
-func create_card_instance(data_id : int, attribute_number : int) -> CardInstanceData:
+func create_card_instance(data_id : String, attribute_number : int) -> CardInstanceData:
 	# Add more to this dict for diff types of card-datas
 	var data : CardData = buildings_dict.get(data_id, null)
 	

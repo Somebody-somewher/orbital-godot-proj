@@ -10,8 +10,8 @@ var _boards_interactable : Array[bool] = []
 
 func _init(uuid : String, id : int, pName : String) -> void:
 	self.uuid = uuid
-	pid = id
-	pName = pName 
+	self.pid = id
+	self.pName = pName 
  
 func getPlayerId() -> int:
 	return pid

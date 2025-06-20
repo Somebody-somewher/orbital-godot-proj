@@ -14,7 +14,7 @@ func _ready() -> void:
 #
 func create_pack(sets : Array[Array]) -> void:
 	print(sets)
-	pass
+	print("TEST")
 	#var card_pack = CardPack.new_pack(sets)
 	#card_pack.set_position(Vector2i(0,0))
 	#spawn_node.add_child(card_pack)
