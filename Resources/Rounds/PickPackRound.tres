@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RoundChoosePackState" load_steps=3 format=3 uid="uid://bpxbgyo3a0vug"]
+
+[ext_resource type="Script" uid="uid://dysyr6lfwkyjf" path="res://scripts/GameFlow/RoundLogic/RoundChoosePackState.gd" id="1_c1neq"]
+[ext_resource type="Resource" uid="uid://dq22va4ixm4fk" path="res://Resources/Rounds/BuildRound.tres" id="1_xa7xi"]
+
+[resource]
+script = ExtResource("1_c1neq")
+next_state = ExtResource("1_xa7xi")
+state_id = "pick_pack"
+time = 10.0
+metadata/_custom_type_script = "uid://dysyr6lfwkyjf"

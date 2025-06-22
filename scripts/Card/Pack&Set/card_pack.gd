@@ -1,9 +1,13 @@
 extends Node2D
 class_name CardPack
 
+@export var cardpackmanager : CardPackManagerBase
+
 @export var pack_sets : Array[Array]##array of sets
 var pack_arr = []
 var choices := 1
+var pack_id : int
+var choose_pack_func : Callable
 
 ##logic stuff
 var card_sets = preload("res://scenes/Card/card_set.tscn")
@@ -18,6 +22,9 @@ var dissolve_value = 1
 
 func _ready() -> void:
 	get_node("AnimationPlayer").play("fall animation")
+	if choose_pack_func.is_null():
+		print(choose_pack_func)
+		choose_pack_func = cardpackmanager.attempt_choose_pack
 	
 # factory constructor
 #static func new_pack(setdata : Array[CardSetData]) -> CardPack:
@@ -26,10 +33,12 @@ func _ready() -> void:
 	#return_pack.z_index = 50
 	#return return_pack
 
-static func new_pack(setdata : Array) -> CardPack:
+static func new_pack(setdata : Array, pack_id : int, choose_pack_func : Callable) -> CardPack:
 	var return_pack : CardPack = card_pack.instantiate()
 	return_pack.pack_sets.assign(setdata)
 	return_pack.z_index = 50
+	return_pack.pack_id = pack_id
+	return_pack.choose_pack_func = choose_pack_func
 	return return_pack
 
 
@@ -50,10 +59,13 @@ func open_pack() -> void:
 	for i in range(pack_size):
 		# Creation of cards
 		var new_set = card_sets.instantiate()
-		new_set.set_up(pack_sets[i])
+		new_set.set_up(pack_sets[i], i)
 		new_set.global_position = Vector2(200 * cos(set_angle* i), 200 * sin(set_angle* i))
 		pack_arr.insert(pack_arr.size(), new_set)
 		add_child(new_set)
+	
+	## TODO: Change this to be activated via a diff method:
+	choose_pack_func.call(pack_id)
 
 func select_option(set_option : CardSet) -> void:
 	if set_option in pack_arr:

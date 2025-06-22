@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://klvllydgi5tw"]
+
+[ext_resource type="Script" uid="uid://bc4th2e5h0hj8" path="res://scripts/GameFlow/RoundLogic/RoundCounter.gd" id="1_jwvfs"]
+
+[node name="RoundManager" type="Node"]
+script = ExtResource("1_jwvfs")

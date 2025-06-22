@@ -1,5 +1,4 @@
 extends Node
-# https://github.com/derkork/godot-resource-groups
 
 @export var card_scene : PackedScene
 
@@ -14,8 +13,9 @@ var buildings_dict = {}
 
 # Provided by CardPackManager
 var create_pack : Callable
+var add_to_hand : Callable
 
-var server_card_memory : ServerCardManager
+var server_card_memory : ServerCardMemory
 
 #for constructors
 var building_card_scene: PackedScene = preload("res://scenes/Card/building_card.tscn")
@@ -32,26 +32,28 @@ func _ready() -> void:
 
 	if multiplayer.is_server():
 		card_attribute_gen = CardAttributeGenerator.new()
-		server_card_memory = ServerCardManager.new()
+		server_card_memory = ServerCardMemory.new()
 	#NetworkManager.mark_client_ready(self.name)
 
 func setup_pack_creator(c : Callable) -> void:
 	create_pack = c
 
+func setup_add_to_hand(c : Callable) -> void:
+	add_to_hand = c
+
 # Called by CardPack to obtain data for each Cardset 
 func get_cards_for_pack(cardpacks : Array[Array], player_options_num : Dictionary[String, int]) -> void:
 	# Card counts of every card, each element in the array is a cardset
 	var numstream : Array[Array] = card_attribute_gen.generate_cardpackstream(cardpacks)
-	print(player_options_num)
 	# Get attributes for cards
 	var total_count : int = 0
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
-		print(pi.getPlayerName(), " ", pi.getPlayerId()); \
-		print("PLAYER OPTIONS ", player_options_num); \
-		print("CARDPACKS ", cardpacks); \
-		print("NUMSTREAM ", numstream); \
-		print("TRUNCATED CARDPACKS ", truncate_pack(cardpacks, player_options_num[pi.getPlayerUUID()])); \
-		print("TRUNCATED NUMSTREAM ", truncate_pack(numstream, player_options_num[pi.getPlayerUUID()])); \
+		#print(pi.getPlayerName(), " ", pi.getPlayerId()); \
+		#print("PLAYER OPTIONS ", player_options_num); \
+		#print("CARDPACKS ", cardpacks); \
+		#print("NUMSTREAM ", numstream); \
+		#print("TRUNCATED CARDPACKS ", truncate_pack(cardpacks, player_options_num[pi.getPlayerUUID()])); \
+		#print("TRUNCATED NUMSTREAM ", truncate_pack(numstream, player_options_num[pi.getPlayerUUID()])); \
 		_get_cards_for_pack.rpc_id(pi.getPlayerId(), truncate_pack(cardpacks,player_options_num[pi.getPlayerUUID()]), \
 			truncate_pack(numstream, player_options_num[pi.getPlayerUUID()])))
 
@@ -87,7 +89,10 @@ func _get_cards_for_pack(cardpacks : Array, attribute_numbers : Array) -> void:
 	if NetworkManager.is_client():
 		create_pack.call(output)
 
-func create_card_instance(data_id : String, attribute_number : int) -> CardInstanceData:
+func create_data_instance(data_id : String, attribute_number : int = 0) -> CardInstanceData:
+	if attribute_number == -1:
+		attribute_number = card_attribute_gen.generate_random_attribute()
+	
 	# Add more to this dict for diff types of card-datas
 	var data : CardData = buildings_dict.get(data_id, null)
 	
@@ -98,12 +103,10 @@ func create_card_instance(data_id : String, attribute_number : int) -> CardInsta
 
 # Add to scene must be done by manually by node calling this method
 @rpc("any_peer","call_local")
-func create_card(data_id : String, attribute_number : int = -1) -> Card:
+func create_card(data_id : String, attribute_number : int = 0) -> Card:
 	var data_instance : CardInstanceData
 	var card : Card
-	if attribute_number == -1:
-		attribute_number = card_attribute_gen.generate_random_attribute()
-	data_instance = create_card_instance(data_id, attribute_number)
+	data_instance = create_data_instance(data_id, attribute_number)
 	if data_instance is BuildingInstanceData:
 		card = card_scene.instantiate()
 		card.set_up(data_instance, buildingcard_img)
@@ -124,6 +127,7 @@ func get_display_name(id : String) -> String:
 
 func get_texture(id : String) -> Texture2D:
 	return buildings_dict.get(id).card_sprite
+
 
 #func get_random_set(n : int) -> Array[CardSetData]:
 	#var size = cardset_types.size()

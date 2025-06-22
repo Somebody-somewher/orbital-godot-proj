@@ -17,6 +17,11 @@ signal update_score_ui(score : int)
 # sends to board to spawn card
 signal spawn_card(id : String, pos : Vector2)
 
+# CARDPACK
+signal server_create_packs()
+signal server_pack_choosing_end()
+signal select_pack(pack_id : int)
+
 # Supply board_tile_positions_data with [[tile_pos], [tile_data]]  
 signal get_tile_pos_from_AOE(tile_pos : Vector2i, aoe_tiles : Array[Vector2i], board_tile_positions_data : Array[Vector2i])
 signal mouse_enter_interactable_board_tile()

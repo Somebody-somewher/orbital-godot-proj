@@ -17,7 +17,7 @@ static func increment_card_count() -> int:
 func get_data() -> CardData:
 	return null	
 
-func get_data_instance_id() -> String:
+func get_id() -> String:
 	return data_instance_id
 	
  

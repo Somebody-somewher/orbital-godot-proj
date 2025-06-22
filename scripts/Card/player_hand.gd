@@ -1,6 +1,8 @@
 extends Node2D
 class_name PlayerHand
 
+@export var cardmanager : CardManager
+
 var centre_x
 var og_screen_size : Vector2
 

@@ -2,7 +2,7 @@ extends Node2D
 class_name PlaceableNode
 # abstract class handling functions of card object before they are placed
 
-@export var data : PlaceableData
+var data_instance : CardInstanceData
 
 # As defined in card_database
 @export var layer : int # for stacking and rendering
@@ -30,15 +30,15 @@ func trigger_event_arr(board : BoardMatrixData, arr : Array[BoardEvent], tile_po
 		event.trigger(board, tile_pos, self)
 
 func trigger_place_effects(board : BoardMatrixData, tile_pos : Vector2i) -> void:
-	for event in data.place_effects:
+	for event in data_instance.get_data().place_effects:
 		event.trigger(board, tile_pos, self)
 
 func trigger_post_place_effects(board : BoardMatrixData, tile_pos : Vector2i) -> void:
-	for event in data.post_place_effects:
+	for event in data_instance.get_data().post_place_effects:
 		event.trigger(board, tile_pos, self)
 
 func placeable(board : BoardMatrixData, pos : Vector2i) -> bool:
-	return data.placeable(board, pos)
+	return data_instance.get_data().placeable(board, pos)
 
 func destroy() -> void:
 	# TODO trigger destory effects here

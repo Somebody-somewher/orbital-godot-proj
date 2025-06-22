@@ -3,22 +3,27 @@ class_name CardSet
 
 var cards_in_set : Array[Card]
 var destroyed : bool = false
+var set_id : int 
+var card_pack : int
 
-@onready
-var card_manager = get_tree().root.get_node("GameManager/CardManager")
-@onready
-var player_hand = get_tree().root.get_node("GameManager/PlayerHand")
+var card_manager
+var player_hand
 #@onready
 #var input_manager = get_tree().root.get_node("GameManager/InputManager")
 
 var card_scene = preload("res://scenes/Card/Card.tscn")
 
-func set_up(card_set : Array) -> void:
+func set_up(card_set : Array, set_id : int) -> void:
 	cards_in_set.assign(card_set)
+	self.set_id = set_id
 	pass
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print(get_tree().root.get_node("GameManager/CardManager"))
+	card_manager = get_tree().root.get_node("GameManager/CardManager")
+	player_hand = get_tree().root.get_node("GameManager/PlayerHand")
+	
 	var z_count = 100
 	for card_instance in cards_in_set: ##card_type is of form [CardInstance]
 		card_instance.z_index = z_count
@@ -66,3 +71,12 @@ func animate_card(card : Card, new_angle : float, new_scale : float, pos : Vecto
 func dissolve_set() -> void:
 	for unchosen_card in cards_in_set:
 		unchosen_card.dissolve_card()
+
+func _shift_to_hand(num_to_shift : int) -> void:
+	var set_card : Card 
+	for index in range(num_to_shift):
+		set_card = cards_in_set[index]
+		set_card.reparent(card_manager)
+		card_manager.connect_card_signals(set_card)
+		player_hand.add_to_hand(set_card)
+		set_card.get_node("Area2D/CollisionShape2D").disabled = false

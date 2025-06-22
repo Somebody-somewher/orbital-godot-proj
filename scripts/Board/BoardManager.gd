@@ -29,6 +29,7 @@ var prev_tile_pos : Vector2i = Vector2i(-1,-1)
 var boards_near_mouse : Array[bool]
 
 var player_board_ids : Array[int] 
+
 ######### These components only exist server side ########### 
 @export var proc_gen : BoardProcGenerator
 var board_layout_gen : BoardLayout
@@ -162,9 +163,9 @@ func place_on_board_if_able(placeable_id: String, tile_pos : Vector2i = NULL_TIL
 	
 	if tile_pos != NULL_TILE and pd.placeable(matrix_data, terrain_tilemap.tilemap_to_matrix(tile_pos)):
 		#placeable.trigger_place_effects(matrix_data, tile_mouse_pos - BORDER_DIM)
-		if pd is BuildingData:
-			var building = Building.new_building_frm_data(pd as BuildingData)
-			create_building(building, tile_pos)
+		#if pd is BuildingData:
+			#var building = Building.new_building_frm_data(pd as BuildingData)
+			#create_building(building, tile_pos)
 			#terrain_tilemap.place_building_on_tile(building, tile_pos)
 			#matrix_data.add_placeable_to_tile(terrain_tilemap.tilemap_to_matrix(tile_pos), building)
 		return true
