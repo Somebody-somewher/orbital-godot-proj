@@ -1,0 +1,689 @@
+[gd_scene load_steps=26 format=3 uid="uid://do48ita2qa5w3"]
+
+[ext_resource type="Script" uid="uid://qkqxxbklqyym" path="res://scripts/Main Menu/singleplayer_menu.gd" id="1_wq4iw"]
+[ext_resource type="ButtonGroup" uid="uid://dggq5rjphxq68" path="res://Resources/MainMenu Resources/board_size_buttons.tres" id="2_7x6hk"]
+[ext_resource type="FontFile" uid="uid://bw124sa6qjoe5" path="res://assets/fonts/Pixel Game.otf" id="3_ddh73"]
+[ext_resource type="FontFile" uid="uid://v66tkdbnak7b" path="res://assets/fonts/friendlyscribbles.ttf" id="4_8evcp"]
+[ext_resource type="StyleBox" uid="uid://btig115l18rn6" path="res://shader/option_panel.tres" id="5_ntsm0"]
+[ext_resource type="StyleBox" uid="uid://wwxkjlermjyr" path="res://shader/tab_selected.tres" id="6_2qqq0"]
+[ext_resource type="StyleBox" uid="uid://bwwdbs88vfrrs" path="res://shader/tab_unselected.tres" id="7_bvfn0"]
+[ext_resource type="Theme" uid="uid://b1iiejjh6n8br" path="res://shader/option_label.tres" id="8_104dt"]
+[ext_resource type="Texture2D" uid="uid://bcqwv18qvcd8i" path="res://shader/empty_img.tres" id="9_ce0d5"]
+[ext_resource type="StyleBox" uid="uid://dy5mgthdnoj4v" path="res://shader/slider_right.tres" id="10_bp5v2"]
+[ext_resource type="StyleBox" uid="uid://b5fugh2mkpmer" path="res://shader/slider_left.tres" id="11_dv87g"]
+[ext_resource type="StyleBox" uid="uid://7h5h2anuij77" path="res://shader/checkbox_pressed_hover.tres" id="12_drbay"]
+[ext_resource type="StyleBox" uid="uid://bi46thjlrf4y6" path="res://shader/checkbox_hover.tres" id="13_0vo05"]
+[ext_resource type="StyleBox" uid="uid://1cxawgy4e87i" path="res://shader/checkbox_pressed.tres" id="14_wts86"]
+[ext_resource type="StyleBox" uid="uid://bxer07gmhuctd" path="res://shader/checkbox_normal.tres" id="15_hynke"]
+[ext_resource type="StyleBox" uid="uid://djajkbveub13x" path="res://shader/tab_hover.tres" id="16_j607q"]
+[ext_resource type="StyleBox" uid="uid://cvfgbrmlywkdm" path="res://shader/button_hovered.tres" id="17_08ecq"]
+[ext_resource type="StyleBox" uid="uid://gytvjmrfo5o1" path="res://shader/button_pressed.tres" id="18_k16ul"]
+[ext_resource type="StyleBox" uid="uid://qd1csl7ycp6a" path="res://shader/button_normal.tres" id="19_xyjaq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ginu3"]
+content_margin_left = 24.0
+content_margin_top = 24.0
+content_margin_right = 24.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0.778775, 0.71613, 1)
+border_color = Color(0.968627, 0.905882, 0.745098, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o0u30"]
+bg_color = Color(0, 0.623529, 0.572549, 1)
+border_width_left = 7
+border_width_bottom = 19
+border_color = Color(0, 0.32549, 0.4, 1)
+corner_radius_top_left = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Animation" id="Animation_1d4sf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title/VBoxContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_1t40g"]
+resource_name = "enter"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title/VBoxContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.234325, 0.3),
+"transitions": PackedFloat32Array(2.07053, 0.450625, 1),
+"update": 0,
+"values": [Vector2(0, -900), Vector2(0, 30), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_c2ct2"]
+resource_name = "exit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title/VBoxContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -900)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1d4sf"]
+_data = {
+&"RESET": SubResource("Animation_1d4sf"),
+&"enter": SubResource("Animation_1t40g"),
+&"exit": SubResource("Animation_c2ct2")
+}
+
+[node name="SingleplayerMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_wq4iw")
+board_size_grp = ExtResource("2_7x6hk")
+
+[node name="Title" type="Control" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Title"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+
+[node name="Separator" type="Control" parent="Title/VBoxContainer"]
+layout_mode = 2
+
+[node name="GameTitle" type="Label" parent="Title/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_shadow_color = Color(0.221331, 0.419319, 0.580994, 1)
+theme_override_constants/shadow_offset_x = 8
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 35
+theme_override_constants/shadow_outline_size = 55
+theme_override_fonts/font = ExtResource("3_ddh73")
+theme_override_font_sizes/font_size = 180
+text = "singleplayer"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SettingsTabs" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+anchors_preset = 0
+offset_right = 1600.0
+offset_bottom = 900.0
+
+[node name="LeftTab" type="Control" parent="SettingsTabs"]
+z_index = 2
+layout_mode = 1
+anchor_right = 0.4
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TabContainer" type="TabContainer" parent="SettingsTabs/LeftTab"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.25
+anchor_right = 1.0
+anchor_bottom = 0.85
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_unselected_color = Color(0, 0.32549, 0.4, 1)
+theme_override_colors/font_hovered_color = Color(0, 0.32549, 0.4, 1)
+theme_override_colors/font_selected_color = Color(0.968627, 0.905882, 0.745098, 1)
+theme_override_constants/side_margin = 17
+theme_override_fonts/font = ExtResource("4_8evcp")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/panel = ExtResource("5_ntsm0")
+theme_override_styles/tab_selected = ExtResource("6_2qqq0")
+theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_ginu3")
+theme_override_styles/tab_unselected = ExtResource("7_bvfn0")
+tab_alignment = 2
+current_tab = 0
+tab_focus_mode = 0
+
+[node name="Round Settings" type="TabBar" parent="SettingsTabs/LeftTab/TabContainer"]
+layout_mode = 2
+tab_alignment = 1
+metadata/_tab_index = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/LeftTab/TabContainer/Round Settings"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 75
+
+[node name="RoundsBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 17
+
+[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/RoundsBox"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme = ExtResource("8_104dt")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "No. of 
+Rounds:"
+
+[node name="HSlider" type="HSlider" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/RoundsBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_icons/grabber = ExtResource("9_ce0d5")
+theme_override_icons/grabber_highlight = ExtResource("9_ce0d5")
+theme_override_icons/grabber_disabled = ExtResource("9_ce0d5")
+theme_override_styles/slider = ExtResource("10_bp5v2")
+theme_override_styles/grabber_area = ExtResource("11_dv87g")
+theme_override_styles/grabber_area_highlight = ExtResource("11_dv87g")
+
+[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/RoundsBox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("8_104dt")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "2"
+
+[node name="AuraFeqBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 17
+
+[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/AuraFeqBox"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme = ExtResource("8_104dt")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "Aura freq:"
+
+[node name="HSlider" type="HSlider" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/AuraFeqBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_icons/grabber = ExtResource("9_ce0d5")
+theme_override_icons/grabber_highlight = ExtResource("9_ce0d5")
+theme_override_icons/grabber_disabled = ExtResource("9_ce0d5")
+theme_override_styles/slider = ExtResource("10_bp5v2")
+theme_override_styles/grabber_area = ExtResource("11_dv87g")
+theme_override_styles/grabber_area_highlight = ExtResource("11_dv87g")
+
+[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/AuraFeqBox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("8_104dt")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "never"
+
+[node name="SaboBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/SaboBox"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("8_104dt")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "Sabotages:"
+
+[node name="Button" type="Button" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/SaboBox"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/hover_pressed = ExtResource("12_drbay")
+theme_override_styles/hover = ExtResource("13_0vo05")
+theme_override_styles/pressed = ExtResource("14_wts86")
+theme_override_styles/normal = ExtResource("15_hynke")
+toggle_mode = true
+
+[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/SaboBox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("8_104dt")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "Off"
+
+[node name="Difficulty" type="TabBar" parent="SettingsTabs/LeftTab/TabContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 1
+tab_alignment = 1
+metadata/_tab_index = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/LeftTab/TabContainer/Difficulty"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 75
+
+[node name="PointScaleBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 17
+
+[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer/PointScaleBox"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme = ExtResource("8_104dt")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "Point scaling:"
+
+[node name="HSlider" type="HSlider" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer/PointScaleBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_icons/grabber = ExtResource("9_ce0d5")
+theme_override_icons/grabber_highlight = ExtResource("9_ce0d5")
+theme_override_icons/grabber_disabled = ExtResource("9_ce0d5")
+theme_override_styles/slider = ExtResource("10_bp5v2")
+theme_override_styles/grabber_area = ExtResource("11_dv87g")
+theme_override_styles/grabber_area_highlight = ExtResource("11_dv87g")
+value = 50.0
+
+[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer/PointScaleBox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("8_104dt")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "1x"
+
+[node name="ThreshholdBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 17
+
+[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer/ThreshholdBox"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("8_104dt")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "Point Goal
+Scaling:"
+
+[node name="HSlider" type="HSlider" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer/ThreshholdBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_icons/grabber = ExtResource("9_ce0d5")
+theme_override_icons/grabber_highlight = ExtResource("9_ce0d5")
+theme_override_icons/grabber_disabled = ExtResource("9_ce0d5")
+theme_override_styles/slider = ExtResource("10_bp5v2")
+theme_override_styles/grabber_area = ExtResource("11_dv87g")
+theme_override_styles/grabber_area_highlight = ExtResource("11_dv87g")
+value = 50.0
+
+[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer/ThreshholdBox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("8_104dt")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "1x"
+
+[node name="RightTab" type="Control" parent="SettingsTabs"]
+z_index = 2
+layout_mode = 1
+anchor_left = 0.6
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -6.10352e-05
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="TabContainer" type="TabContainer" parent="SettingsTabs/RightTab"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.25
+anchor_right = 1.0
+anchor_bottom = 0.85
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_unselected_color = Color(0, 0.32549, 0.4, 1)
+theme_override_colors/font_hovered_color = Color(0, 0.32549, 0.4, 1)
+theme_override_colors/font_selected_color = Color(0.968627, 0.905882, 0.745098, 1)
+theme_override_constants/side_margin = 19
+theme_override_fonts/font = ExtResource("4_8evcp")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/panel = SubResource("StyleBoxFlat_o0u30")
+theme_override_styles/tab_selected = ExtResource("6_2qqq0")
+theme_override_styles/tab_hovered = ExtResource("16_j607q")
+theme_override_styles/tab_unselected = ExtResource("7_bvfn0")
+current_tab = 0
+tab_focus_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Generation" type="TabBar" parent="SettingsTabs/RightTab/TabContainer"]
+layout_mode = 2
+mouse_filter = 1
+tab_alignment = 1
+metadata/_tab_index = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/RightTab/TabContainer/Generation"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 75
+
+[node name="BoardSizeBox" type="HBoxContainer" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 17
+
+[node name="Label" type="Label" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("8_104dt")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "Board Size:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="8" type="Button" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_colors/font_hover_pressed_color = Color(0.984314, 0.94902, 0.866667, 1)
+theme_override_colors/font_hover_color = Color(0.983527, 0.950464, 0.865413, 1)
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+theme_override_colors/font_pressed_color = Color(0.968627, 0.905882, 0.745098, 1)
+theme_override_fonts/font = ExtResource("4_8evcp")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/hover = ExtResource("17_08ecq")
+theme_override_styles/pressed = ExtResource("18_k16ul")
+theme_override_styles/normal = ExtResource("19_xyjaq")
+toggle_mode = true
+button_pressed = true
+button_group = ExtResource("2_7x6hk")
+text = "8x8"
+
+[node name="16" type="Button" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_colors/font_hover_pressed_color = Color(0.984314, 0.94902, 0.866667, 1)
+theme_override_colors/font_hover_color = Color(0.983527, 0.950464, 0.865413, 1)
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+theme_override_colors/font_pressed_color = Color(0.968627, 0.905882, 0.745098, 1)
+theme_override_fonts/font = ExtResource("4_8evcp")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/hover = ExtResource("17_08ecq")
+theme_override_styles/pressed = ExtResource("18_k16ul")
+theme_override_styles/normal = ExtResource("19_xyjaq")
+toggle_mode = true
+button_group = ExtResource("2_7x6hk")
+text = "16x16"
+
+[node name="32" type="Button" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_colors/font_hover_pressed_color = Color(0.984314, 0.94902, 0.866667, 1)
+theme_override_colors/font_hover_color = Color(0.983527, 0.950464, 0.865413, 1)
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+theme_override_colors/font_pressed_color = Color(0.968627, 0.905882, 0.745098, 1)
+theme_override_fonts/font = ExtResource("4_8evcp")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/hover = ExtResource("17_08ecq")
+theme_override_styles/pressed = ExtResource("18_k16ul")
+theme_override_styles/normal = ExtResource("19_xyjaq")
+toggle_mode = true
+button_group = ExtResource("2_7x6hk")
+text = "32x32"
+
+[node name="TerrainBox" type="HBoxContainer" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 17
+
+[node name="Label" type="Label" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/TerrainBox"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("8_104dt")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "Terrain Types:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/TerrainBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="grass" type="Button" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/TerrainBox/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_colors/font_hover_pressed_color = Color(0.984314, 0.94902, 0.866667, 1)
+theme_override_colors/font_hover_color = Color(0.983527, 0.950464, 0.865413, 1)
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+theme_override_colors/font_pressed_color = Color(0.968627, 0.905882, 0.745098, 1)
+theme_override_fonts/font = ExtResource("4_8evcp")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/hover = ExtResource("17_08ecq")
+theme_override_styles/pressed = ExtResource("18_k16ul")
+theme_override_styles/normal = ExtResource("19_xyjaq")
+toggle_mode = true
+button_pressed = true
+text = "Grass"
+
+[node name="water" type="Button" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/TerrainBox/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_colors/font_hover_pressed_color = Color(0.984314, 0.94902, 0.866667, 1)
+theme_override_colors/font_hover_color = Color(0.983527, 0.950464, 0.865413, 1)
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+theme_override_colors/font_pressed_color = Color(0.968627, 0.905882, 0.745098, 1)
+theme_override_fonts/font = ExtResource("4_8evcp")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/hover = ExtResource("17_08ecq")
+theme_override_styles/pressed = ExtResource("18_k16ul")
+theme_override_styles/normal = ExtResource("19_xyjaq")
+toggle_mode = true
+button_pressed = true
+text = "Water"
+
+[node name="sand" type="Button" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/TerrainBox/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_colors/font_hover_pressed_color = Color(0.984314, 0.94902, 0.866667, 1)
+theme_override_colors/font_hover_color = Color(0.983527, 0.950464, 0.865413, 1)
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+theme_override_colors/font_pressed_color = Color(0.968627, 0.905882, 0.745098, 1)
+theme_override_fonts/font = ExtResource("4_8evcp")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/hover = ExtResource("17_08ecq")
+theme_override_styles/pressed = ExtResource("18_k16ul")
+theme_override_styles/normal = ExtResource("19_xyjaq")
+toggle_mode = true
+button_pressed = true
+text = "Sand"
+
+[node name="SpawnableBox" type="HBoxContainer" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/SpawnableBox"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("8_104dt")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "Spawnables:"
+
+[node name="Button" type="Button" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/SpawnableBox"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/hover_pressed = ExtResource("12_drbay")
+theme_override_styles/hover = ExtResource("13_0vo05")
+theme_override_styles/pressed = ExtResource("14_wts86")
+theme_override_styles/normal = ExtResource("15_hynke")
+toggle_mode = true
+button_pressed = true
+
+[node name="Label2" type="Label" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/SpawnableBox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("8_104dt")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "On"
+
+[node name="Accessiblity" type="TabBar" parent="SettingsTabs/RightTab/TabContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 1
+tab_alignment = 1
+metadata/_tab_index = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/RightTab/TabContainer/Accessiblity"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/RightTab/TabContainer/Accessiblity/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 75
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_1d4sf")
+}
+
+[connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/RoundsBox/HSlider" to="." method="_on_round_slider_value_changed"]
+[connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/AuraFeqBox/HSlider" to="." method="_on_aura_freq_slider_value_changed"]
+[connection signal="toggled" from="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/SaboBox/Button" to="." method="_on_sabo_button_toggled"]
+[connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer/PointScaleBox/HSlider" to="." method="_on_pnt_scale_slider_value_changed"]
+[connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer/ThreshholdBox/HSlider" to="." method="_on_goal_slider_value_changed"]
+[connection signal="pressed" from="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/8" to="." method="board_size_changed"]
+[connection signal="pressed" from="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/16" to="." method="board_size_changed"]
+[connection signal="pressed" from="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/32" to="." method="board_size_changed"]
+[connection signal="toggled" from="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/TerrainBox/HBoxContainer/grass" to="." method="_on_terrain_toggled" binds= ["grass"]]
+[connection signal="toggled" from="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/TerrainBox/HBoxContainer/water" to="." method="_on_terrain_toggled" binds= ["water"]]
+[connection signal="toggled" from="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/TerrainBox/HBoxContainer/sand" to="." method="_on_terrain_toggled" binds= ["sand"]]
+[connection signal="toggled" from="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/SpawnableBox/Button" to="." method="_on_spawnables_button_toggled"]
