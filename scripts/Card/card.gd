@@ -5,7 +5,7 @@ signal mouse_on
 signal mouse_off
 
 @export var card_image : Texture2D
-var cardinstance_data : String
+var cardinstance_dataid : String
 #for constructor
 static var card_scene: PackedScene = load("res://scenes/Card/Card.tscn")
 
@@ -30,7 +30,7 @@ func set_up(cardinstance_data : CardInstanceData, cardimg_bg : Texture2D) -> voi
 	get_node("CardImage").texture = cardimg_bg
 	get_node("EntityImage").texture = cardinstance_data.get_data().card_sprite
 	get_node("Texts/CardName").text = cardinstance_data.get_data().display_name
-	self.cardinstance_data = cardinstance_data.get_id()
+	self.cardinstance_dataid = cardinstance_data.get_id()
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -77,4 +77,4 @@ func entity_flip_to_card() -> void:
 	get_node("FlipAnimation").play("entity_flip_to_card")
 
 func get_data_instance_id() -> String:
-	return cardinstance_data
+	return cardinstance_dataid

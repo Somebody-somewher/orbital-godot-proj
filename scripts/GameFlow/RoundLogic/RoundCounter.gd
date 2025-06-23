@@ -19,6 +19,8 @@ var curr_round : RoundState
 var round_id : int = 0
 var round_count : int = 1
 
+var is_round_ending := false
+
 # Timer 
 var curr_timer : float = 0.0
 var prev_s : int
@@ -52,12 +54,13 @@ func _process(delta: float) -> void:
 
 func _player_end_turn(player_uuid : String):
 	players_ready.get_or_add(player_uuid, true)
-	if false not in players_ready.values():
+	if !is_round_ending and false not in players_ready.values():
 		end_round()
 	
 func end_round() -> void:
 	pause_timer = true
 	Signalbus.emit_signal("round_end", round_id, round_count)
+	is_round_ending = true
 	curr_round.round_end()
 
 # In the actual game this will be called by gameplay manager after all end_of_round effects occur?
@@ -68,6 +71,8 @@ func start_round(round : RoundState) -> void:
 	
 	for key in players_ready.keys():
 		players_ready[key] = false	
+	
+	is_round_ending = true
 	
 	reset_timer()
 	

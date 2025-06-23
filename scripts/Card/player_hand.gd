@@ -18,6 +18,11 @@ var hand_arr : Array[Card] = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	og_screen_size = get_viewport().size
+	Signalbus.connect("add_to_player_hand", add_cards_to_hand)
+
+func add_cards_to_hand(cards : Array[Card]) -> void:
+	for card in cards:
+		add_card_to_hand(card)
 
 func add_to_hand_no_update(card) -> void:
 	if card is AuraCard:
@@ -27,7 +32,9 @@ func add_to_hand_no_update(card) -> void:
 	card.initialize_card_effect()
 	hand_arr.insert(hand_arr.size(), card)
 
-func add_to_hand(card) -> void:
+func add_card_to_hand(card) -> void:
+	Signalbus.emit_signal("register_to_cardmanager", card)
+	card.get_node("Area2D/CollisionShape2D").disabled = false
 	add_to_hand_no_update(card)
 	update_hand_pos()
 

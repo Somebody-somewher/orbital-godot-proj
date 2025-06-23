@@ -7,7 +7,6 @@ class_name CardPack
 var pack_arr = []
 var choices := 1
 var pack_id : int
-var choose_pack_func : Callable
 
 ##logic stuff
 var card_sets = preload("res://scenes/Card/card_set.tscn")
@@ -22,9 +21,6 @@ var dissolve_value = 1
 
 func _ready() -> void:
 	get_node("AnimationPlayer").play("fall animation")
-	if choose_pack_func.is_null():
-		print(choose_pack_func)
-		choose_pack_func = cardpackmanager.attempt_choose_pack
 	
 # factory constructor
 #static func new_pack(setdata : Array[CardSetData]) -> CardPack:
@@ -33,14 +29,12 @@ func _ready() -> void:
 	#return_pack.z_index = 50
 	#return return_pack
 
-static func new_pack(setdata : Array, pack_id : int, choose_pack_func : Callable) -> CardPack:
+static func new_pack(setdata : Array, pack_id : int) -> CardPack:
 	var return_pack : CardPack = card_pack.instantiate()
 	return_pack.pack_sets.assign(setdata)
 	return_pack.z_index = 50
 	return_pack.pack_id = pack_id
-	return_pack.choose_pack_func = choose_pack_func
 	return return_pack
-
 
 func _process(delta: float) -> void:
 	if dissolving:
@@ -64,8 +58,7 @@ func open_pack() -> void:
 		pack_arr.insert(pack_arr.size(), new_set)
 		add_child(new_set)
 	
-	## TODO: Change this to be activated via a diff method:
-	choose_pack_func.call(pack_id)
+	Signalbus.emit_signal("choose_pack", pack_id)
 
 func select_option(set_option : CardSet) -> void:
 	if set_option in pack_arr:

@@ -9,7 +9,7 @@ func _ready():
 	## TODO: Need a better system than this
 	# Creates a "fake" single player for singleplayer
 	if "HostNetworking" != get_tree().current_scene.name:
-		addPlayer("Placeholder", multiplayer.get_unique_id(), "Placeholder")
+		addPlayer("PlaceholderPlayerUUID", multiplayer.get_unique_id(), "PlaceholderPlayer")
 	pass
 	
 func hasPlayer(peer_id : int) -> bool:

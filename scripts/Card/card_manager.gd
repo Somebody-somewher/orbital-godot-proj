@@ -25,6 +25,7 @@ var CARD_TILE_RATIO : Vector2
 func _ready() -> void:
 	Signalbus.connect("mouse_enter_interactable_board_tile", highlight_effects_when_hovering_card)
 	Signalbus.connect("open_compendium", opening_ui)
+	Signalbus.connect("register_to_cardmanager", register_to_cardmanager)
 	screen_size = get_viewport_rect().size
 	
 
@@ -49,6 +50,10 @@ func _process(_delta: float) -> void:
 		if board_ref and card_dragged is Card:
 			card_flip_if_near_board()
 			#highlight_effects_when_hovering_card()
+
+func register_to_cardmanager(card : Card):
+	card.reparent(self)
+	connect_card_signals(card)
 
 func start_drag(card : Node2D):
 	card_dragged = card

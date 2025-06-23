@@ -19,8 +19,16 @@ signal spawn_card(id : String, pos : Vector2)
 
 # CARDPACK
 signal server_create_packs()
+signal create_pack(packs_of_cards : Array)
+
+signal server_update_chooser(num_packs : int)
+signal choose_pack(pack_id : int)
 signal server_pack_choosing_end()
-signal select_pack(pack_id : int)
+
+# Client facing
+signal add_to_player_hand(cards : Array[Card])
+
+signal register_to_cardmanager(card : Card)
 
 # Supply board_tile_positions_data with [[tile_pos], [tile_data]]  
 signal get_tile_pos_from_AOE(tile_pos : Vector2i, aoe_tiles : Array[Vector2i], board_tile_positions_data : Array[Vector2i])

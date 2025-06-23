@@ -20,7 +20,6 @@ func set_up(card_set : Array, set_id : int) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print(get_tree().root.get_node("GameManager/CardManager"))
 	card_manager = get_tree().root.get_node("GameManager/CardManager")
 	player_hand = get_tree().root.get_node("GameManager/PlayerHand")
 	
@@ -37,11 +36,9 @@ func _ready() -> void:
 func shift_to_hand() -> void:
 	self.get_node("Area2D/CollisionShape2D").disabled = true
 	destroyed = true
-	for set_card in cards_in_set:
-		set_card.reparent(card_manager)
-		card_manager.connect_card_signals(set_card)
-		player_hand.add_to_hand(set_card)
-		set_card.get_node("Area2D/CollisionShape2D").disabled = false
+	CardLoader.attempt_add_to_hand.rpc_id(1,set_id)
+	#for set_card in cards_in_set:
+		
 
 func _on_area_2d_mouse_entered() -> void:
 	highlight_set(true)
@@ -71,12 +68,3 @@ func animate_card(card : Card, new_angle : float, new_scale : float, pos : Vecto
 func dissolve_set() -> void:
 	for unchosen_card in cards_in_set:
 		unchosen_card.dissolve_card()
-
-func _shift_to_hand(num_to_shift : int) -> void:
-	var set_card : Card 
-	for index in range(num_to_shift):
-		set_card = cards_in_set[index]
-		set_card.reparent(card_manager)
-		card_manager.connect_card_signals(set_card)
-		player_hand.add_to_hand(set_card)
-		set_card.get_node("Area2D/CollisionShape2D").disabled = false

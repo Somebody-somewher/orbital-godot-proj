@@ -4,6 +4,13 @@ extends Node
 
 var card_attribute_gen : CardAttributeGenerator
 
+@export_category("CardSet Creation")
+@export var remove_used_sets := false
+@export var cardset_grp : ResourceGroup
+var card_set_arr : Array[CardSetData] = []
+
+var cardset_allocator : CardSetAllocator
+
 @export_category("BuildingCard Creation")
 # BuildingData
 @export var buildingcard_img : Texture2D
@@ -11,11 +18,9 @@ var card_attribute_gen : CardAttributeGenerator
 var buildings : Array[BuildingData] = []
 var buildings_dict = {}
 
-# Provided by CardPackManager
-var create_pack : Callable
-var add_to_hand : Callable
-
+## Server
 var server_card_memory : ServerCardMemory
+var local_cardpack_memory : Array
 
 #for constructors
 var building_card_scene: PackedScene = preload("res://scenes/Card/building_card.tscn")
@@ -32,21 +37,21 @@ func _ready() -> void:
 
 	if multiplayer.is_server():
 		card_attribute_gen = CardAttributeGenerator.new()
+		cardset_allocator = CardSetAllocator.new(cardset_grp, remove_used_sets)
 		server_card_memory = ServerCardMemory.new()
+		Signalbus.connect("server_create_packs", get_cards_for_pack)
 	#NetworkManager.mark_client_ready(self.name)
 
-func setup_pack_creator(c : Callable) -> void:
-	create_pack = c
-
-func setup_add_to_hand(c : Callable) -> void:
-	add_to_hand = c
-
-# Called by CardPack to obtain data for each Cardset 
-func get_cards_for_pack(cardpacks : Array[Array], player_options_num : Dictionary[String, int]) -> void:
+#################################### CARDPACK/SET LOGIC ############################################
+func get_cards_for_pack() -> void:
 	# Card counts of every card, each element in the array is a cardset
+	var cardpacks : Array[Array] = cardset_allocator.get_packs()
+	var player_options_num : Dictionary[String,int] = cardset_allocator.get_player_num_options()
+	
 	var numstream : Array[Array] = card_attribute_gen.generate_cardpackstream(cardpacks)
 	# Get attributes for cards
 	var total_count : int = 0
+	Signalbus.emit_signal("server_update_chooser", cardset_allocator.get_num_packs())
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
 		#print(pi.getPlayerName(), " ", pi.getPlayerId()); \
 		#print("PLAYER OPTIONS ", player_options_num); \
@@ -84,10 +89,16 @@ func _get_cards_for_pack(cardpacks : Array, attribute_numbers : Array) -> void:
 
 	if multiplayer.is_server():
 		var remote_uuid = PlayerManager.getUUID_from_PeerID(multiplayer.get_remote_sender_id())
-		server_card_memory.store_player_cardpack_options(remote_uuid,output)
+		server_card_memory.record_player_cardpack_options(remote_uuid,output)
 	
 	if NetworkManager.is_client():
-		create_pack.call(output)
+		local_cardpack_memory = output
+		Signalbus.emit_signal("create_pack", output)
+
+func update_local_cardpack_choice(cardpack_id : int) -> void:
+	local_cardpack_memory = local_cardpack_memory[cardpack_id]
+
+################################## CARD CREATION LOGIC #######################################
 
 func create_data_instance(data_id : String, attribute_number : int = 0) -> CardInstanceData:
 	if attribute_number == -1:
@@ -112,9 +123,28 @@ func create_card(data_id : String, attribute_number : int = 0) -> Card:
 		card.set_up(data_instance, buildingcard_img)
 		return card
 	return null
+
+################################### ADDING TO HAND #################################################
+
+@rpc("any_peer","call_local")
+func attempt_add_to_hand(set_id : int) -> void:
+	var remote_id := multiplayer.get_remote_sender_id()
 	
-func create_building_card(building_id : String) -> BuildingCard:
-	return 
+	var ids : Array[String] = server_card_memory.attempt_card_to_hand( \
+		PlayerManager.getUUID_from_PeerID(remote_id), set_id)
+	
+	_add_to_hand.rpc_id(remote_id, ids, set_id)
+
+@rpc("any_peer","call_local")
+func _add_to_hand(card_instance_ids : Array[String], set_id : int) -> void:
+	var output : Array[Card]
+	for card in local_cardpack_memory[set_id]:
+		if card.get_data_instance_id() in card_instance_ids:
+			output.append(card)
+		else:
+			card.dissolve_card()
+	
+	Signalbus.emit_signal("add_to_player_hand", output)
 
 func get_building_data(id : String) -> BuildingData:
 	return buildings_dict.get(id)
