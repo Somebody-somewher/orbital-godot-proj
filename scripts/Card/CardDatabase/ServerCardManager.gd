@@ -37,12 +37,14 @@ func attempt_card_to_hand(player_uuid : String, cardset_index : int) -> Array[St
 	if numcards_to_hand <= 0:
 		return []
 		
-	numcards_to_hand = min(numcards_to_hand, card_set_options[player_uuid][cardset_index].size())
+	var card_set_cards : Dictionary[String, CardInstanceData] = card_set_options[player_uuid][cardset_index]
+		
+	numcards_to_hand = min(numcards_to_hand, card_set_cards.size())
 	for i in range(numcards_to_hand):
-		player_hand_instances[player_uuid].append(card_set_options[player_uuid][cardset_index][i])
-		added_card_instance_ids.append(card_set_options[player_uuid][cardset_index][i].get_data_instance_id())
+		player_hand_instances[player_uuid].append(card_set_cards.values()[i])
+		added_card_instance_ids.append(card_set_cards.values()[i].get_id())
 	return added_card_instance_ids
-	#if  >= player_maxhandsize[player_uuid]:
+
 		
 
 func append_to_player_hand(player_uuid : String, card_set : Array[int], add_to_hand : Callable) -> bool:

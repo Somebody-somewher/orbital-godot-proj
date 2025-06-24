@@ -54,7 +54,7 @@ func _process(delta: float) -> void:
 			end_round()
 
 func _player_end_turn(player_uuid : String):
-	players_ready.get_or_add(player_uuid, true)
+	players_ready[player_uuid] = true
 	if !is_round_ending and false not in players_ready.values():
 		end_round()
 	
@@ -73,7 +73,7 @@ func start_round(round : RoundState) -> void:
 	for key in players_ready.keys():
 		players_ready[key] = false	
 	
-	is_round_ending = true
+	is_round_ending = false
 	
 	reset_timer()
 	

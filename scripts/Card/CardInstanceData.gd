@@ -7,7 +7,7 @@ var data_instance_id : String
 var owner_uuid
 
 func _init(data : CardData):
-	data_instance_id = (data.get_id() + "|" + str(increment_card_count()) + "|" + str(randi())).sha1_text()
+	data_instance_id = (data.get_id() + "|" + str(increment_card_count()) + "|" )#+ str(randi())).sha1_text()
 	pass
 
 static func increment_card_count() -> int:

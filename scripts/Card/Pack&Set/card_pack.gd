@@ -1,9 +1,10 @@
 extends Node2D
 class_name CardPack
 
-@export var cardpackmanager : CardPackManagerBase
-
 @export var pack_sets : Array[Array]##array of sets
+
+var is_cardsets_interactable := false
+
 var pack_arr = []
 var choices := 1
 var pack_id : int
@@ -21,7 +22,10 @@ var dissolve_value = 1
 
 func _ready() -> void:
 	get_node("AnimationPlayer").play("fall animation")
-	
+
+func set_cardset_interactable() -> void:
+	is_cardsets_interactable = true
+
 # factory constructor
 #static func new_pack(setdata : Array[CardSetData]) -> CardPack:
 	#var return_pack : CardPack = card_pack.instantiate()
@@ -51,7 +55,7 @@ func open_pack() -> void:
 	var set_angle = 2 * PI / pack_size
 	var set_radius_from_pack = 100
 	for i in range(pack_size):
-		# Creation of cards
+		# Creation of cardsets
 		var new_set = card_sets.instantiate()
 		new_set.set_up(pack_sets[i], i)
 		new_set.global_position = Vector2(200 * cos(set_angle* i), 200 * sin(set_angle* i))
@@ -61,6 +65,9 @@ func open_pack() -> void:
 	Signalbus.emit_signal("choose_pack", pack_id)
 
 func select_option(set_option : CardSet) -> void:
+	if !is_cardsets_interactable:
+		return
+	
 	if set_option in pack_arr:
 		set_option.shift_to_hand()
 		

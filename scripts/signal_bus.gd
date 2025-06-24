@@ -21,12 +21,13 @@ signal spawn_card(id : String, pos : Vector2)
 signal server_create_packs()
 signal create_pack(packs_of_cards : Array)
 
+# Pack Choosing
 signal server_update_chooser(num_packs : int)
 signal choose_pack(pack_id : int)
 signal server_pack_choosing_end()
 
-# Client facing
-signal cards_frm_set_to_hand(cards : Array[Card], set_id : int)
+# Adding to hand
+signal confirmed_add_to_hand(cards : Array[String], set_id : int)
 signal add_to_hand(card : Card)
 
 signal register_to_cardmanager(card : Card)
@@ -45,3 +46,18 @@ signal set_score_preview(tile_pos : Array[Vector2i], scores : Array[int])
 signal show_card_information(card_id : String)
 signal open_compendium(card_id : String)
 signal close_compendium
+
+@rpc("any_peer", "call_local")
+func emit_multiplayer_signal(signal_to_call : String, args : Array):
+	
+	match args.size():
+		0:
+			emit_signal(signal_to_call)
+		1:
+			emit_signal(signal_to_call, args[0])
+		2:
+			emit_signal(signal_to_call, args[0], args[1])
+		3:
+			emit_signal(signal_to_call, args[0], args[1], args[2])
+		_:
+			assert(1 == 0)

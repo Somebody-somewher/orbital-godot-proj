@@ -6,11 +6,6 @@ var destroyed : bool = false
 var set_id : int 
 var card_pack : int
 
-#@onready
-#var input_manager = get_tree().root.get_node("GameManager/InputManager")
-
-var card_scene = preload("res://scenes/Card/Card.tscn")
-
 func set_up(card_set : Array, set_id : int) -> void:
 	cards_in_set.assign(card_set)
 	self.set_id = set_id
@@ -19,7 +14,7 @@ func set_up(card_set : Array, set_id : int) -> void:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:	
 	var z_count = 100
-	Signalbus.connect("cards_frm_set_to_hand",_shift_to_hand)
+	Signalbus.connect("confirmed_add_to_hand",_shift_to_hand)
 	for card_instance in cards_in_set: ##card_type is of form [CardInstance]
 		card_instance.z_index = z_count
 		card_instance.get_node("Area2D/CollisionShape2D").disabled = true
@@ -44,7 +39,9 @@ func _shift_to_hand(cards : Array[String], set_id : int) -> void:
 				cards_in_set.erase(card_in_set)
 				Signalbus.emit_signal("add_to_hand", card_in_set)
 				break
-
+	
+	for remainder in cards_in_set:
+		remainder.dissolve_card()
 
 func _on_area_2d_mouse_entered() -> void:
 	highlight_set(true)

@@ -1,7 +1,7 @@
 extends CardPackManagerBase
 class_name CardPackManagerClient
 
-@export var spawn_node : CardManager
+@export var spawn_node : Node
 
 var card_pack_nodes : Array[CardPack]
 
@@ -11,14 +11,14 @@ func _ready() -> void:
 	Signalbus.connect("create_pack", create_pack)
 	Signalbus.connect("choose_pack", func(chosen_packid: int): \
 		attempt_choose_pack.rpc_id(1, chosen_packid))
-	NetworkManager.mark_client_ready(self.name)
+	#NetworkManager.mark_client_ready(self.name)
 	pass # Replace with function body.
 #
 func create_pack(packs : Array[Array]) -> void:
 	var card_pack : CardPack
 	var card_pack_index := 0
-	for p in packs:
-		card_pack = CardPack.new_pack(p, card_pack_index)
+	for p_index in range(len(packs)):
+		card_pack = CardPack.new_pack(packs[p_index], p_index)
 		card_pack.set_position(Vector2i(0,0))
 		spawn_node.add_child(card_pack)
 		card_pack_nodes.append(card_pack)
@@ -28,6 +28,8 @@ func remove_other_packs(pack_id : int) -> void:
 	for i in range(len(card_pack_nodes)):
 		if i != pack_id:
 			card_pack_nodes[i].destroy_pack()
+		else:
+			card_pack_nodes[i].set_cardset_interactable()
 			
 
 	#var card_pack = CardPack.new_pack(sets)

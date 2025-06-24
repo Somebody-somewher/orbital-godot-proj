@@ -2,14 +2,6 @@ extends Node
 
 @export var card_scene : PackedScene
 
-var card_attribute_gen : CardAttributeGenerator
-
-@export_category("CardSet Creation")
-@export var remove_used_sets := false
-@export var cardset_grp : ResourceGroup
-var card_set_arr : Array[CardSetData] = []
-
-var cardset_allocator : CardSetAllocator
 
 @export_category("BuildingCard Creation")
 # BuildingData
@@ -19,11 +11,9 @@ var buildings : Array[BuildingData] = []
 var buildings_dict = {}
 
 ## Server
+var card_attribute_gen : CardAttributeGenerator
 var server_card_memory : ServerCardMemory
-var local_cardpacks_datainst_mem : Array
-## NOTE: THSES ARE TEMP VARS PLEASE DONT USE THEM
-var _local_cardpack_datainst_mem : Array[Dictionary]
-var _local_cardset_datainst_mem : Dictionary[String, CardInstanceData]
+@onready var cardpack_gen : CardPackGenerator = $CardPackGen
 
 #for constructors
 var building_card_scene: PackedScene = preload("res://scenes/Card/building_card.tscn")
@@ -39,92 +29,22 @@ func _ready() -> void:
 			buildings_dict.get_or_add(b.get_id(), b)
 
 	if multiplayer.is_server():
-		card_attribute_gen = CardAttributeGenerator.new()
-		cardset_allocator = CardSetAllocator.new(cardset_grp, remove_used_sets)
 		server_card_memory = ServerCardMemory.new()
-		Signalbus.connect("server_create_packs", get_cards_for_allpacks)
 	#NetworkManager.mark_client_ready(self.name)
 
-func setup() -> void:
-	if multiplayer.is_server():
-		cardset_allocator.setup()
+## This is here because some things need to wait for NetworkManager or PlayerManager to setup before firing
+## Run via GameManager in actual game
+func setup(cag : CardAttributeGenerator = null, csa : CardSetAllocator = null) -> void:
+	if multiplayer.is_server():	
 		server_card_memory.setup()
+		
+		if cag == null:
+			card_attribute_gen = CardAttributeGenerator.new()
+		else:
+			card_attribute_gen = cag
 
-#################################### CARDPACK/SET LOGIC ############################################
-func get_cards_for_allpacks() -> void:
-	# Card counts of every card, each element in the array is a cardset
-	var cardpacks : Array[Array] = cardset_allocator.get_packs()
-	var player_options_num : Dictionary[String,int] = cardset_allocator.get_player_num_options()
-	
-	var numstream : Array[Array] = card_attribute_gen.generate_cardpackstream(cardpacks)
-	# Get attributes for cards	
-	var cards_for_server = _get_cards_for_packs(cardpacks,numstream)
-
-	Signalbus.emit_signal("server_update_chooser", cardset_allocator.get_num_packs())
-	PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
-		print(pi.getPlayerName(), " ", pi.getPlayerId()); \
-		print("PLAYER OPTIONS ", player_options_num); \
-		print("CARDPACKS ", cardpacks); \
-		print("NUMSTREAM ", numstream); \
-		print("TRUNCATED CARDPACKS ", truncate_pack(cardpacks, player_options_num[pi.getPlayerUUID()])); \
-		print("TRUNCATED NUMSTREAM ", truncate_pack(numstream, player_options_num[pi.getPlayerUUID()])); \
-		var server_copy = truncate_pack(local_cardpacks_datainst_mem, player_options_num[pi.getPlayerUUID()]);\
-		server_card_memory.record_player_cardpack_options(pi.getPlayerUUID(), server_copy);\
-			
-		if pi.getPlayerId() != 1:
-			_get_cards_for_clientpack.rpc_id(pi.getPlayerId(), truncate_pack(cardpacks,player_options_num[pi.getPlayerUUID()]), \
-				truncate_pack(numstream, player_options_num[pi.getPlayerUUID()]));\
-		elif NetworkManager.is_server_client:\
-			local_cardpacks_datainst_mem = truncate_pack(local_cardpacks_datainst_mem, server_copy);\
-			Signalbus.emit_signal("create_pack", server_copy));
-
-func truncate_pack(packs : Array[Array], truncate_size : int) -> Array[Array]:
-	var truncated_pack : Array[Array] = []
-	for cardpack in packs:
-		truncated_pack.append(cardpack.slice(0, truncate_size))
-	return truncated_pack
-
-func _get_cards_for_packs(cardpacks : Array, attribute_numbers : Array) -> Array[Array]:
-	var total_cardpacks : Array[Array] = []
-	
-	for pack_index in range(len(cardpacks)):		
-		total_cardpacks.append(get_cards_for_pack(cardpacks[pack_index], attribute_numbers[pack_index]))
-	return total_cardpacks
-
-func get_cards_for_pack(cardpack : Array[Dictionary], attribute_numbers : Array) -> Array:
-	var cardpack_out := Array()
-	for cardset_index in range(len(cardpack)):
-		cardpack_out.append(get_cards_for_set(cardpack[cardset_index] as Dictionary[String,int], attribute_numbers[cardset_index]))
-	local_cardpacks_datainst_mem.append(_local_cardpack_datainst_mem)
-	return cardpack_out
-
-func get_cards_for_set(cardset : Dictionary[String, int], attribute_numbers : Array) -> Array:
-	var start_count := 0
-	var cardset_out := Array()
-	var data_inst : CardInstanceData
-	var card_types : Array[String] = cardset.keys()
-	_local_cardset_datainst_mem = {}
-	
-	for card_type in card_types:
-		for count in range(cardset[card_type]):
-			data_inst = _create_data_instance(card_type , attribute_numbers[start_count + count])
-			_local_cardset_datainst_mem.get_or_add(data_inst.get_id(), data_inst)
-			cardset_out.append(_create_card(data_inst))
-		start_count += cardset[card_type]
-	_local_cardpack_datainst_mem.append(_local_cardset_datainst_mem)
-	return cardset_out
-
-# Clients + Server run this code
-# uuids : Array[int]
-@rpc("any_peer","call_local")
-func _get_cards_for_clientpack(cardpacks : Array, attribute_numbers : Array) -> void:
-	var output : Array[Array] = _get_cards_for_packs(cardpacks, attribute_numbers)
-	
-	#local_cardpack_memory = output
-	Signalbus.emit_signal("create_pack", output)
-
-#func update_local_cardpack_choice(cardpack_id : int) -> void:
-	#local_cardpack_memory = local_cardpack_memory[cardpack_id]
+		cardpack_gen.server_setup(card_attribute_gen, server_card_memory, csa)
+	cardpack_gen.setup(_create_data_instance, _create_card)
 
 ################################## CARD CREATION LOGIC #######################################
 
@@ -158,11 +78,12 @@ func attempt_add_to_hand(set_id : int) -> void:
 	var ids : Array[String] = server_card_memory.attempt_card_to_hand( \
 		PlayerManager.getUUID_from_PeerID(remote_id), set_id)
 	
-	_add_to_hand.rpc_id(remote_id, ids, set_id)
+	#_add_to_hand.rpc_id(remote_id, ids, set_id)
+	Signalbus.emit_multiplayer_signal.rpc_id(remote_id, "confirmed_add_to_hand", [ids, set_id])
 
-@rpc("any_peer","call_local")
-func _add_to_hand(card_instance_ids : Array[String], set_id : int) -> void:
-	Signalbus.emit_signal("cards_frm_set_to_hand", card_instance_ids, set_id)
+#@rpc("any_peer","call_local")
+#func _add_to_hand(card_instance_ids : Array[String], set_id : int) -> void:
+	#Signalbus.emit_signal(,)
 	#var output : Array[Card]
 	#for card in local_cardpack_memory[set_id]:
 		#if card.get_data_instance_id() in card_instance_ids:

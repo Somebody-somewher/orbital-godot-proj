@@ -39,11 +39,10 @@ player_hand_ref = NodePath("../PlayerHand")
 input_manager_ref = NodePath("../InputManager")
 preview_board_ref = NodePath("../BoardManager/Preview")
 
-[node name="CardPack" parent="CardManager" node_paths=PackedStringArray("cardpackmanager") instance=ExtResource("6_wp0k4")]
+[node name="CardPack" parent="CardManager" instance=ExtResource("6_wp0k4")]
 z_index = 99
 material = SubResource("ShaderMaterial_mwfav")
 position = Vector2(1268, 1274)
-cardpackmanager = NodePath("../../CardPackManager")
 pack_sets = Array[Array]([[], []])
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("board")]

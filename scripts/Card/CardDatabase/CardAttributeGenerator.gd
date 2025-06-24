@@ -7,8 +7,16 @@ var special_card_num = 100
 var is_debug = false
 var debug_count_up := 0
 
-func _init(is_debug := false) -> void:
+var rng : RandomNumberGenerator
+
+func _init(is_debug := false, seed := -1) -> void:
 	self.is_debug = is_debug
+	
+	rng = RandomNumberGenerator.new()
+	if seed == -1:
+		rng.randomize()
+	else:
+		rng.set_seed(seed)
 	pass
 	
 # cardpacks is an Array[Array[Dictionary[String, int]]] and outputs an Array[Array[Array[int]]]
