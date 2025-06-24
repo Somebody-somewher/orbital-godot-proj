@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BuildingData" load_steps=9 format=3 uid="uid://c4odd4453lef4"]
 
 [ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_wh7qg"]
-[ext_resource type="Texture2D" uid="uid://d2qbut2ltf2ds" path="res://assets/entity_sprites/wheat_field.png" id="2_kxo2a"]
+[ext_resource type="Texture2D" uid="uid://5c6kruqh87l5" path="res://assets/entity_sprites/frog.PNG" id="2_wh7qg"]
 [ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_mpbgr"]
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_0vd6o"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_bsa0q"]
@@ -20,13 +20,13 @@ post_place_effects = Array[ExtResource("1_wh7qg")]([])
 begin_round_effects = Array[ExtResource("1_wh7qg")]([])
 end_round_effects = Array[ExtResource("1_wh7qg")]([])
 destroyed_effects = Array[ExtResource("1_wh7qg")]([])
-id_name = "wheat_field"
-display_name = "Wheat Field"
-card_sprite = ExtResource("2_kxo2a")
-desc = ""
-flavor = ""
-category = 0
-tags = Array[String]([])
+id_name = "frog"
+display_name = "frog"
+card_sprite = ExtResource("2_wh7qg")
+desc = "Content to sit on lilypads. Can eat nearby flies."
+flavor = "\"Kermit's less successful younger brother that never got too far in life\""
+category = 7
+tags = Array[String](["animal"])
 is_aura = false
 hidden = false
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

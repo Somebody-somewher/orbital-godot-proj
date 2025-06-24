@@ -24,7 +24,9 @@ id_name = "mine"
 display_name = "Mine"
 card_sprite = ExtResource("2_25vpq")
 desc = ""
-flavor = ""
+flavor = "\"Minin' away
+I don't know what to mine
+I'll mine this anyway\""
 category = 0
 tags = Array[String]([])
 is_aura = false
