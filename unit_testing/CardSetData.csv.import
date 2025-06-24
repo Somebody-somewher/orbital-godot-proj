@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://cxalglkiytae2"
+
+[deps]
+
+files=["res://unit_testing/CardSetData.set.translation", "res://unit_testing/CardSetData.cards.translation", "res://unit_testing/CardSetData.is.translation"]
+
+source_file="res://unit_testing/CardSetData.csv"
+dest_files=["res://unit_testing/CardSetData.set.translation", "res://unit_testing/CardSetData.cards.translation", "res://unit_testing/CardSetData.is.translation"]
+
+[params]
+
+compress=true
+delimiter=0

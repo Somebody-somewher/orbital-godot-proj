@@ -69,7 +69,13 @@ func update_set_used(set_id : String) -> void:
 		avail_sets.erase(set_id)
 
 func update_num_options_for_player(uuid : String, modifier : int) -> void:
-	num_options_per_player[uuid] = clampi(num_options_per_player[uuid] + modifier, 1, 4)
+	num_options_per_player[uuid] = clampi(num_options_per_player[uuid] + modifier, 1, MAX_OPTIONS_PER_PACK)
 
 func get_num_packs() -> int:
 	return num_packs_to_gen
+
+func get_all_sets_as_dicts() -> Array[Dictionary]:
+	var output : Array[Dictionary]
+	for cardset_data in cardset_options:
+		output.append(cardset_data.cards)
+	return output

@@ -20,7 +20,10 @@ var buildings_dict = {}
 
 ## Server
 var server_card_memory : ServerCardMemory
-#var local_cardpack_memory : Array
+var local_cardpacks_datainst_mem : Array
+## NOTE: THSES ARE TEMP VARS PLEASE DONT USE THEM
+var _local_cardpack_datainst_mem : Array[Dictionary]
+var _local_cardset_datainst_mem : Dictionary[String, CardInstanceData]
 
 #for constructors
 var building_card_scene: PackedScene = preload("res://scenes/Card/building_card.tscn")
@@ -39,7 +42,7 @@ func _ready() -> void:
 		card_attribute_gen = CardAttributeGenerator.new()
 		cardset_allocator = CardSetAllocator.new(cardset_grp, remove_used_sets)
 		server_card_memory = ServerCardMemory.new()
-		Signalbus.connect("server_create_packs", get_cards_for_pack)
+		Signalbus.connect("server_create_packs", get_cards_for_allpacks)
 	#NetworkManager.mark_client_ready(self.name)
 
 func setup() -> void:
@@ -48,31 +51,31 @@ func setup() -> void:
 		server_card_memory.setup()
 
 #################################### CARDPACK/SET LOGIC ############################################
-func get_cards_for_pack() -> void:
+func get_cards_for_allpacks() -> void:
 	# Card counts of every card, each element in the array is a cardset
 	var cardpacks : Array[Array] = cardset_allocator.get_packs()
 	var player_options_num : Dictionary[String,int] = cardset_allocator.get_player_num_options()
 	
 	var numstream : Array[Array] = card_attribute_gen.generate_cardpackstream(cardpacks)
 	# Get attributes for cards	
-	var cards_for_server = _get_cards_for_pack(cardpacks,numstream)
+	var cards_for_server = _get_cards_for_packs(cardpacks,numstream)
 
 	Signalbus.emit_signal("server_update_chooser", cardset_allocator.get_num_packs())
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
-		#print(pi.getPlayerName(), " ", pi.getPlayerId()); \
-		#print("PLAYER OPTIONS ", player_options_num); \
-		#print("CARDPACKS ", cardpacks); \
-		#print("NUMSTREAM ", numstream); \
-		#print("TRUNCATED CARDPACKS ", truncate_pack(cardpacks, player_options_num[pi.getPlayerUUID()])); \
-		#print("TRUNCATED NUMSTREAM ", truncate_pack(numstream, player_options_num[pi.getPlayerUUID()])); \
-		var server_copy = truncate_pack(cards_for_server,player_options_num[pi.getPlayerUUID()]);\
+		print(pi.getPlayerName(), " ", pi.getPlayerId()); \
+		print("PLAYER OPTIONS ", player_options_num); \
+		print("CARDPACKS ", cardpacks); \
+		print("NUMSTREAM ", numstream); \
+		print("TRUNCATED CARDPACKS ", truncate_pack(cardpacks, player_options_num[pi.getPlayerUUID()])); \
+		print("TRUNCATED NUMSTREAM ", truncate_pack(numstream, player_options_num[pi.getPlayerUUID()])); \
+		var server_copy = truncate_pack(local_cardpacks_datainst_mem, player_options_num[pi.getPlayerUUID()]);\
 		server_card_memory.record_player_cardpack_options(pi.getPlayerUUID(), server_copy);\
 			
 		if pi.getPlayerId() != 1:
 			_get_cards_for_clientpack.rpc_id(pi.getPlayerId(), truncate_pack(cardpacks,player_options_num[pi.getPlayerUUID()]), \
 				truncate_pack(numstream, player_options_num[pi.getPlayerUUID()]));\
 		elif NetworkManager.is_server_client:\
-			#local_cardpack_memory = server_copy;\
+			local_cardpacks_datainst_mem = truncate_pack(local_cardpacks_datainst_mem, server_copy);\
 			Signalbus.emit_signal("create_pack", server_copy));
 
 func truncate_pack(packs : Array[Array], truncate_size : int) -> Array[Array]:
@@ -81,28 +84,41 @@ func truncate_pack(packs : Array[Array], truncate_size : int) -> Array[Array]:
 		truncated_pack.append(cardpack.slice(0, truncate_size))
 	return truncated_pack
 
-func _get_cards_for_pack(cardpacks : Array, attribute_numbers : Array) -> Array[Array]:
-	var output : Array[Array] = []
-	var cardpack_out : Array = []
-	var cardset_out : Array = []
+func _get_cards_for_packs(cardpacks : Array, attribute_numbers : Array) -> Array[Array]:
+	var total_cardpacks : Array[Array] = []
 	
-	for pack in range(len(cardpacks)):
-		cardpack_out = Array()
-		for cset in range(len(cardpacks[pack])):
-			cardset_out = Array()
-			for card in range(len(cardpacks[pack][cset].keys())):
-				for count in range(cardpacks[pack][cset][cardpacks[pack][cset].keys()[card]]):
-					cardset_out.append(create_card(cardpacks[pack][cset].keys()[card] \
-						, attribute_numbers[pack][cset][count]))
-			cardpack_out.append(cardset_out)
-		output.append(cardpack_out)
-	return output
+	for pack_index in range(len(cardpacks)):		
+		total_cardpacks.append(get_cards_for_pack(cardpacks[pack_index], attribute_numbers[pack_index]))
+	return total_cardpacks
+
+func get_cards_for_pack(cardpack : Array[Dictionary], attribute_numbers : Array) -> Array:
+	var cardpack_out := Array()
+	for cardset_index in range(len(cardpack)):
+		cardpack_out.append(get_cards_for_set(cardpack[cardset_index] as Dictionary[String,int], attribute_numbers[cardset_index]))
+	local_cardpacks_datainst_mem.append(_local_cardpack_datainst_mem)
+	return cardpack_out
+
+func get_cards_for_set(cardset : Dictionary[String, int], attribute_numbers : Array) -> Array:
+	var start_count := 0
+	var cardset_out := Array()
+	var data_inst : CardInstanceData
+	var card_types : Array[String] = cardset.keys()
+	_local_cardset_datainst_mem = {}
+	
+	for card_type in card_types:
+		for count in range(cardset[card_type]):
+			data_inst = _create_data_instance(card_type , attribute_numbers[start_count + count])
+			_local_cardset_datainst_mem.get_or_add(data_inst.get_id(), data_inst)
+			cardset_out.append(_create_card(data_inst))
+		start_count += cardset[card_type]
+	_local_cardpack_datainst_mem.append(_local_cardset_datainst_mem)
+	return cardset_out
 
 # Clients + Server run this code
 # uuids : Array[int]
 @rpc("any_peer","call_local")
 func _get_cards_for_clientpack(cardpacks : Array, attribute_numbers : Array) -> void:
-	var output : Array[Array] = _get_cards_for_pack(cardpacks, attribute_numbers)
+	var output : Array[Array] = _get_cards_for_packs(cardpacks, attribute_numbers)
 	
 	#local_cardpack_memory = output
 	Signalbus.emit_signal("create_pack", output)
@@ -112,7 +128,7 @@ func _get_cards_for_clientpack(cardpacks : Array, attribute_numbers : Array) -> 
 
 ################################## CARD CREATION LOGIC #######################################
 
-func create_data_instance(data_id : String, attribute_number : int = 0) -> CardInstanceData:
+func _create_data_instance(data_id : String, attribute_number : int = 0) -> CardInstanceData:
 	if attribute_number == -1:
 		attribute_number = card_attribute_gen.generate_random_attribute()
 	
@@ -125,14 +141,11 @@ func create_data_instance(data_id : String, attribute_number : int = 0) -> CardI
 		return null
 
 # Add to scene must be done by manually by node calling this method
-@rpc("any_peer","call_local")
-func create_card(data_id : String, attribute_number : int = 0) -> Card:
-	var data_instance : CardInstanceData
+func _create_card(data : CardInstanceData) -> Card:
 	var card : Card
-	data_instance = create_data_instance(data_id, attribute_number)
-	if data_instance is BuildingInstanceData:
+	if data is BuildingInstanceData:
 		card = card_scene.instantiate()
-		card.set_up(data_instance, buildingcard_img)
+		card.set_up(data, buildingcard_img)
 		return card
 	return null
 

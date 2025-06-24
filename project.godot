@@ -44,7 +44,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_resource_groups/plugin.cfg", "res://addons/resources_spreadsheet_view/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot_resource_groups/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/resources_spreadsheet_view/plugin.cfg")
 
 [godot_resource_groups]
 
