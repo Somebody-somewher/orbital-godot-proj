@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://klvllydgi5tw"]
+[gd_scene load_steps=3 format=3 uid="uid://klvllydgi5tw"]
 
 [ext_resource type="Script" uid="uid://bc4th2e5h0hj8" path="res://scripts/GameFlow/RoundLogic/RoundCounter.gd" id="1_jwvfs"]
+[ext_resource type="Resource" uid="uid://bpxbgyo3a0vug" path="res://Resources/Rounds/PickPackRound.tres" id="2_nip7a"]
 
 [node name="RoundManager" type="Node"]
 script = ExtResource("1_jwvfs")
+initial_round = ExtResource("2_nip7a")

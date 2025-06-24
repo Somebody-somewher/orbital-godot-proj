@@ -6,8 +6,6 @@ var destroyed : bool = false
 var set_id : int 
 var card_pack : int
 
-var card_manager
-var player_hand
 #@onready
 #var input_manager = get_tree().root.get_node("GameManager/InputManager")
 
@@ -19,11 +17,9 @@ func set_up(card_set : Array, set_id : int) -> void:
 	pass
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	card_manager = get_tree().root.get_node("GameManager/CardManager")
-	player_hand = get_tree().root.get_node("GameManager/PlayerHand")
-	
+func _ready() -> void:	
 	var z_count = 100
+	Signalbus.connect("cards_frm_set_to_hand",_shift_to_hand)
 	for card_instance in cards_in_set: ##card_type is of form [CardInstance]
 		card_instance.z_index = z_count
 		card_instance.get_node("Area2D/CollisionShape2D").disabled = true
@@ -37,8 +33,18 @@ func shift_to_hand() -> void:
 	self.get_node("Area2D/CollisionShape2D").disabled = true
 	destroyed = true
 	CardLoader.attempt_add_to_hand.rpc_id(1,set_id)
-	#for set_card in cards_in_set:
+
+func _shift_to_hand(cards : Array[String], set_id : int) -> void:
+	if self.set_id != set_id:
+		return 
 		
+	for card_id in cards:
+		for card_in_set in cards_in_set:
+			if card_id in card_in_set.get_data_instance_id():
+				cards_in_set.erase(card_in_set)
+				Signalbus.emit_signal("add_to_hand", card_in_set)
+				break
+
 
 func _on_area_2d_mouse_entered() -> void:
 	highlight_set(true)

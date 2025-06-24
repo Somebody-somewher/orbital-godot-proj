@@ -18,15 +18,16 @@ var is_sync_fin : bool = false
 # As such the server must have authoritative control over them
 # However, in order for the server to supply data the components
 # must first to be ready to receive data 
-@export var components : Dictionary[String, bool]
+@export var client_components : Dictionary[String, bool]
+@export var server_components : Dictionary[String, bool]
 
 func set_up() -> void:
 	if multiplayer.get_unique_id() == 1:
-		server_net = ServerNetworkManager.new()
+		server_net = ServerNetworkManager.new(server_components)
 		if is_server_client:
-			client_net = ClientNetworkManager.new(components, client_ready_to_server)
+			client_net = ClientNetworkManager.new(client_components, client_ready_to_server)
 	else:
-		client_net = ClientNetworkManager.new(components, client_ready_to_server)
+		client_net = ClientNetworkManager.new(client_components, client_ready_to_server)
 
 @rpc("any_peer","call_local")
 func mark_client_ready(node_name : String) -> void:

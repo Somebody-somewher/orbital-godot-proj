@@ -1,8 +1,6 @@
 extends Node2D
 class_name PlayerHand
 
-@export var cardmanager : CardManager
-
 var centre_x
 var og_screen_size : Vector2
 
@@ -18,11 +16,11 @@ var hand_arr : Array[Card] = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	og_screen_size = get_viewport().size
-	Signalbus.connect("add_to_player_hand", add_cards_to_hand)
+	Signalbus.connect("add_to_hand", add_card_to_hand)
 
-func add_cards_to_hand(cards : Array[Card]) -> void:
-	for card in cards:
-		add_card_to_hand(card)
+#func add_cards_to_hand(cards : Array[Card]) -> void:
+	#for card in cards:
+		#add_card_to_hand(card)
 
 func add_to_hand_no_update(card) -> void:
 	if card is AuraCard:

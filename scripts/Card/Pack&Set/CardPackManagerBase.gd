@@ -15,7 +15,7 @@ func _ready() -> void:
 
 @rpc("any_peer","call_local")
 func _choose_pack(pack_id : int) -> void:
-	CardLoader.update_local_cardpack_choice(pack_id)
+	#CardLoader.update_local_cardpack_choice(pack_id)
 	pass
 
 ## Called via signal->rpc from cardpack instance -> Server's CardPackChooser handles server side 

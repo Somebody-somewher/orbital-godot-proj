@@ -31,10 +31,10 @@ config/icon="uid://n2jiuhsqeh1s"
 [autoload]
 
 PlayerManager="*res://NetworkingTest/PlayerManager.gd"
-CardLoader="*res://scenes/CardLoader.tscn"
 Signalbus="*res://scenes/Game Flow/Signalbus.tscn"
-AudioManager="*res://scenes/Audio/audio_manager.tscn"
 NetworkManager="*res://scenes/Networking/NetworkManager.tscn"
+CardLoader="*res://scenes/CardLoader.tscn"
+AudioManager="*res://scenes/Audio/audio_manager.tscn"
 
 [display]
 

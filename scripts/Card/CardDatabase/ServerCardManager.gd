@@ -12,7 +12,7 @@ var player_hand_instances : Dictionary[String, Array] = {}
 var player_maxhandsize : Dictionary[String, int] = {}
 var DEFAULT_HANDSIZE := 10
 
-func _init() -> void:
+func setup() -> void:
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
 		card_set_options.get_or_add(pi.getPlayerUUID(), []); \
 		player_hand_instances.get_or_add(pi.getPlayerUUID(), []); \

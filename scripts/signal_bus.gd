@@ -26,7 +26,8 @@ signal choose_pack(pack_id : int)
 signal server_pack_choosing_end()
 
 # Client facing
-signal add_to_player_hand(cards : Array[Card])
+signal cards_frm_set_to_hand(cards : Array[Card], set_id : int)
+signal add_to_hand(card : Card)
 
 signal register_to_cardmanager(card : Card)
 

@@ -37,6 +37,7 @@ func _ready() -> void:
 
 	#round_grp.load_all_into(possible_rounds)
 	NetworkManager.connect("all_clients_ready", start_round_manager)
+	NetworkManager.server_net.mark_server_component_ready(self.name)
 
 func start_round_manager():
 	start_round(initial_round)

@@ -4,7 +4,10 @@
 
 [node name="NetworkManager" type="Node"]
 script = ExtResource("1_7xc1i")
-components = Dictionary[String, bool]({
+client_components = Dictionary[String, bool]({
 "BoardManager": false,
 "CardPackManager": false
+})
+server_components = Dictionary[String, bool]({
+"RoundManager": false
 })

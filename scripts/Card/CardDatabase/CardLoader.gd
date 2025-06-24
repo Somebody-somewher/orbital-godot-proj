@@ -20,7 +20,7 @@ var buildings_dict = {}
 
 ## Server
 var server_card_memory : ServerCardMemory
-var local_cardpack_memory : Array
+#var local_cardpack_memory : Array
 
 #for constructors
 var building_card_scene: PackedScene = preload("res://scenes/Card/building_card.tscn")
@@ -42,6 +42,11 @@ func _ready() -> void:
 		Signalbus.connect("server_create_packs", get_cards_for_pack)
 	#NetworkManager.mark_client_ready(self.name)
 
+func setup() -> void:
+	if multiplayer.is_server():
+		cardset_allocator.setup()
+		server_card_memory.setup()
+
 #################################### CARDPACK/SET LOGIC ############################################
 func get_cards_for_pack() -> void:
 	# Card counts of every card, each element in the array is a cardset
@@ -49,8 +54,9 @@ func get_cards_for_pack() -> void:
 	var player_options_num : Dictionary[String,int] = cardset_allocator.get_player_num_options()
 	
 	var numstream : Array[Array] = card_attribute_gen.generate_cardpackstream(cardpacks)
-	# Get attributes for cards
-	var total_count : int = 0
+	# Get attributes for cards	
+	var cards_for_server = _get_cards_for_pack(cardpacks,numstream)
+
 	Signalbus.emit_signal("server_update_chooser", cardset_allocator.get_num_packs())
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
 		#print(pi.getPlayerName(), " ", pi.getPlayerId()); \
@@ -59,8 +65,15 @@ func get_cards_for_pack() -> void:
 		#print("NUMSTREAM ", numstream); \
 		#print("TRUNCATED CARDPACKS ", truncate_pack(cardpacks, player_options_num[pi.getPlayerUUID()])); \
 		#print("TRUNCATED NUMSTREAM ", truncate_pack(numstream, player_options_num[pi.getPlayerUUID()])); \
-		_get_cards_for_pack.rpc_id(pi.getPlayerId(), truncate_pack(cardpacks,player_options_num[pi.getPlayerUUID()]), \
-			truncate_pack(numstream, player_options_num[pi.getPlayerUUID()])))
+		var server_copy = truncate_pack(cards_for_server,player_options_num[pi.getPlayerUUID()]);\
+		server_card_memory.record_player_cardpack_options(pi.getPlayerUUID(), server_copy);\
+			
+		if pi.getPlayerId() != 1:
+			_get_cards_for_clientpack.rpc_id(pi.getPlayerId(), truncate_pack(cardpacks,player_options_num[pi.getPlayerUUID()]), \
+				truncate_pack(numstream, player_options_num[pi.getPlayerUUID()]));\
+		elif NetworkManager.is_server_client:\
+			#local_cardpack_memory = server_copy;\
+			Signalbus.emit_signal("create_pack", server_copy));
 
 func truncate_pack(packs : Array[Array], truncate_size : int) -> Array[Array]:
 	var truncated_pack : Array[Array] = []
@@ -68,10 +81,7 @@ func truncate_pack(packs : Array[Array], truncate_size : int) -> Array[Array]:
 		truncated_pack.append(cardpack.slice(0, truncate_size))
 	return truncated_pack
 
-# Clients + Server run this code
-# uuids : Array[int]
-@rpc("any_peer","call_local")
-func _get_cards_for_pack(cardpacks : Array, attribute_numbers : Array) -> void:
+func _get_cards_for_pack(cardpacks : Array, attribute_numbers : Array) -> Array[Array]:
 	var output : Array[Array] = []
 	var cardpack_out : Array = []
 	var cardset_out : Array = []
@@ -86,17 +96,19 @@ func _get_cards_for_pack(cardpacks : Array, attribute_numbers : Array) -> void:
 						, attribute_numbers[pack][cset][count]))
 			cardpack_out.append(cardset_out)
 		output.append(cardpack_out)
+	return output
 
-	if multiplayer.is_server():
-		var remote_uuid = PlayerManager.getUUID_from_PeerID(multiplayer.get_remote_sender_id())
-		server_card_memory.record_player_cardpack_options(remote_uuid,output)
+# Clients + Server run this code
+# uuids : Array[int]
+@rpc("any_peer","call_local")
+func _get_cards_for_clientpack(cardpacks : Array, attribute_numbers : Array) -> void:
+	var output : Array[Array] = _get_cards_for_pack(cardpacks, attribute_numbers)
 	
-	if NetworkManager.is_client():
-		local_cardpack_memory = output
-		Signalbus.emit_signal("create_pack", output)
+	#local_cardpack_memory = output
+	Signalbus.emit_signal("create_pack", output)
 
-func update_local_cardpack_choice(cardpack_id : int) -> void:
-	local_cardpack_memory = local_cardpack_memory[cardpack_id]
+#func update_local_cardpack_choice(cardpack_id : int) -> void:
+	#local_cardpack_memory = local_cardpack_memory[cardpack_id]
 
 ################################## CARD CREATION LOGIC #######################################
 
@@ -137,14 +149,14 @@ func attempt_add_to_hand(set_id : int) -> void:
 
 @rpc("any_peer","call_local")
 func _add_to_hand(card_instance_ids : Array[String], set_id : int) -> void:
-	var output : Array[Card]
-	for card in local_cardpack_memory[set_id]:
-		if card.get_data_instance_id() in card_instance_ids:
-			output.append(card)
-		else:
-			card.dissolve_card()
-	
-	Signalbus.emit_signal("add_to_player_hand", output)
+	Signalbus.emit_signal("cards_frm_set_to_hand", card_instance_ids, set_id)
+	#var output : Array[Card]
+	#for card in local_cardpack_memory[set_id]:
+		#if card.get_data_instance_id() in card_instance_ids:
+			#output.append(card)
+#
+	#
+	#Signalbus.emit_signal("add_to_player_hand", output)
 
 func get_building_data(id : String) -> BuildingData:
 	return buildings_dict.get(id)

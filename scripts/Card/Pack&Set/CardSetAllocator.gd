@@ -25,7 +25,8 @@ func _init(sets_grp : ResourceGroup, remove_prev : bool) -> void:
 	for cardset in cardset_options:
 		if cardset:
 			avail_sets.get_or_add(cardset.get_id(), cardset)
-			
+
+func setup() -> void:		
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo) : \
 		num_options_per_player.get_or_add(pi.getPlayerUUID(), DEFAULT_NUM_OPTIONS))
 	

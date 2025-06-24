@@ -10,7 +10,7 @@ func _init(_remove_other_packs : Callable) -> void:
 	Signalbus.connect("server_update_chooser", reset_chooser)
 
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
-	player_uuid_to_packid.get_or_add(pi.getPlayerUUID(), -1))
+		player_uuid_to_packid.get_or_add(pi.getPlayerUUID(), -1))
 	self._remove_other_packs = _remove_other_packs
 
 # Called by Server's CardLoader
