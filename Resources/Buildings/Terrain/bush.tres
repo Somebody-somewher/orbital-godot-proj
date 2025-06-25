@@ -25,7 +25,9 @@ id_name = "bush"
 display_name = "Bush"
 card_sprite = ExtResource("2_0utjk")
 desc = "Chance to create berry cards at the end of each round."
-flavor = "\"Like a tree but short\""
+flavor = "\"We're tramping through the bush
+On and on we push
+Into the thick of it\""
 category = 7
 tags = Array[String](["producer"])
 is_aura = false
