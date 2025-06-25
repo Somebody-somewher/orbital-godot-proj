@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BuildingData" load_steps=9 format=3 uid="uid://bsngnx4mfc48d"]
 
 [ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_1n14f"]
-[ext_resource type="Texture2D" uid="uid://d2qbut2ltf2ds" path="res://assets/entity_sprites/wheat_field.png" id="2_s68ca"]
+[ext_resource type="Texture2D" uid="uid://bw48yydidn2a7" path="res://assets/entity_sprites/leg_tonic.PNG" id="2_1n14f"]
 [ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_k4te7"]
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_1y4cr"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_54iym"]
@@ -20,13 +20,13 @@ post_place_effects = Array[ExtResource("1_1n14f")]([])
 begin_round_effects = Array[ExtResource("1_1n14f")]([])
 end_round_effects = Array[ExtResource("1_1n14f")]([])
 destroyed_effects = Array[ExtResource("1_1n14f")]([])
-id_name = "wheat_field"
-display_name = "Wheat Field"
-card_sprite = ExtResource("2_s68ca")
-desc = ""
-flavor = ""
+id_name = "leg_tonic"
+display_name = "leg tonic"
+card_sprite = ExtResource("2_1n14f")
+desc = "Use it to make a structure start running around. Hilariously annoying."
+flavor = "\"Much less well received than hair tonic. I wonder why.\""
 category = 0
-tags = Array[String]([])
+tags = Array[String](["single-use"])
 is_aura = false
 hidden = false
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

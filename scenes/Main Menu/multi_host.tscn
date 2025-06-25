@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bxwdre1iat07b"]
+[gd_scene load_steps=26 format=3 uid="uid://iyr4rtumvwwp"]
 
 [ext_resource type="Script" uid="uid://qkqxxbklqyym" path="res://scripts/Main Menu/singleplayer_menu.gd" id="1_6lyo1"]
 [ext_resource type="ButtonGroup" uid="uid://dggq5rjphxq68" path="res://Resources/MainMenu Resources/board_size_buttons.tres" id="2_hywa0"]

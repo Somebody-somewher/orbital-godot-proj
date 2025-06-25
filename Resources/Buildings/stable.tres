@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BuildingData" load_steps=9 format=3 uid="uid://b51xgm67ajfug"]
 
 [ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_tdvu1"]
-[ext_resource type="Texture2D" uid="uid://d2qbut2ltf2ds" path="res://assets/entity_sprites/wheat_field.png" id="2_5klaa"]
+[ext_resource type="Texture2D" uid="uid://dtv654jptb2hg" path="res://assets/entity_sprites/stable.PNG" id="2_tdvu1"]
 [ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_jr5al"]
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_o4vm3"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_8mtyc"]
@@ -20,12 +20,12 @@ post_place_effects = Array[ExtResource("1_tdvu1")]([])
 begin_round_effects = Array[ExtResource("1_tdvu1")]([])
 end_round_effects = Array[ExtResource("1_tdvu1")]([])
 destroyed_effects = Array[ExtResource("1_tdvu1")]([])
-id_name = "wheat_field"
-display_name = "Wheat Field"
-card_sprite = ExtResource("2_5klaa")
-desc = ""
-flavor = ""
-category = 0
+id_name = "stable"
+display_name = "stable"
+card_sprite = ExtResource("2_tdvu1")
+desc = "Great match for horse themed cards."
+flavor = "\"Im here to kick ass and eat hay, and I'm all out of ass.\""
+category = 3
 tags = Array[String]([])
 is_aura = false
 hidden = false

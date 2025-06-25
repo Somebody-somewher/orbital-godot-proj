@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BuildingData" load_steps=9 format=3 uid="uid://cixq5iyjv8u4h"]
 
 [ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_3ka2k"]
-[ext_resource type="Texture2D" uid="uid://d2qbut2ltf2ds" path="res://assets/entity_sprites/wheat_field.png" id="2_kels0"]
+[ext_resource type="Texture2D" uid="uid://cpaokopld4i5s" path="res://assets/entity_sprites/iceberg.PNG" id="2_3ka2k"]
 [ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_hycaw"]
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_2vt8a"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_vp0ub"]
@@ -20,13 +20,13 @@ post_place_effects = Array[ExtResource("1_3ka2k")]([])
 begin_round_effects = Array[ExtResource("1_3ka2k")]([])
 end_round_effects = Array[ExtResource("1_3ka2k")]([])
 destroyed_effects = Array[ExtResource("1_3ka2k")]([])
-id_name = "wheat_field"
-display_name = "Wheat Field"
-card_sprite = ExtResource("2_kels0")
-desc = ""
-flavor = ""
+id_name = "iceberg"
+display_name = "iceberg"
+card_sprite = ExtResource("2_3ka2k")
+desc = "Destroys ships that comes in contact with it."
+flavor = "\"A real ice-breaker\""
 category = 0
-tags = Array[String]([])
+tags = Array[String](["hazard", "aquatic"])
 is_aura = false
 hidden = false
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

@@ -23,12 +23,12 @@ destroyed_effects = Array[ExtResource("1_25vpq")]([])
 id_name = "mine"
 display_name = "Mine"
 card_sprite = ExtResource("2_25vpq")
-desc = ""
+desc = "Produces score every round, producing more if initially placed on a mineral. Small chance to find diamonds."
 flavor = "\"Minin' away
 I don't know what to mine
 I'll mine this anyway\""
-category = 0
-tags = Array[String]([])
+category = 8
+tags = Array[String](["producer"])
 is_aura = false
 hidden = false
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

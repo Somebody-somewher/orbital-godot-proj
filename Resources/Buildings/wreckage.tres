@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BuildingData" load_steps=9 format=3 uid="uid://8atgjh2alon7"]
 
 [ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_fofu7"]
-[ext_resource type="Texture2D" uid="uid://d2qbut2ltf2ds" path="res://assets/entity_sprites/wheat_field.png" id="2_4kf4u"]
+[ext_resource type="Texture2D" uid="uid://bx4d6jb2wrjkv" path="res://assets/entity_sprites/wreckage.PNG" id="2_fofu7"]
 [ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_r842k"]
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_jy0hc"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_5vjho"]
@@ -20,13 +20,13 @@ post_place_effects = Array[ExtResource("1_fofu7")]([])
 begin_round_effects = Array[ExtResource("1_fofu7")]([])
 end_round_effects = Array[ExtResource("1_fofu7")]([])
 destroyed_effects = Array[ExtResource("1_fofu7")]([])
-id_name = "wheat_field"
-display_name = "Wheat Field"
-card_sprite = ExtResource("2_4kf4u")
-desc = ""
+id_name = "wreckage"
+display_name = "Wreckage"
+card_sprite = ExtResource("2_fofu7")
+desc = "When a boat first move adjacent to a wreckage, it could be destroyed to produce a chest and key."
 flavor = ""
-category = 0
-tags = Array[String]([])
+category = 3
+tags = Array[String](["ancient", "producer"])
 is_aura = false
 hidden = false
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"
