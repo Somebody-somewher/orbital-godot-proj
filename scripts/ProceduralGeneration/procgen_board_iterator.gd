@@ -69,7 +69,8 @@ func foreach_ele(o : Object, c : Callable) -> void:
 func foreach_ele_in_board(o : Object, c : Callable) -> void:
 	if cache.has(o):
 		for pos in cache.get(o):
-			if pos.x >= board_start_tile.x and pos.x < board_start_tile.x + _board_num_width_height.x and pos.y >= board_start_tile.y and  pos.y < board_start_tile.y + _board_num_width_height.y:
+			if pos.x >= board_start_tile.x and pos.x < board_start_tile.x + _board_num_width_height.x \
+				and pos.y >= board_start_tile.y and  pos.y < board_start_tile.y + _board_num_width_height.y:
 				c.call(_matrix[pos.y][pos.x].get_id(), Vector2i(pos.x,pos.y))
 
 func foreach_border(c : Callable) -> void:

@@ -112,7 +112,7 @@ func get_cards_for_set(cardset : Dictionary[String, int], attribute_numbers : Ar
 		for count in range(cardset[card_type]):
 			
 			# Data instance creation and storing
-			data_inst = create_data_inst.call(card_type , attribute_numbers[start_count + count])
+			data_inst = create_data_inst.call(card_type , attribute_numbers[start_count + count][1], attribute_numbers[start_count + count][0])
 			_local_cardset_datainst_mem.get_or_add(data_inst.get_id(), data_inst)
 			
 			# Actual Card UI Creation

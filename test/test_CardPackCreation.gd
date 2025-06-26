@@ -109,7 +109,7 @@ func test_cardpack2() -> void:
 	print(cardinst_data_arr)
 	for pack_index in range(len(cpm.card_pack_nodes)):
 		pack = cpm.card_pack_nodes[pack_index] as CardPack
-		assert_eq(pack.pack_id, pack_index)
+		assert_eq(pack.pack_index, pack_index, "Pack indexing correct")
 		assert_eq(pack.pack_sets.size(), numsets_to_generate, "Sets Number correct")
 		for cardset_index in range(len(pack.pack_sets)):
 			cardset = pack.pack_sets[cardset_index]
@@ -135,7 +135,7 @@ func after_each() -> void:
 	
 	for pack_index in range(len(cpm.card_pack_nodes)):
 		pack = cpm.card_pack_nodes[pack_index] as CardPack
-		assert_eq(pack.pack_id, pack_index)
+		assert_eq(pack.pack_index, pack_index)
 		assert_eq(pack.pack_sets.size(), numsets_to_generate, "Sets Number correct")
 		for cardset_index in range(len(pack.pack_sets)):
 			cardset = pack.pack_sets[cardset_index]

@@ -32,7 +32,7 @@ func _ready() -> void:
 	Signalbus.connect("register_to_cardmanager", register_to_cardmanager)
 	
 	Signalbus.connect("board_action_success", _on_boardrequest_success)
-	Signalbus.connect("board_action_failure", _on_boardrequest_failure)
+	Signalbus.connect("board_action_fail", _on_boardrequest_failure)
 
 	screen_size = get_viewport_rect().size
 	

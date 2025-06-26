@@ -10,7 +10,8 @@ func before_each() -> void:
 	cardattr = CardAttributeGenerator.new(true)
 	
 	cpg = CardPackGenerator.new()
-	cpg.setup(CardLoader._create_data_instance, CardLoader._create_card)
+	cpg.setup(CardLoader.create_data_instance, CardLoader.create_card, func(selected_pack : Array[Dictionary], pack_id : int):
+		pass)
 	cpg.server_setup(cardattr, ServerCardMemory.new(), csa)
 	add_child_autoqfree(cpg)
 	await get_tree().process_frame

@@ -1,21 +1,12 @@
 extends Object
 class_name CardInstanceData
-# Interface-like class to be overriden
-static var card_count := 0
 
 var data_instance_id : String
 var owner_uuid
 
-func _init(data : CardData):
-	data_instance_id = (data.get_id() + "|" + str(increment_card_count()) + "|" )#+ str(randi())).sha1_text()
+func _init(instance_id : String, data : CardData):
+	data_instance_id = instance_id
 	pass
-
-static func duplicate(data : CardInstanceData) -> CardInstanceData:
-	return CardInstanceData.new(data.get_data())
-
-static func increment_card_count() -> int:
-	card_count += 1
-	return card_count
 
 func get_data() -> CardData:
 	return null	

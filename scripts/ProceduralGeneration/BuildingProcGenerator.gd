@@ -19,6 +19,7 @@ func make_matrix() -> Array:
 	if env_buildings.size() > building_noise_threshold.size():
 		printerr("Some Buildings tiles will not be generated")
 	
+	var curr_building_data : BuildingData
 	var matrix = Array()
 	matrix.resize(_gen_size.y);
 	for y in range(_gen_size.y):
@@ -26,12 +27,17 @@ func make_matrix() -> Array:
 		matrix[y].resize(_gen_size.x)
 		
 		for x in range(_gen_size.x):
-			matrix[y][x] = map_noise_to_building(noise_highlight_texture.noise.get_noise_2d(x,y), _terrain_iterator.retrieve_matrix()[y][x])
-			buildings_placed.get_or_add(matrix[y][x], []).append(Vector2i(x,y))
+			curr_building_data = map_noise_to_building(noise_highlight_texture.noise.get_noise_2d(x,y), _terrain_iterator.retrieve_matrix()[y][x])
+			matrix[y][x] = curr_building_data
+			if curr_building_data != null:
+				if y >= _border_width.y and y < _border_width.y + _board_num_width_height.y * _board_size.y \
+					and x >= _border_width.x and  x < _border_width.x + _board_num_width_height.x * _board_size.x:
+						buildings_placed.get_or_add(curr_building_data, []).append(Vector2i(x,y))
 			
 	return matrix
 
 func post_process(procgen_iterator : ProcGenBoardIterator) -> void:
+	procgen_iterator.cache = buildings_placed
 	for p in post_processors:
 		p.process_building(procgen_iterator, _terrain_iterator)
 

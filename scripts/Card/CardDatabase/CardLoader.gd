@@ -55,21 +55,31 @@ func setup(cag : CardAttributeGenerator = null, csa : CardSetAllocator = null) -
 
 ################################## CARD CREATION LOGIC #######################################
 
-# Whoever calls this function is in charge of storing the data_instance so we can refer to it later
+# Called by client and server. However, be wary when randomizing attribute num when using this. 
+# NOTE: WHEN RANDOMIZING: The Server must call this function, generate the attribute num and instance_id
+# Then call function with the generated attribute num and instance_id derived from the server's CardInstanceData
 @rpc("any_peer", "call_local")
-func create_data_instance(data_id : String, attribute_number : int = 0) -> CardInstanceData:
+func create_data_instance(data_id : String, attribute_number : int = 0, instance_id : String = "") -> CardInstanceData:
 	
-	# NOTE: IF THE CLIENT IS CALLING THIS FUNCTION, ATTRIBUTE NUMBER NOT BE -1
+	# NOTE: IF THE CLIENT IS CALLING THIS FUNCTION, ATTRIBUTE NUMBER CANNOT BE -1
 	# EITHER PUT IT AS 0 OR THE ATTRIBUTE NUMBER THAT CREATED THE CARD
-	if attribute_number == -1:
-		attribute_number = card_attribute_gen.generate_random_attribute()
 	
-	# Add more to this dict for diff types of card-datas
-	var data : CardData = buildings_dict.get(data_id, null)
+	# int and string instance_id pair
+	if instance_id == "":
+		if attribute_number == -1:
+			assert(multiplayer.is_server())
+			var gen_values = card_attribute_gen.generate_attribute(data_id)
+			
+			attribute_number = gen_values[0]
+			instance_id = gen_values[1]
+		else:
+			instance_id = card_attribute_gen.generate_instance_id(data_id)
+	
+	var data : CardData = buildings_dict[data_id]
 	var instance_data : CardInstanceData 
 	
 	if data is BuildingData:
-		instance_data =  BuildingInstanceData.new(data as BuildingData, attribute_number)
+		instance_data =  BuildingInstanceData.new(instance_id, data as BuildingData, attribute_number)
 	else:
 		instance_data = null
 	
@@ -78,6 +88,18 @@ func create_data_instance(data_id : String, attribute_number : int = 0) -> CardI
 	#	modify(instance_data) for e.g. if there is an aura that makes 	
 	
 	return instance_data
+
+#func duplicate_cardinstance(data : CardInstanceData) -> CardInstanceData:
+	#
+	#var gen_values = card_attribute_gen.fixed_generate_attribute(data.get_id(), data.)
+	#
+	#if data is BuildingInstanceData:
+		#pass
+		#
+		#
+		##return BuildingInstanceData.duplicate(data)
+	#return null
+
 
 # Add to scene must be done by manually by node calling this method
 func create_card(data : CardInstanceData) -> Card:
@@ -92,10 +114,6 @@ func client_modify(player_uuid : String, data : CardInstanceData) -> void:
 	# AuraManager 
 	pass
 	
-func duplicate_cardinstance(data : CardInstanceData) -> CardInstanceData:
-	if data is BuildingInstanceData:
-		return BuildingInstanceData.duplicate(data)
-	return null
 
 ################################### ADDING TO HAND #################################################
 

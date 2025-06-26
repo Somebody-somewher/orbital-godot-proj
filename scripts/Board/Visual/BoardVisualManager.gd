@@ -51,7 +51,7 @@ func place_building_on_tile(building: Building, tile_pos : Vector2i) -> void:
 		building.z_index = tile_pos.y
 		building.position = get_local_centre_of_tile(tile_pos)
 		building.get_node("JiggleAnimation").play("jiggle")
-		building.name = building.data.display_name
+		building.name = building.data_instance.get_id()
 	# MUST TRIGGER BEFORE ADDING (otherwise places self on board then can score against itself)
 	#board_matrix.add_placeable_to_tile(tile_pos, placeable)
 

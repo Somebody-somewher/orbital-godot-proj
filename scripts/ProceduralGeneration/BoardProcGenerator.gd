@@ -26,22 +26,25 @@ func set_up(board_size : Vector2i = Vector2i(8,8), board_num : Vector2i = Vector
 	
 	has_setup = true
 	
-func generate_board(terrain_create : Callable, building_create : Callable, board_id : int) -> void:
+func generate_board(terrain_create : Callable, board_id : int) -> void:
 	if !has_setup:
 		set_up()
-		
-	
+
 	procgen_terrain_iter.skip_to_board(board_id)
 	procgen_terrain_iter.foreach_tile_in_board(terrain_create)
 	
-	if building_gen != null:
-		procgen_building_iter.skip_to_board(board_id)
-		procgen_building_iter.foreach_tile_in_board(building_create)
+	#if building_gen != null:
+		#
+		#procgen_building_iter.skip_to_board(board_id)
+		#procgen_building_iter.foreach_tile_in_board(building_create)
 
+func generate_actual_buildings(building_create : Callable) -> void:
+	building_create.call(procgen_building_iter.cache)
+	
 func generate_border(terrain_create : Callable, building_create : Callable) -> void:
 	if !has_setup:
 		set_up()
-		
+	
 	procgen_terrain_iter.foreach_border(terrain_create)
 	procgen_building_iter.foreach_border(building_create)
 

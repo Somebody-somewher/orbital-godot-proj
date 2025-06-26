@@ -38,7 +38,7 @@ func init_clients() -> void:
 	receive_init_data.rpc(BOARD_SIZE, BOARDS_LAYOUT, BORDER_DIM)
 	procgen_init(func(tid : String, tile_pos : Vector2i): _create_terrain.rpc(tid, tile_pos) \
 	, func(tid : String, tile_pos : Vector2i): terrain_tilemap.change_border_terrain_tile.rpc(tid, tile_pos) \
-	, func(bid : String, tile_pos : Vector2i): _create_terrain_building.rpc(bid, tile_pos) \
+	, create_terrain_building \
 	, func(bid : String, tile_pos : Vector2i): terrain_tilemap.place_fake_building.rpc(bid, tile_pos))
 	board_layout_gen.set_ui_interactable()
 	
@@ -49,7 +49,8 @@ func procgen_init(create_terrain : Callable, create_border_tile : Callable, crea
 	if proc_gen != null:
 		# Procedural Generation setup
 		for i in range(BOARDS_LAYOUT.x * BOARDS_LAYOUT.y):
-				proc_gen.generate_board(create_terrain, create_building, i)
+				proc_gen.generate_board(create_terrain, i)
+		proc_gen.generate_actual_buildings(create_building)
 		proc_gen.generate_border(create_border_tile, create_fake_building)
 	else:
 		var placeholder_id = terrain_tilemap.env_map.getPlaceholderTile().get_id()
@@ -74,15 +75,33 @@ func receive_init_data(board_size : Vector2i, board_layout : Vector2i, border_di
 
 ############################### INITIAL PROCGEN FUNCTIONS ####################################
 @rpc("any_peer", "call_local")
-func _create_terrain_building(building_id: String, tile_pos : Vector2i) -> bool:
-	var building_instance : BuildingInstanceData = CardLoader.create_data_instance(building_id, -1)
+func _create_terrain_building(building_id: Array[String], tilepos: Array[Vector2i], card_attr : Array) -> void:
+	var building_instance : BuildingInstanceData
+	var building : Building
+	for index in range(len(card_attr)):
+		building_instance = CardLoader.create_data_instance(building_id[index], card_attr[index][1], card_attr[index][0])
+		#if tile_pos != NULL_TILE and building_instance.placeable(matrix_data, tilemap_to_matrix(tile_pos)):
+
+		building = Building.new_building_frm_data(building_instance)
+		matrix_data.add_placeable_to_tile(tilemap_to_matrix(tilepos[index]), building)
+		
+		if NetworkManager.is_server_client || !multiplayer.is_server():
+			terrain_tilemap.place_building_on_tile(building, tilepos[index])
 	
-	if tile_pos != NULL_TILE and building_instance.placeable(matrix_data, tilemap_to_matrix(tile_pos)):
-		#placeable.trigger_place_effects(matrix_data, tile_mouse_pos - BORDER_DIM)
-		var building = Building.new_building_frm_data(building_instance)
-		matrix_data.add_placeable_to_tile(tilemap_to_matrix(tile_pos), building)
-		return true
-	return false
+
+@rpc("any_peer", "call_local")
+func create_terrain_building(builddata_tilepos_dict : Dictionary[BuildingData, Array]) -> void:
+	var data_arr : Array[String]
+	var board_positions : Array[Vector2i]
+	var attr_arr : Array[Array]
+	
+	for building in builddata_tilepos_dict.keys():
+		for tilepos in builddata_tilepos_dict[building]:
+			data_arr.append(building.get_id())
+			board_positions.append(tilepos)
+	
+	attr_arr.assign(CardLoader.card_attribute_gen.generate_card_stream(data_arr))
+	_create_terrain_building.rpc(data_arr, board_positions, attr_arr)
 
 ################################### PLACEABLE PLACING #########################################
 @rpc("any_peer", "call_local")
@@ -156,13 +175,6 @@ func request_create_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
 			_create_terrain.rpc_id(remote_id, terrain_id, tile_pos)
 		return true;)
 	update_client_check_status(remote_id, check)
-
-	#var remote_id := multiplayer.get_remote_sender_id()
-	#if tile_pos != NULL_TILE and check_tilepos_in_interactable(PlayerManager.getUUID_from_PeerID(remote_id), tile_pos):
-		#_create_terrain(terrain_id, tile_pos)
-		#if multiplayer.is_server() and !NetworkManager.is_client():
-			#_create_terrain.rpc_id(remote_id, terrain_id, tile_pos)
-	#Signalbus.emit_multiplayer_signal.rpc_id(remote_id, "board_action_failure")
 
 @rpc("any_peer", "call_local")
 func _create_terrain(terrain_id : String, tile_pos : Vector2i) -> void:

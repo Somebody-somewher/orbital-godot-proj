@@ -5,9 +5,10 @@ var special_set_prob = 99
 var special_card_num = 100
 
 var is_debug = false
-var debug_count_up := 0
+static var num_cards_generated := -1
 
 var rng : RandomNumberGenerator
+
 
 func _init(is_debug := false, seed := -1) -> void:
 	self.is_debug = is_debug
@@ -46,15 +47,24 @@ func generate_cardset_stream(cardset : Dictionary[String, int], all_special : bo
 	for card in cardset.keys():
 		for count in range(cardset[card]):
 			if !all_special:
-				cardset_out.append(generate_attribute())
+				cardset_out.append(generate_attribute(card))
 			else:
-				cardset_out.append(100)
+				cardset_out.append([generate_instance_id(card), 100] )
 	return cardset_out
 
-func generate_attribute() -> int:
+func generate_card_stream(cards : Array[String]) -> Array:
+	var output := Array()
+	for card in cards:
+		output.append(generate_attribute(card))
+	return output
+
+func generate_attribute(cardid : String) -> Array:
+	num_cards_generated += 1
 	if is_debug:
-		var output = debug_count_up
-		debug_count_up += 1
-		return output
-	
-	return randi_range(0, 100)
+		return [cardid + str(num_cards_generated), num_cards_generated]
+	return [cardid + str(num_cards_generated), randi_range(0, 100)]
+
+
+func generate_instance_id(carddata_id : String) -> String:
+	num_cards_generated += 1
+	return carddata_id + str(num_cards_generated)

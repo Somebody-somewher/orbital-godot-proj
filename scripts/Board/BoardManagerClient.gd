@@ -67,6 +67,7 @@ func create_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
 
 @rpc("any_peer","call_local")
 func _create_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
+	super._create_terrain(terrain_id, tile_pos)
 	terrain_tilemap.change_terrain_tile(terrain_id, tile_pos)
 
 @rpc("any_peer","call_local")
@@ -78,6 +79,7 @@ func change_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
 
 @rpc("any_peer","call_local")
 func _change_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
+	super._change_terrain(terrain_id, tile_pos)
 	terrain_tilemap.change_terrain_tile(terrain_id, tile_pos)
 
 ########################################### UI #################################################
