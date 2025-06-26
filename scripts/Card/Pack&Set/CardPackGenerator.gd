@@ -17,6 +17,7 @@ var _local_cardset_datainst_mem : Dictionary[String, CardInstanceData]
 
 var create_data_inst : Callable
 var create_card : Callable
+var update_chosen_cardpack : Callable
 
 func _ready() -> void:
 	if multiplayer.is_server():
@@ -34,9 +35,10 @@ func server_setup(attr_gen : CardAttributeGenerator, server_mem : ServerCardMemo
 	
 	pass
 
-func setup(create_data_inst : Callable, create_card : Callable) -> void:
+func setup(create_data_inst : Callable, create_card : Callable, update_local_mem_with_chosenpack : Callable) -> void:
 	self.create_data_inst = create_data_inst
 	self.create_card = create_card
+	self.update_chosen_cardpack = update_local_mem_with_chosenpack
 
 #################################### CARDPACK/SET LOGIC ############################################
 func server_generate_packs() -> void:
@@ -84,7 +86,7 @@ func truncate_pack(packs : Array[Array], truncate_size : int) -> Array[Array]:
 	return truncated_pack
 
 func get_cards_for_allpacks(cardpacks : Array, attribute_numbers : Array) -> Array[Array]:
-	reset_local_mem()
+	reset_temp_mem()
 	var total_cardpacks : Array[Array] = []
 	
 	for pack_index in range(len(cardpacks)):		
@@ -120,11 +122,11 @@ func get_cards_for_set(cardset : Dictionary[String, int], attribute_numbers : Ar
 	_local_cardpack_datainst_mem.append(_local_cardset_datainst_mem)
 	return cardset_out
 
-func reset_local_mem() -> void:
+func reset_temp_mem() -> void:
 	local_cardpacks_datainst_mem = []
 	_local_cardpack_datainst_mem = []
 	_local_cardset_datainst_mem = {}
 
 @rpc("any_peer","call_local")
-func update_local_cardpack_choice(cardpack_id : int) -> void:
-	_local_cardpack_datainst_mem = local_cardpacks_datainst_mem[cardpack_id]
+func update_local_cardpack_choice(cardpack_index : int, cardpack_id : int) -> void:
+	update_chosen_cardpack.call(local_cardpacks_datainst_mem[cardpack_index], cardpack_id)

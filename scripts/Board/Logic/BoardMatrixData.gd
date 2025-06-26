@@ -76,6 +76,12 @@ func constrain_pattern_to_board(tile_pos : Vector2i, pattern_arr : Array[Vector2
 func search_matrix_readonly(c : Callable):
 	c.call(board_matrix)
 
+## Get start-end coords of playable 
+func get_playable_area_coords() -> Array[Vector2i]:
+	return [boards_coords[0][0], boards_coords[len(boards_coords) - 1][1]]
+
+################################ TILEPOS QUERIES ###############################
+
 ## Check if tilepos inside playable area
 func check_tilepos_in_playable(tilepos : Vector2i) -> bool:
 	if tilepos.x >=  boards_coords[0][0].x and tilepos.x <= boards_coords[len(boards_coords) - 1][1].x:
@@ -83,24 +89,33 @@ func check_tilepos_in_playable(tilepos : Vector2i) -> bool:
 			return true
 	return false
 
-## Get start-end coords of playable 
-func get_playable_area_coords() -> Array[Vector2i]:
-	return [boards_coords[0][0], boards_coords[len(boards_coords) - 1][1]]
+func check_tilepos_in_layout_coords(tilepos : Vector2i, boardlayout_pos : Vector2i) -> bool:
+	return _check_tilepos_in_board(tilepos, layout_to_boardcoords(boardlayout_pos))
+
+## Get the start-end coordinates of the board the tilepos is in
+func get_boardcoords_of_tilepos(tilepos : Vector2i) -> Array:
+	for i in range(len(boards_coords)):
+		if interactable[i] and _check_tilepos_in_board(tilepos, boards_coords[i]):
+			return boards_coords[i]
+	return []
 
 ## Check if tilepos exists in a given board coords
-func check_tilepos_in_board(tilepos : Vector2i, board_start_end_pos : Array) -> bool:
+func _check_tilepos_in_board(tilepos : Vector2i, board_start_end_pos : Array) -> bool:
 	if tilepos.x >=  board_start_end_pos[0].x and tilepos.x <= board_start_end_pos[1].x:
 		if tilepos.y >= board_start_end_pos[0].y and tilepos.y <= board_start_end_pos[1].y:
 			return true
 	return false
 
-## Get the start-end coordinates of the board the tilepos is in
-func get_boardcoords_of_tilepos(tilepos : Vector2i) -> Array:
-	for i in range(len(boards_coords)):
-		if interactable[i] and check_tilepos_in_board(tilepos, boards_coords[i]):
-			return boards_coords[i]
-	return []
+func layout_to_boardcoords(boardlayout_pos : Vector2i) -> Array[Vector2i]:
+	assert(boardlayout_pos.x <= _boards_layout.x and boardlayout_pos.y <= _boards_layout.y)
+	var output : Array[Vector2i]
 	
+	var index : int = boardlayout_pos.x + (boardlayout_pos.y - 1) * _boards_layout.x - 1
+	output.assign(boards_coords[index])
+	return output
+
+######################################################################################
+
 func set_board_interactable(boardlayout_pos : Vector2i) -> Array:
 	assert(boardlayout_pos.x <= _boards_layout.x and boardlayout_pos.y <= _boards_layout.y)
 	var index : int = boardlayout_pos.x + (boardlayout_pos.y - 1) * _boards_layout.x - 1

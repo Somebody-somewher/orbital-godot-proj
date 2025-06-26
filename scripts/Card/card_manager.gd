@@ -9,6 +9,10 @@ var tweening : Tween
 var screen_size : Vector2
 var hover_enabled : bool = true
 
+# Placing on board Logic
+var has_received_response_signal := false
+var is_request_successful : bool
+
 const CARD_COLLISION_MASK = 1
 
 const CARD_EASE := 0.13
@@ -16,7 +20,7 @@ const CARD_EASE := 0.13
 var CARD_TILE_RATIO : Vector2
 
 
-@export var board_ref : BoardManager
+@export var board_ref : BoardManagerClient
 @export var player_hand_ref : PlayerHand
 @export var input_manager_ref : InputManager 
 @export var preview_board_ref : BoardPreviewerTileMap 
@@ -26,6 +30,10 @@ func _ready() -> void:
 	Signalbus.connect("mouse_enter_interactable_board_tile", highlight_effects_when_hovering_card)
 	Signalbus.connect("open_compendium", opening_ui)
 	Signalbus.connect("register_to_cardmanager", register_to_cardmanager)
+	
+	Signalbus.connect("board_action_success", _on_boardrequest_success)
+	Signalbus.connect("board_action_failure", _on_boardrequest_failure)
+
 	screen_size = get_viewport_rect().size
 	
 
@@ -69,7 +77,8 @@ func finish_drag(placing : bool):
 	if card_dragged and card_dragged is Card:
 		var card_placed : bool
 		if placing:
-			card_placed = board_ref.place_on_board_if_able(card_dragged.building.data.get_id())
+			board_ref.place_cardplaceable(card_dragged.get_data_instance_id())
+			card_placed = await await_boardrequest_result()
 		else:
 			card_placed = false
 			
@@ -138,7 +147,7 @@ func highlight_effects_when_hovering_card() -> void :
 	# card ghost snapping to grid
 	if card_dragged != null and card_dragged is Card:
 		preview_board_ref.reset_preview()
-		preview_board_ref.preview_placement(card_dragged.building.data)
+		preview_board_ref.preview_placement(card_dragged.get_data_instance_id())
 
 	else:
 		preview_board_ref.reset_preview()
@@ -146,12 +155,12 @@ func highlight_effects_when_hovering_card() -> void :
 
 
 ## position as global position to spawn card
-func spawn_card(id_name : String, pos : Vector2) -> void:
-	var new_card = CardLoader.create_card(id_name)
-	new_card.global_position = pos
-	self.add_child(new_card)
-	new_card.connect_to_card_manager(self)
-	player_hand_ref.add_to_hand(new_card)
+#func spawn_card(id_name : String, pos : Vector2) -> void:
+	#var new_card = CardLoader.create_card(id_name)
+	#new_card.global_position = pos
+	#self.add_child(new_card)
+	#new_card.connect_to_card_manager(self)
+	#player_hand_ref.add_to_hand(new_card)
 
 
 func opening_ui(_id : String) -> void :
@@ -198,3 +207,25 @@ func animate_card(card : Card, new_scale : Vector2, pos):
 	tweening = get_tree().create_tween()
 	tweening.parallel().tween_property(card, "position", card.deck_pos + pos, 0.08)
 	tweening.parallel().tween_property(card, "scale", new_scale * card.deck_scale, 0.08)
+
+
+###################### MISC ##########################
+func _on_boardrequest_success() -> void:
+	if has_received_response_signal:
+		return
+	has_received_response_signal = true
+	is_request_successful = true
+
+func _on_boardrequest_failure() -> void:
+	if has_received_response_signal:
+		return
+	has_received_response_signal = true
+	is_request_successful = false
+	
+func await_boardrequest_result() -> bool:
+	
+	while !has_received_response_signal:
+		await get_tree().process_frame
+	
+	has_received_response_signal = false
+	return is_request_successful

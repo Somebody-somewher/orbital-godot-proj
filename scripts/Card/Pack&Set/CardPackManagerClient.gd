@@ -3,25 +3,33 @@ class_name CardPackManagerClient
 
 @export var spawn_node : Node
 
+static var cardpack_created_total_count := 0
+
 var card_pack_nodes : Array[CardPack]
 
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
 	Signalbus.connect("create_pack", create_pack)
-	Signalbus.connect("choose_pack", func(chosen_packid: int): \
-		attempt_choose_pack.rpc_id(1, chosen_packid))
+	Signalbus.connect("choose_pack", func(chosen_packindex: int): \
+		attempt_choose_pack.rpc_id(1, chosen_packindex))
 	#NetworkManager.mark_client_ready(self.name)
 	pass # Replace with function body.
-#
+
+@rpc("any_peer","call_local")
 func create_pack(packs : Array[Array]) -> void:
 	var card_pack : CardPack
 	var card_pack_index := 0
 	for p_index in range(len(packs)):
-		card_pack = CardPack.new_pack(packs[p_index], p_index)
+		card_pack = CardPack.new_pack(packs[p_index], p_index, cardpack_created_total_count)
+		cardpack_created_total_count += 1
 		card_pack.set_position(Vector2i(0,0))
 		spawn_node.add_child(card_pack)
 		card_pack_nodes.append(card_pack)
+
+func _choose_pack(chosen_packindex : int) -> void:
+	# TODO: REPLACE THIS 0
+	CardLoader.cardpack_gen.update_local_cardpack_choice(chosen_packindex, 0)
 
 @rpc("any_peer","call_local")
 func remove_other_packs(pack_id : int) -> void:

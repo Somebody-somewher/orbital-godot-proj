@@ -15,6 +15,11 @@ var card_attribute_gen : CardAttributeGenerator
 var server_card_memory : ServerCardMemory
 @onready var cardpack_gen : CardPackGenerator = $CardPackGen
 
+# Packid linked to Cardset and Cards
+# TODO: NEED TO CHANGE TO THIS SYSTEM
+var local_pack_mem : Dictionary[int, Array]
+var local_player_hand : Array[CardInstanceData]
+
 #for constructors
 var building_card_scene: PackedScene = preload("res://scenes/Card/building_card.tscn")
 var aura_card_scene: PackedScene = preload("res://scenes/Card/aura_card.tscn")
@@ -44,24 +49,38 @@ func setup(cag : CardAttributeGenerator = null, csa : CardSetAllocator = null) -
 			card_attribute_gen = cag
 
 		cardpack_gen.server_setup(card_attribute_gen, server_card_memory, csa)
-	cardpack_gen.setup(_create_data_instance, _create_card)
+	cardpack_gen.setup(create_data_instance, create_card, func(selected_pack : Array[Dictionary], pack_id : int):\
+		local_pack_mem.get_or_add(pack_id, selected_pack))
+
 
 ################################## CARD CREATION LOGIC #######################################
 
-func _create_data_instance(data_id : String, attribute_number : int = 0) -> CardInstanceData:
+# Whoever calls this function is in charge of storing the data_instance so we can refer to it later
+@rpc("any_peer", "call_local")
+func create_data_instance(data_id : String, attribute_number : int = 0) -> CardInstanceData:
+	
+	# NOTE: IF THE CLIENT IS CALLING THIS FUNCTION, ATTRIBUTE NUMBER NOT BE -1
+	# EITHER PUT IT AS 0 OR THE ATTRIBUTE NUMBER THAT CREATED THE CARD
 	if attribute_number == -1:
 		attribute_number = card_attribute_gen.generate_random_attribute()
 	
 	# Add more to this dict for diff types of card-datas
 	var data : CardData = buildings_dict.get(data_id, null)
+	var instance_data : CardInstanceData 
 	
 	if data is BuildingData:
-		return BuildingInstanceData.new(data as BuildingData, attribute_number)
+		instance_data =  BuildingInstanceData.new(data as BuildingData, attribute_number)
 	else:
-		return null
+		instance_data = null
+	
+	# THIS CODE TRIGGERS IN SERVER WHEN PACK IS CHOSEN AND CONFIRMED
+	# if NetworkManager.isclient():
+	#	modify(instance_data) for e.g. if there is an aura that makes 	
+	
+	return instance_data
 
 # Add to scene must be done by manually by node calling this method
-func _create_card(data : CardInstanceData) -> Card:
+func create_card(data : CardInstanceData) -> Card:
 	var card : Card
 	if data is BuildingInstanceData:
 		card = card_scene.instantiate()
@@ -69,17 +88,42 @@ func _create_card(data : CardInstanceData) -> Card:
 		return card
 	return null
 
+func client_modify(player_uuid : String, data : CardInstanceData) -> void:
+	# AuraManager 
+	pass
+	
+func duplicate_cardinstance(data : CardInstanceData) -> CardInstanceData:
+	if data is BuildingInstanceData:
+		return BuildingInstanceData.duplicate(data)
+	return null
+
 ################################### ADDING TO HAND #################################################
 
 @rpc("any_peer","call_local")
-func attempt_add_to_hand(set_id : int) -> void:
+func attempt_add_to_hand(set_index : int, pack_id : int) -> void:
 	var remote_id := multiplayer.get_remote_sender_id()
 	
 	var ids : Array[String] = server_card_memory.attempt_card_to_hand( \
-		PlayerManager.getUUID_from_PeerID(remote_id), set_id)
+		PlayerManager.getUUID_from_PeerID(remote_id), set_index)
 	
-	#_add_to_hand.rpc_id(remote_id, ids, set_id)
-	Signalbus.emit_multiplayer_signal.rpc_id(remote_id, "confirmed_add_to_hand", [ids, set_id])
+	_add_to_hand_local_mem.rpc_id(remote_id, ids, set_index, pack_id)
+	Signalbus.emit_multiplayer_signal.rpc_id(remote_id, "confirmed_add_to_hand", [ids, set_index])
+
+@rpc("any_peer","call_local")
+func _add_to_hand_local_mem(ids : Array[String], set_index : int, pack_id : int) -> void:
+	assert(!local_pack_mem.is_empty())
+	var card_id_dicts : Dictionary[String, CardInstanceData] = local_pack_mem[pack_id][set_index] as Dictionary[String, CardInstanceData]
+	for id in ids:
+		local_player_hand.append(card_id_dicts[id])
+	
+	print(local_player_hand)
+	pass
+
+func local_search_hand(carddatainstance_id : String) -> CardInstanceData:
+	for card_instance in local_player_hand:
+		if card_instance.get_id() == carddatainstance_id:
+			return card_instance
+	return null
 
 #@rpc("any_peer","call_local")
 #func _add_to_hand(card_instance_ids : Array[String], set_id : int) -> void:

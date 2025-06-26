@@ -7,6 +7,8 @@ var is_cardsets_interactable := false
 
 var pack_arr = []
 var choices := 1
+
+var pack_index : int
 var pack_id : int
 
 ##logic stuff
@@ -33,10 +35,11 @@ func set_cardset_interactable() -> void:
 	#return_pack.z_index = 50
 	#return return_pack
 
-static func new_pack(setdata : Array, pack_id : int) -> CardPack:
+static func new_pack(setdata : Array, pack_index : int, pack_id : int) -> CardPack:
 	var return_pack : CardPack = card_pack.instantiate()
 	return_pack.pack_sets.assign(setdata)
 	return_pack.z_index = 50
+	return_pack.pack_index = pack_index
 	return_pack.pack_id = pack_id
 	return return_pack
 
@@ -57,12 +60,12 @@ func open_pack() -> void:
 	for i in range(pack_size):
 		# Creation of cardsets
 		var new_set = card_sets.instantiate()
-		new_set.set_up(pack_sets[i], i)
+		new_set.set_up(pack_sets[i], i, pack_id)
 		new_set.global_position = Vector2(200 * cos(set_angle* i), 200 * sin(set_angle* i))
 		pack_arr.insert(pack_arr.size(), new_set)
 		add_child(new_set)
 	
-	Signalbus.emit_signal("choose_pack", pack_id)
+	Signalbus.emit_signal("choose_pack", pack_index)
 
 func select_option(set_option : CardSet) -> void:
 	if !is_cardsets_interactable:

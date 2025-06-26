@@ -23,7 +23,10 @@ signal create_pack(packs_of_cards : Array)
 
 # Pack Choosing
 signal server_update_chooser(num_packs : int)
-signal choose_pack(pack_id : int)
+
+# CardPack -> CardPackManagerClient 
+signal choose_pack(pack_index : int)
+
 signal server_pack_choosing_end()
 
 # Adding to hand
@@ -36,6 +39,9 @@ signal register_to_cardmanager(card : Card)
 signal get_tile_pos_from_AOE(tile_pos : Vector2i, aoe_tiles : Array[Vector2i], board_tile_positions_data : Array[Vector2i])
 signal mouse_enter_interactable_board_tile()
 signal mouse_enter_board()
+
+signal board_action_fail()
+signal board_action_success()
 
 # For Pathfinding for boats, Floodfill for castle
 signal run_search_on_board(c : Callable)

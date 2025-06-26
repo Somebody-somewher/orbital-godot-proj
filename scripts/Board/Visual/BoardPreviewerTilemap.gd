@@ -64,13 +64,16 @@ func _set_preview(tiles_to_preview : Array[Vector2i], tile_scoring : Array[int] 
 		tile_score_previewer.display_tile_scores(preview_highlight_tiles, tile_scoring)	
 
 ## Called by card_manager and displays the ghost image
-func preview_placement(placeable : PlaceableData, tile_pos : Vector2i = NULL_TILE) -> void:
+func preview_placement(placeableinstance_id : String, tile_pos : Vector2i = NULL_TILE) -> void:
 	if tile_pos == NULL_TILE:
 		tile_pos = get_mouse_tile_pos()
-	
+		
+	var placeable := CardLoader.local_search_hand(placeableinstance_id).get_data()
 	if _matrix.check_tilepos_in_playable(tilemap_to_matrix(tile_pos)) and placeable.placeable(_matrix, tilemap_to_matrix(tile_pos)):
-		# Sends the _set_preview to the placeable scorer event
-		placeable.preview(_matrix, _set_preview, tilemap_to_matrix(tile_pos))
+		
+		#TODO: Sends the _set_preview to the placeable scorer event
+		#placeable.preview(_matrix, _set_preview, tilemap_to_matrix(tile_pos))
+		
 		place_ghost(placeable, tile_pos)
 
 func place_ghost(placeable_data : PlaceableData, tile_pos : Vector2i) -> void:

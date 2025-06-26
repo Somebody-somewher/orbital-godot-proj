@@ -4,11 +4,12 @@ class_name CardSet
 var cards_in_set : Array[Card]
 var destroyed : bool = false
 var set_id : int 
-var card_pack : int
+var cardpack_id : int
 
-func set_up(card_set : Array, set_id : int) -> void:
+func set_up(card_set : Array, set_id : int, cardpack_id : int) -> void:
 	cards_in_set.assign(card_set)
 	self.set_id = set_id
+	self.cardpack_id = cardpack_id
 	pass
 
 # Called when the node enters the scene tree for the first time.
@@ -27,7 +28,7 @@ func _ready() -> void:
 func shift_to_hand() -> void:
 	self.get_node("Area2D/CollisionShape2D").disabled = true
 	destroyed = true
-	CardLoader.attempt_add_to_hand.rpc_id(1,set_id)
+	CardLoader.attempt_add_to_hand.rpc_id(1, set_id, cardpack_id)
 
 func _shift_to_hand(cards : Array[String], set_id : int) -> void:
 	if self.set_id != set_id:

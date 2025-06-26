@@ -1,8 +1,11 @@
 extends Object
 class_name CardPackChooser
 
-var player_uuid_to_packid : Dictionary[String, int] = {}
-var packid_to_player_uuid : Dictionary[int, String] = {}
+var num_packs_created := 0
+
+var player_uuid_to_packindex : Dictionary[String, int] = {}
+var packindex_to_player_uuid : Dictionary[int, String] = {}
+var packindex_to_packid : Dictionary[int, int]
 
 var _remove_other_packs : Callable
 
@@ -11,43 +14,48 @@ func _init(_remove_other_packs : Callable) -> void:
 	Signalbus.connect("server_pack_choosing_end", finalize_pack_choices)
 
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
-		player_uuid_to_packid.get_or_add(pi.getPlayerUUID(), -1))
+		player_uuid_to_packindex.get_or_add(pi.getPlayerUUID(), -1))
 	self._remove_other_packs = _remove_other_packs
 
-# Called by Server's CardPackGenerator
+# Called by Server's CardPackGenerator found in CardLoader
 func reset_chooser(num_packs : int) -> void:
-	for key in player_uuid_to_packid.keys():
-		player_uuid_to_packid[key] = -1
+	for key in player_uuid_to_packindex.keys():
+		player_uuid_to_packindex[key] = -1
 	
-	packid_to_player_uuid = {}
+	packindex_to_player_uuid = {}
 	for index in range(num_packs):
-		packid_to_player_uuid.get_or_add(index, "")
+		packindex_to_player_uuid.get_or_add(index, "")
+		packindex_to_packid.get_or_add(index, num_packs_created + index)
+	num_packs_created += num_packs
 
-func player_choose_pack(player_uuid : String, pack_id : int) -> bool:
-	if player_uuid_to_packid[player_uuid] != -1:
+func player_choose_pack(player_uuid : String, pack_index : int) -> bool:
+	if player_uuid_to_packindex[player_uuid] != -1:
 		return false
 	
-	if pack_id >= player_uuid_to_packid.values().size() || pack_id < 0:
+	if pack_index >= player_uuid_to_packindex.values().size() || pack_index < 0:
 		return false
 	
-	packid_to_player_uuid[player_uuid_to_packid[player_uuid]] = ""
+	packindex_to_player_uuid[player_uuid_to_packindex[player_uuid]] = ""
 	
-	player_uuid_to_packid[player_uuid] = pack_id
-	packid_to_player_uuid[pack_id] = player_uuid
+	player_uuid_to_packindex[player_uuid] = pack_index
+	packindex_to_player_uuid[pack_index] = player_uuid
 	Signalbus.emit_signal("end_turn", player_uuid)
 	return true
 	
 func finalize_pack_choices() -> void:
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
-		if player_uuid_to_packid[pi.getPlayerUUID()] == -1:\
-			for pack_id in packid_to_player_uuid.keys(): \
-				if packid_to_player_uuid[pack_id] == "": \
-					player_choose_pack(pi.getPlayerUUID(), pack_id); break)
+		if player_uuid_to_packindex[pi.getPlayerUUID()] == -1:\
+			for pack_index in packindex_to_player_uuid.keys(): \
+				if packindex_to_player_uuid[pack_index] == "": \
+					player_choose_pack(pi.getPlayerUUID(), pack_index); break)
 					
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo):
-		CardLoader.server_card_memory.record_cardpack_choice(pi.getPlayerUUID(), player_uuid_to_packid[pi.getPlayerUUID()]); \
-		CardLoader.cardpack_gen.update_local_cardpack_choice.rpc_id(pi.getPlayerId(), player_uuid_to_packid[pi.getPlayerUUID()]);\
-		_remove_other_packs.call(pi.getPlayerId(), player_uuid_to_packid[pi.getPlayerUUID()]))
+		CardLoader.server_card_memory.record_cardpack_choice(pi.getPlayerUUID(), player_uuid_to_packindex[pi.getPlayerUUID()]); \
+		
+		CardLoader.cardpack_gen.update_local_cardpack_choice.rpc_id(pi.getPlayerId(), \
+			player_uuid_to_packindex[pi.getPlayerUUID()], packindex_to_packid[player_uuid_to_packindex[pi.getPlayerUUID()]]);\
+		
+		_remove_other_packs.call(pi.getPlayerId(), player_uuid_to_packindex[pi.getPlayerUUID()]))
 
 #func check_all_players_select_packs() -> void:
 	#var is_check := true

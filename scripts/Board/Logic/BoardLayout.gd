@@ -6,11 +6,11 @@ var BOARDS_LAYOUT : Vector2i
 
 # UserID -> Array of BoardIds
 # the board ids are the boards this player controls during build phase
-var player_native_boards : Dictionary[int, Array]
+var player_native_boards : Dictionary[String, Array]
 
 # UserID -> Array of BoardIds
 # the board ids represent the boards that the player can interact with
-var player_interactable_boards : Dictionary[int, Array]
+var player_interactable_boards : Dictionary[String, Array]
 
 # Boards currently in use by players
 var used_boards : Array
@@ -44,10 +44,9 @@ func get_board_layout(num_players : int) -> Vector2i:
 	PlayerManager.forEachPlayer(default_assign_board_to_player)
 	return BOARDS_LAYOUT
 
-
 func default_assign_board_to_player(player : PlayerInfo) -> void:
-	player_native_boards.get_or_add(player.pid, [curr_player_board])
-	player_interactable_boards.get_or_add(player.pid, [curr_player_board])
+	player_native_boards.get_or_add(player.getPlayerUUID(), [curr_player_board])
+	player_interactable_boards.get_or_add(player.getPlayerUUID(), [curr_player_board])
 	used_boards.append(curr_player_board)
 	
 	if curr_player_board.x > BOARDS_LAYOUT.x:
@@ -64,6 +63,6 @@ func reset_interactable() -> void:
 	player_interactable_boards = player_native_boards
 	
 func set_ui_interactable() -> void:
-	for pi in player_interactable_boards.keys():
-		_set_interactable_func.call(pi, player_interactable_boards[pi])	
+	for player_uuid in player_interactable_boards.keys():
+		_set_interactable_func.call(PlayerManager.getPeerID_from_UUID(player_uuid), player_interactable_boards[player_uuid])	
 			
