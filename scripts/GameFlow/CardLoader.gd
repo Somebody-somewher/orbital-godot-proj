@@ -43,8 +43,15 @@ static func new_card(card_name : String) -> Card:
 		return_card = CardLoaderr.placeable_card_scene.instantiate() as PlaceableCard
 	elif data is AuraCardData:
 		return_card = CardLoaderr.aura_card_scene.instantiate() as AuraCard
-		
-	var card_image_path = str("res://assets/card_sprites/blank_card.png")
+	
+	var card_image_path : String
+	match data.category:
+		CardData.CATEGORY.Sabotage:
+			card_image_path = "res://assets/card_sprites/sabo_card.png"
+		CardData.CATEGORY.Power:
+			card_image_path = "res://assets/card_sprites/power_card.png"
+		_:
+			card_image_path = "res://assets/card_sprites/blank_card.png"
 	return_card.get_node("CardImage").texture = load(card_image_path)
 	return_card.get_node("EntityImage").texture = data.card_sprite
 	return_card.get_node("Texts/CardName").text = data.display_name

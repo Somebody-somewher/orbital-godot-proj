@@ -1,5 +1,6 @@
 extends VBoxContainer
 
+@onready var card_back: TextureRect = $BaseInfo/CardBack
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -9,6 +10,13 @@ func _ready() -> void:
 func display_card(id : String) -> void:
 	var data : CardData = CardLoaderr.get_card_data(id)
 	if data:
+		match data.category:
+			CardData.CATEGORY.Sabotage:
+				card_back.texture = load("res://assets/card_sprites/sabo_card.png")
+			CardData.CATEGORY.Power:
+				card_back.texture = load("res://assets/card_sprites/power_card.png")
+			_:
+				card_back.texture = load("res://assets/card_sprites/blank_card.png")
 		$BaseInfo/CardBack/CardImage.texture = data.card_sprite
 		$BaseInfo/MarginContainer/VBoxContainer/HBoxContainer/CardName.text = data.display_name
 		$BaseInfo/MarginContainer/VBoxContainer/Category.text = data.CATEGORY.keys()[data.category] + " Card"
