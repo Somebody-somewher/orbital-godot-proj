@@ -8,7 +8,6 @@ var tile_score_previewer : BoardTileScorePreviewer
 
 # Hopefully array will not be overwritten before visual reset
 var preview_highlight_tiles : Array[Vector2i]
-var _check_in_playable_area : Callable
 
 # local start-end tilepos of playable area for camera
 var viewable_area_coords : Array[Vector2]
@@ -68,7 +67,7 @@ func preview_placement(placeableinstance_id : String, tile_pos : Vector2i = NULL
 	if tile_pos == NULL_TILE:
 		tile_pos = get_mouse_tile_pos()
 		
-	var placeable := CardLoader.local_search_hand(placeableinstance_id).get_data()
+	var placeable : PlaceableData = CardLoader.local_search_hand(placeableinstance_id).get_data()
 	if _matrix.check_tilepos_in_playable(tilemap_to_matrix(tile_pos)) and placeable.placeable(_matrix, tilemap_to_matrix(tile_pos)):
 		
 		#TODO: Sends the _set_preview to the placeable scorer event

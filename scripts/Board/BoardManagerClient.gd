@@ -3,6 +3,9 @@ class_name BoardManagerClient
 # Main class that handles all "board" functionality. 
 # Technically the "board" is made up of smaller "sub"-boards where each "sub"-board belongs to a player
 
+@export var previewer_tilemap : BoardPreviewerTileMap
+@export var object : Node
+
 # For the hover_over_tile signal
 var prev_tile_pos : Vector2i = Vector2i(-1,-1)
 var boards_near_mouse : Array[bool]

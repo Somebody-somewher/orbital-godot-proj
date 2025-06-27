@@ -10,6 +10,7 @@ var choices := 1
 
 var pack_index : int
 var pack_id : int
+var remove_self : Callable
 
 ##logic stuff
 var card_sets = preload("res://scenes/Card/card_set.tscn")
@@ -25,8 +26,9 @@ var dissolve_value = 1
 func _ready() -> void:
 	get_node("AnimationPlayer").play("fall animation")
 
-func set_cardset_interactable() -> void:
+func set_cardset_interactable(remove_self : Callable) -> void:
 	is_cardsets_interactable = true
+	self.remove_self = remove_self
 
 # factory constructor
 #static func new_pack(setdata : Array[CardSetData]) -> CardPack:
@@ -78,7 +80,10 @@ func select_option(set_option : CardSet) -> void:
 		pack_arr.erase(set_option)
 		choices -= 1
 		if choices == 0:
-			destroy_pack()
+			if !remove_self.is_null():
+				remove_self.call(pack_id)
+			else:
+				destroy_pack()
 
 func destroy_pack() -> void:
 	for cardset in pack_arr:

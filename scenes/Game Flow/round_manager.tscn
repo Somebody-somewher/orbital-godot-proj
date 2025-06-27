@@ -1,8 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://klvllydgi5tw"]
+[gd_scene load_steps=5 format=3 uid="uid://klvllydgi5tw"]
 
 [ext_resource type="Script" uid="uid://bc4th2e5h0hj8" path="res://scripts/GameFlow/RoundLogic/RoundCounter.gd" id="1_jwvfs"]
 [ext_resource type="Resource" uid="uid://bpxbgyo3a0vug" path="res://Resources/Rounds/PickPackRound.tres" id="2_nip7a"]
+[ext_resource type="Script" uid="uid://d4g6mmx7ry5hb" path="res://scripts/GameFlow/RoundLogic/RoundState.gd" id="3_grur1"]
+[ext_resource type="Resource" uid="uid://dq22va4ixm4fk" path="res://Resources/Rounds/BuildRound.tres" id="4_ybckn"]
 
 [node name="RoundManager" type="Node"]
 script = ExtResource("1_jwvfs")
 initial_round = ExtResource("2_nip7a")
+round_id_lookup = Dictionary[String, ExtResource("3_grur1")]({
+"build": ExtResource("4_ybckn"),
+"pick_pack": ExtResource("2_nip7a")
+})

@@ -17,6 +17,8 @@ func _init(_remove_other_packs : Callable) -> void:
 		player_uuid_to_packindex.get_or_add(pi.getPlayerUUID(), -1))
 	self._remove_other_packs = _remove_other_packs
 
+# TODO: Should be called once the PackManager receives packs instead
+# PACKID DOESNT GET UPDATED
 # Called by Server's CardPackGenerator found in CardLoader
 func reset_chooser(num_packs : int) -> void:
 	for key in player_uuid_to_packindex.keys():
@@ -24,8 +26,8 @@ func reset_chooser(num_packs : int) -> void:
 	
 	packindex_to_player_uuid = {}
 	for index in range(num_packs):
-		packindex_to_player_uuid.get_or_add(index, "")
-		packindex_to_packid.get_or_add(index, num_packs_created + index)
+		packindex_to_player_uuid[index] = ""
+		packindex_to_packid[index] = num_packs_created + index
 	num_packs_created += num_packs
 
 func player_choose_pack(player_uuid : String, pack_index : int) -> bool:
@@ -50,12 +52,15 @@ func finalize_pack_choices() -> void:
 					player_choose_pack(pi.getPlayerUUID(), pack_index); break)
 					
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo):
+		
+		# Server update choice
 		CardLoader.server_card_memory.record_cardpack_choice(pi.getPlayerUUID(), player_uuid_to_packindex[pi.getPlayerUUID()]); \
 		
+		# Client local update choice
 		CardLoader.cardpack_gen.update_local_cardpack_choice.rpc_id(pi.getPlayerId(), \
 			player_uuid_to_packindex[pi.getPlayerUUID()], packindex_to_packid[player_uuid_to_packindex[pi.getPlayerUUID()]]);\
 		
-		_remove_other_packs.call(pi.getPlayerId(), player_uuid_to_packindex[pi.getPlayerUUID()]))
+		_remove_other_packs.call(pi.getPlayerId(), packindex_to_packid[player_uuid_to_packindex[pi.getPlayerUUID()]]))
 
 #func check_all_players_select_packs() -> void:
 	#var is_check := true

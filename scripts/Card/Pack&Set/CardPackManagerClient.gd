@@ -31,15 +31,27 @@ func _choose_pack(chosen_packindex : int) -> void:
 	# TODO: REPLACE THIS 0
 	CardLoader.cardpack_gen.update_local_cardpack_choice(chosen_packindex, 0)
 
+# TODO: UPDATE TO ONLY REMOVE PACKS THAT ARE CURRENTLY BEING CHOSEN
 @rpc("any_peer","call_local")
 func remove_other_packs(pack_id : int) -> void:
-	for i in range(len(card_pack_nodes)):
-		if i != pack_id:
-			card_pack_nodes[i].destroy_pack()
+	var temp : CardPack
+	for pack in card_pack_nodes:
+		if pack.pack_id != pack_id:
+			temp = pack
+			card_pack_nodes.erase(temp)
+			temp.destroy_pack()
 		else:
-			card_pack_nodes[i].set_cardset_interactable()
-			
+			pack.set_cardset_interactable(remove_pack)
 
+func remove_pack(pack_id : int) -> void:
+	var temp : CardPack
+	for pack in card_pack_nodes:
+		if pack.pack_id == pack_id:
+			temp = pack
+			card_pack_nodes.erase(temp)
+			temp.destroy_pack()
+			break
+	
 	#var card_pack = CardPack.new_pack(sets)
 	#card_pack.set_position(Vector2i(0,0))
 	#spawn_node.add_child(card_pack)

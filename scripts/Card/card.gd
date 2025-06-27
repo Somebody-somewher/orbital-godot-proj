@@ -28,6 +28,11 @@ func _ready() -> void:
 # factory constructor, to override
 func set_up(cardinstance_data : CardInstanceData, cardimg_bg : Texture2D) -> void:
 	get_node("CardImage").texture = cardimg_bg
+	
+	if cardinstance_data is BuildingInstanceData:
+		if (cardinstance_data as BuildingInstanceData).foil:
+			(get_node("CardImage") as Sprite2D).modulate = Color.LIGHT_BLUE
+	
 	get_node("EntityImage").texture = cardinstance_data.get_data().card_sprite
 	get_node("Texts/CardName").text = cardinstance_data.get_data().display_name
 	self.cardinstance_dataid = cardinstance_data.get_id()

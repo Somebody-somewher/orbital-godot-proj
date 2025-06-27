@@ -13,8 +13,6 @@ class_name BoardManagerBase
 #########################################################################
 
 @export var terrain_tilemap : BoardVisualManager
-@export var previewer_tilemap : BoardPreviewerTileMap
-@export var object : Node
 # The "true" matrix data is stored on server
 # Every client has its own client-side matrix for preview of ghost placeable image
 var matrix_data : BoardMatrixData
@@ -45,7 +43,8 @@ func init_clients() -> void:
 	# This is to mark the client as synced up
 	NetworkManager.mark_client_ready.rpc(self.name)
 
-func procgen_init(create_terrain : Callable, create_border_tile : Callable, create_building : Callable, create_fake_building : Callable) -> void:
+func procgen_init(create_terrain : Callable, create_border_tile : Callable,\
+		 create_building : Callable, create_fake_building : Callable) -> void:
 	if proc_gen != null:
 		# Procedural Generation setup
 		for i in range(BOARDS_LAYOUT.x * BOARDS_LAYOUT.y):
@@ -53,6 +52,7 @@ func procgen_init(create_terrain : Callable, create_border_tile : Callable, crea
 		proc_gen.generate_actual_buildings(create_building)
 		proc_gen.generate_border(create_border_tile, create_fake_building)
 	else:
+		
 		var placeholder_id = terrain_tilemap.env_map.getPlaceholderTile().get_id()
 		for x in range(BOARD_SIZE.x * BOARDS_LAYOUT.x):
 			for y in range(BOARD_SIZE.y * BOARDS_LAYOUT.y):
@@ -85,6 +85,7 @@ func _create_terrain_building(building_id: Array[String], tilepos: Array[Vector2
 		building = Building.new_building_frm_data(building_instance)
 		matrix_data.add_placeable_to_tile(tilemap_to_matrix(tilepos[index]), building)
 		
+		# NOT THE BEST SWE BUT ITS MORE EFFICIENT THIS WAY
 		if NetworkManager.is_server_client || !multiplayer.is_server():
 			terrain_tilemap.place_building_on_tile(building, tilepos[index])
 	
@@ -161,8 +162,6 @@ func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vect
 	return placeable_node
 
 ################################# TERRAIN MODIFICATION ##########################################
-## Initial creation of terrain tiles for procgen
-
 @rpc("any_peer","call_local")
 func request_create_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
 	var remote_id := multiplayer.get_remote_sender_id()

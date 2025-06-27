@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_53dov")
+next_state_id = "pick_pack"
 state_id = "build"
 time = 30.0
 metadata/_custom_type_script = "uid://k4v6c6j1tnxc"

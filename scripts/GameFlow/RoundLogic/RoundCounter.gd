@@ -27,6 +27,8 @@ var prev_s : int
 
 var pause_timer : bool = false
 
+@export var round_id_lookup : Dictionary[String, RoundState]
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Signalbus.end_turn.connect(_player_end_turn)
@@ -38,9 +40,12 @@ func _ready() -> void:
 	#round_grp.load_all_into(possible_rounds)
 	NetworkManager.connect("all_clients_ready", start_round_manager)
 	NetworkManager.server_net.mark_server_component_ready(self.name)
+	
+	for round in round_id_lookup.values():
+		round.connect("transition_to", start_round)
 
 func start_round_manager():
-	start_round(initial_round)
+	start_round(initial_round.get_id())
 
 func _process(delta: float) -> void:
 	
@@ -65,9 +70,9 @@ func end_round() -> void:
 	curr_round.round_end()
 
 # In the actual game this will be called by gameplay manager after all end_of_round effects occur?
-func start_round(round : RoundState) -> void:
-	round.connect("transition_to", start_round)
-	curr_round = round
+func start_round(round_id : String) -> void:
+
+	curr_round = round_id_lookup[round_id]
 	round_count += 1
 	
 	for key in players_ready.keys():
