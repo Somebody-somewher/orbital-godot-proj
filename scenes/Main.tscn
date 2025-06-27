@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cdp6pxvmemk4u"]
+[gd_scene load_steps=34 format=3 uid="uid://cdp6pxvmemk4u"]
 
 [ext_resource type="Script" uid="uid://dq7q74qaf5hj8" path="res://scripts/GameFlow/GameManager.gd" id="1_bjd11"]
 [ext_resource type="Script" uid="uid://cep46bfjthrc7" path="res://scripts/Card/Managers/card_manager.gd" id="3_jlsqs"]
@@ -16,6 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://bkog375sxl1lg" path="res://scenes/Compendium/compendium_container.tscn" id="10_1nqs0"]
 [ext_resource type="Script" uid="uid://bc4th2e5h0hj8" path="res://scripts/GameFlow/RoundCounter.gd" id="11_wp0k4"]
 [ext_resource type="Script" uid="uid://b2bvfgo8adhft" path="res://scripts/Card/Pack&Set/CardPackManager.gd" id="13_qmy6f"]
+[ext_resource type="FontFile" uid="uid://dj85nkjpq655u" path="res://assets/fonts/cjkFonts-allseto-v1.11-2.ttf" id="14_1iba3"]
+[ext_resource type="FontFile" uid="uid://njwdfbe6i0ko" path="res://assets/fonts/Comicy.ttf" id="15_yxlcp"]
 [ext_resource type="PackedScene" uid="uid://cyka8ysyph1xg" path="res://scenes/Audio/audio_manager.tscn" id="16_cvmbd"]
 [ext_resource type="Script" uid="uid://c8qc3g5w3svt1" path="res://addons/godot_resource_groups/resource_group.gd" id="17_1nqs0"]
 [ext_resource type="PackedScene" uid="uid://bxiy7ajwus31g" path="res://scenes/Board/board_manager.tscn" id="17_bb450"]
@@ -40,6 +42,79 @@ cards = Dictionary[String, int]({
 "dummy_aura": 1
 })
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"
+
+[sub_resource type="Animation" id="Animation_1iba3"]
+resource_name = "show"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ErrorLabel:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.96667, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_yxlcp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ErrorLabel:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ebg2g"]
+_data = {
+&"RESET": SubResource("Animation_yxlcp"),
+&"show": SubResource("Animation_1iba3")
+}
+
+[sub_resource type="Animation" id="Animation_ebg2g"]
+resource_name = "pop_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.233333, 0.8, 0.866667, 1),
+"transitions": PackedFloat32Array(1.46409, 0.5, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -600), Vector2(0, 40), Vector2(0, 0), Vector2(0, 0), Vector2(0, 30), Vector2(0, -600)]
+}
+
+[sub_resource type="Animation" id="Animation_2ofn6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -600)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xa025"]
+_data = {
+&"RESET": SubResource("Animation_2ofn6"),
+&"pop_up": SubResource("Animation_ebg2g")
+}
 
 [sub_resource type="Resource" id="Resource_1iba3"]
 script = ExtResource("17_1nqs0")
@@ -82,7 +157,11 @@ position = Vector2(879, 480)
 
 [node name="PlayerUI" type="Control" parent="UILayer"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("7_wp0k4")
 
 [node name="ScoreLabel" type="Label" parent="UILayer/PlayerUI"]
@@ -127,6 +206,71 @@ theme = ExtResource("8_lhr70")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "Timer: 30"
+
+[node name="ErrorMsg" type="Control" parent="UILayer/PlayerUI"]
+layout_mode = 1
+anchor_top = 0.178
+anchor_right = 1.0
+anchor_bottom = 0.494
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ErrorLabel" type="Label" parent="UILayer/PlayerUI/ErrorMsg"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -0.5
+offset_right = 0.5
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("14_1iba3")
+theme_override_font_sizes/font_size = 40
+text = "Error! Cannot place there, it's too wrong"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UILayer/PlayerUI/ErrorMsg"]
+libraries = {
+&"": SubResource("AnimationLibrary_ebg2g")
+}
+
+[node name="RoundMsg" type="Control" parent="UILayer/PlayerUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -600.0
+offset_bottom = -600.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="UILayer/PlayerUI/RoundMsg"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.5
+offset_top = -48.5
+offset_right = 230.5
+offset_bottom = 48.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 36
+theme_override_fonts/font = ExtResource("15_yxlcp")
+theme_override_font_sizes/font_size = 100
+text = "ROUND 1"
+uppercase = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UILayer/PlayerUI/RoundMsg"]
+libraries = {
+&"": SubResource("AnimationLibrary_xa025")
+}
 
 [node name="CompendiumLayer" type="CanvasLayer" parent="."]
 layer = 2

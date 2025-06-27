@@ -31,3 +31,7 @@ signal run_search_on_board(c : Callable)
 signal show_card_information(card_id : String)
 signal open_compendium(card_id : String)
 signal close_compendium
+
+# UI MESSAGES
+signal show_error_msg(msg : String)
+signal show_round_msg(msg : String)
