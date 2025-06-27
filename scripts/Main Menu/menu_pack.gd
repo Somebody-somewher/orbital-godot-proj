@@ -16,6 +16,9 @@ func _ready() -> void:
 	get_node("AnimatedSprite2D/MouseFade").play("float")
 
 
+func select_pack() -> void:
+	open_pack()
+
 func open_pack() -> void:
 	self.get_node("Area2D/CollisionShape2D").disabled = true
 	for card in menu_card:
