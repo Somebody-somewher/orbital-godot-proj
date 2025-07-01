@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=9 format=3 uid="uid://bf2edmjertmcq"]
+
+[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_dvun3"]
+[ext_resource type="Texture2D" uid="uid://hakuh4rbnh7j" path="res://assets/entity_sprites/bees.PNG" id="2_dvun3"]
+[ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_wavji"]
+[ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_0vfrf"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_rqdj5"]
+[ext_resource type="Resource" uid="uid://bsrnk44vhb58o" path="res://Resources/Conditions/StackableCondition.tres" id="6_bflus"]
+[ext_resource type="Resource" uid="uid://swxqvknonbdu" path="res://Resources/Events/Scoring/wheat_field_scoring.tres" id="7_f0asi"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="8_dtdrm"]
+
+[resource]
+script = ExtResource("8_dtdrm")
+layer = 2
+nonplaceable_terrain = Array[ExtResource("3_wavji")]([ExtResource("4_0vfrf")])
+preview_event = ExtResource("7_f0asi")
+place_conditions = Array[ExtResource("5_rqdj5")]([ExtResource("6_bflus")])
+place_effects = Array[ExtResource("1_dvun3")]([])
+post_place_effects = Array[ExtResource("1_dvun3")]([])
+begin_round_effects = Array[ExtResource("1_dvun3")]([])
+end_round_effects = Array[ExtResource("1_dvun3")]([])
+destroyed_effects = Array[ExtResource("1_dvun3")]([])
+id_name = "bees"
+display_name = "Bees"
+card_sprite = ExtResource("2_dvun3")
+desc = "Produces score when near flowers."
+flavor = "\"According to all known laws of aviation, there is no way that a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway because bees don't care what humans think is impossible.\""
+category = 8
+tags = Array[String](["animal"])
+is_aura = false
+hidden = false
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"

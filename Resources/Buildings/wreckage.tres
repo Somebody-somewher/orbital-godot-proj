@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=9 format=3 uid="uid://8atgjh2alon7"]
+
+[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_fofu7"]
+[ext_resource type="Texture2D" uid="uid://bx4d6jb2wrjkv" path="res://assets/entity_sprites/wreckage.PNG" id="2_fofu7"]
+[ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_r842k"]
+[ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_jy0hc"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_5vjho"]
+[ext_resource type="Resource" uid="uid://bsrnk44vhb58o" path="res://Resources/Conditions/StackableCondition.tres" id="6_nt1iy"]
+[ext_resource type="Resource" uid="uid://swxqvknonbdu" path="res://Resources/Events/Scoring/wheat_field_scoring.tres" id="7_t6pnf"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="8_t85xa"]
+
+[resource]
+script = ExtResource("8_t85xa")
+layer = 1
+nonplaceable_terrain = Array[ExtResource("3_r842k")]([ExtResource("4_jy0hc")])
+preview_event = ExtResource("7_t6pnf")
+place_conditions = Array[ExtResource("5_5vjho")]([ExtResource("6_nt1iy")])
+place_effects = Array[ExtResource("1_fofu7")]([])
+post_place_effects = Array[ExtResource("1_fofu7")]([])
+begin_round_effects = Array[ExtResource("1_fofu7")]([])
+end_round_effects = Array[ExtResource("1_fofu7")]([])
+destroyed_effects = Array[ExtResource("1_fofu7")]([])
+id_name = "wreckage"
+display_name = "Wreckage"
+card_sprite = ExtResource("2_fofu7")
+desc = "When a boat first move adjacent to a wreckage, it could be destroyed to produce a chest and key."
+flavor = "\"Remnants sunk from long ago. Maybe needs abit of duct tape.\""
+category = 3
+tags = Array[String](["ancient", "producer"])
+is_aura = false
+hidden = false
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"

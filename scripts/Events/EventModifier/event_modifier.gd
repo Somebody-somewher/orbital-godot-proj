@@ -9,5 +9,5 @@ func modify(event_arr : BoardEvent) -> Array[BoardEvent]:
 func flat_modify(event_arr : Array[BoardEvent]) -> Array[BoardEvent]:
 	var ret_arr : Array[BoardEvent] = []
 	for event in event_arr:
-		ret_arr.append(modify(event))
+		ret_arr.append_array(modify(event))
 	return ret_arr

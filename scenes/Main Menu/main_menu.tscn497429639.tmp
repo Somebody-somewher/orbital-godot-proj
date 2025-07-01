@@ -1,0 +1,113 @@
+[gd_scene load_steps=20 format=3 uid="uid://dehbiymvw4gq5"]
+
+[ext_resource type="Script" uid="uid://baxm1vpvlaqw2" path="res://scripts/Main Menu/main_menu.gd" id="1_bnuun"]
+[ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/Managers/player_hand.gd" id="2_bso06"]
+[ext_resource type="PackedScene" uid="uid://b43u6wsxnq4ai" path="res://scenes/Game Flow/input_manager.tscn" id="3_xpnd4"]
+[ext_resource type="Script" uid="uid://bvoajtpxmv7lr" path="res://scripts/Main Menu/menu_logic.gd" id="4_xlgyj"]
+[ext_resource type="Texture2D" uid="uid://c88sgkqa5s3er" path="res://assets/misc_sprites/menu_bgd.jpg" id="5_bqibv"]
+[ext_resource type="PackedScene" uid="uid://bapjcj4rxrxaj" path="res://scenes/Main Menu/options_menu.tscn" id="6_cmu3j"]
+[ext_resource type="PackedScene" uid="uid://bogg4d6s1y1og" path="res://scenes/Main Menu/title_menu.tscn" id="7_kbvpp"]
+[ext_resource type="PackedScene" uid="uid://dtsfmua37k8xq" path="res://scenes/Main Menu/singleplayer_menu.tscn" id="8_jo2uk"]
+[ext_resource type="Script" uid="uid://cep46bfjthrc7" path="res://scripts/Card/Managers/card_manager.gd" id="10_jl12q"]
+[ext_resource type="PackedScene" uid="uid://dyaq4288p4ik4" path="res://scenes/Main Menu/tutorial_card_pack.tscn" id="11_26fkh"]
+[ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="12_10p5i"]
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="13_tp8iy"]
+[ext_resource type="Script" uid="uid://c5fouuecjsld6" path="res://scenes/camera.gd" id="14_mdse0"]
+[ext_resource type="PackedScene" uid="uid://bxiy7ajwus31g" path="res://scenes/Board/board_manager.tscn" id="15_fa6rk"]
+[ext_resource type="Script" uid="uid://duu3dx0n1l1gg" path="res://scripts/Main Menu/menu_board.gd" id="16_bso06"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_bnuun"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4dx8l"]
+frequency = 0.0017
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qf083"]
+noise = SubResource("FastNoiseLite_4dx8l")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_flqon"]
+resource_local_to_scene = true
+shader = ExtResource("12_10p5i")
+shader_parameter/Noise = SubResource("NoiseTexture2D_qf083")
+shader_parameter/DissolveValue = 1.0
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_bnuun")
+
+[node name="PlayerHand" type="Node2D" parent="."]
+script = ExtResource("2_bso06")
+
+[node name="InputManager" parent="." instance=ExtResource("3_xpnd4")]
+
+[node name="MenuLogic" type="Node2D" parent="."]
+script = ExtResource("4_xlgyj")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_bqibv")
+
+[node name="Menus" type="Control" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="OptionsMenu" parent="Menus" instance=ExtResource("6_cmu3j")]
+layout_mode = 1
+mouse_filter = 1
+
+[node name="TitleMenu" parent="Menus" instance=ExtResource("7_kbvpp")]
+layout_mode = 1
+
+[node name="SingleplayerMenu" parent="Menus" instance=ExtResource("8_jo2uk")]
+layout_mode = 1
+board_size_grp = SubResource("ButtonGroup_bnuun")
+
+[node name="CardManager" type="Node2D" parent="." node_paths=PackedStringArray("board_ref", "player_hand_ref", "input_manager_ref", "preview_board_ref")]
+z_index = 2
+script = ExtResource("10_jl12q")
+board_ref = NodePath("../BoardManager2")
+player_hand_ref = NodePath("../PlayerHand")
+input_manager_ref = NodePath("../InputManager")
+preview_board_ref = NodePath("../BoardManager2/Preview")
+
+[node name="TutorialCardPack" parent="CardManager" instance=ExtResource("11_26fkh")]
+material = SubResource("ShaderMaterial_flqon")
+position = Vector2(378.725, 233.18)
+pack_sets = Array[ExtResource("13_tp8iy")]([])
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("board")]
+position = Vector2(200, 500)
+script = ExtResource("14_mdse0")
+board = NodePath("../BoardManager2/Preview")
+
+[node name="BoardManager2" parent="." instance=ExtResource("15_fa6rk")]
+script = ExtResource("16_bso06")
+BOARD_SIZE = Vector2i(1, 1)
+BOARDS_LAYOUT = Vector2i(1, 1)
+BORDER_DIM = Vector2i(0, 0)
+proc_gen = null
+
+[node name="Timer" type="Timer" parent="BoardManager2"]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="BoardManager2/Timer" to="BoardManager2" method="_on_timer_timeout"]
+
+[editable path="BoardManager2"]

@@ -67,3 +67,6 @@ func emit_multiplayer_signal(signal_to_call : String, args : Array):
 			emit_signal(signal_to_call, args[0], args[1], args[2])
 		_:
 			assert(1 == 0)
+# UI MESSAGES
+signal show_error_msg(msg : String)
+signal show_round_msg(msg : String)

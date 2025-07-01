@@ -30,8 +30,7 @@ func spawn_hand(state_name: String) -> void:
 # for add cards back into hand
 func spawn_card(id_name : String) -> void:
 	var new_card = MenuCard.new_card(id_name)
-	#new_card.position = get_global_tile_pos(Vector2i(0,0))
-	new_card.position = terrain_tilemap.get_local_centre_of_tile(Vector2i(0,0))
+	new_card.global_position = Vector2i(800,450)
 	card_manager_ref.add_child(new_card)
 	card_manager_ref.connect_card_signals(new_card)
 	player_hand_ref.add_to_hand(new_card)

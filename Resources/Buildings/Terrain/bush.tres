@@ -25,10 +25,12 @@ destroyed_effects = Array[ExtResource("1_fbwkw")]([])
 id_name = "bush"
 display_name = "Bush"
 card_sprite = ExtResource("2_0utjk")
-desc = ""
-flavor = ""
-category = 0
-tags = Array[String]([])
+desc = "Chance to create berry cards at the end of each round."
+flavor = "\"We're tramping through the bush
+On and on we push
+Into the thick of it\""
+category = 7
+tags = Array[String](["producer"])
 is_aura = false
 hidden = false
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

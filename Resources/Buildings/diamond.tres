@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=9 format=3 uid="uid://856fae4ujicn"]
+
+[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_p6arp"]
+[ext_resource type="Texture2D" uid="uid://d1xgdwbnvprwl" path="res://assets/entity_sprites/diamond.PNG" id="2_p6arp"]
+[ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_qts2i"]
+[ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_1wuoc"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_rsyko"]
+[ext_resource type="Resource" uid="uid://bsrnk44vhb58o" path="res://Resources/Conditions/StackableCondition.tres" id="6_lr5dq"]
+[ext_resource type="Resource" uid="uid://swxqvknonbdu" path="res://Resources/Events/Scoring/wheat_field_scoring.tres" id="7_6gjdu"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="8_2njv6"]
+
+[resource]
+script = ExtResource("8_2njv6")
+layer = 1
+nonplaceable_terrain = Array[ExtResource("3_qts2i")]([ExtResource("4_1wuoc")])
+preview_event = ExtResource("7_6gjdu")
+place_conditions = Array[ExtResource("5_rsyko")]([ExtResource("6_lr5dq")])
+place_effects = Array[ExtResource("1_p6arp")]([])
+post_place_effects = Array[ExtResource("1_p6arp")]([])
+begin_round_effects = Array[ExtResource("1_p6arp")]([])
+end_round_effects = Array[ExtResource("1_p6arp")]([])
+destroyed_effects = Array[ExtResource("1_p6arp")]([])
+id_name = "diamond"
+display_name = "Diamond"
+card_sprite = ExtResource("2_p6arp")
+desc = "Occasional drop from mines, can be sold for a high price"
+flavor = "\"Hope to find some diamonds tonight, night, night
+Diamonds tonight\""
+category = 8
+tags = Array[String](["mineral", "sellable"])
+is_aura = false
+hidden = false
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"

@@ -8,6 +8,14 @@ static var button_scene : PackedScene = preload("res://scenes/Compendium/compend
 
 func _ready() -> void:
 	var data = CardLoader.get_card_data(id_name)
+	match data.category:
+		CardData.CATEGORY.Sabotage:
+			$CardBackButton.texture_normal = load("res://assets/card_sprites/sabo_card.png")
+		CardData.CATEGORY.Power:
+			$CardBackButton.texture_normal = load("res://assets/card_sprites/power_card.png")
+		_:
+			$CardBackButton.texture_normal = load("res://assets/card_sprites/blank_card.png")
+	 
 	$CardImage.texture = data.card_sprite
 	search_name =  data.display_name
 	$Label.text = data.display_name

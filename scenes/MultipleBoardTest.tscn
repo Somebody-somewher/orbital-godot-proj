@@ -4,9 +4,15 @@
 [ext_resource type="Resource" uid="uid://b2ockuqgtwo7k" path="res://Resources/ProcGen/BoardProcGenerator.tres" id="2_o5vfg"]
 [ext_resource type="Script" uid="uid://dls3y3sngygdn" path="res://scripts/Board/Visual/BoardPreviewerTilemap.gd" id="3_tuyi6"]
 [ext_resource type="Resource" uid="uid://doq3nosdirb1v" path="res://Resources/EnvTerrain/TestEnvTerrainMapping.tres" id="4_r3qr2"]
+<<<<<<< HEAD
 [ext_resource type="Script" uid="uid://dq6l63on5mqf7" path="res://scripts/Board/Visual/BoardVisualManager.gd" id="5_jvhqx"]
 [ext_resource type="Script" uid="uid://cep46bfjthrc7" path="res://scripts/Card/card_manager.gd" id="6_eveuj"]
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/player_hand.gd" id="7_mp586"]
+=======
+[ext_resource type="Script" uid="uid://dq6l63on5mqf7" path="res://scripts/Board/BoardVisualManager.gd" id="5_jvhqx"]
+[ext_resource type="Script" uid="uid://cep46bfjthrc7" path="res://scripts/Card/Managers/card_manager.gd" id="6_eveuj"]
+[ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/Managers/player_hand.gd" id="7_mp586"]
+>>>>>>> Condition-and-Effects-Expansion
 [ext_resource type="Script" uid="uid://csnqlg6oxvuth" path="res://scripts/GameFlow/input_manager.gd" id="8_62l6o"]
 
 [node name="Test" type="Node2D"]

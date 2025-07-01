@@ -1,6 +1,7 @@
 extends Node
 
 @export var card_scene : PackedScene
+var card_dict = {}
 
 
 @export_category("BuildingCard Creation")
@@ -8,7 +9,10 @@ extends Node
 @export var buildingcard_img : Texture2D
 @export var building_grp : ResourceGroup
 var buildings : Array[BuildingData] = []
-var buildings_dict = {}
+
+@export_category("AuraCard Creation")
+@export var aura_grp : ResourceGroup
+var auras : Array[AuraCardData] = []
 
 ## Server
 var card_attribute_gen : CardAttributeGenerator
@@ -31,7 +35,11 @@ func _ready() -> void:
 	
 	for b in buildings:
 		if b:
-			buildings_dict.get_or_add(b.get_id(), b)
+			card_dict.get_or_add(b.get_id(), b)
+
+	for aura_data in auras:
+		if aura_data:
+			card_dict.get_or_add(aura_data.id_name, aura_data)
 
 	if multiplayer.is_server():
 		server_card_memory = ServerCardMemory.new()
@@ -75,7 +83,7 @@ func create_data_instance(data_id : String, attribute_number : int = 0, instance
 		else:
 			instance_id = card_attribute_gen.generate_instance_id(data_id)
 	
-	var data : CardData = buildings_dict[data_id]
+	var data : CardData = card_dict[data_id]
 	var instance_data : CardInstanceData 
 	
 	if data is BuildingData:
@@ -155,16 +163,16 @@ func local_search_hand(carddatainstance_id : String) -> CardInstanceData:
 	#Signalbus.emit_signal("add_to_player_hand", output)
 
 func get_building_data(id : String) -> BuildingData:
-	return buildings_dict.get(id)
+	return card_dict.get(id)
 
 func get_card_data(id : String) -> CardData:
-	return buildings_dict.get(id)
+	return card_dict.get(id)
 
 func get_display_name(id : String) -> String:
-	return buildings_dict.get(id).display_name
+	return card_dict.get(id).display_name
 
 func get_texture(id : String) -> Texture2D:
-	return buildings_dict.get(id).card_sprite
+	return card_dict.get(id).card_sprite
 
 
 #func get_random_set(n : int) -> Array[CardSetData]:

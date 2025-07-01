@@ -13,7 +13,7 @@ class_name CardData
 @export_category("Tags and Combos")
 enum CATEGORY { 
 	Sabotage, Economy, Religion, 
-	Infrastructure, Farming, Science, 
+	Infrastructure, Farming, Tech, 
 	Culture, Nature, Industry, Power }
 
 # influences some auras and card back colour

@@ -5,7 +5,9 @@ class_name MenuLogic
 const MENU_HANDS = {
 	"main_menu" : ["singleplayer", "multiplayer", "settings", "exit"],
 	"singleplayer" : ["back", "start_game"],
-	"multiplayer" : ["back"],
+	"multiplayer" : ["back", "host", "join"],
+	"multihost" : ["back", "start_game"],
+	"multijoin" : ["back"],
 	"settings" : ["back"]
 }
 
@@ -13,6 +15,8 @@ var STATES = {
 	"main_menu" : main_menu,
 	"singleplayer" : singleplayer,
 	"multiplayer" : multiplayer_state,
+	"multihost" : multiplayer_host,
+	"multijoin" : multiplayer_join,
 	"settings" : settings
 }
 
@@ -23,6 +27,11 @@ signal singleplayer_back
 signal start_singleplayer_game
 signal multiplayer_open
 signal multiplayer_back
+signal multihost_open
+signal multihost_back
+signal start_multiplayer_game
+signal multijoin_open
+signal multijoin_back
 signal exit_game
 
 func get_hand(id : String) -> Array:
@@ -49,17 +58,14 @@ func settings(id : String) -> String:
 	match id:
 		"back":
 			setting_menu_exit.emit()
-			return "main_menu"
 	return "main_menu"
 
 func singleplayer(id : String) -> String:
 	match id:
 		"back":
 			singleplayer_back.emit()
-			return "main_menu"
 		"start_game":
 			start_singleplayer_game.emit()
-			return "main_menu"
 	return "main_menu"
 
 func multiplayer_state(id : String) -> String:
@@ -67,5 +73,24 @@ func multiplayer_state(id : String) -> String:
 		"back":
 			multiplayer_back.emit()
 			return "main_menu"
+		"host":
+			multiplayer_back.emit()
+			return "multihost"
+		"join":
+			multiplayer_back.emit()
+			return "multijoin"
 	return "main_menu"
 	
+func multiplayer_host(id : String) -> String:
+	match id:
+		"back":
+			multihost_back.emit()
+		"start_game":
+			start_multiplayer_game.emit()
+	return "multiplayer"
+
+func multiplayer_join(id : String) -> String:
+	match id:
+		"back":
+			multijoin_back.emit()
+	return "multiplayer"

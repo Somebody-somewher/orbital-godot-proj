@@ -1,9 +1,42 @@
-[gd_scene load_steps=8 format=3 uid="uid://bapjcj4rxrxaj"]
+[gd_scene load_steps=26 format=3 uid="uid://bapjcj4rxrxaj"]
 
 [ext_resource type="Script" uid="uid://c057jbxetj07s" path="res://scripts/Main Menu/options_menu.gd" id="1_1d4sf"]
 [ext_resource type="FontFile" uid="uid://bw124sa6qjoe5" path="res://assets/fonts/Pixel Game.otf" id="1_1t40g"]
+[ext_resource type="FontFile" uid="uid://v66tkdbnak7b" path="res://assets/fonts/friendlyscribbles.ttf" id="3_bcs5b"]
+[ext_resource type="StyleBox" uid="uid://btig115l18rn6" path="res://shader/option_panel.tres" id="4_0pi02"]
+[ext_resource type="StyleBox" uid="uid://wwxkjlermjyr" path="res://shader/tab_selected.tres" id="5_ng41s"]
+[ext_resource type="StyleBox" uid="uid://bwwdbs88vfrrs" path="res://shader/tab_unselected.tres" id="6_fh8x6"]
+[ext_resource type="StyleBox" uid="uid://djajkbveub13x" path="res://shader/tab_hover.tres" id="7_0pi02"]
+[ext_resource type="Theme" uid="uid://b1iiejjh6n8br" path="res://shader/option_label.tres" id="7_t0wva"]
+[ext_resource type="StyleBox" uid="uid://dy5mgthdnoj4v" path="res://shader/slider_right.tres" id="8_psx7d"]
+[ext_resource type="Texture2D" uid="uid://bcqwv18qvcd8i" path="res://shader/empty_img.tres" id="8_sn7sk"]
+[ext_resource type="StyleBox" uid="uid://b5fugh2mkpmer" path="res://shader/slider_left.tres" id="9_ta0xq"]
+[ext_resource type="StyleBox" uid="uid://7h5h2anuij77" path="res://shader/checkbox_pressed_hover.tres" id="11_rq10v"]
+[ext_resource type="StyleBox" uid="uid://bi46thjlrf4y6" path="res://shader/checkbox_hover.tres" id="12_1svf5"]
+[ext_resource type="StyleBox" uid="uid://1cxawgy4e87i" path="res://shader/checkbox_pressed.tres" id="13_sn7sk"]
+[ext_resource type="StyleBox" uid="uid://bxer07gmhuctd" path="res://shader/checkbox_normal.tres" id="14_7yqud"]
+[ext_resource type="StyleBox" uid="uid://cvfgbrmlywkdm" path="res://shader/button_hovered.tres" id="15_1svf5"]
+[ext_resource type="StyleBox" uid="uid://gytvjmrfo5o1" path="res://shader/button_pressed.tres" id="15_61yn4"]
+[ext_resource type="StyleBox" uid="uid://qd1csl7ycp6a" path="res://shader/button_normal.tres" id="16_16krt"]
+[ext_resource type="ButtonGroup" uid="uid://8yhxdwx1tlwp" path="res://Resources/MainMenu Resources/resolution_buttons.tres" id="19_7yqud"]
 
-[sub_resource type="Theme" id="Theme_1d4sf"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t0wva"]
+content_margin_left = 24.0
+content_margin_top = 24.0
+content_margin_right = 24.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0.778775, 0.71613, 1)
+border_color = Color(0.968627, 0.905882, 0.745098, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ng41s"]
+bg_color = Color(0, 0.623529, 0.572549, 1)
+border_width_left = 7
+border_width_bottom = 19
+border_color = Color(0, 0.32549, 0.4, 1)
+corner_radius_top_left = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="Animation" id="Animation_1d4sf"]
 length = 0.001
@@ -236,49 +269,26 @@ anchor_right = 1.0
 anchor_bottom = 0.85
 grow_horizontal = 0
 grow_vertical = 2
-theme = SubResource("Theme_1d4sf")
+theme_override_colors/font_unselected_color = Color(0, 0.32549, 0.4, 1)
+theme_override_colors/font_hovered_color = Color(0, 0.32549, 0.4, 1)
+theme_override_colors/font_selected_color = Color(0.968627, 0.905882, 0.745098, 1)
+theme_override_constants/side_margin = 17
+theme_override_fonts/font = ExtResource("3_bcs5b")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/panel = ExtResource("4_0pi02")
+theme_override_styles/tab_selected = ExtResource("5_ng41s")
+theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_t0wva")
+theme_override_styles/tab_unselected = ExtResource("6_fh8x6")
 tab_alignment = 2
-current_tab = 0
-
-[node name="Sound" type="TabBar" parent="SettingsTabs/LeftTab/TabContainer"]
-layout_mode = 2
-tab_alignment = 1
-metadata/_tab_index = 0
-
-[node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/LeftTab/TabContainer/Sound"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 24
-theme_override_constants/margin_top = 24
-theme_override_constants/margin_right = 24
-theme_override_constants/margin_bottom = 24
-
-[node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 75
-
-[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Sound"
-
-[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Example Option"
-
-[node name="Label3" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Example Option"
+current_tab = 1
+tab_focus_mode = 0
 
 [node name="Control" type="TabBar" parent="SettingsTabs/LeftTab/TabContainer"]
 visible = false
 layout_mode = 2
 mouse_filter = 1
 tab_alignment = 1
-metadata/_tab_index = 1
+metadata/_tab_index = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/LeftTab/TabContainer/Control"]
 layout_mode = 1
@@ -287,26 +297,131 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 24
-theme_override_constants/margin_top = 24
-theme_override_constants/margin_right = 24
-theme_override_constants/margin_bottom = 24
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Control/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 75
 
-[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Control/MarginContainer/VBoxContainer"]
+[node name="Sound" type="TabBar" parent="SettingsTabs/LeftTab/TabContainer"]
 layout_mode = 2
-text = "Control Option"
+tab_alignment = 1
+metadata/_tab_index = 1
 
-[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Control/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Example Option"
+[node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/LeftTab/TabContainer/Sound"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
 
-[node name="Label3" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Control/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer"]
 layout_mode = 2
-text = "Example Option"
+theme_override_constants/separation = 75
+
+[node name="MasterBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 17
+
+[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/MasterBox"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+theme = ExtResource("7_t0wva")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "Master volume:"
+
+[node name="HSlider" type="HSlider" parent="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/MasterBox"]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_icons/grabber = ExtResource("8_sn7sk")
+theme_override_icons/grabber_highlight = ExtResource("8_sn7sk")
+theme_override_icons/grabber_disabled = ExtResource("8_sn7sk")
+theme_override_styles/slider = ExtResource("8_psx7d")
+theme_override_styles/grabber_area = ExtResource("9_ta0xq")
+theme_override_styles/grabber_area_highlight = ExtResource("9_ta0xq")
+value = 50.0
+
+[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/MasterBox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("7_t0wva")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "50"
+
+[node name="MusicBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 17
+
+[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/MusicBox"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+theme = ExtResource("7_t0wva")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "Music volume:"
+
+[node name="HSlider" type="HSlider" parent="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/MusicBox"]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_icons/grabber = ExtResource("8_sn7sk")
+theme_override_icons/grabber_highlight = ExtResource("8_sn7sk")
+theme_override_icons/grabber_disabled = ExtResource("8_sn7sk")
+theme_override_styles/slider = ExtResource("8_psx7d")
+theme_override_styles/grabber_area = ExtResource("9_ta0xq")
+theme_override_styles/grabber_area_highlight = ExtResource("9_ta0xq")
+value = 50.0
+
+[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/MusicBox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("7_t0wva")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "50"
+
+[node name="SFXBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 17
+
+[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/SFXBox"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+theme = ExtResource("7_t0wva")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "SFX volume:"
+
+[node name="HSlider" type="HSlider" parent="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/SFXBox"]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_icons/grabber = ExtResource("8_sn7sk")
+theme_override_icons/grabber_highlight = ExtResource("8_sn7sk")
+theme_override_icons/grabber_disabled = ExtResource("8_sn7sk")
+theme_override_styles/slider = ExtResource("8_psx7d")
+theme_override_styles/grabber_area = ExtResource("9_ta0xq")
+theme_override_styles/grabber_area_highlight = ExtResource("9_ta0xq")
+value = 50.0
+
+[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/SFXBox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("7_t0wva")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "50"
 
 [node name="RightTab" type="Control" parent="SettingsTabs"]
 z_index = 2
@@ -328,7 +443,18 @@ anchor_right = 1.0
 anchor_bottom = 0.85
 grow_horizontal = 0
 grow_vertical = 2
+theme_override_colors/font_unselected_color = Color(0, 0.32549, 0.4, 1)
+theme_override_colors/font_hovered_color = Color(0, 0.32549, 0.4, 1)
+theme_override_colors/font_selected_color = Color(0.968627, 0.905882, 0.745098, 1)
+theme_override_constants/side_margin = 19
+theme_override_fonts/font = ExtResource("3_bcs5b")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/panel = SubResource("StyleBoxFlat_ng41s")
+theme_override_styles/tab_selected = ExtResource("5_ng41s")
+theme_override_styles/tab_hovered = ExtResource("7_0pi02")
+theme_override_styles/tab_unselected = ExtResource("6_fh8x6")
 current_tab = 0
+tab_focus_mode = 0
 metadata/_edit_use_anchors_ = true
 
 [node name="Graphics" type="TabBar" parent="SettingsTabs/RightTab/TabContainer"]
@@ -344,26 +470,95 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 24
-theme_override_constants/margin_top = 24
-theme_override_constants/margin_right = 24
-theme_override_constants/margin_bottom = 24
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/RightTab/TabContainer/Graphics/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 75
 
-[node name="Label" type="Label" parent="SettingsTabs/RightTab/TabContainer/Graphics/MarginContainer/VBoxContainer"]
+[node name="Separator" type="Control" parent="SettingsTabs/RightTab/TabContainer/Graphics/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "G"
 
-[node name="Label2" type="Label" parent="SettingsTabs/RightTab/TabContainer/Graphics/MarginContainer/VBoxContainer"]
+[node name="FullscreenBox" type="HBoxContainer" parent="SettingsTabs/RightTab/TabContainer/Graphics/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Example Option"
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
 
-[node name="Label3" type="Label" parent="SettingsTabs/RightTab/TabContainer/Graphics/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="SettingsTabs/RightTab/TabContainer/Graphics/MarginContainer/VBoxContainer/FullscreenBox"]
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
-text = "Example Option"
+size_flags_horizontal = 8
+theme = ExtResource("7_t0wva")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "Full Screen:"
+
+[node name="Button" type="Button" parent="SettingsTabs/RightTab/TabContainer/Graphics/MarginContainer/VBoxContainer/FullscreenBox"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/hover_pressed = ExtResource("11_rq10v")
+theme_override_styles/hover = ExtResource("12_1svf5")
+theme_override_styles/pressed = ExtResource("13_sn7sk")
+theme_override_styles/normal = ExtResource("14_7yqud")
+toggle_mode = true
+
+[node name="ResolutionBox" type="HBoxContainer" parent="SettingsTabs/RightTab/TabContainer/Graphics/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 17
+
+[node name="Label" type="Label" parent="SettingsTabs/RightTab/TabContainer/Graphics/MarginContainer/VBoxContainer/ResolutionBox"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("7_t0wva")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "Resolution:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsTabs/RightTab/TabContainer/Graphics/MarginContainer/VBoxContainer/ResolutionBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Button" type="Button" parent="SettingsTabs/RightTab/TabContainer/Graphics/MarginContainer/VBoxContainer/ResolutionBox/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_colors/font_hover_pressed_color = Color(0.984314, 0.94902, 0.866667, 1)
+theme_override_colors/font_hover_color = Color(0.983527, 0.950464, 0.865413, 1)
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+theme_override_colors/font_pressed_color = Color(0.968627, 0.905882, 0.745098, 1)
+theme_override_fonts/font = ExtResource("3_bcs5b")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/hover = ExtResource("15_1svf5")
+theme_override_styles/pressed = ExtResource("15_61yn4")
+theme_override_styles/normal = ExtResource("16_16krt")
+toggle_mode = true
+button_group = ExtResource("19_7yqud")
+text = "1280x720"
+
+[node name="Button2" type="Button" parent="SettingsTabs/RightTab/TabContainer/Graphics/MarginContainer/VBoxContainer/ResolutionBox/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_colors/font_hover_pressed_color = Color(0.984314, 0.94902, 0.866667, 1)
+theme_override_colors/font_hover_color = Color(0.983527, 0.950464, 0.865413, 1)
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+theme_override_colors/font_pressed_color = Color(0.968627, 0.905882, 0.745098, 1)
+theme_override_fonts/font = ExtResource("3_bcs5b")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/hover = ExtResource("15_1svf5")
+theme_override_styles/pressed = ExtResource("15_61yn4")
+theme_override_styles/normal = ExtResource("16_16krt")
+toggle_mode = true
+button_pressed = true
+button_group = ExtResource("19_7yqud")
+text = "1600x900"
 
 [node name="Accessiblity" type="TabBar" parent="SettingsTabs/RightTab/TabContainer"]
 visible = false
@@ -379,28 +574,23 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 24
-theme_override_constants/margin_top = 24
-theme_override_constants/margin_right = 24
-theme_override_constants/margin_bottom = 24
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/RightTab/TabContainer/Accessiblity/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 75
 
-[node name="Label" type="Label" parent="SettingsTabs/RightTab/TabContainer/Accessiblity/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "A Option"
-
-[node name="Label2" type="Label" parent="SettingsTabs/RightTab/TabContainer/Accessiblity/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Example Option"
-
-[node name="Label3" type="Label" parent="SettingsTabs/RightTab/TabContainer/Accessiblity/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Example Option"
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_1d4sf")
 }
+
+[connection signal="drag_ended" from="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/MasterBox/HSlider" to="." method="_on_sfx_slider_drag_ended"]
+[connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/MasterBox/HSlider" to="." method="_on_master_slider_value_changed"]
+[connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/MusicBox/HSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="drag_ended" from="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/SFXBox/HSlider" to="." method="_on_sfx_slider_drag_ended"]
+[connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/SFXBox/HSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="toggled" from="SettingsTabs/RightTab/TabContainer/Graphics/MarginContainer/VBoxContainer/FullscreenBox/Button" to="." method="_on_fullscreen_toggled"]

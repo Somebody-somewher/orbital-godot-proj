@@ -8,6 +8,7 @@ const SINGLEPLAYER = preload("res://scenes/Main.tscn")
 @onready var title_menu: TitleMenu = $Menus/TitleMenu
 @onready var options_menu: OptionMenu = $Menus/OptionsMenu
 @onready var singleplayer_menu: SingleplayerMenu = $Menus/SingleplayerMenu
+@onready var multiplayer_menu: MultiplayerMenu = $Menus/MultiplayerMenu
 @onready var input_manager: Node2D = $InputManager
 @onready var camera_2d: Camera2D = $Camera2D
 
@@ -16,6 +17,7 @@ func _ready() -> void:
 	title_menu.visible = true
 	options_menu.visible = false
 	singleplayer_menu.visible = false
+	multiplayer_menu.visible = false
 	input_manager.camera_enabled = false
 	camera_2d.cam_enabled = false
 	connect_signals()
@@ -47,10 +49,13 @@ func on_close_singleplayer() -> void:
 	title_menu.animate(true)
 
 func on_open_multiplayer() -> void:
-	pass
+	title_menu.animate(false)
+	multiplayer_menu.animate(true)
 
 func on_close_multiplayer() -> void:
-	pass
+	multiplayer_menu.animate(false)
+	title_menu.animate(true)
+
 
 func on_start_singleplayer() -> void:
 	initialize_game()

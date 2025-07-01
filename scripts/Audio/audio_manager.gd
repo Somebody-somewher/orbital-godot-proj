@@ -6,15 +6,25 @@ extends Node2D
 var next_bgm : String = "desert"
 
 #does nothing currently
-@export var master_volume : float = 1.0
-@export var bgm_volume : float = .4
-@export var sfx_volume : float = 1.0
+@export var master_volume : float = .5
+@export var bgm_volume : float = .3
+@export var sfx_volume : float = .5
 
 # for stacking SFX isntances
 @export var sfx_instance_scene: PackedScene
 @export var SFX_AUDIOS : Dictionary[String, AudioData]
 # for controlling volume of alot of stacking sfx
 var current_instances = 0
+
+func change_master_volume(value : float) ->void:
+	master_volume = value
+	if bgm_stream:
+		bgm_stream.volume_db = linear_to_db(bgm_volume * master_volume)
+
+func change_bgm_volume(value : float) ->void:
+	bgm_volume = 0.6 * value
+	if bgm_stream:
+		bgm_stream.volume_db = linear_to_db(bgm_volume * master_volume)
 
 #stops current bgm and immediately plays new one
 func play_bgm(audio_name : String, from_position : float = 0.0) -> void:
@@ -25,7 +35,7 @@ func play_bgm(audio_name : String, from_position : float = 0.0) -> void:
 		# stop previous
 		bgm_stream.stop()
 	bgm_stream = get_node("BGM").get_node(audio_name)
-	bgm_stream.volume_linear = bgm_volume
+	bgm_stream.volume_db = linear_to_db(bgm_volume * master_volume)
 	bgm_stream.play(from_position)
 
 func play_sfx(audio_name : String, pitch : float = 1.0, from_position : float = 0.0) -> void:
@@ -34,7 +44,7 @@ func play_sfx(audio_name : String, pitch : float = 1.0, from_position : float = 
 	instance.stream = SFX_AUDIOS.get(audio_name).get_default()
 	instance.pitch_scale = pitch
 	instance.from_position = from_position
-	instance.volume_db = -current_instances
+	instance.volume_db = linear_to_db(sfx_volume  * master_volume) - current_instances
 	get_node("SFX").add_child(instance)
 
 #queues bmg to play after current loop

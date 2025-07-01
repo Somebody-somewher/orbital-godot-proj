@@ -5,6 +5,8 @@ class_name CardPack
 
 var is_cardsets_interactable := false
 
+@export var prepack_sets : Array[CardSetData]
+
 var pack_arr = []
 var choices := 1
 
@@ -16,7 +18,8 @@ var remove_self : Callable
 var card_sets = preload("res://scenes/Card/card_set.tscn")
 static var card_pack = preload("res://scenes/Card/card_pack.tscn")
 
-
+@onready var buttons: Control = $Buttons
+@onready var input_manager: InputManager = $"../../InputManager"
 ##shader stuff
 @onready
 var sprite_ref = self
@@ -24,6 +27,7 @@ var dissolving = false
 var dissolve_value = 1
 
 func _ready() -> void:
+	buttons.visible = false
 	get_node("AnimationPlayer").play("fall animation")
 
 func set_cardset_interactable(remove_self : Callable) -> void:
@@ -54,9 +58,26 @@ func _process(delta: float) -> void:
 			sprite_ref.visible = false
 			queue_free()
 
+func select_pack() -> void:
+	buttons.visible = true
+
+func _on_check_pressed() -> void:
+	open_pack()
+	buttons.visible = false
+
+func _on_cross_pressed() -> void:
+	buttons.visible = false
+	input_manager.curr_mask = 0xFFFFFFFF
+	
+
 func open_pack() -> void:
 	self.get_node("Area2D/CollisionShape2D").disabled = true
 	var pack_size = pack_sets.size()
+	
+	if pack_size == 0:
+		destroy_pack()
+		return
+	
 	var set_angle = 2 * PI / pack_size
 	var set_radius_from_pack = 100
 	for i in range(pack_size):

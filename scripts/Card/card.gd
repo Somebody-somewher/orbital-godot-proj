@@ -11,7 +11,7 @@ static var card_scene: PackedScene = load("res://scenes/Card/Card.tscn")
 
 #animation vars for player hand
 var deck_angle = 0
-var deck_pos
+var deck_pos = Vector2.ZERO
 var deck_scale := 1.0
 
 ##shader stuff
@@ -67,6 +67,9 @@ func swap_to_effect(scale_by: Vector2) -> void:
 	self.get_node("Area2D/CollisionShape2D").disabled = true
 	dissolve_card()
 
+#called by cardmanager when highlighting
+func highlight_card(on : bool, tweening : Tween) -> void :
+	pass
 ######################################################################
 
 func _on_area_2d_mouse_entered() -> void:

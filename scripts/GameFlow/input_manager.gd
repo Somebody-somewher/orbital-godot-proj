@@ -81,7 +81,7 @@ func right_click_logic(result) -> void:
 			card_manager.finish_drag(false)
 		PACK_COLLISION_MASK:
 			AudioManager.play_sfx("click", 0.5)
-			result_found.open_pack()
+			result_found.select_pack()
 			var card_manager = result_found.get_parent()
 			card_manager.finish_drag(false)
 			if !result_found is MenuPack:

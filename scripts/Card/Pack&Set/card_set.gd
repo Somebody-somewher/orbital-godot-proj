@@ -12,6 +12,11 @@ func set_up(card_set : Array, set_id : int, cardpack_id : int) -> void:
 	self.cardpack_id = cardpack_id
 	pass
 
+@onready
+var card_manager = get_tree().root.get_node("GameManager/CardManager")
+#@onready
+#var input_manager = get_tree().root.get_node("GameManager/InputManager")
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:	
 	var z_count = 100
@@ -21,6 +26,15 @@ func _ready() -> void:
 		card_instance.get_node("Area2D/CollisionShape2D").disabled = true
 		add_child(card_instance)
 		z_count += 2
+
+	#for key in card_dict: ##card_type is of form [str, int]
+		#for i in range(card_dict.get(key)):
+			#var new_card = CardLoaderr.new_card(key)
+			#new_card.z_index = z_count
+			#new_card.get_node("Area2D/CollisionShape2D").disabled = true
+			#card_set.insert(card_set.size(), new_card)
+			#add_child(new_card)
+			#z_count += 2
 			
 	pass
 
@@ -43,6 +57,17 @@ func _shift_to_hand(cards : Array[String], set_id : int) -> void:
 	
 	for remainder in cards_in_set:
 		remainder.dissolve_card()
+#=======
+	#for set_card in card_set:
+		#set_card.reparent(card_manager)
+		#card_manager.connect_card_signals(set_card)
+		##set_card.connect_to_card_manager(card_manager)
+		#if set_card is PlaceableCard:
+			#card_manager.player_hand_ref.add_to_hand(set_card)
+		#elif set_card is AuraCard:
+			#card_manager.aura_cards.add(set_card)
+		#set_card.get_node("Area2D/CollisionShape2D").disabled = false
+#>>>>>>> Condition-and-Effects-Expansion
 
 func _on_area_2d_mouse_entered() -> void:
 	highlight_set(true)
