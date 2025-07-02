@@ -7,15 +7,15 @@ var player_uuid_to_packindex : Dictionary[String, int] = {}
 var packindex_to_player_uuid : Dictionary[int, String] = {}
 var packindex_to_packid : Dictionary[int, int]
 
-var _remove_other_packs : Callable
+var _finalized_pack_choices : Callable
 
-func _init(_remove_other_packs : Callable) -> void:
+func _init(_finalized_pack_choices : Callable) -> void:
 	Signalbus.connect("server_update_chooser", reset_chooser)
 	Signalbus.connect("server_pack_choosing_end", finalize_pack_choices)
 
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
 		player_uuid_to_packindex.get_or_add(pi.getPlayerUUID(), -1))
-	self._remove_other_packs = _remove_other_packs
+	self._finalized_pack_choices = _finalized_pack_choices
 
 # TODO: Should be called once the PackManager receives packs instead
 # PACKID DOESNT GET UPDATED
@@ -60,7 +60,7 @@ func finalize_pack_choices() -> void:
 		CardLoader.cardpack_gen.update_local_cardpack_choice.rpc_id(pi.getPlayerId(), \
 			player_uuid_to_packindex[pi.getPlayerUUID()], packindex_to_packid[player_uuid_to_packindex[pi.getPlayerUUID()]]);\
 		
-		_remove_other_packs.call(pi.getPlayerId(), packindex_to_packid[player_uuid_to_packindex[pi.getPlayerUUID()]]))
+		_finalized_pack_choices.call(pi.getPlayerId(), packindex_to_packid[player_uuid_to_packindex[pi.getPlayerUUID()]]))
 
 #func check_all_players_select_packs() -> void:
 	#var is_check := true

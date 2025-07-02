@@ -10,6 +10,9 @@ var is_cardsets_interactable := false
 var pack_arr = []
 var choices := 1
 
+var is_chosen : bool
+var are_sets_choosable : bool
+
 var pack_index : int
 var pack_id : int
 var remove_self : Callable
@@ -20,6 +23,8 @@ static var card_pack = preload("res://scenes/Card/card_pack.tscn")
 
 @onready var buttons: Control = $Buttons
 @onready var input_manager: InputManager = $"../../InputManager"
+@onready var cardpack_sprite : Sprite2D = $Sprite2D
+
 ##shader stuff
 @onready
 var sprite_ref = self
@@ -62,14 +67,20 @@ func select_pack() -> void:
 	buttons.visible = true
 
 func _on_check_pressed() -> void:
-	open_pack()
+	Signalbus.emit_signal("choose_pack", pack_index)
 	buttons.visible = false
 
 func _on_cross_pressed() -> void:
 	buttons.visible = false
 	input_manager.curr_mask = 0xFFFFFFFF
-	
 
+func choose_or_open() -> void:
+	if is_chosen:
+		if are_sets_choosable:
+			open_pack()
+	else:
+		select_pack()
+	
 func open_pack() -> void:
 	self.get_node("Area2D/CollisionShape2D").disabled = true
 	var pack_size = pack_sets.size()
@@ -88,8 +99,6 @@ func open_pack() -> void:
 		pack_arr.insert(pack_arr.size(), new_set)
 		add_child(new_set)
 	
-	Signalbus.emit_signal("choose_pack", pack_index)
-
 func select_option(set_option : CardSet) -> void:
 	if !is_cardsets_interactable:
 		return
@@ -113,6 +122,11 @@ func destroy_pack() -> void:
 
 	dissolving = true
 
+func pack_chosen_update(colour_to_update : Color) -> void:
+	# Show indication pack was chosen
+	is_chosen = true
+	pass
+
 func _on_area_2d_mouse_entered() -> void:
 	highlight_pack(true)
 	
@@ -125,3 +139,9 @@ func highlight_pack(on : bool) -> void:
 		tween.parallel().tween_property(self, "scale", Vector2(1.1, 1.1), 0.1)
 	else:
 		tween.parallel().tween_property(self, "scale", Vector2(1, 1), 0.1)
+		
+func get_id() -> int:
+	return pack_id
+
+func make_sets_choosable() -> void:
+	are_sets_choosable = true

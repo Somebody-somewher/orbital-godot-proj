@@ -27,13 +27,17 @@ func create_pack(packs : Array[Array]) -> void:
 		spawn_node.add_child(card_pack)
 		card_pack_nodes.append(card_pack)
 
+# Client-facing function rpc'd by Server
 func _choose_pack(chosen_packindex : int) -> void:
+	var cardpack : CardPack = card_pack_nodes[chosen_packindex]
+	
 	# TODO: REPLACE THIS 0
-	CardLoader.cardpack_gen.update_local_cardpack_choice(chosen_packindex, 0)
+	CardLoader.cardpack_gen.update_local_cardpack_choice(chosen_packindex, cardpack.get_id())
 
-# TODO: UPDATE TO ONLY REMOVE PACKS THAT ARE CURRENTLY BEING CHOSEN
 @rpc("any_peer","call_local")
-func remove_other_packs(pack_id : int) -> void:
+func finalize_pack_choices(pack_id : int) -> void:
+	
+	# Remove all remaining packs
 	var temp : CardPack
 	for pack in card_pack_nodes:
 		if pack.pack_id != pack_id:
@@ -42,7 +46,13 @@ func remove_other_packs(pack_id : int) -> void:
 			temp.destroy_pack()
 		else:
 			pack.set_cardset_interactable(remove_pack)
+			pack.make_sets_choosable()
 
+# TODO: UPDATE TO ONLY REMOVE PACKS THAT ARE CURRENTLY BEING CHOSEN
+#func remove_other_packs(pack_id : int) -> void:
+
+## Pack calls this functions if it removes itself (i.e thru being selected)
+# Needed cuz the pack has to remove the reference to itself in the array
 func remove_pack(pack_id : int) -> void:
 	var temp : CardPack
 	for pack in card_pack_nodes:
@@ -51,7 +61,9 @@ func remove_pack(pack_id : int) -> void:
 			card_pack_nodes.erase(temp)
 			temp.destroy_pack()
 			break
-	
+
+
+
 	#var card_pack = CardPack.new_pack(sets)
 	#card_pack.set_position(Vector2i(0,0))
 	#spawn_node.add_child(card_pack)

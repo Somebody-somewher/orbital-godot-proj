@@ -9,6 +9,7 @@ input_name = "texture"
 
 [sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_c0xei"]
 default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, Vector3(0.5, 0.5, 0.5)]
+expanded_output_ports = [0]
 op_type = 3
 
 [sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_e8171"]
@@ -132,6 +133,7 @@ void fragment() {
 
 }
 "
+graph_offset = Vector2(-23.6984, 67.7812)
 mode = 1
 flags/light_only = false
 nodes/fragment/0/position = Vector2(1500, 680)
