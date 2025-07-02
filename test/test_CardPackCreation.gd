@@ -51,7 +51,7 @@ func test_cardpack() -> void:
 		
 	assert_eq(cpm.card_pack_nodes.size(), PlayerManager.getNumPlayers(), "Pack Generated")
 	
-	var cardinst_data_arr := CardLoader.cardpack_gen.local_cardpacks_datainst_mem
+	var cardinst_data_arr = CardLoader.cardpack_gen.local_cardpacks_datainst_mem
 	var pack : CardPack
 	var cardset : Array
 	var card : Card
@@ -96,7 +96,7 @@ func test_cardpack2() -> void:
 		
 	assert_eq(cpm.card_pack_nodes.size(), PlayerManager.getNumPlayers(), "Pack Generated")
 	
-	var cardinst_data_arr := CardLoader.cardpack_gen.local_cardpacks_datainst_mem
+	var cardinst_data_arr = CardLoader.cardpack_gen.local_cardpacks_datainst_mem
 	var pack : CardPack
 	var cardset : Array
 	var card : Card

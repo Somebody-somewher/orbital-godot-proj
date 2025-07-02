@@ -28,11 +28,15 @@ func create_pack(packs : Array[Array]) -> void:
 		card_pack_nodes.append(card_pack)
 
 # Client-facing function rpc'd by Server
-func _choose_pack(chosen_packindex : int) -> void:
+# Initiated when any player chooses a pack
+@rpc("any_peer","call_local")
+func _choose_pack_ui_update(chosen_packindex : int) -> void:
 	var cardpack : CardPack = card_pack_nodes[chosen_packindex]
 	
-	# TODO: REPLACE THIS 0
 	CardLoader.cardpack_gen.update_local_cardpack_choice(chosen_packindex, cardpack.get_id())
+	
+	cardpack.pack_chosen_update(Color.RED)
+	
 
 @rpc("any_peer","call_local")
 func finalize_pack_choices(pack_id : int) -> void:

@@ -5,6 +5,9 @@ extends Node
 var peerid_to_players : Dictionary[int, PlayerInfo] = {}
 var uuid_to_players : Dictionary[String, PlayerInfo] = {}
 
+var player_colors : Array[Color] = [Color.PINK, Color.LIGHT_SALMON, Color.AZURE, Color.AQUAMARINE]
+var color_index := 0
+
 func _ready():
 	## TODO: Need a better system than this
 	# Creates a "fake" single player for singleplayer
@@ -15,8 +18,9 @@ func _ready():
 func hasPlayer(peer_id : int) -> bool:
 	return peerid_to_players.has(peer_id)
 
-func addPlayer(uuid : String, peer_id : int, name : String) -> void:
-	var player_info : PlayerInfo = PlayerInfo.new(uuid, peer_id, name)
+func addPlayer(uuid : String, peer_id : int, player_name : String) -> void:
+	var player_info : PlayerInfo = PlayerInfo.new(uuid, peer_id, player_name, player_colors[color_index])
+	color_index += 1
 	peerid_to_players.get_or_add(peer_id, player_info)
 	uuid_to_players.get_or_add(uuid, player_info)
 

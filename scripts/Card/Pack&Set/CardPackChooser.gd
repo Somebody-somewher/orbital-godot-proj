@@ -8,6 +8,7 @@ var packindex_to_player_uuid : Dictionary[int, String] = {}
 var packindex_to_packid : Dictionary[int, int]
 
 var _finalized_pack_choices : Callable
+var _update_pack_choosen_ui : Callable
 
 func _init(_finalized_pack_choices : Callable) -> void:
 	Signalbus.connect("server_update_chooser", reset_chooser)
@@ -15,8 +16,9 @@ func _init(_finalized_pack_choices : Callable) -> void:
 
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
 		player_uuid_to_packindex.get_or_add(pi.getPlayerUUID(), -1))
+		
 	self._finalized_pack_choices = _finalized_pack_choices
-
+	#self._update_pack_choosen_ui = _update_pack_choosen_ui
 # TODO: Should be called once the PackManager receives packs instead
 # PACKID DOESNT GET UPDATED
 # Called by Server's CardPackGenerator found in CardLoader
@@ -42,6 +44,10 @@ func player_choose_pack(player_uuid : String, pack_index : int) -> bool:
 	player_uuid_to_packindex[player_uuid] = pack_index
 	packindex_to_player_uuid[pack_index] = player_uuid
 	Signalbus.emit_signal("end_turn", player_uuid)
+	
+	#PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
+		#_update_pack_choosen_ui.rpc_id(pi.getPlayerId(), ))
+	
 	return true
 	
 func finalize_pack_choices() -> void:

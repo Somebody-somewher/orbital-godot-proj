@@ -74,12 +74,15 @@ func _on_cross_pressed() -> void:
 	buttons.visible = false
 	input_manager.curr_mask = 0xFFFFFFFF
 
-func choose_or_open() -> void:
+# Returns boolean based on whether we needa pause every other input
+func choose_or_open() -> bool:
 	if is_chosen:
 		if are_sets_choosable:
 			open_pack()
+			return true
 	else:
 		select_pack()
+	return false
 	
 func open_pack() -> void:
 	self.get_node("Area2D/CollisionShape2D").disabled = true
@@ -124,6 +127,7 @@ func destroy_pack() -> void:
 
 func pack_chosen_update(colour_to_update : Color) -> void:
 	# Show indication pack was chosen
+	cardpack_sprite.modulate = colour_to_update
 	is_chosen = true
 	pass
 

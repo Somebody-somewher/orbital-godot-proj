@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cdp6pxvmemk4u"]
+[gd_scene load_steps=19 format=3 uid="uid://cdp6pxvmemk4u"]
 
 [ext_resource type="Script" uid="uid://dq7q74qaf5hj8" path="res://scripts/GameFlow/GameManager.gd" id="1_bjd11"]
 [ext_resource type="PackedScene" uid="uid://klvllydgi5tw" path="res://scenes/Game Flow/round_manager.tscn" id="2_ft6cd"]
@@ -8,8 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b43u6wsxnq4ai" path="res://scenes/Game Flow/input_manager.tscn" id="5_q8u5g"]
 [ext_resource type="Script" uid="uid://c5fouuecjsld6" path="res://scripts/camera.gd" id="6_3p2gp"]
 [ext_resource type="PackedScene" uid="uid://iv3w3pu8flf7" path="res://scenes/Card/card_pack.tscn" id="6_wp0k4"]
-[ext_resource type="Script" uid="uid://bbbnlosaie474" path="res://scripts/GameFlow/player_ui.gd" id="7_wp0k4"]
-[ext_resource type="Theme" uid="uid://igcyj7c6fdln" path="res://assets/fonts/cutey_card_theme.tres" id="8_lhr70"]
+[ext_resource type="PackedScene" uid="uid://b6dee2ixvxkik" path="res://scenes/ui_layer.tscn" id="9_3p2gp"]
 [ext_resource type="PackedScene" uid="uid://bkog375sxl1lg" path="res://scenes/Compendium/compendium_container.tscn" id="10_1nqs0"]
 [ext_resource type="Script" uid="uid://byit5totk5tsn" path="res://scripts/Card/Pack&Set/CardPackManagerClient.gd" id="13_cvmbd"]
 [ext_resource type="PackedScene" uid="uid://cyka8ysyph1xg" path="res://scenes/Audio/audio_manager.tscn" id="16_cvmbd"]
@@ -58,55 +57,7 @@ script = ExtResource("5_lhr70")
 [node name="InputManager" parent="." instance=ExtResource("5_q8u5g")]
 position = Vector2(879, 480)
 
-[node name="UILayer" type="CanvasLayer" parent="."]
-
-[node name="PlayerUI" type="Control" parent="UILayer"]
-layout_mode = 3
-anchors_preset = 0
-script = ExtResource("7_wp0k4")
-
-[node name="ScoreLabel" type="Label" parent="UILayer/PlayerUI"]
-layout_mode = 0
-offset_left = 37.0
-offset_top = 29.0
-offset_right = 105.0
-offset_bottom = 84.0
-theme = ExtResource("8_lhr70")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 40
-text = "Score: 0"
-
-[node name="RoundLabel" type="Label" parent="UILayer/PlayerUI"]
-layout_mode = 0
-offset_left = 1397.0
-offset_top = 12.0
-offset_right = 1568.0
-offset_bottom = 56.0
-theme = ExtResource("8_lhr70")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 40
-text = "Round: 1"
-
-[node name="EndTurn" type="Button" parent="UILayer/PlayerUI"]
-layout_mode = 0
-offset_left = 1369.0
-offset_top = 800.0
-offset_right = 1560.0
-offset_bottom = 849.0
-theme = ExtResource("8_lhr70")
-theme_override_font_sizes/font_size = 40
-text = "End Turn"
-
-[node name="RoundTimerLabel" type="Label" parent="UILayer/PlayerUI"]
-layout_mode = 0
-offset_left = 1371.0
-offset_top = 737.0
-offset_right = 1566.0
-offset_bottom = 778.0
-theme = ExtResource("8_lhr70")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 40
-text = "Timer: 30"
+[node name="UILayer" parent="." instance=ExtResource("9_3p2gp")]
 
 [node name="CompendiumLayer" type="CanvasLayer" parent="."]
 layer = 2
@@ -123,6 +74,5 @@ SFX_AUDIOS = Dictionary[String, ExtResource("17_ft6cd")]({})
 [node name="BoardManager" parent="." instance=ExtResource("17_bb450")]
 proc_gen = ExtResource("16_ft6cd")
 
-[connection signal="pressed" from="UILayer/PlayerUI/EndTurn" to="UILayer/PlayerUI" method="_on_end_turn_pressed"]
-
+[editable path="UILayer"]
 [editable path="BoardManager"]

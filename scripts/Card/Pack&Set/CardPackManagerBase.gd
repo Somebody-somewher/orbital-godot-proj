@@ -7,15 +7,11 @@ var cardpack_chooser : CardPackChooser
 func _ready() -> void:
 	
 	if multiplayer.is_server():
-		cardpack_chooser = CardPackChooser.new( \
+		cardpack_chooser = CardPackChooser.new(\
 			func(peerid : int, chosen_packid : int): 
 				finalize_pack_choices.rpc_id(peerid, chosen_packid))
 	
 	pass # Replace with function body.
-
-@rpc("any_peer","call_local")
-func _choose_pack(chosen_packindex : int) -> void:
-	pass
 
 ## Called via signal->rpc from cardpack instance -> Server's CardPackChooser handles server side 
 @rpc("any_peer","call_local")
@@ -25,10 +21,15 @@ func attempt_choose_pack(chosen_packindex : int) -> void:
 		PlayerManager.getUUID_from_PeerID(multiplayer.get_remote_sender_id()), chosen_packindex)
 	
 	if successfully_chosen:
-		_choose_pack.rpc_id(multiplayer.get_remote_sender_id(), chosen_packindex)
+		_choose_pack_ui_update.rpc_id(multiplayer.get_remote_sender_id(), chosen_packindex)
 	
+
 	# Colour pack based on which player chose the pack?	
 	#card_pack_nodes[chosen_packindex].choose_pack_update(Color.RED)
+
+@rpc("any_peer","call_local")
+func _choose_pack_ui_update(chosen_packindex : int) -> void:
+	pass
 
 @rpc("any_peer","call_local")
 func finalize_pack_choices(chosen_packindex : int) -> void:
