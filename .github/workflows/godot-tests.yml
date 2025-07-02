@@ -1,15 +1,26 @@
-name: "godot gut test"
-on: push
+name: GUT CI Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  execute-gut:
-    name: Run GUT tests
+  test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Docker test
-        uses: ceceppa/godot-gut-ci@main
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run GUT tests via godot-tester
+        uses: croconut/godot-tester@v5.2
         with:
-          godot_version: 4.4.1
-          gut_params: -gdir=res://test -gsuffix=.gd -gprefix=test_
+          version: "4.4.1"              # Godot version to use
+          release_type: "stable"       # "stable", "rc", or "beta"
+          is-mono: "false"             # "true" if your project uses C#
+          path: "."                    # relative path to project.godot
+          import-time: "5"             # seconds to wait for asset import
+          test-timeout: "60"           # maximum test run duration
+          minimum-pass: "0.9"          # e.g. require 90% tests to pass
+          test-dir: "res://test"       # directory with your GUT tests
