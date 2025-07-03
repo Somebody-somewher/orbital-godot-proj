@@ -13,7 +13,7 @@ jobs:
       - name: Checkout Repo B (Private Action Repo)
         uses: actions/checkout@v2
         with:
-          repository: Somebody-somewher/godot4-gut-cli
+          repository: Somebody-somewher/godot4-gut-ci
           token: ${{ secrets.PRIVATE_ACTIONS_PAT }}
           ref: main  # or the tag/branch you want
           path: .github/actions/my-private-action
