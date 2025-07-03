@@ -22,5 +22,5 @@ jobs:
         uses: ./.github/actions/my-private-action
         with:
           godot_version: 4.4.1 # uses godot 4.4.1
-          gut_params: -gdir=res://test -gsuffix=.gd -gprefix=test_ -glog=3
+          gut_params: -gdir=res://test -gsuffix=.gd -gprefix=test_CardSetLoading -glog=3
 
