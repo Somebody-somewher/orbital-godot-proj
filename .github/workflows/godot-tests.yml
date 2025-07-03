@@ -8,17 +8,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Pre-import Godot project
-        run: |
-          docker run --rm \
-            -v "$PWD":/project \
-            -w /project \
-            ghcr.io/ceceppa/godot-gut-ci:${{ github.ref_name }} \
-            godot4 --headless --import-stuff --path /project
-
       - name: Docker test
-        uses: ceceppa/godot-gut-ci@main
+        uses: Somebody-somewher/godot4-gut-ci@main
         with:
-          godot_version: 4.4.1
+          token: ${{ secrets.PRIVATE_ACTIONS_PAT }}
+          godot_version: 4.4.1 # uses godot 4.4.1
           gut_params: -gdir=res://test -gsuffix=.gd -gprefix=test_
