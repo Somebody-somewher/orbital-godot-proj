@@ -30,12 +30,12 @@ func create_pack(packs : Array[Array]) -> void:
 # Client-facing function rpc'd by Server
 # Initiated when any player chooses a pack
 @rpc("any_peer","call_local")
-func _choose_pack_ui_update(chosen_packindex : int) -> void:
+func _choose_pack_ui_update(chosen_packindex : int, colour : Color) -> void:
 	var cardpack : CardPack = card_pack_nodes[chosen_packindex]
 	
 	CardLoader.cardpack_gen.update_local_cardpack_choice(chosen_packindex, cardpack.get_id())
 	
-	cardpack.pack_chosen_update(Color.RED)
+	cardpack.pack_chosen_update(colour)
 	
 
 @rpc("any_peer","call_local")

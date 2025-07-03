@@ -10,7 +10,9 @@ var packindex_to_packid : Dictionary[int, int]
 var _finalized_pack_choices : Callable
 var _update_pack_choosen_ui : Callable
 
-func _init(_finalized_pack_choices : Callable) -> void:
+func _init(_update_pack_choosen_ui : Callable, _finalized_pack_choices : Callable) -> void:
+	#TODO: ALSO SHOULD BE ABLE TO REMOVE THIS SINCE BY TAKING THE CARDPACKS AS INPUT
+	# FROM THE SERVER'S CARDPACK GENERATOR
 	Signalbus.connect("server_update_chooser", reset_chooser)
 	Signalbus.connect("server_pack_choosing_end", finalize_pack_choices)
 
@@ -18,9 +20,12 @@ func _init(_finalized_pack_choices : Callable) -> void:
 		player_uuid_to_packindex.get_or_add(pi.getPlayerUUID(), -1))
 		
 	self._finalized_pack_choices = _finalized_pack_choices
-	#self._update_pack_choosen_ui = _update_pack_choosen_ui
+	self._update_pack_choosen_ui = _update_pack_choosen_ui
+
 # TODO: Should be called once the PackManager receives packs instead
-# PACKID DOESNT GET UPDATED
+# PACKID DOESNT GET UPDATED. THIS CLASS IS CALCULATING ID SEPARATELY, ERROR PRONE
+
+
 # Called by Server's CardPackGenerator found in CardLoader
 func reset_chooser(num_packs : int) -> void:
 	for key in player_uuid_to_packindex.keys():
@@ -45,8 +50,8 @@ func player_choose_pack(player_uuid : String, pack_index : int) -> bool:
 	packindex_to_player_uuid[pack_index] = player_uuid
 	Signalbus.emit_signal("end_turn", player_uuid)
 	
-	#PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
-		#_update_pack_choosen_ui.rpc_id(pi.getPlayerId(), ))
+	PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
+		_update_pack_choosen_ui.call(pi.getPlayerId(), pack_index, PlayerManager.uuid_to_players[player_uuid].getColor()))
 	
 	return true
 	
