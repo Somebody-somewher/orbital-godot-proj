@@ -1,21 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://cqaqfh7wr4nux"]
+[gd_scene load_steps=8 format=3 uid="uid://cqaqfh7wr4nux"]
 
 [ext_resource type="Script" uid="uid://cs3ecb30cugu2" path="res://scripts/Env & Buildings/Building.gd" id="1_mg2bo"]
-[ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="2_ogyss"]
+[ext_resource type="Material" uid="uid://bb4p77g8nmchw" path="res://shader/Foil/dissolvemat.tres" id="2_ogyss"]
 [ext_resource type="Texture2D" uid="uid://dajjwe5q0ox20" path="res://assets/entity_sprites/cute_dummy.png" id="4_xa05x"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ogyss"]
-frequency = 0.0017
-offset = Vector3(0, 0.55, 0)
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vrwpd"]
-noise = SubResource("FastNoiseLite_ogyss")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vrwpd"]
-resource_local_to_scene = true
-shader = ExtResource("2_ogyss")
-shader_parameter/Noise = SubResource("NoiseTexture2D_vrwpd")
-shader_parameter/dissolve_value = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mg2bo"]
 radius = 66.0681
@@ -84,7 +71,7 @@ _data = {
 script = ExtResource("1_mg2bo")
 
 [node name="EntityImage" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_vrwpd")
+material = ExtResource("2_ogyss")
 texture = ExtResource("4_xa05x")
 
 [node name="Area2D" type="Area2D" parent="."]
