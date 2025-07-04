@@ -17,7 +17,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if dissolving:
 		if dissolve_value > 0:
-			get_node("EntityImage").material.set_shader_parameter("DissolveValue", dissolve_value)
+			get_node("EntityImage").material.set_shader_parameter("dissolve_value", dissolve_value)
 			dissolve_value -= delta * 1.6
 		else:
 			get_node("EntityImage").visible = false

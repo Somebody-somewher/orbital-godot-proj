@@ -31,7 +31,7 @@ source = 5
 constant = 1.0
 
 [sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_5wtty"]
-parameter_name = "DissolveValue"
+parameter_name = "dissolve_value"
 hint = 1
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_o58jm"]
@@ -39,11 +39,12 @@ expanded_output_ports = [0]
 source = 5
 
 [resource]
+resource_local_to_scene = true
 code = "shader_type canvas_item;
 render_mode blend_mix;
 
 uniform sampler2D Noise;
-uniform float DissolveValue : hint_range(0.0, 1.0);
+uniform float dissolve_value : hint_range(0.0, 1.0);
 
 
 
@@ -64,7 +65,7 @@ void fragment() {
 
 
 // FloatParameter:7
-	float n_out7p0 = DissolveValue;
+	float n_out7p0 = dissolve_value;
 
 
 // FloatConstant:5
@@ -150,7 +151,7 @@ nodes/fragment/7/position = Vector2(-20, 620)
 nodes/fragment/9/node = SubResource("VisualShaderNodeTexture_o58jm")
 nodes/fragment/9/position = Vector2(780, 1040)
 nodes/fragment/10/node = SubResource("VisualShaderNodeInput_5lrws")
-nodes/fragment/10/position = Vector2(460, 1020)
+nodes/fragment/10/position = Vector2(460, 1080)
 nodes/fragment/11/node = SubResource("VisualShaderNodeMix_5jsib")
 nodes/fragment/11/position = Vector2(1220, 760)
 nodes/fragment/12/node = SubResource("VisualShaderNodeIf_5lrws")
@@ -161,4 +162,4 @@ nodes/fragment/14/node = SubResource("VisualShaderNodeColorConstant_e8171")
 nodes/fragment/14/position = Vector2(900, 300)
 nodes/fragment/15/node = SubResource("VisualShaderNodeFloatOp_8k820")
 nodes/fragment/15/position = Vector2(300, 700)
-nodes/fragment/connections = PackedInt32Array(2, 0, 3, 2, 3, 0, 4, 0, 5, 0, 4, 4, 6, 0, 4, 5, 10, 0, 9, 2, 4, 0, 11, 1, 9, 4, 11, 2, 3, 0, 12, 0, 7, 0, 12, 1, 5, 0, 12, 4, 6, 0, 12, 5, 9, 0, 13, 1, 12, 0, 13, 2, 14, 0, 13, 0, 7, 0, 15, 0, 15, 0, 4, 1, 11, 0, 0, 1, 13, 0, 0, 0)
+nodes/fragment/connections = PackedInt32Array(2, 0, 3, 2, 3, 0, 4, 0, 5, 0, 4, 4, 6, 0, 4, 5, 4, 0, 11, 1, 9, 4, 11, 2, 3, 0, 12, 0, 7, 0, 12, 1, 5, 0, 12, 4, 6, 0, 12, 5, 9, 0, 13, 1, 12, 0, 13, 2, 14, 0, 13, 0, 7, 0, 15, 0, 15, 0, 4, 1, 11, 0, 0, 1, 13, 0, 0, 0, 10, 0, 9, 2)

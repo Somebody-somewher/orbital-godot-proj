@@ -15,7 +15,7 @@ noise = SubResource("FastNoiseLite_ogyss")
 resource_local_to_scene = true
 shader = ExtResource("2_ogyss")
 shader_parameter/Noise = SubResource("NoiseTexture2D_vrwpd")
-shader_parameter/DissolveValue = 1.0
+shader_parameter/dissolve_value = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mg2bo"]
 radius = 66.0681

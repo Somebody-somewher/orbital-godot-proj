@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://8dgw8wdiub72"]
+[gd_scene load_steps=12 format=3 uid="uid://8dgw8wdiub72"]
 
-[ext_resource type="Material" uid="uid://snae8supl35" path="res://shader/dissolve_material.tres" id="1_dqohr"]
+[ext_resource type="Material" uid="uid://ksmv4aeywfvu" path="res://shader/Foil/foil_mat.tres" id="1_dqohr"]
+[ext_resource type="Material" uid="uid://bdqhj2lkh8o40" path="res://shader/Foil/foil_dissolve mat.tres" id="1_ietu0"]
 [ext_resource type="Script" uid="uid://bxyph8i4gl7y6" path="res://scripts/Card/card.gd" id="1_mck3k"]
 [ext_resource type="Texture2D" uid="uid://dajjwe5q0ox20" path="res://assets/entity_sprites/cute_dummy.png" id="4_bl3jj"]
 [ext_resource type="Texture2D" uid="uid://d02is06vvdlbm" path="res://assets/card_sprites/blank_card.png" id="4_dqohr"]
@@ -208,18 +209,18 @@ _data = {
 }
 
 [node name="Card" type="Node2D"]
-material = ExtResource("1_dqohr")
+material = ExtResource("1_ietu0")
 script = ExtResource("1_mck3k")
-
-[node name="EntityImage" type="Sprite2D" parent="."]
-z_index = 2
-use_parent_material = true
-texture = ExtResource("4_bl3jj")
 
 [node name="CardImage" type="Sprite2D" parent="."]
 z_index = 1
 use_parent_material = true
 texture = ExtResource("4_dqohr")
+
+[node name="EntityImage" type="Sprite2D" parent="."]
+z_index = 1
+use_parent_material = true
+texture = ExtResource("4_bl3jj")
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -228,6 +229,7 @@ shape = SubResource("RectangleShape2D_fdsqi")
 
 [node name="Texts" type="Node2D" parent="."]
 modulate = Color(0, 0, 0, 1)
+material = ExtResource("1_dqohr")
 use_parent_material = true
 
 [node name="CardName" type="Label" parent="Texts"]
@@ -238,6 +240,7 @@ offset_right = 68.0
 offset_bottom = -60.0
 theme = ExtResource("5_dqohr")
 theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 20
 text = "Name"
 horizontal_alignment = 1
 uppercase = true

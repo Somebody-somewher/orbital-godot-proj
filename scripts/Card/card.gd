@@ -20,36 +20,39 @@ var deck_scale := 1.0
 var sprite_ref = self
 var dissolving = false
 var dissolve_value = 1
+var enable_3d = false
+var foiled = false
 
 # name to find references in database
 var id_name : String = "cute_dummy"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if foiled:
+		self.material.set_shader_parameter("effect_alpha_mult",1)
+	else:
+		self.material.set_shader_parameter("effect_alpha_mult",0)
 	pass
-
-## factory constructor
-#static func new_card(card_name : String) -> Card:
-	#var return_card : Card = card_scene.instantiate()
-	#var card_image_path = str("res://assets/card_sprites/blank_card.png")
-	#var entity_image_path = str("res://assets/entity_sprites/"+ card_name + ".png")
-	#return_card.get_node("CardImage").texture = load(card_image_path)
-	#return_card.get_node("EntityImage").texture = load(entity_image_path)
-	#return_card.get_node("Texts/CardName").text = CardLoader.get_display_name(card_name)
-	#return_card.id_name = card_name
-	#return return_card
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if dissolving:
 		get_node("Texts").visible = false
 		if dissolve_value > 0:
-			sprite_ref.material.set_shader_parameter("DissolveValue", dissolve_value)
+			sprite_ref.material.set_shader_parameter("dissolve_value", dissolve_value)
 			dissolve_value -= delta * 1.6
 		else:
 			sprite_ref.visible = false
 			queue_free()
-	pass
+
+	self.material.set_shader_parameter("mouse_position",get_global_mouse_position())
+	self.material.set_shader_parameter("sprite_position",global_position)
+	if enable_3d:
+		self.material.set_shader_parameter("max_tilt",0.5)
+	else:
+		self.material.set_shader_parameter("max_tilt",0.01)
+	
+
 
 func dissolve_card() -> void:
 	get_node("Area2D/CollisionShape2D").disabled = true

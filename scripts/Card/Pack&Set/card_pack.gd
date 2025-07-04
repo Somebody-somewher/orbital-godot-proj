@@ -33,7 +33,7 @@ static func new_pack(setdata : Array[CardSetData]) -> CardPack:
 func _process(delta: float) -> void:
 	if dissolving:
 		if dissolve_value > 0:
-			sprite_ref.material.set_shader_parameter("DissolveValue", dissolve_value)
+			sprite_ref.material.set_shader_parameter("dissolve_value", dissolve_value)
 			dissolve_value -= delta * 1.6
 		else:
 			sprite_ref.visible = false

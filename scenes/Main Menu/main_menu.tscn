@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dehbiymvw4gq5"]
+[gd_scene load_steps=17 format=3 uid="uid://dehbiymvw4gq5"]
 
 [ext_resource type="Script" uid="uid://baxm1vpvlaqw2" path="res://scripts/Main Menu/main_menu.gd" id="1_bnuun"]
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/Managers/player_hand.gd" id="2_bso06"]
@@ -11,25 +11,12 @@
 [ext_resource type="PackedScene" uid="uid://ct04ps51yd71k" path="res://scenes/Main Menu/multiplayer_menu.tscn" id="9_bso06"]
 [ext_resource type="Script" uid="uid://cep46bfjthrc7" path="res://scripts/Card/Managers/card_manager.gd" id="10_jl12q"]
 [ext_resource type="PackedScene" uid="uid://dyaq4288p4ik4" path="res://scenes/Main Menu/tutorial_card_pack.tscn" id="11_26fkh"]
-[ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="12_10p5i"]
 [ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="13_tp8iy"]
 [ext_resource type="Script" uid="uid://c5fouuecjsld6" path="res://scenes/camera.gd" id="14_mdse0"]
 [ext_resource type="PackedScene" uid="uid://bxiy7ajwus31g" path="res://scenes/Board/board_manager.tscn" id="15_fa6rk"]
 [ext_resource type="Script" uid="uid://duu3dx0n1l1gg" path="res://scripts/Main Menu/menu_board.gd" id="16_bso06"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_bnuun"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_4dx8l"]
-frequency = 0.0017
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qf083"]
-noise = SubResource("FastNoiseLite_4dx8l")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_flqon"]
-resource_local_to_scene = true
-shader = ExtResource("12_10p5i")
-shader_parameter/Noise = SubResource("NoiseTexture2D_qf083")
-shader_parameter/DissolveValue = 1.0
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -92,7 +79,6 @@ input_manager_ref = NodePath("../InputManager")
 preview_board_ref = NodePath("../BoardManager2/Preview")
 
 [node name="TutorialCardPack" parent="CardManager" instance=ExtResource("11_26fkh")]
-material = SubResource("ShaderMaterial_flqon")
 position = Vector2(378.725, 233.18)
 pack_sets = Array[ExtResource("13_tp8iy")]([])
 
