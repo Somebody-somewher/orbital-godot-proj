@@ -1,9 +1,8 @@
-[gd_scene load_steps=47 format=3 uid="uid://cdp6pxvmemk4u"]
+[gd_scene load_steps=31 format=3 uid="uid://cdp6pxvmemk4u"]
 
 [ext_resource type="Script" uid="uid://dq7q74qaf5hj8" path="res://scripts/GameFlow/GameManager.gd" id="1_bjd11"]
 [ext_resource type="PackedScene" uid="uid://klvllydgi5tw" path="res://scenes/Game Flow/round_manager.tscn" id="2_ft6cd"]
 [ext_resource type="Script" uid="uid://cep46bfjthrc7" path="res://scripts/Card/Managers/card_manager.gd" id="3_jlsqs"]
-[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="5_1iba3"]
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/Managers/player_hand.gd" id="5_lhr70"]
 [ext_resource type="PackedScene" uid="uid://b43u6wsxnq4ai" path="res://scenes/Game Flow/input_manager.tscn" id="5_q8u5g"]
 [ext_resource type="Script" uid="uid://c5fouuecjsld6" path="res://scripts/camera.gd" id="6_3p2gp"]
@@ -14,7 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://cyka8ysyph1xg" path="res://scenes/Audio/audio_manager.tscn" id="16_cvmbd"]
 [ext_resource type="Resource" uid="uid://b2ockuqgtwo7k" path="res://Resources/ProcGen/BoardProcGenerator.tres" id="16_ft6cd"]
 [ext_resource type="PackedScene" uid="uid://bxiy7ajwus31g" path="res://scenes/Board/board_manager.tscn" id="17_bb450"]
-[ext_resource type="Script" uid="uid://cats7srje6wix" path="res://scripts/Audio/AudioData.gd" id="17_ft6cd"]
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_5lrws"]
 input_name = "texture"
@@ -25,10 +23,11 @@ input_name = "texture"
 
 [sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_c0xei"]
 default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, Vector3(0.5, 0.5, 0.5)]
+expanded_output_ports = [0]
 op_type = 3
 
 [sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_e8171"]
-constant = Color(0, 0, 0, 1)
+constant = Color(0.973535, 0.973535, 0.973535, 1)
 
 [sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_8k820"]
 default_input_values = [0, 0.0, 1, 0.07]
@@ -66,7 +65,7 @@ uniform float dissolve_value : hint_range(0.0, 1.0);
 
 void fragment() {
 // ColorConstant:14
-	vec4 n_out14p0 = vec4(0.000000, 0.000000, 0.000000, 1.000000);
+	vec4 n_out14p0 = vec4(0.973535, 0.973535, 0.973535, 1.000000);
 
 
 	vec4 n_out9p0;
@@ -192,96 +191,7 @@ shader = SubResource("VisualShader_1iba3")
 shader_parameter/Noise = SubResource("NoiseTexture2D_qf083")
 shader_parameter/dissolve_value = 1.0
 
-[sub_resource type="Resource" id="Resource_1nqs0"]
-script = ExtResource("5_1iba3")
-set_name = "AuraTest"
-cards = Dictionary[String, int]({
-"dummy_aura": 1
-})
-metadata/_custom_type_script = "uid://bs6cynon1r4yq"
-
-[sub_resource type="Animation" id="Animation_yxlcp"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ErrorLabel:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_1iba3"]
-resource_name = "show"
-length = 2.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ErrorLabel:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(1.96667, 2.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ebg2g"]
-_data = {
-&"RESET": SubResource("Animation_yxlcp"),
-&"show": SubResource("Animation_1iba3")
-}
-
-[sub_resource type="Animation" id="Animation_2ofn6"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -600)]
-}
-
-[sub_resource type="Animation" id="Animation_ebg2g"]
-resource_name = "pop_up"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.133333, 0.233333, 0.8, 0.866667, 1),
-"transitions": PackedFloat32Array(1.46409, 0.5, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0, -600), Vector2(0, 40), Vector2(0, 0), Vector2(0, 0), Vector2(0, 30), Vector2(0, -600)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xa025"]
-_data = {
-&"RESET": SubResource("Animation_2ofn6"),
-&"pop_up": SubResource("Animation_ebg2g")
-}
-
-[sub_resource type="Resource" id="Resource_1iba3"]
-script = ExtResource("17_1nqs0")
-base_folder = "res://Resources/CardSetData//"
-includes = Array[String](["**.tres"])
-excludes = Array[String]([])
-paths = Array[String]([])
-metadata/_custom_type_script = "uid://c8qc3g5w3svt1"
-
-[node name="GameManager" type="Node" node_paths=PackedStringArray("round_manager", "card_pack_manager")]
+[node name="GameManager" type="Node"]
 script = ExtResource("1_bjd11")
 round_manager = ExtResource("2_ft6cd")
 
@@ -297,6 +207,7 @@ visible = false
 z_index = 99
 material = SubResource("ShaderMaterial_yxlcp")
 position = Vector2(1268, 1274)
+pack_sets = Dictionary[String, Array]({})
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("board")]
 script = ExtResource("6_3p2gp")
@@ -321,7 +232,7 @@ script = ExtResource("13_cvmbd")
 spawn_node = NodePath("../CardManager")
 
 [node name="AudioManager" parent="." instance=ExtResource("16_cvmbd")]
-SFX_AUDIOS = Dictionary[String, ExtResource("17_ft6cd")]({})
+SFX_AUDIOS = Dictionary[String, Array]({})
 
 [node name="BoardManager" parent="." instance=ExtResource("17_bb450")]
 proc_gen = ExtResource("16_ft6cd")

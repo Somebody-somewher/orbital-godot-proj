@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=16 format=3 uid="uid://ya516xim3sm"]
+[gd_resource type="VisualShader" load_steps=14 format=3 uid="uid://ya516xim3sm"]
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_5lrws"]
 input_name = "texture"
@@ -17,13 +17,6 @@ constant = Color(0.973535, 0.973535, 0.973535, 1)
 
 [sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_8k820"]
 default_input_values = [0, 0.0, 1, 0.07]
-
-[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_5jsib"]
-input_name = "color"
-
-[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_5lrws"]
-default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, Vector3(0.5, 0.5, 0.5)]
-op_type = 3
 
 [sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_c0xei"]
 parameter_name = "Noise"
@@ -57,10 +50,6 @@ uniform float dissolve_value : hint_range(0.0, 1.0);
 
 
 void fragment() {
-// Input:16
-	vec4 n_out16p0 = COLOR;
-
-
 // ColorConstant:14
 	vec4 n_out14p0 = vec4(0.973535, 0.973535, 0.973535, 1.000000);
 
@@ -110,11 +99,6 @@ void fragment() {
 	vec3 n_out13p0 = mix(vec3(n_out14p0.xyz), vec3(n_out9p0.xyz), n_out12p0);
 
 
-// Mix:18
-	vec3 n_in18p2 = vec3(0.50000, 0.50000, 0.50000);
-	vec3 n_out18p0 = mix(vec3(n_out16p0.xyz), n_out13p0, n_in18p2);
-
-
 // FloatOp:15
 	float n_in15p1 = 0.07000;
 	float n_out15p0 = n_out7p0 + n_in15p1;
@@ -144,12 +128,13 @@ void fragment() {
 
 
 // Output:0
-	COLOR.rgb = n_out18p0;
+	COLOR.rgb = n_out13p0;
 	COLOR.a = n_out11p0;
 
 
 }
 "
+graph_offset = Vector2(-118.646, 83.7701)
 mode = 1
 flags/light_only = false
 nodes/fragment/0/position = Vector2(1700, 660)

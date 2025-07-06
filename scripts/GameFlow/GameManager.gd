@@ -14,7 +14,7 @@ func _ready() -> void:
 	Signalbus.server_create_packs.connect(pause_gameplay)
 	Signalbus.server_pack_choosing_end.connect(unpause_gameplay)
 	CardLoader.setup()
-	if multiplayer.get_unique_id() == 1:
+	if multiplayer.is_server():
 		add_child(round_manager.instantiate())
 	
 	
