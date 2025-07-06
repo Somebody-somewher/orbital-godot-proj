@@ -58,3 +58,6 @@ func getCurrentPlayerUUID() -> String:
 
 func getPeerIDs() -> Array[int]:
 	return peerid_to_players.keys()
+
+func amIPlayer(peer_uuid : String) -> bool:
+	return peer_uuid == peerid_to_players[multiplayer.get_unique_id()].getPlayerUUID()

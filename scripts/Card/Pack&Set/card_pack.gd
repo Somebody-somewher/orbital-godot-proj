@@ -1,7 +1,9 @@
 extends Node2D
 class_name CardPack
 
-@export var pack_sets : Array[Array]##array of sets
+#@export var pack_sets : Array[Array]##array of sets
+@export var pack_sets : Dictionary[String, Array]
+
 
 var is_cardsets_interactable := false
 
@@ -13,7 +15,6 @@ var choices := 1
 var is_chosen : bool
 var are_sets_choosable : bool
 
-var pack_index : int
 var pack_id : int
 var remove_self : Callable
 
@@ -46,11 +47,10 @@ func set_cardset_interactable(remove_self : Callable) -> void:
 	#return_pack.z_index = 50
 	#return return_pack
 
-static func new_pack(setdata : Array, pack_index : int, pack_id : int) -> CardPack:
+static func new_pack(setdata : Dictionary[String, Array], pack_id : int) -> CardPack:
 	var return_pack : CardPack = card_pack.instantiate()
-	return_pack.pack_sets.assign(setdata)
+	return_pack.pack_sets = setdata
 	return_pack.z_index = 50
-	return_pack.pack_index = pack_index
 	return_pack.pack_id = pack_id
 	return return_pack
 
@@ -67,7 +67,7 @@ func select_pack() -> void:
 	buttons.visible = true
 
 func _on_check_pressed() -> void:
-	Signalbus.emit_signal("choose_pack", pack_index)
+	Signalbus.emit_signal("choose_pack", pack_id)
 	buttons.visible = false
 
 func _on_cross_pressed() -> void:
@@ -94,10 +94,13 @@ func open_pack() -> void:
 	
 	var set_angle = 2 * PI / pack_size
 	var set_radius_from_pack = 100
-	for i in range(pack_size):
+	
+	var keys = pack_sets.keys()
+	var cards_in_sets = pack_sets.values()
+	for i in range(len(pack_sets)):
 		# Creation of cardsets
 		var new_set = card_sets.instantiate()
-		new_set.set_up(pack_sets[i], i, pack_id)
+		new_set.set_up(cards_in_sets[i], keys[i], pack_id)
 		new_set.global_position = Vector2(200 * cos(set_angle* i), 200 * sin(set_angle* i))
 		pack_arr.insert(pack_arr.size(), new_set)
 		add_child(new_set)

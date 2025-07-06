@@ -44,7 +44,6 @@ visible = false
 z_index = 99
 material = SubResource("ShaderMaterial_mwfav")
 position = Vector2(1268, 1274)
-pack_sets = Array[Array]([[], []])
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("board")]
 script = ExtResource("6_3p2gp")

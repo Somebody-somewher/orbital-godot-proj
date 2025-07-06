@@ -22,15 +22,16 @@ signal server_create_packs()
 signal create_pack(packs_of_cards : Array)
 
 # Pack Choosing
-signal server_update_chooser(num_packs : int)
+signal server_update_chooser(pack_ids : Array[int])
 
 # CardPack -> CardPackManagerClient 
 signal choose_pack(pack_index : int)
 
 signal server_pack_choosing_end()
 
-# Adding to hand
-signal confirmed_add_to_hand(cards : Array[String], set_id : int)
+# Hand_related
+signal confirmed_add_to_hand(cards : Array[String])
+signal remove_from_hand(card : CardInstanceData)
 signal add_to_hand(card : Card)
 
 signal register_to_cardmanager(card : Card)

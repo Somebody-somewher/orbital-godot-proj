@@ -16,13 +16,8 @@ var auras : Array[AuraCardData] = []
 
 ## Server
 var card_attribute_gen : CardAttributeGenerator
-var server_card_memory : ServerCardMemory
+var card_mem : CardMemory
 @onready var cardpack_gen : CardPackGenerator = $CardPackGen
-
-# Packid linked to Cardset and Cards
-# TODO: NEED TO CHANGE TO THIS SYSTEM
-var local_pack_mem : Dictionary[int, Array]
-var local_player_hand : Array[CardInstanceData]
 
 #for constructors
 var building_card_scene: PackedScene = preload("res://scenes/Card/building_card.tscn")
@@ -42,23 +37,25 @@ func _ready() -> void:
 			card_dict.get_or_add(aura_data.id_name, aura_data)
 
 	if multiplayer.is_server():
-		server_card_memory = ServerCardMemory.new()
+		card_mem = ServerCardMemory.new()
+	else:
+		card_mem = CardMemory.new()
+	add_child(card_mem)
 	#NetworkManager.mark_client_ready(self.name)
 
 ## This is here because some things need to wait for NetworkManager or PlayerManager to setup before firing
 ## Run via GameManager in actual game
 func setup(cag : CardAttributeGenerator = null, csa : CardSetAllocator = null) -> void:
 	if multiplayer.is_server():	
-		server_card_memory.setup()
+		card_mem.setup()
 		
 		if cag == null:
 			card_attribute_gen = CardAttributeGenerator.new()
 		else:
 			card_attribute_gen = cag
 
-		cardpack_gen.server_setup(card_attribute_gen, server_card_memory, csa)
-	cardpack_gen.setup(create_data_instance, create_card, func(selected_pack : Array[Dictionary], pack_id : int):\
-		local_pack_mem.get_or_add(pack_id, selected_pack))
+		cardpack_gen.server_setup(card_attribute_gen, card_mem, csa)
+	cardpack_gen.setup(create_data_instance, create_card)
 
 
 ################################## CARD CREATION LOGIC #######################################
@@ -125,31 +122,31 @@ func client_modify(player_uuid : String, data : CardInstanceData) -> void:
 
 ################################### ADDING TO HAND #################################################
 
-@rpc("any_peer","call_local")
-func attempt_add_to_hand(set_index : int, pack_id : int) -> void:
-	var remote_id := multiplayer.get_remote_sender_id()
-	
-	var ids : Array[String] = server_card_memory.attempt_card_to_hand( \
-		PlayerManager.getUUID_from_PeerID(remote_id), set_index)
-	
-	_add_to_hand_local_mem.rpc_id(remote_id, ids, set_index, pack_id)
-	Signalbus.emit_multiplayer_signal.rpc_id(remote_id, "confirmed_add_to_hand", [ids, set_index])
+#@rpc("any_peer","call_local")
+#func attempt_add_to_hand(set_id : int, pack_id : int) -> void:
+	#var remote_id := multiplayer.get_remote_sender_id()
+	#
+	#var ids : Array[String] = server_card_memory.attempt_card_to_hand( \
+		#PlayerManager.getUUID_from_PeerID(remote_id), pack_id, set_id)
+	#
+	#_add_to_hand_local_mem.rpc_id(remote_id, ids, set_id, pack_id)
+	#Signalbus.emit_multiplayer_signal.rpc_id(remote_id, "confirmed_add_to_hand", [ids, set_id])
+#
+#@rpc("any_peer","call_local")
+#func _add_to_hand_local_mem(ids : Array[String], set_id : int, pack_id : int) -> void:
+	#assert(!local_pack_mem.is_empty())
+	#var card_id_dicts : Dictionary[String, CardInstanceData] = local_pack_mem[pack_id][set_id] as Dictionary[String, CardInstanceData]
+	#for id in ids:
+		#local_player_hand.append(card_id_dicts[id])
+	#
+	#print(local_player_hand)
+	#pass
 
-@rpc("any_peer","call_local")
-func _add_to_hand_local_mem(ids : Array[String], set_index : int, pack_id : int) -> void:
-	assert(!local_pack_mem.is_empty())
-	var card_id_dicts : Dictionary[String, CardInstanceData] = local_pack_mem[pack_id][set_index] as Dictionary[String, CardInstanceData]
-	for id in ids:
-		local_player_hand.append(card_id_dicts[id])
-	
-	print(local_player_hand)
-	pass
-
-func local_search_hand(carddatainstance_id : String) -> CardInstanceData:
-	for card_instance in local_player_hand:
-		if card_instance.get_id() == carddatainstance_id:
-			return card_instance
-	return null
+#func local_search_hand(carddatainstance_id : String) -> CardInstanceData:
+	#for card_instance in local_player_hand:
+		#if card_instance.get_id() == carddatainstance_id:
+			#return card_instance
+	#return null
 
 #@rpc("any_peer","call_local")
 #func _add_to_hand(card_instance_ids : Array[String], set_id : int) -> void:
