@@ -1,29 +1,20 @@
-[gd_scene load_steps=19 format=3 uid="uid://iv3w3pu8flf7"]
+[gd_scene load_steps=20 format=3 uid="uid://iv3w3pu8flf7"]
 
-[ext_resource type="Material" uid="uid://snae8supl35" path="res://shader/dissolve_material.tres" id="1_va8pk"]
+[ext_resource type="Material" uid="uid://bb4p77g8nmchw" path="res://shader/Foil/dissolvemat.tres" id="1_6vscq"]
 [ext_resource type="Script" uid="uid://conukf4ick1q8" path="res://scripts/Card/Pack&Set/card_pack.gd" id="1_wo5bd"]
 [ext_resource type="Texture2D" uid="uid://b3kh2qq6nboem" path="res://assets/misc_sprites/card_shine.png" id="2_o731e"]
-[ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="3_5xwgq"]
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="3_2f5rk"]
+[ext_resource type="Resource" uid="uid://cggiwamgd6hyw" path="res://Resources/CardSetData/Farm.tres" id="4_i8ods"]
+[ext_resource type="Resource" uid="uid://casnoqtppk56" path="res://Resources/CardSetData/Housing.tres" id="5_raj77"]
 [ext_resource type="Texture2D" uid="uid://dn6735uees2i1" path="res://assets/card_packs/dummy_card_pack.png" id="5_va8pk"]
+[ext_resource type="Resource" uid="uid://cxf1ei6yfsbx5" path="res://Resources/CardSetData/Town Square.tres" id="6_piws8"]
+[ext_resource type="Resource" uid="uid://b1661oftebeem" path="res://Resources/CardSetData/Worship.tres" id="7_j5qe6"]
 [ext_resource type="Texture2D" uid="uid://imfgok6btu1v" path="res://assets/misc_sprites/check_normal.png" id="8_piws8"]
 [ext_resource type="Texture2D" uid="uid://ct7bq5ehjgc2a" path="res://assets/misc_sprites/check_click.png" id="9_j5qe6"]
 [ext_resource type="Texture2D" uid="uid://coprxc3q4806f" path="res://assets/misc_sprites/check_hover.png" id="10_6vscq"]
 [ext_resource type="Texture2D" uid="uid://dnydcvxn06lih" path="res://assets/misc_sprites/cross_normal.png" id="11_u2vrp"]
 [ext_resource type="Texture2D" uid="uid://dd4s3kj0v5qbw" path="res://assets/misc_sprites/cross_click.png" id="12_g5vyk"]
 [ext_resource type="Texture2D" uid="uid://py8js8sa5pvf" path="res://assets/misc_sprites/cross_hover.png" id="13_ntb6h"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_5xwgq"]
-resource_local_to_scene = true
-frequency = 0.0017
-offset = Vector3(782.61, -86.96, 0)
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_17ntd"]
-noise = SubResource("FastNoiseLite_5xwgq")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wwfmj"]
-shader = ExtResource("3_5xwgq")
-shader_parameter/Noise = SubResource("NoiseTexture2D_17ntd")
-shader_parameter/DissolveValue = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q1uvj"]
 size = Vector2(162, 231.5)
@@ -138,9 +129,10 @@ _data = {
 }
 
 [node name="CardPack" type="Node2D"]
-material = ExtResource("1_va8pk")
+material = ExtResource("1_6vscq")
 scale = Vector2(2, 2)
 script = ExtResource("1_wo5bd")
+pack_sets = Array[ExtResource("3_2f5rk")]([ExtResource("4_i8ods"), ExtResource("5_raj77"), ExtResource("6_piws8"), ExtResource("7_j5qe6")])
 
 [node name="Buttons" type="Control" parent="."]
 visible = false
@@ -184,7 +176,6 @@ texture_hover = ExtResource("13_ntb6h")
 stretch_mode = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_wwfmj")
 use_parent_material = true
 texture = ExtResource("5_va8pk")
 

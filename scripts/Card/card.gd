@@ -20,9 +20,15 @@ var sprite_ref = self
 
 var dissolving = false
 var dissolve_value = 1
+var enable_3d = false
+var foiled = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if foiled:
+		self.material.set_shader_parameter("effect_alpha_mult",1)
+	else:
+		self.material.set_shader_parameter("effect_alpha_mult",0)
 	pass
 
 # factory constructor, to override
@@ -43,12 +49,20 @@ func _process(delta: float) -> void:
 	if dissolving:
 		get_node("Texts").visible = false
 		if dissolve_value > 0:
-			sprite_ref.material.set_shader_parameter("DissolveValue", dissolve_value)
+			sprite_ref.material.set_shader_parameter("dissolve_value", dissolve_value)
 			dissolve_value -= delta * 1.6
 		else:
 			sprite_ref.visible = false
 			queue_free()
-	pass
+
+	self.material.set_shader_parameter("mouse_position",get_global_mouse_position())
+	self.material.set_shader_parameter("sprite_position",global_position)
+	if enable_3d:
+		self.material.set_shader_parameter("max_tilt",0.5)
+	else:
+		self.material.set_shader_parameter("max_tilt",0.01)
+	
+
 
 func dissolve_card() -> void:
 	get_node("Area2D/CollisionShape2D").disabled = true

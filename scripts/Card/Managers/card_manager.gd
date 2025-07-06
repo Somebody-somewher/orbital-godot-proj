@@ -193,9 +193,12 @@ func card_hover_if_able():
 ## highlight or unhighlight card depending on second argument
 func highlight_card(card : Card, hovering : bool):
 	if hovering:
+		card.enable_3d = true
 		card.z_index += 10
 	else:
 		card.z_index -= 10
+		card.enable_3d = false
+	card.highlight_card(hovering, tweening)
 #
 ## TODO: Can this be Card's job to handle?
 func animate_card(card : Card, new_scale : Vector2, pos):
