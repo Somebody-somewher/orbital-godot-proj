@@ -22,12 +22,3 @@ class_name PlaceableData
 @export var begin_round_effects : Array[BoardEvent]
 @export var end_round_effects : Array[BoardEvent]
 @export var destroyed_effects : Array[BoardEvent]
-
-func preview(board : BoardMatrixData, previewer : Callable, tile_pos : Vector2i) -> void:
-	return preview_event.preview(board, previewer, tile_pos)
-	
-func placeable(board : BoardMatrixData, pos : Vector2i) -> bool:
-	for condition in place_conditions:
-		if !condition.test(board, pos):
-			return false
-	return true

@@ -106,7 +106,7 @@ func create_terrain_building(builddata_tilepos_dict : Dictionary[BuildingData, A
 
 ################################### PLACEABLE PLACING #########################################
 @rpc("any_peer", "call_local")
-func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i) -> void:
+func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i, run_on_place_effects := true) -> void:
 	var remote_id : int = multiplayer.get_remote_sender_id()
 	var check := server_check(remote_id, tile_pos, func() -> bool:
 		# Get the carddata instance stored separately on server and client CardLoader
@@ -117,12 +117,11 @@ func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i)
 		if placeable_instance: #and placeable_instance.placeable(matrix_data, tilemap_to_matrix(tile_pos)):
 			
 			# Place on serverside
-			_place_placeable(placeable_instance, tile_pos);\
+			_place_placeable(placeable_instance, tile_pos, run_on_place_effects);\
 			
 			# If the server is client, prevent the building from being created twice 
 			# Otherwise ensure the client creates its own copy
-			if !NetworkManager.is_server_client:
-				client_place_cardplaceable.rpc_id(remote_id, placeableinst_id, tile_pos)
+			client_place_cardplaceable.rpc_id(remote_id, placeableinst_id, tile_pos)
 			
 			
 			
@@ -149,20 +148,21 @@ func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i)
 	#Signalbus.emit_multiplayer_signal.rpc_id(remote_id, "board_action_failure")
 
 @rpc("any_peer", "call_local")
-func client_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i) -> void:
+func client_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i, run_on_place_effects : bool) -> void:
 	pass
 	
 ## Create a building on a given tilepos, data + visual
 ## Run by server + requesting client
 @rpc("any_peer", "call_local")
-func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vector2i) -> PlaceableNode:
+func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vector2i, run_on_place_effects : bool) -> PlaceableNode:
 	var placeable_node : PlaceableNode
 	if placeable_instance is BuildingInstanceData:
 		placeable_node = Building.new_building_frm_data(placeable_instance as BuildingInstanceData)
 	
 	# TODO: CHANGE THIS from NODE
 	# PROBABLY NEED A SIGNAL INSTEAD
-	#placeable_node.trigger_place_effects(matrix_data, tilemap_to_matrix(tile_pos))
+	#if run_on_place_effects:
+	#	placeable_node.trigger_place_effects(matrix_data, tilemap_to_matrix(tile_pos))
 	
 	matrix_data.add_placeable_to_tile(tilemap_to_matrix(tile_pos), placeable_node)
 	return placeable_node
