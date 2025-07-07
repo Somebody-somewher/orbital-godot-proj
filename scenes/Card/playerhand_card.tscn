@@ -1,11 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://gbnbr6a5682m"]
+[gd_scene load_steps=12 format=3 uid="uid://dq5k8pk1kx5fr"]
 
-[ext_resource type="PackedScene" uid="uid://8dgw8wdiub72" path="res://scenes/Card/Card.tscn" id="1_b3b0l"]
-[ext_resource type="Shader" uid="uid://uj6l6cirvjto" path="res://shader/Foil/foil+dissolve.gdshader" id="2_b3b0l"]
-[ext_resource type="Script" uid="uid://dmnncj0v3af8y" path="res://scripts/Card/playerhand_card.gd" id="3_ajn42"]
-[ext_resource type="Shader" uid="uid://u3dupxupysmg" path="res://shader/Foil/foil.gdshader" id="4_pqsma"]
-[ext_resource type="Texture2D" uid="uid://c7n0d2ye2bwru" path="res://assets/misc_sprites/foil_mask.png" id="5_8g251"]
-[ext_resource type="Texture2D" uid="uid://dwfea5crud5qh" path="res://shader/Foil/rainbow_gradient_1d.tres" id="6_7juwy"]
+[ext_resource type="PackedScene" uid="uid://8dgw8wdiub72" path="res://scenes/Card/Card.tscn" id="1_rhks5"]
+[ext_resource type="Shader" uid="uid://uj6l6cirvjto" path="res://shader/Foil/foil+dissolve.gdshader" id="2_xjj56"]
+[ext_resource type="Texture2D" uid="uid://dwfea5crud5qh" path="res://shader/Foil/rainbow_gradient_1d.tres" id="3_mr4a6"]
+[ext_resource type="Script" uid="uid://dmnncj0v3af8y" path="res://scripts/Card/playerhand_card.gd" id="4_bb6e8"]
+[ext_resource type="Shader" uid="uid://u3dupxupysmg" path="res://shader/Foil/foil.gdshader" id="5_se255"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_j4ao5"]
 
@@ -17,9 +16,9 @@ noise = SubResource("FastNoiseLite_j4ao5")
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pmi5y"]
 noise = SubResource("FastNoiseLite_b3b0l")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pmi5y"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b3b0l"]
 resource_local_to_scene = true
-shader = ExtResource("2_b3b0l")
+shader = ExtResource("2_xjj56")
 shader_parameter/mouse_position = Vector2(0, 0)
 shader_parameter/sprite_position = Vector2(0, 0)
 shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_b3b0l")
@@ -28,27 +27,22 @@ shader_parameter/burn_color = Color(0, 0, 0, 1)
 shader_parameter/fov = 90.0
 shader_parameter/cull_back = true
 shader_parameter/inset = 0.0
-shader_parameter/max_tilt = 0.035
+shader_parameter/max_tilt = 1.0
 shader_parameter/max_distance = 500.0
 shader_parameter/foilcolor = Color(0, 0, 0, 1)
 shader_parameter/threshold = 0.2
 shader_parameter/fuzziness = 0.1
-shader_parameter/period = 2.0
-shader_parameter/scroll = 4.0
+shader_parameter/period = 1.0
+shader_parameter/scroll = 1.0
 shader_parameter/normal_strength = 0.1
 shader_parameter/effect_alpha_mult = 1.0
 shader_parameter/direction = 0.5
-shader_parameter/gradient = ExtResource("6_7juwy")
+shader_parameter/gradient = ExtResource("3_mr4a6")
 shader_parameter/normal_map = SubResource("NoiseTexture2D_pmi5y")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_yog26"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_oo20p"]
-noise = SubResource("FastNoiseLite_yog26")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7i1ps"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j4ao5"]
 resource_local_to_scene = true
-shader = ExtResource("4_pqsma")
+shader = ExtResource("5_se255")
 shader_parameter/mouse_position = Vector2(0, 0)
 shader_parameter/sprite_position = Vector2(0, 0)
 shader_parameter/fov = 90.0
@@ -64,16 +58,11 @@ shader_parameter/scroll = 1.0
 shader_parameter/normal_strength = 0.1
 shader_parameter/effect_alpha_mult = 1.0
 shader_parameter/direction = 0.5
-shader_parameter/foil_mask = ExtResource("5_8g251")
-shader_parameter/gradient = ExtResource("6_7juwy")
-shader_parameter/normal_map = SubResource("NoiseTexture2D_oo20p")
+shader_parameter/gradient = ExtResource("3_mr4a6")
 
-[node name="Placeable_Card" instance=ExtResource("1_b3b0l")]
-material = SubResource("ShaderMaterial_pmi5y")
-script = ExtResource("3_ajn42")
-
-[node name="EntityImage" parent="." index="1"]
-texture = null
+[node name="DraggableCard" instance=ExtResource("1_rhks5")]
+material = SubResource("ShaderMaterial_b3b0l")
+script = ExtResource("4_bb6e8")
 
 [node name="Texts" parent="." index="3"]
-material = SubResource("ShaderMaterial_7i1ps")
+material = SubResource("ShaderMaterial_j4ao5")

@@ -23,9 +23,8 @@ func _ready() -> void:
 	if multiplayer.is_server():
 		Signalbus.connect("server_create_packs", server_generate_packs)
 
-func server_setup(attr_gen : CardAttributeGenerator, server_mem : CardMemory, cardset_alloc : CardSetAllocator = null) -> void:
+func server_setup(attr_gen : CardAttributeGenerator, cardset_alloc : CardSetAllocator = null) -> void:
 	card_attribute_gen = attr_gen
-	card_memory = server_mem
 	if cardset_alloc == null:
 		cardset_allocator = CardSetAllocator.new(cardset_grp, remove_used_sets)
 		cardset_allocator.setup()
@@ -35,9 +34,11 @@ func server_setup(attr_gen : CardAttributeGenerator, server_mem : CardMemory, ca
 	
 	pass
 
-func setup(create_data_inst : Callable, create_card : Callable) -> void:
+func setup(card_memory : CardMemory, create_data_inst : Callable, create_card : Callable) -> void:
+	self.card_memory = card_memory
 	self.create_data_inst = create_data_inst
 	self.create_card = create_card
+	
 
 #################################### CARDPACK/SET LOGIC ############################################
 func server_generate_packs() -> void:
@@ -114,20 +115,23 @@ func truncate_nums_for_pack(packs : Array[Array], truncate_size : int) -> Array[
 func get_cards_for_allpacks(cardpacks : Dictionary[int, Dictionary], attribute_numbers : Dictionary[int, Dictionary]) -> Dictionary[int,Dictionary]:
 	reset_temp_mem()
 	var total_cardpacks : Dictionary[int, Dictionary] = {}
-	for pack_id in cardpacks.keys():		
+	var cardsets_in_pack : Dictionary[String, Dictionary]
+	for pack_id in cardpacks.keys():
 		total_cardpacks[pack_id] = get_cards_for_pack(cardpacks[pack_id], attribute_numbers[pack_id])
 		local_cardpacks_datainst_mem[pack_id] = _local_cardpack_datainst_mem.duplicate(true)
 	return total_cardpacks
 
-func get_cards_for_pack(cardpack : Dictionary[String, Dictionary], attribute_numbers : Dictionary[String, Array]) -> Dictionary[String, Array]:
-	var cardpack_out : Dictionary[String, Array]
+# func get_cards_for_pack(cardpack : Dictionary[String, Dictionary], attribute_numbers : Dictionary[String, Array]) -> Dictionary[String, Array]:
+func get_cards_for_pack(cardpack : Dictionary, attribute_numbers : Dictionary) -> Dictionary:
+	var cardpack_out : Dictionary
 	_local_cardpack_datainst_mem = {}
 	for cardset_id in cardpack.keys():
 		cardpack_out[cardset_id] = get_cards_for_set(cardpack[cardset_id], attribute_numbers[cardset_id])
 		_local_cardpack_datainst_mem[cardset_id] = _local_cardset_datainst_mem.duplicate(true)
 	return cardpack_out
 
-func get_cards_for_set(cardset : Dictionary[String, int], attribute_numbers : Array[Array]) -> Array[Card]:
+# get_cards_for_set(cardset : Dictionary[String, int], attribute_numbers : Array[Array]) -> Array[Card]:
+func get_cards_for_set(cardset : Dictionary, attribute_numbers : Array) -> Array[Card]:
 	var start_count := 0
 	var cardset_out : Array[Card]
 	var data_inst : CardInstanceData

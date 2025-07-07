@@ -21,7 +21,9 @@ var sprite_ref = self
 var dissolving = false
 var dissolve_value = 1
 var enable_3d = false
-var foiled = true
+var foiled = false
+
+var is_placeable = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -34,11 +36,6 @@ func _ready() -> void:
 # factory constructor, to override
 func set_up(cardinstance_data : CardInstanceData, cardimg_bg : Texture2D) -> void:
 	get_node("CardImage").texture = cardimg_bg
-	
-	if cardinstance_data is BuildingInstanceData:
-		if (cardinstance_data as BuildingInstanceData).foil:
-			(get_node("CardImage") as Sprite2D).modulate = Color.LIGHT_BLUE
-	
 	get_node("EntityImage").texture = cardinstance_data.get_data().card_sprite
 	get_node("Texts/CardName").text = cardinstance_data.get_data().display_name
 	self.cardinstance_dataid = cardinstance_data.get_id()

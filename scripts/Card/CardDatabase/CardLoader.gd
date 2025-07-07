@@ -1,6 +1,7 @@
 extends Node
 
 @export var card_scene : PackedScene
+@export var building_card_scene : PackedScene
 var card_dict = {}
 
 
@@ -20,7 +21,7 @@ var card_mem : CardMemory
 @onready var cardpack_gen : CardPackGenerator = $CardPackGen
 
 #for constructors
-var building_card_scene: PackedScene = preload("res://scenes/Card/building_card.tscn")
+#var building_card_scene: PackedScene = preload("res://scenes/Card/building_card.tscn")
 var aura_card_scene: PackedScene = preload("res://scenes/Card/aura_card.tscn")
 
 # Called when the node enters the scene tree for the first time.
@@ -47,15 +48,16 @@ func _ready() -> void:
 ## Run via GameManager in actual game
 func setup(cag : CardAttributeGenerator = null, csa : CardSetAllocator = null) -> void:
 	if multiplayer.is_server():	
-		card_mem.setup()
 		
 		if cag == null:
 			card_attribute_gen = CardAttributeGenerator.new()
 		else:
 			card_attribute_gen = cag
 
-		cardpack_gen.server_setup(card_attribute_gen, card_mem, csa)
-	cardpack_gen.setup(create_data_instance, create_card)
+		cardpack_gen.server_setup(card_attribute_gen, csa)
+	
+	card_mem.setup()
+	cardpack_gen.setup(card_mem, create_data_instance, create_card)
 
 
 ################################## CARD CREATION LOGIC #######################################
@@ -110,9 +112,10 @@ func create_data_instance(data_id : String, attribute_number : int = 0, instance
 func create_card(data : CardInstanceData) -> Card:
 	var card : Card
 	if data is BuildingInstanceData:
-		card = card_scene.instantiate()
+		card = building_card_scene.instantiate()
 		card.set_up(data, buildingcard_img)
 		return card
+	printerr("AURA?")
 	return null
 
 func client_modify(player_uuid : String, data : CardInstanceData) -> void:

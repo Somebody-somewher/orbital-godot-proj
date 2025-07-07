@@ -47,9 +47,10 @@ func set_cardset_interactable(remove_self : Callable) -> void:
 	#return_pack.z_index = 50
 	#return return_pack
 
-static func new_pack(setdata : Dictionary[String, Array], pack_id : int) -> CardPack:
+# func new_pack(setdata : Dictionary[String, Array], pack_id : int) -> CardPack:
+static func new_pack(setdata : Dictionary, pack_id : int) -> CardPack:
 	var return_pack : CardPack = card_pack.instantiate()
-	return_pack.pack_sets = setdata
+	return_pack.pack_sets.assign(setdata)
 	return_pack.z_index = 50
 	return_pack.pack_id = pack_id
 	return return_pack

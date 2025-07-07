@@ -10,7 +10,7 @@
 [node name="Node" type="Node"]
 script = ExtResource("1_1rqqy")
 card_scene = ExtResource("2_i1c7u")
-building_card_scene = ExtResource("2_i1c7u")
+playable_card_scene = ExtResource("2_i1c7u")
 buildingcard_img = ExtResource("3_xa15t")
 building_grp = ExtResource("2_ioctc")
 

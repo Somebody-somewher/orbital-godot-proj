@@ -45,11 +45,12 @@ func player_choose_pack(player_uuid : String, packid : int) -> bool:
 	
 	player_uuid_to_packid[player_uuid] = packid
 	packid_to_player_uuid[packid] = player_uuid
-	Signalbus.emit_signal("end_turn", player_uuid)
 	
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
 		_update_pack_choosen_ui.call(pi.getPlayerId(), packid, PlayerManager.uuid_to_players[player_uuid].getColor()))
 	
+	
+	Signalbus.emit_signal("end_turn", player_uuid)
 	return true
 	
 func finalize_pack_choices() -> void:
