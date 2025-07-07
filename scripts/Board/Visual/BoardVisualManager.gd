@@ -57,7 +57,6 @@ func place_building_on_tile(building: Building, tile_pos : Vector2i) -> void:
 
 @rpc("any_peer", "call_local")
 func place_fake_building(building_id: String, tile_pos : Vector2i) -> void:
-	
 	var data : BuildingData = CardLoader.get_building_data(building_id)
 	var fake_placeable : Sprite2D = Sprite2D.new()
 	fake_placeable.set_texture(data.card_sprite)

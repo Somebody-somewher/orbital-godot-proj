@@ -85,12 +85,19 @@ func get_set(n : int) -> Dictionary[String, CardSetData]:
 		return get_random_set(n)
 
 func get_random_set(n : int) -> Dictionary[String, CardSetData]:
-	var size = avail_sets.size()
+	var size
 	var output : Dictionary[String, CardSetData]
 	var set_name : String
+	var buffer_set_name : String
+
 	for i in range(n):
+		size = avail_sets.size()
 		set_name = avail_sets.keys()[rng.randi() % size]
-		output[set_name] = avail_sets[set_name]
+		if set_name in output:
+			buffer_set_name = set_name + "1"
+		else:
+			buffer_set_name = set_name
+		output[buffer_set_name] = avail_sets[set_name]
 	return output
 
 func get_fixed_set_asc(n : int) -> Dictionary[String, CardSetData]:

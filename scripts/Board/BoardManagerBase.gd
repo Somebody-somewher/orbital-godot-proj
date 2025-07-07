@@ -110,25 +110,31 @@ func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i)
 	var remote_id : int = multiplayer.get_remote_sender_id()
 	var check := server_check(remote_id, tile_pos, func() -> bool:
 		# Get the carddata instance stored separately on server and client CardLoader
-		var placeable_instance : PlaceableInstanceData = CardLoader.server_card_memory.search_hand_for(\
-			PlayerManager.getUUID_from_PeerID(remote_id), placeableinst_id);\
+		var placeable_instance : PlaceableInstanceData = (CardLoader.card_mem as ServerCardMemory).attempt_to_use_hand_card(\
+			placeableinst_id, PlayerManager.getUUID_from_PeerID(remote_id));\
 		
 		# Check on server side if the placeable can be place
-		if placeable_instance and placeable_instance.placeable(matrix_data, tilemap_to_matrix(tile_pos)):
+		if placeable_instance: #and placeable_instance.placeable(matrix_data, tilemap_to_matrix(tile_pos)):
 			
 			# Place on serverside
 			_place_placeable(placeable_instance, tile_pos);\
 			
 			# If the server is client, prevent the building from being created twice 
 			# Otherwise ensure the client creates its own copy
-			if multiplayer.is_server() and !NetworkManager.is_client():
+			if !NetworkManager.is_server_client:
 				client_place_cardplaceable.rpc_id(remote_id, placeableinst_id, tile_pos)
-				
+			
+			
+			
 			return true;
 		else:
 			return false;)
 	
-	update_client_check_status(remote_id, check)
+	# The reason we dont send success check here is cuz the client needs to do its own action
+	# We also dont run a function on client if the event is unsuccessful 
+	if !check:
+		_on_board_failed_action_by_server.rpc_id(remote_id)
+		#update_client_check_status(remote_id, check)
 	
 #@rpc("any_peer", "call_local")
 #func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i) -> void:
@@ -173,7 +179,9 @@ func request_create_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
 		if multiplayer.is_server() and !NetworkManager.is_client():
 			_create_terrain.rpc_id(remote_id, terrain_id, tile_pos)
 		return true;)
-	update_client_check_status(remote_id, check)
+	if !check:
+		_on_board_failed_action_by_server.rpc_id(remote_id)
+		#update_client_check_status(remote_id, check)
 
 @rpc("any_peer", "call_local")
 func _create_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
@@ -191,7 +199,10 @@ func request_change_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
 		if multiplayer.is_server() and !NetworkManager.is_client():
 			_change_terrain.rpc_id(remote_id, terrain_id, tile_pos)
 		return true;)
-	update_client_check_status(remote_id, check)
+
+	if !check:
+		_on_board_failed_action_by_server.rpc_id(remote_id)
+	#update_client_check_status(remote_id, check)
 
 ## Change terrain, data + visual
 @rpc("any_peer","call_local")
@@ -216,11 +227,14 @@ func server_check(remote_id : int, tile_pos : Vector2i, upon_success : Callable)
 	else:
 		return false
 
-func update_client_check_status(remote_id : int, result : bool) -> void:
-	if result:
-		Signalbus.emit_multiplayer_signal.rpc_id(remote_id, "board_action_failure")
-	else:
-		Signalbus.emit_multiplayer_signal.rpc_id(remote_id, "board_action_success")
+#func update_client_check_status(remote_id : int, result : bool) -> void:
+	#if result:
+		#Signalbus.emit_multiplayer_signal.rpc_id(remote_id, "board_action_failure", [])
+	#else:
+		#Signalbus.emit_multiplayer_signal.rpc_id(remote_id, "board_action_success", [])
+
+func _on_board_failed_action_by_server() -> void:
+	pass
 
 ## Shade and unshade the individual boards that are interactable
 func set_interactable_board(boards: Array) -> void:

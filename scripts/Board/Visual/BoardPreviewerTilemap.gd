@@ -67,8 +67,8 @@ func preview_placement(placeableinstance_id : String, tile_pos : Vector2i = NULL
 	if tile_pos == NULL_TILE:
 		tile_pos = get_mouse_tile_pos()
 		
-	var placeable : PlaceableData = CardLoader.local_search_hand(placeableinstance_id).get_data()
-	if _matrix.check_tilepos_in_playable(tilemap_to_matrix(tile_pos)) and placeable.placeable(_matrix, tilemap_to_matrix(tile_pos)):
+	var placeable : PlaceableData = CardLoader.card_mem.local_search_hand_for(placeableinstance_id).get_data()
+	if _matrix.check_tilepos_in_playable(tilemap_to_matrix(tile_pos)): #and placeable.placeable(_matrix, tilemap_to_matrix(tile_pos)):
 		
 		#TODO: Sends the _set_preview to the placeable scorer event
 		#placeable.preview(_matrix, _set_preview, tilemap_to_matrix(tile_pos))

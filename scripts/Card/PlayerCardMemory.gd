@@ -16,6 +16,7 @@ var cardpack_options : Dictionary[int, Dictionary] = {}
 # Dictionary[String, CardInstanceData] -> Each card has a set quantity
 var cardpack_inventory : Dictionary[int, Dictionary] = {}
 
+# Is an array in case the card position is impt
 var hand_instances : Array[CardInstanceData] = []
 var default_maxhandsize := 10
 
@@ -61,6 +62,13 @@ func attempt_cardset_to_hand(cardpack_id : int, cardset_id : String, remove_pack
 func search_hand_for(instance_id : String) -> CardInstanceData:
 	for c in hand_instances:
 		if c.get_id() == instance_id:
+			return c
+	return null
+
+func attempt_to_use_hand_card(instance_id : String) -> CardInstanceData:
+	for c in hand_instances:
+		if c.get_id() == instance_id:
+			hand_instances.erase(c)
 			return c
 	return null
 

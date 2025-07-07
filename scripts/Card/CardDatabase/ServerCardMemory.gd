@@ -61,7 +61,10 @@ func attempt_cardset_to_hand(cardpack_id : int, cardset_id : String, player_uuid
 
 func search_hand_for(instance_id : String, player_uuid : String) -> CardInstanceData:
 	return server_memory[player_uuid].search_hand_for(instance_id)
-	
+
+func attempt_to_use_hand_card(instance_id : String, player_uuid : String) -> CardInstanceData:
+	return server_memory[player_uuid].attempt_to_use_hand_card(instance_id)
+
 func remove_card_in_hand(instance_id : String, player_uuid : String) -> void:
 	server_memory[player_uuid].remove_card_in_hand(instance_id)
 	

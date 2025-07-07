@@ -211,7 +211,6 @@ _data = {
 [node name="Card" type="Node2D"]
 material = ExtResource("1_ietu0")
 script = ExtResource("1_mck3k")
-card_image = ExtResource("4_dqohr")
 
 [node name="CardImage" type="Sprite2D" parent="."]
 z_index = 1

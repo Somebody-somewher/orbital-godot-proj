@@ -48,11 +48,15 @@ func place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i = NULL_T
 
 @rpc("any_peer","call_local")
 func client_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i) -> void:
-	var placeable_instance : PlaceableInstanceData = CardLoader.local_search_hand(placeableinst_id)
+	var placeable_instance : PlaceableInstanceData = \
+		CardLoader.card_mem.local_attempt_to_use_hand_card(placeableinst_id)
+	
 	if placeable_instance != null:
 		_place_placeable(placeable_instance, tile_pos)
 		Signalbus.emit_signal("board_action_success")
-	Signalbus.emit_signal("board_action_failure")
+	else:
+		printerr("Local Player Hand doesnt have the instance provided by Input & Server. This shouldnt be possible")
+		Signalbus.emit_signal("board_action_fail")
 
 ## Create a buildindg on a givne tilepos, data + visual
 func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vector2i) -> PlaceableNode:
@@ -145,11 +149,15 @@ func _process(delta: float) -> void:
 	
 	pass
 
-################################################################################################
 @rpc("any_peer", "call_local")
 func remove_building(tile_pos : Vector2i = NULL_TILE) -> void:
 	pass
 
+################################################################################################
+@rpc("any_peer", "call_local")
+func _on_board_failed_action_by_server() -> void:
+	Signalbus.emit_signal("board_action_fail")
+	
 func tilemap_to_matrix(tilemap_pos : Vector2i) -> Vector2i:
 	return tilemap_pos - BORDER_DIM 
 

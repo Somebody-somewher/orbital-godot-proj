@@ -33,13 +33,17 @@ func _ready() -> void:
 		self.material.set_shader_parameter("effect_alpha_mult",0)
 	pass
 
+static func new_card(cardinstance_data : CardInstanceData, cardimg_bg : Texture2D) -> Card:
+	var card := card_scene.instantiate()
+	card.set_up()
+	return card
+
 # factory constructor, to override
 func set_up(cardinstance_data : CardInstanceData, cardimg_bg : Texture2D) -> void:
 	get_node("CardImage").texture = cardimg_bg
 	get_node("EntityImage").texture = cardinstance_data.get_data().card_sprite
 	get_node("Texts/CardName").text = cardinstance_data.get_data().display_name
 	self.cardinstance_dataid = cardinstance_data.get_id()
-	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

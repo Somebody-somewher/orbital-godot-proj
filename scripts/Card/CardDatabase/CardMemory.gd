@@ -17,6 +17,12 @@ func _record_player_cardpack_choice(cardpack_id : int) -> void:
 	local_player_memory.record_cardpack_choice(cardpack_id)
 
 ################################# PLAYER HAND #####################################
+func local_search_hand_for(instance_id : String) -> CardInstanceData:
+	return local_player_memory.search_hand_for(instance_id)
+
+func local_attempt_to_use_hand_card(instance_id : String) -> CardInstanceData:
+	return local_player_memory.attempt_to_use_hand_card(instance_id)
+
 @rpc("any_peer", "call_local")
 func _attempt_cardset_to_hand(cardpack_id : int, cardset_id : String, cardinstanceids_to_add : Array[String]) -> void:
 	var result = local_player_memory.attempt_cardset_to_hand(cardpack_id, cardset_id)
@@ -26,7 +32,6 @@ func _attempt_cardset_to_hand(cardpack_id : int, cardset_id : String, cardinstan
 func _remove_card_in_hand(instance_id : String) -> void:
 	local_player_memory.remove_card_in_hand(instance_id)
 	
-
 #func _add_card_to_hand()	
 
 #func append_to_player_hand(player_uuid : String, card_set : Array[int], add_to_hand : Callable) -> bool:

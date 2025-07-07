@@ -112,8 +112,10 @@ func create_data_instance(data_id : String, attribute_number : int = 0, instance
 func create_card(data : CardInstanceData) -> Card:
 	var card : Card
 	if data is BuildingInstanceData:
-		card = building_card_scene.instantiate()
-		card.set_up(data, buildingcard_img)
+		card = PlaceableCard.new_card(data, buildingcard_img)
+		
+		#card = building_card_scene.instantiate()
+		#card.set_up(data, buildingcard_img)
 		return card
 	printerr("AURA?")
 	return null
@@ -123,44 +125,7 @@ func client_modify(player_uuid : String, data : CardInstanceData) -> void:
 	pass
 	
 
-################################### ADDING TO HAND #################################################
-
-#@rpc("any_peer","call_local")
-#func attempt_add_to_hand(set_id : int, pack_id : int) -> void:
-	#var remote_id := multiplayer.get_remote_sender_id()
-	#
-	#var ids : Array[String] = server_card_memory.attempt_card_to_hand( \
-		#PlayerManager.getUUID_from_PeerID(remote_id), pack_id, set_id)
-	#
-	#_add_to_hand_local_mem.rpc_id(remote_id, ids, set_id, pack_id)
-	#Signalbus.emit_multiplayer_signal.rpc_id(remote_id, "confirmed_add_to_hand", [ids, set_id])
-#
-#@rpc("any_peer","call_local")
-#func _add_to_hand_local_mem(ids : Array[String], set_id : int, pack_id : int) -> void:
-	#assert(!local_pack_mem.is_empty())
-	#var card_id_dicts : Dictionary[String, CardInstanceData] = local_pack_mem[pack_id][set_id] as Dictionary[String, CardInstanceData]
-	#for id in ids:
-		#local_player_hand.append(card_id_dicts[id])
-	#
-	#print(local_player_hand)
-	#pass
-
-#func local_search_hand(carddatainstance_id : String) -> CardInstanceData:
-	#for card_instance in local_player_hand:
-		#if card_instance.get_id() == carddatainstance_id:
-			#return card_instance
-	#return null
-
-#@rpc("any_peer","call_local")
-#func _add_to_hand(card_instance_ids : Array[String], set_id : int) -> void:
-	#Signalbus.emit_signal(,)
-	#var output : Array[Card]
-	#for card in local_cardpack_memory[set_id]:
-		#if card.get_data_instance_id() in card_instance_ids:
-			#output.append(card)
-#
-	#
-	#Signalbus.emit_signal("add_to_player_hand", output)
+################################### MISC #################################################
 
 func get_building_data(id : String) -> BuildingData:
 	return card_dict.get(id)
@@ -173,11 +138,3 @@ func get_display_name(id : String) -> String:
 
 func get_texture(id : String) -> Texture2D:
 	return card_dict.get(id).card_sprite
-
-
-#func get_random_set(n : int) -> Array[CardSetData]:
-	#var size = cardset_types.size()
-	#var arr : Array[CardSetData] = []
-	#for i in range(n):
-		#arr.append(cardset_types[randi() % size])
-	#return arr

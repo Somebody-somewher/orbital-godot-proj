@@ -1,6 +1,14 @@
 extends PlayerHandCard
 class_name PlaceableCard
 
+static var placeable_card_script := preload("res://scripts/Card/placeable_card.gd")
+
+static func new_card(cardinstance_data : CardInstanceData, cardimg_bg : Texture2D) -> PlaceableCard:
+	var card := card_scene.instantiate()
+	card.set_script(placeable_card_script)
+	card.set_up(cardinstance_data, cardimg_bg)
+	return card
+	
 func set_up(cardinstance_data : CardInstanceData, cardimg_bg : Texture2D) -> void:
 	super.set_up(cardinstance_data, cardimg_bg)
 	if cardinstance_data is BuildingInstanceData:

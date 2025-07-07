@@ -33,7 +33,7 @@ config/icon="uid://n2jiuhsqeh1s"
 PlayerManager="*res://NetworkingTest/PlayerManager.gd"
 Signalbus="*res://scenes/Game Flow/Signalbus.tscn"
 NetworkManager="*res://scenes/Networking/NetworkManager.tscn"
-CardLoader="*res://scenes/CardLoader.tscn"
+CardLoader="*res://scripts/Card/CardLoader.tscn"
 AudioManager="*res://scenes/Audio/audio_manager.tscn"
 
 [display]
