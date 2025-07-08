@@ -1,6 +1,6 @@
-[gd_scene load_steps=20 format=3 uid="uid://iv3w3pu8flf7"]
+[gd_scene load_steps=28 format=3 uid="uid://iv3w3pu8flf7"]
 
-[ext_resource type="Material" uid="uid://bb4p77g8nmchw" path="res://shader/Foil/dissolvemat.tres" id="1_6vscq"]
+[ext_resource type="Shader" uid="uid://uj6l6cirvjto" path="res://shader/Foil/foil+dissolve.gdshader" id="1_u2vrp"]
 [ext_resource type="Script" uid="uid://conukf4ick1q8" path="res://scripts/Card/Pack&Set/card_pack.gd" id="1_wo5bd"]
 [ext_resource type="Texture2D" uid="uid://b3kh2qq6nboem" path="res://assets/misc_sprites/card_shine.png" id="2_o731e"]
 [ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="3_2f5rk"]
@@ -15,6 +15,47 @@
 [ext_resource type="Texture2D" uid="uid://dnydcvxn06lih" path="res://assets/misc_sprites/cross_normal.png" id="11_u2vrp"]
 [ext_resource type="Texture2D" uid="uid://dd4s3kj0v5qbw" path="res://assets/misc_sprites/cross_click.png" id="12_g5vyk"]
 [ext_resource type="Texture2D" uid="uid://py8js8sa5pvf" path="res://assets/misc_sprites/cross_hover.png" id="13_ntb6h"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6vscq"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_u2vrp"]
+noise = SubResource("FastNoiseLite_6vscq")
+
+[sub_resource type="Gradient" id="Gradient_g5vyk"]
+offsets = PackedFloat32Array(0, 0.128205, 0.290598, 0.418803, 0.615385, 0.786325, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.431373, 0.0666667, 1, 0.945098, 0.780392, 0.215686, 1, 0.447059, 1, 0.298039, 1, 0, 0.760784, 0.956863, 1, 1, 0.411765, 1, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ntb6h"]
+gradient = SubResource("Gradient_g5vyk")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yew8f"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4roy7"]
+noise = SubResource("FastNoiseLite_yew8f")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ow1d3"]
+resource_local_to_scene = true
+shader = ExtResource("1_u2vrp")
+shader_parameter/mouse_position = Vector2(0, 0)
+shader_parameter/sprite_position = Vector2(0, 0)
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_u2vrp")
+shader_parameter/dissolve_value = 1.0
+shader_parameter/burn_color = Color(0, 0, 0, 1)
+shader_parameter/fov = 90.0
+shader_parameter/cull_back = true
+shader_parameter/inset = 0.0
+shader_parameter/max_tilt = 0.454
+shader_parameter/max_distance = 500.0
+shader_parameter/foilcolor = Color(0, 0, 0, 1)
+shader_parameter/threshold = 0.2
+shader_parameter/fuzziness = 0.1
+shader_parameter/period = 2.0
+shader_parameter/scroll = 4.0
+shader_parameter/normal_strength = 0.1
+shader_parameter/effect_alpha_mult = 0.0
+shader_parameter/direction = 0.5
+shader_parameter/gradient = SubResource("GradientTexture1D_ntb6h")
+shader_parameter/normal_map = SubResource("NoiseTexture2D_4roy7")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q1uvj"]
 size = Vector2(162, 231.5)
@@ -81,6 +122,18 @@ tracks/4/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_o731e"]
 resource_name = "fall animation"
@@ -122,14 +175,31 @@ tracks/2/keys = {
 "values": [true, false]
 }
 
+[sub_resource type="Animation" id="Animation_6vscq"]
+resource_name = "shake"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2, 0.266667, 0.3),
+"transitions": PackedFloat32Array(0.63728, 0.517633, 0.406126, 0.554785, 0.5, 2.07053),
+"update": 0,
+"values": [0.0, 0.349066, -0.349066, 0.349066, -0.349066, 0.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gpkwg"]
 _data = {
 &"RESET": SubResource("Animation_va8pk"),
-&"fall animation": SubResource("Animation_o731e")
+&"fall animation": SubResource("Animation_o731e"),
+&"shake": SubResource("Animation_6vscq")
 }
 
 [node name="CardPack" type="Node2D"]
-material = ExtResource("1_6vscq")
+material = SubResource("ShaderMaterial_ow1d3")
 scale = Vector2(2, 2)
 script = ExtResource("1_wo5bd")
 pack_sets = Array[ExtResource("3_2f5rk")]([ExtResource("4_i8ods"), ExtResource("5_raj77"), ExtResource("6_piws8"), ExtResource("7_j5qe6")])

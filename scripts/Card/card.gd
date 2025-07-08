@@ -21,7 +21,7 @@ var sprite_ref = self
 var dissolving = false
 var dissolve_value = 1
 var enable_3d = false
-var foiled = true
+var foiled = false
 
 # name to find references in database
 var id_name : String = "cute_dummy"
