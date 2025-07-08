@@ -11,6 +11,9 @@ var _boards_layout : Vector2i
 
 var boards_coords : Array[Array]
 var interactable : Array[bool]
+
+var instances_on_board : Dictionary[String, CardInstanceData]
+
 # Initialize 2d array matrix
 func _init(board_size : int, boards_layout : Vector2i) -> void:
 	Signalbus.connect("get_tile_pos_from_AOE",constrain_pattern_to_board)
@@ -43,7 +46,7 @@ func _init(board_size : int, boards_layout : Vector2i) -> void:
 	
 ## Create a board tile for each cell in the matrix (passed indirectly to procgen via board_manager)
 func add_tile(tilePos : Vector2i, terrain_env : EnvTerrain) -> void:
-	board_matrix[tilePos.x][tilePos.y] = .new(terrain_env)
+	board_matrix[tilePos.x][tilePos.y] = BoardTile.new(terrain_env)
 
 ## Put a placeable on the board tile
 func add_placeable_to_tile(tilePos : Vector2i, placeable : PlaceableNode) -> void:

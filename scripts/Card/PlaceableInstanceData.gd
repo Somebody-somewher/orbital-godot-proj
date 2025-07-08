@@ -10,6 +10,25 @@ func _init(instance_id : String, data : PlaceableData, card_attr : int):
 func get_data() -> BuildingData:
 	return data	
 
+func serialize() -> Dictionary:
+	var output = {}
+	output['instance_id'] = data_instance_id
+	output['owner_uuid'] = owner_uuid
+	output['data_id'] = data.get_id()
+	return output
+
+static func deserialize(serialized_obj : Dictionary, data : CardData) -> PlaceableInstanceData:
+	var instance := PlaceableInstanceData.new("", null, 0)
+	instance.resync(serialized_obj, data)
+	return instance	
+
+func resync(serialized_obj : Dictionary, data : CardData) -> void:
+	data_instance_id = serialized_obj['instance_id']
+	owner_uuid = serialized_obj['owner_uuid']
+	self.data = (data as PlaceableData) #CardLoader.get_card_data(serialized_obj['data_id'])
+
+
+
 #func preview(board : BoardMatrixData, previewer : Callable, tile_pos : Vector2i) -> void:
 	#return preview_event.preview(board, previewer, tile_pos)
 	#

@@ -106,7 +106,7 @@ func create_terrain_building(builddata_tilepos_dict : Dictionary[BuildingData, A
 
 ################################### PLACEABLE PLACING #########################################
 @rpc("any_peer", "call_local")
-func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i, run_on_place_effects := true) -> void:
+func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i, run_on_place_effects := true, sync := true) -> void:
 	var remote_id : int = multiplayer.get_remote_sender_id()
 	var check := server_check(remote_id, tile_pos, func() -> bool:
 		# Get the carddata instance stored separately on server and client CardLoader
@@ -121,10 +121,12 @@ func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i,
 			
 			# If the server is client, prevent the building from being created twice 
 			# Otherwise ensure the client creates its own copy
-			client_place_cardplaceable.rpc_id(remote_id, placeableinst_id, tile_pos)
 			
-			
-			
+			if sync:
+				_client_sync_placeable.rpc(placeable_instance.serialize(), tile_pos)
+			else:
+				_client_place_cardplaceable.rpc_id(remote_id, placeableinst_id, tile_pos)
+
 			return true;
 		else:
 			return false;)
@@ -134,7 +136,30 @@ func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i,
 	if !check:
 		_on_board_failed_action_by_server.rpc_id(remote_id)
 		#update_client_check_status(remote_id, check)
-	
+
+## Used by Events to create new placeables
+@rpc("any_peer", "call_local")
+func server_place_newplaceable(placeable_instance : PlaceableInstanceData, tile_pos : Vector2i, \
+	player_uuid : String, run_on_place_effects := true, sync := true) -> void:
+	if placeable_instance: #and placeable_instance.placeable(matrix_data, tilemap_to_matrix(tile_pos)):
+		_place_placeable(placeable_instance, tile_pos, run_on_place_effects);
+		
+		if sync:
+			_client_sync_placeable.rpc(placeable_instance.serialize(), tile_pos)
+		else:
+			_client_sync_placeable.rpc_id(\
+				PlayerManager.getPeerID_from_UUID(player_uuid), placeable_instance.serialize(), tile_pos)
+		# Place on 
+		# If the server is client, prevent the building from being created twice 
+		# Otherwise ensure the client creates its own copy
+		#_client_place_cardplaceable.rpc_id(remote_id, placeableinst_id, tile_pos)
+	#
+	## The reason we dont send success check here is cuz the client needs to do its own action
+	## We also dont run a function on client if the event is unsuccessful 
+	#if !check:
+		#_on_board_failed_action_by_server.rpc_id(remote_id)
+		#update_client_check_status(remote_id, check)
+		
 #@rpc("any_peer", "call_local")
 #func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i) -> void:
 	#var remote_id : int = multiplayer.get_remote_sender_id()
@@ -148,13 +173,17 @@ func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i,
 	#Signalbus.emit_multiplayer_signal.rpc_id(remote_id, "board_action_failure")
 
 @rpc("any_peer", "call_local")
-func client_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i, run_on_place_effects : bool) -> void:
+func _client_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i) -> void:
 	pass
-	
+
+@rpc("any_peer", "call_local")
+func _client_sync_placeable(placeable_serialized : Dictionary, tile_pos : Vector2i) -> void:
+	pass
+
 ## Create a building on a given tilepos, data + visual
 ## Run by server + requesting client
 @rpc("any_peer", "call_local")
-func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vector2i, run_on_place_effects : bool) -> PlaceableNode:
+func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vector2i, run_on_place_effects := true) -> PlaceableNode:
 	var placeable_node : PlaceableNode
 	if placeable_instance is BuildingInstanceData:
 		placeable_node = Building.new_building_frm_data(placeable_instance as BuildingInstanceData)

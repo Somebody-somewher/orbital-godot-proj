@@ -23,7 +23,7 @@ func create_pack(packs : Dictionary[int, Dictionary]) -> void:
 	
 	var packs_to_insert : Dictionary[String, Array]
 	
-	for pack_id in range(len(packs)):
+	for pack_id in packs.keys():
 		card_pack = CardPack.new_pack(packs[pack_id], pack_id)
 		card_pack.set_position(Vector2i(0,0))
 		spawn_node.add_child(card_pack)

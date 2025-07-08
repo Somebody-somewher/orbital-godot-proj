@@ -38,6 +38,7 @@ func attempt_cardset_to_hand(cardpack_id : int, cardset_id : String, remove_pack
 	
 	# At this point, card_set_options should be reduced to only the cardpack the player picked.
 	if !cardpack_inventory.has(cardpack_id) or !cardpack_inventory[cardpack_id].has(cardset_id):
+		printerr("Possible desync detected ", cardpack_id, cardset_id, cardpack_inventory)
 		return []
 	
 	# The number of cards the player can take in (due to their max hand size)

@@ -23,7 +23,6 @@ var card_sets = preload("res://scenes/Card/card_set.tscn")
 static var card_pack = preload("res://scenes/Card/card_pack.tscn")
 
 @onready var buttons: Control = $Buttons
-@onready var input_manager: InputManager = $"../../InputManager"
 @onready var cardpack_sprite : Sprite2D = $Sprite2D
 
 ##shader stuff
@@ -73,7 +72,7 @@ func _on_check_pressed() -> void:
 
 func _on_cross_pressed() -> void:
 	buttons.visible = false
-	input_manager.curr_mask = 0xFFFFFFFF
+	get_tree().get_node("InputManager").curr_mask = 0xFFFFFFFF
 
 # Returns boolean based on whether we needa pause every other input
 func choose_or_open() -> bool:

@@ -26,7 +26,7 @@ func record_player_cardpack_choice(cardpack_id : int, player_uuid : String) -> v
 			_record_player_cardpack_choice(cardpack_id),
 		func():
 			var peer_id = PlayerManager.getPeerID_from_UUID(player_uuid)
-			_record_player_cardpack_choice.rpc_id(cardpack_id)
+			_record_player_cardpack_choice.rpc_id(peer_id, cardpack_id)
 	)
 
 

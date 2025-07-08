@@ -2,7 +2,6 @@ extends Node
 
 @export var card_scene : PackedScene
 @export var building_card_scene : PackedScene
-var card_dict = {}
 
 
 @export_category("BuildingCard Creation")
@@ -10,10 +9,13 @@ var card_dict = {}
 @export var buildingcard_img : Texture2D
 @export var building_grp : ResourceGroup
 var buildings : Array[BuildingData] = []
+var card_dict = {}
 
 @export_category("AuraCard Creation")
 @export var aura_grp : ResourceGroup
 var auras : Array[AuraCardData] = []
+
+
 
 ## Server
 var card_attribute_gen : CardAttributeGenerator
@@ -96,17 +98,12 @@ func create_data_instance(data_id : String, attribute_number : int = 0, instance
 	
 	return instance_data
 
-#func duplicate_cardinstance(data : CardInstanceData) -> CardInstanceData:
-	#
-	#var gen_values = card_attribute_gen.fixed_generate_attribute(data.get_id(), data.)
-	#
-	#if data is BuildingInstanceData:
-		#pass
-		#
-		#
-		##return BuildingInstanceData.duplicate(data)
-	#return null
-
+func sync_create_data_instance(serialized_instance_data : Dictionary) -> CardInstanceData:
+	var card_data := get_card_data(serialized_instance_data['data_id'])
+	if card_data is BuildingData:
+		return BuildingInstanceData.deserialize(serialized_instance_data, card_data)
+	return null
+	
 
 # Add to scene must be done by manually by node calling this method
 func create_card(data : CardInstanceData) -> Card:

@@ -47,19 +47,27 @@ func place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i = NULL_T
 	pass
 
 @rpc("any_peer","call_local")
-func client_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i) -> void:
-	var placeable_instance : PlaceableInstanceData = \
-		CardLoader.card_mem.local_attempt_to_use_hand_card(placeableinst_id)
-	
-	if placeable_instance != null:
+func _client_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i) -> void:
+	_client_place_placeable(CardLoader.card_mem.local_attempt_to_use_hand_card(placeableinst_id), tile_pos)
+
+@rpc("any_peer","call_local")
+func _client_sync_placeable(placeable_serialized : Dictionary, tile_pos : Vector2i) -> void:
+	_client_place_placeable(CardLoader.sync_create_data_instance(placeable_serialized), tile_pos)
+
+func _client_place_placeable(placeable_instance : PlaceableInstanceData, tile_pos : Vector2i) -> void:
+	if multiplayer.is_server():
+		Signalbus.emit_signal("board_action_success")
+		return
+		
+	if placeable_instance:
 		_place_placeable(placeable_instance, tile_pos)
 		Signalbus.emit_signal("board_action_success")
 	else:
 		printerr("Local Player Hand doesnt have the instance provided by Input & Server. This shouldnt be possible")
 		Signalbus.emit_signal("board_action_fail")
-
+		
 ## Create a buildindg on a givne tilepos, data + visual
-func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vector2i) -> PlaceableNode:
+func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vector2i, run_on_place_effects := true) -> PlaceableNode:
 	var placeable_node : PlaceableNode = super._place_placeable(placeable_instance, tile_pos)
 	terrain_tilemap.place_building_on_tile(placeable_node, tile_pos)
 	return placeable_node

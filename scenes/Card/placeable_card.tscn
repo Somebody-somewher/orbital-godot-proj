@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://cn44dbdfc5m7f"]
 
 [ext_resource type="Material" uid="uid://50vwq3nch70b" path="res://shader/Foil/card_material.tres" id="1_0osnu"]
-[ext_resource type="Script" uid="uid://dmnncj0v3af8y" path="res://scripts/Card/placeable_card.gd" id="2_0cu3i"]
+[ext_resource type="Script" uid="uid://dmnncj0v3af8y" path="res://scripts/Card/playerhand_card.gd" id="2_0cu3i"]
 [ext_resource type="Texture2D" uid="uid://d02is06vvdlbm" path="res://assets/card_sprites/blank_card.png" id="4_pmi5y"]
 [ext_resource type="Theme" uid="uid://igcyj7c6fdln" path="res://assets/fonts/cutey_card_theme.tres" id="7_ajn42"]
 
