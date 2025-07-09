@@ -49,7 +49,7 @@ func add_tile(tilePos : Vector2i, terrain_env : EnvTerrain) -> void:
 	board_matrix[tilePos.x][tilePos.y] = BoardTile.new(terrain_env)
 
 ## Put a placeable on the board tile
-func add_placeable_to_tile(tilePos : Vector2i, placeable : PlaceableNode) -> void:
+func add_placeable_to_tile(tilePos : Vector2i, placeable : PlaceableInstanceData) -> void:
 	board_matrix[tilePos.x][tilePos.y].add_placeable(placeable)
 
 ## Change the terrain on the board tile

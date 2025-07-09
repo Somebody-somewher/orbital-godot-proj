@@ -32,3 +32,4 @@ func resync(serialized_obj : Dictionary) -> void:
 	foil = serialized_obj['foil']
 	num_rounds_spent_placed = serialized_obj['rounds']
 	tile_pos = serialized_obj['tilepos']
+	

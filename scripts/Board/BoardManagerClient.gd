@@ -67,10 +67,14 @@ func _client_place_placeable(placeable_instance : PlaceableInstanceData, tile_po
 		Signalbus.emit_signal("board_action_fail")
 		
 ## Create a buildindg on a givne tilepos, data + visual
-func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vector2i, run_on_place_effects := true) -> PlaceableNode:
-	var placeable_node : PlaceableNode = super._place_placeable(placeable_instance, tile_pos)
-	terrain_tilemap.place_building_on_tile(placeable_node, tile_pos)
-	return placeable_node
+func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vector2i, run_on_place_effects := true) -> void:
+	super._place_placeable(placeable_instance, tile_pos, run_on_place_effects)
+	var placeable_node : PlaceableNode
+	if placeable_instance is BuildingInstanceData:
+		placeable_node = Building.new_building_frm_data(placeable_instance as BuildingInstanceData)
+		terrain_tilemap.place_building_on_tile(placeable_node, tile_pos)
+	placeable_instance.client_on_place(placeable_node.destroy)
+	
 
 ################################# TERRAIN MODIFICATION ##########################################
 @rpc("any_peer","call_local")
@@ -166,8 +170,3 @@ func remove_building(tile_pos : Vector2i = NULL_TILE) -> void:
 func _on_board_failed_action_by_server() -> void:
 	Signalbus.emit_signal("board_action_fail")
 	
-func tilemap_to_matrix(tilemap_pos : Vector2i) -> Vector2i:
-	return tilemap_pos - BORDER_DIM 
-
-func matrix_to_tilepos(matrix_pos : Vector2i) -> Vector2i:
-	return BORDER_DIM + matrix_pos

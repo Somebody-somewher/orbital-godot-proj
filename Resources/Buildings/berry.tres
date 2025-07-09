@@ -1,25 +1,31 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=9 format=3 uid="uid://l01fxde84m0i"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=10 format=3 uid="uid://l01fxde84m0i"]
 
-[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_3203c"]
+[ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_bi44j"]
 [ext_resource type="Texture2D" uid="uid://cys3tjjvnfa0i" path="res://assets/entity_sprites/berry.PNG" id="2_3203c"]
+[ext_resource type="Resource" uid="uid://fbnj1ug25po" path="res://Resources/Events&Conditions/BuildingDefaultPreset.tres" id="3_5ys16"]
 [ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_cu2v8"]
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_5ys16"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_341vx"]
-[ext_resource type="Resource" uid="uid://bsrnk44vhb58o" path="res://Resources/Conditions/StackableCondition.tres" id="6_nk21a"]
-[ext_resource type="Resource" uid="uid://swxqvknonbdu" path="res://Resources/Events/Scoring/wheat_field_scoring.tres" id="7_svxvs"]
+[ext_resource type="Resource" uid="uid://bsrnk44vhb58o" path="res://Resources/Events&Conditions/Conditions/StackableCondition.tres" id="7_341vx"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="8_bgjgy"]
+[ext_resource type="Resource" uid="uid://swxqvknonbdu" path="res://Resources/Events&Conditions/Events/Scoring/wheat_field_scoring.tres" id="8_nk21a"]
 
 [resource]
 script = ExtResource("8_bgjgy")
 layer = 1
 nonplaceable_terrain = Array[ExtResource("3_cu2v8")]([ExtResource("4_5ys16")])
-preview_event = ExtResource("7_svxvs")
-place_conditions = Array[ExtResource("5_341vx")]([ExtResource("6_nk21a")])
-place_effects = Array[ExtResource("1_3203c")]([])
-post_place_effects = Array[ExtResource("1_3203c")]([])
-begin_round_effects = Array[ExtResource("1_3203c")]([])
-end_round_effects = Array[ExtResource("1_3203c")]([])
-destroyed_effects = Array[ExtResource("1_3203c")]([])
+foil_probability = 0
+preview_event = ExtResource("8_nk21a")
+place_conditions = Array[ExtResource("5_341vx")]([ExtResource("7_341vx")])
+place_effects = Array[ExtResource("1_bi44j")]([])
+post_place_effects = Array[ExtResource("1_bi44j")]([])
+begin_round_effects = Array[ExtResource("1_bi44j")]([])
+end_round_effects = Array[ExtResource("1_bi44j")]([])
+destroyed_effects = Array[ExtResource("1_bi44j")]([])
+default_preset = ExtResource("3_5ys16")
+play_conditions = Array[ExtResource("5_341vx")]([])
+play_effects = Array[ExtResource("1_bi44j")]([])
+discard_effects = Array[ExtResource("1_bi44j")]([])
 id_name = "berry"
 display_name = "berry"
 card_sprite = ExtResource("2_3203c")

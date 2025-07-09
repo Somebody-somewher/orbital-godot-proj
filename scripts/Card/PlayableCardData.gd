@@ -3,7 +3,7 @@ class_name PlayableCardData
 
 @export_category("Events and Conditions")
 #################################### EFFECTS ##########################################
-@export var default_preset : DefaultPreset
+@export var default_preset : PlayableDefaultPreset
 	
 # predicates in the form of pred(self id in database, board, pos)
 @export var play_conditions : Array[Condition] 

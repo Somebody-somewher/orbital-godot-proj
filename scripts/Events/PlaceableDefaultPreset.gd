@@ -1,10 +1,5 @@
-extends Resource
-class_name DefaultPreset
-
-@export var play_conditions : Array[Condition] 
-
-@export var play_effects : Array[Event]
-@export var discard_effects : Array[Event]
+extends PlayableDefaultPreset
+class_name PlaceableDefaultPreset
 
 # predicates in the form of pred(self id in database, board, pos)
 @export var place_conditions : Array[Condition] 

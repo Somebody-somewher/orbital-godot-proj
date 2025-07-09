@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="PlaceableDefaultPreset" load_steps=5 format=3 uid="uid://fbnj1ug25po"]
+
+[ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_lxlm8"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="2_1n2je"]
+[ext_resource type="Resource" uid="uid://ba7mdsgeigyea" path="res://Resources/Events&Conditions/Conditions/Terrain/non-waterproof.tres" id="3_1n2je"]
+[ext_resource type="Script" uid="uid://beva2fo23djq0" path="res://scripts/Events/PlaceableDefaultPreset.gd" id="3_lxlm8"]
+
+[resource]
+script = ExtResource("3_lxlm8")
+place_conditions = Array[ExtResource("2_1n2je")]([ExtResource("3_1n2je")])
+place_effects = Array[ExtResource("1_lxlm8")]([])
+post_place_effects = Array[ExtResource("1_lxlm8")]([])
+begin_round_effects = Array[ExtResource("1_lxlm8")]([])
+end_round_effects = Array[ExtResource("1_lxlm8")]([])
+destroyed_effects = Array[ExtResource("1_lxlm8")]([])
+play_conditions = Array[ExtResource("2_1n2je")]([])
+play_effects = Array[ExtResource("1_lxlm8")]([])
+discard_effects = Array[ExtResource("1_lxlm8")]([])
+metadata/_custom_type_script = "uid://beva2fo23djq0"

@@ -92,11 +92,11 @@ func add_card_to_hand(card : CardInstanceData) -> bool:
 
 func remove_card_in_hand(instance_id : String) -> bool:
 	var item = search_hand_for(instance_id)
-	if !item.is_null():
-		return false
-	else:
+	if item:
 		hand_instances.erase(search_hand_for(instance_id)) 
 		return true
+	else:
+		return false
 
 func get_max_hand_size() -> int:
 	return default_maxhandsize

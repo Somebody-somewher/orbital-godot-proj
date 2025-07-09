@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="BuildingData" load_steps=10 format=3 uid="uid://b0h4kphfk2ijb"]
 
-[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_wms76"]
+[ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_85ey1"]
 [ext_resource type="Texture2D" uid="uid://b8t5rjxbpfmg8" path="res://assets/entity_sprites/back.PNG" id="2_wms76"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_85ey1"]
 [ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_ol8yu"]
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_6xalo"]
 [ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="4_wms76"]
-[ext_resource type="Resource" uid="uid://co5t8yoldc0dc" path="res://Resources/Events/Scoring/single_tile_dummy.tres" id="5_wms76"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_2l5pq"]
+[ext_resource type="Resource" uid="uid://co5t8yoldc0dc" path="res://Resources/Events&Conditions/Events/Scoring/single_tile_dummy.tres" id="7_ol8yu"]
 
 [sub_resource type="Resource" id="Resource_7xiv1"]
 script = ExtResource("4_wms76")
@@ -20,13 +20,16 @@ script = ExtResource("6_2l5pq")
 layer = 1
 nonplaceable_terrain = Array[ExtResource("3_ol8yu")]([ExtResource("4_6xalo")])
 foil_probability = 0
-preview_event = ExtResource("5_wms76")
+preview_event = ExtResource("7_ol8yu")
 place_conditions = Array[ExtResource("3_85ey1")]([SubResource("Resource_7xiv1")])
-place_effects = Array[ExtResource("1_wms76")]([])
-post_place_effects = Array[ExtResource("1_wms76")]([])
-begin_round_effects = Array[ExtResource("1_wms76")]([])
-end_round_effects = Array[ExtResource("1_wms76")]([])
-destroyed_effects = Array[ExtResource("1_wms76")]([])
+place_effects = Array[ExtResource("1_85ey1")]([])
+post_place_effects = Array[ExtResource("1_85ey1")]([])
+begin_round_effects = Array[ExtResource("1_85ey1")]([])
+end_round_effects = Array[ExtResource("1_85ey1")]([])
+destroyed_effects = Array[ExtResource("1_85ey1")]([])
+play_conditions = Array[ExtResource("3_85ey1")]([])
+play_effects = Array[ExtResource("1_85ey1")]([])
+discard_effects = Array[ExtResource("1_85ey1")]([])
 id_name = "back"
 display_name = "back"
 card_sprite = ExtResource("2_wms76")
