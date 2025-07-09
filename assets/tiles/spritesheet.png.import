@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwwp2kt2yowua"
-path="res://.godot/imported/tileable_background_2.jpg-4c7d0ddc37a37a56e24737b6c250f1dc.ctex"
+uid="uid://qp848pwbsdla"
+path="res://.godot/imported/spritesheet.png-e917d025507ab97a2bbdcc9e82518e92.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tiles/tileable_background_2.jpg"
-dest_files=["res://.godot/imported/tileable_background_2.jpg-4c7d0ddc37a37a56e24737b6c250f1dc.ctex"]
+source_file="res://assets/tiles/spritesheet.png"
+dest_files=["res://.godot/imported/spritesheet.png-e917d025507ab97a2bbdcc9e82518e92.ctex"]
 
 [params]
 

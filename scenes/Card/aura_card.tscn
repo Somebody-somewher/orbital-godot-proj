@@ -17,7 +17,7 @@ noise = SubResource("FastNoiseLite_j4ao5")
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pmi5y"]
 noise = SubResource("FastNoiseLite_b3b0l")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gn0co"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8uyuv"]
 resource_local_to_scene = true
 shader = ExtResource("2_8uyuv")
 shader_parameter/mouse_position = Vector2(0, 0)
@@ -69,7 +69,7 @@ shader_parameter/gradient = ExtResource("6_kg3rr")
 shader_parameter/normal_map = SubResource("NoiseTexture2D_oo20p")
 
 [node name="AuraCard" instance=ExtResource("1_h3cfb")]
-material = SubResource("ShaderMaterial_gn0co")
+material = SubResource("ShaderMaterial_8uyuv")
 script = ExtResource("3_0kp23")
 
 [node name="Texts" parent="." index="3"]

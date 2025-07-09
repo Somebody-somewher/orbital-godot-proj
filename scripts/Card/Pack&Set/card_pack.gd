@@ -30,6 +30,7 @@ static var card_pack = preload("res://scenes/Card/card_pack.tscn")
 var sprite_ref = self
 var dissolving = false
 var dissolve_value = 1
+var enable_3d = false
 
 func _ready() -> void:
 	buttons.visible = false
@@ -60,8 +61,13 @@ func _process(delta: float) -> void:
 			sprite_ref.material.set_shader_parameter("dissolve_value", dissolve_value)
 			dissolve_value -= delta * 1.6
 		else:
-			sprite_ref.visible = false
-			queue_free()
+			sprite_ref.self_modulate = Color(1, 1, 1, 0)
+	if enable_3d:
+		self.material.set_shader_parameter("max_tilt",0.5)
+		self.material.set_shader_parameter("mouse_position",get_global_mouse_position())
+		self.material.set_shader_parameter("sprite_position",global_position)
+	else:
+		self.material.set_shader_parameter("max_tilt",0)
 
 func select_pack() -> void:
 	buttons.visible = true
@@ -86,6 +92,7 @@ func choose_or_open() -> bool:
 	
 func open_pack() -> void:
 	self.get_node("Area2D/CollisionShape2D").disabled = true
+	get_node("AnimationPlayer").play("shake")
 	var pack_size = pack_sets.size()
 	
 	if pack_size == 0:
@@ -105,6 +112,8 @@ func open_pack() -> void:
 		pack_arr.insert(pack_arr.size(), new_set)
 		add_child(new_set)
 	
+	dissolving = true
+
 func select_option(set_option : CardSet) -> void:
 	if !is_cardsets_interactable:
 		return
@@ -122,11 +131,27 @@ func select_option(set_option : CardSet) -> void:
 				destroy_pack()
 
 func destroy_pack() -> void:
-	for cardset in pack_arr:
-		cardset.get_node("Area2D/CollisionShape2D").disabled = true
-		cardset.dissolve_set()
+	for sets in pack_arr:
+		sets.get_node("Area2D/CollisionShape2D").disabled = true
+		for unchosen_card in sets.card_set:
+			unchosen_card.dissolve_card()
+	await get_tree().create_timer(1).timeout
+	queue_free()
 
-	dissolving = true
+#<<<<<<< HEAD
+#	for cardset in pack_arr:
+#		cardset.get_node("Area2D/CollisionShape2D").disabled = true
+#		cardset.dissolve_set()
+#
+#	dissolving = true
+#=======
+#	for sets in pack_arr:
+#		sets.get_node("Area2D/CollisionShape2D").disabled = true
+#		for unchosen_card in sets.card_set:
+#			unchosen_card.dissolve_card()
+#	await get_tree().create_timer(1).timeout
+#	queue_free()
+#>>>>>>> Condition-and-Effects-Expansion
 
 func pack_chosen_update(colour_to_update : Color) -> void:
 	# Show indication pack was chosen
@@ -142,6 +167,7 @@ func _on_area_2d_mouse_exited() -> void:
 
 func highlight_pack(on : bool) -> void:
 	var tween = get_tree().create_tween()
+	enable_3d = on
 	if on:
 		tween.parallel().tween_property(self, "scale", Vector2(1.1, 1.1), 0.1)
 	else:
