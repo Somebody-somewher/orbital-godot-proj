@@ -71,7 +71,7 @@ func preview_placement(placeableinstance_id : String, tile_pos : Vector2i = NULL
 	if _matrix.check_tilepos_in_playable(tilemap_to_matrix(tile_pos)) and CardLoader.event_manager.check_place_conditions(placeable_instance, tilemap_to_matrix(tile_pos)):
 		
 		#TODO: Sends the _set_preview to the placeable scorer event
-		placeable_instance.preview(_matrix, _set_preview, tilemap_to_matrix(tile_pos))
+		CardLoader.event_manager.preview_effect(placeable_instance, _set_preview, tilemap_to_matrix(tile_pos))
 		
 		place_ghost(placeable_instance.get_data(), tile_pos)
 

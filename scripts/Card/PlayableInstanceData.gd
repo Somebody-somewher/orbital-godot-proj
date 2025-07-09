@@ -3,21 +3,11 @@ class_name PlayableInstanceData
 
 var rounds_in_hand : int
 
-var play_conditions : Array[Condition] 
-var conditions_dict : Dictionary[String, Condition]
-
 var data : PlayableCardData
 
 func _init(instance_id : String, data : PlayableCardData, card_attr : int):
 	super._init(instance_id, data)
 	self.data = data
-	self.play_conditions = data.play_conditions
-
-func is_playable() -> bool:
-	for condition in play_conditions:
-		if !condition.test():
-			return false
-	return true
 
 func get_data() -> PlayableCardData:
 	return data	

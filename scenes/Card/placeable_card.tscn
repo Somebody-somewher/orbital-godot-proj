@@ -4,7 +4,7 @@
 [ext_resource type="Shader" uid="uid://uj6l6cirvjto" path="res://shader/Foil/foil+dissolve.gdshader" id="2_j4ao5"]
 [ext_resource type="Shader" uid="uid://u3dupxupysmg" path="res://shader/Foil/foil.gdshader" id="3_0cu3i"]
 [ext_resource type="Texture2D" uid="uid://dwfea5crud5qh" path="res://shader/Foil/rainbow_gradient_1d.tres" id="3_j4ao5"]
-[ext_resource type="Script" uid="uid://dmnncj0v3af8y" path="res://scripts/Card/placeable_card.gd" id="3_vnwkm"]
+[ext_resource type="Script" uid="uid://dmnncj0v3af8y" path="res://scripts/Card/playerhand_card.gd" id="3_vnwkm"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_j4ao5"]
 

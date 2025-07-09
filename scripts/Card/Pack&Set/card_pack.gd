@@ -131,10 +131,9 @@ func select_option(set_option : CardSet) -> void:
 				destroy_pack()
 
 func destroy_pack() -> void:
-	for sets in pack_arr:
-		sets.get_node("Area2D/CollisionShape2D").disabled = true
-		for unchosen_card in sets.card_set:
-			unchosen_card.dissolve_card()
+	for cardset in pack_arr:
+		cardset.get_node("Area2D/CollisionShape2D").disabled = true
+		cardset.dissolve_set()
 	await get_tree().create_timer(1).timeout
 	queue_free()
 

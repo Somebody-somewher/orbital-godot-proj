@@ -64,7 +64,6 @@ func _process(delta: float) -> void:
 		self.material.set_shader_parameter("max_tilt",0.01)
 	
 
-
 func dissolve_card() -> void:
 	get_node("Area2D/CollisionShape2D").disabled = true
 	dissolving = true

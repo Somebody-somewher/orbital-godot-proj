@@ -7,5 +7,5 @@ class_name BoardEvent
 func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstanceData) -> void:
 	pass
 
-func preview(_board : BoardMatrixData, _previewer : Callable, _tile_pos : Vector2i) -> void:
+func preview(_board : BoardMatrixData, _previewer : Callable, _tile_pos : Vector2i, caller : CardInstanceData) -> void:
 	pass

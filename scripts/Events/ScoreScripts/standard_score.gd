@@ -21,7 +21,7 @@ func score_tiles(tile_pos : Vector2i) -> Array[Array]:
 
 # Displays the textlabel scoring above each tile. Board calls this function during preview_placement
 # Note that this does not finalize the scoring
-func preview(board : BoardMatrixData, previewer : Callable, tile_pos : Vector2i) -> void:
+func preview(board : BoardMatrixData, previewer : Callable, tile_pos : Vector2i, caller : CardInstanceData) -> void:
 	# Reset the cached score when recalculating, so we don't include old previews
 	var tile_pos_arr : Array[Vector2i]
 	var scores : Array[int]

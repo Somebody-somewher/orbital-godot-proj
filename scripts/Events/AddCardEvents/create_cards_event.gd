@@ -4,7 +4,7 @@ class_name CreateCardsEvent
 # cards to create in card id, no of cards pairs
 @export var cards: Dictionary[String, int]
 
-func preview(board : BoardMatrixData, previewer : Callable, tile_pos : Vector2i) -> void:
+func preview(board : BoardMatrixData, previewer : Callable, tile_pos : Vector2i, caller : CardInstanceData) -> void:
 	pass
 
 # destroys the building, #TODO building should trigger its own OnDestroyEvents

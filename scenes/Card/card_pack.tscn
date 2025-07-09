@@ -1,14 +1,9 @@
-[gd_scene load_steps=28 format=3 uid="uid://iv3w3pu8flf7"]
+[gd_scene load_steps=23 format=3 uid="uid://iv3w3pu8flf7"]
 
 [ext_resource type="Shader" uid="uid://uj6l6cirvjto" path="res://shader/Foil/foil+dissolve.gdshader" id="1_u2vrp"]
 [ext_resource type="Script" uid="uid://conukf4ick1q8" path="res://scripts/Card/Pack&Set/card_pack.gd" id="1_wo5bd"]
 [ext_resource type="Texture2D" uid="uid://b3kh2qq6nboem" path="res://assets/misc_sprites/card_shine.png" id="2_o731e"]
-[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="3_2f5rk"]
-[ext_resource type="Resource" uid="uid://cggiwamgd6hyw" path="res://Resources/CardSetData/Farm.tres" id="4_i8ods"]
-[ext_resource type="Resource" uid="uid://casnoqtppk56" path="res://Resources/CardSetData/Housing.tres" id="5_raj77"]
 [ext_resource type="Texture2D" uid="uid://dn6735uees2i1" path="res://assets/card_packs/dummy_card_pack.png" id="5_va8pk"]
-[ext_resource type="Resource" uid="uid://cxf1ei6yfsbx5" path="res://Resources/CardSetData/Town Square.tres" id="6_piws8"]
-[ext_resource type="Resource" uid="uid://b1661oftebeem" path="res://Resources/CardSetData/Worship.tres" id="7_j5qe6"]
 [ext_resource type="Texture2D" uid="uid://imfgok6btu1v" path="res://assets/misc_sprites/check_normal.png" id="8_piws8"]
 [ext_resource type="Texture2D" uid="uid://ct7bq5ehjgc2a" path="res://assets/misc_sprites/check_click.png" id="9_j5qe6"]
 [ext_resource type="Texture2D" uid="uid://coprxc3q4806f" path="res://assets/misc_sprites/check_hover.png" id="10_6vscq"]
@@ -202,7 +197,6 @@ _data = {
 material = SubResource("ShaderMaterial_ow1d3")
 scale = Vector2(2, 2)
 script = ExtResource("1_wo5bd")
-pack_sets = Array[ExtResource("3_2f5rk")]([ExtResource("4_i8ods"), ExtResource("5_raj77"), ExtResource("6_piws8"), ExtResource("7_j5qe6")])
 
 [node name="Buttons" type="Control" parent="."]
 visible = false
@@ -268,8 +262,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_gpkwg")
 }
 
-[connection signal="pressed" from="Buttons/MarginContainer/HBoxContainer/YesButton" to="." method="_on_yes_button_pressed"]
 [connection signal="pressed" from="Buttons/MarginContainer/HBoxContainer/YesButton" to="." method="_on_check_pressed"]
+[connection signal="pressed" from="Buttons/MarginContainer/HBoxContainer/YesButton" to="." method="_on_yes_button_pressed"]
 [connection signal="pressed" from="Buttons/MarginContainer/HBoxContainer/NoButton" to="." method="_on_cross_pressed"]
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

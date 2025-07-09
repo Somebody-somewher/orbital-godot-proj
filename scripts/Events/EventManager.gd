@@ -35,12 +35,18 @@ func clean_events(instance : CardInstanceData) -> void:
 func modify_event(instruction : Dictionary) -> bool:
 	return true
 
+func preview_effect(instance : CardInstanceData, previewer : Callable, tilepos : Vector2i) -> void:
+	var event_to_run = events_and_conditions[instance.get_id()]["preview"][0]
+	if event_to_run is BoardEvent:
+		event_to_run.preview(matrix_data, previewer, tilepos, instance)
+
 func trigger_place_effects(instance : CardInstanceData, tilepos : Vector2i) -> void:
 	run_events(events_and_conditions[instance.get_id()]["on_place"], instance, [tilepos])
 
 func check_place_conditions(instance : CardInstanceData, tilepos : Vector2i) -> bool:
 	return run_conditions(events_and_conditions[instance.get_id()]["is_placeable"], instance, [tilepos])
-	
+
+
 #func trigger_event(instance : CardInstanceData, event_type : String, params : Array) -> void:
 	#var events_to_run : Array[Event]
 	#events_to_run.assign(events[instance.get_id()][event_type])
