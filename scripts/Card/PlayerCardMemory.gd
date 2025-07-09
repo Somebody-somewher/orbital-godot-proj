@@ -1,6 +1,7 @@
 extends Object
 class_name PlayerCardMemory
 
+var event_manager : EventManager
 var player_uuid : String
 # Actual Card instances created/presented for each player
 # This is a Dictionary nested in 3 layers
@@ -19,6 +20,9 @@ var cardpack_inventory : Dictionary[int, Dictionary] = {}
 # Is an array in case the card position is impt
 var hand_instances : Array[CardInstanceData] = []
 var default_maxhandsize := 10
+
+func _init(e_manager : EventManager):
+	event_manager = e_manager
 
 # Called during CardPack Generation
 func record_cardpack_options(card_packs : Dictionary[int, Dictionary]) -> void:
@@ -45,13 +49,18 @@ func attempt_cardset_to_hand(cardpack_id : int, cardset_id : String, remove_pack
 	var numcards_to_hand = get_max_hand_size() - hand_instances.size()
 	var cardset_cards : Dictionary[String, CardInstanceData] = cardpack_inventory[cardpack_id][cardset_id]
 	
+	var num_cardset_cards = cardset_cards.size()
 	# Add as many cards to the hand as possible, keeping to the max_size_limit
-	numcards_to_hand = min(numcards_to_hand, cardset_cards.size())
+	numcards_to_hand = min(numcards_to_hand, num_cardset_cards)
 	
-	var cards_in_set = cardset_cards.values()
-	for i in range(numcards_to_hand):
-		hand_instances.append(cards_in_set[i])
-		added_card_instances.append(cards_in_set[i])
+	var cards_in_set : Array[CardInstanceData] = cardset_cards.values()
+	for i in range(num_cardset_cards):
+		if i < numcards_to_hand:
+			hand_instances.append(cards_in_set[i])
+			added_card_instances.append(cards_in_set[i])
+			event_manager.add_events(cards_in_set[i])
+		#else:
+			# trigger discard event
 		# EventManager add card
 	
 	if remove_pack_after:

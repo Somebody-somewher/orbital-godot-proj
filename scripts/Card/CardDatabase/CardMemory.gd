@@ -5,8 +5,8 @@ class_name CardMemory
 # Actual Card instances created/esented for each player
 var local_player_memory : PlayerCardMemory
 
-func setup() -> void:
-	local_player_memory = PlayerCardMemory.new()
+func setup(e_manager : EventManager) -> void:
+	local_player_memory = PlayerCardMemory.new(e_manager)
 
 func record_player_cardpack_options(card_packs : Dictionary[int, Dictionary]) -> void:
 	local_player_memory.record_cardpack_options(card_packs)

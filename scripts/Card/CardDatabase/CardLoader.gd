@@ -3,7 +3,6 @@ extends Node
 @export var card_scene : PackedScene
 @export var building_card_scene : PackedScene
 
-
 @export_category("BuildingCard Creation")
 # BuildingData
 @export var buildingcard_img : Texture2D
@@ -15,11 +14,12 @@ var card_dict = {}
 @export var aura_grp : ResourceGroup
 var auras : Array[AuraCardData] = []
 
-
-
 ## Server
 var card_attribute_gen : CardAttributeGenerator
+
+# Other Components
 var card_mem : CardMemory
+@onready var event_manager : EventManager = $EventManager
 @onready var cardpack_gen : CardPackGenerator = $CardPackGen
 
 #for constructors
@@ -33,6 +33,7 @@ func _ready() -> void:
 	
 	for b in buildings:
 		if b:
+			b.load_default_preset()
 			card_dict.get_or_add(b.get_id(), b)
 
 	for aura_data in auras:
@@ -58,7 +59,7 @@ func setup(cag : CardAttributeGenerator = null, csa : CardSetAllocator = null) -
 
 		cardpack_gen.server_setup(card_attribute_gen, csa)
 	
-	card_mem.setup()
+	card_mem.setup(event_manager)
 	cardpack_gen.setup(card_mem, create_data_instance, create_card)
 
 

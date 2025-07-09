@@ -26,11 +26,11 @@ func serialize() -> Dictionary:
 	output['owner_uuid'] = owner_uuid
 	return output
 
-func resync(serialized_obj : Dictionary, data : CardData) -> void:
+func resync(serialized_obj : Dictionary) -> void:
 	data_instance_id = serialized_obj['instance_id']
 	owner_uuid = serialized_obj['owner_uuid']
 
 static func deserialize(serialized_obj : Dictionary, data : CardData) -> CardInstanceData:
 	var instance := CardInstanceData.new("", null)
-	instance.resync(serialized_obj, data)
+	instance.resync(serialized_obj)
 	return instance	

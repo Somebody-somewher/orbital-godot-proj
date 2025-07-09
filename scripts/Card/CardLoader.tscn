@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://blqu1sa8dhqkk"]
+[gd_scene load_steps=8 format=3 uid="uid://blqu1sa8dhqkk"]
 
 [ext_resource type="Script" uid="uid://c1cwfvnqf5cci" path="res://scripts/Card/CardDatabase/CardLoader.gd" id="1_bhm5s"]
 [ext_resource type="PackedScene" uid="uid://cn44dbdfc5m7f" path="res://scenes/Card/placeable_card.tscn" id="2_bhm5s"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://dg6oe12i637ef" path="res://Resources/ResourceGrps/BuildingGrp.tres" id="4_n1e4f"]
 [ext_resource type="Script" uid="uid://b1yn3sucf1w6y" path="res://scripts/Card/Pack&Set/CardPackGenerator.gd" id="5_m1yff"]
 [ext_resource type="Resource" uid="uid://dsnjlsa6s1cki" path="res://Resources/ResourceGrps/CardSetGrp.tres" id="6_pngft"]
+[ext_resource type="Script" uid="uid://cwbsaq2pvb8fq" path="res://scripts/Events/EventManager.gd" id="7_7gwn3"]
 
 [node name="Node" type="Node"]
 script = ExtResource("1_bhm5s")
@@ -17,3 +18,6 @@ building_grp = ExtResource("4_n1e4f")
 [node name="CardPackGen" type="Node" parent="."]
 script = ExtResource("5_m1yff")
 cardset_grp = ExtResource("6_pngft")
+
+[node name="EventManager" type="Node" parent="."]
+script = ExtResource("7_7gwn3")

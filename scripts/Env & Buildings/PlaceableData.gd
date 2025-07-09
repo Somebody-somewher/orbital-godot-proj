@@ -25,12 +25,13 @@ class_name PlaceableData
 
 func load_default_preset() -> void:
 	super.load_default_preset()
-	place_conditions = default_preset.place_conditions
-	place_effects = default_preset.place_effects
-	post_place_effects = default_preset.post_place_effects
-	begin_round_effects = default_preset.begin_round_effects
-	end_round_effects = default_preset.end_round_effects
-	destroyed_effects = default_preset.destroyed_effects
+	if default_preset:
+		place_conditions = default_preset.place_conditions
+		place_effects = default_preset.place_effects
+		post_place_effects = default_preset.post_place_effects
+		begin_round_effects = default_preset.begin_round_effects
+		end_round_effects = default_preset.end_round_effects
+		destroyed_effects = default_preset.destroyed_effects
 	pass
 
 func get_events_as_dict() -> Dictionary[String, Array]:

@@ -9,6 +9,6 @@ class_name MoveWRangeEvent
 func preview(board : BoardMatrixData, previewer : Callable, tile_pos : Vector2i) -> void:
 	pass
 
-func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : Node2D) -> void:
+func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstanceData) -> void:
 	pass
 	

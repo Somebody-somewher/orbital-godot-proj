@@ -6,14 +6,13 @@ var tile_pos := Vector2i(-1,-1)
 
 var foil : bool
 
-
 func _init(instance_id : String, data : BuildingData, card_attr : int):
 	super._init(instance_id, data, card_attr)
 	if card_attr > 90:
 		foil = true
 
 func get_data() -> BuildingData:
-	return data	
+	return data
 
 func serialize() -> Dictionary:
 	var output = super.serialize()
@@ -23,14 +22,13 @@ func serialize() -> Dictionary:
 	return output
 
 static func deserialize(serialized_obj : Dictionary, data : CardData) -> BuildingInstanceData:
-	var instance := BuildingInstanceData.new("", null, 0)
-	instance.resync(serialized_obj, data)
+	var instance := BuildingInstanceData.new("", data, 0)
+	instance.resync(serialized_obj)
+	instance.data = (data as BuildingData)
 	return instance
 
-func resync(serialized_obj : Dictionary, data : CardData) -> void:
-	data_instance_id = serialized_obj['instance_id']
-	owner_uuid = serialized_obj['owner_uuid']
-	self.data = (data as BuildingData)
+func resync(serialized_obj : Dictionary) -> void:
+	super.resync(serialized_obj)
 	foil = serialized_obj['foil']
 	num_rounds_spent_placed = serialized_obj['rounds']
 	tile_pos = serialized_obj['tilepos']

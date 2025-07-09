@@ -18,13 +18,21 @@ var events : Dictionary[String, Dictionary]
 var conditions : Dictionary[String, Dictionary]
 
 func add_events(instance : CardInstanceData) -> void:
-	events[instance.get_id()] = instance.get_data().get_events_as_dict()
+	var events_dict := instance.get_data().get_events_as_dict()
+	
+	for event_arr in events_dict.values():
+		for e in event_arr:
+			e.connect("request_modification", modify_event)
+	
+	events[instance.get_id()] = events_dict
 	id_to_instances[instance.get_id()] = instance
+
 
 ## Remove all events related to this card instance
 func clean_events(instance : CardInstanceData) -> void:
 	pass
-	
+
+@rpc("any_peer", "call_local")
 func modify_event(instruction : Dictionary) -> bool:
 	return true
 

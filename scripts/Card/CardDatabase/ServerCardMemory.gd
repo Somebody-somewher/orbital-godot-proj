@@ -5,12 +5,12 @@ class_name ServerCardMemory
 # Actual Card instances created/presented for each player
 var server_memory : Dictionary[String, PlayerCardMemory] = {}
 
-func setup() -> void:
+func setup(event_manager : EventManager) -> void:
 	if NetworkManager.is_client():
-		local_player_memory = PlayerCardMemory.new()
+		local_player_memory = PlayerCardMemory.new(event_manager)
 	
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
-		server_memory.get_or_add(pi.getPlayerUUID(), PlayerCardMemory.new()));
+		server_memory.get_or_add(pi.getPlayerUUID(), PlayerCardMemory.new(event_manager)));
 
 @rpc("any_peer", "call_local")
 func server_record_player_cardpack_options(card_packs : Dictionary[int, Dictionary], player_uuid : String) -> void:
