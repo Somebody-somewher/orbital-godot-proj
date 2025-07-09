@@ -2,7 +2,7 @@ extends Node
 class_name CardMemory
 # Contain the instances of CardDataInstance
 
-# Actual Card instances created/presented for each player
+# Actual Card instances created/esented for each player
 var local_player_memory : PlayerCardMemory
 
 func setup() -> void:

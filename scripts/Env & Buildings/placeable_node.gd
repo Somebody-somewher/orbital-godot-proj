@@ -25,20 +25,20 @@ func _process(delta: float) -> void:
 	pass
 
 # triggers all events in any array, can add timing here
-func trigger_event_arr(board : BoardMatrixData, arr : Array[BoardEvent], tile_pos : Vector2i):
-	for event in arr:
-		event.trigger(board, tile_pos, self)
-
-func trigger_place_effects(board : BoardMatrixData, tile_pos : Vector2i) -> void:
-	for event in data_instance.get_data().place_effects:
-		event.trigger(board, tile_pos, self)
-
-func trigger_post_place_effects(board : BoardMatrixData, tile_pos : Vector2i) -> void:
-	for event in data_instance.get_data().post_place_effects:
-		event.trigger(board, tile_pos, self)
-
-func placeable(board : BoardMatrixData, pos : Vector2i) -> bool:
-	return data_instance.get_data().placeable(board, pos)
+#func trigger_event_arr(board : BoardMatrixData, arr : Array[BoardEvent], tile_pos : Vector2i):
+	#for event in arr:
+		#event.trigger(board, tile_pos, self)
+#
+#func trigger_place_effects(board : BoardMatrixData, tile_pos : Vector2i) -> void:
+	#for event in data_instance.get_data().place_effects:
+		#event.trigger(board, tile_pos, self)
+#
+#func trigger_post_place_effects(board : BoardMatrixData, tile_pos : Vector2i) -> void:
+	#for event in data_instance.get_data().post_place_effects:
+		#event.trigger(board, tile_pos, self)
+#
+#func placeable(board : BoardMatrixData, pos : Vector2i) -> bool:
+	#return data_instance.get_data().placeable(board, pos)
 
 func destroy() -> void:
 	# TODO trigger destory effects here

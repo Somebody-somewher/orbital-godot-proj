@@ -30,6 +30,9 @@ func custom_placeable_sort(a : PlaceableNode, b : PlaceableNode):
 func change_terrain(terrain : EnvTerrain):
 	_terrain = terrain
 
+func get_terrain() -> EnvTerrain:
+	return _terrain
+
 # for deleting buildings from tile
 func delete_from_tile(placed_thing : PlaceableNode) -> void:
 	var index = placeable_arr.find(placed_thing)

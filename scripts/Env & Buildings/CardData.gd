@@ -23,5 +23,11 @@ enum CATEGORY {
 # hidden cards are not shown in compendium
 @export var hidden : bool = false
 
+func load_default_preset() -> void:
+	pass
+	
+func get_events_as_dict() -> Dictionary[String, Array]:
+	return {}
+
 func get_id() -> String:
 	return id_name

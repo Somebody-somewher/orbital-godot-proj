@@ -14,6 +14,8 @@ signal update_score_ui(score : int)
 
 # BOARD
 #signal run_func_on_board(c : Callable)
+signal get_matrix_data()
+
 # sends to board to spawn card
 signal spawn_card(id : String, pos : Vector2)
 
@@ -44,8 +46,6 @@ signal mouse_enter_board()
 signal board_action_fail()
 signal board_action_success()
 
-# For Pathfinding for boats, Floodfill for castle
-signal run_search_on_board(c : Callable)
 
 signal set_score_preview(tile_pos : Array[Vector2i], scores : Array[int])
 
@@ -71,3 +71,6 @@ func emit_multiplayer_signal(signal_to_call : String, args : Array):
 # UI MESSAGES
 signal show_error_msg(msg : String)
 signal show_round_msg(msg : String)
+
+# EventManager
+#signal trigger_effect(bid : BuildingInstanceData, effect_type : Sting)

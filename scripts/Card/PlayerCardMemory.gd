@@ -52,6 +52,7 @@ func attempt_cardset_to_hand(cardpack_id : int, cardset_id : String, remove_pack
 	for i in range(numcards_to_hand):
 		hand_instances.append(cards_in_set[i])
 		added_card_instances.append(cards_in_set[i])
+		# EventManager add card
 	
 	if remove_pack_after:
 		cardpack_inventory.erase(cardpack_id)
