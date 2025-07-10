@@ -60,6 +60,9 @@ func trigger_place_events(instance : CardInstanceData, tilepos : Vector2i) -> vo
 	#print(events_and_conditions[instance.get_id()])
 	run_events(events_and_conditions[instance.get_id()]["on_place"], instance, [tilepos])
 
+func trigger_postplace_events(instance : CardInstanceData, tilepos : Vector2i) -> void:
+	run_events(events_and_conditions[instance.get_id()]["post_place"], instance, [tilepos])
+
 func check_card_play_conditions(instance : CardInstanceData) -> bool:
 	return true
 

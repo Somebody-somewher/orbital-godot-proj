@@ -128,7 +128,6 @@ func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i,
 			
 			# If the server is client, prevent the building from being created twice 
 			# Otherwise ensure the client creates its own copy
-
 			if sync:
 				_client_sync_placeable.rpc(placeable_instance.serialize(),\
 					tile_pos, PlayerManager.getUUID_from_PeerID(remote_id))
@@ -163,11 +162,15 @@ func server_place_newplaceable(placeable_instance : PlaceableInstanceData, tile_
 ## Run by server + requesting client
 @rpc("any_peer", "call_local")
 func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vector2i, run_on_place_events := true) -> void:
-	matrix_data.add_placeable_to_tile(tilemap_to_matrix(tile_pos), placeable_instance)
 
 	if run_on_place_events and multiplayer.is_server():
 		CardLoader.event_manager.trigger_place_events(placeable_instance, tilemap_to_matrix(tile_pos))
+	
+	matrix_data.add_placeable_to_tile(tilemap_to_matrix(tile_pos), placeable_instance)
 
+	if run_on_place_events and multiplayer.is_server():
+		CardLoader.event_manager.trigger_postplace_events(placeable_instance, tilemap_to_matrix(tile_pos))
+		
 ################################# TERRAIN MODIFICATION ##########################################
 @rpc("any_peer","call_local")
 func request_create_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
