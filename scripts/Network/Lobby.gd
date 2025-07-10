@@ -33,8 +33,10 @@ func _create_server():
 func _connect_client(addr = ""):
 	var peer = ENetMultiplayerPeer.new()
 	
-	if addr.is_empty():
+	if $IPInput.text.is_empty():
 		addr = ip
+	else:
+		addr = $IPInput.text
 	var error = peer.create_client(addr, port)
 	if (error != OK):
 		print("cannot host: " + error)
