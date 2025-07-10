@@ -6,6 +6,8 @@ var tile_score_previewer : BoardTileScorePreviewer
 
 @export var ghost_image : Sprite2D
 
+var interactability_check : Callable
+
 # Hopefully array will not be overwritten before visual reset
 var preview_highlight_tiles : Array[Vector2i]
 
@@ -18,8 +20,9 @@ func _ready() -> void:
 	super._ready()
 	#ghost_image.scale = Vector2(1.0/BOARD_SCALE, 1.0/BOARD_SCALE)
 
-func set_up(parent : Node, matrix : BoardMatrixData, border_dim : Vector2i):
+func set_up(parent : Node, matrix : BoardMatrixData, border_dim : Vector2i, interactability_check : Callable):
 	super._set_up(parent, border_dim)
+	self.interactability_check = interactability_check
 	_matrix = matrix
 	
 	# Coordinates setup for camera
@@ -68,12 +71,14 @@ func preview_placement(placeableinstance_id : String, tile_pos : Vector2i = NULL
 		tile_pos = get_mouse_tile_pos()
 		
 	var placeable_instance : PlaceableInstanceData = CardLoader.card_mem.local_search_hand_for(placeableinstance_id)
-	if _matrix.check_tilepos_in_playable(tilemap_to_matrix(tile_pos)) and CardLoader.event_manager.check_place_conditions(placeable_instance, tilemap_to_matrix(tile_pos)):
-		
-		#TODO: Sends the _set_preview to the placeable scorer event
-		CardLoader.event_manager.preview_effect(placeable_instance, _set_preview, tilemap_to_matrix(tile_pos))
-		
-		place_ghost(placeable_instance.get_data(), tile_pos)
+	if placeable_instance:
+		interactability_check.call(multiplayer.get_unique_id(), tile_pos, func():
+			if CardLoader.event_manager.check_place_conditions(placeable_instance, tilemap_to_matrix(tile_pos)):
+				CardLoader.event_manager.preview_event(placeable_instance, _set_preview, tilemap_to_matrix(tile_pos));\
+				place_ghost(placeable_instance.get_data(), tile_pos);\
+				return true
+			return false
+			)
 
 func place_ghost(placeable_data : PlaceableData, tile_pos : Vector2i) -> void:
 	ghost_image.texture = placeable_data.card_sprite

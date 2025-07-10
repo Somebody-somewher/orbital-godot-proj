@@ -9,15 +9,17 @@ class_name RoundCounter
 # Likelihood we can abstract these to Resource objects that just command the game objects to do stuff?
 @export var initial_round : RoundState
 var curr_round : RoundState
+
 #@export var round_grp : ResourceGroup
 #var possible_rounds : Array[RoundState]
-
 
 # If all players indicated that they have ended their turn
 # End the round prematurely
 @export var players_ready : Dictionary[String, bool] = {}
-var round_id : int = 0
+var round_id : String = ""
 var round_count : int = 1
+
+var score_manager : ScoreManager
 
 var is_round_ending := false
 
@@ -36,13 +38,16 @@ func _ready() -> void:
 	prev_s = int(curr_timer)
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo):\
 		players_ready[pi.getPlayerUUID()] = false)
+	
+	score_manager = ScoreManager.new()
+	score_manager.connect("game_end", end_game)
 
+	for round in round_id_lookup.values():
+		round.connect("transition_to", start_round)
+	
 	#round_grp.load_all_into(possible_rounds)
 	NetworkManager.connect("all_clients_ready", start_round_manager)
 	NetworkManager.server_net.mark_server_component_ready(self.name)
-	
-	for round in round_id_lookup.values():
-		round.connect("transition_to", start_round)
 
 func start_round_manager():
 	start_round(initial_round.get_id())
@@ -89,3 +94,7 @@ func reset_timer() -> void:
 	curr_timer = curr_round.get_time()
 	prev_s = int(curr_timer)
 	pause_timer = false
+
+func end_game(player_uuid : String, player_scores : Dictionary[String, int], player_medals : Dictionary[String, Array]) -> void:
+	print("GAME END WOWOWOWOWOWO")
+	pass

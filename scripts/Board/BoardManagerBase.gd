@@ -108,10 +108,10 @@ func create_terrain_building(builddata_tilepos_dict : Dictionary[BuildingData, A
 
 ################################### PLACEABLE PLACING #########################################
 @rpc("any_peer", "call_local")
-func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i, run_on_place_effects := true, sync := true) -> void:
+func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i, run_on_place_events := true, sync := true) -> void:
 	var remote_id : int = multiplayer.get_remote_sender_id()
 	var server_mem : ServerCardMemory = (CardLoader.card_mem as ServerCardMemory)
-	var check := server_check(remote_id, tile_pos, func() -> bool:
+	var check := interactability_check(remote_id, tile_pos, func() -> bool:
 		# Get the carddata instance stored separately on server and client CardLoader
 		var placeable_instance : PlaceableInstanceData = server_mem.search_hand_for(\
 			placeableinst_id, PlayerManager.getUUID_from_PeerID(remote_id));\
@@ -120,7 +120,7 @@ func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i,
 		if placeable_instance and CardLoader.event_manager.check_place_conditions(placeable_instance, tilemap_to_matrix(tile_pos)):
 			
 			# Place on serverside
-			_place_placeable(placeable_instance, tile_pos, run_on_place_effects);\
+			_place_placeable(placeable_instance, tile_pos, run_on_place_events);\
 			server_mem.remove_card_in_hand(placeableinst_id, PlayerManager.getUUID_from_PeerID(remote_id))
 			# If the server is client, prevent the building from being created twice 
 			# Otherwise ensure the client creates its own copy
@@ -143,9 +143,10 @@ func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i,
 ## Used by Events to create new placeables
 @rpc("any_peer", "call_local")
 func server_place_newplaceable(placeable_instance : PlaceableInstanceData, tile_pos : Vector2i, \
-	player_uuid : String, run_on_place_effects := true, sync := true) -> void:
+	player_uuid : String, run_on_place_events := true, sync := true) -> void:
+		
 	if placeable_instance and CardLoader.event_manager.check_place_conditions(placeable_instance, tilemap_to_matrix(tile_pos)):
-		_place_placeable(placeable_instance, tile_pos, run_on_place_effects);
+		_place_placeable(placeable_instance, tile_pos, run_on_place_events);
 		
 		if sync:
 			_client_sync_placeable.rpc(placeable_instance.serialize(), tile_pos)
@@ -186,14 +187,11 @@ func _client_sync_placeable(placeable_serialized : Dictionary, tile_pos : Vector
 ## Create a building on a given tilepos, data + visual
 ## Run by server + requesting client
 @rpc("any_peer", "call_local")
-func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vector2i, run_on_place_effects := true) -> void:
+func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vector2i, run_on_place_events := true) -> void:
 	matrix_data.add_placeable_to_tile(tilemap_to_matrix(tile_pos), placeable_instance)
 
-	
-	# TODO: CHANGE THIS from NODE
-	# PROBABLY NEED A SIGNAL INSTEAD
-	if run_on_place_effects and multiplayer.is_server():
-		CardLoader.event_manager.trigger_place_effects(placeable_instance, tilemap_to_matrix(tile_pos))
+	if run_on_place_events and multiplayer.is_server():
+		CardLoader.event_manager.trigger_place_events(placeable_instance, tilemap_to_matrix(tile_pos))
 	
 	
 
@@ -201,7 +199,7 @@ func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vect
 @rpc("any_peer","call_local")
 func request_create_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
 	var remote_id := multiplayer.get_remote_sender_id()
-	var check := server_check(remote_id, tile_pos, func():
+	var check := interactability_check(remote_id, tile_pos, func():
 		_create_terrain(terrain_id, tile_pos);\
 		
 		# If the server is client, prevent the building from being created twice 
@@ -221,7 +219,7 @@ func _create_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
 @rpc("any_peer","call_local")
 func request_change_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
 	var remote_id := multiplayer.get_remote_sender_id()
-	var check := server_check(remote_id, tile_pos, func():
+	var check := interactability_check(remote_id, tile_pos, func():
 		_create_terrain(terrain_id, tile_pos);\
 
 		# If the server is client, prevent the building from being created twice 
@@ -251,7 +249,7 @@ func check_tilepos_in_interactable(player_uuid : String, tilepos : Vector2i) -> 
 			return true
 	return false
 
-func server_check(remote_id : int, tile_pos : Vector2i, upon_success : Callable) -> bool:
+func interactability_check(remote_id : int, tile_pos : Vector2i, upon_success : Callable) -> bool:
 	if tile_pos != NULL_TILE and check_tilepos_in_interactable(PlayerManager.getUUID_from_PeerID(remote_id),\
 		tilemap_to_matrix(tile_pos)):
 		return upon_success.call()

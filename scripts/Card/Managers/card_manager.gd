@@ -96,8 +96,9 @@ func finish_drag(placing : bool):
 			if card_flipped:
 				card_dragged.entity_flip_to_card()
 			if card_dragged is PlayerHandCard:
-				player_hand_ref.add_card_to_hand(card_dragged)
-		
+				#player_hand_ref.add_card_to_hand(card_dragged)
+				player_hand_ref.add_to_hand_no_update(card_dragged)
+				
 		preview_board_ref.reset_preview()
 		card_flipped = false
 	card_dragged = null

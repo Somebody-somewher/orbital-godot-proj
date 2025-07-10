@@ -19,7 +19,7 @@ func set_up() -> void:
 	boards_near_mouse.resize(BOARDS_LAYOUT.x * BOARDS_LAYOUT.y)
 		
 	# Tilemaps setup
-	previewer_tilemap.set_up(object, matrix_data, BORDER_DIM)
+	previewer_tilemap.set_up(object, matrix_data, BORDER_DIM, interactability_check)
 	terrain_tilemap.set_up(object, BORDER_DIM)
 		
 	var playable_area = matrix_data.get_playable_area_coords()

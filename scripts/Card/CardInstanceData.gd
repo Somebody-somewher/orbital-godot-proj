@@ -11,11 +11,11 @@ func _init(instance_id : String, data : CardData):
 func get_data() -> CardData:
 	return null	
 
-func set_owner_uuid(owner : String) -> void:
-	owner_uuid = owner
-
 func get_id() -> String:
 	return data_instance_id
+
+func set_owner_uuid(owner : String) -> void:
+	owner_uuid = owner
 
 func get_owner_uuid() -> String:
 	return owner_uuid

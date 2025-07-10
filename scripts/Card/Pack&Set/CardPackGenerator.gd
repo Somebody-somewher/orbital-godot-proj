@@ -77,7 +77,7 @@ func server_generate_packs() -> void:
 				_truncate_pack(numstream, player_options_num[pi.getPlayerUUID()])));
 	
 	if NetworkManager.is_server_client:
-		card_memory.record_player_cardpack_options(local_cardpacks_datainst_mem)
+		#card_memory.record_player_cardpack_options(local_cardpacks_datainst_mem)
 		Signalbus.emit_signal("create_pack", _truncate_pack(cards_for_server, player_options_num[PlayerManager.getUUID_from_PeerID(1)]))
 
 

@@ -2,14 +2,13 @@ extends Node
 
 
 # ROUND LOGIC
-signal end_turn()
-signal round_end(round_id : int, round_total : int)
-signal round_start(round_id : int, round_total : int)
+signal end_turn(player_uuid : String)
+signal round_end(round_id : String, round_total : int)
+signal round_start(round_id : String, round_total : int)
 signal round_timer_update(curr_time : int)
 
 # SCORE LOGIC
-signal cache_score(score : int)
-signal add_score(score_to_add : int)
+signal add_score(score_to_add : int, player_uuid : String)
 signal update_score_ui(score : int)
 
 # BOARD

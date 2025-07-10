@@ -17,7 +17,6 @@ var instances_on_board : Dictionary[String, CardInstanceData]
 # Initialize 2d array matrix
 func _init(board_size : int, boards_layout : Vector2i) -> void:
 	Signalbus.connect("get_tile_pos_from_AOE",constrain_pattern_to_board)
-	Signalbus.connect("run_search_on_board", search_matrix_readonly)
 	_board_size = board_size
 	_boards_layout = boards_layout
 	

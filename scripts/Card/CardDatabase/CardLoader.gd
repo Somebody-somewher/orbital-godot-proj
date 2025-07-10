@@ -44,6 +44,7 @@ func _ready() -> void:
 		card_mem = ServerCardMemory.new()
 	else:
 		card_mem = CardMemory.new()
+	
 	add_child(card_mem)
 	#NetworkManager.mark_client_ready(self.name)
 
@@ -51,7 +52,6 @@ func _ready() -> void:
 ## Run via GameManager in actual game
 func setup(cag : CardAttributeGenerator = null, csa : CardSetAllocator = null) -> void:
 	if multiplayer.is_server():	
-		
 		if cag == null:
 			card_attribute_gen = CardAttributeGenerator.new()
 		else:
@@ -59,9 +59,9 @@ func setup(cag : CardAttributeGenerator = null, csa : CardSetAllocator = null) -
 
 		cardpack_gen.server_setup(card_attribute_gen, csa)
 	
-	card_mem.setup(event_manager)
+	card_mem.setup()
 	cardpack_gen.setup(card_mem, create_data_instance, create_card)
-
+	event_manager.setup_mem(card_mem.retrieve_memory())
 
 ################################## CARD CREATION LOGIC #######################################
 
@@ -70,8 +70,7 @@ func setup(cag : CardAttributeGenerator = null, csa : CardSetAllocator = null) -
 # Then call function with the generated attribute num and instance_id derived from the server's CardInstanceData
 @rpc("any_peer", "call_local")
 func create_data_instance(data_id : String, attribute_number : int = 0, instance_id : String = "") -> CardInstanceData:
-	
-	# NOTE: IF THE CLIENT IS CALLING THIS FUNCTION, ATTRIBUTE NUMBER CANNOT BE -1
+	# NOTE: IF THE CLIENT IS CALLING THIS FUNCTION, ATTRIBUTE NUMBER CANNOT BE -1 (RANDOMIZED)
 	# EITHER PUT IT AS 0 OR THE ATTRIBUTE NUMBER THAT CREATED THE CARD
 	
 	# int and string instance_id pair
@@ -117,11 +116,6 @@ func create_card(data : CardInstanceData) -> Card:
 		return card
 	printerr("AURA?")
 	return null
-
-func client_modify(player_uuid : String, data : CardInstanceData) -> void:
-	# AuraManager 
-	pass
-	
 
 ################################### MISC #################################################
 

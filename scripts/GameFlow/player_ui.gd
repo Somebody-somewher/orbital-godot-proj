@@ -20,14 +20,14 @@ func _ready() -> void:
 	Signalbus.connect("show_error_msg", show_error_msg)
 	Signalbus.connect("show_round_msg", show_round_msg)
 	# TODO: See if this needs removing later
-	Signalbus.connect("add_score", add_score)
+	Signalbus.connect("update_score_ui", _update_score)
 
 func reset_score() -> void:
 	player_score = 0
 	score_label.text = "Score: " + str(player_score)
 
-func add_score(score : int) -> void:
-	player_score += score
+func _update_score(score : int) -> void:
+	player_score = score
 	score_label.text = "Score: " + str(player_score)
 	
 ### ROUND RELATED ###	
@@ -35,11 +35,11 @@ func add_score(score : int) -> void:
 func _update_timer_ui(time : int) -> void:
 	round_timer_label.text = "Time: " + str(time)
 
-func _update_round_label(round_id : int, round_total : int) -> void:
-	round_label.text = "Round: " + str(round_id + 1)
+func _update_round_label(round_id : String, round_total : int) -> void:
+	round_label.text = "Round: " + str(round_id)
 
 func _on_end_turn_pressed() -> void:
-	Signalbus.emit_signal("end_turn", 0)
+	Signalbus.emit_signal("end_turn", PlayerManager.getUUID_from_PeerID(multiplayer.get_unique_id()))
 	pass # Replace with function body.
 
 func show_error_msg(msg : String) -> void:

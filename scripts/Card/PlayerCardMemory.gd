@@ -1,7 +1,12 @@
 extends Object
 class_name PlayerCardMemory
 
-var event_manager : EventManager
+var register_events : Callable
+var trigger_play_events : Callable
+var trigger_discard_events : Callable
+
+var test = ""
+
 var player_uuid : String
 # Actual Card instances created/presented for each player
 # This is a Dictionary nested in 3 layers
@@ -21,9 +26,11 @@ var cardpack_inventory : Dictionary[int, Dictionary] = {}
 var hand_instances : Array[CardInstanceData] = []
 var default_maxhandsize := 10
 
-func _init(e_manager : EventManager):
-	event_manager = e_manager
-
+func event_manager_setup(register_events : Callable, trigger_play : Callable, trigger_discard : Callable) -> void:
+	self.register_events = register_events
+	self.trigger_play_events = trigger_play
+	self.trigger_discard_events = trigger_discard
+	test = "EARS"
 # Called during CardPack Generation
 func record_cardpack_options(card_packs : Dictionary[int, Dictionary]) -> void:
 	cardpack_options = card_packs
@@ -55,13 +62,13 @@ func attempt_cardset_to_hand(cardpack_id : int, cardset_id : String, remove_pack
 	
 	var cards_in_set : Array[CardInstanceData] = cardset_cards.values()
 	for i in range(num_cardset_cards):
+		cards_in_set[i].set_owner_uuid(player_uuid)
+		register_events.call(cards_in_set[i])
 		if i < numcards_to_hand:
 			hand_instances.append(cards_in_set[i])
-			added_card_instances.append(cards_in_set[i])
-			event_manager.add_events(cards_in_set[i])
-		#else:
-			# trigger discard event
-		# EventManager add card
+			added_card_instances.append(cards_in_set[i])	
+		else:
+			trigger_discard_events.call(cards_in_set[i])
 	
 	if remove_pack_after:
 		cardpack_inventory.erase(cardpack_id)
@@ -90,10 +97,14 @@ func add_card_to_hand(card : CardInstanceData) -> bool:
 	hand_instances.append(card)
 	return true
 
-func remove_card_in_hand(instance_id : String) -> bool:
+func remove_card_in_hand(instance_id : String, is_discard := false) -> bool:
 	var item = search_hand_for(instance_id)
 	if item:
-		hand_instances.erase(search_hand_for(instance_id)) 
+		if is_discard:
+			trigger_discard_events.call(item)
+		else:
+			trigger_play_events.call(item)
+		hand_instances.erase(item)
 		return true
 	else:
 		return false
