@@ -93,7 +93,6 @@ func run_conditions(conditions_to_check : Array[Condition], source : CardInstanc
 	return true
 #
 func run_events(events_to_run : Array[Event], source : CardInstanceData, params : Array) -> void:
-	print(source.get_id(), " ", events_to_run, " ", source.get_owner_uuid())
 	for event in events_to_run:
 		if event is BoardEvent and params[0] is Vector2i:
 			event.trigger(matrix_data, params[0], source)

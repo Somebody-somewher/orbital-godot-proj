@@ -79,6 +79,7 @@ func finish_drag(placing : bool):
 		
 		var card_placed : bool
 		if placing:
+			has_received_response_signal = false
 			board_ref.place_cardplaceable(card_dragged.get_data_instance_id())
 			card_placed = await await_boardrequest_result()
 		else:
@@ -96,8 +97,8 @@ func finish_drag(placing : bool):
 			if card_flipped:
 				card_dragged.entity_flip_to_card()
 			if card_dragged is PlayerHandCard:
-				#player_hand_ref.add_card_to_hand(card_dragged)
-				player_hand_ref.add_to_hand_no_update(card_dragged)
+				player_hand_ref.add_card_to_hand(card_dragged)
+				#player_hand_ref.add_to_hand_no_update(card_dragged)
 				
 		preview_board_ref.reset_preview()
 		card_flipped = false
@@ -223,7 +224,6 @@ func _on_boardrequest_failure() -> void:
 	is_request_successful = false
 	
 func await_boardrequest_result() -> bool:
-	
 	while !has_received_response_signal:
 		await get_tree().process_frame
 	

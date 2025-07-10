@@ -19,6 +19,7 @@ func _init(end_score := 200, end_medals := 5) -> void:
 	self.end_medals = end_medals
 	
 func adjust_score(score_to_add : int, player_uuid : String) -> void:
+	print("SCOREMANAGER: ", player_uuid, " ", score_to_add)
 	scores[player_uuid] += score_to_add
 	Signalbus.emit_multiplayer_signal.rpc_id(PlayerManager.getPeerID_from_UUID(player_uuid), "update_score_ui"\
 		,[scores[player_uuid]])

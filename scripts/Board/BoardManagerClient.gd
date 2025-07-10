@@ -3,6 +3,7 @@ class_name BoardManagerClient
 # Main class that handles all "board" functionality. 
 # Technically the "board" is made up of smaller "sub"-boards where each "sub"-board belongs to a player
 
+@export var terrain_tilemap : BoardVisualManager
 @export var previewer_tilemap : BoardPreviewerTileMap
 @export var object : Node
 
@@ -19,7 +20,7 @@ func set_up() -> void:
 	boards_near_mouse.resize(BOARDS_LAYOUT.x * BOARDS_LAYOUT.y)
 		
 	# Tilemaps setup
-	previewer_tilemap.set_up(object, matrix_data, BORDER_DIM, interactability_check)
+	previewer_tilemap.set_up(object, matrix_data, BORDER_DIM, client_interactability_check)
 	terrain_tilemap.set_up(object, BORDER_DIM)
 		
 	var playable_area = matrix_data.get_playable_area_coords()
@@ -38,35 +39,46 @@ func _ready() -> void:
 	super._ready()
 	NetworkManager.mark_client_ready(self.name)	
 
+######################################## PROCGEN ##############################################
+@rpc("any_peer","call_local")
+func _client_create_border_fake_tile(tid : String, tile_pos : Vector2i) -> void:
+	terrain_tilemap.change_border_terrain_tile(tid, tile_pos)
+
+@rpc("any_peer","call_local")
+func _client_create_border_fake_building(bid : String, tile_pos : Vector2i) -> void:
+	terrain_tilemap.place_fake_building(bid, tile_pos)
 ################################### PLACEABLE PLACING #########################################
-func place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i = NULL_TILE) -> void:
+
+## Client drags card to board, function calls server to request validation
+func place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i = NULL_TILE, run_on_place_events := true, sync := true) -> void:
 	if tile_pos == NULL_TILE:
 		tile_pos = get_mouse_tile_pos()
 	
-	request_place_cardplaceable.rpc_id(1, placeableinst_id, tile_pos) 
+	request_place_cardplaceable.rpc_id(1, placeableinst_id, tile_pos, run_on_place_events, sync) 
 	pass
 
+## Server calls this client function for actual placement clientside
+## This is called on other clients to sync buildings together
 @rpc("any_peer","call_local")
-func _client_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i) -> void:
-	_client_place_placeable(CardLoader.card_mem.local_attempt_to_use_hand_card(placeableinst_id), tile_pos)
-
-@rpc("any_peer","call_local")
-func _client_sync_placeable(placeable_serialized : Dictionary, tile_pos : Vector2i) -> void:
-	_client_place_placeable(CardLoader.sync_create_data_instance(placeable_serialized), tile_pos)
-
-func _client_place_placeable(placeable_instance : PlaceableInstanceData, tile_pos : Vector2i) -> void:
+func _client_sync_placeable(placeable_serialized : Dictionary, tile_pos : Vector2i, requester_uuid : String) -> void:
+	# The server already placed the placeable since it had to validate the code
+	var requester_check := PlayerManager.amIPlayer(requester_uuid)
 	if multiplayer.is_server():
-		Signalbus.emit_signal("board_action_success")
+		if requester_check:
+			Signalbus.emit_signal("board_action_success")
 		return
 		
+	var placeable_instance : PlaceableInstanceData = CardLoader.sync_create_data_instance(placeable_serialized)		
 	if placeable_instance:
-		_place_placeable(placeable_instance, tile_pos)
-		Signalbus.emit_signal("board_action_success")
+		_place_placeable(placeable_instance, tile_pos, false)
+		if requester_check:
+			Signalbus.emit_signal("board_action_success")
 	else:
-		printerr("Local Player Hand doesnt have the instance provided by Input & Server. This shouldnt be possible")
-		Signalbus.emit_signal("board_action_fail")
-		
-## Create a buildindg on a givne tilepos, data + visual
+		printerr("Error generaating new data instance")
+		if requester_check:
+			Signalbus.emit_signal("board_action_fail")
+
+## Create a buildindg on a given tilepos, data (from server) + visual (mostly this code in client)
 func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vector2i, run_on_place_effects := true) -> void:
 	super._place_placeable(placeable_instance, tile_pos, run_on_place_effects)
 	var placeable_node : PlaceableNode
@@ -74,7 +86,10 @@ func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vect
 		placeable_node = Building.new_building_frm_data(placeable_instance as BuildingInstanceData)
 		terrain_tilemap.place_building_on_tile(placeable_node, tile_pos)
 	placeable_instance.client_on_place(placeable_node.destroy)
-	
+
+@rpc("any_peer", "call_local")
+func remove_building(tile_pos : Vector2i = NULL_TILE) -> void:
+	pass
 
 ################################# TERRAIN MODIFICATION ##########################################
 @rpc("any_peer","call_local")
@@ -102,15 +117,6 @@ func _change_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
 	terrain_tilemap.change_terrain_tile(terrain_id, tile_pos)
 
 ########################################### UI #################################################
-## Shade and unshade the individual boards that are interactable
-@rpc("any_peer","call_local")
-func set_interactable_board(boards: Array) -> void:
-	var board_coords 
-	for b in boards:
-		board_coords = matrix_data.set_board_interactable(b)
-		terrain_tilemap.unshade_area(board_coords[0] \
-			, board_coords[1])
-
 ## Checks if any of the interactable boards are being hovered over 
 func is_mouse_near_interactable_board() -> bool:
 	for b in len(matrix_data.boards_coords):
@@ -161,10 +167,21 @@ func _process(delta: float) -> void:
 	
 	pass
 
-@rpc("any_peer", "call_local")
-func remove_building(tile_pos : Vector2i = NULL_TILE) -> void:
-	pass
+#################################### BOARD INTERACTABILITY #################################################
+@rpc("any_peer","call_local")
+func client_set_interactable_board(boards: Array) -> void:
+	var board_coords 
+	for b in boards:
+		board_coords = matrix_data.set_board_interactable(b)
+		terrain_tilemap.unshade_area(board_coords[0] \
+			, board_coords[1])
 
+func client_interactability_check(tile_pos : Vector2i, upon_success : Callable) -> bool:
+	if tile_pos != NULL_TILE and \
+		!matrix_data.get_interactable_boardcoords_of_tilepos(tilemap_to_matrix(tile_pos)).is_empty():
+		return upon_success.call()
+	else:
+		return false
 ################################################################################################
 @rpc("any_peer", "call_local")
 func _on_board_failed_action_by_server() -> void:

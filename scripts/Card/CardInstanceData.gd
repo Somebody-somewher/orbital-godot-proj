@@ -34,3 +34,6 @@ static func deserialize(serialized_obj : Dictionary, data : CardData) -> CardIns
 	var instance := CardInstanceData.new("", null)
 	instance.resync(serialized_obj)
 	return instance	
+
+func _to_string() -> String:
+	return data_instance_id + " " + owner_uuid

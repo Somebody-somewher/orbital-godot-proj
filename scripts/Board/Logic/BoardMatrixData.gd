@@ -94,8 +94,9 @@ func check_tilepos_in_playable(tilepos : Vector2i) -> bool:
 func check_tilepos_in_layout_coords(tilepos : Vector2i, boardlayout_pos : Vector2i) -> bool:
 	return _check_tilepos_in_board(tilepos, layout_to_boardcoords(boardlayout_pos))
 
-## Get the start-end coordinates of the board the tilepos is in
-func get_boardcoords_of_tilepos(tilepos : Vector2i) -> Array:
+## Get the start-end board coordinates of the board the tilepos is in, 
+## if the tilepos is in an interactable board
+func get_interactable_boardcoords_of_tilepos(tilepos : Vector2i) -> Array:
 	for i in range(len(boards_coords)):
 		if interactable[i] and _check_tilepos_in_board(tilepos, boards_coords[i]):
 			return boards_coords[i]

@@ -25,9 +25,6 @@ func _record_player_cardpack_choice(cardpack_id : int) -> void:
 func local_search_hand_for(instance_id : String) -> CardInstanceData:
 	return player_memory[self_uuid].search_hand_for(instance_id)
 
-func local_attempt_to_use_hand_card(instance_id : String) -> CardInstanceData:
-	return player_memory[self_uuid].attempt_to_use_hand_card(instance_id)
-
 @rpc("any_peer", "call_local")
 func _attempt_cardset_to_hand(cardpack_id : int, cardset_id : String, cardinstanceids_to_add : Array[String]) -> void:
 	var result = player_memory[self_uuid].attempt_cardset_to_hand(cardpack_id, cardset_id)
