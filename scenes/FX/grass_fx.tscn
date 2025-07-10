@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://cytyegw0fdpcr"]
+
+[ext_resource type="Script" uid="uid://b87rxqxc4touq" path="res://scripts/FX/fx_script.gd" id="1_fb75i"]
+[ext_resource type="Texture2D" uid="uid://dlpd2uaeet2og" path="res://assets/tiles/grass_particle.png" id="2_2s2ek"]
+
+[sub_resource type="Curve" id="Curve_22kvs"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.483146), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_gi2m4"]
+offsets = PackedFloat32Array(0.489655, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_etvev"]
+offsets = PackedFloat32Array(0.282759, 0.655172, 0.903448)
+colors = PackedColorArray(0.507326, 0.692393, 0.679545, 1, 1, 1, 1, 1, 0.880385, 0.880218, 0.622386, 1)
+
+[node name="GrassFX" type="Node2D"]
+script = ExtResource("1_fb75i")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+texture = ExtResource("2_2s2ek")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 0.22
+emission_shape = 1
+emission_sphere_radius = 11.08
+direction = Vector2(0, -10)
+spread = 30.0
+initial_velocity_min = 185.42
+initial_velocity_max = 289.58
+angular_velocity_min = -690.0
+angular_velocity_max = 720.0
+scale_amount_min = 0.3
+scale_amount_max = 0.5
+scale_amount_curve = SubResource("Curve_22kvs")
+color_ramp = SubResource("Gradient_gi2m4")
+color_initial_ramp = SubResource("Gradient_etvev")
+
+[connection signal="finished" from="CPUParticles2D" to="." method="_on_cpu_particles_2d_finished"]

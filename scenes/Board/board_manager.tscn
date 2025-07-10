@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://bxiy7ajwus31g"]
+[gd_scene load_steps=10 format=3 uid="uid://bxiy7ajwus31g"]
 
 [ext_resource type="Script" uid="uid://voc0ihu6a5tc" path="res://scripts/Board/BoardManager.gd" id="1_k6d4x"]
 [ext_resource type="Script" uid="uid://dls3y3sngygdn" path="res://scripts/Board/BoardPreviewerTilemap.gd" id="2_k6d4x"]
 [ext_resource type="Resource" uid="uid://b2ockuqgtwo7k" path="res://Resources/ProcGen/BoardProcGenerator.tres" id="2_vgsob"]
 [ext_resource type="Resource" uid="uid://doq3nosdirb1v" path="res://Resources/EnvTerrain/TestEnvTerrainMapping.tres" id="3_vgsob"]
 [ext_resource type="Script" uid="uid://dq6l63on5mqf7" path="res://scripts/Board/BoardVisualManager.gd" id="4_c64v0"]
+[ext_resource type="PackedScene" uid="uid://y3r7yx7l7bj5" path="res://scenes/FX/point_popup.tscn" id="6_vgsob"]
+[ext_resource type="PackedScene" uid="uid://co5g67pb20g6n" path="res://scenes/FX/water_fx.tscn" id="7_gi2m4"]
+[ext_resource type="PackedScene" uid="uid://dfh7e5txcc60t" path="res://scenes/FX/sand_fx.tscn" id="8_tu44e"]
+[ext_resource type="PackedScene" uid="uid://cytyegw0fdpcr" path="res://scenes/FX/grass_fx.tscn" id="9_etvev"]
 
 [node name="BoardManager" type="Node2D" node_paths=PackedStringArray("terrain_tilemap", "previewer_tilemap", "object")]
 script = ExtResource("1_k6d4x")
@@ -34,3 +38,12 @@ object = NodePath("../Building_Manager")
 
 [node name="GhostPlaceable" type="Sprite2D" parent="Building_Manager"]
 modulate = Color(0.568627, 0.552941, 0.576471, 0.623529)
+
+[node name="PointPopup" parent="." instance=ExtResource("6_vgsob")]
+scale = Vector2(1, 1)
+
+[node name="WaterFX" parent="." instance=ExtResource("7_gi2m4")]
+
+[node name="SandFX" parent="." instance=ExtResource("8_tu44e")]
+
+[node name="GrassFX" parent="." instance=ExtResource("9_etvev")]
