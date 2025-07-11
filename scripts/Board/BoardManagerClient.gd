@@ -13,6 +13,7 @@ var boards_near_mouse : Array[bool]
 
 var player_board_ids : Array[int] 
 
+
 # Called when the node enters the scene tree for the first time.
 func set_up() -> void:	
 	super.set_up()
@@ -20,12 +21,10 @@ func set_up() -> void:
 	boards_near_mouse.resize(BOARDS_LAYOUT.x * BOARDS_LAYOUT.y)
 		
 	# Tilemaps setup
-	previewer_tilemap.set_up(object, matrix_data, BORDER_DIM, client_interactability_check)
-	terrain_tilemap.set_up(object, BORDER_DIM)
-		
 	var playable_area = matrix_data.get_playable_area_coords()
-	terrain_tilemap.shade_area(playable_area[0], playable_area[1])
-
+	terrain_tilemap.set_up(object, BORDER_DIM, playable_area)	
+	previewer_tilemap.set_up(object, BORDER_DIM, playable_area, client_interactability_check)
+	
 ## Params supplied by server, called by all clients
 @rpc("any_peer", "call_local")
 func receive_init_data(board_size : Vector2i, board_layout : Vector2i, border_dim : Vector2i) -> void:
@@ -182,7 +181,11 @@ func client_interactability_check(tile_pos : Vector2i, upon_success : Callable) 
 		return upon_success.call()
 	else:
 		return false
-################################################################################################
+############################################ MISC ############################################################
+
+func get_board_coords() -> Array[Vector2]:
+	return terrain_tilemap.viewable_area_coords
+
 @rpc("any_peer", "call_local")
 func _on_board_failed_action_by_server() -> void:
 	Signalbus.emit_signal("board_action_fail")

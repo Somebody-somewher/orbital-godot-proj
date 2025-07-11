@@ -7,7 +7,6 @@ class_name BoardTileMapLayer
 static var NULL_TILE = Vector2i(-1,-1)
 var TILE_SIZE : float
 
-# Length/Width (no. cells) of board
 @export var BOARD_SCALE : float = 0.1
 
 var _border_dim

@@ -37,6 +37,9 @@ func _ready() -> void:
 
 	screen_size = get_viewport_rect().size
 	
+	# Have to do this stupid check cuz GDScript has no interface
+	#assert(board_ref is BoardManagerClient or board_ref is MenuBoard)
+	
 
 func _process(_delta: float) -> void:
 	if !card_dragged:

@@ -264,6 +264,9 @@ board = NodePath("../BoardManager/Preview")
 
 [node name="BoardManager" parent="." instance=ExtResource("15_fa6rk")]
 script = ExtResource("16_bso06")
+BOARD_SIZE = Vector2i(1, 1)
+BOARDS_LAYOUT = Vector2i(1, 1)
+BORDER_DIM = Vector2i(0, 0)
 
 [node name="Timer" type="Timer" parent="BoardManager"]
 wait_time = 0.5

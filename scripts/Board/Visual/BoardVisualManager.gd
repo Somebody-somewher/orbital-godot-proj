@@ -9,6 +9,9 @@ var fake_building_colouration : Color
 # This is a tilemap specifically to darken non-interactive tiles
 @export var darken_tilemap : TileMapLayer
 
+# local start-end tilepos of playable area for camera
+var viewable_area_coords : Array[Vector2]
+
 func _ready() -> void:
 	# Update the positioning of the tilemaps
 	super._ready()
@@ -17,8 +20,11 @@ func _ready() -> void:
 	fake_building_colouration = Color.DIM_GRAY
 	z_index = -1
 
-func set_up(parent : Node2D, border_dim : Vector2i) -> void:
+func set_up(parent : Node2D, border_dim : Vector2i, playable_area_coords : Array[Vector2i]) -> void:
 	super._set_up(parent, border_dim)
+	shade_area(playable_area_coords[0], playable_area_coords[1])
+	viewable_area_coords = [matrix_to_tilepos(playable_area_coords[0]) * TILE_SIZE,\
+		 matrix_to_tilepos(playable_area_coords[1]) * TILE_SIZE]
 
 func create_terrain_tile(terrain_id : String, tile_pos : Vector2i) -> void:
 	change_terrain_tile(terrain_id, tile_pos)

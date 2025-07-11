@@ -1,6 +1,6 @@
 extends Camera2D
 
-@export var board: BoardPreviewerTileMap
+@export var board: BoardManagerClient
 @onready var player_hand: PlayerHand = $"../PlayerHand"
 @onready var card_manager: CardManager = $"../CardManager"
 
