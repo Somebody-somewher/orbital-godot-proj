@@ -9,11 +9,13 @@ var card_manager = get_tree().root.get_node("MainMenu/CardManager")
 var player_hand = get_tree().root.get_node("MainMenu/PlayerHand")
 @onready
 var mouse_tut = get_node("AnimatedSprite2D")
+@onready
+var animation = get_node("AnimationPlayer")
 
 func _ready() -> void:
-	get_node("AnimationPlayer").play("fall animation")
+	animation.play("fall animation")
 	mouse_tut.play("default")
-	get_node("AnimatedSprite2D/MouseFade").play("float")
+	animation.play("float")
 
 
 func select_pack() -> void:
@@ -21,6 +23,7 @@ func select_pack() -> void:
 
 func open_pack() -> void:
 	self.get_node("Area2D/CollisionShape2D").disabled = true
+	animation.play("shake")
 	for card in menu_card:
 		var new_card = MenuCard.new_card(card)
 		new_card.position = position

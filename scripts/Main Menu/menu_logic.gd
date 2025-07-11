@@ -74,10 +74,10 @@ func multiplayer_state(id : String) -> String:
 			multiplayer_back.emit()
 			return "main_menu"
 		"host":
-			multiplayer_back.emit()
+			multihost_open.emit()
 			return "multihost"
 		"join":
-			multiplayer_back.emit()
+			multijoin_open.emit()
 			return "multijoin"
 	return "main_menu"
 	

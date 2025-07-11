@@ -1,6 +1,6 @@
 [gd_scene load_steps=26 format=3 uid="uid://iyr4rtumvwwp"]
 
-[ext_resource type="Script" uid="uid://qkqxxbklqyym" path="res://scripts/Main Menu/singleplayer_menu.gd" id="1_6lyo1"]
+[ext_resource type="Script" uid="uid://cagyed81d5p1q" path="res://scripts/Main Menu/multi_host_menu.gd" id="1_6lyo1"]
 [ext_resource type="ButtonGroup" uid="uid://dggq5rjphxq68" path="res://Resources/MainMenu Resources/board_size_buttons.tres" id="2_hywa0"]
 [ext_resource type="FontFile" uid="uid://bw124sa6qjoe5" path="res://assets/fonts/Pixel Game.otf" id="3_fovai"]
 [ext_resource type="FontFile" uid="uid://v66tkdbnak7b" path="res://assets/fonts/friendlyscribbles.ttf" id="4_ydwhv"]
@@ -315,11 +315,13 @@ custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme = ExtResource("8_fag7y")
 theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
-text = "Room Name:"
+text = "Name:"
 
 [node name="TextEdit" type="TextEdit" parent="SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/RoundsBox"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("4_ydwhv")
+theme_override_font_sizes/font_size = 30
 
 [node name="HostButtons" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
@@ -367,6 +369,16 @@ layout_mode = 2
 theme = ExtResource("8_fag7y")
 theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
 text = "Players:"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/PlayersBox"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Playerlist" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/PlayersBox/ScrollContainer"]
+layout_mode = 2
+theme = ExtResource("8_fag7y")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
 
 [node name="RightTab" type="Control" parent="SettingsTabs"]
 z_index = 2
@@ -837,6 +849,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_1d4sf")
 }
 
+[connection signal="pressed" from="SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/HostButtons/host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/8" to="." method="board_size_changed"]
 [connection signal="pressed" from="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/16" to="." method="board_size_changed"]
 [connection signal="pressed" from="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/32" to="." method="board_size_changed"]
@@ -847,3 +860,8 @@ libraries = {
 [connection signal="value_changed" from="SettingsTabs/RightTab/TabContainer/Rounds/MarginContainer/VBoxContainer/RoundsBox/HSlider" to="." method="_on_round_slider_value_changed"]
 [connection signal="value_changed" from="SettingsTabs/RightTab/TabContainer/Rounds/MarginContainer/VBoxContainer/AuraFeqBox/HSlider" to="." method="_on_aura_freq_slider_value_changed"]
 [connection signal="toggled" from="SettingsTabs/RightTab/TabContainer/Rounds/MarginContainer/VBoxContainer/SaboBox/Button" to="." method="_on_sabo_button_toggled"]
+[connection signal="drag_ended" from="SettingsTabs/RightTab/TabContainer/Sound/MarginContainer/VBoxContainer/MasterBox/HSlider" to="." method="_on_sfx_slider_drag_ended"]
+[connection signal="value_changed" from="SettingsTabs/RightTab/TabContainer/Sound/MarginContainer/VBoxContainer/MasterBox/HSlider" to="." method="_on_master_slider_value_changed"]
+[connection signal="value_changed" from="SettingsTabs/RightTab/TabContainer/Sound/MarginContainer/VBoxContainer/MusicBox/HSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="drag_ended" from="SettingsTabs/RightTab/TabContainer/Sound/MarginContainer/VBoxContainer/SFXBox/HSlider" to="." method="_on_sfx_slider_drag_ended"]
+[connection signal="value_changed" from="SettingsTabs/RightTab/TabContainer/Sound/MarginContainer/VBoxContainer/SFXBox/HSlider" to="." method="_on_sfx_slider_value_changed"]
