@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dehbiymvw4gq5"]
+[gd_scene load_steps=43 format=3 uid="uid://dehbiymvw4gq5"]
 
 [ext_resource type="Script" uid="uid://baxm1vpvlaqw2" path="res://scripts/Main Menu/main_menu.gd" id="1_bnuun"]
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/Managers/player_hand.gd" id="2_bso06"]
@@ -18,6 +18,19 @@
 [ext_resource type="Script" uid="uid://c5fouuecjsld6" path="res://scenes/camera.gd" id="14_mdse0"]
 [ext_resource type="PackedScene" uid="uid://bxiy7ajwus31g" path="res://scenes/Board/board_manager.tscn" id="15_fa6rk"]
 [ext_resource type="Script" uid="uid://duu3dx0n1l1gg" path="res://scripts/Main Menu/menu_board.gd" id="16_bso06"]
+[ext_resource type="Texture2D" uid="uid://cdvtn386cwgwv" path="res://assets/backgrounds/Clouds 3/1.png" id="19_jo2uk"]
+[ext_resource type="Script" uid="uid://0puieb5gjtoe" path="res://scripts/ParallaxBackground/menu_parallax_background.gd" id="19_m0e23"]
+[ext_resource type="Texture2D" uid="uid://c32secligmlfj" path="res://assets/backgrounds/Clouds 3/3.png" id="20_m0e23"]
+[ext_resource type="Texture2D" uid="uid://ckeso67tjoplq" path="res://assets/backgrounds/Clouds 2/1.png" id="21_40tg6"]
+[ext_resource type="Texture2D" uid="uid://3jv2vw2w60i7" path="res://assets/backgrounds/Clouds 3/4.png" id="21_jl12q"]
+[ext_resource type="Texture2D" uid="uid://c6roun1e7w055" path="res://assets/backgrounds/Clouds 3/5.png" id="22_26fkh"]
+[ext_resource type="Texture2D" uid="uid://bfr36spdiq2rg" path="res://assets/backgrounds/Clouds 1/1.png" id="22_x2k7b"]
+[ext_resource type="Texture2D" uid="uid://0dkb5oguhimt" path="res://assets/backgrounds/Clouds 2/2.png" id="24_n030c"]
+[ext_resource type="Texture2D" uid="uid://bpmcv3gbi83a3" path="res://assets/backgrounds/Clouds 1/2.png" id="25_jnbvd"]
+[ext_resource type="Texture2D" uid="uid://duya6c6sqhjc0" path="res://assets/backgrounds/Clouds 2/3.png" id="27_u1h8v"]
+[ext_resource type="Texture2D" uid="uid://c46rx0oacwitc" path="res://assets/backgrounds/Clouds 1/3.png" id="28_pa2br"]
+[ext_resource type="Texture2D" uid="uid://dmo1mdx5ybrkg" path="res://assets/backgrounds/Clouds 2/4.png" id="30_lovst"]
+[ext_resource type="Texture2D" uid="uid://d2o6fmavoq14w" path="res://assets/backgrounds/Clouds 1/4.png" id="31_d7nto"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_bnuun"]
 
@@ -215,6 +228,36 @@ shader_parameter/direction = 0.5
 shader_parameter/gradient = ExtResource("12_bso06")
 shader_parameter/normal_map = SubResource("NoiseTexture2D_pmi5y")
 
+[sub_resource type="GDScript" id="GDScript_jo2uk"]
+script/source = "extends ParallaxLayer
+
+@export var SPEED = -15
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	self.motion_offset.x += SPEED * delta
+"
+
+[sub_resource type="GDScript" id="GDScript_m0e23"]
+script/source = "extends ParallaxLayer
+
+@export var SPEED = -15
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	self.motion_offset.x += SPEED * delta
+"
+
+[sub_resource type="GDScript" id="GDScript_jl12q"]
+script/source = "extends ParallaxLayer
+
+@export var SPEED = -15
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	self.motion_offset.x += SPEED * delta
+"
+
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -234,6 +277,7 @@ script = ExtResource("2_bso06")
 script = ExtResource("4_xlgyj")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 z_index = -2
 layout_mode = 1
 anchors_preset = 15
@@ -303,6 +347,48 @@ proc_gen = null
 [node name="Timer" type="Timer" parent="BoardManager2"]
 wait_time = 0.5
 one_shot = true
+
+[node name="Background" type="Node2D" parent="."]
+script = ExtResource("19_m0e23")
+layer1 = Array[Texture2D]([ExtResource("19_jo2uk"), ExtResource("21_40tg6"), ExtResource("22_x2k7b")])
+layer2 = Array[Texture2D]([ExtResource("20_m0e23"), ExtResource("24_n030c"), ExtResource("25_jnbvd")])
+layer3 = Array[Texture2D]([ExtResource("21_jl12q"), ExtResource("27_u1h8v"), ExtResource("28_pa2br")])
+layer4 = Array[Texture2D]([ExtResource("22_26fkh"), ExtResource("30_lovst"), ExtResource("31_d7nto")])
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Background"]
+offset = Vector2(800, 450)
+scale = Vector2(2.78, 2.78)
+transform = Transform2D(2.78, 0, 0, 2.78, 800, 450)
+follow_viewport_enabled = true
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+motion_mirroring = Vector2(1600, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer"]
+texture = ExtResource("19_jo2uk")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+motion_mirroring = Vector2(567, 0)
+script = SubResource("GDScript_jo2uk")
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer2"]
+texture = ExtResource("20_m0e23")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+motion_mirroring = Vector2(567, 0)
+script = SubResource("GDScript_m0e23")
+SPEED = -30
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer3"]
+texture = ExtResource("21_jl12q")
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+motion_mirroring = Vector2(567, 0)
+script = SubResource("GDScript_jl12q")
+SPEED = -55
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer4"]
+texture = ExtResource("22_26fkh")
 
 [connection signal="timeout" from="BoardManager2/Timer" to="BoardManager2" method="_on_timer_timeout"]
 

@@ -12,10 +12,12 @@ var mouse_tut = get_node("AnimatedSprite2D")
 @onready
 var animation = get_node("AnimationPlayer")
 
+@onready var mouse_animation: AnimationPlayer = $AnimatedSprite2D/MouseFade
+
 func _ready() -> void:
 	animation.play("fall animation")
 	mouse_tut.play("default")
-	animation.play("float")
+	mouse_animation.play("float")
 
 
 func select_pack() -> void:
@@ -31,4 +33,4 @@ func open_pack() -> void:
 		player_hand.add_to_hand(new_card)
 		new_card.get_node("Area2D/CollisionShape2D").disabled = false
 	self.dissolving = true
-	get_node("AnimatedSprite2D/MouseFade").play("fade")
+	mouse_animation.play("fade")
