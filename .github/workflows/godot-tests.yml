@@ -1,0 +1,26 @@
+name: "godot gut test"
+on: push
+
+
+jobs:
+  execute-gut:
+    name: Run GUT tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo A
+        uses: actions/checkout@v2
+
+      - name: Checkout Repo B (Private Action Repo)
+        uses: actions/checkout@v2
+        with:
+          repository: Somebody-somewher/godot4-gut-ci
+          token: ${{ secrets.PRIVATE_ACTIONS_PAT }}
+          ref: main  # or the tag/branch you want
+          path: .github/actions/my-private-action
+
+      - name: Run the private action
+        uses: ./.github/actions/my-private-action
+        with:
+          godot_version: 4.4.1 # uses godot 4.4.1
+          gut_params: -gdir=res://test -gsuffix=.gd -gprefix=test_CardSetLoading -glog=3
+
