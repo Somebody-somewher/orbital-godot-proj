@@ -1,7 +1,6 @@
-[gd_scene load_steps=22 format=3 uid="uid://do48ita2qa5w3"]
+[gd_scene load_steps=21 format=3 uid="uid://do48ita2qa5w3"]
 
-[ext_resource type="Script" uid="uid://qkqxxbklqyym" path="res://scripts/Main Menu/singleplayer_menu.gd" id="1_wq4iw"]
-[ext_resource type="ButtonGroup" uid="uid://dggq5rjphxq68" path="res://Resources/MainMenu Resources/board_size_buttons.tres" id="2_7x6hk"]
+[ext_resource type="Script" uid="uid://6cu4ae266lq5" path="res://scripts/multi_join_menu.gd" id="1_g7ip2"]
 [ext_resource type="FontFile" uid="uid://bw124sa6qjoe5" path="res://assets/fonts/Pixel Game.otf" id="3_ddh73"]
 [ext_resource type="FontFile" uid="uid://v66tkdbnak7b" path="res://assets/fonts/friendlyscribbles.ttf" id="4_8evcp"]
 [ext_resource type="StyleBox" uid="uid://btig115l18rn6" path="res://shader/option_panel.tres" id="5_ntsm0"]
@@ -204,8 +203,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-script = ExtResource("1_wq4iw")
-board_size_grp = ExtResource("2_7x6hk")
+script = ExtResource("1_g7ip2")
 
 [node name="Title" type="Control" parent="."]
 z_index = 1
@@ -280,12 +278,12 @@ tab_alignment = 2
 current_tab = 0
 tab_focus_mode = 0
 
-[node name="Hosting" type="TabBar" parent="SettingsTabs/LeftTab/TabContainer"]
+[node name="Joining" type="TabBar" parent="SettingsTabs/LeftTab/TabContainer"]
 layout_mode = 2
 tab_alignment = 1
 metadata/_tab_index = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/LeftTab/TabContainer/Hosting"]
+[node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/LeftTab/TabContainer/Joining"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -297,39 +295,33 @@ theme_override_constants/margin_top = 48
 theme_override_constants/margin_right = 48
 theme_override_constants/margin_bottom = 48
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 75
+theme_override_constants/separation = 52
 
-[node name="RoundsBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="AddressBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_constants/separation = 17
 
-[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/RoundsBox"]
+[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/AddressBox"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme = ExtResource("8_104dt")
 theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
-text = "Room Name:"
+text = "IP Address:"
 
-[node name="TextEdit" type="TextEdit" parent="SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/RoundsBox"]
+[node name="TextEdit" type="TextEdit" parent="SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/AddressBox"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("4_8evcp")
+theme_override_font_sizes/font_size = 30
 
-[node name="HostButtons" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-theme_override_constants/separation = 17
-
-[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/HostButtons"]
-custom_minimum_size = Vector2(180, 0)
-layout_mode = 2
-theme = ExtResource("8_104dt")
-theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
-text = "Start Hosting:"
-
-[node name="host" type="Button" parent="SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/HostButtons"]
+[node name="join" type="Button" parent="SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/AddressBox"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_vertical = 4
@@ -343,26 +335,47 @@ theme_override_font_sizes/font_size = 28
 theme_override_styles/hover = ExtResource("17_08ecq")
 theme_override_styles/pressed = ExtResource("18_k16ul")
 theme_override_styles/normal = ExtResource("19_xyjaq")
-text = "GO"
+text = "Join"
 
-[node name="Status" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/HostButtons"]
-custom_minimum_size = Vector2(180, 0)
-layout_mode = 2
-theme = ExtResource("8_104dt")
-theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
-text = "Status"
-
-[node name="PlayersBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer"]
+[node name="Namebox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_constants/separation = 17
 
-[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/PlayersBox"]
+[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/Namebox"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme = ExtResource("8_104dt")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "Name:"
+
+[node name="TextEdit" type="TextEdit" parent="SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/Namebox"]
+custom_minimum_size = Vector2(223, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_8evcp")
+theme_override_font_sizes/font_size = 30
+
+[node name="PlayersBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = 17
+
+[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/PlayersBox"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme = ExtResource("8_104dt")
 theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
 text = "Players:"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/PlayersBox"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Playerlist" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/PlayersBox/ScrollContainer"]
+layout_mode = 2
+theme = ExtResource("8_104dt")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
 
 [node name="RightTab" type="Control" parent="SettingsTabs"]
 z_index = 2
@@ -517,3 +530,10 @@ text = "50"
 libraries = {
 &"": SubResource("AnimationLibrary_1d4sf")
 }
+
+[connection signal="pressed" from="SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/AddressBox/join" to="." method="_on_join_pressed"]
+[connection signal="drag_ended" from="SettingsTabs/RightTab/TabContainer/Sound/MarginContainer/VBoxContainer/MasterBox/HSlider" to="." method="_on_sfx_slider_drag_ended"]
+[connection signal="value_changed" from="SettingsTabs/RightTab/TabContainer/Sound/MarginContainer/VBoxContainer/MasterBox/HSlider" to="." method="_on_master_slider_value_changed"]
+[connection signal="value_changed" from="SettingsTabs/RightTab/TabContainer/Sound/MarginContainer/VBoxContainer/MusicBox/HSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="drag_ended" from="SettingsTabs/RightTab/TabContainer/Sound/MarginContainer/VBoxContainer/SFXBox/HSlider" to="." method="_on_sfx_slider_drag_ended"]
+[connection signal="value_changed" from="SettingsTabs/RightTab/TabContainer/Sound/MarginContainer/VBoxContainer/SFXBox/HSlider" to="." method="_on_sfx_slider_value_changed"]

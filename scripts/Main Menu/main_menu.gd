@@ -9,6 +9,8 @@ const SINGLEPLAYER = preload("res://scenes/Main.tscn")
 @onready var options_menu: OptionMenu = $Menus/OptionsMenu
 @onready var singleplayer_menu: SingleplayerMenu = $Menus/SingleplayerMenu
 @onready var multiplayer_menu: MultiplayerMenu = $Menus/MultiplayerMenu
+@onready var multi_host_menu: MultiHostMenu = $Menus/HostMenu
+@onready var multi_join_menu: MultiJoinMenu = $Menus/JoinMenu
 @onready var input_manager: Node2D = $InputManager
 @onready var camera_2d: Camera2D = $Camera2D
 
@@ -19,6 +21,8 @@ func _ready() -> void:
 	singleplayer_menu.visible = false
 	multiplayer_menu.visible = false
 	input_manager.camera_enabled = false
+	multi_host_menu.visible = false
+	multi_join_menu.visible = false	
 	camera_2d.cam_enabled = false
 	connect_signals()
 
@@ -31,6 +35,11 @@ func connect_signals() -> void:
 	menu_logic.multiplayer_back.connect(on_close_multiplayer)
 	menu_logic.exit_game.connect(on_exit_game)
 	menu_logic.start_singleplayer_game.connect(on_start_singleplayer)
+	menu_logic.multihost_open.connect(on_open_host)
+	menu_logic.multihost_back.connect(on_close_host)
+	menu_logic.start_multiplayer_game.connect(on_start_multiplayer)
+	menu_logic.multijoin_open.connect(on_open_join)
+	menu_logic.multijoin_back.connect(on_close_join)
 
 func on_open_settings() -> void:
 	title_menu.animate(false)
@@ -56,6 +65,25 @@ func on_close_multiplayer() -> void:
 	multiplayer_menu.animate(false)
 	title_menu.animate(true)
 
+func on_open_host():
+	print("ye")
+	multiplayer_menu.animate(false)
+	multi_host_menu.animate(true)
+
+func on_close_host():
+	multiplayer_menu.animate(true)
+	multi_host_menu.animate(false)
+
+func on_open_join():
+	multiplayer_menu.animate(false)
+	multi_join_menu.animate(true)
+
+func on_close_join():
+	multiplayer_menu.animate(true)
+	multi_join_menu.animate(false)
+
+func on_start_multiplayer():
+	pass
 
 func on_start_singleplayer() -> void:
 	initialize_game()

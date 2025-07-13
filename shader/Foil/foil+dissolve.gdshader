@@ -83,26 +83,26 @@ void vertex(){
 	float angle = atan(direction_to.x,direction_to.y);
 	float x_rota = abs(angle) / PI;
 	float y_rota = abs(atan(direction_to.y,direction_to.x)) / PI;
-	
+
 	float sin_b = sin( (-y_rota + .5) * magnitude * (PI / 2.0) );
 	float cos_b = cos( (-y_rota + .5) * magnitude * (PI / 2.0) );
 	float sin_c = sin( (x_rota - .5) * magnitude * (PI / 2.0) );
 	float cos_c = cos( (x_rota - .5) * magnitude * (PI / 2.0) );
-	
+
 	mat3 inv_rot_mat;
 	inv_rot_mat[0][0] = cos_b;
 	inv_rot_mat[0][1] = 0.0;
 	inv_rot_mat[0][2] = -sin_b;
-	
+
 	inv_rot_mat[1][0] = sin_b * sin_c;
 	inv_rot_mat[1][1] = cos_c;
 	inv_rot_mat[1][2] = cos_b * sin_c;
-	
+
 	inv_rot_mat[2][0] = sin_b * cos_c;
 	inv_rot_mat[2][1] = -sin_c;
 	inv_rot_mat[2][2] = cos_b * cos_c;
-	
-	
+
+
 	float t = tan(fov / 360.0 * PI);
 	p = inv_rot_mat * vec3((UV - 0.5), 0.5 / t);
 	float v = (0.5 / t) + 0.5;
@@ -121,33 +121,33 @@ void fragment() {
 	//get the color texture
 	vec4 albedo_tex = texture(TEXTURE, adjusted_uv);
 	COLOR = albedo_tex;
-	
+
 	vec4 mask = texture(foil_mask,adjusted_uv);
 	float texture_similarity = color_mask(foilcolor,albedo_tex.rgb,threshold,fuzziness);
-	
+
 	vec4 noise_texture = texture(dissolve_texture, UV);
-	
+
 	float d = length( direction_to );
 	float magnitude = min( max_tilt , d / max_distance);
 	float angle = atan(direction_to.x,direction_to.y);
 	float x_rota = abs(angle) / PI;
 	float y_rota = abs(atan(direction_to.y,direction_to.x)) / PI;
-	
+
 	vec3 normal_map_tex = texture(normal_map,adjusted_uv).rgb * 2.0 - 1.0;
 	vec3 normal = rotate_vector(vec3(1.0,1.0,1.0),x_rota,y_rota,magnitude * magnitude);
 	normal = rotate_vector(normal,normal_map_tex.x, normal_map_tex.y, length(normal_map_tex)) * normal_strength;
-	
+
 	vec4 noise_tex = texture(noise,adjusted_uv);
-	
+
 	vec2 gradiant_sample = vec2((0.25+(normal.y*direction*2.0-normal.x*(1.0-direction)*2.0)/2.0+(uv.y*direction+uv.x*(1.0-direction))/2.0), 0.0);
 	gradiant_sample += vec2(magnitude,0.0) * scroll;
 	gradiant_sample = mod((gradiant_sample+adjusted_uv * period),1.0);
 	vec4 gradient_tex = texture(gradient, gradiant_sample);
 	float strength = effect_alpha_mult * mask.r * texture_similarity;
-	
+
 	float burn_threshold = smoothstep(noise_texture.x, noise_texture.x, dissolve_value);
 	float border = smoothstep(noise_texture.x, noise_texture.x, dissolve_value);
-	
+
 	COLOR.rgb = mix(albedo_tex.rgb, gradient_tex.rgb*(noise_tex.rgb*2.0), strength);//(effect_alpha_mult-length(albedo_tex))*gradient_tex.a*effect_alpha_mult);
 	COLOR.a *= burn_threshold;
 	COLOR.a *= step(max(abs(uv.x), abs(uv.y)), 0.5);
