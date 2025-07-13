@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dehbiymvw4gq5"]
+[gd_scene load_steps=35 format=3 uid="uid://dehbiymvw4gq5"]
 
 [ext_resource type="Script" uid="uid://baxm1vpvlaqw2" path="res://scripts/Main Menu/main_menu.gd" id="1_bnuun"]
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/Managers/player_hand.gd" id="2_bso06"]
@@ -12,8 +12,10 @@
 [ext_resource type="Script" uid="uid://cep46bfjthrc7" path="res://scripts/Card/Managers/card_manager.gd" id="10_jl12q"]
 [ext_resource type="PackedScene" uid="uid://dyaq4288p4ik4" path="res://scenes/Main Menu/tutorial_card_pack.tscn" id="11_26fkh"]
 [ext_resource type="Script" uid="uid://c5fouuecjsld6" path="res://scripts/camera.gd" id="14_mdse0"]
+[ext_resource type="Script" uid="uid://ch4khga0srdee" path="res://scripts/Board/Visual/MenuBoardPreviewerTilemap.gd" id="15_bnuun"]
 [ext_resource type="PackedScene" uid="uid://bxiy7ajwus31g" path="res://scenes/Board/board_manager.tscn" id="15_fa6rk"]
 [ext_resource type="Script" uid="uid://duu3dx0n1l1gg" path="res://scripts/Main Menu/menu_board.gd" id="16_bso06"]
+[ext_resource type="Script" uid="uid://dcoeqccwxg41y" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrainMapping.gd" id="16_xpnd4"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_bnuun"]
 
@@ -264,6 +266,12 @@ board = NodePath("../BoardManager/Preview")
 
 [node name="BoardManager" parent="." instance=ExtResource("15_fa6rk")]
 script = ExtResource("16_bso06")
+BOARD_SIZE = Vector2i(1, 1)
+BOARD_SCALE = 0.0
+
+[node name="Preview" parent="BoardManager" index="0"]
+script = ExtResource("15_bnuun")
+env_map = ExtResource("16_xpnd4")
 
 [node name="Timer" type="Timer" parent="BoardManager"]
 wait_time = 0.5

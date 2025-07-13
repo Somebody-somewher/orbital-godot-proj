@@ -35,7 +35,7 @@ func _ready() -> void:
 
 static func new_card(cardinstance_data : CardInstanceData, cardimg_bg : Texture2D) -> Card:
 	var card := card_scene.instantiate()
-	card.set_up()
+	card.set_up(cardinstance_data, cardimg_bg)
 	return card
 
 # factory constructor, to override
@@ -62,7 +62,9 @@ func _process(delta: float) -> void:
 		self.material.set_shader_parameter("max_tilt",0.5)
 	else:
 		self.material.set_shader_parameter("max_tilt",0.01)
-	
+
+func card_placed() -> void:
+	queue_free()	
 
 func dissolve_card() -> void:
 	get_node("Area2D/CollisionShape2D").disabled = true

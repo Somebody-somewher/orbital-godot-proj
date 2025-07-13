@@ -64,18 +64,18 @@ func _client_sync_placeable(placeable_serialized : Dictionary, tile_pos : Vector
 	var requester_check := PlayerManager.amIPlayer(requester_uuid)
 	if multiplayer.is_server():
 		if requester_check:
-			Signalbus.emit_signal("board_action_success")
+			Signalbus.emit_signal("board_action_result", true)
 		return
 		
 	var placeable_instance : PlaceableInstanceData = CardLoader.sync_create_data_instance(placeable_serialized)		
 	if placeable_instance:
 		_place_placeable(placeable_instance, tile_pos, false)
 		if requester_check:
-			Signalbus.emit_signal("board_action_success")
+			Signalbus.emit_signal("board_action_result", true)
 	else:
 		printerr("Error generaating new data instance")
 		if requester_check:
-			Signalbus.emit_signal("board_action_fail")
+			Signalbus.emit_signal("board_action_result", false)
 
 ## Create a buildindg on a given tilepos, data (from server) + visual (mostly this code in client)
 func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vector2i, run_on_place_effects := true) -> void:
@@ -188,5 +188,5 @@ func get_board_coords() -> Array[Vector2]:
 
 @rpc("any_peer", "call_local")
 func _on_board_failed_action_by_server() -> void:
-	Signalbus.emit_signal("board_action_fail")
+	Signalbus.emit_signal("board_action_result", false)
 	

@@ -42,9 +42,7 @@ signal get_tile_pos_from_AOE(tile_pos : Vector2i, aoe_tiles : Array[Vector2i], b
 signal mouse_enter_interactable_board_tile()
 signal mouse_enter_board()
 
-signal board_action_fail()
-signal board_action_success()
-
+signal board_action_result(outcome : bool)
 
 signal set_score_preview(tile_pos : Array[Vector2i], scores : Array[int])
 

@@ -72,6 +72,7 @@ func setup(cag : CardAttributeGenerator = null, csa : CardSetAllocator = null) -
 func create_data_instance(data_id : String, attribute_number : int = 0, instance_id : String = "") -> CardInstanceData:
 	# NOTE: IF THE CLIENT IS CALLING THIS FUNCTION, ATTRIBUTE NUMBER CANNOT BE -1 (RANDOMIZED)
 	# EITHER PUT IT AS 0 OR THE ATTRIBUTE NUMBER THAT CREATED THE CARD
+	# EVENTS SHOULD ALWAYS RUN ON SERVER SO IF AN EVENT CALLS THIS HOPEFULLY OKAY/
 	
 	# int and string instance_id pair
 	if instance_id == "":

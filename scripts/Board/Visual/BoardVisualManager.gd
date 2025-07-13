@@ -3,7 +3,7 @@ class_name BoardVisualManager
 
 var fake_building_colouration : Color
 
-#var buildings : Dictionary
+var placeables_placed : Dictionary[Vector2i, Dictionary]
 
 # Due to my bad coding there are two layers of shading. One for non-interactive tiles, one for the border
 # This is a tilemap specifically to darken non-interactive tiles
@@ -57,9 +57,21 @@ func place_building_on_tile(building: Building, tile_pos : Vector2i) -> void:
 		building.z_index = tile_pos.y
 		building.position = get_local_centre_of_tile(tile_pos)
 		building.get_node("JiggleAnimation").play("jiggle")
-		building.name = building.data_instance.get_id()
+		
+		if !placeables_placed.has(tile_pos):
+			placeables_placed[tile_pos] = {building.name : building}
+		else:
+			placeables_placed[tile_pos][building.name] = building
 	# MUST TRIGGER BEFORE ADDING (otherwise places self on board then can score against itself)
 	#board_matrix.add_placeable_to_tile(tile_pos, placeable)
+
+func destroy_placeable_image(placeableinstance_id : String, tile_pos : Vector2i) -> void:
+	var placeable_to_destroy : PlaceableNode = placeables_placed[tile_pos][placeableinstance_id]
+	placeables_placed[tile_pos].erase(placeableinstance_id)
+	placeable_to_destroy.destroy()
+	
+	if placeables_placed[tile_pos].is_empty():
+		placeables_placed.erase(tile_pos)
 
 @rpc("any_peer", "call_local")
 func place_fake_building(building_id: String, tile_pos : Vector2i) -> void:

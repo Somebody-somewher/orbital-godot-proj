@@ -1,6 +1,8 @@
-extends Node2D
+extends Node
 class_name MenuLogic
 # manages behaviour, basically a scene manager
+
+@onready var player_hand_ref: Node2D = $"../PlayerHand"
 
 const MENU_HANDS = {
 	"main_menu" : ["singleplayer", "multiplayer", "settings", "exit"],
@@ -35,10 +37,13 @@ signal multijoin_back
 signal exit_game
 
 func get_hand(id : String) -> Array:
+	for cardid in MENU_HANDS.get(id):
+		spawn_card(cardid)
 	return MENU_HANDS.get(id)
 
 # returns the new menu state
 func select_option(current_state : String, id : String) -> String:
+	player_hand_ref.discard_hand()
 	return STATES.get(current_state).call(id)
 
 func main_menu(id : String) -> String:
@@ -94,3 +99,12 @@ func multiplayer_join(id : String) -> String:
 		"back":
 			multijoin_back.emit()
 	return "multiplayer"
+
+# for add cards back into hand
+func spawn_card(id_name : String) -> void:
+	var building_data := CardLoader.get_building_data(id_name)
+	var new_card = MenuCard.new_menucard(building_data, CardLoader.buildingcard_img)
+	self.add_child(new_card)
+	new_card.global_position = Vector2i(800,450)
+	Signalbus.emit_signal("register_to_cardmanager", new_card)
+	player_hand_ref.add_card_to_hand(new_card)

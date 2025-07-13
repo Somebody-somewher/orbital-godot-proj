@@ -21,10 +21,11 @@ const CARD_EASE := 0.13
 var CARD_TILE_RATIO : Vector2
 
 
-@export var board_ref : BoardManagerClient
+@export var board_ref : Node2D
 @export var player_hand_ref : PlayerHand
 @export var input_manager_ref : InputManager 
-@export var preview_board_ref : BoardPreviewerTileMap
+@export var preview_board_ref : BoardPreviewerTileMapAbstract
+
 var aura_cards = AuraGroup.new()
 
 func _ready() -> void:
@@ -32,13 +33,12 @@ func _ready() -> void:
 	Signalbus.connect("open_compendium", opening_ui)
 	Signalbus.connect("register_to_cardmanager", register_to_cardmanager)
 	
-	Signalbus.connect("board_action_success", _on_boardrequest_success)
-	Signalbus.connect("board_action_fail", _on_boardrequest_failure)
+	Signalbus.connect("board_action_result", _on_boardrequest_outcome)
 
 	screen_size = get_viewport_rect().size
 	
 	# Have to do this stupid check cuz GDScript has no interface
-	#assert(board_ref is BoardManagerClient or board_ref is MenuBoard)
+	assert(board_ref is BoardManagerClient or board_ref is MenuBoard)
 	
 
 func _process(_delta: float) -> void:
@@ -95,7 +95,7 @@ func finish_drag(placing : bool):
 		# check if dragged into a tile
 		if card_placed:
 			card_hovered = null
-			card_dragged.swap_to_effect(CARD_TILE_RATIO)
+			card_dragged.card_placed()
 		else:
 			if card_flipped:
 				card_dragged.entity_flip_to_card()
@@ -214,18 +214,12 @@ func animate_card(card : Card, new_scale : Vector2, pos):
 
 
 ###################### MISC ##########################
-func _on_boardrequest_success() -> void:
+func _on_boardrequest_outcome(outcome : bool) -> void:
 	if has_received_response_signal:
 		return
 	has_received_response_signal = true
-	is_request_successful = true
+	is_request_successful = outcome
 
-func _on_boardrequest_failure() -> void:
-	if has_received_response_signal:
-		return
-	has_received_response_signal = true
-	is_request_successful = false
-	
 func await_boardrequest_result() -> bool:
 	while !has_received_response_signal:
 		await get_tree().process_frame
