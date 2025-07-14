@@ -82,18 +82,18 @@ func on_close_join():
 	multiplayer_menu.animate(true)
 	multi_join_menu.animate(false)
 
-@rpc("any_peer", "call_local")
 func on_start_multiplayer():
-	initialize_game()
-	get_tree().change_scene_to_packed(GAME)
+	initialize_game.rpc()
 
 func on_start_singleplayer() -> void:
 	initialize_game()
-	get_tree().change_scene_to_packed(GAME)
 	
-
 func on_exit_game() -> void:
 	get_tree().quit()
 
+@rpc("any_peer", "call_local")
 func initialize_game() -> void:
-	NetworkManager.reset_networking()
+	NetworkManager.set_up()
+	get_tree().change_scene_to_packed(GAME)
+
+	#NetworkManager.reset_networking()

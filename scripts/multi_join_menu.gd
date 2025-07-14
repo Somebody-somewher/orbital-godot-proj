@@ -7,15 +7,6 @@ func animate(entering : bool) -> void:
 	else:
 		get_node("AnimationPlayer").play("exit")
 
-######### NETWORKING CODE #####################
-@onready var ip_field: TextEdit = $SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/AddressBox/TextEdit
-@onready var name_field: TextEdit = $SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/Namebox/TextEdit
-@onready var playerlist: Label = $SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/PlayersBox/ScrollContainer/Playerlist
-
-func _on_join_pressed() -> void:
-	pass # Replace with function body.
-
-
 ######### SOUND OPTIONS CODE ##################
 
 @onready var master_label: Label = $SettingsTabs/RightTab/TabContainer/Sound/MarginContainer/VBoxContainer/MasterBox/Label2

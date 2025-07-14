@@ -8,10 +8,12 @@ var uuid_to_players : Dictionary[String, PlayerInfo] = {}
 var player_colors : Array[Color] = [Color.PINK, Color.LIGHT_SALMON, Color.AZURE, Color.AQUAMARINE]
 var color_index := 0
 
+@export var is_debug : bool = false
+
 func _ready():
 	## TODO: Need a better system than this
 	# Creates a "fake" single player for singleplayer
-	if "HostNetworking" != get_tree().current_scene.name:
+	if is_debug:
 		addPlayer("PlaceholderPlayerUUID", multiplayer.get_unique_id(), "PlaceholderPlayer")
 	pass
 	

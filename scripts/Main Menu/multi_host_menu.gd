@@ -41,7 +41,6 @@ func _on_sabo_button_toggled(toggled_on: bool) -> void:
 	else:
 		sabo_label.text = "Off"
 
-
 ######### GENERATION OPTIONS CODE ##################
 @export var board_size_grp : ButtonGroup
 var board_size : int = 8

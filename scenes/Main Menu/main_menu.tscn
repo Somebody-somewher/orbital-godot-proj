@@ -403,12 +403,20 @@ SPEED = -55
 [node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer4"]
 texture = ExtResource("22_26fkh")
 
-[node name="Node" type="Control" parent="."]
+[node name="Node" type="Control" parent="." node_paths=PackedStringArray("ip_addr_field", "port_field", "j_name_field", "player_list_label", "h_name_field", "h_player_list_label")]
 anchors_preset = 0
 script = ExtResource("33_n030c")
+ip_addr_field = NodePath("../Menus/JoinMenu/SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/AddressBox/TextEdit")
+port_field = NodePath("../Menus/JoinMenu/SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/Port/TextEdit")
+j_name_field = NodePath("../Menus/JoinMenu/SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/Namebox/TextEdit")
+player_list_label = NodePath("../Menus/JoinMenu/SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/PlayersBox/ScrollContainer/Playerlist")
+h_name_field = NodePath("../Menus/HostMenu/SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/NameBox/TextEdit")
+h_player_list_label = NodePath("../Menus/HostMenu/SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/PlayersBox/ScrollContainer/Playerlist")
 
 [connection signal="pressed" from="Menus/HostMenu/SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/HostButtons/host" to="Node" method="_on_host_pressed"]
+[connection signal="pressed" from="Menus/JoinMenu/SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/AddressBox/join" to="Node" method="_on_join_pressed"]
 [connection signal="timeout" from="BoardManager/Timer" to="BoardManager" method="_on_timer_timeout"]
 
 [editable path="Menus/HostMenu"]
+[editable path="Menus/JoinMenu"]
 [editable path="BoardManager"]

@@ -337,6 +337,24 @@ theme_override_styles/pressed = ExtResource("18_k16ul")
 theme_override_styles/normal = ExtResource("19_xyjaq")
 text = "Join"
 
+[node name="Port" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = 17
+
+[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/Port"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme = ExtResource("8_104dt")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "Port:"
+
+[node name="TextEdit" type="TextEdit" parent="SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/Port"]
+custom_minimum_size = Vector2(223, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_8evcp")
+theme_override_font_sizes/font_size = 30
+
 [node name="Namebox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
@@ -347,27 +365,9 @@ custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme = ExtResource("8_104dt")
 theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
-text = "Port:"
-
-[node name="TextEdit" type="TextEdit" parent="SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/Namebox"]
-custom_minimum_size = Vector2(223, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("4_8evcp")
-theme_override_font_sizes/font_size = 30
-
-[node name="Namebox2" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-theme_override_constants/separation = 17
-
-[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/Namebox2"]
-custom_minimum_size = Vector2(180, 0)
-layout_mode = 2
-theme = ExtResource("8_104dt")
-theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
 text = "Name:"
 
-[node name="TextEdit" type="TextEdit" parent="SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/Namebox2"]
+[node name="TextEdit" type="TextEdit" parent="SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/Namebox"]
 custom_minimum_size = Vector2(223, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_8evcp")
