@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://dehbiymvw4gq5"]
+[gd_scene load_steps=46 format=3 uid="uid://dehbiymvw4gq5"]
 
 [ext_resource type="Script" uid="uid://baxm1vpvlaqw2" path="res://scripts/Main Menu/main_menu.gd" id="1_bnuun"]
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/Managers/player_hand.gd" id="2_bso06"]
@@ -32,10 +32,13 @@
 [ext_resource type="Texture2D" uid="uid://c46rx0oacwitc" path="res://assets/backgrounds/Clouds 1/3.png" id="28_pa2br"]
 [ext_resource type="Texture2D" uid="uid://dmo1mdx5ybrkg" path="res://assets/backgrounds/Clouds 2/4.png" id="30_lovst"]
 [ext_resource type="Texture2D" uid="uid://d2o6fmavoq14w" path="res://assets/backgrounds/Clouds 1/4.png" id="31_d7nto"]
+[ext_resource type="Script" uid="uid://ukqg1ehwf75v" path="res://scripts/Network/LobbyLogic.gd" id="33_n030c"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_bnuun"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_xlgyj"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_n030c"]
 
 [sub_resource type="Shader" id="Shader_xpnd4"]
 code = "shader_type canvas_item;
@@ -278,7 +281,6 @@ script = ExtResource("2_bso06")
 script = ExtResource("4_xlgyj")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-visible = false
 z_index = -2
 layout_mode = 1
 anchors_preset = 15
@@ -316,6 +318,15 @@ mouse_filter = 1
 [node name="HostMenu" parent="Menus" instance=ExtResource("10_xlgyj")]
 layout_mode = 1
 board_size_grp = SubResource("ButtonGroup_xlgyj")
+
+[node name="8" parent="Menus/HostMenu/SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer" index="0"]
+button_group = SubResource("ButtonGroup_n030c")
+
+[node name="16" parent="Menus/HostMenu/SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer" index="1"]
+button_group = SubResource("ButtonGroup_n030c")
+
+[node name="32" parent="Menus/HostMenu/SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer" index="2"]
+button_group = SubResource("ButtonGroup_n030c")
 
 [node name="JoinMenu" parent="Menus" instance=ExtResource("11_bqibv")]
 layout_mode = 1
@@ -392,6 +403,12 @@ SPEED = -55
 [node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer4"]
 texture = ExtResource("22_26fkh")
 
+[node name="Node" type="Control" parent="."]
+anchors_preset = 0
+script = ExtResource("33_n030c")
+
+[connection signal="pressed" from="Menus/HostMenu/SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/HostButtons/host" to="Node" method="_on_host_pressed"]
 [connection signal="timeout" from="BoardManager/Timer" to="BoardManager" method="_on_timer_timeout"]
 
+[editable path="Menus/HostMenu"]
 [editable path="BoardManager"]

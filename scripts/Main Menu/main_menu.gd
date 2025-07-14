@@ -3,7 +3,7 @@ extends Control
 @onready
 var menu_logic = $MenuLogic
 
-const SINGLEPLAYER = preload("res://scenes/Main.tscn")
+const GAME = preload("res://scenes/Main.tscn")
 
 @onready var title_menu: TitleMenu = $Menus/TitleMenu
 @onready var options_menu: OptionMenu = $Menus/OptionsMenu
@@ -82,12 +82,14 @@ func on_close_join():
 	multiplayer_menu.animate(true)
 	multi_join_menu.animate(false)
 
+@rpc("any_peer", "call_local")
 func on_start_multiplayer():
-	pass
+	initialize_game()
+	get_tree().change_scene_to_packed(GAME)
 
 func on_start_singleplayer() -> void:
 	initialize_game()
-	get_tree().change_scene_to_packed(SINGLEPLAYER)
+	get_tree().change_scene_to_packed(GAME)
 	
 
 func on_exit_game() -> void:

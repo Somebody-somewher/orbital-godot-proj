@@ -6,14 +6,6 @@ func animate(entering : bool) -> void:
 		get_node("AnimationPlayer").play("enter")
 	else:
 		get_node("AnimationPlayer").play("exit")
-		
-######### NETWORKING CODE #####################
-@onready var name_field: TextEdit = $SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/RoundsBox/TextEdit
-@onready var status_label: Label = $SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/HostButtons/Status
-@onready var playerlist: Label = $SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/PlayersBox/ScrollContainer/Playerlist
-
-func _on_host_pressed() -> void:
-	pass # Replace with function body.
 
 ######### ROUND OPTIONS CODE ##################
 

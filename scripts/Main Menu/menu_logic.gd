@@ -85,12 +85,13 @@ func multiplayer_state(id : String) -> String:
 			multijoin_open.emit()
 			return "multijoin"
 	return "main_menu"
-	
+
 func multiplayer_host(id : String) -> String:
 	match id:
 		"back":
 			multihost_back.emit()
 		"start_game":
+			NetworkManager.set_up()
 			start_multiplayer_game.emit()
 	return "multiplayer"
 

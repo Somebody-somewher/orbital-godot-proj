@@ -51,6 +51,8 @@ signal show_card_information(card_id : String)
 signal open_compendium(card_id : String)
 signal close_compendium
 
+signal notif_msg(msg : String)
+
 @rpc("any_peer", "call_local")
 func emit_multiplayer_signal(signal_to_call : String, args : Array):
 	

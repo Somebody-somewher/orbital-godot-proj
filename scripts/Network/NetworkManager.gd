@@ -9,7 +9,7 @@ var is_server_client : bool = true
 
 # A stupid check to see if whether we are starting from the multiplayer lobby
 # If we aren't then the default is that each debug instance is a separate game
-@export var check_lobby : String
+@export var is_debug : bool = false
 
 # If sync is finished, we can start normal gameplay-interactivity like camera
 var is_sync_fin : bool = false
@@ -22,7 +22,7 @@ var is_sync_fin : bool = false
 @export var server_components : Dictionary[String, bool]
 
 func set_up() -> void:
-	if multiplayer.get_unique_id() == 1:
+	if multiplayer.is_server():
 		server_net = ServerNetworkManager.new(server_components)
 		if is_server_client:
 			client_net = ClientNetworkManager.new(client_components, client_ready_to_server)
@@ -54,10 +54,16 @@ func reset_networking() -> void:
 		server_net.is_syncing = false
 
 func _ready() -> void:
-	## TODO: Need a better system than this
-	if "HostNetworking" != get_tree().current_scene.name:
+	# If the Gamescene is not starting from the lobby
+	# Need to autostart the network manager 
+	if is_debug:
 		set_up()
+	
+	#if "HostNetworking" != get_tree().current_scene.name:
+		#set_up()
 	pass
 
-func _process(delta: float) -> void:
-	pass
+func full_reset() -> void:
+	client_net.reset_node_status()
+	server_net.reset_ready()
+	reset_networking()
