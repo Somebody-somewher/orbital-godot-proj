@@ -1,7 +1,7 @@
 extends Control
 class_name WinnerScreen
 
-#players in the format name, score medals
+#players in the format name, score, medals
 var players : Array = [["example_name", 1000, 3], ["example_name", 200, 1], ["example_name", 400, 6]]
 var pillars : Array[PodiumPillar]
 
@@ -12,9 +12,11 @@ var pillars : Array[PodiumPillar]
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	preprocess()
-	await get_tree().create_timer(1).timeout
+	#await get_tree().create_timer(1).timeout
+	#display()
+
+func display() -> void:
 	start_anim()
-	pass # Replace with function body.
 
 # calculates and add the winner flag and target y to the players
 func preprocess() -> void:

@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://11capv3rtcj8" path="res://scripts/Menus/disconnect_screen.gd" id="1_xwxnc"]
 [ext_resource type="FontFile" uid="uid://njwdfbe6i0ko" path="res://assets/fonts/Comicy.ttf" id="2_cvtpu"]
 
-[sub_resource type="Gradient" id="Gradient_yxlcp"]
+[sub_resource type="Gradient" id="Gradient_xwxnc"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ebg2g"]
-gradient = SubResource("Gradient_yxlcp")
+gradient = SubResource("Gradient_xwxnc")
 
 [sub_resource type="Animation" id="Animation_2ofn6"]
 length = 0.001

@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://cdp6pxvmemk4u"]
+[gd_scene load_steps=49 format=3 uid="uid://cdp6pxvmemk4u"]
 
 [ext_resource type="Script" uid="uid://dq7q74qaf5hj8" path="res://scripts/GameFlow/GameManager.gd" id="1_bjd11"]
 [ext_resource type="Script" uid="uid://cep46bfjthrc7" path="res://scripts/Card/Managers/card_manager.gd" id="3_jlsqs"]
@@ -14,6 +14,7 @@
 [ext_resource type="Resource" uid="uid://c2ir4qvocok3n" path="res://Resources/CardSetData/Self Sustaining.tres" id="8_yxlcp"]
 [ext_resource type="PackedScene" uid="uid://bkog375sxl1lg" path="res://scenes/Compendium/compendium_container.tscn" id="10_1nqs0"]
 [ext_resource type="Script" uid="uid://bc4th2e5h0hj8" path="res://scripts/GameFlow/RoundCounter.gd" id="11_wp0k4"]
+[ext_resource type="PackedScene" uid="uid://c1n34pvf47rut" path="res://scenes/Menus/winner_screen.tscn" id="12_ebg2g"]
 [ext_resource type="Script" uid="uid://b2bvfgo8adhft" path="res://scripts/Card/Pack&Set/CardPackManager.gd" id="13_qmy6f"]
 [ext_resource type="FontFile" uid="uid://dj85nkjpq655u" path="res://assets/fonts/cjkFonts-allseto-v1.11-2.ttf" id="14_1iba3"]
 [ext_resource type="PackedScene" uid="uid://dwb51heekvc7a" path="res://scenes/Menus/disconnect_screen.tscn" id="15_ebg2g"]
@@ -61,7 +62,7 @@ hint = 1
 expanded_output_ports = [0]
 source = 5
 
-[sub_resource type="VisualShader" id="VisualShader_yxlcp"]
+[sub_resource type="VisualShader" id="VisualShader_2ofn6"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 render_mode blend_mix;
@@ -195,7 +196,7 @@ noise = SubResource("FastNoiseLite_4dx8l")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yxlcp"]
 resource_local_to_scene = true
-shader = SubResource("VisualShader_yxlcp")
+shader = SubResource("VisualShader_2ofn6")
 shader_parameter/Noise = SubResource("NoiseTexture2D_qf083")
 shader_parameter/dissolve_value = 1.0
 
@@ -340,6 +341,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("7_wp0k4")
+
+[node name="WinnerScreen" parent="UILayer/PlayerUI" instance=ExtResource("12_ebg2g")]
+layout_mode = 1
 
 [node name="DisconnectScreen" parent="UILayer/PlayerUI" instance=ExtResource("15_ebg2g")]
 z_index = 2
