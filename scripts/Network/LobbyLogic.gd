@@ -39,6 +39,7 @@ func _create_server():
 		return error
 	multiplayer.multiplayer_peer = peer
 	_register_player(h_name_field.text, PlayerInfo.generateUUID(h_name_field.text), multiplayer.get_unique_id())
+
 	
 func _connect_client(addr = "", port = ""):
 	var peer = ENetMultiplayerPeer.new()
@@ -82,18 +83,17 @@ func _on_peer_connected(id : int)  -> void:
 @rpc("any_peer", "reliable")
 func _register_player(newPlayerName : String, player_uuid : String, newPlayerId : int = multiplayer.get_remote_sender_id()):
 	# PlayerManager belongs to the current player is not universal
-	if PlayerManager.hasPlayerUUID(player_uuid):
-		print("REGISTERING PLAYER ",newPlayerName)
-		PlayerManager.addPlayer(player_uuid, newPlayerId, newPlayerName)
+	if !PlayerManager.hasPlayerUUID(player_uuid):
+		print("REGISTERING NEW PLAYER ",newPlayerName)
 
+		PlayerManager.addPlayer(player_uuid, newPlayerId, newPlayerName)
+		# Lazy implementation but not a big problem
+		list_all_players()
 
 # This signal is emitted on every remaining peer when one disconnects.
 func _on_peer_disconnected(id : int)  -> void:
 	PlayerManager.erasePlayer(id)
 	curr_status = "Player Disconnected " + str(id)
-	
-	# Lazy implementation but not a big problem
-	list_all_players()
 	
 	print(curr_status)
 
@@ -101,10 +101,7 @@ func _on_peer_disconnected(id : int)  -> void:
 # Called only from clients
 func _on_connected_to_server()  -> void:
 	curr_status = j_name_field.text + " has connected to the server! :D"
-	
-	# Lazy implementation but not a big problem
-	list_all_players()
-	
+
 	print(curr_status)
 
 func _on_connection_failed() -> void:
