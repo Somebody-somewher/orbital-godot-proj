@@ -1,6 +1,18 @@
 extends Control
 class_name MultiHostMenu
 
+var lobby : LobbyLogic
+
+@onready var name_textbox : TextEdit = $SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/NameBox/TextEdit
+@onready var players_list : Label = $SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/PlayersBox/ScrollContainer/Playerlist
+@onready var host_btn : Button = $SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/HostButtons/host
+
+func _ready() -> void:
+	pass
+	lobby = NetworkManager.get_node("Lobby")
+	lobby.set_up_host(name_textbox, players_list)
+	host_btn.pressed.connect(lobby.on_host_pressed)
+
 func animate(entering : bool) -> void:
 	if entering:
 		get_node("AnimationPlayer").play("enter")
@@ -93,4 +105,3 @@ func _on_sfx_slider_drag_ended(value_changed: bool) -> void:
 func _on_master_slider_value_changed(value: float) -> void:
 	master_label.text = str(int(value))
 	AudioManager.change_master_volume(value/100)
-	

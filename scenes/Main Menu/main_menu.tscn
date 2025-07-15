@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://dehbiymvw4gq5"]
+[gd_scene load_steps=45 format=3 uid="uid://dehbiymvw4gq5"]
 
 [ext_resource type="Script" uid="uid://baxm1vpvlaqw2" path="res://scripts/Main Menu/main_menu.gd" id="1_bnuun"]
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/Managers/player_hand.gd" id="2_bso06"]
@@ -32,7 +32,6 @@
 [ext_resource type="Texture2D" uid="uid://c46rx0oacwitc" path="res://assets/backgrounds/Clouds 1/3.png" id="28_pa2br"]
 [ext_resource type="Texture2D" uid="uid://dmo1mdx5ybrkg" path="res://assets/backgrounds/Clouds 2/4.png" id="30_lovst"]
 [ext_resource type="Texture2D" uid="uid://d2o6fmavoq14w" path="res://assets/backgrounds/Clouds 1/4.png" id="31_d7nto"]
-[ext_resource type="Script" uid="uid://ukqg1ehwf75v" path="res://scripts/Network/LobbyLogic.gd" id="33_n030c"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_bnuun"]
 
@@ -403,18 +402,6 @@ SPEED = -55
 [node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer4"]
 texture = ExtResource("22_26fkh")
 
-[node name="Node" type="Control" parent="." node_paths=PackedStringArray("ip_addr_field", "port_field", "j_name_field", "player_list_label", "h_name_field", "h_player_list_label")]
-anchors_preset = 0
-script = ExtResource("33_n030c")
-ip_addr_field = NodePath("../Menus/JoinMenu/SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/AddressBox/TextEdit")
-port_field = NodePath("../Menus/JoinMenu/SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/Port/TextEdit")
-j_name_field = NodePath("../Menus/JoinMenu/SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/Namebox/TextEdit")
-player_list_label = NodePath("../Menus/JoinMenu/SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/PlayersBox/ScrollContainer/Playerlist")
-h_name_field = NodePath("../Menus/HostMenu/SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/NameBox/TextEdit")
-h_player_list_label = NodePath("../Menus/HostMenu/SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/PlayersBox/ScrollContainer/Playerlist")
-
-[connection signal="pressed" from="Menus/HostMenu/SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/HostButtons/host" to="Node" method="_on_host_pressed"]
-[connection signal="pressed" from="Menus/JoinMenu/SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/AddressBox/join" to="Node" method="_on_join_pressed"]
 [connection signal="timeout" from="BoardManager/Timer" to="BoardManager" method="_on_timer_timeout"]
 
 [editable path="Menus/HostMenu"]

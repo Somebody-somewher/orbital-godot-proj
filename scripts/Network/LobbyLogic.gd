@@ -1,18 +1,21 @@
-extends Control
+extends Node
+class_name LobbyLogic
 
-@export var ip_addr_field : TextEdit
-@export var port_field : TextEdit
-@export var j_name_field : TextEdit
-@export var player_list_label : Label
+# Ideally we should separate these two components
+var ip_addr_field : TextEdit
+var port_field : TextEdit 
+var j_name_field : TextEdit
+var player_list_label : Label
 
-@export var h_name_field : TextEdit
-
-@export var h_player_list_label : Label
+var h_name_field : TextEdit
+var h_player_list_label : Label
 
 var _ip : String = "127.0.0.1"
 var _port : int = 8910
 var curr_status : String = ""
 var player_list_string : String = ""
+
+
 
 #var multiplayer_peer = ENetMultiplayerPeer.new()
 
@@ -30,6 +33,18 @@ func _ready():
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
 	multiplayer.connection_failed.connect(_on_connection_failed)
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
+
+func set_up_host(h_name_field : TextEdit, h_player_list_label : Label) -> void:
+	self.h_name_field = h_name_field
+	self.h_player_list_label = h_player_list_label
+	h_player_list_label.text = ""
+
+func set_up_client(ip_addr_field : TextEdit, port_field : TextEdit, j_name_field : TextEdit, player_list_label : Label) -> void:
+	self.ip_addr_field = ip_addr_field
+	self.port_field = port_field
+	self.j_name_field = j_name_field
+	self.player_list_label = player_list_label
+	player_list_label.text = ""
 
 func _create_server():
 	var peer = ENetMultiplayerPeer.new()
@@ -64,6 +79,18 @@ func _connect_client(addr = "", port = ""):
 func _leave_lobby():
 	multiplayer.multiplayer_peer = null
 	
+func menu_leave_lobby():
+	PlayerManager.erasePlayer.rpc(multiplayer.get_unique_id())
+	list_all_players.rpc()
+	await get_tree().create_timer(0.5).timeout 
+	multiplayer.multiplayer_peer = null
+	
+	if player_list_label:
+		player_list_label.text = ""
+	
+	if h_player_list_label:
+		h_player_list_label.text = ""	
+
 # This signal is emitted with the newly connected peer's ID on each other peer 
 # (inclusive of the server, which is also a peer) 
 # and on the new peer multiple times, once with each other peer's ID.
@@ -92,7 +119,7 @@ func _register_player(newPlayerName : String, player_uuid : String, newPlayerId 
 
 # This signal is emitted on every remaining peer when one disconnects.
 func _on_peer_disconnected(id : int)  -> void:
-	PlayerManager.erasePlayer(id)
+	#PlayerManager.erasePlayer(id)
 	curr_status = "Player Disconnected " + str(id)
 	
 	print(curr_status)
@@ -112,15 +139,16 @@ func _on_server_disconnected():
 	Signalbus.emit_signal("notif_msg", "The server has died X.X")
 	print("Server ded X.X")
 	PlayerManager.clearPlayers()
+	clear_player_list()
 	_leave_lobby()
 
-func _on_host_pressed() -> void:
+func on_host_pressed() -> void:
 	_create_server()
 	curr_status = "Awaiting players!"
 	print(h_name_field.text + " is waiting for Players! .o.")
 	pass # Replace with function body.
 
-func _on_join_pressed() -> void:
+func on_join_pressed() -> void:
 	_connect_client(ip_addr_field.text, port_field.text)
 	pass # Replace with function body.
 
@@ -139,9 +167,14 @@ func _on_join_pressed() -> void:
 @rpc("any_peer", "call_local")
 func list_all_players() -> void:
 	player_list_string = ""
-	PlayerManager.forEachPlayer(list_player)
+	PlayerManager.forEachPlayer(_list_player)
 	player_list_label.text = player_list_string
 	h_player_list_label.text = player_list_string
 
-func list_player(pi : PlayerInfo) -> void:
+func _list_player(pi : PlayerInfo) -> void:
 	player_list_string = player_list_string + pi.getPlayerName() + "\n"
+
+#@rpc("any_peer", "call_local")
+func clear_player_list() -> void:
+	player_list_label.text = ""
+	h_player_list_label.text = ""

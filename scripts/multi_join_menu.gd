@@ -1,5 +1,18 @@
 extends Control
 class_name MultiJoinMenu
+
+var lobby : LobbyLogic
+
+@onready var ip_textbox : TextEdit = $SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/AddressBox/TextEdit
+@onready var port_textbox : TextEdit = $SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/Port/TextEdit
+@onready var name_textbox : TextEdit = $SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/Namebox/TextEdit
+@onready var players_list : Label = $SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/PlayersBox/ScrollContainer/Playerlist
+@onready var join_btn : Button = $SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/AddressBox/join
+
+func _ready() -> void:
+	lobby = NetworkManager.get_node("Lobby")
+	lobby.set_up_client(ip_textbox, port_textbox, name_textbox, players_list)
+	join_btn.pressed.connect(lobby.on_join_pressed)
 	
 func animate(entering : bool) -> void:
 	if entering:

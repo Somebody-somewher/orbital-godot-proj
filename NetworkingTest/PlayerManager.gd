@@ -44,9 +44,12 @@ func forEachPlayer(function : Callable) -> Array[Variant]:
 	
 	return arr
 
+@rpc("call_local", "any_peer")
 func erasePlayer(id : int) -> void:
+	uuid_to_players.erase(peerid_to_players[id].getPlayerUUID())
 	peerid_to_players.erase(id)
-
+	
+@rpc("call_local", "any_peer")
 func clearPlayers() -> void:
 	peerid_to_players.clear()
 	uuid_to_players.clear()
@@ -62,6 +65,9 @@ func getUUID_from_PeerID(peer_id : int) -> String:
 
 func getCurrentPlayerUUID() -> String:
 	return peerid_to_players[multiplayer.get_unique_id()].getPlayerUUID()
+
+func getCurrentPlayerName() -> String:
+	return peerid_to_players[multiplayer.get_unique_id()].getPlayerName()
 
 func getPeerIDs() -> Array[int]:
 	return peerid_to_players.keys()
