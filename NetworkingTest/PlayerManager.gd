@@ -20,6 +20,9 @@ func _ready():
 func hasPlayer(peer_id : int) -> bool:
 	return peerid_to_players.has(peer_id)
 
+func hasPlayerUUID(player_uuid : String) -> bool:
+	return uuid_to_players.has(player_uuid)
+
 func addPlayer(uuid : String, peer_id : int, player_name : String) -> void:
 	var player_info : PlayerInfo = PlayerInfo.new(uuid, peer_id, player_name, player_colors[color_index])
 	color_index += 1

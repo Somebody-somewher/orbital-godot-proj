@@ -10,7 +10,7 @@ extends Control
 @export var h_player_list_label : Label
 
 var _ip : String = "127.0.0.1"
-var _port : int = 40333
+var _port : int = 8910
 var curr_status : String = ""
 var player_list_string : String = ""
 
@@ -49,7 +49,8 @@ func _connect_client(addr = "", port = ""):
 	
 	if port == "":
 		port = _port
-		
+	
+	print(addr, " ", port)
 	var error = peer.create_client(addr, int(port))
 	if (error != OK):
 		curr_status = "cannot host: " + str(error)
@@ -80,22 +81,30 @@ func _on_peer_connected(id : int)  -> void:
 	
 @rpc("any_peer", "reliable")
 func _register_player(newPlayerName : String, player_uuid : String, newPlayerId : int = multiplayer.get_remote_sender_id()):
-	print(newPlayerName)
 	# PlayerManager belongs to the current player is not universal
-	PlayerManager.addPlayer(player_uuid, newPlayerId, newPlayerName)
-	# Lazy implementation but not a big problem
-	list_all_players()
+	if PlayerManager.hasPlayerUUID(player_uuid):
+		print("REGISTERING PLAYER ",newPlayerName)
+		PlayerManager.addPlayer(player_uuid, newPlayerId, newPlayerName)
+
 
 # This signal is emitted on every remaining peer when one disconnects.
 func _on_peer_disconnected(id : int)  -> void:
 	PlayerManager.erasePlayer(id)
 	curr_status = "Player Disconnected " + str(id)
+	
+	# Lazy implementation but not a big problem
+	list_all_players()
+	
 	print(curr_status)
 
 # For sending info frm client -> server
 # Called only from clients
 func _on_connected_to_server()  -> void:
 	curr_status = j_name_field.text + " has connected to the server! :D"
+	
+	# Lazy implementation but not a big problem
+	list_all_players()
+	
 	print(curr_status)
 
 func _on_connection_failed() -> void:
@@ -115,7 +124,7 @@ func _on_host_pressed() -> void:
 	pass # Replace with function body.
 
 func _on_join_pressed() -> void:
-	_connect_client(ip_addr_field.text)
+	_connect_client(ip_addr_field.text, port_field.text)
 	pass # Replace with function body.
 
 #func _on_start_button_down() -> void:

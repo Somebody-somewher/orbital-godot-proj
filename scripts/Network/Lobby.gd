@@ -1,7 +1,7 @@
 extends Control
 
 @export var ip : String = "127.0.0.1"
-@export var port : int = 40333
+@export var port : int = 8910
 @export var gameScene : PackedScene 
 #var multiplayer_peer = ENetMultiplayerPeer.new()
 
