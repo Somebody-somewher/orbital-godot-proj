@@ -14,6 +14,7 @@ func _ready():
 	## TODO: Need a better system than this
 	# Creates a "fake" single player for singleplayer
 	if is_singleplayer:
+		print_debug("NOTE: SINGLEPLAYER SELECT ON THE GET GO")
 		addPlayer("PlaceholderPlayerUUID", multiplayer.get_unique_id(), "PlaceholderPlayer")
 	pass
 

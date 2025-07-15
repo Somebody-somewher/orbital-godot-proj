@@ -75,8 +75,10 @@ func _connect_client(addr = "", port = ""):
 
 
 func _leave_lobby():
+	multiplayer.multiplayer_peer.close()
 	multiplayer.multiplayer_peer = null
 	
+
 func menu_leave_lobby():
 	PlayerManager.erasePlayer.rpc(multiplayer.get_unique_id())
 	list_all_players.rpc()
@@ -137,8 +139,18 @@ func _on_server_disconnected():
 	Signalbus.emit_signal("notif_msg", "The server has died X.X")
 	print("Server ded X.X")
 	PlayerManager.clearPlayers()
-	clear_player_list()
+	if SceneManager.curr_scene == "menu":
+		clear_player_list()
 	_leave_lobby()
+	#
+	SceneManager.back_to_menu()
+	var dummy_api := SceneMultiplayer.new()
+	await get_tree().create_timer(0.6).timeout 
+	dummy_api.root_path  = get_tree().get_current_scene().get_path()
+	get_tree().set_multiplayer(dummy_api)
+	
+	#get_tree().set_multiplayer(MultiplayerAPI.create_default_interface())
+	
 
 func on_host_pressed() -> void:
 	_create_server()
@@ -166,6 +178,7 @@ func on_join_pressed() -> void:
 func list_all_players() -> void:
 	player_list_string = ""
 	PlayerManager.forEachPlayer(_list_player)
+	
 	player_list_label.text = player_list_string
 	h_player_list_label.text = player_list_string
 

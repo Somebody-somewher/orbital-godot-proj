@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cdp6pxvmemk4u"]
+[gd_scene load_steps=12 format=3 uid="uid://cdp6pxvmemk4u"]
 
 [ext_resource type="Script" uid="uid://dq7q74qaf5hj8" path="res://scripts/GameFlow/GameManager.gd" id="1_bjd11"]
 [ext_resource type="PackedScene" uid="uid://klvllydgi5tw" path="res://scenes/Game Flow/round_manager.tscn" id="2_ft6cd"]
@@ -8,9 +8,7 @@
 [ext_resource type="Script" uid="uid://c5fouuecjsld6" path="res://scripts/camera.gd" id="6_3p2gp"]
 [ext_resource type="PackedScene" uid="uid://b6dee2ixvxkik" path="res://scenes/ui_layer.tscn" id="9_3p2gp"]
 [ext_resource type="PackedScene" uid="uid://bkog375sxl1lg" path="res://scenes/Compendium/compendium_container.tscn" id="10_1nqs0"]
-[ext_resource type="Script" uid="uid://cats7srje6wix" path="res://scripts/Audio/AudioData.gd" id="12_mwfav"]
 [ext_resource type="Script" uid="uid://byit5totk5tsn" path="res://scripts/Card/Pack&Set/CardPackManagerClient.gd" id="13_cvmbd"]
-[ext_resource type="PackedScene" uid="uid://cyka8ysyph1xg" path="res://scenes/Audio/audio_manager.tscn" id="16_cvmbd"]
 [ext_resource type="Resource" uid="uid://b2ockuqgtwo7k" path="res://Resources/ProcGen/BoardProcGenerator.tres" id="16_ft6cd"]
 [ext_resource type="PackedScene" uid="uid://bxiy7ajwus31g" path="res://scenes/Board/board_manager.tscn" id="17_bb450"]
 
@@ -46,9 +44,6 @@ layer = 2
 [node name="CardPackManager" type="Node" parent="." node_paths=PackedStringArray("spawn_node")]
 script = ExtResource("13_cvmbd")
 spawn_node = NodePath("../CardManager")
-
-[node name="AudioManager" parent="." instance=ExtResource("16_cvmbd")]
-SFX_AUDIOS = Dictionary[String, ExtResource("12_mwfav")]({})
 
 [node name="BoardManager" parent="." instance=ExtResource("17_bb450")]
 proc_gen = ExtResource("16_ft6cd")

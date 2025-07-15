@@ -105,7 +105,7 @@ func multiplayer_join(id : String) -> String:
 
 # for add cards back into hand
 func spawn_card(id_name : String) -> void:
-	var building_data := CardLoader.get_building_data(id_name)
+	var building_data : BuildingData = CardLoader.get_building_data(id_name)
 	var new_card = MenuCard.new_menucard(building_data, CardLoader.buildingcard_img)
 	self.add_child(new_card)
 	new_card.global_position = Vector2i(800,450)

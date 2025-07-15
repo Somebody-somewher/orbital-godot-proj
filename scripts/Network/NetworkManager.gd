@@ -64,6 +64,9 @@ func _ready() -> void:
 	pass
 
 func full_reset() -> void:
-	client_net.reset_node_status()
-	server_net.reset_ready()
+	client_net = null
+	server_net = null
+	#client_net.reset_node_status()
+	#if server_net:
+		#server_net.reset_ready()
 	reset_networking()

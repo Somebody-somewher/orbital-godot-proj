@@ -40,12 +40,7 @@ func _ready() -> void:
 		if aura_data:
 			card_dict.get_or_add(aura_data.id_name, aura_data)
 
-	if multiplayer.is_server():
-		card_mem = ServerCardMemory.new()
-	else:
-		card_mem = CardMemory.new()
-	
-	add_child(card_mem)
+
 	#NetworkManager.mark_client_ready(self.name)
 
 ## This is here because some things need to wait for NetworkManager or PlayerManager to setup before firing
@@ -58,7 +53,11 @@ func setup(cag : CardAttributeGenerator = null, csa : CardSetAllocator = null) -
 			card_attribute_gen = cag
 
 		cardpack_gen.server_setup(card_attribute_gen, csa)
+		card_mem = ServerCardMemory.new()
+	else:
+		card_mem = CardMemory.new()
 	
+	add_child(card_mem)
 	card_mem.setup()
 	cardpack_gen.setup(card_mem, create_data_instance, create_card)
 	event_manager.setup_mem(card_mem.retrieve_memory())
