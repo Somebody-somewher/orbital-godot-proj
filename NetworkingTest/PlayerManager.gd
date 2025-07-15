@@ -8,15 +8,17 @@ var uuid_to_players : Dictionary[String, PlayerInfo] = {}
 var player_colors : Array[Color] = [Color.PINK, Color.LIGHT_SALMON, Color.AZURE, Color.AQUAMARINE]
 var color_index := 0
 
-@export var is_debug : bool = false
+@export var is_singleplayer : bool = false
 
 func _ready():
 	## TODO: Need a better system than this
 	# Creates a "fake" single player for singleplayer
-	if is_debug:
-		addPlayer("PlaceholderPlayerUUID", multiplayer.get_unique_id(), "PlaceholderPlayer")
 	pass
-	
+
+func declare_singleplayer() -> void:
+	is_singleplayer = true
+	addPlayer("PlaceholderPlayerUUID", multiplayer.get_unique_id(), "PlaceholderPlayer")
+
 func hasPlayer(peer_id : int) -> bool:
 	return peerid_to_players.has(peer_id)
 

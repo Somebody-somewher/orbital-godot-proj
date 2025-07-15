@@ -143,6 +143,5 @@ func list_all_players() -> void:
 	player_list_label.text = player_list_string
 	h_player_list_label.text = player_list_string
 
-	
 func list_player(pi : PlayerInfo) -> void:
 	player_list_string = player_list_string + pi.getPlayerName() + "\n"

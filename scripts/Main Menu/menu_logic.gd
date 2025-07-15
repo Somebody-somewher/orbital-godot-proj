@@ -63,6 +63,8 @@ func settings(id : String) -> String:
 	match id:
 		"back":
 			setting_menu_exit.emit()
+			#if multiplayer.connected_to_server:
+				
 	return "main_menu"
 
 func singleplayer(id : String) -> String:

@@ -86,6 +86,7 @@ func on_start_multiplayer():
 	initialize_game.rpc()
 
 func on_start_singleplayer() -> void:
+	PlayerManager.declare_singleplayer()
 	initialize_game()
 	
 func on_exit_game() -> void:
