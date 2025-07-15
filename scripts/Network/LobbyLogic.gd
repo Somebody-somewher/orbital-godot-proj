@@ -15,8 +15,6 @@ var _port : int = 8910
 var curr_status : String = ""
 var player_list_string : String = ""
 
-
-
 #var multiplayer_peer = ENetMultiplayerPeer.new()
 
 # Resources

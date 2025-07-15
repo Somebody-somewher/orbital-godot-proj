@@ -4,7 +4,6 @@ class_name CardPackGenerator
 @export_category("CardSet Creation")
 @export var remove_used_sets := false
 @export var cardset_grp : ResourceGroup
-var card_set_arr : Array[CardSetData] = []
 
 var cardset_allocator : CardSetAllocator
 var card_attribute_gen : CardAttributeGenerator
@@ -31,7 +30,6 @@ func server_setup(attr_gen : CardAttributeGenerator, cardset_alloc : CardSetAllo
 	else:
 		cardset_allocator = cardset_alloc
 		
-	
 	pass
 
 func setup(card_memory : CardMemory, create_data_inst : Callable, create_card : Callable) -> void:
@@ -157,3 +155,10 @@ func reset_temp_mem() -> void:
 	local_cardpacks_datainst_mem = {}
 	_local_cardpack_datainst_mem = {}
 	_local_cardset_datainst_mem = {}
+	
+func reset() -> void:
+	reset_temp_mem()
+	cardset_allocator = null
+	card_attribute_gen = null
+	card_memory = null
+	

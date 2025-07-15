@@ -35,6 +35,7 @@ Signalbus="*res://scenes/Game Flow/Signalbus.tscn"
 NetworkManager="*res://scenes/Networking/NetworkManager.tscn"
 CardLoader="*res://scripts/Card/CardLoader.tscn"
 AudioManager="*res://scenes/Audio/audio_manager.tscn"
+SceneManager="*res://scripts/GameFlow/SceneManager.gd"
 
 [display]
 

@@ -13,6 +13,8 @@ var color_index := 0
 func _ready():
 	## TODO: Need a better system than this
 	# Creates a "fake" single player for singleplayer
+	if is_singleplayer:
+		addPlayer("PlaceholderPlayerUUID", multiplayer.get_unique_id(), "PlaceholderPlayer")
 	pass
 
 func declare_singleplayer() -> void:
@@ -74,3 +76,8 @@ func getPeerIDs() -> Array[int]:
 
 func amIPlayer(peer_uuid : String) -> bool:
 	return peer_uuid == peerid_to_players[multiplayer.get_unique_id()].getPlayerUUID()
+	
+func reset() -> void:
+	clearPlayers()
+	color_index = 0
+	is_singleplayer = false

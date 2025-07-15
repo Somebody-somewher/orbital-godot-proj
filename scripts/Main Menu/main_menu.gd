@@ -3,8 +3,6 @@ extends Control
 @onready
 var menu_logic = $MenuLogic
 
-const GAME = preload("res://scenes/Main.tscn")
-
 @onready var title_menu: TitleMenu = $Menus/TitleMenu
 @onready var options_menu: OptionMenu = $Menus/OptionsMenu
 @onready var singleplayer_menu: SingleplayerMenu = $Menus/SingleplayerMenu
@@ -66,7 +64,6 @@ func on_close_multiplayer() -> void:
 	title_menu.animate(true)
 
 func on_open_host():
-	print("ye")
 	multiplayer_menu.animate(false)
 	multi_host_menu.animate(true)
 
@@ -97,6 +94,4 @@ func on_exit_game() -> void:
 @rpc("any_peer", "call_local")
 func initialize_game() -> void:
 	NetworkManager.set_up()
-	get_tree().change_scene_to_packed(GAME)
-
-	#NetworkManager.reset_networking()
+	SceneManager.start_to_game()

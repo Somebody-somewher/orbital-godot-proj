@@ -55,3 +55,6 @@ func queue_bgm(audio_name : String) -> void:
 func _on_bgm_finished() -> void:
 	bgm_stream = null
 	play_bgm(next_bgm)
+
+func stop_bgm() -> void:
+	bgm_stream.stop()

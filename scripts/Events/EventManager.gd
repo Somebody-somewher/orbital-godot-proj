@@ -99,3 +99,12 @@ func run_events(events_to_run : Array[Event], source : CardInstanceData, params 
 	for event in events_to_run:
 		if event is BoardEvent and params[0] is Vector2i:
 			event.trigger(matrix_data, params[0], source)
+
+func reset_mem() -> void:
+	card_mem.clear()
+	id_to_instances.clear()
+	on_round_start_events.clear()
+	on_round_start_events_dict.clear()
+	on_round_end_events.clear()
+	on_round_end_events_dict.clear()
+	events_and_conditions.clear()

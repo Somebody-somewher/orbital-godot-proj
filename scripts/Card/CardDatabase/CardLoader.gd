@@ -131,3 +131,11 @@ func get_display_name(id : String) -> String:
 
 func get_texture(id : String) -> Texture2D:
 	return card_dict.get(id).card_sprite
+
+func reset() -> void:
+	card_mem.queue_free()
+	card_mem = null
+	event_manager.reset_mem()
+	card_attribute_gen = null
+	cardpack_gen.reset()
+	pass
