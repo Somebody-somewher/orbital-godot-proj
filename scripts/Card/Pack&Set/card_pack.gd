@@ -11,6 +11,9 @@ static var card_pack = preload("res://scenes/Card/card_pack.tscn")
 
 @onready var buttons: Control = $Buttons
 @onready var input_manager: InputManager = $"../../InputManager"
+@onready var outline: Sprite2D = $Outline
+
+
 ##shader stuff
 @onready
 var sprite_ref = self
@@ -19,6 +22,7 @@ var dissolve_value = 1
 var enable_3d = false
 
 func _ready() -> void:
+	outline.visible = false
 	buttons.visible = false
 	get_node("AnimationPlayer").play("fall animation")
 	
@@ -99,6 +103,12 @@ func _on_area_2d_mouse_entered() -> void:
 	
 func _on_area_2d_mouse_exited() -> void:
 	highlight_pack(false)
+
+func set_outline_color(r : int, g: int, b: int) -> void:
+	sprite_ref.material.set_shader_parameter("outline_color", Color(r,g,b, 1.0))
+
+func outline_pack(on : bool) -> void:
+	outline.visible = on
 
 func highlight_pack(on : bool) -> void:
 	var tween = get_tree().create_tween()
