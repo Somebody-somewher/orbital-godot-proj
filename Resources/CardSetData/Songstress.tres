@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://psn7r1bgho80"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_lf8m0"]
+
+[resource]
+script = ExtResource("1_lf8m0")
+set_name = "Songstress"
+cards = Dictionary[String, int]({
+"sailboat": 1,
+"siren": 1
+})
+rarity = 0
+aquatic = false
+sabotage = true
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

@@ -1,6 +1,9 @@
 extends Resource
 class_name CardData
 
+@export_category("Set linking")
+@export var in_sets : Array[String]
+
 @export_category("Basic Properties")
 @export var id_name : String
 @export var display_name : String

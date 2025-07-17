@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://bwfa4pjf72lxj"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_u7iyh"]
+
+[resource]
+script = ExtResource("1_u7iyh")
+set_name = "Forest Fire"
+cards = Dictionary[String, int]({
+"forest": 2,
+"wildfire": 1
+})
+rarity = 0
+aquatic = false
+sabotage = true
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

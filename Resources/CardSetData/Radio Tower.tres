@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://c5y0dncckpeq5"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_o0tc5"]
+
+[resource]
+script = ExtResource("1_o0tc5")
+set_name = "Radio Tower"
+cards = Dictionary[String, int]({
+"radio": 1,
+"tower": 1,
+"water_tower": 1
+})
+rarity = 1
+aquatic = false
+sabotage = false
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

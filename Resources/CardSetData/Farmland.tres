@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://dqp47pcxna07k"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_gukru"]
+
+[resource]
+script = ExtResource("1_gukru")
+set_name = "Farmland"
+cards = Dictionary[String, int]({
+"farmhouse": 1,
+"fence": 3
+})
+rarity = 1
+aquatic = false
+sabotage = false
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

@@ -9,4 +9,7 @@ cards = Dictionary[String, int]({
 "cannon": 2,
 "knight": 2
 })
+rarity = 2
+aquatic = false
+sabotage = false
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

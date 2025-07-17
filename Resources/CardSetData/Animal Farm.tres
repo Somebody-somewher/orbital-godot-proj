@@ -6,8 +6,11 @@
 script = ExtResource("1_mcb35")
 set_name = "Animal Farm"
 cards = Dictionary[String, int]({
-"chicken": 2,
-"cow": 2,
-"pig": 2
+"cow": 1,
+"fence": 2,
+"pig": 1
 })
+rarity = 1
+aquatic = false
+sabotage = false
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

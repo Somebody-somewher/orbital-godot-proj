@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://ch1t4i4ne5mla"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_kv7gh"]
+
+[resource]
+script = ExtResource("1_kv7gh")
+set_name = "Bomb"
+cards = Dictionary[String, int]({
+"bomb": 1
+})
+rarity = 0
+aquatic = false
+sabotage = true
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

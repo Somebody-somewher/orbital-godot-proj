@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://b4ejmbvbys8r4"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_fq16g"]
+
+[resource]
+script = ExtResource("1_fq16g")
+set_name = "Dirty Renovation"
+cards = Dictionary[String, int]({
+"demolish": 1,
+"dirt": 2
+})
+rarity = 2
+aquatic = false
+sabotage = false
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

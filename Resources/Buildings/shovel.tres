@@ -20,6 +20,7 @@ post_place_effects = Array[ExtResource("1_hbhk3")]([])
 begin_round_effects = Array[ExtResource("1_hbhk3")]([])
 end_round_effects = Array[ExtResource("1_hbhk3")]([])
 destroyed_effects = Array[ExtResource("1_hbhk3")]([])
+in_sets = Array[String]([])
 id_name = "shovel"
 display_name = "shovel"
 card_sprite = ExtResource("2_hbhk3")

@@ -9,4 +9,7 @@ cards = Dictionary[String, int]({
 "chicken": 3,
 "wheat_field": 1
 })
+rarity = 1
+aquatic = false
+sabotage = false
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

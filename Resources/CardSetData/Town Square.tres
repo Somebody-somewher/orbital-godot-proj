@@ -8,6 +8,10 @@ set_name = "Town Square"
 cards = Dictionary[String, int]({
 "belltower": 1,
 "fountain": 1,
-"statue": 1
+"statue": 1,
+"wall": 1
 })
+rarity = 1
+aquatic = false
+sabotage = false
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

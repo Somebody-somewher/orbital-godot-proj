@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://n3sunhhckwes"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_5mnoh"]
+
+[resource]
+script = ExtResource("1_5mnoh")
+set_name = "Cooking"
+cards = Dictionary[String, int]({
+"brewery": 1
+})
+rarity = 1
+aquatic = false
+sabotage = false
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

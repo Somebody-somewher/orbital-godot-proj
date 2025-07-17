@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://3kyxk5ti147m"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_ds2g1"]
+
+[resource]
+script = ExtResource("1_ds2g1")
+set_name = "Green Thumb"
+cards = Dictionary[String, int]({
+"carrot": 1,
+"garden": 1
+})
+rarity = 0
+aquatic = false
+sabotage = false
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

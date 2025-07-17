@@ -415,8 +415,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_gpkwg")
 }
 
-[connection signal="pressed" from="Buttons/MarginContainer/HBoxContainer/YesButton" to="." method="_on_check_pressed"]
 [connection signal="pressed" from="Buttons/MarginContainer/HBoxContainer/YesButton" to="." method="_on_yes_button_pressed"]
+[connection signal="pressed" from="Buttons/MarginContainer/HBoxContainer/YesButton" to="." method="_on_check_pressed"]
 [connection signal="pressed" from="Buttons/MarginContainer/HBoxContainer/NoButton" to="." method="_on_cross_pressed"]
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

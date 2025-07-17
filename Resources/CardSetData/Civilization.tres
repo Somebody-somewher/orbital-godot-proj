@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://dp6ab7n7yhglg"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_mmjl0"]
+
+[resource]
+script = ExtResource("1_mmjl0")
+set_name = "Civilization"
+cards = Dictionary[String, int]({
+"campfire": 1,
+"hut": 3
+})
+rarity = 1
+aquatic = false
+sabotage = false
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

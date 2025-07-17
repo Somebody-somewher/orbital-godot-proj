@@ -206,6 +206,9 @@ set_name = "AuraTest"
 cards = Dictionary[String, int]({
 "dummy_aura": 1
 })
+rarity = 0
+aquatic = false
+sabotage = false
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"
 
 [sub_resource type="Animation" id="Animation_yxlcp"]
