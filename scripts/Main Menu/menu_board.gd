@@ -20,7 +20,8 @@ func place_cardplaceable(placeable_id : String, tile_pos : Vector2i = NULL_TILE)
 func _on_attempt_place(result: bool):
 	if result:
 		menu_state = menu_logic_ref.select_option(menu_state, selected_pid)
-		timer.start()
+		if menu_state != "start_game":
+			timer.start()
 
 func _on_timer_timeout() -> void:
 	clear_tile(selected_pid, Vector2i(0,0))

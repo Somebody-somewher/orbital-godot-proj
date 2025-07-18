@@ -1,24 +1,17 @@
-extends Control
+extends MenuTab
 class_name MultiJoinMenu
 
 var lobby : LobbyLogic
 
-@onready var ip_textbox : TextEdit = $SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/AddressBox/TextEdit
-@onready var port_textbox : TextEdit = $SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/Port/TextEdit
-@onready var name_textbox : TextEdit = $SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/Namebox/TextEdit
-@onready var players_list : Label = $SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/PlayersBox/ScrollContainer/Playerlist
-@onready var join_btn : Button = $SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/AddressBox/join
+@export var ip_textbox : TextEdit
+@export var port_textbox : TextEdit
+@export var name_textbox : TextEdit 
+@export var players_list : Label 
+@export var join_btn : Button
 
 func _ready() -> void:
 	lobby = NetworkManager.get_node("Lobby")
 	lobby.set_up_client(ip_textbox, port_textbox, name_textbox, players_list)
-	join_btn.pressed.connect(lobby.on_join_pressed)
-	
-func animate(entering : bool) -> void:
-	if entering:
-		get_node("AnimationPlayer").play("enter")
-	else:
-		get_node("AnimationPlayer").play("exit")
 
 ######### SOUND OPTIONS CODE ##################
 
@@ -41,3 +34,6 @@ func _on_master_slider_value_changed(value: float) -> void:
 	master_label.text = str(int(value))
 	AudioManager.change_master_volume(value/100)
 	
+func _on_join_pressed() -> void:
+	lobby.on_join_pressed()
+	pass # Replace with function body.

@@ -1,41 +1,43 @@
-[gd_scene load_steps=44 format=3 uid="uid://dehbiymvw4gq5"]
+[gd_scene load_steps=45 format=3 uid="uid://b0j0e0n0y7x21"]
 
-[ext_resource type="Script" uid="uid://baxm1vpvlaqw2" path="res://scripts/Main Menu/main_menu.gd" id="1_bnuun"]
-[ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/Managers/player_hand.gd" id="2_bso06"]
-[ext_resource type="PackedScene" uid="uid://b43u6wsxnq4ai" path="res://scenes/Game Flow/input_manager.tscn" id="3_xpnd4"]
-[ext_resource type="Script" uid="uid://bvoajtpxmv7lr" path="res://scripts/Main Menu/menu_logic.gd" id="4_xlgyj"]
-[ext_resource type="Texture2D" uid="uid://c88sgkqa5s3er" path="res://assets/misc_sprites/menu_bgd.jpg" id="5_bqibv"]
-[ext_resource type="PackedScene" uid="uid://bapjcj4rxrxaj" path="res://scenes/Main Menu/options_menu.tscn" id="6_cmu3j"]
-[ext_resource type="PackedScene" uid="uid://bogg4d6s1y1og" path="res://scenes/Main Menu/title_menu.tscn" id="7_kbvpp"]
-[ext_resource type="PackedScene" uid="uid://dtsfmua37k8xq" path="res://scenes/Main Menu/singleplayer_menu.tscn" id="8_jo2uk"]
-[ext_resource type="PackedScene" uid="uid://ct04ps51yd71k" path="res://scenes/Main Menu/multiplayer_menu.tscn" id="9_bso06"]
-[ext_resource type="Script" uid="uid://cep46bfjthrc7" path="res://scripts/Card/Managers/card_manager.gd" id="10_jl12q"]
-[ext_resource type="PackedScene" uid="uid://iyr4rtumvwwp" path="res://scenes/Main Menu/multi_host.tscn" id="10_xlgyj"]
-[ext_resource type="PackedScene" uid="uid://dyaq4288p4ik4" path="res://scenes/Main Menu/tutorial_card_pack.tscn" id="11_26fkh"]
-[ext_resource type="PackedScene" uid="uid://do48ita2qa5w3" path="res://scenes/Main Menu/multi_join.tscn" id="11_bqibv"]
-[ext_resource type="Texture2D" uid="uid://dwfea5crud5qh" path="res://shader/Foil/rainbow_gradient_1d.tres" id="12_bso06"]
-[ext_resource type="Script" uid="uid://c5fouuecjsld6" path="res://scripts/camera.gd" id="14_mdse0"]
-[ext_resource type="Script" uid="uid://ch4khga0srdee" path="res://scripts/Board/Visual/MenuBoardPreviewerTilemap.gd" id="15_bnuun"]
-[ext_resource type="PackedScene" uid="uid://bxiy7ajwus31g" path="res://scenes/Board/board_manager.tscn" id="15_fa6rk"]
-[ext_resource type="Script" uid="uid://duu3dx0n1l1gg" path="res://scripts/Main Menu/menu_board.gd" id="16_bso06"]
-[ext_resource type="Script" uid="uid://dcoeqccwxg41y" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrainMapping.gd" id="16_xpnd4"]
-[ext_resource type="Texture2D" uid="uid://cdvtn386cwgwv" path="res://assets/backgrounds/Clouds 3/1.png" id="19_jo2uk"]
-[ext_resource type="Script" uid="uid://0puieb5gjtoe" path="res://scripts/ParallaxBackground/menu_parallax_background.gd" id="19_m0e23"]
-[ext_resource type="Texture2D" uid="uid://c32secligmlfj" path="res://assets/backgrounds/Clouds 3/3.png" id="20_m0e23"]
-[ext_resource type="Texture2D" uid="uid://ckeso67tjoplq" path="res://assets/backgrounds/Clouds 2/1.png" id="21_40tg6"]
-[ext_resource type="Texture2D" uid="uid://3jv2vw2w60i7" path="res://assets/backgrounds/Clouds 3/4.png" id="21_jl12q"]
-[ext_resource type="Texture2D" uid="uid://c6roun1e7w055" path="res://assets/backgrounds/Clouds 3/5.png" id="22_26fkh"]
-[ext_resource type="Texture2D" uid="uid://bfr36spdiq2rg" path="res://assets/backgrounds/Clouds 1/1.png" id="22_x2k7b"]
-[ext_resource type="Texture2D" uid="uid://0dkb5oguhimt" path="res://assets/backgrounds/Clouds 2/2.png" id="24_n030c"]
-[ext_resource type="Texture2D" uid="uid://bpmcv3gbi83a3" path="res://assets/backgrounds/Clouds 1/2.png" id="25_jnbvd"]
-[ext_resource type="Texture2D" uid="uid://duya6c6sqhjc0" path="res://assets/backgrounds/Clouds 2/3.png" id="27_u1h8v"]
-[ext_resource type="Texture2D" uid="uid://c46rx0oacwitc" path="res://assets/backgrounds/Clouds 1/3.png" id="28_pa2br"]
-[ext_resource type="Texture2D" uid="uid://dmo1mdx5ybrkg" path="res://assets/backgrounds/Clouds 2/4.png" id="30_lovst"]
-[ext_resource type="Texture2D" uid="uid://d2o6fmavoq14w" path="res://assets/backgrounds/Clouds 1/4.png" id="31_d7nto"]
+[ext_resource type="Script" uid="uid://baxm1vpvlaqw2" path="res://scripts/Main Menu/main_menu.gd" id="1_qfxlx"]
+[ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/Managers/player_hand.gd" id="2_o4ssp"]
+[ext_resource type="PackedScene" uid="uid://b43u6wsxnq4ai" path="res://scenes/Game Flow/input_manager.tscn" id="3_owlrm"]
+[ext_resource type="Script" uid="uid://bvoajtpxmv7lr" path="res://scripts/Main Menu/menu_logic.gd" id="4_wdy6x"]
+[ext_resource type="Texture2D" uid="uid://c88sgkqa5s3er" path="res://assets/misc_sprites/menu_bgd.jpg" id="5_x5ie0"]
+[ext_resource type="PackedScene" uid="uid://bapjcj4rxrxaj" path="res://scenes/Main Menu/options_menu.tscn" id="6_kvq5v"]
+[ext_resource type="PackedScene" uid="uid://bogg4d6s1y1og" path="res://scenes/Main Menu/title_menu.tscn" id="7_7vgeu"]
+[ext_resource type="PackedScene" uid="uid://dtsfmua37k8xq" path="res://scenes/Main Menu/singleplayer_menu.tscn" id="8_8bywm"]
+[ext_resource type="PackedScene" uid="uid://ct04ps51yd71k" path="res://scenes/Main Menu/multiplayer_menu.tscn" id="9_nx8f2"]
+[ext_resource type="PackedScene" uid="uid://iyr4rtumvwwp" path="res://scenes/Main Menu/multi_host.tscn" id="10_lejcx"]
+[ext_resource type="PackedScene" uid="uid://do48ita2qa5w3" path="res://scenes/Main Menu/multi_join.tscn" id="11_1f5m1"]
+[ext_resource type="Script" uid="uid://cep46bfjthrc7" path="res://scripts/Card/Managers/card_manager.gd" id="12_yjcxi"]
+[ext_resource type="PackedScene" uid="uid://dyaq4288p4ik4" path="res://scenes/Main Menu/tutorial_card_pack.tscn" id="13_a41it"]
+[ext_resource type="Texture2D" uid="uid://dwfea5crud5qh" path="res://shader/Foil/rainbow_gradient_1d.tres" id="14_3rqxl"]
+[ext_resource type="Script" uid="uid://c5fouuecjsld6" path="res://scripts/camera.gd" id="15_muna1"]
+[ext_resource type="PackedScene" uid="uid://bxiy7ajwus31g" path="res://scenes/Board/board_manager.tscn" id="16_qxnwo"]
+[ext_resource type="Script" uid="uid://duu3dx0n1l1gg" path="res://scripts/Main Menu/menu_board.gd" id="17_m511c"]
+[ext_resource type="Script" uid="uid://ch4khga0srdee" path="res://scripts/Board/Visual/MenuBoardPreviewerTilemap.gd" id="18_1sucr"]
+[ext_resource type="Script" uid="uid://dcoeqccwxg41y" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrainMapping.gd" id="19_obvp3"]
+[ext_resource type="Script" uid="uid://0puieb5gjtoe" path="res://scripts/ParallaxBackground/menu_parallax_background.gd" id="20_uuqpq"]
+[ext_resource type="Texture2D" uid="uid://cdvtn386cwgwv" path="res://assets/backgrounds/Clouds 3/1.png" id="21_wl031"]
+[ext_resource type="Texture2D" uid="uid://ckeso67tjoplq" path="res://assets/backgrounds/Clouds 2/1.png" id="22_idbjd"]
+[ext_resource type="Texture2D" uid="uid://bfr36spdiq2rg" path="res://assets/backgrounds/Clouds 1/1.png" id="23_rypp3"]
+[ext_resource type="Texture2D" uid="uid://c32secligmlfj" path="res://assets/backgrounds/Clouds 3/3.png" id="24_lm6yw"]
+[ext_resource type="Texture2D" uid="uid://0dkb5oguhimt" path="res://assets/backgrounds/Clouds 2/2.png" id="25_shu6q"]
+[ext_resource type="Texture2D" uid="uid://bpmcv3gbi83a3" path="res://assets/backgrounds/Clouds 1/2.png" id="26_i0ftk"]
+[ext_resource type="Texture2D" uid="uid://3jv2vw2w60i7" path="res://assets/backgrounds/Clouds 3/4.png" id="27_c835k"]
+[ext_resource type="Texture2D" uid="uid://duya6c6sqhjc0" path="res://assets/backgrounds/Clouds 2/3.png" id="28_uei3c"]
+[ext_resource type="Texture2D" uid="uid://c46rx0oacwitc" path="res://assets/backgrounds/Clouds 1/3.png" id="29_3ip6o"]
+[ext_resource type="Texture2D" uid="uid://c6roun1e7w055" path="res://assets/backgrounds/Clouds 3/5.png" id="30_frkin"]
+[ext_resource type="Texture2D" uid="uid://dmo1mdx5ybrkg" path="res://assets/backgrounds/Clouds 2/4.png" id="31_41igy"]
+[ext_resource type="Texture2D" uid="uid://d2o6fmavoq14w" path="res://assets/backgrounds/Clouds 1/4.png" id="32_cgn6q"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_bnuun"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_xlgyj"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_n030c"]
 
 [sub_resource type="Shader" id="Shader_xpnd4"]
 code = "shader_type canvas_item;
@@ -226,7 +228,7 @@ shader_parameter/scroll = 4.0
 shader_parameter/normal_strength = 0.1
 shader_parameter/effect_alpha_mult = 0.0
 shader_parameter/direction = 0.5
-shader_parameter/gradient = ExtResource("12_bso06")
+shader_parameter/gradient = ExtResource("14_3rqxl")
 shader_parameter/normal_map = SubResource("NoiseTexture2D_pmi5y")
 
 [sub_resource type="GDScript" id="GDScript_jo2uk"]
@@ -267,15 +269,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-script = ExtResource("1_bnuun")
+script = ExtResource("1_qfxlx")
 
 [node name="PlayerHand" type="Node2D" parent="."]
-script = ExtResource("2_bso06")
+script = ExtResource("2_o4ssp")
 
-[node name="InputManager" parent="." instance=ExtResource("3_xpnd4")]
+[node name="InputManager" parent="." instance=ExtResource("3_owlrm")]
 
 [node name="MenuLogic" type="Node2D" parent="."]
-script = ExtResource("4_xlgyj")
+script = ExtResource("4_wdy6x")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 z_index = -2
@@ -285,7 +287,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("5_bqibv")
+texture = ExtResource("5_x5ie0")
 
 [node name="Menus" type="Control" parent="."]
 z_index = -1
@@ -297,73 +299,73 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="OptionsMenu" parent="Menus" instance=ExtResource("6_cmu3j")]
+[node name="OptionsMenu" parent="Menus" instance=ExtResource("6_kvq5v")]
 layout_mode = 1
 mouse_filter = 1
 
-[node name="TitleMenu" parent="Menus" instance=ExtResource("7_kbvpp")]
+[node name="TitleMenu" parent="Menus" instance=ExtResource("7_7vgeu")]
 layout_mode = 1
 
-[node name="SingleplayerMenu" parent="Menus" instance=ExtResource("8_jo2uk")]
+[node name="SingleplayerMenu" parent="Menus" instance=ExtResource("8_8bywm")]
 layout_mode = 1
 board_size_grp = SubResource("ButtonGroup_bnuun")
 
-[node name="MultiplayerMenu" parent="Menus" instance=ExtResource("9_bso06")]
+[node name="MultiplayerMenu" parent="Menus" instance=ExtResource("9_nx8f2")]
 layout_mode = 1
 mouse_filter = 1
 
-[node name="HostMenu" parent="Menus" instance=ExtResource("10_xlgyj")]
+[node name="HostMenu" parent="Menus" instance=ExtResource("10_lejcx")]
 layout_mode = 1
 board_size_grp = SubResource("ButtonGroup_xlgyj")
 
-[node name="8" parent="Menus/HostMenu/SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer" index="0"]
-button_group = SubResource("ButtonGroup_xlgyj")
+[node name="8" parent="Menus/HostMenu/SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer" index="0"]
+button_group = SubResource("ButtonGroup_n030c")
 
-[node name="16" parent="Menus/HostMenu/SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer" index="1"]
-button_group = SubResource("ButtonGroup_xlgyj")
+[node name="16" parent="Menus/HostMenu/SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer" index="1"]
+button_group = SubResource("ButtonGroup_n030c")
 
-[node name="32" parent="Menus/HostMenu/SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer" index="2"]
-button_group = SubResource("ButtonGroup_xlgyj")
+[node name="32" parent="Menus/HostMenu/SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer" index="2"]
+button_group = SubResource("ButtonGroup_n030c")
 
-[node name="JoinMenu" parent="Menus" instance=ExtResource("11_bqibv")]
+[node name="JoinMenu" parent="Menus" instance=ExtResource("11_1f5m1")]
 layout_mode = 1
 
 [node name="CardManager" type="Node2D" parent="." node_paths=PackedStringArray("board_ref", "player_hand_ref", "input_manager_ref", "preview_board_ref")]
 z_index = 2
-script = ExtResource("10_jl12q")
+script = ExtResource("12_yjcxi")
 board_ref = NodePath("../BoardManager")
 player_hand_ref = NodePath("../PlayerHand")
 input_manager_ref = NodePath("../InputManager")
 preview_board_ref = NodePath("../BoardManager/Preview")
 
-[node name="TutorialCardPack" parent="CardManager" instance=ExtResource("11_26fkh")]
+[node name="TutorialCardPack" parent="CardManager" instance=ExtResource("13_a41it")]
 material = SubResource("ShaderMaterial_xlgyj")
 position = Vector2(378.725, 233.18)
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("board")]
 position = Vector2(200, 500)
-script = ExtResource("14_mdse0")
+script = ExtResource("15_muna1")
 board = NodePath("../BoardManager/Preview")
 
-[node name="BoardManager" parent="." instance=ExtResource("15_fa6rk")]
-script = ExtResource("16_bso06")
+[node name="BoardManager" parent="." instance=ExtResource("16_qxnwo")]
+script = ExtResource("17_m511c")
 BOARD_SIZE = Vector2i(1, 1)
 BOARD_SCALE = 0.0
 
 [node name="Preview" parent="BoardManager" index="0"]
-script = ExtResource("15_bnuun")
-env_map = ExtResource("16_xpnd4")
+script = ExtResource("18_1sucr")
+env_map = ExtResource("19_obvp3")
 
 [node name="Timer" type="Timer" parent="BoardManager"]
 wait_time = 0.5
 one_shot = true
 
 [node name="Background" type="Node2D" parent="."]
-script = ExtResource("19_m0e23")
-layer1 = Array[Texture2D]([ExtResource("19_jo2uk"), ExtResource("21_40tg6"), ExtResource("22_x2k7b")])
-layer2 = Array[Texture2D]([ExtResource("20_m0e23"), ExtResource("24_n030c"), ExtResource("25_jnbvd")])
-layer3 = Array[Texture2D]([ExtResource("21_jl12q"), ExtResource("27_u1h8v"), ExtResource("28_pa2br")])
-layer4 = Array[Texture2D]([ExtResource("22_26fkh"), ExtResource("30_lovst"), ExtResource("31_d7nto")])
+script = ExtResource("20_uuqpq")
+layer1 = Array[Texture2D]([ExtResource("21_wl031"), ExtResource("22_idbjd"), ExtResource("23_rypp3")])
+layer2 = Array[Texture2D]([ExtResource("24_lm6yw"), ExtResource("25_shu6q"), ExtResource("26_i0ftk")])
+layer3 = Array[Texture2D]([ExtResource("27_c835k"), ExtResource("28_uei3c"), ExtResource("29_3ip6o")])
+layer4 = Array[Texture2D]([ExtResource("30_frkin"), ExtResource("31_41igy"), ExtResource("32_cgn6q")])
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="Background"]
 offset = Vector2(800, 450)
@@ -375,14 +377,14 @@ follow_viewport_enabled = true
 motion_mirroring = Vector2(1600, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer"]
-texture = ExtResource("19_jo2uk")
+texture = ExtResource("21_wl031")
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="Background/ParallaxBackground"]
 motion_mirroring = Vector2(567, 0)
 script = SubResource("GDScript_jo2uk")
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer2"]
-texture = ExtResource("20_m0e23")
+texture = ExtResource("24_lm6yw")
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="Background/ParallaxBackground"]
 motion_mirroring = Vector2(567, 0)
@@ -390,7 +392,7 @@ script = SubResource("GDScript_m0e23")
 SPEED = -30
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer3"]
-texture = ExtResource("21_jl12q")
+texture = ExtResource("27_c835k")
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="Background/ParallaxBackground"]
 motion_mirroring = Vector2(567, 0)
@@ -398,7 +400,7 @@ script = SubResource("GDScript_jl12q")
 SPEED = -55
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer4"]
-texture = ExtResource("22_26fkh")
+texture = ExtResource("30_frkin")
 
 [connection signal="timeout" from="BoardManager/Timer" to="BoardManager" method="_on_timer_timeout"]
 

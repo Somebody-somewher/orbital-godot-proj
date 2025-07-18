@@ -5,7 +5,7 @@ var menu_logic = $MenuLogic
 
 @onready var title_menu: TitleMenu = $Menus/TitleMenu
 @onready var options_menu: OptionMenu = $Menus/OptionsMenu
-@onready var singleplayer_menu: SingleplayerMenu = $Menus/SingleplayerMenu
+@onready var singleplayer_menu: GameSettingMenuTab = $Menus/SingleplayerMenu
 @onready var multiplayer_menu: MultiplayerMenu = $Menus/MultiplayerMenu
 @onready var multi_host_menu: MultiHostMenu = $Menus/HostMenu
 @onready var multi_join_menu: MultiJoinMenu = $Menus/JoinMenu
@@ -82,16 +82,17 @@ func on_close_join():
 	NetworkManager.get_node("Lobby").menu_leave_lobby()
 
 func on_start_multiplayer():
-	initialize_game.rpc()
+	PlayerManager.declare_multiplayer()	
+	initialize_game.rpc(multi_host_menu.get_game_settings())
 
 func on_start_singleplayer() -> void:
-	PlayerManager.declare_singleplayer()
-	initialize_game()
 	
+	initialize_game(singleplayer_menu.get_game_settings())
+
 func on_exit_game() -> void:
 	get_tree().quit()
 
 @rpc("any_peer", "call_local")
-func initialize_game() -> void:
+func initialize_game(settings : Dictionary) -> void:
 	NetworkManager.set_up()
-	SceneManager.start_to_game()
+	SceneManager.start_game()

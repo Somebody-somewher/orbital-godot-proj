@@ -19,7 +19,7 @@ func _ready() -> void:
 	
 	Signalbus.connect("show_error_msg", show_error_msg)
 	Signalbus.connect("show_round_msg", show_round_msg)
-	# TODO: See if this needs removing later
+
 	Signalbus.connect("update_score_ui", _update_score)
 
 func reset_score() -> void:

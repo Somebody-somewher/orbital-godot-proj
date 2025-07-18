@@ -1,6 +1,6 @@
 [gd_scene load_steps=26 format=3 uid="uid://dtsfmua37k8xq"]
 
-[ext_resource type="Script" uid="uid://qkqxxbklqyym" path="res://scripts/Main Menu/singleplayer_menu.gd" id="1_bfwdx"]
+[ext_resource type="Script" uid="uid://coucyanqklxx3" path="res://scripts/Main Menu/game_settings_menu.gd" id="1_bfwdx"]
 [ext_resource type="FontFile" uid="uid://bw124sa6qjoe5" path="res://assets/fonts/Pixel Game.otf" id="2_0u5pt"]
 [ext_resource type="FontFile" uid="uid://v66tkdbnak7b" path="res://assets/fonts/friendlyscribbles.ttf" id="3_0u5pt"]
 [ext_resource type="StyleBox" uid="uid://wwxkjlermjyr" path="res://shader/tab_selected.tres" id="4_eix2q"]
@@ -200,7 +200,7 @@ _data = {
 &"exit": SubResource("Animation_c2ct2")
 }
 
-[node name="SingleplayerMenu" type="Control"]
+[node name="SingleplayerMenu" type="Control" node_paths=PackedStringArray("rounds_label", "scores_label", "spawnable_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -209,7 +209,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_bfwdx")
+rounds_label = NodePath("SettingsTabs/LeftTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/RoundsBox/Label2")
+scores_label = NodePath("SettingsTabs/LeftTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/ScoresBox/Label2")
 board_size_grp = ExtResource("19_bfwdx")
+spawnable_label = NodePath("SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/SpawnableBox/Label2")
 
 [node name="Title" type="Control" parent="."]
 z_index = 1
@@ -225,8 +228,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -900.0
-offset_bottom = -900.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 40
@@ -260,8 +261,6 @@ z_index = 2
 layout_mode = 1
 anchor_right = 0.4
 anchor_bottom = 1.0
-offset_left = -650.0
-offset_right = -650.0
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
@@ -288,12 +287,12 @@ tab_alignment = 2
 current_tab = 0
 tab_focus_mode = 0
 
-[node name="Round Settings" type="TabBar" parent="SettingsTabs/LeftTab/TabContainer"]
+[node name="Win Conditions" type="TabBar" parent="SettingsTabs/LeftTab/TabContainer"]
 layout_mode = 2
 tab_alignment = 1
 metadata/_tab_index = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/LeftTab/TabContainer/Round Settings"]
+[node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/LeftTab/TabContainer/Win Conditions"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -305,16 +304,16 @@ theme_override_constants/margin_top = 48
 theme_override_constants/margin_right = 48
 theme_override_constants/margin_bottom = 48
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Win Conditions/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 75
 
-[node name="RoundsBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer"]
+[node name="RoundsBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 17
 
-[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/RoundsBox"]
+[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/RoundsBox"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme = ExtResource("8_5uwyh")
@@ -322,7 +321,7 @@ theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
 text = "No. of 
 Rounds:"
 
-[node name="HSlider" type="HSlider" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/RoundsBox"]
+[node name="HSlider" type="HSlider" parent="SettingsTabs/LeftTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/RoundsBox"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_vertical = 4
@@ -334,26 +333,27 @@ theme_override_styles/slider = ExtResource("9_ginu3")
 theme_override_styles/grabber_area = ExtResource("9_8kmo1")
 theme_override_styles/grabber_area_highlight = ExtResource("9_8kmo1")
 
-[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/RoundsBox"]
+[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/RoundsBox"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("8_5uwyh")
 theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
 text = "2"
 
-[node name="AuraFeqBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer"]
+[node name="ScoresBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 17
 
-[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/AuraFeqBox"]
+[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/ScoresBox"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme = ExtResource("8_5uwyh")
 theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
-text = "Aura freq:"
+text = "Winning 
+Score:"
 
-[node name="HSlider" type="HSlider" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/AuraFeqBox"]
+[node name="HSlider" type="HSlider" parent="SettingsTabs/LeftTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/ScoresBox"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_vertical = 4
@@ -365,42 +365,12 @@ theme_override_styles/slider = ExtResource("9_ginu3")
 theme_override_styles/grabber_area = ExtResource("9_8kmo1")
 theme_override_styles/grabber_area_highlight = ExtResource("9_8kmo1")
 
-[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/AuraFeqBox"]
+[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/ScoresBox"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("8_5uwyh")
 theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
-text = "never"
-
-[node name="SaboBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 16
-
-[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/SaboBox"]
-custom_minimum_size = Vector2(180, 0)
-layout_mode = 2
-size_flags_horizontal = 8
-theme = ExtResource("8_5uwyh")
-theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
-text = "Sabotages:"
-
-[node name="Button" type="Button" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/SaboBox"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-focus_mode = 0
-theme_override_styles/hover_pressed = ExtResource("13_qbax1")
-theme_override_styles/hover = ExtResource("13_e6mr2")
-theme_override_styles/pressed = ExtResource("15_ro1mp")
-theme_override_styles/normal = ExtResource("14_oi6kl")
-toggle_mode = true
-
-[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/SaboBox"]
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-theme = ExtResource("8_5uwyh")
-theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
-text = "Off"
+text = "100"
 
 [node name="Difficulty" type="TabBar" parent="SettingsTabs/LeftTab/TabContainer"]
 visible = false
@@ -426,6 +396,7 @@ layout_mode = 2
 theme_override_constants/separation = 75
 
 [node name="PointScaleBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 17
@@ -458,6 +429,7 @@ theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
 text = "1x"
 
 [node name="ThreshholdBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 17
@@ -497,8 +469,7 @@ layout_mode = 1
 anchor_left = 0.6
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 640.0
-offset_right = 640.0
+offset_left = -6.10352e-05
 grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 1
@@ -526,13 +497,13 @@ current_tab = 0
 tab_focus_mode = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="Generation" type="TabBar" parent="SettingsTabs/RightTab/TabContainer"]
+[node name="BoardGen" type="TabBar" parent="SettingsTabs/RightTab/TabContainer"]
 layout_mode = 2
 mouse_filter = 1
 tab_alignment = 1
 metadata/_tab_index = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/RightTab/TabContainer/Generation"]
+[node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/RightTab/TabContainer/BoardGen"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -544,16 +515,16 @@ theme_override_constants/margin_top = 48
 theme_override_constants/margin_right = 48
 theme_override_constants/margin_bottom = 48
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 75
 
-[node name="BoardSizeBox" type="HBoxContainer" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer"]
+[node name="BoardSizeBox" type="HBoxContainer" parent="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 17
 
-[node name="Label" type="Label" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox"]
+[node name="Label" type="Label" parent="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -561,12 +532,12 @@ theme = ExtResource("8_5uwyh")
 theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
 text = "Board Size:"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 16
 
-[node name="8" type="Button" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer"]
+[node name="8" type="Button" parent="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_vertical = 4
@@ -585,7 +556,7 @@ button_pressed = true
 button_group = ExtResource("19_bfwdx")
 text = "8x8"
 
-[node name="16" type="Button" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer"]
+[node name="16" type="Button" parent="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_vertical = 4
@@ -603,7 +574,7 @@ toggle_mode = true
 button_group = ExtResource("19_bfwdx")
 text = "16x16"
 
-[node name="32" type="Button" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer"]
+[node name="32" type="Button" parent="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_vertical = 4
@@ -621,12 +592,12 @@ toggle_mode = true
 button_group = ExtResource("19_bfwdx")
 text = "32x32"
 
-[node name="TerrainBox" type="HBoxContainer" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer"]
+[node name="TerrainBox" type="HBoxContainer" parent="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 17
 
-[node name="Label" type="Label" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/TerrainBox"]
+[node name="Label" type="Label" parent="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/TerrainBox"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -634,12 +605,12 @@ theme = ExtResource("8_5uwyh")
 theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
 text = "Terrain Types:"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/TerrainBox"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/TerrainBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 16
 
-[node name="grass" type="Button" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/TerrainBox/HBoxContainer"]
+[node name="grass" type="Button" parent="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/TerrainBox/HBoxContainer"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_vertical = 4
@@ -657,7 +628,7 @@ toggle_mode = true
 button_pressed = true
 text = "Grass"
 
-[node name="water" type="Button" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/TerrainBox/HBoxContainer"]
+[node name="water" type="Button" parent="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/TerrainBox/HBoxContainer"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_vertical = 4
@@ -675,7 +646,7 @@ toggle_mode = true
 button_pressed = true
 text = "Water"
 
-[node name="sand" type="Button" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/TerrainBox/HBoxContainer"]
+[node name="sand" type="Button" parent="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/TerrainBox/HBoxContainer"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_vertical = 4
@@ -693,12 +664,12 @@ toggle_mode = true
 button_pressed = true
 text = "Sand"
 
-[node name="SpawnableBox" type="HBoxContainer" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer"]
+[node name="SpawnableBox" type="HBoxContainer" parent="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 16
 
-[node name="Label" type="Label" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/SpawnableBox"]
+[node name="Label" type="Label" parent="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/SpawnableBox"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -706,7 +677,7 @@ theme = ExtResource("8_5uwyh")
 theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
 text = "Spawnables:"
 
-[node name="Button" type="Button" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/SpawnableBox"]
+[node name="Button" type="Button" parent="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/SpawnableBox"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 focus_mode = 0
@@ -717,7 +688,7 @@ theme_override_styles/normal = ExtResource("14_oi6kl")
 toggle_mode = true
 button_pressed = true
 
-[node name="Label2" type="Label" parent="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/SpawnableBox"]
+[node name="Label2" type="Label" parent="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/SpawnableBox"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("8_5uwyh")
@@ -752,15 +723,11 @@ libraries = {
 &"": SubResource("AnimationLibrary_1d4sf")
 }
 
-[connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/RoundsBox/HSlider" to="." method="_on_round_slider_value_changed"]
-[connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/AuraFeqBox/HSlider" to="." method="_on_aura_freq_slider_value_changed"]
-[connection signal="toggled" from="SettingsTabs/LeftTab/TabContainer/Round Settings/MarginContainer/VBoxContainer/SaboBox/Button" to="." method="_on_sabo_button_toggled"]
+[connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/RoundsBox/HSlider" to="." method="_on_round_slider_value_changed"]
+[connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/ScoresBox/HSlider" to="." method="_on_score_slider_value_changed"]
 [connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer/PointScaleBox/HSlider" to="." method="_on_pnt_scale_slider_value_changed"]
 [connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer/ThreshholdBox/HSlider" to="." method="_on_goal_slider_value_changed"]
-[connection signal="pressed" from="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/8" to="." method="board_size_changed"]
-[connection signal="pressed" from="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/16" to="." method="board_size_changed"]
-[connection signal="pressed" from="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/32" to="." method="board_size_changed"]
-[connection signal="toggled" from="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/TerrainBox/HBoxContainer/grass" to="." method="_on_terrain_toggled" binds= ["grass"]]
-[connection signal="toggled" from="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/TerrainBox/HBoxContainer/water" to="." method="_on_terrain_toggled" binds= ["water"]]
-[connection signal="toggled" from="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/TerrainBox/HBoxContainer/sand" to="." method="_on_terrain_toggled" binds= ["sand"]]
-[connection signal="toggled" from="SettingsTabs/RightTab/TabContainer/Generation/MarginContainer/VBoxContainer/SpawnableBox/Button" to="." method="_on_spawnables_button_toggled"]
+[connection signal="pressed" from="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/8" to="." method="board_size_changed"]
+[connection signal="pressed" from="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/16" to="." method="board_size_changed"]
+[connection signal="pressed" from="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/32" to="." method="board_size_changed"]
+[connection signal="toggled" from="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/SpawnableBox/Button" to="." method="_on_spawnables_button_toggled"]

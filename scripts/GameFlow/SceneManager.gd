@@ -10,7 +10,7 @@ func back_to_menu() -> void:
 	get_tree().change_scene_to_packed(MENU)
 	curr_scene = "menu"
 
-func start_to_game() -> void:
+func start_game() -> void:
 	get_tree().change_scene_to_packed(GAME)
 	curr_scene = "game"
 

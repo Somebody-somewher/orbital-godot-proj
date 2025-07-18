@@ -81,6 +81,7 @@ func _leave_lobby():
 
 func menu_leave_lobby():
 	PlayerManager.erasePlayer.rpc(multiplayer.get_unique_id())
+	
 	list_all_players.rpc()
 	await get_tree().create_timer(0.5).timeout 
 	multiplayer.multiplayer_peer = null

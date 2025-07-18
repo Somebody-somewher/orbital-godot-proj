@@ -8,19 +8,18 @@ var uuid_to_players : Dictionary[String, PlayerInfo] = {}
 var player_colors : Array[Color] = [Color.PINK, Color.LIGHT_SALMON, Color.AZURE, Color.AQUAMARINE]
 var color_index := 0
 
-@export var is_singleplayer : bool = false
+@export var is_multiplayer : bool = false
 
 func _ready():
 	## TODO: Need a better system than this
 	# Creates a "fake" single player for singleplayer
-	if is_singleplayer:
-		print_debug("NOTE: SINGLEPLAYER SELECT ON THE GET GO")
+	if !is_multiplayer:
 		addPlayer("PlaceholderPlayerUUID", multiplayer.get_unique_id(), "PlaceholderPlayer")
 	pass
 
-func declare_singleplayer() -> void:
-	is_singleplayer = true
-	addPlayer("PlaceholderPlayerUUID", multiplayer.get_unique_id(), "PlaceholderPlayer")
+func declare_multiplayer() -> void:
+	is_multiplayer = true
+	erasePlayerbyUUID("PlaceholderPlayerUUID")
 
 func hasPlayer(peer_id : int) -> bool:
 	return peerid_to_players.has(peer_id)
@@ -49,8 +48,15 @@ func forEachPlayer(function : Callable) -> Array[Variant]:
 
 @rpc("call_local", "any_peer")
 func erasePlayer(id : int) -> void:
-	uuid_to_players.erase(peerid_to_players[id].getPlayerUUID())
-	peerid_to_players.erase(id)
+	if hasPlayer(id):
+		uuid_to_players.erase(peerid_to_players[id].getPlayerUUID())
+		peerid_to_players.erase(id)
+
+@rpc("call_local", "any_peer")
+func erasePlayerbyUUID(uuid : String) -> void:
+	if hasPlayerUUID(uuid):
+		peerid_to_players.erase(uuid_to_players[uuid].getPlayerId())
+		uuid_to_players.erase(uuid)
 	
 @rpc("call_local", "any_peer")
 func clearPlayers() -> void:
@@ -81,4 +87,4 @@ func amIPlayer(peer_uuid : String) -> bool:
 func reset() -> void:
 	clearPlayers()
 	color_index = 0
-	is_singleplayer = false
+	is_multiplayer = false

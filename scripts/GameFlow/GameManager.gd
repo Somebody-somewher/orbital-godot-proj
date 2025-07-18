@@ -9,13 +9,19 @@ class_name GameManager
 static var is_gameplay_paused := false
 static var is_everything_paused := false
 
+func set_up_settings(values : Dictionary) -> void:
+	CardLoader.setup()
+	if multiplayer.is_server():
+		var round_manager_instance = round_manager.instantiate()
+		add_child(round_manager_instance)
+		
+	
+
 func _ready() -> void:
 	AudioManager.play_bgm("plains")
 	Signalbus.server_create_packs.connect(pause_gameplay)
 	Signalbus.server_pack_choosing_end.connect(unpause_gameplay)
-	CardLoader.setup()
-	if multiplayer.is_server():
-		add_child(round_manager.instantiate())
+
 	
 	
 @rpc("any_peer", "call_local")

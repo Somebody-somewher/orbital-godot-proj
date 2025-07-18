@@ -195,7 +195,7 @@ _data = {
 &"exit": SubResource("Animation_c2ct2")
 }
 
-[node name="JoinMenu" type="Control"]
+[node name="JoinMenu" type="Control" node_paths=PackedStringArray("ip_textbox", "port_textbox", "name_textbox", "players_list", "join_btn")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -204,6 +204,11 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_g7ip2")
+ip_textbox = NodePath("SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/AddressBox/TextEdit")
+port_textbox = NodePath("SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/Port/TextEdit")
+name_textbox = NodePath("SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/Namebox/TextEdit")
+players_list = NodePath("SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/PlayersBox/ScrollContainer/Playerlist")
+join_btn = NodePath("SettingsTabs/LeftTab/TabContainer/Joining/MarginContainer/VBoxContainer/VBoxContainer/AddressBox/join")
 
 [node name="Title" type="Control" parent="."]
 z_index = 1

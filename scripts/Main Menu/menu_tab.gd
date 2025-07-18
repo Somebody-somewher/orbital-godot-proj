@@ -1,9 +1,5 @@
-extends MenuTab
-class_name MultiplayerMenu
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass
+extends Control
+class_name MenuTab
 
 func animate(entering : bool) -> void:
 	if entering:
