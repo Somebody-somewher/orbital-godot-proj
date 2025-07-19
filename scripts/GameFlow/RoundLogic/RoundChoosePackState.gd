@@ -2,7 +2,7 @@ extends RoundState
 class_name RoundChoosePackState
 
 func round_start() -> void:
-	Signalbus.emit_signal("show_round_msg", "Pick your Pack!")
+	Signalbus.emit_multiplayer_signal.rpc("show_round_msg", ["Pick your Pack!"])
 	Signalbus.emit_signal("server_create_packs")
 	pass
 

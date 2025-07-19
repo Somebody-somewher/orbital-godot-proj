@@ -136,7 +136,7 @@ func reset_timer() -> void:
 func end_game(rankings : Array[String], player_scores : Dictionary[String, Dictionary]) -> void:
 	pause_timer = true
 	SceneManager.pause_everything.rpc()
-	Signalbus.emit_signal("end_game", rankings, player_scores)
+	Signalbus.emit_multiplayer_signal.rpc("end_game", [rankings, player_scores])
 	await get_tree().create_timer(end_game_wait).timeout
 	SceneManager.back_to_menu.rpc()
 	pass

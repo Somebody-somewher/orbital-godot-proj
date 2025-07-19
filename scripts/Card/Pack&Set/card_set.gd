@@ -42,7 +42,7 @@ func _ready() -> void:
 func shift_to_hand() -> void:
 	self.get_node("Area2D/CollisionShape2D").disabled = true
 	destroyed = true
-	(CardLoader.card_mem as ServerCardMemory).attempt_cardset_to_hand.rpc_id(1, cardpack_id, set_id,\
+	CardLoader.card_mem.attempt_cardset_to_hand.rpc_id(1, cardpack_id, set_id,\
 		 PlayerManager.getUUID_from_PeerID(multiplayer.get_unique_id()))
 
 func _shift_to_hand(cards : Array[String], set_id : String) -> void:

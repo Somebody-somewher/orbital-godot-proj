@@ -2,7 +2,7 @@ extends RoundState
 class_name RoundBuildState
 
 func round_start() -> void:
-	Signalbus.emit_signal("show_round_msg", "Build Phase!")
+	Signalbus.emit_multiplayer_signal("show_round_msg", ["Build Phase!"])
 	pass
 
 func round_end() -> void:

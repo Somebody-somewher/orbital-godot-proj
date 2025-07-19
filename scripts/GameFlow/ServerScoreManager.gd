@@ -60,8 +60,8 @@ func rank_player(original_winner : String, new_winner : String) -> bool:
 	elif new_win_medals < old_win_medals:
 		return true
 			
-	var new_win_score := len(player_scores[new_winner]["score"])
-	var old_win_score := len(player_scores[original_winner]["score"])
+	var new_win_score : int = player_scores[new_winner]["score"]
+	var old_win_score : int = player_scores[original_winner]["score"]
 	if new_win_score > old_win_score:
 		return false
 	elif new_win_score < old_win_score:
