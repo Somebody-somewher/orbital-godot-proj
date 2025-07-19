@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://dehbiymvw4gq5"]
+[gd_scene load_steps=45 format=3 uid="uid://dehbiymvw4gq5"]
 
 [ext_resource type="Script" uid="uid://baxm1vpvlaqw2" path="res://scripts/Main Menu/main_menu.gd" id="1_bnuun"]
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/Managers/player_hand.gd" id="2_bso06"]
@@ -36,6 +36,8 @@
 [sub_resource type="ButtonGroup" id="ButtonGroup_bnuun"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_xlgyj"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_x2k7b"]
 
 [sub_resource type="Shader" id="Shader_xpnd4"]
 code = "shader_type canvas_item;
@@ -317,13 +319,13 @@ layout_mode = 1
 board_size_grp = SubResource("ButtonGroup_xlgyj")
 
 [node name="8" parent="Menus/HostMenu/SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer" index="0"]
-button_group = SubResource("ButtonGroup_xlgyj")
+button_group = SubResource("ButtonGroup_x2k7b")
 
 [node name="16" parent="Menus/HostMenu/SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer" index="1"]
-button_group = SubResource("ButtonGroup_xlgyj")
+button_group = SubResource("ButtonGroup_x2k7b")
 
 [node name="32" parent="Menus/HostMenu/SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer" index="2"]
-button_group = SubResource("ButtonGroup_xlgyj")
+button_group = SubResource("ButtonGroup_x2k7b")
 
 [node name="JoinMenu" parent="Menus" instance=ExtResource("11_bqibv")]
 layout_mode = 1

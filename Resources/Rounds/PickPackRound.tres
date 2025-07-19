@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_c1neq")
-next_state_id = "build"
+next_state_ids = Array[String](["build"])
 state_id = "pick_pack"
 time = 20.0
 metadata/_custom_type_script = "uid://dysyr6lfwkyjf"

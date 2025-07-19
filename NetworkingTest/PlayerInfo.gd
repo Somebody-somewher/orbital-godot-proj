@@ -5,6 +5,7 @@ var pid : int
 var pName : String
 var uuid : String
 var colour : Color
+
 # Board data
 var _boards_interactable : Array[bool] = []
 

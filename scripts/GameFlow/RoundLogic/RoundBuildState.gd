@@ -5,6 +5,9 @@ func round_start() -> void:
 	pass
 
 func round_end() -> void:
-	#Signalbus.emit_signal("server_pack_choosing_end")
-	super.round_end()
+	if update_round_count.call():
+		emit_signal("transition_to", "END")
+	else:
+		emit_signal("transition_to", next_state_ids[0])
+	#super.round_end()
 	pass
