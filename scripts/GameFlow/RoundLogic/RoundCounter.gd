@@ -132,6 +132,8 @@ func reset_timer() -> void:
 func end_game(player_uuid : String, player_scores : Dictionary[String, int], player_medals : Dictionary[String, Array]) -> void:
 	pause_timer = true
 	print("GAME END WOWOWOWOWOWO")
+	SceneManager.pause_gameplay.rpc()
+	
 	#SceneManager.back_to_menu()
 	pass
 	

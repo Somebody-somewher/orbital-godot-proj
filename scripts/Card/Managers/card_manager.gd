@@ -144,12 +144,13 @@ func connect_card_signals(card : Card):
 # they are only called when board_ref != null and card is being dragged
 
 func card_flip_if_near_board() -> void:
-	if !card_flipped and board_ref.is_mouse_near_interactable_board():
-		card_flipped = true
-		card_dragged.card_flip_to_entity()
-	if card_flipped and !board_ref.is_mouse_near_interactable_board():
-		card_dragged.entity_flip_to_card()
-		card_flipped = false
+	if !SceneManager.is_gameplay_paused:
+		if !card_flipped and board_ref.is_mouse_near_interactable_board():
+			card_flipped = true
+			card_dragged.card_flip_to_entity()
+		if card_flipped and !board_ref.is_mouse_near_interactable_board():
+			card_dragged.entity_flip_to_card()
+			card_flipped = false
 
 func highlight_effects_when_hovering_card() -> void :
 	# card ghost snapping to grid

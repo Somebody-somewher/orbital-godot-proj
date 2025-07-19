@@ -226,7 +226,7 @@ func server_check_tilepos_in_interactable(player_uuid : String, tilepos : Vector
 	return false
 
 func server_interactability_check(remote_id : int, tile_pos : Vector2i, upon_success : Callable) -> bool:
-	if tile_pos != NULL_TILE and server_check_tilepos_in_interactable(PlayerManager.getUUID_from_PeerID(remote_id),\
+	if tile_pos != NULL_TILE and !SceneManager.is_gameplay_paused and server_check_tilepos_in_interactable(PlayerManager.getUUID_from_PeerID(remote_id),\
 		tilemap_to_matrix(tile_pos)):
 		return upon_success.call()
 	else:

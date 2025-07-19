@@ -7,18 +7,13 @@ class_name GameManager
 @export var round_manager : PackedScene
 @export var settings : Dictionary
 
-
-static var is_gameplay_paused := false
-static var is_everything_paused := false
-
 func set_up_settings(settings : Dictionary) -> void:
 	self.settings = settings
 	pass
 
 func _ready() -> void:
 	AudioManager.play_bgm("plains")
-	Signalbus.server_create_packs.connect(pause_gameplay)
-	Signalbus.server_pack_choosing_end.connect(unpause_gameplay)
+
 	CardLoader.setup()
 	if multiplayer.is_server():
 		var round_manager_instance : RoundCounter = round_manager.instantiate()
@@ -27,13 +22,3 @@ func _ready() -> void:
 		add_child(round_manager_instance)
 	
 	
-@rpc("any_peer", "call_local")
-func pause_gameplay() -> void:
-	_set_pause_gameplay(true)
-
-@rpc("any_peer", "call_local")
-func unpause_gameplay() -> void:
-	_set_pause_gameplay(false)
-
-static func _set_pause_gameplay(setting : bool) -> void:
-	is_gameplay_paused = setting

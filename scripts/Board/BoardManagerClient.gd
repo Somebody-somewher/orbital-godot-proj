@@ -152,7 +152,7 @@ func is_pos_near_board(mouse_pos : Vector2i, board_start_end_pos : Array) -> boo
 	return false
 
 func _process(delta: float) -> void:
-	if !NetworkManager.is_sync_fin:
+	if !NetworkManager.is_sync_fin or SceneManager.is_gameplay_paused:
 		return
 		
 	# Update the array which represents on all boards (on whether they are being hovered over)
@@ -176,7 +176,7 @@ func client_set_interactable_board(boards: Array) -> void:
 			, board_coords[1])
 
 func client_interactability_check(tile_pos : Vector2i, upon_success : Callable) -> bool:
-	if tile_pos != NULL_TILE and \
+	if tile_pos != NULL_TILE and !SceneManager.is_gameplay_paused and\
 		!matrix_data.get_interactable_boardcoords_of_tilepos(tilemap_to_matrix(tile_pos)).is_empty():
 		return upon_success.call()
 	else:
