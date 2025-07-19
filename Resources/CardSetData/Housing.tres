@@ -7,9 +7,8 @@ script = ExtResource("1_vbs3b")
 set_name = "Housing"
 cards = Dictionary[String, int]({
 "cottage": 2,
+"farmhouse": 1,
 "hut": 2
 })
-rarity = 1
-aquatic = false
-sabotage = false
+is_multiplayer = false
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

@@ -6,10 +6,8 @@
 script = ExtResource("1_qqvpx")
 set_name = "Ancient Curiosities"
 cards = Dictionary[String, int]({
-"obelisk": 2,
+"obelisk": 3,
 "summoning_circle": 1
 })
-rarity = 1
-aquatic = false
-sabotage = false
+is_multiplayer = false
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

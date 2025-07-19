@@ -8,7 +8,5 @@ set_name = "RATS"
 cards = Dictionary[String, int]({
 "rat": 4
 })
-rarity = 0
-aquatic = false
-sabotage = false
+is_multiplayer = false
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

@@ -7,10 +7,7 @@ script = ExtResource("1_j6sx6")
 set_name = "Empire"
 cards = Dictionary[String, int]({
 "castle": 1,
-"tower": 2,
-"wall": 2
+"tower": 4
 })
-rarity = 3
-aquatic = false
-sabotage = false
+is_multiplayer = false
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

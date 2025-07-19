@@ -4,13 +4,11 @@
 
 [resource]
 script = ExtResource("1_wqt71")
-set_name = "Homeless"
+set_name = "Alcohol"
 cards = Dictionary[String, int]({
 "campfire": 1,
 "hobo_tent": 3,
 "trash": 1
 })
-rarity = 0
-aquatic = false
-sabotage = false
+is_multiplayer = false
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

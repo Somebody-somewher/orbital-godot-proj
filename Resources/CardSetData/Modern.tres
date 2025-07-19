@@ -7,10 +7,8 @@ script = ExtResource("1_a0nn7")
 set_name = "Modern"
 cards = Dictionary[String, int]({
 "bank": 1,
-"cottage": 1,
+"cottage": 2,
 "store": 1
 })
-rarity = 0
-aquatic = false
-sabotage = false
+is_multiplayer = false
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

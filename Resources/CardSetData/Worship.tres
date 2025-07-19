@@ -6,11 +6,8 @@
 script = ExtResource("1_voxn0")
 set_name = "Worship"
 cards = Dictionary[String, int]({
-"bishop": 1,
 "obelisk": 2,
 "temple": 1
 })
-rarity = 2
-aquatic = false
-sabotage = false
+is_multiplayer = false
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

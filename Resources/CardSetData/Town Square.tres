@@ -1,17 +1,14 @@
 [gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://cxf1ei6yfsbx5"]
 
-[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_k8x66"]
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_hoy1b"]
 
 [resource]
-script = ExtResource("1_k8x66")
+script = ExtResource("1_hoy1b")
 set_name = "Town Square"
 cards = Dictionary[String, int]({
 "belltower": 1,
 "fountain": 1,
-"statue": 1,
-"wall": 1
+"statue": 1
 })
-rarity = 1
-aquatic = false
-sabotage = false
+is_multiplayer = false
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"
