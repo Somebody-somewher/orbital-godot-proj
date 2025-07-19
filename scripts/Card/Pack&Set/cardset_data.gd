@@ -8,5 +8,9 @@ class_name CardSetData
 @export var cards : Dictionary[String, int]
 @export var is_multiplayer : bool 
 
+# range from 0 - 3 (common, uncommon, rare, epic)
+@export var rarity : int = 0
+@export var aquatic : bool
+
 func get_id() -> String:
 	return set_name

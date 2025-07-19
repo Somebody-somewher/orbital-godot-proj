@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://iv3w3pu8flf7"]
+[gd_scene load_steps=24 format=3 uid="uid://iv3w3pu8flf7"]
 
 [ext_resource type="Shader" uid="uid://uj6l6cirvjto" path="res://shader/Foil/foil+dissolve.gdshader" id="1_u2vrp"]
 [ext_resource type="Script" uid="uid://conukf4ick1q8" path="res://scripts/Card/Pack&Set/card_pack.gd" id="1_wo5bd"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://imfgok6btu1v" path="res://assets/misc_sprites/check_normal.png" id="8_piws8"]
 [ext_resource type="Texture2D" uid="uid://ct7bq5ehjgc2a" path="res://assets/misc_sprites/check_click.png" id="9_j5qe6"]
 [ext_resource type="Texture2D" uid="uid://coprxc3q4806f" path="res://assets/misc_sprites/check_hover.png" id="10_6vscq"]
+[ext_resource type="Texture2D" uid="uid://q7fh7por4v12" path="res://assets/card_packs/pack_outline.png" id="10_i8ods"]
 [ext_resource type="Texture2D" uid="uid://dnydcvxn06lih" path="res://assets/misc_sprites/cross_normal.png" id="11_u2vrp"]
 [ext_resource type="Texture2D" uid="uid://dd4s3kj0v5qbw" path="res://assets/misc_sprites/cross_click.png" id="12_g5vyk"]
 [ext_resource type="Texture2D" uid="uid://py8js8sa5pvf" path="res://assets/misc_sprites/cross_hover.png" id="13_ntb6h"]
@@ -238,6 +239,10 @@ texture_normal = ExtResource("11_u2vrp")
 texture_pressed = ExtResource("12_g5vyk")
 texture_hover = ExtResource("13_ntb6h")
 stretch_mode = 3
+
+[node name="Outline" type="Sprite2D" parent="."]
+use_parent_material = true
+texture = ExtResource("10_i8ods")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 use_parent_material = true

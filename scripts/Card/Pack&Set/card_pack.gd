@@ -4,7 +4,7 @@ class_name CardPack
 #@export var pack_sets : Array[Array]##array of sets
 @export var pack_sets : Dictionary[String, Array]
 
-
+@onready var outline : Sprite2D = $Outline
 var is_cardsets_interactable := false
 
 @export var prepack_sets : Array[CardSetData]
@@ -152,9 +152,16 @@ func destroy_pack() -> void:
 #	queue_free()
 #>>>>>>> Condition-and-Effects-Expansion
 
+func set_outline_color(colour : Color) -> void:
+	sprite_ref.material.set_shader_parameter("outline_color", colour)
+
+func outline_pack(on : bool) -> void:
+	outline.visible = on
+
 func pack_chosen_update(colour_to_update : Color) -> void:
 	# Show indication pack was chosen
-	cardpack_sprite.modulate = colour_to_update
+	set_outline_color(colour_to_update)
+	outline_pack(true)
 	is_chosen = true
 	pass
 
