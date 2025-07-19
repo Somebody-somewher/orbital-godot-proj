@@ -6,8 +6,10 @@
 script = ExtResource("1_vxhe6")
 set_name = "Carrot"
 cards = Dictionary[String, int]({
-"carrots": 4,
+"carrots": 2,
 "pig": 1
 })
-is_multiplayer = false
+rarity = 1
+aquatic = false
+sabotage = false
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

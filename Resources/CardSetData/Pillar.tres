@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://dsitkms5hbxev"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_k8x66"]
+
+[resource]
+script = ExtResource("1_k8x66")
+set_name = "Pillar"
+cards = Dictionary[String, int]({
+"obelisk": 2
+})
+rarity = 0
+aquatic = false
+sabotage = false
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

@@ -1,20 +1,313 @@
-[gd_scene load_steps=12 format=3 uid="uid://cdp6pxvmemk4u"]
+[gd_scene load_steps=49 format=3 uid="uid://cdp6pxvmemk4u"]
 
 [ext_resource type="Script" uid="uid://dq7q74qaf5hj8" path="res://scripts/GameFlow/GameManager.gd" id="1_bjd11"]
-[ext_resource type="PackedScene" uid="uid://klvllydgi5tw" path="res://scenes/Game Flow/round_manager.tscn" id="2_ft6cd"]
 [ext_resource type="Script" uid="uid://cep46bfjthrc7" path="res://scripts/Card/Managers/card_manager.gd" id="3_jlsqs"]
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="5_1iba3"]
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/Managers/player_hand.gd" id="5_lhr70"]
 [ext_resource type="PackedScene" uid="uid://b43u6wsxnq4ai" path="res://scenes/Game Flow/input_manager.tscn" id="5_q8u5g"]
-[ext_resource type="Script" uid="uid://c5fouuecjsld6" path="res://scripts/camera.gd" id="6_3p2gp"]
-[ext_resource type="PackedScene" uid="uid://b6dee2ixvxkik" path="res://scenes/ui_layer.tscn" id="9_3p2gp"]
+[ext_resource type="Resource" uid="uid://e8ca0624on7f" path="res://Resources/CardSetData/Village.tres" id="6_1nqs0"]
+[ext_resource type="Script" uid="uid://c5fouuecjsld6" path="res://scenes/camera.gd" id="6_3p2gp"]
+[ext_resource type="PackedScene" uid="uid://iv3w3pu8flf7" path="res://scenes/Card/card_pack.tscn" id="6_wp0k4"]
+[ext_resource type="Resource" uid="uid://cggiwamgd6hyw" path="res://Resources/CardSetData/Farm.tres" id="7_1iba3"]
+[ext_resource type="Script" uid="uid://bbbnlosaie474" path="res://scripts/GameFlow/player_ui.gd" id="7_wp0k4"]
+[ext_resource type="Theme" uid="uid://igcyj7c6fdln" path="res://assets/fonts/cutey_card_theme.tres" id="8_lhr70"]
+[ext_resource type="Resource" uid="uid://c2ir4qvocok3n" path="res://Resources/CardSetData/Self Sustaining.tres" id="8_yxlcp"]
 [ext_resource type="PackedScene" uid="uid://bkog375sxl1lg" path="res://scenes/Compendium/compendium_container.tscn" id="10_1nqs0"]
-[ext_resource type="Script" uid="uid://byit5totk5tsn" path="res://scripts/Card/Pack&Set/CardPackManagerClient.gd" id="13_cvmbd"]
-[ext_resource type="Resource" uid="uid://b2ockuqgtwo7k" path="res://Resources/ProcGen/BoardProcGenerator.tres" id="16_ft6cd"]
+[ext_resource type="Script" uid="uid://bc4th2e5h0hj8" path="res://scripts/GameFlow/RoundCounter.gd" id="11_wp0k4"]
+[ext_resource type="PackedScene" uid="uid://c1n34pvf47rut" path="res://scenes/Menus/winner_screen.tscn" id="12_ebg2g"]
+[ext_resource type="Script" uid="uid://b2bvfgo8adhft" path="res://scripts/Card/Pack&Set/CardPackManager.gd" id="13_qmy6f"]
+[ext_resource type="FontFile" uid="uid://dj85nkjpq655u" path="res://assets/fonts/cjkFonts-allseto-v1.11-2.ttf" id="14_1iba3"]
+[ext_resource type="PackedScene" uid="uid://dwb51heekvc7a" path="res://scenes/Menus/disconnect_screen.tscn" id="15_ebg2g"]
+[ext_resource type="FontFile" uid="uid://njwdfbe6i0ko" path="res://assets/fonts/Comicy.ttf" id="15_yxlcp"]
+[ext_resource type="PackedScene" uid="uid://cyka8ysyph1xg" path="res://scenes/Audio/audio_manager.tscn" id="16_cvmbd"]
+[ext_resource type="Script" uid="uid://c8qc3g5w3svt1" path="res://addons/godot_resource_groups/resource_group.gd" id="17_1nqs0"]
 [ext_resource type="PackedScene" uid="uid://bxiy7ajwus31g" path="res://scenes/Board/board_manager.tscn" id="17_bb450"]
+[ext_resource type="Script" uid="uid://cats7srje6wix" path="res://scripts/Audio/AudioData.gd" id="17_ft6cd"]
 
-[node name="GameManager" type="Node"]
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_5lrws"]
+input_name = "texture"
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_5jsib"]
+
+[sub_resource type="VisualShaderNodeIf" id="VisualShaderNodeIf_5lrws"]
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_c0xei"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, Vector3(0.5, 0.5, 0.5)]
+op_type = 3
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_e8171"]
+constant = Color(0, 0, 0, 1)
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_8k820"]
+default_input_values = [0, 0.0, 1, 0.07]
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_c0xei"]
+parameter_name = "Noise"
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_e8171"]
+source = 5
+
+[sub_resource type="VisualShaderNodeIf" id="VisualShaderNodeIf_8k820"]
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_dmyvf"]
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_bp8cn"]
+constant = 1.0
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_5wtty"]
+parameter_name = "dissolve_value"
+hint = 1
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_o58jm"]
+expanded_output_ports = [0]
+source = 5
+
+[sub_resource type="VisualShader" id="VisualShader_ebg2g"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform sampler2D Noise;
+uniform float dissolve_value : hint_range(0.0, 1.0);
+
+
+
+void fragment() {
+// ColorConstant:14
+	vec4 n_out14p0 = vec4(0.000000, 0.000000, 0.000000, 1.000000);
+
+
+	vec4 n_out9p0;
+// Texture2D:9
+	n_out9p0 = texture(TEXTURE, UV);
+	float n_out9p4 = n_out9p0.a;
+
+
+	vec4 n_out3p0;
+// Texture2D:3
+	n_out3p0 = texture(Noise, UV);
+
+
+// FloatParameter:7
+	float n_out7p0 = dissolve_value;
+
+
+// FloatConstant:5
+	float n_out5p0 = 0.000000;
+
+
+// FloatConstant:6
+	float n_out6p0 = 1.000000;
+
+
+	vec3 n_out12p0;
+// If:12
+	float n_in12p2 = 0.00001;
+	vec3 n_in12p3 = vec3(0.00000, 0.00000, 0.00000);
+	if(abs(n_out3p0.x - n_out7p0) < n_in12p2)
+	{
+		n_out12p0 = n_in12p3;
+	}
+	else if(n_out3p0.x < n_out7p0)
+	{
+		n_out12p0 = vec3(n_out6p0);
+	}
+	else
+	{
+		n_out12p0 = vec3(n_out5p0);
+	}
+
+
+// Mix:13
+	vec3 n_out13p0 = mix(vec3(n_out14p0.xyz), vec3(n_out9p0.xyz), n_out12p0);
+
+
+// FloatOp:15
+	float n_in15p1 = 0.07000;
+	float n_out15p0 = n_out7p0 + n_in15p1;
+
+
+	vec3 n_out4p0;
+// If:4
+	float n_in4p2 = 0.00001;
+	vec3 n_in4p3 = vec3(0.00000, 0.00000, 0.00000);
+	if(abs(n_out3p0.x - n_out15p0) < n_in4p2)
+	{
+		n_out4p0 = n_in4p3;
+	}
+	else if(n_out3p0.x < n_out15p0)
+	{
+		n_out4p0 = vec3(n_out6p0);
+	}
+	else
+	{
+		n_out4p0 = vec3(n_out5p0);
+	}
+
+
+// Mix:11
+	float n_in11p0 = 0.00000;
+	float n_out11p0 = mix(n_in11p0, n_out4p0.x, n_out9p4);
+
+
+// Output:0
+	COLOR.rgb = n_out13p0;
+	COLOR.a = n_out11p0;
+
+
+}
+"
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(1500, 680)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture2DParameter_c0xei")
+nodes/fragment/2/position = Vector2(100, 220)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_e8171")
+nodes/fragment/3/position = Vector2(420, 360)
+nodes/fragment/4/node = SubResource("VisualShaderNodeIf_8k820")
+nodes/fragment/4/position = Vector2(820, 760)
+nodes/fragment/5/node = SubResource("VisualShaderNodeFloatConstant_dmyvf")
+nodes/fragment/5/position = Vector2(500, 820)
+nodes/fragment/6/node = SubResource("VisualShaderNodeFloatConstant_bp8cn")
+nodes/fragment/6/position = Vector2(500, 920)
+nodes/fragment/7/node = SubResource("VisualShaderNodeFloatParameter_5wtty")
+nodes/fragment/7/position = Vector2(-20, 620)
+nodes/fragment/9/node = SubResource("VisualShaderNodeTexture_o58jm")
+nodes/fragment/9/position = Vector2(780, 1040)
+nodes/fragment/10/node = SubResource("VisualShaderNodeInput_5lrws")
+nodes/fragment/10/position = Vector2(460, 1080)
+nodes/fragment/11/node = SubResource("VisualShaderNodeMix_5jsib")
+nodes/fragment/11/position = Vector2(1220, 760)
+nodes/fragment/12/node = SubResource("VisualShaderNodeIf_5lrws")
+nodes/fragment/12/position = Vector2(820, 500)
+nodes/fragment/13/node = SubResource("VisualShaderNodeMix_c0xei")
+nodes/fragment/13/position = Vector2(1220, 460)
+nodes/fragment/14/node = SubResource("VisualShaderNodeColorConstant_e8171")
+nodes/fragment/14/position = Vector2(900, 300)
+nodes/fragment/15/node = SubResource("VisualShaderNodeFloatOp_8k820")
+nodes/fragment/15/position = Vector2(300, 700)
+nodes/fragment/connections = PackedInt32Array(2, 0, 3, 2, 3, 0, 4, 0, 5, 0, 4, 4, 6, 0, 4, 5, 4, 0, 11, 1, 9, 4, 11, 2, 3, 0, 12, 0, 7, 0, 12, 1, 5, 0, 12, 4, 6, 0, 12, 5, 9, 0, 13, 1, 12, 0, 13, 2, 14, 0, 13, 0, 7, 0, 15, 0, 15, 0, 4, 1, 11, 0, 0, 1, 13, 0, 0, 0, 10, 0, 9, 2)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4dx8l"]
+frequency = 0.0017
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qf083"]
+noise = SubResource("FastNoiseLite_4dx8l")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yxlcp"]
+resource_local_to_scene = true
+shader = SubResource("VisualShader_ebg2g")
+shader_parameter/Noise = SubResource("NoiseTexture2D_qf083")
+shader_parameter/dissolve_value = 1.0
+
+[sub_resource type="Resource" id="Resource_1nqs0"]
+script = ExtResource("5_1iba3")
+set_name = "AuraTest"
+cards = Dictionary[String, int]({
+"dummy_aura": 1
+})
+rarity = 0
+aquatic = false
+sabotage = false
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"
+
+[sub_resource type="Animation" id="Animation_yxlcp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ErrorLabel:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1iba3"]
+resource_name = "show"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ErrorLabel:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.96667, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ebg2g"]
+_data = {
+&"RESET": SubResource("Animation_yxlcp"),
+&"show": SubResource("Animation_1iba3")
+}
+
+[sub_resource type="Animation" id="Animation_2ofn6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -600)]
+}
+
+[sub_resource type="Animation" id="Animation_ebg2g"]
+resource_name = "pop_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.233333),
+"transitions": PackedFloat32Array(1.46409, 0.5, 1),
+"update": 0,
+"values": [Vector2(0, -600), Vector2(0, 40), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../TextureRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.134482),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xa025"]
+_data = {
+&"RESET": SubResource("Animation_2ofn6"),
+&"pop_up": SubResource("Animation_ebg2g")
+}
+
+[sub_resource type="Resource" id="Resource_1iba3"]
+script = ExtResource("17_1nqs0")
+base_folder = "res://Resources/CardSetData//"
+includes = Array[String](["**.tres"])
+excludes = Array[String]([])
+paths = Array[String]([])
+metadata/_custom_type_script = "uid://c8qc3g5w3svt1"
+
+[node name="GameManager" type="Node" node_paths=PackedStringArray("round_manager", "card_pack_manager")]
 script = ExtResource("1_bjd11")
-round_manager = ExtResource("2_ft6cd")
+round_manager = NodePath("RoundCounter")
+card_pack_manager = NodePath("CardPackManager")
 
 [node name="CardManager" type="Node2D" parent="." node_paths=PackedStringArray("board_ref", "player_hand_ref", "input_manager_ref", "preview_board_ref")]
 script = ExtResource("3_jlsqs")
@@ -23,9 +316,15 @@ player_hand_ref = NodePath("../PlayerHand")
 input_manager_ref = NodePath("../InputManager")
 preview_board_ref = NodePath("../BoardManager/Preview")
 
+[node name="CardPack" parent="CardManager" instance=ExtResource("6_wp0k4")]
+z_index = 99
+material = SubResource("ShaderMaterial_yxlcp")
+position = Vector2(1268, 1274)
+pack_sets = Array[ExtResource("5_1iba3")]([ExtResource("6_1nqs0"), ExtResource("7_1iba3"), ExtResource("8_yxlcp"), SubResource("Resource_1nqs0")])
+
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("board")]
 script = ExtResource("6_3p2gp")
-board = NodePath("../BoardManager")
+board = NodePath("../BoardManager/Preview")
 
 [node name="PlayerHand" type="Node2D" parent="."]
 z_index = 1
@@ -34,19 +333,151 @@ script = ExtResource("5_lhr70")
 [node name="InputManager" parent="." instance=ExtResource("5_q8u5g")]
 position = Vector2(879, 480)
 
-[node name="UILayer" parent="." instance=ExtResource("9_3p2gp")]
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="PlayerUI" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("7_wp0k4")
+
+[node name="WinnerScreen" parent="UILayer/PlayerUI" instance=ExtResource("12_ebg2g")]
+layout_mode = 1
+
+[node name="DisconnectScreen" parent="UILayer/PlayerUI" instance=ExtResource("15_ebg2g")]
+z_index = 2
+layout_mode = 1
+
+[node name="ScoreLabel" type="Label" parent="UILayer/PlayerUI"]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 29.0
+offset_right = 105.0
+offset_bottom = 84.0
+theme = ExtResource("8_lhr70")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "Score: 0"
+
+[node name="RoundLabel" type="Label" parent="UILayer/PlayerUI"]
+layout_mode = 0
+offset_left = 1397.0
+offset_top = 12.0
+offset_right = 1568.0
+offset_bottom = 56.0
+theme = ExtResource("8_lhr70")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "Round: 1"
+
+[node name="EndTurn" type="Button" parent="UILayer/PlayerUI"]
+layout_mode = 0
+offset_left = 1369.0
+offset_top = 800.0
+offset_right = 1560.0
+offset_bottom = 849.0
+theme = ExtResource("8_lhr70")
+theme_override_font_sizes/font_size = 40
+text = "End Turn"
+
+[node name="RoundTimerLabel" type="Label" parent="UILayer/PlayerUI"]
+layout_mode = 0
+offset_left = 1371.0
+offset_top = 737.0
+offset_right = 1566.0
+offset_bottom = 778.0
+theme = ExtResource("8_lhr70")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "Timer: 30"
+
+[node name="ErrorMsg" type="Control" parent="UILayer/PlayerUI"]
+layout_mode = 1
+anchor_top = 0.178
+anchor_right = 1.0
+anchor_bottom = 0.494
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ErrorLabel" type="Label" parent="UILayer/PlayerUI/ErrorMsg"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -0.5
+offset_right = 0.5
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("14_1iba3")
+theme_override_font_sizes/font_size = 40
+text = "Error! Cannot place there, it's too wrong"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UILayer/PlayerUI/ErrorMsg"]
+libraries = {
+&"": SubResource("AnimationLibrary_ebg2g")
+}
+
+[node name="RoundMsg" type="Control" parent="UILayer/PlayerUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -600.0
+offset_bottom = -600.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="UILayer/PlayerUI/RoundMsg"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.5
+offset_top = -48.5
+offset_right = 230.5
+offset_bottom = 48.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 36
+theme_override_fonts/font = ExtResource("15_yxlcp")
+theme_override_font_sizes/font_size = 100
+text = "ROUND 1"
+uppercase = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UILayer/PlayerUI/RoundMsg"]
+libraries = {
+&"": SubResource("AnimationLibrary_xa025")
+}
 
 [node name="CompendiumLayer" type="CanvasLayer" parent="."]
 layer = 2
 
 [node name="CompendiumContainer" parent="CompendiumLayer" instance=ExtResource("10_1nqs0")]
 
+[node name="RoundCounter" type="Node" parent="."]
+script = ExtResource("11_wp0k4")
+
 [node name="CardPackManager" type="Node" parent="." node_paths=PackedStringArray("spawn_node")]
-script = ExtResource("13_cvmbd")
+script = ExtResource("13_qmy6f")
 spawn_node = NodePath("../CardManager")
+cardset_grp = SubResource("Resource_1iba3")
+
+[node name="AudioManager" parent="." instance=ExtResource("16_cvmbd")]
+SFX_AUDIOS = Dictionary[String, ExtResource("17_ft6cd")]({})
 
 [node name="BoardManager" parent="." instance=ExtResource("17_bb450")]
-proc_gen = ExtResource("16_ft6cd")
 
-[editable path="UILayer"]
+[connection signal="pressed" from="UILayer/PlayerUI/EndTurn" to="UILayer/PlayerUI" method="_on_end_turn_pressed"]
+
 [editable path="BoardManager"]

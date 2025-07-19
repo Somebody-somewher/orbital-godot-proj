@@ -6,9 +6,11 @@
 script = ExtResource("1_vtqe6")
 set_name = "Self Sustaining"
 cards = Dictionary[String, int]({
-"carrots": 1,
-"garden": 2,
-"market": 1
+"garden": 1,
+"market": 1,
+"tomato": 2
 })
-is_multiplayer = false
+rarity = 1
+aquatic = false
+sabotage = false
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

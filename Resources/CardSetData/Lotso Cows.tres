@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://cl2hkuboh2shd"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_55vat"]
+
+[resource]
+script = ExtResource("1_55vat")
+set_name = "Lotso Cows"
+cards = Dictionary[String, int]({
+"cow": 5
+})
+rarity = 2
+aquatic = false
+sabotage = false
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

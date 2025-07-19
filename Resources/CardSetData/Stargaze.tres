@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://bk2p2n5s48gwo"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_twfoj"]
+
+[resource]
+script = ExtResource("1_twfoj")
+set_name = "Stargaze"
+cards = Dictionary[String, int]({
+"observatory": 1,
+"telescope": 2
+})
+rarity = 1
+aquatic = false
+sabotage = false
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

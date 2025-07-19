@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://8gdngu4rcr4v"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_b0s1h"]
+
+[resource]
+script = ExtResource("1_b0s1h")
+set_name = "Fish Farm"
+cards = Dictionary[String, int]({
+"fish": 2,
+"net": 1
+})
+rarity = 1
+aquatic = true
+sabotage = false
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://b1j32die46dwg"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_2ykcd"]
+
+[resource]
+script = ExtResource("1_2ykcd")
+set_name = "Orchard"
+cards = Dictionary[String, int]({
+"fruit_tree": 2
+})
+rarity = 0
+aquatic = false
+sabotage = false
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

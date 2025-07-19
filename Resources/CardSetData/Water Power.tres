@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://cs7d3agthcv31"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_tkvpi"]
+
+[resource]
+script = ExtResource("1_tkvpi")
+set_name = "Water Power"
+cards = Dictionary[String, int]({
+"lumber_mill": 1,
+"mill": 1,
+"water_wheel": 1
+})
+rarity = 1
+aquatic = true
+sabotage = false
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

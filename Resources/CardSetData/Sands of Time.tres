@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://3d7u5hlo4jhl"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_2avh2"]
+
+[resource]
+script = ExtResource("1_2avh2")
+set_name = "Sands of Time"
+cards = Dictionary[String, int]({
+"hourglass": 2,
+"sand": 1
+})
+rarity = 2
+aquatic = false
+sabotage = false
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"
