@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://c5fouuecjsld6" path="res://scripts/camera.gd" id="6_3p2gp"]
 [ext_resource type="PackedScene" uid="uid://b6dee2ixvxkik" path="res://scenes/ui_layer.tscn" id="9_3p2gp"]
 [ext_resource type="PackedScene" uid="uid://bkog375sxl1lg" path="res://scenes/Compendium/compendium_container.tscn" id="10_1nqs0"]
-[ext_resource type="Script" uid="uid://byit5totk5tsn" path="res://scripts/Card/Pack&Set/CardPackManagerClient.gd" id="13_cvmbd"]
+[ext_resource type="Script" path="res://scripts/Card/Pack&Set/CardPackManagerClient.gd" id="13_cvmbd"]
 [ext_resource type="Resource" uid="uid://b2ockuqgtwo7k" path="res://Resources/ProcGen/BoardProcGenerator.tres" id="16_ft6cd"]
 [ext_resource type="PackedScene" uid="uid://bxiy7ajwus31g" path="res://scenes/Board/board_manager.tscn" id="17_bb450"]
 
@@ -35,6 +35,12 @@ script = ExtResource("5_lhr70")
 position = Vector2(879, 480)
 
 [node name="UILayer" parent="." instance=ExtResource("9_3p2gp")]
+
+[node name="DisconnectScreen" parent="UILayer" index="1"]
+visible = false
+
+[node name="WinnerScreen" parent="UILayer" index="2"]
+visible = false
 
 [node name="CompendiumLayer" type="CanvasLayer" parent="."]
 layer = 2

@@ -71,5 +71,6 @@ func emit_multiplayer_signal(signal_to_call : String, args : Array):
 signal show_error_msg(msg : String)
 signal show_round_msg(msg : String)
 
+signal end_game(winner_uuid : String, player_scores : Dictionary[String, Dictionary])
 # EventManager
 #signal trigger_effect(bid : BuildingInstanceData, effect_type : Sting)

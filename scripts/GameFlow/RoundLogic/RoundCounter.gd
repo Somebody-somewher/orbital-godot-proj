@@ -26,13 +26,15 @@ var round_num_game_end : int = -1
 var score_manager : ScoreManager
 
 
-
 # Timer-related
 var curr_timer : float = 0.0
 var prev_s : int
 var pause_timer : bool = false
 
 @export var round_id_lookup : Dictionary[String, RoundState]
+
+
+@export var end_game_wait := 25.0
 
 # Called when the node enters the scene tree for the first time.
 #func _ready() -> void:
@@ -129,12 +131,12 @@ func reset_timer() -> void:
 	prev_s = int(curr_timer)
 	pause_timer = false
 
-func end_game(player_uuid : String, player_scores : Dictionary[String, int], player_medals : Dictionary[String, Array]) -> void:
+func end_game(rankings : Array[String], player_scores : Dictionary[String, Dictionary]) -> void:
 	pause_timer = true
-	print("GAME END WOWOWOWOWOWO")
-	SceneManager.pause_gameplay.rpc()
-	
-	#SceneManager.back_to_menu()
+	SceneManager.pause_everything.rpc()
+	Signalbus.emit_signal("end_game", rankings, player_scores)
+	await get_tree().create_timer(end_game_wait).timeout
+	SceneManager.back_to_menu.rpc()
 	pass
 	
 func add_rount_count() -> bool:

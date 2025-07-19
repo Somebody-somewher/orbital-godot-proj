@@ -72,6 +72,9 @@ func getPeerID_from_UUID(uuid : String) -> int:
 func getUUID_from_PeerID(peer_id : int) -> String:
 	return peerid_to_players[peer_id].getPlayerUUID()
 
+func getPlayerName_from_UUID(uuid : String) -> String:
+	return uuid_to_players[uuid].getPlayerName()
+
 func getCurrentPlayerUUID() -> String:
 	return peerid_to_players[multiplayer.get_unique_id()].getPlayerUUID()
 
