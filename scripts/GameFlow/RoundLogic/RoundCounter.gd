@@ -74,6 +74,8 @@ func set_up(settings : Dictionary) -> void:
 	
 	#round_grp.load_all_into(possible_rounds)
 	NetworkManager.connect("all_clients_ready", start_round_manager)
+	
+	# NOTE: If this produces an error, check NetworkManager debug is set to true
 	NetworkManager.server_net.mark_server_component_ready(self.name)
 
 func start_round_manager():

@@ -82,11 +82,9 @@ func on_close_join():
 	NetworkManager.get_node("Lobby").menu_leave_lobby()
 
 func on_start_multiplayer():
-	PlayerManager.declare_multiplayer()	
 	initialize_game.rpc(multi_host_menu.get_game_settings())
 
 func on_start_singleplayer() -> void:
-	
 	initialize_game(singleplayer_menu.get_game_settings())
 
 func on_exit_game() -> void:

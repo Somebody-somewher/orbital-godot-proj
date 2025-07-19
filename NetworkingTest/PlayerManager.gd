@@ -91,3 +91,4 @@ func reset() -> void:
 	clearPlayers()
 	color_index = 0
 	is_multiplayer = false
+	addPlayer("PlaceholderPlayerUUID", multiplayer.get_unique_id(), "PlaceholderPlayer")

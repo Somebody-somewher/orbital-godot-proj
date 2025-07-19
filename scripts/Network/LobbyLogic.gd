@@ -51,6 +51,7 @@ func _create_server():
 		curr_status = "Cannot host. Error: " + str(error) 
 		return error
 	multiplayer.multiplayer_peer = peer
+	PlayerManager.declare_multiplayer()	
 	_register_player(h_name_field.text, PlayerInfo.generateUUID(h_name_field.text), multiplayer.get_unique_id())
 
 	
@@ -71,6 +72,7 @@ func _connect_client(addr = "", port = ""):
 		return error
 		
 	multiplayer.multiplayer_peer = peer
+	PlayerManager.declare_multiplayer()	
 	_register_player(j_name_field.text, PlayerInfo.generateUUID(j_name_field.text), multiplayer.get_unique_id())
 
 
@@ -140,8 +142,10 @@ func _on_server_disconnected():
 	Signalbus.emit_signal("notif_msg", "The server has died X.X")
 	print("Server ded X.X")
 	PlayerManager.clearPlayers()
+	
 	if SceneManager.curr_scene == "menu":
 		clear_player_list()
+		PlayerManager.reset()
 	_leave_lobby()
 	#
 	SceneManager.back_to_menu()
