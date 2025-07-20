@@ -54,10 +54,10 @@ func setup(cag : CardAttributeGenerator = null, csa : CardSetAllocator = null) -
 
 		cardpack_gen.server_setup(card_attribute_gen, csa)
 		card_mem = ServerCardMemory.new()
-		card_mem.name = "ServerMemory"
+		card_mem.name = "CardMemory"
 	else:
 		card_mem = CardMemory.new()
-		card_mem.name = "ClientMemory"
+		card_mem.name = "CardMemory"
 	
 	add_child(card_mem)
 	card_mem.setup()
