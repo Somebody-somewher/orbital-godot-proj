@@ -3,10 +3,10 @@ class_name CardSet
 
 var cards_in_set : Array[Card]
 var destroyed : bool = false
-var set_id : int 
+var set_id : String 
 var cardpack_id : int
 
-func set_up(card_set : Array, set_id : int, cardpack_id : int) -> void:
+func set_up(card_set : Array, set_id : String, cardpack_id : int) -> void:
 	cards_in_set.assign(card_set)
 	self.set_id = set_id
 	self.cardpack_id = cardpack_id
@@ -42,18 +42,20 @@ func _ready() -> void:
 func shift_to_hand() -> void:
 	self.get_node("Area2D/CollisionShape2D").disabled = true
 	destroyed = true
-	CardLoader.attempt_add_to_hand.rpc_id(1, set_id, cardpack_id)
+	CardLoader.card_mem.attempt_cardset_to_hand.rpc_id(1, cardpack_id, set_id,\
+		 PlayerManager.getUUID_from_PeerID(multiplayer.get_unique_id()))
 
-func _shift_to_hand(cards : Array[String], set_id : int) -> void:
+func _shift_to_hand(cards : Array[String], set_id : String) -> void:
 	if self.set_id != set_id:
 		return 
-		
+	
 	for card_id in cards:
-		for card_in_set in cards_in_set:
+		for card_in_set in cards_in_set:			
 			if card_id in card_in_set.get_data_instance_id():
 				cards_in_set.erase(card_in_set)
+				Signalbus.emit_signal("register_to_cardmanager", card_in_set)
 				Signalbus.emit_signal("add_to_hand", card_in_set)
-				break
+			break			
 	
 	for remainder in cards_in_set:
 		remainder.dissolve_card()

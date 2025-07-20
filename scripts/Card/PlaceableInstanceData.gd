@@ -1,13 +1,33 @@
-extends CardInstanceData
+extends PlayableInstanceData
 class_name PlaceableInstanceData
 
-var data : PlaceableData
+var destroy_func : Callable
 
 func _init(instance_id : String, data : PlaceableData, card_attr : int):
-	super._init(instance_id, data)
-	self.data = data
+	super._init(instance_id, data, card_attr)
 
-func get_data() -> BuildingData:
+
+func get_data() -> PlaceableData:
 	return data	
 
-		
+func serialize() -> Dictionary:
+	var output = super.serialize()
+	output['data_id'] = data.get_id()
+	return output
+
+func resync(serialized_obj : Dictionary) -> void:
+	super.resync(serialized_obj)
+
+static func deserialize(serialized_obj : Dictionary, data : CardData) -> PlaceableInstanceData:
+	var instance := PlaceableInstanceData.new("", null, 0)
+	instance.resync(serialized_obj)
+	instance.data = (data as PlaceableData)
+
+	return instance	
+
+func client_on_place(on_destroy : Callable) -> void:
+	destroy_func = on_destroy
+
+func destroy() -> void:
+	if destroy_func:
+		destroy_func.call()

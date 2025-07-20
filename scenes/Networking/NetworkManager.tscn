@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://omhq0hatvgkd"]
+[gd_scene load_steps=3 format=3 uid="uid://omhq0hatvgkd"]
 
 [ext_resource type="Script" uid="uid://bjfdxdaoqnh3p" path="res://scripts/Network/NetworkManager.gd" id="1_7xc1i"]
+[ext_resource type="Script" uid="uid://ukqg1ehwf75v" path="res://scripts/Network/LobbyLogic.gd" id="2_cgb8y"]
 
 [node name="NetworkManager" type="Node"]
 script = ExtResource("1_7xc1i")
@@ -10,3 +11,6 @@ client_components = Dictionary[String, bool]({
 server_components = Dictionary[String, bool]({
 "RoundManager": false
 })
+
+[node name="Lobby" type="Node" parent="."]
+script = ExtResource("2_cgb8y")

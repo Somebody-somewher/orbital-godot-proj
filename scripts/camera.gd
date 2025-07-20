@@ -1,6 +1,6 @@
 extends Camera2D
 
-@export var board: BoardPreviewerTileMap
+@export var board: BoardManagerClient
 @onready var player_hand: PlayerHand = $"../PlayerHand"
 @onready var card_manager: CardManager = $"../CardManager"
 
@@ -35,7 +35,7 @@ func _physics_process(delta: float) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if !cam_enabled or !NetworkManager.is_sync_fin:
+	if !cam_enabled or !NetworkManager.is_sync_fin or SceneManager.is_everything_paused:
 		return
 	if !camera_dragged:
 		var delta_pos =  restrict_camera_to_board()

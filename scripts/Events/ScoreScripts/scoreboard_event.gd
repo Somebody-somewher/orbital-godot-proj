@@ -15,11 +15,11 @@ func score_tiles(_tile_pos : Vector2i) -> Array[Array]:
 
 # Displays the textlabel scoring above each tile. Board calls this function during preview_placement
 # Note that this does not finalize the scoring
-func preview(board : BoardMatrixData, previewer : Callable, tile_pos : Vector2i) -> void:
+func preview(board : BoardMatrixData, previewer : Callable, tile_pos : Vector2i, caller : CardInstanceData) -> void:
 	pass
 
 
-func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : Node2D) -> void:
+func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstanceData) -> void:
 	pass
 
 # TO OVERRIDE

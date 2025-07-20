@@ -3,9 +3,7 @@ class_name CardPackManagerClient
 
 @export var spawn_node : Node
 
-static var cardpack_created_total_count := 0
-
-var card_pack_nodes : Array[CardPack]
+var card_pack_nodes : Dictionary[int, CardPack]
 
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,40 +15,48 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 @rpc("any_peer","call_local")
-func create_pack(packs : Array[Array]) -> void:
+func create_pack(packs : Dictionary[int, Dictionary]) -> void:
+	#print(packs, PlayerManager.getCurrentPlayerUUID())
 	var card_pack : CardPack
-	var card_pack_index := 0
-	for p_index in range(len(packs)):
-		card_pack = CardPack.new_pack(packs[p_index], p_index, cardpack_created_total_count)
-		cardpack_created_total_count += 1
+	var pack_ids := packs.keys()
+	var pack_contents := packs.values()
+	
+	var packs_to_insert : Dictionary[String, Array]
+	
+	for pack_id in packs.keys():
+		card_pack = CardPack.new_pack(packs[pack_id], pack_id)
 		card_pack.set_position(Vector2i(0,0))
 		spawn_node.add_child(card_pack)
-		card_pack_nodes.append(card_pack)
+		card_pack_nodes[pack_id] = card_pack
 
 # Client-facing function rpc'd by Server
 # Initiated when any player chooses a pack
 @rpc("any_peer","call_local")
-func _choose_pack_ui_update(chosen_packindex : int) -> void:
-	var cardpack : CardPack = card_pack_nodes[chosen_packindex]
+func _choose_pack_ui_update(chosen_packid : int, colour : Color) -> void:
+	var cardpack : CardPack = card_pack_nodes[chosen_packid]
 	
-	CardLoader.cardpack_gen.update_local_cardpack_choice(chosen_packindex, cardpack.get_id())
+	#CardLoader.cardpack_gen.update_local_cardpack_choice(chosen_packindex, cardpack.get_id())
 	
-	cardpack.pack_chosen_update(Color.RED)
-	
+	cardpack.pack_chosen_update(colour)
+	# Need a delay probably between deleting the pack and doing this action
 
 @rpc("any_peer","call_local")
 func finalize_pack_choices(pack_id : int) -> void:
 	
 	# Remove all remaining packs
 	var temp : CardPack
-	for pack in card_pack_nodes:
-		if pack.pack_id != pack_id:
-			temp = pack
-			card_pack_nodes.erase(temp)
-			temp.destroy_pack()
+	var to_erase : Array[int]
+	
+	for id in card_pack_nodes.keys():
+		if id != pack_id:
+			to_erase.append(id)
 		else:
-			pack.set_cardset_interactable(remove_pack)
-			pack.make_sets_choosable()
+			card_pack_nodes[id].set_cardset_interactable(remove_pack)
+			card_pack_nodes[id].make_sets_choosable()
+	
+	for id in to_erase:
+		card_pack_nodes[id].destroy_pack()
+		card_pack_nodes.erase(id)
 
 # TODO: UPDATE TO ONLY REMOVE PACKS THAT ARE CURRENTLY BEING CHOSEN
 #func remove_other_packs(pack_id : int) -> void:
@@ -59,13 +65,9 @@ func finalize_pack_choices(pack_id : int) -> void:
 # Needed cuz the pack has to remove the reference to itself in the array
 func remove_pack(pack_id : int) -> void:
 	var temp : CardPack
-	for pack in card_pack_nodes:
-		if pack.pack_id == pack_id:
-			temp = pack
-			card_pack_nodes.erase(temp)
-			temp.destroy_pack()
-			break
-
+	print(card_pack_nodes)
+	card_pack_nodes[pack_id].destroy_pack()
+	card_pack_nodes.erase(pack_id)
 
 
 	#var card_pack = CardPack.new_pack(sets)

@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 @onready var bgm_stream: AudioStreamPlayer2D
 
@@ -11,8 +11,9 @@ var next_bgm : String = "desert"
 @export var sfx_volume : float = .5
 
 # for stacking SFX isntances
-@export var sfx_instance_scene: PackedScene
 @export var SFX_AUDIOS : Dictionary[String, AudioData]
+@export var sfx_instance_scene: PackedScene
+
 # for controlling volume of alot of stacking sfx
 var current_instances = 0
 
@@ -45,6 +46,7 @@ func play_sfx(audio_name : String, pitch : float = 1.0, from_position : float = 
 	instance.pitch_scale = pitch
 	instance.from_position = from_position
 	instance.volume_db = linear_to_db(sfx_volume  * master_volume) - current_instances
+	instance.finished.connect(func(): current_instances -= 1)
 	get_node("SFX").add_child(instance)
 
 #queues bmg to play after current loop
@@ -55,3 +57,6 @@ func queue_bgm(audio_name : String) -> void:
 func _on_bgm_finished() -> void:
 	bgm_stream = null
 	play_bgm(next_bgm)
+
+func stop_bgm() -> void:
+	bgm_stream.stop()

@@ -24,7 +24,7 @@ resources_spreadsheet_view/freeze_first_column=true
 [application]
 
 config/name="Carditects"
-run/main_scene="uid://47vnw2n68kqv"
+run/main_scene="uid://dehbiymvw4gq5"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="uid://n2jiuhsqeh1s"
 
@@ -33,8 +33,9 @@ config/icon="uid://n2jiuhsqeh1s"
 PlayerManager="*res://NetworkingTest/PlayerManager.gd"
 Signalbus="*res://scenes/Game Flow/Signalbus.tscn"
 NetworkManager="*res://scenes/Networking/NetworkManager.tscn"
-CardLoader="*res://scenes/CardLoader.tscn"
+CardLoader="*res://scripts/Card/CardLoader.tscn"
 AudioManager="*res://scenes/Audio/audio_manager.tscn"
+SceneManager="*res://scripts/GameFlow/SceneManager.gd"
 
 [display]
 

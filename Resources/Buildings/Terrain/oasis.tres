@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="BuildingData" load_steps=10 format=3 uid="uid://v447arejtkri"]
 
-[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_t6uhw"]
+[ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_t6uhw"]
 [ext_resource type="Texture2D" uid="uid://b7ifesbhy642p" path="res://assets/entity_sprites/oasis.PNG" id="2_bhh2n"]
 [ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_iu7f0"]
 [ext_resource type="Resource" uid="uid://dn1afqgtyr3lp" path="res://Resources/EnvTerrain/TerrainTiles/Grass.tres" id="4_2bliw"]
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="5_pv7ke"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="6_pm7a2"]
-[ext_resource type="Resource" uid="uid://bsrnk44vhb58o" path="res://Resources/Conditions/StackableCondition.tres" id="7_waklt"]
-[ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events/Scoring/cow_scoring.tres" id="8_thofx"]
+[ext_resource type="Resource" uid="uid://bsrnk44vhb58o" path="res://Resources/Events&Conditions/Conditions/StackableCondition.tres" id="7_bhh2n"]
+[ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events&Conditions/Events/Scoring/cow_scoring.tres" id="8_iu7f0"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="9_hys6x"]
 
 [resource]
@@ -15,13 +15,16 @@ script = ExtResource("9_hys6x")
 layer = 1
 nonplaceable_terrain = Array[ExtResource("3_iu7f0")]([ExtResource("4_2bliw"), ExtResource("5_pv7ke")])
 foil_probability = 0
-preview_event = ExtResource("8_thofx")
-place_conditions = Array[ExtResource("6_pm7a2")]([ExtResource("7_waklt")])
+preview_event = ExtResource("8_iu7f0")
+place_conditions = Array[ExtResource("6_pm7a2")]([ExtResource("7_bhh2n")])
 place_effects = Array[ExtResource("1_t6uhw")]([])
 post_place_effects = Array[ExtResource("1_t6uhw")]([])
 begin_round_effects = Array[ExtResource("1_t6uhw")]([])
 end_round_effects = Array[ExtResource("1_t6uhw")]([])
 destroyed_effects = Array[ExtResource("1_t6uhw")]([])
+play_conditions = Array[ExtResource("6_pm7a2")]([])
+play_effects = Array[ExtResource("1_t6uhw")]([])
+discard_effects = Array[ExtResource("1_t6uhw")]([])
 id_name = "oasis"
 display_name = "Oasis"
 card_sprite = ExtResource("2_bhh2n")

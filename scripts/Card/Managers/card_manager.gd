@@ -21,10 +21,11 @@ const CARD_EASE := 0.13
 var CARD_TILE_RATIO : Vector2
 
 
-@export var board_ref : BoardManagerClient
+@export var board_ref : Node2D
 @export var player_hand_ref : PlayerHand
 @export var input_manager_ref : InputManager 
-@export var preview_board_ref : BoardPreviewerTileMap
+@export var preview_board_ref : BoardPreviewerTileMapAbstract
+
 var aura_cards = AuraGroup.new()
 
 func _ready() -> void:
@@ -32,10 +33,12 @@ func _ready() -> void:
 	Signalbus.connect("open_compendium", opening_ui)
 	Signalbus.connect("register_to_cardmanager", register_to_cardmanager)
 	
-	Signalbus.connect("board_action_success", _on_boardrequest_success)
-	Signalbus.connect("board_action_fail", _on_boardrequest_failure)
+	Signalbus.connect("board_action_result", _on_boardrequest_outcome)
 
 	screen_size = get_viewport_rect().size
+	
+	# Have to do this stupid check cuz GDScript has no interface
+	assert(board_ref is BoardManagerClient or board_ref is MenuBoard)
 	
 
 func _process(_delta: float) -> void:
@@ -79,6 +82,7 @@ func finish_drag(placing : bool):
 		
 		var card_placed : bool
 		if placing:
+			has_received_response_signal = false
 			board_ref.place_cardplaceable(card_dragged.get_data_instance_id())
 			card_placed = await await_boardrequest_result()
 		else:
@@ -91,13 +95,14 @@ func finish_drag(placing : bool):
 		# check if dragged into a tile
 		if card_placed:
 			card_hovered = null
-			card_dragged.swap_to_effect(CARD_TILE_RATIO)
+			card_dragged.card_placed()
 		else:
 			if card_flipped:
 				card_dragged.entity_flip_to_card()
-			if card_dragged is PlaceableCard:
-				player_hand_ref.add_to_hand(card_dragged)
-		
+			if card_dragged is PlayerHandCard:
+				player_hand_ref.add_card_to_hand(card_dragged)
+				#player_hand_ref.add_to_hand_no_update(card_dragged)
+				
 		preview_board_ref.reset_preview()
 		card_flipped = false
 	card_dragged = null
@@ -139,19 +144,19 @@ func connect_card_signals(card : Card):
 # they are only called when board_ref != null and card is being dragged
 
 func card_flip_if_near_board() -> void:
-	if !card_flipped and board_ref.is_mouse_near_interactable_board():
-		card_flipped = true
-		card_dragged.card_flip_to_entity()
-	if card_flipped and !board_ref.is_mouse_near_interactable_board():
-		card_dragged.entity_flip_to_card()
-		card_flipped = false
+	if !SceneManager.is_gameplay_paused:
+		if !card_flipped and board_ref.is_mouse_near_interactable_board():
+			card_flipped = true
+			card_dragged.card_flip_to_entity()
+		if card_flipped and !board_ref.is_mouse_near_interactable_board():
+			card_dragged.entity_flip_to_card()
+			card_flipped = false
 
 func highlight_effects_when_hovering_card() -> void :
 	# card ghost snapping to grid
 	if card_dragged != null and card_dragged is PlaceableCard:
 		preview_board_ref.reset_preview()
 		preview_board_ref.preview_placement(card_dragged.get_data_instance_id())
-
 	else:
 		preview_board_ref.reset_preview()
 
@@ -193,9 +198,12 @@ func card_hover_if_able():
 ## highlight or unhighlight card depending on second argument
 func highlight_card(card : Card, hovering : bool):
 	if hovering:
+		card.enable_3d = true
 		card.z_index += 10
 	else:
 		card.z_index -= 10
+		card.enable_3d = false
+	card.highlight_card(hovering, tweening)
 #
 ## TODO: Can this be Card's job to handle?
 func animate_card(card : Card, new_scale : Vector2, pos):
@@ -207,20 +215,13 @@ func animate_card(card : Card, new_scale : Vector2, pos):
 
 
 ###################### MISC ##########################
-func _on_boardrequest_success() -> void:
+func _on_boardrequest_outcome(outcome : bool) -> void:
 	if has_received_response_signal:
 		return
 	has_received_response_signal = true
-	is_request_successful = true
+	is_request_successful = outcome
 
-func _on_boardrequest_failure() -> void:
-	if has_received_response_signal:
-		return
-	has_received_response_signal = true
-	is_request_successful = false
-	
 func await_boardrequest_result() -> bool:
-	
 	while !has_received_response_signal:
 		await get_tree().process_frame
 	

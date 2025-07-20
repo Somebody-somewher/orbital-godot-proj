@@ -20,35 +20,51 @@ var sprite_ref = self
 
 var dissolving = false
 var dissolve_value = 1
+var enable_3d = false
+var foiled = false
+
+var is_placeable = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if foiled:
+		self.material.set_shader_parameter("effect_alpha_mult",1)
+	else:
+		self.material.set_shader_parameter("effect_alpha_mult",0)
 	pass
+
+static func new_card(cardinstance_data : CardInstanceData, cardimg_bg : Texture2D) -> Card:
+	var card := card_scene.instantiate()
+	card.set_up(cardinstance_data, cardimg_bg)
+	return card
 
 # factory constructor, to override
 func set_up(cardinstance_data : CardInstanceData, cardimg_bg : Texture2D) -> void:
 	get_node("CardImage").texture = cardimg_bg
-	
-	if cardinstance_data is BuildingInstanceData:
-		if (cardinstance_data as BuildingInstanceData).foil:
-			(get_node("CardImage") as Sprite2D).modulate = Color.LIGHT_BLUE
-	
 	get_node("EntityImage").texture = cardinstance_data.get_data().card_sprite
 	get_node("Texts/CardName").text = cardinstance_data.get_data().display_name
 	self.cardinstance_dataid = cardinstance_data.get_id()
-	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if dissolving:
 		get_node("Texts").visible = false
 		if dissolve_value > 0:
-			sprite_ref.material.set_shader_parameter("DissolveValue", dissolve_value)
+			sprite_ref.material.set_shader_parameter("dissolve_value", dissolve_value)
 			dissolve_value -= delta * 1.6
 		else:
 			sprite_ref.visible = false
 			queue_free()
-	pass
+
+	self.material.set_shader_parameter("mouse_position",get_global_mouse_position())
+	self.material.set_shader_parameter("sprite_position",global_position)
+	if enable_3d:
+		self.material.set_shader_parameter("max_tilt",0.5)
+	else:
+		self.material.set_shader_parameter("max_tilt",0.01)
+
+func card_placed() -> void:
+	queue_free()	
 
 func dissolve_card() -> void:
 	get_node("Area2D/CollisionShape2D").disabled = true

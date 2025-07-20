@@ -1,7 +1,7 @@
 extends Control
 
 @export var ip : String = "127.0.0.1"
-@export var port : int = 8910
+@export var port : int = 44268
 @export var gameScene : PackedScene 
 #var multiplayer_peer = ENetMultiplayerPeer.new()
 
@@ -33,8 +33,10 @@ func _create_server():
 func _connect_client(addr = ""):
 	var peer = ENetMultiplayerPeer.new()
 	
-	if addr.is_empty():
+	if $IPInput.text.is_empty():
 		addr = ip
+	else:
+		addr = $IPInput.text
 	var error = peer.create_client(addr, port)
 	if (error != OK):
 		print("cannot host: " + error)

@@ -1,0 +1,23 @@
+[gd_scene load_steps=8 format=3 uid="uid://blqu1sa8dhqkk"]
+
+[ext_resource type="Script" uid="uid://c1cwfvnqf5cci" path="res://scripts/Card/CardDatabase/CardLoader.gd" id="1_bhm5s"]
+[ext_resource type="PackedScene" uid="uid://dq5k8pk1kx5fr" path="res://scenes/Card/playerhand_card.tscn" id="2_bhm5s"]
+[ext_resource type="Texture2D" uid="uid://d02is06vvdlbm" path="res://assets/card_sprites/blank_card.png" id="3_6v38v"]
+[ext_resource type="Resource" uid="uid://dg6oe12i637ef" path="res://Resources/ResourceGrps/BuildingGrp.tres" id="4_n1e4f"]
+[ext_resource type="Script" path="res://scripts/Card/Pack&Set/CardPackGenerator.gd" id="5_m1yff"]
+[ext_resource type="Resource" uid="uid://bidf8heaj5xv8" path="res://Resources/ResourceGrps/CardSetGrp.tres" id="6_pngft"]
+[ext_resource type="Script" path="res://scripts/Events/EventManager.gd" id="7_7gwn3"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_bhm5s")
+card_scene = ExtResource("2_bhm5s")
+building_card_scene = ExtResource("2_bhm5s")
+buildingcard_img = ExtResource("3_6v38v")
+building_grp = ExtResource("4_n1e4f")
+
+[node name="CardPackGen" type="Node" parent="."]
+script = ExtResource("5_m1yff")
+cardset_grp = ExtResource("6_pngft")
+
+[node name="EventManager" type="Node" parent="."]
+script = ExtResource("7_7gwn3")

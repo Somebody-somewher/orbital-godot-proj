@@ -1,6 +1,8 @@
-extends Node2D
+extends Node
 class_name MenuLogic
 # manages behaviour, basically a scene manager
+
+@onready var player_hand_ref: Node2D = $"../PlayerHand"
 
 const MENU_HANDS = {
 	"main_menu" : ["singleplayer", "multiplayer", "settings", "exit"],
@@ -35,10 +37,13 @@ signal multijoin_back
 signal exit_game
 
 func get_hand(id : String) -> Array:
+	for cardid in MENU_HANDS.get(id):
+		spawn_card(cardid)
 	return MENU_HANDS.get(id)
 
 # returns the new menu state
 func select_option(current_state : String, id : String) -> String:
+	player_hand_ref.discard_hand()
 	return STATES.get(current_state).call(id)
 
 func main_menu(id : String) -> String:
@@ -58,6 +63,8 @@ func settings(id : String) -> String:
 	match id:
 		"back":
 			setting_menu_exit.emit()
+			#if multiplayer.connected_to_server:
+				
 	return "main_menu"
 
 func singleplayer(id : String) -> String:
@@ -74,18 +81,19 @@ func multiplayer_state(id : String) -> String:
 			multiplayer_back.emit()
 			return "main_menu"
 		"host":
-			multiplayer_back.emit()
+			multihost_open.emit()
 			return "multihost"
 		"join":
-			multiplayer_back.emit()
+			multijoin_open.emit()
 			return "multijoin"
 	return "main_menu"
-	
+
 func multiplayer_host(id : String) -> String:
 	match id:
 		"back":
 			multihost_back.emit()
 		"start_game":
+			NetworkManager.set_up()
 			start_multiplayer_game.emit()
 	return "multiplayer"
 
@@ -94,3 +102,12 @@ func multiplayer_join(id : String) -> String:
 		"back":
 			multijoin_back.emit()
 	return "multiplayer"
+
+# for add cards back into hand
+func spawn_card(id_name : String) -> void:
+	var building_data : BuildingData = CardLoader.get_building_data(id_name)
+	var new_card = MenuCard.new_menucard(building_data, CardLoader.buildingcard_img)
+	self.add_child(new_card)
+	new_card.global_position = Vector2i(800,450)
+	Signalbus.emit_signal("register_to_cardmanager", new_card)
+	player_hand_ref.add_card_to_hand(new_card)

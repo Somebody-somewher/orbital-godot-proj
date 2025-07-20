@@ -1,29 +1,16 @@
-[gd_scene load_steps=19 format=3 uid="uid://iv3w3pu8flf7"]
+[gd_scene load_steps=17 format=3 uid="uid://iv3w3pu8flf7"]
 
-[ext_resource type="Material" uid="uid://snae8supl35" path="res://shader/dissolve_material.tres" id="1_va8pk"]
+[ext_resource type="Material" uid="uid://c7uqopv1fe7dt" path="res://shader/pack.tres" id="1_i8ods"]
 [ext_resource type="Script" uid="uid://conukf4ick1q8" path="res://scripts/Card/Pack&Set/card_pack.gd" id="1_wo5bd"]
 [ext_resource type="Texture2D" uid="uid://b3kh2qq6nboem" path="res://assets/misc_sprites/card_shine.png" id="2_o731e"]
-[ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="3_5xwgq"]
 [ext_resource type="Texture2D" uid="uid://dn6735uees2i1" path="res://assets/card_packs/dummy_card_pack.png" id="5_va8pk"]
 [ext_resource type="Texture2D" uid="uid://imfgok6btu1v" path="res://assets/misc_sprites/check_normal.png" id="8_piws8"]
 [ext_resource type="Texture2D" uid="uid://ct7bq5ehjgc2a" path="res://assets/misc_sprites/check_click.png" id="9_j5qe6"]
 [ext_resource type="Texture2D" uid="uid://coprxc3q4806f" path="res://assets/misc_sprites/check_hover.png" id="10_6vscq"]
+[ext_resource type="Texture2D" uid="uid://q7fh7por4v12" path="res://assets/card_packs/pack_outline.png" id="10_i8ods"]
 [ext_resource type="Texture2D" uid="uid://dnydcvxn06lih" path="res://assets/misc_sprites/cross_normal.png" id="11_u2vrp"]
 [ext_resource type="Texture2D" uid="uid://dd4s3kj0v5qbw" path="res://assets/misc_sprites/cross_click.png" id="12_g5vyk"]
 [ext_resource type="Texture2D" uid="uid://py8js8sa5pvf" path="res://assets/misc_sprites/cross_hover.png" id="13_ntb6h"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_5xwgq"]
-resource_local_to_scene = true
-frequency = 0.0017
-offset = Vector3(782.61, -86.96, 0)
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_17ntd"]
-noise = SubResource("FastNoiseLite_5xwgq")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wwfmj"]
-shader = ExtResource("3_5xwgq")
-shader_parameter/Noise = SubResource("NoiseTexture2D_17ntd")
-shader_parameter/DissolveValue = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q1uvj"]
 size = Vector2(162, 231.5)
@@ -90,6 +77,18 @@ tracks/4/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_o731e"]
 resource_name = "fall animation"
@@ -131,14 +130,31 @@ tracks/2/keys = {
 "values": [true, false]
 }
 
+[sub_resource type="Animation" id="Animation_6vscq"]
+resource_name = "shake"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2, 0.266667, 0.3),
+"transitions": PackedFloat32Array(0.63728, 0.517633, 0.406126, 0.554785, 0.5, 2.07053),
+"update": 0,
+"values": [0.0, 0.349066, -0.349066, 0.349066, -0.349066, 0.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gpkwg"]
 _data = {
 &"RESET": SubResource("Animation_va8pk"),
-&"fall animation": SubResource("Animation_o731e")
+&"fall animation": SubResource("Animation_o731e"),
+&"shake": SubResource("Animation_6vscq")
 }
 
 [node name="CardPack" type="Node2D"]
-material = ExtResource("1_va8pk")
+material = ExtResource("1_i8ods")
 scale = Vector2(2, 2)
 script = ExtResource("1_wo5bd")
 
@@ -183,8 +199,13 @@ texture_pressed = ExtResource("12_g5vyk")
 texture_hover = ExtResource("13_ntb6h")
 stretch_mode = 3
 
+[node name="Outline" type="Sprite2D" parent="."]
+visible = false
+use_parent_material = true
+texture = ExtResource("10_i8ods")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_wwfmj")
+use_parent_material = true
 texture = ExtResource("5_va8pk")
 
 [node name="ShineSprite" type="Sprite2D" parent="."]
@@ -206,8 +227,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_gpkwg")
 }
 
-[connection signal="pressed" from="Buttons/MarginContainer/HBoxContainer/YesButton" to="." method="_on_yes_button_pressed"]
 [connection signal="pressed" from="Buttons/MarginContainer/HBoxContainer/YesButton" to="." method="_on_check_pressed"]
+[connection signal="pressed" from="Buttons/MarginContainer/HBoxContainer/YesButton" to="." method="_on_yes_button_pressed"]
 [connection signal="pressed" from="Buttons/MarginContainer/HBoxContainer/NoButton" to="." method="_on_cross_pressed"]
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

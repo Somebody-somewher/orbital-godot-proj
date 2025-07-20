@@ -1,44 +1,17 @@
 extends PlaceableCard
 class_name MenuCard
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass
-
 #for constructor
-static var menu_card_scene: PackedScene = load("res://scenes/Main Menu/menu_card.tscn")
+static var menu_card_script := preload("res://scripts/Main Menu/menu_card.gd")
 
+static func new_menucard(card_data : CardData, cardimg_bg : Texture2D) -> PlaceableCard:
+	var card := card_scene.instantiate()
+	card.set_script(menu_card_script)
+	card.menucard_set_up(card_data, cardimg_bg)
+	return card
 
-# factory constructor
-static func new_card(card_name : String) -> Card:
-	var return_card : MenuCard = menu_card_scene.instantiate()
-	var data : BuildingData = CardLoader.get_building_data(card_name) 
-	var card_image_path = str("res://assets/card_sprites/blank_card.png")
-	return_card.get_node("CardImage").texture = load(card_image_path)
-	return_card.get_node("EntityImage").texture = data.card_sprite
-	return_card.get_node("Texts/CardName").text = CardLoaderr.get_display_name(card_name)
-	return_card.id_name = card_name
-	return return_card
-
-# called when added to player hand
-func initialize_card_effect() -> void:
-	building = Building.new_building(id_name)
-	building.visible = true
-	building.get_node("Area2D/CollisionShape2D").disabled = true
-
-# called when added to board
-# fully replace card with effect, then free self instance
-func swap_to_effect(scale_by: Vector2) -> void:
-	self.get_node("Area2D/CollisionShape2D").disabled = true
-	building.visible = true
-	building.get_node("Area2D/CollisionShape2D").disabled = false
-	queue_free()
-
-func highlight_card(on : bool, tweening : Tween):
-	if tweening and tweening.is_running():
-		await tweening.finished
-	tweening = get_tree().create_tween()
-	if on:
-		tweening.parallel().tween_property(self, "scale", Vector2(1.15, 1.15), 0.08)
-	else:
-		tweening.parallel().tween_property(self, "scale", Vector2.ONE, 0.08)
+func menucard_set_up(card_data : CardData, cardimg_bg : Texture2D) -> void:
+	get_node("CardImage").texture = cardimg_bg
+	get_node("EntityImage").texture = card_data.card_sprite
+	get_node("Texts/CardName").text = card_data.display_name
+	self.cardinstance_dataid = card_data.get_id()

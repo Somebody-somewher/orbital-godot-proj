@@ -22,48 +22,49 @@ func _init(is_debug := false, seed := -1) -> void:
 	
 # cardpacks is an Array[Array[Dictionary[String, int]]] and outputs an Array[Array[Array[int]]]
 # Cardpacks->Cardsets->card_id+quantity
-func generate_cardpackstream(cardpacks : Array) -> Array:
-	var cardpacks_total : Array[Array] = []
+func generate_cardpackstream(cardpacks : Dictionary[int, Dictionary]) -> Dictionary[int, Dictionary]:
+	var cardpacks_total : Dictionary[int, Dictionary]
 	
 	var is_special_pack := false
 	
-	for cardpack in cardpacks:
-		cardpacks_total.append(generate_cardpack_stream(cardpack))
+	for pack_id in cardpacks.keys():
+		cardpacks_total[pack_id] = generate_cardpack_stream(cardpacks[pack_id])
 		
 	return cardpacks_total
 
-func generate_cardpack_stream(cardpack : Array[Dictionary], all_special := false) -> Array:
-	var cardpack_out = Array()
+func generate_cardpack_stream(cardpack : Dictionary[String, Dictionary], all_special := false) -> Dictionary[String, Array]:
+	var cardpack_out : Dictionary[String, Array]
 	var is_special_set := false
-	for card_set in cardpack:
+	
+	for cardset_id in cardpack.keys():
 		if !is_debug and randi_range(0, 100) >= 99:
 			is_special_set = true
-		cardpack_out.append(generate_cardset_stream(card_set as Dictionary[String, int], is_special_set))
+		cardpack_out[cardset_id] = generate_cardset_stream(cardpack[cardset_id], is_special_set)
 		is_special_set = false
 	return cardpack_out
 
-func generate_cardset_stream(cardset : Dictionary[String, int], all_special : bool) -> Array:
-	var cardset_out := Array()
+func generate_cardset_stream(cardset : Dictionary[String, int], all_special : bool) -> Array[Array]:
+	var cardset_out : Array[Array]
 	for card in cardset.keys():
 		for count in range(cardset[card]):
 			if !all_special:
 				cardset_out.append(generate_attribute(card))
 			else:
-				cardset_out.append([generate_instance_id(card), 100] )
+				cardset_out.append([generate_instance_id(card), 100])
 	return cardset_out
 
 func generate_card_stream(cards : Array[String]) -> Array:
-	var output := Array()
+	var output : Array[Array]
 	for card in cards:
 		output.append(generate_attribute(card))
 	return output
 
+# NOTE: the first cards ids dont start at 0 cuz of procgen
 func generate_attribute(cardid : String) -> Array:
 	num_cards_generated += 1
 	if is_debug:
 		return [cardid + str(num_cards_generated), num_cards_generated]
 	return [cardid + str(num_cards_generated), randi_range(0, 100)]
-
 
 func generate_instance_id(carddata_id : String) -> String:
 	num_cards_generated += 1

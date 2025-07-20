@@ -3,11 +3,14 @@ class_name BoardVisualManager
 
 var fake_building_colouration : Color
 
-#var buildings : Dictionary
+var placeables_placed : Dictionary[Vector2i, Dictionary]
 
 # Due to my bad coding there are two layers of shading. One for non-interactive tiles, one for the border
 # This is a tilemap specifically to darken non-interactive tiles
 @export var darken_tilemap : TileMapLayer
+
+# local start-end tilepos of playable area for camera
+var viewable_area_coords : Array[Vector2]
 
 func _ready() -> void:
 	# Update the positioning of the tilemaps
@@ -17,8 +20,11 @@ func _ready() -> void:
 	fake_building_colouration = Color.DIM_GRAY
 	z_index = -1
 
-func set_up(parent : Node2D, border_dim : Vector2i) -> void:
+func set_up(parent : Node2D, border_dim : Vector2i, playable_area_coords : Array[Vector2i]) -> void:
 	super._set_up(parent, border_dim)
+	shade_area(playable_area_coords[0], playable_area_coords[1])
+	viewable_area_coords = [matrix_to_tilepos(playable_area_coords[0]) * TILE_SIZE,\
+		 matrix_to_tilepos(playable_area_coords[1]) * TILE_SIZE]
 
 func create_terrain_tile(terrain_id : String, tile_pos : Vector2i) -> void:
 	change_terrain_tile(terrain_id, tile_pos)
@@ -51,13 +57,24 @@ func place_building_on_tile(building: Building, tile_pos : Vector2i) -> void:
 		building.z_index = tile_pos.y
 		building.position = get_local_centre_of_tile(tile_pos)
 		building.get_node("JiggleAnimation").play("jiggle")
-		building.name = building.data_instance.get_id()
+		
+		if !placeables_placed.has(tile_pos):
+			placeables_placed[tile_pos] = {building.name : building}
+		else:
+			placeables_placed[tile_pos][building.name] = building
 	# MUST TRIGGER BEFORE ADDING (otherwise places self on board then can score against itself)
 	#board_matrix.add_placeable_to_tile(tile_pos, placeable)
 
+func destroy_placeable_image(placeableinstance_id : String, tile_pos : Vector2i) -> void:
+	var placeable_to_destroy : PlaceableNode = placeables_placed[tile_pos][placeableinstance_id]
+	placeables_placed[tile_pos].erase(placeableinstance_id)
+	placeable_to_destroy.destroy()
+	
+	if placeables_placed[tile_pos].is_empty():
+		placeables_placed.erase(tile_pos)
+
 @rpc("any_peer", "call_local")
 func place_fake_building(building_id: String, tile_pos : Vector2i) -> void:
-	
 	var data : BuildingData = CardLoader.get_building_data(building_id)
 	var fake_placeable : Sprite2D = Sprite2D.new()
 	fake_placeable.set_texture(data.card_sprite)

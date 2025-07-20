@@ -6,9 +6,9 @@ class_name MoveWRangeEvent
 
 #if there are attractors nearby, move towards it randomly
 
-func preview(board : BoardMatrixData, previewer : Callable, tile_pos : Vector2i) -> void:
+func preview(board : BoardMatrixData, previewer : Callable, tile_pos : Vector2i, caller : CardInstanceData) -> void:
 	pass
 
-func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : Node2D) -> void:
+func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstanceData) -> void:
 	pass
 	

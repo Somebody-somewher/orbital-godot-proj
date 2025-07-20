@@ -11,10 +11,12 @@ var _boards_layout : Vector2i
 
 var boards_coords : Array[Array]
 var interactable : Array[bool]
+
+var instances_on_board : Dictionary[String, CardInstanceData]
+
 # Initialize 2d array matrix
 func _init(board_size : int, boards_layout : Vector2i) -> void:
 	Signalbus.connect("get_tile_pos_from_AOE",constrain_pattern_to_board)
-	Signalbus.connect("run_search_on_board", search_matrix_readonly)
 	_board_size = board_size
 	_boards_layout = boards_layout
 	
@@ -46,7 +48,7 @@ func add_tile(tilePos : Vector2i, terrain_env : EnvTerrain) -> void:
 	board_matrix[tilePos.x][tilePos.y] = BoardTile.new(terrain_env)
 
 ## Put a placeable on the board tile
-func add_placeable_to_tile(tilePos : Vector2i, placeable : PlaceableNode) -> void:
+func add_placeable_to_tile(tilePos : Vector2i, placeable : PlaceableInstanceData) -> void:
 	board_matrix[tilePos.x][tilePos.y].add_placeable(placeable)
 
 ## Change the terrain on the board tile
@@ -92,8 +94,9 @@ func check_tilepos_in_playable(tilepos : Vector2i) -> bool:
 func check_tilepos_in_layout_coords(tilepos : Vector2i, boardlayout_pos : Vector2i) -> bool:
 	return _check_tilepos_in_board(tilepos, layout_to_boardcoords(boardlayout_pos))
 
-## Get the start-end coordinates of the board the tilepos is in
-func get_boardcoords_of_tilepos(tilepos : Vector2i) -> Array:
+## Get the start-end board coordinates of the board the tilepos is in, 
+## if the tilepos is in an interactable board
+func get_interactable_boardcoords_of_tilepos(tilepos : Vector2i) -> Array:
 	for i in range(len(boards_coords)):
 		if interactable[i] and _check_tilepos_in_board(tilepos, boards_coords[i]):
 			return boards_coords[i]

@@ -3,6 +3,7 @@ class_name BoardTile
 
 # for hover effect
 #var score_display : Label
+const max_layers : int = 4
 
 # See if we want to store it as a Resource or some other data later
 var _terrain : EnvTerrain
@@ -13,22 +14,25 @@ signal hide_score(score : int)
 
 # Array in case we have stackable buildings
 # Should use it as a sorted array, where we calculate scoring from the base tile upwards
-var placeable_arr : Array[PlaceableNode]
+var placeable_arr : Array[BuildingInstanceData]
 
 func _init(terrain : EnvTerrain):
 	_terrain = terrain
 
-func add_placeable(placed_thing : PlaceableNode):
+func add_placeable(placed_thing : BuildingInstanceData):
 	placeable_arr.push_back(placed_thing)
 	placeable_arr.sort_custom(custom_placeable_sort);
 
-func custom_placeable_sort(a : PlaceableNode, b : PlaceableNode):
-	if a.layer > b.layer:
+func custom_placeable_sort(a : BuildingInstanceData, b : BuildingInstanceData):
+	if a.get_data().layer > b.get_data().layer:
 		return true;
 	return false
 
 func change_terrain(terrain : EnvTerrain):
 	_terrain = terrain
+
+func get_terrain() -> EnvTerrain:
+	return _terrain
 
 # for deleting buildings from tile
 func delete_from_tile(placed_thing : PlaceableNode) -> void:

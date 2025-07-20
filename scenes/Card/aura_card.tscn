@@ -1,21 +1,76 @@
-[gd_scene load_steps=7 format=3 uid="uid://dwm3qqm3axar0"]
+[gd_scene load_steps=15 format=3 uid="uid://dwm3qqm3axar0"]
 
 [ext_resource type="PackedScene" uid="uid://8dgw8wdiub72" path="res://scenes/Card/Card.tscn" id="1_h3cfb"]
-[ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="2_0kp23"]
+[ext_resource type="Shader" uid="uid://uj6l6cirvjto" path="res://shader/Foil/foil+dissolve.gdshader" id="2_8uyuv"]
 [ext_resource type="Script" uid="uid://bjqmf1mcywlom" path="res://scripts/Card/aura_card.gd" id="3_0kp23"]
+[ext_resource type="Shader" uid="uid://u3dupxupysmg" path="res://shader/Foil/foil.gdshader" id="4_gn0co"]
+[ext_resource type="Texture2D" uid="uid://c7n0d2ye2bwru" path="res://assets/misc_sprites/foil_mask.png" id="5_nu4lk"]
+[ext_resource type="Texture2D" uid="uid://dwfea5crud5qh" path="res://shader/Foil/rainbow_gradient_1d.tres" id="6_kg3rr"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_4dx8l"]
-frequency = 0.0017
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_j4ao5"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qf083"]
-noise = SubResource("FastNoiseLite_4dx8l")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b3b0l"]
+noise = SubResource("FastNoiseLite_j4ao5")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_q4b02"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_b3b0l"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pmi5y"]
+noise = SubResource("FastNoiseLite_b3b0l")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8uyuv"]
 resource_local_to_scene = true
-shader = ExtResource("2_0kp23")
-shader_parameter/Noise = SubResource("NoiseTexture2D_qf083")
-shader_parameter/DissolveValue = 1.0
+shader = ExtResource("2_8uyuv")
+shader_parameter/mouse_position = Vector2(0, 0)
+shader_parameter/sprite_position = Vector2(0, 0)
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_b3b0l")
+shader_parameter/dissolve_value = 1.0
+shader_parameter/burn_color = Color(0, 0, 0, 1)
+shader_parameter/fov = 90.0
+shader_parameter/cull_back = true
+shader_parameter/inset = 0.0
+shader_parameter/max_tilt = 0.035
+shader_parameter/max_distance = 500.0
+shader_parameter/foilcolor = Color(0, 0, 0, 1)
+shader_parameter/threshold = 0.2
+shader_parameter/fuzziness = 0.1
+shader_parameter/period = 2.0
+shader_parameter/scroll = 4.0
+shader_parameter/normal_strength = 0.1
+shader_parameter/effect_alpha_mult = 1.0
+shader_parameter/direction = 0.5
+shader_parameter/gradient = ExtResource("6_kg3rr")
+shader_parameter/normal_map = SubResource("NoiseTexture2D_pmi5y")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yog26"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_oo20p"]
+noise = SubResource("FastNoiseLite_yog26")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4qphu"]
+resource_local_to_scene = true
+shader = ExtResource("4_gn0co")
+shader_parameter/mouse_position = Vector2(0, 0)
+shader_parameter/sprite_position = Vector2(0, 0)
+shader_parameter/fov = 90.0
+shader_parameter/cull_back = true
+shader_parameter/inset = 0.0
+shader_parameter/max_tilt = 1.0
+shader_parameter/max_distance = 500.0
+shader_parameter/foilcolor = Color(0, 0, 0, 1)
+shader_parameter/threshold = 0.2
+shader_parameter/fuzziness = 0.1
+shader_parameter/period = 1.0
+shader_parameter/scroll = 1.0
+shader_parameter/normal_strength = 0.1
+shader_parameter/effect_alpha_mult = 1.0
+shader_parameter/direction = 0.5
+shader_parameter/foil_mask = ExtResource("5_nu4lk")
+shader_parameter/gradient = ExtResource("6_kg3rr")
+shader_parameter/normal_map = SubResource("NoiseTexture2D_oo20p")
 
 [node name="AuraCard" instance=ExtResource("1_h3cfb")]
-material = SubResource("ShaderMaterial_q4b02")
+material = SubResource("ShaderMaterial_8uyuv")
 script = ExtResource("3_0kp23")
+
+[node name="Texts" parent="." index="3"]
+material = SubResource("ShaderMaterial_4qphu")

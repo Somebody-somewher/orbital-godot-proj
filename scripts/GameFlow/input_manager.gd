@@ -82,19 +82,19 @@ func right_click_logic(result) -> void:
 		PACK_COLLISION_MASK:
 			AudioManager.play_sfx("click", 0.5)
 			
-			if !result_found is MenuPack and result_found.choose_or_open():
+			if result_found.choose_or_open():
 				curr_mask = MASKS.get("set_only")
 			
 			var card_manager = result_found.get_parent()
 			card_manager.finish_drag(false)
-			
-
 
 func middle_click_logic(result) -> void:
 	var result_mask = result.collision_mask
 	var result_found = result.get_parent()
 	match result_mask:
 		CARD_COLLISION_MASK:
+			var card_manager = result_found.get_parent()
+			card_manager.highlight_card(result_found, false)
 			Signalbus.open_compendium.emit(result_found.id_name)
 
 func raycast_and_click(mask, input_type : int):

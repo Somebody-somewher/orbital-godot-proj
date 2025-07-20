@@ -13,6 +13,8 @@ var cardset_creation_count := 0
 
 var is_debug := false 
 
+var num_packs_generated := 0
+
 # Right now the assumption is that every set has a "appear count" of 1
 # Prolly need to make every cardsetdata unique or make a Pair<CardSetData, int> 
 var avail_sets : Dictionary[String, CardSetData] = {}
@@ -52,49 +54,61 @@ func setup(num_options := DEFAULT_NUM_OPTIONS) -> void:
 	if !is_debug:
 		avail_sets = loaded_card_sets.duplicate(true)
 
-func get_packs() -> Array[Array]:
-	var output : Array[Array] = []
+func get_packs() -> Dictionary[int, Dictionary]:
+	var output : Dictionary[int, Dictionary] = {}
 	
 	for count in range(num_packs_to_gen):
-		output.append(get_sets())
+		output[num_packs_generated] = get_sets()
+		num_packs_generated += 1
 	
 	return output
 
 ############################### SET FUNCTIONALITY ####################################
 # This returns an Array of CardData ids
-func get_sets() -> Array[Dictionary]:
+func get_sets() -> Dictionary[String, Dictionary]:
 	var max_options = DEFAULT_NUM_OPTIONS
 	for player in num_options_per_player.keys():
 		max_options = max(max_options, num_options_per_player[player])
 	
-	var cardsets : Array[CardSetData] = get_set(max_options)
+	var cardsets : Dictionary[String, CardSetData] = get_set(max_options)
+	var output : Dictionary[String, Dictionary]
 	
-	# Card counts of every card, each element in the array is a cardset
-	var output : Array[Dictionary] = []
-	for cardset in cardsets:
-		output.append(cardset.cards)
+	for cardset_name in cardsets.keys():
+		output[cardset_name] = cardsets[cardset_name].cards
+		
 	return output
 
-func get_set(n : int) -> Array[CardSetData]:
+func get_set(n : int) -> Dictionary[String, CardSetData]:
 	if is_debug:
 		return get_fixed_set_asc(n)
 	else:
 		return get_random_set(n)
 
-func get_random_set(n : int) -> Array[CardSetData]:
-	var size = avail_sets.size()
-	var arr : Array[CardSetData]
-	for i in range(n):
-		arr.append(avail_sets[avail_sets.keys()[rng.randi() % size]])
-	return arr
+func get_random_set(n : int) -> Dictionary[String, CardSetData]:
+	var size
+	var output : Dictionary[String, CardSetData]
+	var set_name : String
+	var buffer_set_name : String
 
-func get_fixed_set_asc(n : int) -> Array[CardSetData]:
-	var size = avail_sets.size()
-	var arr : Array[CardSetData]
 	for i in range(n):
-		arr.append(avail_sets[avail_sets.keys()[cardset_creation_count % size]])
+		size = avail_sets.size()
+		set_name = avail_sets.keys()[rng.randi() % size]
+		if set_name in output:
+			buffer_set_name = set_name + "1"
+		else:
+			buffer_set_name = set_name
+		output[buffer_set_name] = avail_sets[set_name]
+	return output
+
+func get_fixed_set_asc(n : int) -> Dictionary[String, CardSetData]:
+	var size = avail_sets.size()
+	var output : Dictionary[String, CardSetData]
+	var set_name : String
+	for i in range(n):
+		set_name = avail_sets.keys()[cardset_creation_count % size]
+		output[set_name] = avail_sets[set_name]
 		cardset_creation_count += 1
-	return arr
+	return output
 
 func get_all_sets_as_dicts() -> Array[Dictionary]:
 	var output : Array[Dictionary]

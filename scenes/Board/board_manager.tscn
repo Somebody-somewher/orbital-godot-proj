@@ -1,16 +1,17 @@
 [gd_scene load_steps=5 format=3 uid="uid://bxiy7ajwus31g"]
 
-[ext_resource type="Script" uid="uid://bhcuctfh4prj5" path="res://scripts/Board/BoardManagerClient.gd" id="1_8obqj"]
+[ext_resource type="Script" path="res://scripts/Board/BoardManagerClient.gd" id="1_8obqj"]
 [ext_resource type="Script" uid="uid://dls3y3sngygdn" path="res://scripts/Board/Visual/BoardPreviewerTilemap.gd" id="2_k6d4x"]
 [ext_resource type="Resource" uid="uid://doq3nosdirb1v" path="res://Resources/EnvTerrain/TestEnvTerrainMapping.tres" id="3_vgsob"]
 [ext_resource type="Script" uid="uid://dq6l63on5mqf7" path="res://scripts/Board/Visual/BoardVisualManager.gd" id="4_c64v0"]
 
 [node name="BoardManager" type="Node2D" node_paths=PackedStringArray("terrain_tilemap", "previewer_tilemap", "object")]
 script = ExtResource("1_8obqj")
-BORDER_DIM = Vector2i(1, 1)
 terrain_tilemap = NodePath("TerrainActual")
 previewer_tilemap = NodePath("Preview")
 object = NodePath("Building_Manager")
+BORDER_DIM = Vector2i(1, 1)
+env_map = ExtResource("3_vgsob")
 
 [node name="Preview" type="TileMapLayer" parent="." node_paths=PackedStringArray("ghost_image", "object")]
 script = ExtResource("2_k6d4x")

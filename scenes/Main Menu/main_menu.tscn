@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dehbiymvw4gq5"]
+[gd_scene load_steps=45 format=3 uid="uid://dehbiymvw4gq5"]
 
 [ext_resource type="Script" uid="uid://baxm1vpvlaqw2" path="res://scripts/Main Menu/main_menu.gd" id="1_bnuun"]
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/Managers/player_hand.gd" id="2_bso06"]
@@ -10,26 +10,256 @@
 [ext_resource type="PackedScene" uid="uid://dtsfmua37k8xq" path="res://scenes/Main Menu/singleplayer_menu.tscn" id="8_jo2uk"]
 [ext_resource type="PackedScene" uid="uid://ct04ps51yd71k" path="res://scenes/Main Menu/multiplayer_menu.tscn" id="9_bso06"]
 [ext_resource type="Script" uid="uid://cep46bfjthrc7" path="res://scripts/Card/Managers/card_manager.gd" id="10_jl12q"]
+[ext_resource type="PackedScene" uid="uid://iyr4rtumvwwp" path="res://scenes/Main Menu/multi_host.tscn" id="10_xlgyj"]
 [ext_resource type="PackedScene" uid="uid://dyaq4288p4ik4" path="res://scenes/Main Menu/tutorial_card_pack.tscn" id="11_26fkh"]
-[ext_resource type="Shader" uid="uid://ya516xim3sm" path="res://shader/dissolve_shader.tres" id="12_10p5i"]
-[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="13_tp8iy"]
+[ext_resource type="PackedScene" uid="uid://do48ita2qa5w3" path="res://scenes/Main Menu/multi_join.tscn" id="11_bqibv"]
+[ext_resource type="Texture2D" uid="uid://dwfea5crud5qh" path="res://shader/Foil/rainbow_gradient_1d.tres" id="12_bso06"]
 [ext_resource type="Script" uid="uid://c5fouuecjsld6" path="res://scripts/camera.gd" id="14_mdse0"]
+[ext_resource type="Script" uid="uid://ch4khga0srdee" path="res://scripts/Board/Visual/MenuBoardPreviewerTilemap.gd" id="15_bnuun"]
 [ext_resource type="PackedScene" uid="uid://bxiy7ajwus31g" path="res://scenes/Board/board_manager.tscn" id="15_fa6rk"]
 [ext_resource type="Script" uid="uid://duu3dx0n1l1gg" path="res://scripts/Main Menu/menu_board.gd" id="16_bso06"]
+[ext_resource type="Script" uid="uid://dcoeqccwxg41y" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrainMapping.gd" id="16_xpnd4"]
+[ext_resource type="Texture2D" uid="uid://cdvtn386cwgwv" path="res://assets/backgrounds/Clouds 3/1.png" id="19_jo2uk"]
+[ext_resource type="Script" uid="uid://0puieb5gjtoe" path="res://scripts/ParallaxBackground/menu_parallax_background.gd" id="19_m0e23"]
+[ext_resource type="Texture2D" uid="uid://c32secligmlfj" path="res://assets/backgrounds/Clouds 3/3.png" id="20_m0e23"]
+[ext_resource type="Texture2D" uid="uid://ckeso67tjoplq" path="res://assets/backgrounds/Clouds 2/1.png" id="21_40tg6"]
+[ext_resource type="Texture2D" uid="uid://3jv2vw2w60i7" path="res://assets/backgrounds/Clouds 3/4.png" id="21_jl12q"]
+[ext_resource type="Texture2D" uid="uid://c6roun1e7w055" path="res://assets/backgrounds/Clouds 3/5.png" id="22_26fkh"]
+[ext_resource type="Texture2D" uid="uid://bfr36spdiq2rg" path="res://assets/backgrounds/Clouds 1/1.png" id="22_x2k7b"]
+[ext_resource type="Texture2D" uid="uid://0dkb5oguhimt" path="res://assets/backgrounds/Clouds 2/2.png" id="24_n030c"]
+[ext_resource type="Texture2D" uid="uid://bpmcv3gbi83a3" path="res://assets/backgrounds/Clouds 1/2.png" id="25_jnbvd"]
+[ext_resource type="Texture2D" uid="uid://duya6c6sqhjc0" path="res://assets/backgrounds/Clouds 2/3.png" id="27_u1h8v"]
+[ext_resource type="Texture2D" uid="uid://c46rx0oacwitc" path="res://assets/backgrounds/Clouds 1/3.png" id="28_pa2br"]
+[ext_resource type="Texture2D" uid="uid://dmo1mdx5ybrkg" path="res://assets/backgrounds/Clouds 2/4.png" id="30_lovst"]
+[ext_resource type="Texture2D" uid="uid://d2o6fmavoq14w" path="res://assets/backgrounds/Clouds 1/4.png" id="31_d7nto"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_bnuun"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_4dx8l"]
-frequency = 0.0017
+[sub_resource type="ButtonGroup" id="ButtonGroup_xlgyj"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qf083"]
-noise = SubResource("FastNoiseLite_4dx8l")
+[sub_resource type="ButtonGroup" id="ButtonGroup_x2k7b"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_flqon"]
+[sub_resource type="Shader" id="Shader_xpnd4"]
+code = "shader_type canvas_item;
+
+group_uniforms code_set_parameters;
+uniform vec2 mouse_position;
+uniform vec2 sprite_position;
+
+uniform sampler2D dissolve_texture : source_color;
+uniform float dissolve_value : hint_range(0,1);
+uniform vec4 burn_color: source_color;
+
+group_uniforms _3D_Perspective;
+uniform float fov : hint_range(1, 179) = 90;
+uniform bool cull_back = true;
+//uniform float y_rot : hint_range(-180, 180) = 0.0; From original shader -- https://godotshaders.com/shader/2d-perspective/
+//uniform float x_rot : hint_range(-180, 180) = 0.0;
+//Amount to inset the image by, a higher value means the image is smaller but less likely to go outside of the \"bounds\" of the original sprite size.
+uniform float inset : hint_range(0, 1) = 0.0;
+//Max tilt. 2 means the sprite goes all the way to one side, and the plane is parrelel to the 2d camera.
+uniform float max_tilt : hint_range(0,2.0) = 1.0;
+//the Max distance from the center of the sprite that results in the max tilt.
+uniform float max_distance = 500.0;
+
+varying flat vec2 o;
+varying vec3 p;
+
+group_uniforms foil_uniforms;
+//The color of the foil.
+uniform vec3 foilcolor : source_color;
+uniform float threshold : hint_range(0.0, 2.0, 0.1) = 0.1 ;
+uniform float fuzziness : hint_range(0.0,1.0,.01) = 0.1;
+uniform float period = 1;
+uniform float scroll = 1;
+uniform float normal_strength = .1;
+uniform float effect_alpha_mult : hint_range(0,1) = 1.0;
+uniform float direction : hint_range(0,1.0) = 0.5;
+
+uniform sampler2D foil_mask;
+uniform sampler2D gradient;
+uniform sampler2D noise;
+uniform sampler2D normal_map;
+
+varying smooth vec2 direction_to;
+varying smooth vec2 passthrough;
+
+float inverse_lerp(float v, float a, float b){
+	return (v - a) / (b - a);
+}
+
+float color_mask(vec3 mask, vec3 color, float mask_threshold, float mask_fuzziness){
+	float d = distance(mask,color);
+	return clamp(1.0 - smoothstep(mask_threshold,mask_threshold + mask_fuzziness, d),0.0,1.0);
+}
+
+mat2 rotate2d(float _angle){
+    return mat2(vec2(cos(_angle),-sin(_angle)),vec2(sin(_angle),cos(_angle)));
+}
+
+vec3 rotate_vector(vec3 v, float angleX, float angleY, float magnitude) {
+	// Create rotation matrices for X and Y axes.
+	mat3 rotX = mat3(
+		vec3(1.0, 0.0, 0.0),
+		vec3(0.0, cos(angleX), -sin(angleX)),
+		vec3(0.0, sin(angleX), cos(angleX))
+	);
+	mat3 rotY = mat3(
+		vec3(cos(angleY), 0.0, sin(angleY)),
+		vec3(0.0, 1.0, 0.0),
+		vec3(-sin(angleY), 0.0, cos(angleY))
+	);
+	// Combine the rotations. Order matters! Y then X is common.
+	mat3 combinedRotation = rotX * rotY; // Apply Y rotation first, then X.
+	// Rotate the vector.
+	vec3 rotatedVector = combinedRotation * v;
+	// Apply magnitude
+	rotatedVector = normalize(rotatedVector) * magnitude;
+	return rotatedVector;
+}
+
+void vertex(){
+	direction_to = mouse_position - sprite_position;
+	float d = length( direction_to );
+	float magnitude = min( max_tilt , d / max_distance);
+	float angle = atan(direction_to.x,direction_to.y);
+	float x_rota = abs(angle) / PI;
+	float y_rota = abs(atan(direction_to.y,direction_to.x)) / PI;
+
+	float sin_b = sin( (-y_rota + .5) * magnitude * (PI / 2.0) );
+	float cos_b = cos( (-y_rota + .5) * magnitude * (PI / 2.0) );
+	float sin_c = sin( (x_rota - .5) * magnitude * (PI / 2.0) );
+	float cos_c = cos( (x_rota - .5) * magnitude * (PI / 2.0) );
+
+	mat3 inv_rot_mat;
+	inv_rot_mat[0][0] = cos_b;
+	inv_rot_mat[0][1] = 0.0;
+	inv_rot_mat[0][2] = -sin_b;
+
+	inv_rot_mat[1][0] = sin_b * sin_c;
+	inv_rot_mat[1][1] = cos_c;
+	inv_rot_mat[1][2] = cos_b * sin_c;
+
+	inv_rot_mat[2][0] = sin_b * cos_c;
+	inv_rot_mat[2][1] = -sin_c;
+	inv_rot_mat[2][2] = cos_b * cos_c;
+
+
+	float t = tan(fov / 360.0 * PI);
+	p = inv_rot_mat * vec3((UV - 0.5), 0.5 / t);
+	float v = (0.5 / t) + 0.5;
+	p.xy *= v * inv_rot_mat[2].z;
+	o = v * inv_rot_mat[2].xy;
+
+	VERTEX += (UV - 0.5) / TEXTURE_PIXEL_SIZE * t * (1.0 - inset);
+}
+
+void fragment() {
+	//culls the back somehow
+	if (cull_back && p.z <= 0.0) discard;
+	//get the UV from based on the tilt from the vertex function
+	vec2 uv = (p.xy / p.z).xy - o;
+	vec2 adjusted_uv = uv + 0.5;
+	//get the color texture
+	vec4 albedo_tex = texture(TEXTURE, adjusted_uv);
+	COLOR = albedo_tex;
+
+	vec4 mask = texture(foil_mask,adjusted_uv);
+	float texture_similarity = color_mask(foilcolor,albedo_tex.rgb,threshold,fuzziness);
+
+	vec4 noise_texture = texture(dissolve_texture, UV);
+
+	float d = length( direction_to );
+	float magnitude = min( max_tilt , d / max_distance);
+	float angle = atan(direction_to.x,direction_to.y);
+	float x_rota = abs(angle) / PI;
+	float y_rota = abs(atan(direction_to.y,direction_to.x)) / PI;
+
+	vec3 normal_map_tex = texture(normal_map,adjusted_uv).rgb * 2.0 - 1.0;
+	vec3 normal = rotate_vector(vec3(1.0,1.0,1.0),x_rota,y_rota,magnitude * magnitude);
+	normal = rotate_vector(normal,normal_map_tex.x, normal_map_tex.y, length(normal_map_tex)) * normal_strength;
+
+	vec4 noise_tex = texture(noise,adjusted_uv);
+
+	vec2 gradiant_sample = vec2((0.25+(normal.y*direction*2.0-normal.x*(1.0-direction)*2.0)/2.0+(uv.y*direction+uv.x*(1.0-direction))/2.0), 0.0);
+	gradiant_sample += vec2(magnitude,0.0) * scroll;
+	gradiant_sample = mod((gradiant_sample+adjusted_uv * period),1.0);
+	vec4 gradient_tex = texture(gradient, gradiant_sample);
+	float strength = effect_alpha_mult * mask.r * texture_similarity;
+
+	float burn_threshold = smoothstep(noise_texture.x, noise_texture.x, dissolve_value);
+	float border = smoothstep(noise_texture.x, noise_texture.x, dissolve_value);
+
+	COLOR.rgb = mix(albedo_tex.rgb, gradient_tex.rgb*(noise_tex.rgb*2.0), strength);//(effect_alpha_mult-length(albedo_tex))*gradient_tex.a*effect_alpha_mult);
+	COLOR.a *= burn_threshold;
+	COLOR.a *= step(max(abs(uv.x), abs(uv.y)), 0.5);
+	COLOR.rgb = mix(burn_color.rgb, COLOR.rgb, border);
+	//COLOR.a *= threshold;
+}"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_j4ao5"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b3b0l"]
+noise = SubResource("FastNoiseLite_j4ao5")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_b3b0l"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pmi5y"]
+noise = SubResource("FastNoiseLite_b3b0l")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xlgyj"]
 resource_local_to_scene = true
-shader = ExtResource("12_10p5i")
-shader_parameter/Noise = SubResource("NoiseTexture2D_qf083")
-shader_parameter/DissolveValue = 1.0
+shader = SubResource("Shader_xpnd4")
+shader_parameter/mouse_position = Vector2(0, 0)
+shader_parameter/sprite_position = Vector2(0, 0)
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_b3b0l")
+shader_parameter/dissolve_value = 1.0
+shader_parameter/burn_color = Color(0, 0, 0, 1)
+shader_parameter/fov = 90.0
+shader_parameter/cull_back = true
+shader_parameter/inset = 0.0
+shader_parameter/max_tilt = 0.035
+shader_parameter/max_distance = 500.0
+shader_parameter/foilcolor = Color(0, 0, 0, 1)
+shader_parameter/threshold = 0.2
+shader_parameter/fuzziness = 0.1
+shader_parameter/period = 2.0
+shader_parameter/scroll = 4.0
+shader_parameter/normal_strength = 0.1
+shader_parameter/effect_alpha_mult = 0.0
+shader_parameter/direction = 0.5
+shader_parameter/gradient = ExtResource("12_bso06")
+shader_parameter/normal_map = SubResource("NoiseTexture2D_pmi5y")
+
+[sub_resource type="GDScript" id="GDScript_jo2uk"]
+script/source = "extends ParallaxLayer
+
+@export var SPEED = -15
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	self.motion_offset.x += SPEED * delta
+"
+
+[sub_resource type="GDScript" id="GDScript_m0e23"]
+script/source = "extends ParallaxLayer
+
+@export var SPEED = -15
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	self.motion_offset.x += SPEED * delta
+"
+
+[sub_resource type="GDScript" id="GDScript_jl12q"]
+script/source = "extends ParallaxLayer
+
+@export var SPEED = -15
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	self.motion_offset.x += SPEED * delta
+"
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -82,6 +312,23 @@ board_size_grp = SubResource("ButtonGroup_bnuun")
 
 [node name="MultiplayerMenu" parent="Menus" instance=ExtResource("9_bso06")]
 layout_mode = 1
+mouse_filter = 1
+
+[node name="HostMenu" parent="Menus" instance=ExtResource("10_xlgyj")]
+layout_mode = 1
+board_size_grp = SubResource("ButtonGroup_xlgyj")
+
+[node name="8" parent="Menus/HostMenu/SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer" index="0"]
+button_group = SubResource("ButtonGroup_x2k7b")
+
+[node name="16" parent="Menus/HostMenu/SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer" index="1"]
+button_group = SubResource("ButtonGroup_x2k7b")
+
+[node name="32" parent="Menus/HostMenu/SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer" index="2"]
+button_group = SubResource("ButtonGroup_x2k7b")
+
+[node name="JoinMenu" parent="Menus" instance=ExtResource("11_bqibv")]
+layout_mode = 1
 
 [node name="CardManager" type="Node2D" parent="." node_paths=PackedStringArray("board_ref", "player_hand_ref", "input_manager_ref", "preview_board_ref")]
 z_index = 2
@@ -92,9 +339,8 @@ input_manager_ref = NodePath("../InputManager")
 preview_board_ref = NodePath("../BoardManager/Preview")
 
 [node name="TutorialCardPack" parent="CardManager" instance=ExtResource("11_26fkh")]
-material = SubResource("ShaderMaterial_flqon")
+material = SubResource("ShaderMaterial_xlgyj")
 position = Vector2(378.725, 233.18)
-pack_sets = Array[ExtResource("13_tp8iy")]([])
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("board")]
 position = Vector2(200, 500)
@@ -104,14 +350,60 @@ board = NodePath("../BoardManager/Preview")
 [node name="BoardManager" parent="." instance=ExtResource("15_fa6rk")]
 script = ExtResource("16_bso06")
 BOARD_SIZE = Vector2i(1, 1)
-BOARDS_LAYOUT = Vector2i(1, 1)
-BORDER_DIM = Vector2i(0, 0)
-proc_gen = null
+BOARD_SCALE = 0.0
+
+[node name="Preview" parent="BoardManager" index="0"]
+script = ExtResource("15_bnuun")
+env_map = ExtResource("16_xpnd4")
 
 [node name="Timer" type="Timer" parent="BoardManager"]
 wait_time = 0.5
 one_shot = true
 
+[node name="Background" type="Node2D" parent="."]
+script = ExtResource("19_m0e23")
+layer1 = Array[Texture2D]([ExtResource("19_jo2uk"), ExtResource("21_40tg6"), ExtResource("22_x2k7b")])
+layer2 = Array[Texture2D]([ExtResource("20_m0e23"), ExtResource("24_n030c"), ExtResource("25_jnbvd")])
+layer3 = Array[Texture2D]([ExtResource("21_jl12q"), ExtResource("27_u1h8v"), ExtResource("28_pa2br")])
+layer4 = Array[Texture2D]([ExtResource("22_26fkh"), ExtResource("30_lovst"), ExtResource("31_d7nto")])
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Background"]
+offset = Vector2(800, 450)
+scale = Vector2(2.78, 2.78)
+transform = Transform2D(2.78, 0, 0, 2.78, 800, 450)
+follow_viewport_enabled = true
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+motion_mirroring = Vector2(1600, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer"]
+texture = ExtResource("19_jo2uk")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+motion_mirroring = Vector2(567, 0)
+script = SubResource("GDScript_jo2uk")
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer2"]
+texture = ExtResource("20_m0e23")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+motion_mirroring = Vector2(567, 0)
+script = SubResource("GDScript_m0e23")
+SPEED = -30
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer3"]
+texture = ExtResource("21_jl12q")
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+motion_mirroring = Vector2(567, 0)
+script = SubResource("GDScript_jl12q")
+SPEED = -55
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer4"]
+texture = ExtResource("22_26fkh")
+
 [connection signal="timeout" from="BoardManager/Timer" to="BoardManager" method="_on_timer_timeout"]
 
+[editable path="Menus/HostMenu"]
+[editable path="Menus/JoinMenu"]
 [editable path="BoardManager"]

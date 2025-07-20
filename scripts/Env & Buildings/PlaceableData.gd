@@ -1,4 +1,4 @@
-extends CardData
+extends PlayableCardData
 class_name PlaceableData
 
 @export_category("Events and Conditions")
@@ -17,17 +17,43 @@ class_name PlaceableData
 # Effects that trigger once the building is placed
 # Scoring will be done here 
 # TODO: May lump this up into one class called EventGroup for the inheritance
-@export var place_effects : Array[BoardEvent]
-@export var post_place_effects : Array[BoardEvent]
-@export var begin_round_effects : Array[BoardEvent]
-@export var end_round_effects : Array[BoardEvent]
-@export var destroyed_effects : Array[BoardEvent]
+@export var place_effects : Array[Event]
+@export var post_place_effects : Array[Event]
+@export var begin_round_effects : Array[Event]
+@export var end_round_effects : Array[Event]
+@export var destroyed_effects : Array[Event]
 
-func preview(board : BoardMatrixData, previewer : Callable, tile_pos : Vector2i) -> void:
-	return preview_event.preview(board, previewer, tile_pos)
+func load_default_preset() -> void:
+	if default_preset:
+		super.load_default_preset()
+		
+		if place_conditions.is_empty():
+			place_conditions = default_preset.place_conditions
+			
+		if place_effects.is_empty():
+			place_effects = default_preset.place_effects
+		
+		if post_place_effects.is_empty():
+			post_place_effects = default_preset.post_place_effects
+		
+		if begin_round_effects.is_empty():
+			begin_round_effects = default_preset.begin_round_effects
+		
+		if end_round_effects.is_empty():
+			end_round_effects = default_preset.end_round_effects
+		
+		if destroyed_effects.is_empty():
+			destroyed_effects = default_preset.destroyed_effects
+	pass
+
+func get_events_as_dict() -> Dictionary[String, Array]:
+	var output = super.get_events_as_dict()
+	output['is_placeable'] = place_conditions
+	output['on_place'] = place_effects
+	output['on_destroy'] = destroyed_effects
+	output['post_place'] = post_place_effects
+	output['on_begin_round'] = begin_round_effects
+	output['on_end_round'] = end_round_effects
+	output['preview'] = [preview_event]
 	
-func placeable(board : BoardMatrixData, pos : Vector2i) -> bool:
-	for condition in place_conditions:
-		if !condition.test(board, pos):
-			return false
-	return true
+	return output

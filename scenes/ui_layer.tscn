@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://b6dee2ixvxkik"]
+[gd_scene load_steps=13 format=3 uid="uid://b6dee2ixvxkik"]
 
 [ext_resource type="Script" uid="uid://bbbnlosaie474" path="res://scripts/GameFlow/player_ui.gd" id="1_6syxi"]
 [ext_resource type="Theme" uid="uid://igcyj7c6fdln" path="res://assets/fonts/cutey_card_theme.tres" id="2_6gmgv"]
 [ext_resource type="FontFile" uid="uid://dj85nkjpq655u" path="res://assets/fonts/cjkFonts-allseto-v1.11-2.ttf" id="3_qey6e"]
 [ext_resource type="FontFile" uid="uid://njwdfbe6i0ko" path="res://assets/fonts/Comicy.ttf" id="4_yplav"]
+[ext_resource type="PackedScene" uid="uid://dwb51heekvc7a" path="res://scenes/Menus/disconnect_screen.tscn" id="5_qey6e"]
+[ext_resource type="PackedScene" uid="uid://c1n34pvf47rut" path="res://scenes/Menus/winner_screen.tscn" id="6_yplav"]
 
 [sub_resource type="Animation" id="Animation_yxlcp"]
 length = 0.001
@@ -197,5 +199,9 @@ uppercase = true
 libraries = {
 &"": SubResource("AnimationLibrary_xa025")
 }
+
+[node name="DisconnectScreen" parent="." instance=ExtResource("5_qey6e")]
+
+[node name="WinnerScreen" parent="." instance=ExtResource("6_yplav")]
 
 [connection signal="pressed" from="PlayerUI/EndTurn" to="PlayerUI" method="_on_end_turn_pressed"]

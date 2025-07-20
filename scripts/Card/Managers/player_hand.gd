@@ -31,7 +31,6 @@ func add_to_hand_no_update(card) -> void:
 	hand_arr.insert(hand_arr.size(), card)
 
 func add_card_to_hand(card) -> void:
-	Signalbus.emit_signal("register_to_cardmanager", card)
 	card.get_node("Area2D/CollisionShape2D").disabled = false
 	add_to_hand_no_update(card)
 	update_hand_pos()

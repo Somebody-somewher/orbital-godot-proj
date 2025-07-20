@@ -21,7 +21,7 @@ func score_tiles(tile_pos : Vector2i) -> Array[Array]:
 
 # Displays the textlabel scoring above each tile. Board calls this function during preview_placement
 # Note that this does not finalize the scoring
-func preview(board : BoardMatrixData, previewer : Callable, tile_pos : Vector2i) -> void:
+func preview(board : BoardMatrixData, previewer : Callable, tile_pos : Vector2i, caller : CardInstanceData) -> void:
 	# Reset the cached score when recalculating, so we don't include old previews
 	var tile_pos_arr : Array[Vector2i]
 	var scores : Array[int]
@@ -33,14 +33,14 @@ func preview(board : BoardMatrixData, previewer : Callable, tile_pos : Vector2i)
 		scores.append(tile_pos_data_score[2][i])
 	previewer.call(tile_pos_arr, scores)
 
-func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : Node2D) -> void:
+func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstanceData) -> void:
 	# Checked if the scored tiles are different from the cached ones
 	var total_score : int = 0
 	# recalculation of the score
 	for score in score_tiles(tile_pos)[2]:
 		total_score += score
 			
-	Signalbus.emit_signal("add_score", total_score)
+	Signalbus.emit_signal("add_score", total_score, caller.get_owner_uuid())
 
 # In case we need to multiply / add score based on tile / building info
 func modifier(score : int, tile_data : BoardTile):

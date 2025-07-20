@@ -12,7 +12,7 @@ var all_clients_ready := false
 func _init(server_comp : Dictionary[String, bool]) -> void:
 	PlayerManager.forEachPlayer(add_players_ready)
 	server_components = server_comp
-	
+
 func add_players_ready(pi : PlayerInfo) -> void:
 	players_ready.get_or_add(pi.getPlayerId(), false)
 
