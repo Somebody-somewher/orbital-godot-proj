@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://dxd1btrt4lkaf"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_oeo6w"]
+
+[resource]
+script = ExtResource("1_oeo6w")
+set_name = "Docks"
+cards = Dictionary[String, int]({
+"docks": 3
+})
+rarity = 0
+aquatic = true
+sabotage = false
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

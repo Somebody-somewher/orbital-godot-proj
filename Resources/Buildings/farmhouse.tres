@@ -35,4 +35,5 @@ category = 4
 tags = Array[String](["booster"])
 is_aura = false
 hidden = false
+override_default = false
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

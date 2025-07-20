@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://u81a5u85chqn"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_fubtg"]
+
+[resource]
+script = ExtResource("1_fubtg")
+set_name = "Pond Flora"
+cards = Dictionary[String, int]({
+"flies": 1,
+"lilypad": 2,
+"lotus": 1
+})
+rarity = 1
+aquatic = true
+sabotage = false
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

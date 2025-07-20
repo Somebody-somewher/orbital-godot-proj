@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://7hk2sy8j02k5"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_lin52"]
+
+[resource]
+script = ExtResource("1_lin52")
+set_name = "Hive"
+cards = Dictionary[String, int]({
+"bees": 2,
+"flower": 1,
+"hive": 1
+})
+rarity = 1
+aquatic = false
+sabotage = false
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"

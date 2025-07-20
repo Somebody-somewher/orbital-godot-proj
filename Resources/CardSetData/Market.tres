@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://buc6y1u6d6wa8"]
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://bwbelxwd3rmio"]
 
-[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_iqp8r"]
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_dxkhg"]
 
 [resource]
-script = ExtResource("1_iqp8r")
+script = ExtResource("1_dxkhg")
 set_name = "Market"
 cards = Dictionary[String, int]({
-"market": 3
+"market": 1
 })
-is_multiplayer = false
+rarity = 0
+aquatic = false
+sabotage = false
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

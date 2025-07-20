@@ -6,9 +6,10 @@
 script = ExtResource("1_uewry")
 set_name = "Wheat"
 cards = Dictionary[String, int]({
-"chicken": 1,
 "silo": 1,
 "wheat_field": 2
 })
-is_multiplayer = false
+rarity = 1
+aquatic = false
+sabotage = false
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

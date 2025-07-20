@@ -12,5 +12,6 @@ class_name CardSetData
 @export var rarity : int = 0
 @export var aquatic : bool
 
+@export var sabotage : bool
 func get_id() -> String:
 	return set_name

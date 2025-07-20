@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://bpaed1g8fbt8f"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_uwxrh"]
+
+[resource]
+script = ExtResource("1_uwxrh")
+set_name = "Vagabond"
+cards = Dictionary[String, int]({
+"cactus": 0,
+"wagon": 2
+})
+rarity = 1
+aquatic = false
+sabotage = false
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"
