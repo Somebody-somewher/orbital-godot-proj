@@ -1,7 +1,7 @@
 extends Object
 class_name CardSetAllocator
 
-var cardset_options : Array[CardSetData] = []
+
 
 const DEFAULT_NUM_OPTIONS = 2
 const MAX_OPTIONS_PER_PACK = 4
@@ -26,6 +26,8 @@ var remove_prev_selected := false
 
 func _init(sets_grp : ResourceGroup, remove_prev := false, seed := -1) -> void:
 	remove_prev_selected = remove_prev
+	
+	var cardset_options : Array[CardSetData] = []
 	sets_grp.load_all_into(cardset_options)
 	
 	for cardset in cardset_options:
@@ -110,10 +112,10 @@ func get_fixed_set_asc(n : int) -> Dictionary[String, CardSetData]:
 		cardset_creation_count += 1
 	return output
 
-func get_all_sets_as_dicts() -> Array[Dictionary]:
-	var output : Array[Dictionary]
-	for cardset_data in cardset_options:
-		output.append(cardset_data.cards)
+func get_all_sets_as_dicts() -> Dictionary[String, Dictionary]:
+	var output : Dictionary[String, Dictionary]
+	for cardset_data in loaded_card_sets.values():
+		output[cardset_data.set_name] = cardset_data.cards
 	return output
 
 ############################### MISC FUNCTIONALITY ####################################

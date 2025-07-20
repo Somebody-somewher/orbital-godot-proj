@@ -19,7 +19,7 @@ func _on_sfx_slider_value_changed(value: float) -> void:
 	sfx_label.text = str(int(value))
 	AudioManager.sfx_volume = value/100
 
-func _on_sfx_slider_drag_ended(value_changed: bool) -> void:
+func _on_sfx_slider_drag_ended(_value_changed: bool) -> void:
 	AudioManager.play_sfx("grass")
 
 func _on_master_slider_value_changed(value: float) -> void:

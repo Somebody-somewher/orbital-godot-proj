@@ -17,5 +17,5 @@ enum MODIFICATION_TYPE {SET, ADJUST}
 
 # Dictionary input
 # Dictionary[Variable_name as String, Array[MODIFICATION_TYPE, modified_value]] -> variable_name as key
-func process_modification(to_modify : Dictionary[String, Array]) -> void:
+func process_modification(_to_modify : Dictionary[String, Array]) -> void:
 	return

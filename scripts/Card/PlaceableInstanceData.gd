@@ -3,8 +3,8 @@ class_name PlaceableInstanceData
 
 var destroy_func : Callable
 
-func _init(instance_id : String, data : PlaceableData, card_attr : int):
-	super._init(instance_id, data, card_attr)
+func _init(instance_id : String, carddata : PlaceableData, card_attr : int):
+	super._init(instance_id, carddata, card_attr)
 
 
 func get_data() -> PlaceableData:
@@ -18,10 +18,10 @@ func serialize() -> Dictionary:
 func resync(serialized_obj : Dictionary) -> void:
 	super.resync(serialized_obj)
 
-static func deserialize(serialized_obj : Dictionary, data : CardData) -> PlaceableInstanceData:
+static func deserialize(serialized_obj : Dictionary, carddata : CardData) -> PlaceableInstanceData:
 	var instance := PlaceableInstanceData.new("", null, 0)
 	instance.resync(serialized_obj)
-	instance.data = (data as PlaceableData)
+	instance.data = (carddata as PlaceableData)
 
 	return instance	
 

@@ -26,7 +26,7 @@ func highlight_tile(coord : Vector2i, on : bool) -> void:
 		#get_tile(coord).off_score_display()
 
 ## Called by card_manager and displays the ghost image
-func preview_placement(placeableinstance_id : String, tile_pos : Vector2i = NULL_TILE) -> void:
+func preview_placement(_placeableinstance_id : String, _tile_pos : Vector2i = NULL_TILE) -> void:
 	pass
 
 func place_ghost(placeable_data : PlaceableData, tile_pos : Vector2i) -> void:

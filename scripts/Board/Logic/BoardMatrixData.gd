@@ -33,14 +33,12 @@ func _init(board_size : int, boards_layout : Vector2i) -> void:
 	# Get the start and end coordinates of each of the boards
 	var start_pos : Vector2i
 	var end_pos : Vector2i
-	var board_id: int = 0
 	for y in range(boards_layout.y):
 		for x in range(boards_layout.x):
 			start_pos = Vector2i(x * board_size, y * board_size)
 			end_pos = start_pos + Vector2i(board_size,board_size) - Vector2i(1,1)
 			
 			boards_coords.append([start_pos, end_pos])
-			board_id += 1
 		
 	
 ## Create a board tile for each cell in the matrix (passed indirectly to procgen via board_manager)

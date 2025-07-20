@@ -6,8 +6,8 @@ var tile_pos := Vector2i(-1,-1)
 
 var foil : bool
 
-func _init(instance_id : String, data : BuildingData, card_attr : int):
-	super._init(instance_id, data, card_attr)
+func _init(instance_id : String, carddata : BuildingData, card_attr : int):
+	super._init(instance_id, carddata, card_attr)
 	if card_attr > 90:
 		foil = true
 
@@ -21,10 +21,10 @@ func serialize() -> Dictionary:
 	output['tilepos'] = tile_pos
 	return output
 
-static func deserialize(serialized_obj : Dictionary, data : CardData) -> BuildingInstanceData:
-	var instance := BuildingInstanceData.new("", data, 0)
+static func deserialize(serialized_obj : Dictionary, carddata : CardData) -> BuildingInstanceData:
+	var instance := BuildingInstanceData.new("", carddata, 0)
 	instance.resync(serialized_obj)
-	instance.data = (data as BuildingData)
+	instance.data = (carddata as BuildingData)
 	return instance
 
 func resync(serialized_obj : Dictionary) -> void:

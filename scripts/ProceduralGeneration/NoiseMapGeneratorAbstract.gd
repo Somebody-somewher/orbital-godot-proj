@@ -14,7 +14,7 @@ var _border_width : Vector2i
 
 
 # Call this to start the proc_gen (can be called multiple times without error)
-func set_up(board_size : Vector2i = Vector2i(8,8), board_num : Vector2i = Vector2i(1,1), border_width : Vector2i = Vector2i(0,0), seed : int = -1) -> void:
+func set_up(board_size : Vector2i = Vector2i(8,8), board_num : Vector2i = Vector2i(1,1), border_width : Vector2i = Vector2i(0,0), seedz : int = -1) -> void:
 	randomize()
 	
 	_board_size = board_size
@@ -24,7 +24,7 @@ func set_up(board_size : Vector2i = Vector2i(8,8), board_num : Vector2i = Vector
 	_gen_size = Vector2i(board_size.x * board_num.x + border_width.x * 2, board_size.y * board_num.y + border_width.y * 2)
 	# If noise texture is not provided, we randomize a new one
 	if noise_highlight_texture == null:
-		noise_highlight_texture = generate_noise_texture(terrain_noise_freq, seed)
+		noise_highlight_texture = generate_noise_texture(terrain_noise_freq, seedz)
 
 # Creates randomized Noise Texture
 func generate_noise_texture(freq : float = 0.0583, noise_seed : int = -1) -> NoiseTexture2D:

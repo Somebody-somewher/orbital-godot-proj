@@ -4,9 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://dq5k8pk1kx5fr" path="res://scenes/Card/playerhand_card.tscn" id="2_bhm5s"]
 [ext_resource type="Texture2D" uid="uid://d02is06vvdlbm" path="res://assets/card_sprites/blank_card.png" id="3_6v38v"]
 [ext_resource type="Resource" uid="uid://dg6oe12i637ef" path="res://Resources/ResourceGrps/BuildingGrp.tres" id="4_n1e4f"]
-[ext_resource type="Script" path="res://scripts/Card/Pack&Set/CardPackGenerator.gd" id="5_m1yff"]
+[ext_resource type="Script" uid="uid://b1yn3sucf1w6y" path="res://scripts/Card/Pack&Set/CardPackGenerator.gd" id="5_m1yff"]
 [ext_resource type="Resource" uid="uid://bidf8heaj5xv8" path="res://Resources/ResourceGrps/CardSetGrp.tres" id="6_pngft"]
-[ext_resource type="Script" path="res://scripts/Events/EventManager.gd" id="7_7gwn3"]
+[ext_resource type="Script" uid="uid://cwbsaq2pvb8fq" path="res://scripts/Events/EventManager.gd" id="7_7gwn3"]
 
 [node name="Node" type="Node"]
 script = ExtResource("1_bhm5s")

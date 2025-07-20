@@ -3,17 +3,15 @@ extends Object
 
 var pid : int
 var pName : String
-var uuid : String
-var colour : Color
+var pUuid : String
+var pColour : Color
 
-# Board data
-var _boards_interactable : Array[bool] = []
 
-func _init(uuid : String, id : int, pName : String, colour : Color) -> void:
-	self.uuid = uuid
-	self.pid = id
-	self.pName = pName
-	self.colour = colour
+func _init(uuid : String, id : int, name : String, colour : Color) -> void:
+	pUuid = uuid
+	pid = id
+	pName = pName
+	pColour = colour
  
 func getPlayerId() -> int:
 	return pid
@@ -25,10 +23,10 @@ func getPlayerName() -> String:
 	return pName
 
 func getPlayerUUID() -> String:
-	return uuid
+	return pUuid
 
 func getColor() -> Color:
-	return colour
+	return pColour
 
 static func generateUUID(pName : String) -> String:
 	var hardware_id := OS.get_unique_id()

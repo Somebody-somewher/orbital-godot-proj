@@ -79,12 +79,12 @@ func initialize_card_effect() -> void:
 
 # called when added to board
 # fully replace card with effect, then free self instance
-func swap_to_effect(scale_by: Vector2) -> void:
+func swap_to_effect(_scale_by: Vector2) -> void:
 	self.get_node("Area2D/CollisionShape2D").disabled = true
 	dissolve_card()
 
 #called by cardmanager when highlighting
-func highlight_card(on : bool, tweening : Tween) -> void :
+func highlight_card(_on : bool, _tweening : Tween) -> void :
 	pass
 ######################################################################
 

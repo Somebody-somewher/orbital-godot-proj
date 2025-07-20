@@ -10,7 +10,7 @@ func initialize_card_effect() -> void:
 
 # called when added to board
 # fully replace card with effect, then free self instance
-func swap_to_effect(scale_by: Vector2) -> void:
+func swap_to_effect(_scale_by: Vector2) -> void:
 	pass
 #
 #func modify_events(arr : Array[BoardEvent]) -> Array[BoardEvent]:
