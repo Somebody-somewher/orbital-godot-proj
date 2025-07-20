@@ -23,6 +23,8 @@ enum CATEGORY {
 # hidden cards are not shown in compendium
 @export var hidden : bool = false
 
+@export var override_default : bool = false
+
 func load_default_preset() -> void:
 	pass
 	

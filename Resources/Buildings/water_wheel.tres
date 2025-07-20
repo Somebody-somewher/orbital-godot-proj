@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=9 format=3 uid="uid://cpmhqwkx6q4xg"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=13 format=3 uid="uid://cpmhqwkx6q4xg"]
 
-[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_0uweu"]
+[ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_d2k8b"]
 [ext_resource type="Texture2D" uid="uid://3lwl0emtknb1" path="res://assets/entity_sprites/water_wheel.PNG" id="2_0uweu"]
 [ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_isols"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_ogrxi"]
@@ -8,6 +8,15 @@
 [ext_resource type="Resource" uid="uid://bsrnk44vhb58o" path="res://Resources/Events&Conditions/Conditions/StackableCondition.tres" id="4_isols"]
 [ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events&Conditions/Events/Scoring/cow_scoring.tres" id="5_afavb"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_d2k8b"]
+[ext_resource type="Resource" uid="uid://dn1afqgtyr3lp" path="res://Resources/EnvTerrain/TerrainTiles/Grass.tres" id="7_1i3lh"]
+[ext_resource type="Resource" uid="uid://dctu4sqtncbb3" path="res://Resources/EnvTerrain/TerrainTiles/Desert.tres" id="8_mbo6p"]
+[ext_resource type="Script" uid="uid://c4b1tsjdr6q7r" path="res://scripts/PlaceConditions/TerrainCondition.gd" id="9_miu8o"]
+
+[sub_resource type="Resource" id="Resource_545p0"]
+script = ExtResource("9_miu8o")
+nonplaceable_terrain = Array[ExtResource("3_isols")]([ExtResource("7_1i3lh"), ExtResource("8_mbo6p")])
+reminder_msg = ""
+metadata/_custom_type_script = "uid://c4b1tsjdr6q7r"
 
 [resource]
 script = ExtResource("6_d2k8b")
@@ -15,12 +24,15 @@ layer = 1
 nonplaceable_terrain = Array[ExtResource("3_isols")]([ExtResource("4_afavb")])
 foil_probability = 0
 preview_event = ExtResource("5_afavb")
-place_conditions = Array[ExtResource("3_ogrxi")]([ExtResource("4_isols")])
-place_effects = Array[ExtResource("1_0uweu")]([])
-post_place_effects = Array[ExtResource("1_0uweu")]([])
-begin_round_effects = Array[ExtResource("1_0uweu")]([])
-end_round_effects = Array[ExtResource("1_0uweu")]([])
-destroyed_effects = Array[ExtResource("1_0uweu")]([])
+place_conditions = Array[ExtResource("3_ogrxi")]([ExtResource("4_isols"), SubResource("Resource_545p0")])
+place_effects = Array[ExtResource("1_d2k8b")]([])
+post_place_effects = Array[ExtResource("1_d2k8b")]([])
+begin_round_effects = Array[ExtResource("1_d2k8b")]([])
+end_round_effects = Array[ExtResource("1_d2k8b")]([])
+destroyed_effects = Array[ExtResource("1_d2k8b")]([])
+play_conditions = Array[ExtResource("3_ogrxi")]([])
+play_effects = Array[ExtResource("1_d2k8b")]([])
+discard_effects = Array[ExtResource("1_d2k8b")]([])
 id_name = "water_wheel"
 display_name = "Water Wheel"
 card_sprite = ExtResource("2_0uweu")
@@ -30,4 +42,5 @@ category = 8
 tags = Array[String](["booster", "aquatic"])
 is_aura = false
 hidden = false
+override_default = false
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

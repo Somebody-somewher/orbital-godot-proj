@@ -32,4 +32,5 @@ category = 0
 tags = Array[String]([])
 is_aura = false
 hidden = true
+override_default = false
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

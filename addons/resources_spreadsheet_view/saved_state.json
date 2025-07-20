@@ -23,8 +23,23 @@
       }
     },
     "res://Resources/Buildings/": {
+      "begin_round_effects": {
+        "visibility": 0
+      },
+      "destroyed_effects": {
+        "visibility": 0
+      },
+      "end_round_effects": {
+        "visibility": 0
+      },
       "metadata/_custom_type_script": {
         "visibility": 0.0
+      },
+      "place_effects": {
+        "visibility": 0
+      },
+      "post_place_effects": {
+        "visibility": 0
       },
       "resource_local_to_scene": {
         "visibility": 0.0

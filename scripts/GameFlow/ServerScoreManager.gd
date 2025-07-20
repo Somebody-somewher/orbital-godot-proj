@@ -7,7 +7,7 @@ var player_scores : Dictionary[String, Dictionary]
 
 var ranking : Array[String]
 
-var end_score : int = 10
+var end_score : int = 100
 var end_medals : int = 5
 
 var is_poll_first := false

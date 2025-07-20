@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="BuildingData" load_steps=9 format=3 uid="uid://ppx0p0egxq8f"]
 
-[ext_resource type="Script" uid="uid://bobjhb6fpbeu4" path="res://scripts/Events/board_event.gd" id="1_4mh3p"]
+[ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_02u2a"]
 [ext_resource type="Texture2D" uid="uid://daq75lp0tayfh" path="res://assets/entity_sprites/telescope.PNG" id="2_4mh3p"]
 [ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_02u2a"]
+[ext_resource type="Resource" uid="uid://fbnj1ug25po" path="res://Resources/Events&Conditions/BuildingDefaultPreset.tres" id="3_f75d1"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_sf3a2"]
-[ext_resource type="Resource" uid="uid://bsrnk44vhb58o" path="res://Resources/Events&Conditions/Conditions/StackableCondition.tres" id="4_02u2a"]
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_f75d1"]
 [ext_resource type="Resource" uid="uid://iaukw1040i4o" path="res://Resources/Events&Conditions/Events/Scoring/telescope_scoring.tres" id="5_4mh3p"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_roj7c"]
@@ -15,12 +15,16 @@ layer = 1
 nonplaceable_terrain = Array[ExtResource("3_02u2a")]([ExtResource("4_f75d1")])
 foil_probability = 0
 preview_event = ExtResource("5_4mh3p")
-place_conditions = Array[ExtResource("3_sf3a2")]([ExtResource("4_02u2a")])
-place_effects = Array[ExtResource("1_4mh3p")]([])
-post_place_effects = Array[ExtResource("1_4mh3p")]([])
-begin_round_effects = Array[ExtResource("1_4mh3p")]([])
-end_round_effects = Array[ExtResource("1_4mh3p")]([])
-destroyed_effects = Array[ExtResource("1_4mh3p")]([])
+place_conditions = Array[ExtResource("3_sf3a2")]([])
+place_effects = Array[ExtResource("1_02u2a")]([])
+post_place_effects = Array[ExtResource("1_02u2a")]([])
+begin_round_effects = Array[ExtResource("1_02u2a")]([])
+end_round_effects = Array[ExtResource("1_02u2a")]([])
+destroyed_effects = Array[ExtResource("1_02u2a")]([])
+default_preset = ExtResource("3_f75d1")
+play_conditions = Array[ExtResource("3_sf3a2")]([])
+play_effects = Array[ExtResource("1_02u2a")]([])
+discard_effects = Array[ExtResource("1_02u2a")]([])
 id_name = "telescope"
 display_name = "Telescope"
 card_sprite = ExtResource("2_4mh3p")
@@ -30,4 +34,5 @@ category = 5
 tags = Array[String](["warding"])
 is_aura = false
 hidden = false
+override_default = false
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

@@ -27,22 +27,22 @@ func load_default_preset() -> void:
 	if default_preset:
 		super.load_default_preset()
 		
-		if place_conditions.is_empty():
+		if place_conditions.is_empty() or override_default:
 			place_conditions = default_preset.place_conditions
 			
-		if place_effects.is_empty():
+		if place_effects.is_empty() or override_default:
 			place_effects = default_preset.place_effects
 		
-		if post_place_effects.is_empty():
+		if post_place_effects.is_empty() or override_default:
 			post_place_effects = default_preset.post_place_effects
 		
-		if begin_round_effects.is_empty():
+		if begin_round_effects.is_empty() or override_default:
 			begin_round_effects = default_preset.begin_round_effects
 		
-		if end_round_effects.is_empty():
+		if end_round_effects.is_empty() or override_default:
 			end_round_effects = default_preset.end_round_effects
 		
-		if destroyed_effects.is_empty():
+		if destroyed_effects.is_empty() or override_default:
 			destroyed_effects = default_preset.destroyed_effects
 	pass
 
