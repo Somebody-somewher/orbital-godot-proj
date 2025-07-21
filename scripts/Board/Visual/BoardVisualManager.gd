@@ -53,8 +53,6 @@ func change_border_terrain_tile(terrain_id : String, tile_pos : Vector2i) -> voi
 		darken_tile += 1
 	
 	var tile = env_map.getTilePosbyEnv(terrain_id)
-	
-	print(viewable_area_coords)
 	if tile_pos.x == border_coords[0].x:
 		if tile_pos.y == border_coords[1].y:
 			tile += Vector2i(0,2)

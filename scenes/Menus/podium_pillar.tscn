@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://mhni883y5mcx" path="res://scripts/Menus/player_pillar.gd" id="1_caq3i"]
 [ext_resource type="PackedScene" uid="uid://biq8ajxoie2ij" path="res://scenes/Menus/winner_medal.tscn" id="2_8lusk"]
 [ext_resource type="FontFile" uid="uid://v66tkdbnak7b" path="res://assets/fonts/friendlyscribbles.ttf" id="3_gthei"]
-[ext_resource type="Texture2D" uid="uid://4ga7mu8uoap5" path="res://assets/misc_sprites/rays_overlay.png" id="4_8lusk"]
-[ext_resource type="Texture2D" uid="uid://dwwjherjsfetp" path="res://assets/misc_sprites/podium_pillar.png" id="4_x13c3"]
+[ext_resource type="Texture2D" uid="uid://cig7cso4sjvbv" path="res://assets/misc_sprites/rays_overlay.png" id="4_8lusk"]
+[ext_resource type="Texture2D" uid="uid://lakrku3e3r1s" path="res://assets/misc_sprites/podium_pillar.png" id="4_x13c3"]
 
 [sub_resource type="Animation" id="Animation_gthei"]
 length = 0.001
