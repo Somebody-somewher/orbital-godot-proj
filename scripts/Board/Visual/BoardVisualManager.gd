@@ -9,6 +9,8 @@ var placeables_placed : Dictionary[Vector2i, Dictionary]
 # This is a tilemap specifically to darken non-interactive tiles
 @export var darken_tilemap : TileMapLayer
 
+var border_coords: Array[Vector2]
+
 # local start-end tilepos of playable area for camera
 var viewable_area_coords : Array[Vector2]
 
@@ -18,13 +20,15 @@ func _ready() -> void:
 	darken_tilemap.scale = Vector2(BOARD_SCALE, BOARD_SCALE)
 	darken_tilemap.tile_set = env_map.tileset
 	fake_building_colouration = Color.DIM_GRAY
+	
 	z_index = -1
 
 func set_up(parent : Node2D, border_dim : Vector2i, playable_area_coords : Array[Vector2i]) -> void:
 	super._set_up(parent, border_dim)
+	border_coords = [playable_area_coords[0], playable_area_coords[1] + Vector2i(2,2)]
 	shade_area(playable_area_coords[0], playable_area_coords[1])
 	viewable_area_coords = [matrix_to_tilepos(playable_area_coords[0]) * TILE_SIZE,\
-		 matrix_to_tilepos(playable_area_coords[1]) * TILE_SIZE]
+		matrix_to_tilepos(playable_area_coords[1]) * TILE_SIZE]
 
 func create_terrain_tile(terrain_id : String, tile_pos : Vector2i) -> void:
 	change_terrain_tile(terrain_id, tile_pos)
@@ -50,15 +54,16 @@ func change_border_terrain_tile(terrain_id : String, tile_pos : Vector2i) -> voi
 	
 	var tile = env_map.getTilePosbyEnv(terrain_id)
 	
-	if tile_pos.x == 0:
-		if tile_pos.y == 9:
+	print(viewable_area_coords)
+	if tile_pos.x == border_coords[0].x:
+		if tile_pos.y == border_coords[1].y:
 			tile += Vector2i(0,2)
-		if tile_pos.y == 0:
+		if tile_pos.y == border_coords[0].y:
 			tile += Vector2i(0,4)
-	if tile_pos.x == 9:
-		if tile_pos.y == 9:
+	if tile_pos.x == border_coords[1].x:
+		if tile_pos.y == border_coords[1].y:
 			tile += Vector2i(0,3)
-		if tile_pos.y == 0:
+		if tile_pos.y == border_coords[0].y:
 			tile += Vector2i(0,5)
 	
 	set_cell(tile_pos, 0, tile, darken_tile)
@@ -95,7 +100,7 @@ func place_fake_building(building_id: String, tile_pos : Vector2i) -> void:
 	fake_placeable.set_modulate(fake_building_colouration)
 	object.add_child(fake_placeable)
 	fake_placeable.z_index = tile_pos.y
-	fake_placeable.position = get_local_centre_of_tile(tile_pos)	
+	fake_placeable.position = get_local_centre_of_tile(tile_pos)
 
 func unshade_area(start_coords : Vector2i, end_coords : Vector2i) -> void:
 	start_coords = matrix_to_tilepos(start_coords)
