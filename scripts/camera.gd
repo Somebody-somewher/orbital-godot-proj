@@ -12,8 +12,8 @@ var drag_offset := Vector2.ZERO
 var mouse_initial := Vector2.ZERO
 
 var _target_zoom := 1.0
-const MIN_ZOOM := 0.5
-const MAX_ZOOM := 4.0
+const MIN_ZOOM := 0.8
+const MAX_ZOOM := 5.0
 const ZOOM_INC := 0.1
 const ZOOM_RATE := 8.0
 
@@ -77,4 +77,8 @@ func restrict_camera_to_board() -> Vector2:
 	var maxXY = board.get_board_coords()[1] - screen_size/zoom/5
 	var clamped_x = clamp(global_position.x, minXY.x,maxXY.x)
 	var clamped_y = clamp(global_position.y, minXY.y,maxXY.y)
-	return (global_position - Vector2(clamped_x, clamped_y)) * 0.3
+	var new_vec = (global_position - Vector2(clamped_x, clamped_y)) * 0.3
+	if new_vec.length_squared() < 9:
+		return new_vec.normalized() * 3
+	else:
+		return new_vec
