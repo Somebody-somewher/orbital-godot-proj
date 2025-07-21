@@ -6,8 +6,9 @@
 script = ExtResource("1_oeo6w")
 set_name = "Docks"
 cards = Dictionary[String, int]({
-"docks": 3
+"dock": 3
 })
+is_multiplayer = false
 rarity = 0
 aquatic = true
 sabotage = false

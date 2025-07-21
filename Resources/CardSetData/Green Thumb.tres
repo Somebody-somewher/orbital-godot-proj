@@ -6,9 +6,10 @@
 script = ExtResource("1_ds2g1")
 set_name = "Green Thumb"
 cards = Dictionary[String, int]({
-"carrot": 1,
+"carrots": 1,
 "garden": 1
 })
+is_multiplayer = false
 rarity = 0
 aquatic = false
 sabotage = false

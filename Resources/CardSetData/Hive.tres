@@ -7,9 +7,10 @@ script = ExtResource("1_lin52")
 set_name = "Hive"
 cards = Dictionary[String, int]({
 "bees": 2,
-"flower": 1,
+"flowers": 1,
 "hive": 1
 })
+is_multiplayer = false
 rarity = 1
 aquatic = false
 sabotage = false
