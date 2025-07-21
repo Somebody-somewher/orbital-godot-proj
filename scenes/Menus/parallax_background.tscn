@@ -1,0 +1,90 @@
+[gd_scene load_steps=17 format=3 uid="uid://dqeuxtjytggp4"]
+
+[ext_resource type="Script" uid="uid://0puieb5gjtoe" path="res://scripts/ParallaxBackground/menu_parallax_background.gd" id="1_a65ti"]
+[ext_resource type="Texture2D" uid="uid://cdvtn386cwgwv" path="res://assets/backgrounds/Clouds 3/1.png" id="2_putph"]
+[ext_resource type="Texture2D" uid="uid://ckeso67tjoplq" path="res://assets/backgrounds/Clouds 2/1.png" id="3_78dr2"]
+[ext_resource type="Texture2D" uid="uid://bfr36spdiq2rg" path="res://assets/backgrounds/Clouds 1/1.png" id="4_7e7fc"]
+[ext_resource type="Texture2D" uid="uid://c32secligmlfj" path="res://assets/backgrounds/Clouds 3/3.png" id="5_0nl1e"]
+[ext_resource type="Texture2D" uid="uid://0dkb5oguhimt" path="res://assets/backgrounds/Clouds 2/2.png" id="6_fupdo"]
+[ext_resource type="Texture2D" uid="uid://bpmcv3gbi83a3" path="res://assets/backgrounds/Clouds 1/2.png" id="7_prs0a"]
+[ext_resource type="Texture2D" uid="uid://3jv2vw2w60i7" path="res://assets/backgrounds/Clouds 3/4.png" id="8_tyjf8"]
+[ext_resource type="Texture2D" uid="uid://duya6c6sqhjc0" path="res://assets/backgrounds/Clouds 2/3.png" id="9_cbtqu"]
+[ext_resource type="Texture2D" uid="uid://c46rx0oacwitc" path="res://assets/backgrounds/Clouds 1/3.png" id="10_mcarh"]
+[ext_resource type="Texture2D" uid="uid://c6roun1e7w055" path="res://assets/backgrounds/Clouds 3/5.png" id="11_yqyia"]
+[ext_resource type="Texture2D" uid="uid://dmo1mdx5ybrkg" path="res://assets/backgrounds/Clouds 2/4.png" id="12_2l4mo"]
+[ext_resource type="Texture2D" uid="uid://d2o6fmavoq14w" path="res://assets/backgrounds/Clouds 1/4.png" id="13_b6jns"]
+
+[sub_resource type="GDScript" id="GDScript_jo2uk"]
+script/source = "extends ParallaxLayer
+
+@export var SPEED = -15
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	self.motion_offset.x += SPEED * delta
+"
+
+[sub_resource type="GDScript" id="GDScript_m0e23"]
+script/source = "extends ParallaxLayer
+
+@export var SPEED = -15
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	self.motion_offset.x += SPEED * delta
+"
+
+[sub_resource type="GDScript" id="GDScript_jl12q"]
+script/source = "extends ParallaxLayer
+
+@export var SPEED = -15
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	self.motion_offset.x += SPEED * delta
+"
+
+[node name="Background" type="Node2D"]
+script = ExtResource("1_a65ti")
+layer1 = Array[Texture2D]([ExtResource("2_putph"), ExtResource("3_78dr2"), ExtResource("4_7e7fc")])
+layer2 = Array[Texture2D]([ExtResource("5_0nl1e"), ExtResource("6_fupdo"), ExtResource("7_prs0a")])
+layer3 = Array[Texture2D]([ExtResource("8_tyjf8"), ExtResource("9_cbtqu"), ExtResource("10_mcarh")])
+layer4 = Array[Texture2D]([ExtResource("11_yqyia"), ExtResource("12_2l4mo"), ExtResource("13_b6jns")])
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+offset = Vector2(800, 450)
+scale = Vector2(2.78, 2.78)
+transform = Transform2D(2.78, 0, 0, 2.78, 800, 450)
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(1600, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource("2_putph")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(567, 0)
+script = SubResource("GDScript_jo2uk")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+texture = ExtResource("5_0nl1e")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(567, 0)
+script = SubResource("GDScript_m0e23")
+SPEED = -30
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+texture = ExtResource("8_tyjf8")
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(567, 0)
+script = SubResource("GDScript_jl12q")
+SPEED = -55
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+texture = ExtResource("11_yqyia")

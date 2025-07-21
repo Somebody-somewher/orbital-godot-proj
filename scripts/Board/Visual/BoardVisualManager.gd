@@ -37,17 +37,31 @@ func change_terrain_tile(terrain_id : String, tile_pos : Vector2i) -> void:
 	if (tile_pos.x + tile_pos.y) % 2 == 1:
 		darken_tile += 1
 	
-	set_cell(tile_pos, 0, env_map.getTilePosbyEnv(terrain_id), darken_tile)
+	var tile = env_map.getTilePosbyEnv(terrain_id)
+	
+	set_cell(tile_pos, 0, tile, darken_tile)
 
-@rpc("any_peer", "call_local")
 func change_border_terrain_tile(terrain_id : String, tile_pos : Vector2i) -> void:
 	var darken_tile = 4
 	
 	# Every alternate tile, set the alternate colour in the tilemap
 	if (tile_pos.x + tile_pos.y) % 2 == 1:
 		darken_tile += 1
-			
-	set_cell(tile_pos, 0, env_map.getTilePosbyEnv(terrain_id), darken_tile)
+	
+	var tile = env_map.getTilePosbyEnv(terrain_id)
+	
+	if tile_pos.x == 0:
+		if tile_pos.y == 9:
+			tile += Vector2i(0,2)
+		if tile_pos.y == 0:
+			tile += Vector2i(0,4)
+	if tile_pos.x == 9:
+		if tile_pos.y == 9:
+			tile += Vector2i(0,3)
+		if tile_pos.y == 0:
+			tile += Vector2i(0,5)
+	
+	set_cell(tile_pos, 0, tile, darken_tile)
 
 # try to place placeable on tile
 # Private function

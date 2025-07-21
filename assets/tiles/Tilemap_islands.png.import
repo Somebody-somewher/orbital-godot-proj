@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://l5cfckyblv14"
-path="res://.godot/imported/TileMap_rounded_BR.png-b5dca72ddbadcfde6207924468edf83f.ctex"
+uid="uid://dfqdwxirjchr5"
+path="res://.godot/imported/Tilemap_islands.png-b2bbbef80c7cb99cb49eda169026f527.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tiles/TileMap_rounded_BR.png"
-dest_files=["res://.godot/imported/TileMap_rounded_BR.png-b5dca72ddbadcfde6207924468edf83f.ctex"]
+source_file="res://assets/tiles/Tilemap_islands.png"
+dest_files=["res://.godot/imported/Tilemap_islands.png-b2bbbef80c7cb99cb49eda169026f527.ctex"]
 
 [params]
 

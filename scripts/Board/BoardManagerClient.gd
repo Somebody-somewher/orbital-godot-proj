@@ -4,6 +4,7 @@ class_name BoardManagerClient
 # Technically the "board" is made up of smaller "sub"-boards where each "sub"-board belongs to a player
 
 @export var terrain_tilemap : BoardVisualManager
+@export var terrain_underlayer : BoardTileMapLayer
 @export var previewer_tilemap : BoardPreviewerTileMap
 @export var object : Node
 
@@ -23,6 +24,7 @@ func set_up() -> void:
 	# Tilemaps setup
 	var playable_area = matrix_data.get_playable_area_coords()
 	terrain_tilemap.set_up(object, BORDER_DIM, playable_area)	
+	terrain_underlayer.set_up(object, BORDER_DIM, playable_area)	
 	previewer_tilemap.set_up(object, BORDER_DIM, playable_area, client_interactability_check)
 	
 ## Params supplied by server, called by all clients
@@ -42,6 +44,7 @@ func _ready() -> void:
 @rpc("any_peer","call_local")
 func _client_create_border_fake_tile(tid : String, tile_pos : Vector2i) -> void:
 	terrain_tilemap.change_border_terrain_tile(tid, tile_pos)
+	terrain_underlayer.change_border_terrain_tile(tile_pos)
 
 @rpc("any_peer","call_local")
 func _client_create_border_fake_building(bid : String, tile_pos : Vector2i) -> void:
@@ -102,6 +105,7 @@ func create_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
 func _create_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
 	super._create_terrain(terrain_id, tile_pos)
 	terrain_tilemap.change_terrain_tile(terrain_id, tile_pos)
+	terrain_underlayer.change_terrain_tile(tile_pos)
 
 @rpc("any_peer","call_local")
 func change_terrain(terrain_id : String, tile_pos : Vector2i) -> void:

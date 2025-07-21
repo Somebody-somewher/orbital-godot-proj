@@ -6,4 +6,6 @@
 [resource]
 script = ExtResource("1_1gyjp")
 aoe = ExtResource("1_eotr8")
+event_name = ""
+desc = ""
 metadata/_custom_type_script = "uid://bobjhb6fpbeu4"
