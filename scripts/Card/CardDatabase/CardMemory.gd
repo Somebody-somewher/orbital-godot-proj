@@ -7,12 +7,21 @@ var self_uuid : String
 # Actual Card instances created/esented for each player
 var player_memory : Dictionary[String, PlayerCardMemory]
 
+var register_events : Callable
+var trigger_play_events : Callable
+var trigger_discard_events : Callable
+
 func setup() -> void:
 	var local_player_memory = PlayerCardMemory.new()
 	self_uuid = PlayerManager.getCurrentPlayerUUID()
 	local_player_memory.player_uuid = self_uuid
 	player_memory = {self_uuid: local_player_memory}
-	
+
+func event_manager_setup(register_events : Callable, trigger_play : Callable, trigger_discard : Callable) -> void:
+	self.register_events = register_events
+	self.trigger_play_events = trigger_play
+	self.trigger_discard_events = trigger_discard
+
 func record_player_cardpack_options(card_packs : Dictionary[int, Dictionary]) -> void:
 	player_memory[self_uuid].record_cardpack_options(card_packs)
 
@@ -28,8 +37,18 @@ func local_search_hand_for(instance_id : String) -> CardInstanceData:
 @rpc("any_peer", "call_local")
 func _attempt_cardset_to_hand(cardpack_id : int, cardset_id : String, cardinstanceids_to_add : Array[String]) -> void:
 	var result = player_memory[self_uuid].attempt_cardset_to_hand(cardpack_id, cardset_id)
+	
+	assert(len(result[0]) == len(cardinstanceids_to_add))
+	
+	for index in range(len(result[0])):
+		assert(result[0][index].get_id() == cardinstanceids_to_add)
+	
 	Signalbus.emit_signal("confirmed_add_to_hand", cardinstanceids_to_add, cardset_id)
 
+@rpc("any_peer", "call_local")
+func _attempt_to_use_hand_card(instance_id : String, player_uuid : String) -> void:
+	var result = player_memory[self_uuid].remove_card_in_hand(instance_id)
+	
 @rpc("any_peer", "call_local")
 func _remove_card_in_hand(instance_id : String) -> void:
 	player_memory[self_uuid].remove_card_in_hand(instance_id)

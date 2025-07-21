@@ -5,7 +5,7 @@ extends Node
 var peerid_to_players : Dictionary[int, PlayerInfo] = {}
 var uuid_to_players : Dictionary[String, PlayerInfo] = {}
 
-var player_colors : Array[Color] = [Color.PINK, Color.LIGHT_SALMON, Color.AZURE, Color.AQUAMARINE]
+var player_colors : Array[Color] = [Color.INDIAN_RED, Color.MEDIUM_PURPLE, Color.CORAL, Color.ROYAL_BLUE]
 var color_index := 0
 
 @export var is_multiplayer : bool = false

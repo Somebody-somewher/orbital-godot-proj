@@ -28,13 +28,19 @@ func record_player_cardpack_choice(cardpack_id : int, player_uuid : String) -> v
 
 ################################# PLAYER HAND #####################################
 @rpc("any_peer","call_local")
-func attempt_cardset_to_hand(cardpack_id : int, cardset_id : String, player_uuid : String) -> Array[String]:	
-	var result : Array[CardInstanceData] = player_memory[player_uuid].attempt_cardset_to_hand(cardpack_id, cardset_id)
+func attempt_cardset_to_hand(cardpack_id : int, cardset_id : String, player_uuid : String) -> Array[String]:
 	
+	var result : Array[Array] = player_memory[player_uuid].attempt_cardset_to_hand(cardpack_id, cardset_id)
 	var string_ids : Array[String] = []
-	
-	for instance in result:
+		
+	for instance in result[0]:
+		register_events.call(instance)
 		string_ids.append(instance.get_id())
+	
+	# Technically this means the card enters the hand and then gets discarded immediately
+	for instance in result[1]:
+		register_events.call(instance)
+		trigger_discard_events.call(instance)
 	
 	Signalbus.emit_signal("confirmed_add_to_hand", string_ids, cardset_id)
 	
@@ -56,14 +62,22 @@ func search_hand_for(instance_id : String, player_uuid : String) -> CardInstance
 	return player_memory[player_uuid].search_hand_for(instance_id)
 
 func attempt_to_use_hand_card(instance_id : String, player_uuid : String) -> CardInstanceData:
-	return player_memory[player_uuid].attempt_to_use_hand_card(instance_id)
-
-func remove_card_in_hand(instance_id : String, player_uuid : String) -> void:
-	player_memory[player_uuid].remove_card_in_hand(instance_id)
+	var instance = player_memory[player_uuid].remove_card_in_hand(instance_id)
+	trigger_play_events.call(instance)
 	
 	if !PlayerManager.amIPlayer(player_uuid):
 		var peer_id = PlayerManager.getPeerID_from_UUID(player_uuid)
-		_remove_card_in_hand.rpc_id(peer_id, instance_id)			
+		_remove_card_in_hand.rpc_id(peer_id, instance_id)		
+
+	return instance
+
+func remove_card_in_hand(instance_id : String, player_uuid : String) -> void:
+	var instance = player_memory[player_uuid].remove_card_in_hand(instance_id)
+	trigger_discard_events.call(instance)
+	
+	if !PlayerManager.amIPlayer(player_uuid):
+		var peer_id = PlayerManager.getPeerID_from_UUID(player_uuid)
+		_remove_card_in_hand.rpc_id(peer_id, instance_id)
 	
 	
 ####################################################################################

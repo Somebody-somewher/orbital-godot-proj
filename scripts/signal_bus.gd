@@ -11,10 +11,6 @@ signal round_timer_update(curr_time : int)
 signal add_score(score_to_add : int, player_uuid : String)
 signal update_score_ui(score : int)
 
-# BOARD
-#signal run_func_on_board(c : Callable)
-signal get_matrix_data()
-
 # sends to board to spawn card
 signal spawn_card(id : String, pos : Vector2)
 
@@ -37,16 +33,23 @@ signal add_to_hand(card : Card)
 
 signal register_to_cardmanager(card : Card)
 
+################ BOARD ################
+#signal run_func_on_board(c : Callable)
+signal get_matrix_data()
+
 # Supply board_tile_positions_data with [[tile_pos], [tile_data]]  
 signal get_tile_pos_from_AOE(tile_pos : Vector2i, aoe_tiles : Array[Vector2i], board_tile_positions_data : Array[Vector2i])
 signal mouse_enter_interactable_board_tile()
 signal mouse_enter_board()
 
-signal board_action_result(outcome : bool)
+signal place_placeable(pi : PlaceableInstanceData, tile_pos : Vector2i, player_uuid : String, run_on_place_events : bool, sync : bool)
+#server_place_newplaceable(pi : PlaceableInstanceData, tile_pos : Vector2i, player_uuid : String, run_on_place_events := true, sync := true)
 
+
+signal board_action_result(outcome : bool)
 signal set_score_preview(tile_pos : Array[Vector2i], scores : Array[int])
 
-# COMPENDIUM
+################ COMPENDIUM ############################
 signal show_card_information(card_id : String)
 signal open_compendium(card_id : String)
 signal close_compendium

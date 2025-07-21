@@ -3,9 +3,9 @@ class_name EventManager
 
 # Dependencies
 var matrix_data : BoardMatrixData
-var card_mem : Dictionary[String, PlayerCardMemory]
+var card_mem : CardMemory #: Dictionary[String, PlayerCardMemory]
 
-var id_to_instances : Dictionary[String, CardInstanceData]
+#var id_to_instances : Dictionary[String, CardInstanceData]
 
 var on_round_start_events : Array[Event]
 var on_round_start_events_dict : Dictionary[String, Event]
@@ -13,25 +13,25 @@ var on_round_start_events_dict : Dictionary[String, Event]
 var on_round_end_events : Array[Event]
 var on_round_end_events_dict : Dictionary[String, Event]
 
+var func_get_card_data : Callable
+
 # Dictionary[String, Dictionary] -> key is the name of the instance
 # Dictionary[int, Event] -> key is the type of the event
 var events_and_conditions : Dictionary[String, Dictionary]
 
-func setup_mem(mem : Dictionary[String, PlayerCardMemory]) -> void:
-	var player_mems : Array[PlayerCardMemory] = mem.values()
-	for pm in player_mems:
-		pm.event_manager_setup(add_events, trigger_play_events, trigger_discard_events)
+func setup_mem(mem : CardMemory, get_card_data : Callable) -> void:
+	mem.event_manager_setup(func(instance : CardInstanceData):
+		register_events.rpc(instance.get_id(), instance.get_data().get_id())
+		, trigger_play_events, trigger_discard_events)
+	card_mem = mem
+	func_get_card_data = get_card_data
 
-func add_events(instance : CardInstanceData) -> void:
-	var events_dict := instance.get_data().get_events_as_dict()
-	var instance_id := instance.get_id()
-	#for event_arr in events_dict.values():
-		#for e in event_arr:
-			#e.connect("request_modification", modify_event)
-	
+@rpc("any_peer", "call_local")
+func register_events(instance_id : String, data_id : String) -> void:
+	var events_dict : Dictionary[String, Array] = func_get_card_data.call(data_id).get_events_as_dict()
 	events_and_conditions[instance_id] = events_dict
 	#print(events_dict)
-	id_to_instances[instance_id] = instance
+	#id_to_instances[instance_id] = instance
 
 	# TODO: Make a clearer system
 	if events_dict["preview"][0] not in events_and_conditions[instance_id]["on_place"]:
@@ -39,6 +39,7 @@ func add_events(instance : CardInstanceData) -> void:
 
 ## Remove all events related to this card instance
 func clean_events(instance : CardInstanceData) -> void:
+	events_and_conditions.erase(instance.get_id())
 	pass
 
 @rpc("any_peer", "call_local")
@@ -68,9 +69,6 @@ func check_card_play_conditions(instance : CardInstanceData) -> bool:
 
 func check_place_conditions(instance : CardInstanceData, tilepos : Vector2i) -> bool:
 	return run_conditions(events_and_conditions[instance.get_id()]["is_placeable"], instance, [tilepos])
-
-	
-
 
 #func trigger_event(instance : CardInstanceData, event_type : String, params : Array) -> void:
 	#var events_to_run : Array[Event]
@@ -102,7 +100,7 @@ func run_events(events_to_run : Array[Event], source : CardInstanceData, params 
 
 func reset_mem() -> void:
 	card_mem.clear()
-	id_to_instances.clear()
+	#id_to_instances.clear()
 	on_round_start_events.clear()
 	on_round_start_events_dict.clear()
 	on_round_end_events.clear()

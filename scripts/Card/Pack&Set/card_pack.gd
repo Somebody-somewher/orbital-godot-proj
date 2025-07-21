@@ -78,7 +78,7 @@ func _on_check_pressed() -> void:
 
 func _on_cross_pressed() -> void:
 	buttons.visible = false
-	get_tree().get_node("InputManager").curr_mask = 0xFFFFFFFF
+	#get_tree().get_node("InputManager").curr_mask = 0xFFFFFFFF
 
 # Returns boolean based on whether we needa pause every other input
 func choose_or_open() -> bool:
