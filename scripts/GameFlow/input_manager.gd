@@ -27,7 +27,7 @@ var curr_mask := 0xFFFFFFFF
 
 func _input(event):
 	# If it helps Project Settings already has an Input Map for the leftmousebutton btw 
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and !SceneManager.is_everything_paused:
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
 				if event.pressed:

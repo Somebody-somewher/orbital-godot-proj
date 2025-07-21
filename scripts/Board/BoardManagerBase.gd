@@ -215,6 +215,10 @@ func _change_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
 	matrix_data.change_terrain_of_tile(tile_pos, terrain)
 
 @rpc("any_peer", "call_local")
+func clear_tile(tile_pos : Vector2i = NULL_TILE) -> void:
+	pass
+
+@rpc("any_peer", "call_local")
 func remove_building(tile_pos : Vector2i = NULL_TILE) -> void:
 	pass
 

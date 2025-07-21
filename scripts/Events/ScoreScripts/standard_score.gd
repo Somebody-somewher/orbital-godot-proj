@@ -1,20 +1,25 @@
 extends ScoreEffect
 class_name StandardScoreEffect
 
+func score_a_tile(tile_data : BoardTile, cum_score := 0) -> int:
+	var score := 0
+	for building in tile_data.placeable_arr:
+		score += effect_buildings_score.get(building.data.id_name, 0)
+	return score
+	#tile_pos_data[2].append(score)
+	
+
 # Actual code that uses the aoe to figure out which tiles should be scored, then assigns each tile a score
 func score_tiles(tile_pos : Vector2i) -> Array[Array]:
 	var score : int = 0
 	
 	# Returns an Array containg 2 Arrays of equal length, [[tilepos], [tiledata]]
 	var tile_pos_data = aoe.get_scored_tiles(tile_pos)
-	tile_pos_data.append([])
 	
+	tile_pos_data.append([])
 	# Assign a score to each tile based on its tiledata 
 	for tile_data in tile_pos_data[1]:
-		for building in tile_data.placeable_arr:
-			score = effect_buildings_score.get(building.data.id_name, 0)
-		tile_pos_data[2].append(score)
-		score = 0
+		tile_pos_data[2].append(score_a_tile(tile_data))
 		
 	# Array of arrays, [[tilepos], [tiledata], [tile_score]]
 	return tile_pos_data

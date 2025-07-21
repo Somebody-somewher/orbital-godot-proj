@@ -10,6 +10,7 @@ cards = Dictionary[String, int]({
 "flowers": 2,
 "lotus": 1
 })
+is_multiplayer = false
 rarity = 0
 aquatic = false
 sabotage = false

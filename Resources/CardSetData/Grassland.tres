@@ -6,9 +6,11 @@
 script = ExtResource("1_r62rj")
 set_name = "Grassland"
 cards = Dictionary[String, int]({
+"": 0,
 "bush": 1,
 "flowers": 3
 })
+is_multiplayer = false
 rarity = 1
 aquatic = false
 sabotage = false

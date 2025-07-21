@@ -9,6 +9,8 @@ class_name ScoreEffect
 var multiplier := 1.0
 var addition := 0
 
+#func score_tile
+
 # Actual code that uses the aoe to figure out which tiles should be scored, then assigns each tile a score
 func score_tiles(_tile_pos : Vector2i) -> Array[Array]:
 	return []

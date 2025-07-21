@@ -1,8 +1,8 @@
-#extends ScoreEffect
-#class_name BoardCountScoreEffect
-#
-#
-## Actual code that uses the aoe to figure out which tiles should be scored, then assigns each tile a score
+extends ScoreEffect
+class_name BoardCountScoreEffect
+
+
+# Actual code that uses the aoe to figure out which tiles should be scored, then assigns each tile a score
 #func score_tiles(_tile_pos : Vector2i) -> Array[Array]:
 	#return []
 #
