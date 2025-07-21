@@ -26,10 +26,6 @@ func local_search_hand_for(instance_id : String) -> CardInstanceData:
 	return player_memory[self_uuid].search_hand_for(instance_id)
 
 @rpc("any_peer", "call_local")
-func attempt_cardset_to_hand(cardpack_id : int, cardset_id : String, player_uuid : String) -> Array[String]:
-	return ["This should have been overriden! :<"]
-
-@rpc("any_peer", "call_local")
 func _attempt_cardset_to_hand(cardpack_id : int, cardset_id : String, cardinstanceids_to_add : Array[String]) -> void:
 	var result = player_memory[self_uuid].attempt_cardset_to_hand(cardpack_id, cardset_id)
 	Signalbus.emit_signal("confirmed_add_to_hand", cardinstanceids_to_add, cardset_id)
@@ -42,8 +38,14 @@ func retrieve_memory() -> Dictionary[String, PlayerCardMemory]:
 	return player_memory
 #func _add_card_to_hand()	
 
+@rpc("any_peer", "call_local")
+func server_record_player_cardpack_options(card_packs : Dictionary[int, Dictionary], player_uuid : String) -> void:
+	print("This shouldn't trigger 1 :<")
 
-
+@rpc("any_peer", "call_local")
+func attempt_cardset_to_hand(cardpack_id : int, cardset_id : String, player_uuid : String) -> Array[String]:
+	print("This shouldn't trigger 2 :<")
+	return ["This should have been overriden! :<"]
 #func append_to_player_hand(player_uuid : String, card_set : Array[int], add_to_hand : Callable) -> bool:
 	#if player_hand_instances[player_uuid].size() >= player_maxhandsize[player_uuid]:
 		## CARD DISCARDED

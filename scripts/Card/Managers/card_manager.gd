@@ -93,10 +93,12 @@ func finish_drag(placing : bool):
 			card_hovered = null
 
 		# check if dragged into a tile
-		if card_placed:
+		# I know code-wise card_dragged should not be null by this point, 
+		# but I think if you do some finicky with the dragging theres a TOCTOU error
+		if card_placed and card_dragged:
 			card_hovered = null
 			card_dragged.card_placed()
-		else:
+		elif card_dragged:
 			if card_flipped:
 				card_dragged.entity_flip_to_card()
 			if card_dragged is PlayerHandCard:

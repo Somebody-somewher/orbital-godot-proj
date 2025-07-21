@@ -20,7 +20,7 @@ func place_cardplaceable(placeable_id : String, tile_pos : Vector2i = NULL_TILE)
 func _on_attempt_place(result: bool):
 	if result:
 		menu_state = menu_logic_ref.select_option(menu_state, selected_pid)
-		if menu_state != "start_game":
+		if menu_state != "multiplayer":
 			timer.start()
 
 func _on_timer_timeout() -> void:
