@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b21idglnv3iei"
-path="res://.godot/imported/waterPlaceholder.png-88ab25231d32f1f7215019cc03b41f36.ctex"
+uid="uid://dfbrcukcvm4du"
+path="res://.godot/imported/TileMap_rounded_TL.png-16dfad48fb956062020d5812be3f394e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tiles/waterPlaceholder.png"
-dest_files=["res://.godot/imported/waterPlaceholder.png-88ab25231d32f1f7215019cc03b41f36.ctex"]
+source_file="res://assets/tiles/TileMap_rounded_TL.png"
+dest_files=["res://.godot/imported/TileMap_rounded_TL.png-16dfad48fb956062020d5812be3f394e.ctex"]
 
 [params]
 

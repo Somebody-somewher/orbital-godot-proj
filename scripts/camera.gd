@@ -12,7 +12,7 @@ var drag_offset := Vector2.ZERO
 var mouse_initial := Vector2.ZERO
 
 var _target_zoom := 1.0
-const MIN_ZOOM := 0.8
+const MIN_ZOOM := 1
 const MAX_ZOOM := 5.0
 const ZOOM_INC := 0.1
 const ZOOM_RATE := 8.0
