@@ -10,7 +10,7 @@ var pColour : Color
 func _init(uuid : String, id : int, name : String, colour : Color) -> void:
 	pUuid = uuid
 	pid = id
-	pName = pName
+	pName = name
 	pColour = colour
  
 func getPlayerId() -> int:
