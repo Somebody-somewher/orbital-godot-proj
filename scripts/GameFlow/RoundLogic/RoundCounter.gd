@@ -24,12 +24,13 @@ var is_round_ending := false
 var round_num_game_end : int = -1
 
 var score_manager : ScoreManager
-
+var is_game_ended := false
 
 # Timer-related
 var curr_timer : float = 0.0
 var prev_s : int
 var pause_timer : bool = false
+
 
 @export var round_id_lookup : Dictionary[String, RoundState]
 
@@ -134,11 +135,13 @@ func reset_timer() -> void:
 	pause_timer = false
 
 func end_game(rankings : Array[String], player_scores : Dictionary[String, Dictionary]) -> void:
-	pause_timer = true
-	SceneManager.pause_everything.rpc()
-	Signalbus.emit_multiplayer_signal.rpc("end_game", [rankings, player_scores])
-	await get_tree().create_timer(end_game_wait).timeout
-	SceneManager.back_to_menu.rpc()
+	if !is_game_ended:
+		pause_timer = true
+		is_game_ended = true
+		SceneManager.pause_everything.rpc()
+		Signalbus.emit_multiplayer_signal.rpc("end_game", [rankings, player_scores])
+		await get_tree().create_timer(end_game_wait).timeout
+		SceneManager.back_to_menu.rpc()
 	pass
 	
 func add_rount_count() -> bool:
