@@ -6,10 +6,11 @@
 script = ExtResource("1_pxf51")
 set_name = "Fleet"
 cards = Dictionary[String, int]({
-"docks": 1,
+"dock": 1,
 "merchant_ship": 1,
 "sailboat": 3
 })
+is_multiplayer = false
 rarity = 3
 aquatic = true
 sabotage = false

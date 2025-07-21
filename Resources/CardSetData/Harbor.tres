@@ -6,9 +6,10 @@
 script = ExtResource("1_7blhr")
 set_name = "Harbor"
 cards = Dictionary[String, int]({
-"docks": 1,
+"dock": 1,
 "merchant_ship": 1
 })
+is_multiplayer = false
 rarity = 1
 aquatic = true
 sabotage = false

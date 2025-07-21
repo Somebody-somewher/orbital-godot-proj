@@ -6,7 +6,7 @@
 script = ExtResource("1_epd0f")
 set_name = "Shoreline"
 cards = Dictionary[String, int]({
-"docks": 1,
+"dock": 1,
 "lighthouse": 1,
 "sailboat": 1
 })

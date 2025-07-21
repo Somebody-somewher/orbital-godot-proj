@@ -6,8 +6,9 @@
 script = ExtResource("1_kna55")
 set_name = "Wheatfield"
 cards = Dictionary[String, int]({
-"wheat": 4
+"wheat_field": 4
 })
+is_multiplayer = false
 rarity = 0
 aquatic = false
 sabotage = false

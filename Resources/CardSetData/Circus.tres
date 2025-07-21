@@ -7,9 +7,10 @@ script = ExtResource("1_38ue7")
 set_name = "Circus"
 cards = Dictionary[String, int]({
 "circus": 1,
-"scryer_tent": 1,
+"scryer": 1,
 "wagon": 1
 })
+is_multiplayer = false
 rarity = 1
 aquatic = false
 sabotage = false
