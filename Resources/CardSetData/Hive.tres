@@ -10,8 +10,9 @@ cards = Dictionary[String, int]({
 "flowers": 1,
 "hive": 1
 })
-is_multiplayer = false
+category = 4
 rarity = 1
 aquatic = false
 sabotage = false
+is_singleplayer = true
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

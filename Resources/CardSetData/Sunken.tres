@@ -8,7 +8,9 @@ set_name = "Sunken"
 cards = Dictionary[String, int]({
 "wreckage": 2
 })
+category = 3
 rarity = 0
 aquatic = true
 sabotage = false
+is_singleplayer = true
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

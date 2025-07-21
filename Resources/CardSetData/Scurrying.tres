@@ -8,7 +8,9 @@ set_name = "Scurrying"
 cards = Dictionary[String, int]({
 "leg_tonic": 2
 })
+category = 0
 rarity = 0
 aquatic = false
-sabotage = false
+sabotage = true
+is_singleplayer = false
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

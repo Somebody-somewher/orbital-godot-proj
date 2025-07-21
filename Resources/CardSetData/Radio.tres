@@ -8,7 +8,9 @@ set_name = "Radio"
 cards = Dictionary[String, int]({
 "radio": 2
 })
+category = 5
 rarity = 0
 aquatic = false
 sabotage = false
+is_singleplayer = true
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

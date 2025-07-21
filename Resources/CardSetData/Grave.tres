@@ -9,7 +9,9 @@ cards = Dictionary[String, int]({
 "bishop": 1,
 "tombstone": 2
 })
+category = 2
 rarity = 0
 aquatic = false
 sabotage = false
+is_singleplayer = true
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

@@ -9,8 +9,9 @@ cards = Dictionary[String, int]({
 "dock": 1,
 "merchant_ship": 1
 })
-is_multiplayer = false
+category = 1
 rarity = 1
 aquatic = true
 sabotage = false
+is_singleplayer = true
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

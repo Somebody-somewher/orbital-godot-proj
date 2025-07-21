@@ -8,7 +8,9 @@ set_name = "Random Stuff"
 cards = Dictionary[String, int]({
 "goodie_bag": 1
 })
+category = 9
 rarity = 2
 aquatic = false
 sabotage = false
+is_singleplayer = true
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

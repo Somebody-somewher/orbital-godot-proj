@@ -6,10 +6,12 @@
 script = ExtResource("1_uwxrh")
 set_name = "Vagabond"
 cards = Dictionary[String, int]({
-"cactus": 0,
+"cactus": 2,
 "wagon": 2
 })
+category = 7
 rarity = 1
 aquatic = false
 sabotage = false
+is_singleplayer = true
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

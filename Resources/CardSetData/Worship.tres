@@ -10,7 +10,9 @@ cards = Dictionary[String, int]({
 "obelisk": 2,
 "temple": 1
 })
+category = 2
 rarity = 2
 aquatic = false
 sabotage = false
+is_singleplayer = true
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

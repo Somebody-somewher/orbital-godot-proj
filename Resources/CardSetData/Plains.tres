@@ -9,7 +9,9 @@ cards = Dictionary[String, int]({
 "bush": 2,
 "forest": 1
 })
+category = 7
 rarity = 0
 aquatic = false
 sabotage = false
+is_singleplayer = true
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

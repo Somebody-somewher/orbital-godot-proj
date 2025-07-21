@@ -9,7 +9,9 @@ cards = Dictionary[String, int]({
 "whirlpool": 1,
 "wreckage": 1
 })
+category = 7
 rarity = 0
 aquatic = true
 sabotage = false
+is_singleplayer = true
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

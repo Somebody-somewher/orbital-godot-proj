@@ -1,10 +1,9 @@
-[gd_scene load_steps=45 format=3 uid="uid://dehbiymvw4gq5"]
+[gd_scene load_steps=44 format=3 uid="uid://dehbiymvw4gq5"]
 
 [ext_resource type="Script" uid="uid://baxm1vpvlaqw2" path="res://scripts/Main Menu/main_menu.gd" id="1_bnuun"]
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/Managers/player_hand.gd" id="2_bso06"]
 [ext_resource type="PackedScene" uid="uid://b43u6wsxnq4ai" path="res://scenes/Game Flow/input_manager.tscn" id="3_xpnd4"]
 [ext_resource type="Script" uid="uid://bvoajtpxmv7lr" path="res://scripts/Main Menu/menu_logic.gd" id="4_xlgyj"]
-[ext_resource type="Texture2D" uid="uid://c88sgkqa5s3er" path="res://assets/misc_sprites/menu_bgd.jpg" id="5_bqibv"]
 [ext_resource type="PackedScene" uid="uid://bapjcj4rxrxaj" path="res://scenes/Main Menu/options_menu.tscn" id="6_cmu3j"]
 [ext_resource type="PackedScene" uid="uid://bogg4d6s1y1og" path="res://scenes/Main Menu/title_menu.tscn" id="7_kbvpp"]
 [ext_resource type="PackedScene" uid="uid://dtsfmua37k8xq" path="res://scenes/Main Menu/singleplayer_menu.tscn" id="8_jo2uk"]
@@ -278,16 +277,6 @@ script = ExtResource("2_bso06")
 
 [node name="MenuLogic" type="Node2D" parent="."]
 script = ExtResource("4_xlgyj")
-
-[node name="TextureRect" type="TextureRect" parent="."]
-z_index = -2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("5_bqibv")
 
 [node name="Menus" type="Control" parent="."]
 z_index = -1

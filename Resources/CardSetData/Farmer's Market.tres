@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://buc6y1u6d6wa8"]
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://dmeygxipuji7t"]
 
 [ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_iqp8r"]
 
@@ -10,7 +10,9 @@ cards = Dictionary[String, int]({
 "garden": 1,
 "market": 1
 })
+category = 1
 rarity = 1
 aquatic = false
 sabotage = false
+is_singleplayer = true
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

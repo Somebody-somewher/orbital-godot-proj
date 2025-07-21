@@ -32,4 +32,5 @@ category = 7
 tags = Array[String](["mineral"])
 is_aura = false
 hidden = false
+override_default = false
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

@@ -10,8 +10,9 @@ cards = Dictionary[String, int]({
 "scryer": 1,
 "wagon": 1
 })
-is_multiplayer = false
+category = 6
 rarity = 1
 aquatic = false
 sabotage = false
+is_singleplayer = true
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"

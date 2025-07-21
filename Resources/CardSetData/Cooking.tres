@@ -6,9 +6,12 @@
 script = ExtResource("1_5mnoh")
 set_name = "Cooking"
 cards = Dictionary[String, int]({
-"brewery": 1
+"brewery": 1,
+"mushroom": 1
 })
+category = 6
 rarity = 1
 aquatic = false
 sabotage = false
+is_singleplayer = true
 metadata/_custom_type_script = "uid://bs6cynon1r4yq"
