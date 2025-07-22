@@ -94,7 +94,8 @@ func middle_click_logic(result) -> void:
 		CARD_COLLISION_MASK:
 			var card_manager = result_found.get_parent()
 			card_manager.highlight_card(result_found, false)
-			var name = result_found.get_node("Texts/CardName").text
+			#TODO
+			var name = result_found.something
 			print(name)
 			Signalbus.open_compendium.emit(name)
 		BUILDING_COLLISION_MASK:
