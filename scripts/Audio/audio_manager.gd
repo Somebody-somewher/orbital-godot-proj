@@ -3,9 +3,11 @@ extends Node
 @onready var bgm_stream: AudioStreamPlayer2D
 
 #next bgm to play in queue for smooth transitions
-var next_bgm : String = "desert"
+var next_bgm : String = "random"
 #stores time when pausing audio
 var bgm_stop :float 
+
+var in_game_music = ["plains","forest","desert","mountain", "snow"]
 
 #does nothing currently
 @export var master_volume : float = .5
@@ -31,6 +33,8 @@ func change_bgm_volume(value : float) ->void:
 
 #stops current bgm and immediately plays new one
 func play_bgm(audio_name : String, from_position : float = 0.0) -> void:
+	if audio_name == "random":
+		audio_name = in_game_music.pick_random()
 	if bgm_stream:
 		#currently playing requested track
 		if bgm_stream.name == audio_name:

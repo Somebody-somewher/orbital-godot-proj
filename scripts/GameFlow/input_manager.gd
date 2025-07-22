@@ -81,7 +81,6 @@ func right_click_logic(result) -> void:
 			card_manager.finish_drag(false)
 		PACK_COLLISION_MASK:
 			AudioManager.play_sfx("click", 0.5)
-			
 			if result_found.choose_or_open():
 				curr_mask = MASKS.get("set_only")
 			

@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://bxiy7ajwus31g"]
+[gd_scene load_steps=9 format=3 uid="uid://bxiy7ajwus31g"]
 
 [ext_resource type="Script" uid="uid://bhcuctfh4prj5" path="res://scripts/Board/BoardManagerClient.gd" id="1_8obqj"]
 [ext_resource type="Script" uid="uid://dls3y3sngygdn" path="res://scripts/Board/Visual/BoardPreviewerTilemap.gd" id="2_k6d4x"]
 [ext_resource type="Resource" uid="uid://doq3nosdirb1v" path="res://Resources/EnvTerrain/TestEnvTerrainMapping.tres" id="3_vgsob"]
 [ext_resource type="Script" uid="uid://dq6l63on5mqf7" path="res://scripts/Board/Visual/BoardVisualManager.gd" id="4_c64v0"]
 [ext_resource type="Script" uid="uid://cdpdugu7jdxpp" path="res://scripts/Board/Visual/BoardStaticTilemap.gd" id="5_k6d4x"]
+[ext_resource type="Script" uid="uid://dyvfn1tr8o10k" path="res://scripts/Board/FXManager.gd" id="6_vgsob"]
+[ext_resource type="PackedScene" uid="uid://cytyegw0fdpcr" path="res://scenes/FX/grass_fx.tscn" id="7_22kvs"]
+[ext_resource type="PackedScene" uid="uid://y3r7yx7l7bj5" path="res://scenes/FX/point_popup.tscn" id="8_gi2m4"]
 
 [node name="BoardManager" type="Node2D" node_paths=PackedStringArray("terrain_tilemap", "terrain_underlayer", "previewer_tilemap", "object")]
 script = ExtResource("1_8obqj")
@@ -39,6 +42,13 @@ script = ExtResource("5_k6d4x")
 env_map = ExtResource("3_vgsob")
 
 [node name="Building_Manager" type="Node2D" parent="."]
+script = ExtResource("6_vgsob")
+fx_dict = Dictionary[String, PackedScene]({
+"grass": ExtResource("7_22kvs"),
+"sand": ExtResource("7_22kvs"),
+"water": ExtResource("7_22kvs")
+})
+point_fx = ExtResource("8_gi2m4")
 
 [node name="GhostPlaceable" type="Sprite2D" parent="Building_Manager"]
 modulate = Color(0.568627, 0.552941, 0.576471, 0.623529)
