@@ -43,6 +43,7 @@ func connect_signals() -> void:
 	menu_logic.multijoin_back.connect(on_close_join)
 
 func on_open_settings() -> void:
+	options_menu.sync_vol_sliders()
 	title_menu.animate(false)
 	options_menu.animate(true)
 
@@ -67,6 +68,7 @@ func on_close_multiplayer() -> void:
 	title_menu.animate(true)
 
 func on_open_host():
+	multi_host_menu.sync_vol_sliders()
 	multiplayer_menu.animate(false)
 	multi_host_menu.animate(true)
 
@@ -76,6 +78,7 @@ func on_close_host():
 	NetworkManager.get_node("Lobby").menu_leave_lobby()
 
 func on_open_join():
+	multi_join_menu.sync_vol_sliders()
 	multiplayer_menu.animate(false)
 	multi_join_menu.animate(true)
 

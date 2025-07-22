@@ -211,8 +211,8 @@ mouse_filter = 1
 script = ExtResource("1_6lyo1")
 name_textbox = NodePath("SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/NameBox/TextEdit")
 players_list = NodePath("SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/PlayersBox/ScrollContainer/Playerlist")
-rounds_label = NodePath("")
-scores_label = NodePath("")
+rounds_label = NodePath("SettingsTabs/RightTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/RoundsBox/Label2")
+scores_label = NodePath("SettingsTabs/RightTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/ScoresBox/Label2")
 board_size_grp = ExtResource("2_hywa0")
 spawnable_label = NodePath("SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/SpawnableBox/Label2")
 
