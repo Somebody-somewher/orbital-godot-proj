@@ -16,6 +16,7 @@ offsets = PackedFloat32Array(0.131034, 0.517241, 1)
 colors = PackedColorArray(1, 0.73751, 0.448265, 1, 0.960784, 0.952941, 0.847059, 1, 1, 1, 1, 1)
 
 [node name="SandFX" type="Node2D"]
+scale = Vector2(2, 2)
 script = ExtResource("1_bx27h")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]

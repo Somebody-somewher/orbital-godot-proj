@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bxiy7ajwus31g"]
+[gd_scene load_steps=11 format=3 uid="uid://bxiy7ajwus31g"]
 
 [ext_resource type="Script" uid="uid://bhcuctfh4prj5" path="res://scripts/Board/BoardManagerClient.gd" id="1_8obqj"]
 [ext_resource type="Script" uid="uid://dls3y3sngygdn" path="res://scripts/Board/Visual/BoardPreviewerTilemap.gd" id="2_k6d4x"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://dyvfn1tr8o10k" path="res://scripts/Board/FXManager.gd" id="6_vgsob"]
 [ext_resource type="PackedScene" uid="uid://cytyegw0fdpcr" path="res://scenes/FX/grass_fx.tscn" id="7_22kvs"]
 [ext_resource type="PackedScene" uid="uid://y3r7yx7l7bj5" path="res://scenes/FX/point_popup.tscn" id="8_gi2m4"]
+[ext_resource type="PackedScene" uid="uid://dfh7e5txcc60t" path="res://scenes/FX/sand_fx.tscn" id="8_tu44e"]
+[ext_resource type="PackedScene" uid="uid://co5g67pb20g6n" path="res://scenes/FX/water_fx.tscn" id="9_tu44e"]
 
 [node name="BoardManager" type="Node2D" node_paths=PackedStringArray("terrain_tilemap", "terrain_underlayer", "previewer_tilemap", "object")]
 script = ExtResource("1_8obqj")
@@ -44,9 +46,12 @@ env_map = ExtResource("3_vgsob")
 [node name="Building_Manager" type="Node2D" parent="."]
 script = ExtResource("6_vgsob")
 fx_dict = Dictionary[String, PackedScene]({
+"Desert": ExtResource("7_22kvs"),
+"Grass": ExtResource("7_22kvs"),
+"Water": ExtResource("7_22kvs"),
 "grass": ExtResource("7_22kvs"),
-"sand": ExtResource("7_22kvs"),
-"water": ExtResource("7_22kvs")
+"sand": ExtResource("8_tu44e"),
+"water": ExtResource("9_tu44e")
 })
 point_fx = ExtResource("8_gi2m4")
 

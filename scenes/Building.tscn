@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://cqaqfh7wr4nux"]
+[gd_scene load_steps=12 format=3 uid="uid://cqaqfh7wr4nux"]
 
 [ext_resource type="Script" uid="uid://cs3ecb30cugu2" path="res://scripts/Env & Buildings/Building.gd" id="1_mg2bo"]
 [ext_resource type="Material" uid="uid://bb4p77g8nmchw" path="res://shader/Foil/dissolvemat.tres" id="2_ogyss"]
+[ext_resource type="Texture2D" uid="uid://bt1kwrhgpw1vu" path="res://assets/tiles/shiny_particle.png" id="4_vrwpd"]
 [ext_resource type="Texture2D" uid="uid://dajjwe5q0ox20" path="res://assets/entity_sprites/cute_dummy.png" id="4_xa05x"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mg2bo"]
@@ -67,6 +68,19 @@ _data = {
 &"jiggle": SubResource("Animation_mg2bo")
 }
 
+[sub_resource type="Curve" id="Curve_vrwpd"]
+_limits = [-200.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, -6.74158), 0.0, 0.0, 0, 0, Vector2(1, 200), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_mkjfx"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.123596), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_h7ars"]
+offsets = PackedFloat32Array(0, 0.131783, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1)
+
 [node name="Building" type="Node2D"]
 script = ExtResource("1_mg2bo")
 
@@ -86,6 +100,22 @@ libraries = {
 &"": SubResource("AnimationLibrary_vrwpd")
 }
 speed_scale = 4.0
+
+[node name="shiny particles" type="CPUParticles2D" parent="."]
+position = Vector2(0, 30.8)
+emitting = false
+texture = ExtResource("4_vrwpd")
+emission_shape = 1
+emission_sphere_radius = 63.16
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, -200)
+linear_accel_max = 2.27
+linear_accel_curve = SubResource("Curve_vrwpd")
+scale_amount_min = 0.5
+scale_amount_max = 0.7
+scale_amount_curve = SubResource("Curve_mkjfx")
+color_ramp = SubResource("Gradient_h7ars")
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

@@ -1,10 +1,16 @@
 extends PlaceableNode
 class_name Building
 
+
+@onready var shiny_particles: CPUParticles2D = $"shiny particles"
+
 # allows for scoring can move once scoring system is finalized
 static var building_scene: PackedScene = load("res://scenes/Building.tscn")
 #static var foil_mat : Material = load("res://shader/Foil/foil_mat.tres")
 
+func toggle_shiny(on : bool):
+	shiny_particles.emitting = on
+ 
 # factory constructor
 static func new_building(building_name : String) -> Building:
 	var ret_building : Building = building_scene.instantiate()

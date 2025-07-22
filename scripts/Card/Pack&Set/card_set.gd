@@ -49,6 +49,7 @@ func shift_to_hand() -> void:
 		 PlayerManager.getUUID_from_PeerID(multiplayer.get_unique_id()))
 
 func _shift_to_hand(cards : Array[String], set_id : String) -> void:
+	label.visible = false
 	if self.set_id != set_id:
 		return 
 	
@@ -102,5 +103,6 @@ func animate_card(card : Card, new_angle : float, new_scale : float, pos : Vecto
 	tween.parallel().tween_property(card, "scale", Vector2(new_scale, new_scale), 0.1)
 
 func dissolve_set() -> void:
+	label.visible = false
 	for unchosen_card in cards_in_set:
 		unchosen_card.dissolve_card()

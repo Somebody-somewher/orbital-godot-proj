@@ -5,7 +5,7 @@ var start_pos : Vector2 = Vector2.ZERO
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	global_position = start_pos
+	position = start_pos
 	cpu_particles_2d.emitting = true
 	
 

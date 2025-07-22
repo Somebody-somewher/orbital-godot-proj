@@ -16,6 +16,7 @@ offsets = PackedFloat32Array(0.282759, 0.655172, 0.903448)
 colors = PackedColorArray(0.507326, 0.692393, 0.679545, 1, 1, 1, 1, 1, 0.880385, 0.880218, 0.622386, 1)
 
 [node name="GrassFX" type="Node2D"]
+scale = Vector2(2, 2)
 script = ExtResource("1_fb75i")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]

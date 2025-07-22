@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b21idglnv3iei"
-path="res://.godot/imported/waterPlaceholder.png-88ab25231d32f1f7215019cc03b41f36.ctex"
+uid="uid://bt1kwrhgpw1vu"
+path="res://.godot/imported/shiny_particle.png-913e198cebbf212f3fa08a0a0d5c69d3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tiles/waterPlaceholder.png"
-dest_files=["res://.godot/imported/waterPlaceholder.png-88ab25231d32f1f7215019cc03b41f36.ctex"]
+source_file="res://assets/tiles/shiny_particle.png"
+dest_files=["res://.godot/imported/shiny_particle.png-913e198cebbf212f3fa08a0a0d5c69d3.ctex"]
 
 [params]
 
