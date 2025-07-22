@@ -63,7 +63,10 @@ func _process(_delta: float) -> void:
 			card_flip_if_near_board()
 
 func register_to_cardmanager(card : Card):
-	card.reparent(self)
+	if card.get_parent() == null:
+		add_child(card)
+	else:
+		card.reparent(self)
 	connect_card_signals(card)
 
 func start_drag(card : Node2D):

@@ -86,7 +86,10 @@ func getPeerIDs() -> Array[int]:
 
 func amIPlayer(peer_uuid : String) -> bool:
 	return peer_uuid == peerid_to_players[multiplayer.get_unique_id()].getPlayerUUID()
-	
+
+func isServer(peer_uuid : String) -> bool:
+	return uuid_to_players[peer_uuid].getPlayerId() == 1
+
 func reset() -> void:
 	clearPlayers()
 	color_index = 0

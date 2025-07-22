@@ -84,9 +84,11 @@ func _client_sync_placeable(placeable_serialized : Dictionary, tile_pos : Vector
 func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vector2i, run_on_place_effects := true) -> void:
 	super._place_placeable(placeable_instance, tile_pos, run_on_place_effects)
 	var placeable_node : PlaceableNode
+	
 	if placeable_instance is BuildingInstanceData:
 		placeable_node = Building.new_building_frm_data(placeable_instance as BuildingInstanceData)
 		terrain_tilemap.place_building_on_tile(placeable_node, tile_pos)
+		
 	placeable_instance.client_on_place(placeable_node.destroy)
 
 @rpc("any_peer", "call_local")
@@ -94,12 +96,12 @@ func remove_building(tile_pos : Vector2i = NULL_TILE) -> void:
 	pass
 
 ################################# TERRAIN MODIFICATION ##########################################
-@rpc("any_peer","call_local")
-func create_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
-	if tile_pos == NULL_TILE:
-		tile_pos = get_mouse_tile_pos()
-		
-	request_create_terrain.rpc_id(1, terrain_id, tile_pos)
+#@rpc("any_peer","call_local")
+#func create_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
+	#if tile_pos == NULL_TILE:
+		#tile_pos = get_mouse_tile_pos()
+		#
+	#request_create_terrain.rpc_id(1, terrain_id, tile_pos)
 
 @rpc("any_peer","call_local")
 func _create_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
@@ -107,12 +109,12 @@ func _create_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
 	terrain_tilemap.change_terrain_tile(terrain_id, tile_pos)
 	terrain_underlayer.change_terrain_tile(tile_pos)
 
-@rpc("any_peer","call_local")
-func change_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
-	if tile_pos == NULL_TILE:
-		tile_pos = get_mouse_tile_pos()
-	
-	terrain_tilemap.change_terrain_tile(terrain_id, tile_pos)
+#@rpc("any_peer","call_local")
+#func change_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
+	#if tile_pos == NULL_TILE:
+		#tile_pos = get_mouse_tile_pos()
+	#
+	#terrain_tilemap.change_terrain_tile(terrain_id, tile_pos)
 
 @rpc("any_peer","call_local")
 func _change_terrain(terrain_id : String, tile_pos : Vector2i) -> void:

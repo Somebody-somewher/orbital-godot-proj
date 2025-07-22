@@ -6,7 +6,6 @@ var destroy_func : Callable
 func _init(instance_id : String, carddata : PlaceableData, card_attr : int):
 	super._init(instance_id, carddata, card_attr)
 
-
 func get_data() -> PlaceableData:
 	return data	
 

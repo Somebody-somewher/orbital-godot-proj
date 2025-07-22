@@ -81,7 +81,6 @@ func remove_card_in_hand(instance_id : String) -> CardInstanceData:
 		hand_instances.erase(item)
 	return item
 
-
 func add_card_to_hand(card : CardInstanceData) -> bool:
 	if hand_instances.size() >= get_max_hand_size():
 		return false
@@ -103,6 +102,9 @@ func add_card_to_hand(card : CardInstanceData) -> bool:
 
 func get_max_hand_size() -> int:
 	return default_maxhandsize
+
+func is_hand_full() -> bool:
+	return len(hand_instances) == default_maxhandsize
 
 # NOTE: need to have a serialize function for card instance data as well
 #func serialize() -> Dictionary

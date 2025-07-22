@@ -47,7 +47,7 @@
         "visibility": 0.0
       },
       "place_effects": {
-        "visibility": 0.0
+        "visibility": 1.0
       },
       "post_place_effects": {
         "visibility": 0.0

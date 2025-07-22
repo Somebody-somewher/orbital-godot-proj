@@ -18,10 +18,13 @@ var placeable_arr : Array[BuildingInstanceData]
 
 func _init(terrain : EnvTerrain):
 	_terrain = terrain
+	placeable_arr.resize(5)
+	placeable_arr.fill(null)
 
 func add_placeable(placed_thing : BuildingInstanceData):
-	placeable_arr.push_back(placed_thing)
-	placeable_arr.sort_custom(custom_placeable_sort);
+	assert(placeable_arr[placed_thing.get_data().layer] == null)
+	placeable_arr[placed_thing.get_data().layer] = placed_thing
+	#placeable_arr.sort_custom(custom_placeable_sort);
 
 func custom_placeable_sort(a : BuildingInstanceData, b : BuildingInstanceData):
 	if a.get_data().layer > b.get_data().layer:
@@ -34,18 +37,35 @@ func change_terrain(terrain : EnvTerrain):
 func get_terrain() -> EnvTerrain:
 	return _terrain
 
+func check_if_layer_occupied(layer_index : int) -> bool:
+	if placeable_arr[layer_index]:
+		return true
+	return false
+
+func get_buildings_on_tile() -> Array[BuildingInstanceData]:
+	var arr : Array[BuildingInstanceData] = []
+	for o in placeable_arr:
+		if o:
+			arr.append(o)
+	return arr
+
 # for deleting buildings from tile
-func delete_from_tile(placed_thing : PlaceableNode) -> void:
-	var index = placeable_arr.find(placed_thing)
-	if index != -1:
-		placeable_arr.remove_at(index)
+func delete_from_tile(placeable_id : String) -> void:
 
-func clear_tile() -> void:
-	for placeable in placeable_arr:
-		placeable.dissolve()
-	placeable_arr = []
+	for index in range(len(placeable_arr)):
+		if placeable_arr[index] and placeable_arr[index].get_id() == placeable_id:
+			placeable_arr[index].destroy()
+			placeable_arr[index] = null
+
+func clear_tile(on_destroy_trigger : Callable) -> void:
+	for index in len(placeable_arr):
+		if placeable_arr[index] != null:
+			on_destroy_trigger.call(placeable_arr[index])
+			placeable_arr[index].destroy()
+			placeable_arr[index] = null
+	
 
 
-func redraw() -> void:
-	for placeable in placeable_arr:
-		placeable.global_position = _global_board_pos
+#func redraw() -> void:
+	#for placeable in placeable_arr:
+		#placeable.global_position = _global_board_pos

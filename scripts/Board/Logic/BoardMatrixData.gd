@@ -12,7 +12,7 @@ var _boards_layout : Vector2i
 var boards_coords : Array[Array]
 var interactable : Array[bool]
 
-var instances_on_board : Dictionary[String, CardInstanceData]
+var instances_on_board : Dictionary[String, BoardTile]
 
 # Initialize 2d array matrix
 func _init(board_size : int, boards_layout : Vector2i) -> void:
@@ -48,6 +48,9 @@ func add_tile(tilePos : Vector2i, terrain_env : EnvTerrain) -> void:
 ## Put a placeable on the board tile
 func add_placeable_to_tile(tilePos : Vector2i, placeable : PlaceableInstanceData) -> void:
 	board_matrix[tilePos.x][tilePos.y].add_placeable(placeable)
+
+func remove_placeable_on_tile(placeable_id : String) -> void:
+	instances_on_board[placeable_id].delete_from_tile(placeable_id)
 
 ## Change the terrain on the board tile
 func change_terrain_of_tile(tilePos : Vector2i, terrain : EnvTerrain) -> void:

@@ -146,6 +146,7 @@ func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i,
 		#update_client_check_status(remote_id, check)
 
 ## Used by Events to create new placeables
+## Event code is in charge of making sure 
 @rpc("any_peer", "call_local")
 func server_place_newplaceable(placeable_instance : PlaceableInstanceData, tile_pos : Vector2i, \
 	player_uuid : String, run_on_place_events := true, sync := true) -> void:
@@ -173,19 +174,19 @@ func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vect
 		CardLoader.event_manager.trigger_postplace_events(placeable_instance, tilemap_to_matrix(tile_pos))
 		
 ################################# TERRAIN MODIFICATION ##########################################
-@rpc("any_peer","call_local")
-func request_create_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
-	var remote_id := multiplayer.get_remote_sender_id()
-	var check := server_interactability_check(remote_id, tile_pos, func():
-		_create_terrain(terrain_id, tile_pos);\
-		
-		# If the server is client, prevent the building from being created twice 
-		# Otherwise ensure the client creates its own copy
-		if multiplayer.is_server() and !NetworkManager.is_client():
-			_create_terrain.rpc_id(remote_id, terrain_id, tile_pos)
-		return true;)
-	if !check:
-		_on_board_failed_action_by_server.rpc_id(remote_id)
+#@rpc("any_peer","call_local")
+#func request_create_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
+	#var remote_id := multiplayer.get_remote_sender_id()
+	#var check := server_interactability_check(remote_id, tile_pos, func():
+		#_create_terrain(terrain_id, tile_pos);\
+		#
+		## If the server is client, prevent the building from being created twice 
+		## Otherwise ensure the client creates its own copy
+		#if multiplayer.is_server() and !NetworkManager.is_client():
+			#_create_terrain.rpc_id(remote_id, terrain_id, tile_pos)
+		#return true;)
+	#if !check:
+		#_on_board_failed_action_by_server.rpc_id(remote_id)
 		#update_client_check_status(remote_id, check)
 
 @rpc("any_peer", "call_local")
@@ -194,20 +195,18 @@ func _create_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
 	matrix_data.add_tile(tilemap_to_matrix(tile_pos), terrain)
 
 @rpc("any_peer","call_local")
-func request_change_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
+func server_change_terrain(terrain_id : String, player_uuid : String, tile_pos : Vector2i, sync := true) -> void:
 	var remote_id := multiplayer.get_remote_sender_id()
-	var check := server_interactability_check(remote_id, tile_pos, func():
-		_change_terrain(terrain_id, tile_pos);\
-
-		# If the server is also client, prevent the building from being created twice 
-		# Otherwise ensure the client creates its own copy
-		if multiplayer.is_server() and !NetworkManager.is_client():
-			_change_terrain.rpc_id(remote_id, terrain_id, tile_pos)
-		return true;)
-
-	if !check:
-		_on_board_failed_action_by_server.rpc_id(remote_id)
-	#update_client_check_status(remote_id, check)
+	_change_terrain(terrain_id, tile_pos)
+	
+	if sync:
+		#_change_terrain.rpc(terrain_id, tile_pos)
+		PlayerManager.forEachPlayer(func(pi : PlayerInfo):
+			if pi.getPlayerId() != 1: 
+				_change_terrain.rpc_id(pi.getPlayerId(), terrain_id, tile_pos))
+	elif !PlayerManager.amIPlayer(player_uuid):
+		_change_terrain.rpc_id(\
+			PlayerManager.getPeerID_from_UUID(player_uuid), terrain_id, tile_pos)
 
 ## Change terrain, data + visual
 @rpc("any_peer","call_local")
@@ -216,9 +215,26 @@ func _change_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
 	matrix_data.change_terrain_of_tile(tile_pos, terrain)
 
 @rpc("any_peer", "call_local")
-func clear_tile(tile_pos : Vector2i = NULL_TILE) -> void:
-	pass
+func server_clear_tile(tile_pos : Vector2i, player_uuid : String, run_destroy_events := true, sync := true) -> void:
+	_clear_board_tile(tile_pos, run_destroy_events)
+	if sync:
+		PlayerManager.forEachPlayer(func(pi : PlayerInfo):
+			_clear_board_tile.rpc_id(pi.getPlayerId(), tile_pos, run_destroy_events))
+	elif !PlayerManager.amIPlayer(player_uuid):
+		_clear_board_tile.rpc_id(\
+			PlayerManager.getPeerID_from_UUID(player_uuid), tile_pos, run_destroy_events)
 
+	#matrix_data.get_tile(tile_pos).clear_tile()
+@rpc("any_peer", "call_local")
+func _clear_board_tile(tile_pos : Vector2i, run_destroy_events := true) -> void:
+	var tile_data : BoardTile = matrix_data.get_tile(tile_pos)
+	
+	if run_destroy_events:
+		tile_data.clear_tile(CardLoader.event_manager.trigger_discard_events)
+	else:
+		tile_data.clear_tile(func(pi : PlaceableInstanceData):\
+			pass)
+			
 @rpc("any_peer", "call_local")
 func remove_building(tile_pos : Vector2i = NULL_TILE) -> void:
 	pass
@@ -253,6 +269,9 @@ func receive_init_data(board_size : Vector2i, board_layout : Vector2i, border_di
 	pass
 
 func _client_create_terrain_building(data_instance : PlaceableInstanceData) -> void:
+	pass
+
+func _client_change_terrain(terrain_id : String, player_uuid : String, tile_pos : Vector2i) -> void:
 	pass
 
 @rpc("any_peer", "call_local")

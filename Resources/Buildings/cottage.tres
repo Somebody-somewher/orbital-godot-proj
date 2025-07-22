@@ -16,6 +16,7 @@ script = ExtResource("5_fjwxk")
 cards = Dictionary[String, int]({
 "apple": 2
 })
+probability = Dictionary[String, int]({})
 event_name = ""
 desc = ""
 metadata/_custom_type_script = "uid://cux3jvyk6llof"

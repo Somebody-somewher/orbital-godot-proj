@@ -3,10 +3,13 @@ class_name ServerCardMemory
 # Contain the instances of CardDataInstance
 
 # Actual Card instances created/presented for each player
-func setup() -> void:
+func setup(sync_card_creation : Callable, create_card : Callable) -> void:
 	#if NetworkManager.is_client():
 		#local_player_memory = PlayerCardMemory.new()
 		#local_player_memory.player_uuid = PlayerManager.getCurrentPlayerUUID()
+
+	func_sync_card_creation = sync_card_creation
+	func_create_card = create_card	
 	self_uuid = PlayerManager.getCurrentPlayerUUID()
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
 		var mem := PlayerCardMemory.new();\
@@ -79,7 +82,25 @@ func remove_card_in_hand(instance_id : String, player_uuid : String) -> void:
 		var peer_id = PlayerManager.getPeerID_from_UUID(player_uuid)
 		_remove_card_in_hand.rpc_id(peer_id, instance_id)
 	
+func add_card_in_hand(instance_data : CardInstanceData, player_uuid : String) -> void:
+	register_events.call(instance_data)
 	
+	if player_memory[player_uuid].is_hand_full():
+		trigger_discard_events.call(instance_data)
+		return
+		
+	player_memory[player_uuid].add_card_to_hand(instance_data)
+	
+	if !PlayerManager.amIPlayer(player_uuid):
+		var peer_id = PlayerManager.getPeerID_from_UUID(player_uuid)
+		_add_card_in_hand.rpc_id(peer_id, instance_data.serialize())
+	else:
+		var card : Card = func_create_card.call(instance_data)
+		Signalbus.register_to_cardmanager.emit(card)
+		Signalbus.add_to_hand.emit(card)
+		
+func is_hand_full(player_uuid : String) -> bool:
+	return player_memory[player_uuid].is_hand_full()
 ####################################################################################
 
 #func run_for_client(player_uuid : String, server_client_c : Callable, other_client_c : Callable) -> void:

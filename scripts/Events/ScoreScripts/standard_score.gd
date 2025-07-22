@@ -3,7 +3,7 @@ class_name StandardScoreEffect
 
 func score_a_tile(tile_data : BoardTile, cum_score := 0) -> int:
 	var score := 0
-	for building in tile_data.placeable_arr:
+	for building in tile_data.get_buildings_on_tile():
 		score += effect_buildings_score.get(building.data.id_name, 0)
 	return score
 	#tile_pos_data[2].append(score)

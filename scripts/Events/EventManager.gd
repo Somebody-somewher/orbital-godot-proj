@@ -15,7 +15,7 @@ var on_round_end_events_dict : Dictionary[String, Event]
 
 var func_get_card_data : Callable
 
-# Dictionary[String, Dictionary] -> key is the name of the instance
+# Dictionary[String, Dictionary] -> key is the id of the instance
 # Dictionary[int, Event] -> key is the type of the event
 var events_and_conditions : Dictionary[String, Dictionary]
 
@@ -52,14 +52,20 @@ func preview_event(instance : CardInstanceData, previewer : Callable, tilepos : 
 		event_to_run.preview(matrix_data, previewer, tilepos, instance)
 
 func trigger_discard_events(instance : CardInstanceData) -> void:
+	run_events(events_and_conditions[instance.get_id()]["on_discard"], instance, [])
 	pass
 	
 func trigger_play_events(instance : CardInstanceData) -> void:
+	run_events(events_and_conditions[instance.get_id()]["on_play"], instance, [])
 	pass
 
 func trigger_place_events(instance : CardInstanceData, tilepos : Vector2i) -> void:
 	#print(events_and_conditions[instance.get_id()])
 	run_events(events_and_conditions[instance.get_id()]["on_place"], instance, [tilepos])
+	
+func trigger_destroy_events(instance : CardInstanceData, tilepos : Vector2i) -> void:
+	#print(events_and_conditions[instance.get_id()])
+	run_events(events_and_conditions[instance.get_id()]["on_destroy"], instance, [tilepos])
 
 func trigger_postplace_events(instance : CardInstanceData, tilepos : Vector2i) -> void:
 	run_events(events_and_conditions[instance.get_id()]["post_place"], instance, [tilepos])
@@ -97,6 +103,8 @@ func run_events(events_to_run : Array[Event], source : CardInstanceData, params 
 	for event in events_to_run:
 		if event is BoardEvent and params[0] is Vector2i:
 			event.trigger(matrix_data, params[0], source)
+		elif event is CardEvent:
+			event.trigger(card_mem, source)
 
 func reset_mem() -> void:
 	card_mem.clear()

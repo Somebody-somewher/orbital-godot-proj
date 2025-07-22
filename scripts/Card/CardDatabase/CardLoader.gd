@@ -59,7 +59,7 @@ func setup(cag : CardAttributeGenerator = null, csa : CardSetAllocator = null) -
 		
 	card_mem.name = "CardMemory"
 	add_child(card_mem)
-	card_mem.setup()
+	card_mem.setup(sync_create_data_instance, create_card)
 	cardpack_gen.setup(card_mem, create_data_instance, create_card)
 	event_manager.setup_mem(card_mem, get_card_data)
 
@@ -80,8 +80,8 @@ func create_data_instance(data_id : String, attribute_number : int = 0, instance
 			assert(multiplayer.is_server())
 			var gen_values = card_attribute_gen.generate_attribute(data_id)
 			
-			attribute_number = gen_values[0]
-			instance_id = gen_values[1]
+			attribute_number = gen_values[1]
+			instance_id = gen_values[0]
 		else:
 			instance_id = card_attribute_gen.generate_instance_id(data_id)
 	
@@ -105,7 +105,6 @@ func sync_create_data_instance(serialized_instance_data : Dictionary) -> CardIns
 		return BuildingInstanceData.deserialize(serialized_instance_data, card_data)
 	return null
 	
-
 # Add to scene must be done by manually by node calling this method
 func create_card(data : CardInstanceData) -> Card:
 	var card : Card
