@@ -23,6 +23,9 @@ func _ready() -> void:
 	multi_join_menu.visible = false	
 	camera_2d.cam_enabled = false
 	connect_signals()
+	
+	AudioManager.play_bgm("menu")
+	AudioManager.next_bgm = "menu"
 
 func connect_signals() -> void:
 	menu_logic.setting_menu_open.connect(on_open_settings)

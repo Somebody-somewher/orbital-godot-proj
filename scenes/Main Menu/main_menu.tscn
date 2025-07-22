@@ -294,17 +294,15 @@ position = Vector2(200, 500)
 script = ExtResource("14_mdse0")
 board = NodePath("../BoardManager/Preview")
 
-[node name="BoardManager" parent="." instance=ExtResource("15_fa6rk")]
+[node name="BoardManager" parent="." node_paths=PackedStringArray("under_tilemap") instance=ExtResource("15_fa6rk")]
 script = ExtResource("16_bso06")
 BOARD_SIZE = Vector2i(1, 1)
 BOARD_SCALE = 0.0
+under_tilemap = NodePath("TerrainBelow")
 
 [node name="Preview" parent="BoardManager" index="0"]
 script = ExtResource("15_bnuun")
 env_map = ExtResource("16_xpnd4")
-
-[node name="TerrainBelow" parent="BoardManager" index="3"]
-visible = false
 
 [node name="Timer" type="Timer" parent="BoardManager"]
 wait_time = 0.5

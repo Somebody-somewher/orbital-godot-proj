@@ -15,6 +15,7 @@ class_name BoardManagerBare
 #@export var previewer_tilemap : BoardPreviewerTileMap
 
 @export var terrain_tilemap : BoardVisualManager
+@export var under_tilemap : BoardTileMapLayer
 @export var previewer_tilemap : BoardPreviewerTileMapAbstract
 @export var env_map : EnvTerrainMapping
 @export var object : Node

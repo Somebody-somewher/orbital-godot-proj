@@ -13,6 +13,7 @@ func set_up_settings(settings : Dictionary) -> void:
 
 func _ready() -> void:
 	AudioManager.play_bgm("plains")
+	AudioManager.next_bgm = "random"
 
 	CardLoader.setup()
 	if multiplayer.is_server():
