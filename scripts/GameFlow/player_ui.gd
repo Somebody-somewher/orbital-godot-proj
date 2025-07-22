@@ -12,6 +12,8 @@ extends Control
 @onready var round_anim: AnimationPlayer = $RoundMsg/AnimationPlayer
 
 
+@onready var escape_menu: EscapeMenu = $"../EscapeMenu"
+
 func _ready() -> void:
 	Signalbus.connect("round_timer_update", func(time : int):
 		_update_timer_ui.rpc(time))
@@ -49,3 +51,7 @@ func show_error_msg(msg : String) -> void:
 func show_round_msg(msg : String) -> void:
 	round_msg.text = msg
 	round_anim.play("pop_up")
+
+func _input(event):
+	if Input.is_action_just_pressed("escape"):
+		escape_menu.toggle()

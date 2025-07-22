@@ -76,7 +76,11 @@ signal end_game(winner_uuid : String, player_scores : Dictionary[String, Diction
 # FX
 signal show_fx(id : String, pos : Vector2)
 signal show_point_fx(score : int, pos : Vector2)
+
+
 signal change_input_mask(mask)
+signal pause_input
+signal resume_input
 
 # EventManager
 #signal trigger_effect(bid : BuildingInstanceData, effect_type : Sting)
