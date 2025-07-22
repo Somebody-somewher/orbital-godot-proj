@@ -10,6 +10,8 @@ var selected_pos : Vector2i
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
+	terrain_tilemap.set_cell(Vector2i(0,0), 0, Vector2i(0,1), 0)
+	under_tilemap.set_cell(Vector2i(0,0), 0, Vector2i(1,1), 1)
 	self.position = Vector2(get_viewport().size.x/2 - terrain_tilemap.TILE_SIZE/2, 400)
 	Signalbus.connect("board_action_result", _on_attempt_place)
 
@@ -19,6 +21,7 @@ func place_cardplaceable(placeable_id : String, tile_pos : Vector2i = NULL_TILE)
 
 func _on_attempt_place(result: bool):
 	if result:
+		AudioManager.play_sfx("grass")
 		menu_state = menu_logic_ref.select_option(menu_state, selected_pid)
 		if menu_state != "start_game":
 			timer.start()

@@ -4,6 +4,8 @@ extends Node
 
 #next bgm to play in queue for smooth transitions
 var next_bgm : String = "desert"
+#stores time when pausing audio
+var bgm_stop :float 
 
 #does nothing currently
 @export var master_volume : float = .5
@@ -60,3 +62,8 @@ func _on_bgm_finished() -> void:
 
 func stop_bgm() -> void:
 	bgm_stream.stop()
+	bgm_stop = bgm_stream.get_playback_position( )
+
+func resume_bgm() -> void:
+	bgm_stream.play()
+	bgm_stream.seek(bgm_stop)
