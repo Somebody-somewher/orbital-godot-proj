@@ -78,7 +78,7 @@ func _on_check_pressed() -> void:
 
 func _on_cross_pressed() -> void:
 	buttons.visible = false
-	get_tree().get_node("InputManager").curr_mask = 0xFFFFFFFF
+	Signalbus.emit_signal("change_input_mask", 0xFFFFFFFF)
 
 # Returns boolean based on whether we needa pause every other input
 func choose_or_open() -> bool:
@@ -136,21 +136,6 @@ func destroy_pack() -> void:
 		cardset.dissolve_set()
 	await get_tree().create_timer(1).timeout
 	queue_free()
-
-#<<<<<<< HEAD
-#	for cardset in pack_arr:
-#		cardset.get_node("Area2D/CollisionShape2D").disabled = true
-#		cardset.dissolve_set()
-#
-#	dissolving = true
-#=======
-#	for sets in pack_arr:
-#		sets.get_node("Area2D/CollisionShape2D").disabled = true
-#		for unchosen_card in sets.card_set:
-#			unchosen_card.dissolve_card()
-#	await get_tree().create_timer(1).timeout
-#	queue_free()
-#>>>>>>> Condition-and-Effects-Expansion
 
 func set_outline_color(colour : Color) -> void:
 	sprite_ref.material.set_shader_parameter("outline_color", colour)

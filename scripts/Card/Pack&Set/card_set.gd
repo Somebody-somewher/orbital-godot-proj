@@ -6,6 +6,9 @@ var destroyed : bool = false
 var set_id : String 
 var cardpack_id : int
 
+var card_dict : Dictionary[String, int] = {}
+var pop_up_desc : String
+
 func set_up(card_set : Array, set_id : String, cardpack_id : int) -> void:
 	cards_in_set.assign(card_set)
 	self.set_id = set_id
@@ -14,8 +17,8 @@ func set_up(card_set : Array, set_id : String, cardpack_id : int) -> void:
 
 @onready
 var card_manager = get_tree().root.get_node("GameManager/CardManager")
-#@onready
-#var input_manager = get_tree().root.get_node("GameManager/InputManager")
+
+@onready var label: Label = $Label
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:	
@@ -25,18 +28,18 @@ func _ready() -> void:
 		card_instance.z_index = z_count
 		card_instance.get_node("Area2D/CollisionShape2D").disabled = true
 		add_child(card_instance)
+		var card_name = card_instance.get_node("Texts/CardName").text
+		if card_name in card_dict:
+			card_dict.set(card_name, card_dict.get(card_name) + 1)
+		else:
+			card_dict.set(card_name, 1)
 		z_count += 2
-
-	#for key in card_dict: ##card_type is of form [str, int]
-		#for i in range(card_dict.get(key)):
-			#var new_card = CardLoaderr.new_card(key)
-			#new_card.z_index = z_count
-			#new_card.get_node("Area2D/CollisionShape2D").disabled = true
-			#card_set.insert(card_set.size(), new_card)
-			#add_child(new_card)
-			#z_count += 2
-			
-	pass
+	
+	var text = []
+	for key in card_dict:
+		var value = card_dict[key]
+		text.append(str(value) + "x " + key)
+	label.text = "\n".join(text)
 
 # adds each card to player hand
 func shift_to_hand() -> void:
@@ -87,8 +90,10 @@ func highlight_set(on : bool) -> void:
 			var x = 100 * sin(new_tilt);
 			var y = -60 * cos(new_tilt) + 30;
 			animate_card(cards_in_set[i], new_tilt, 1.1, Vector2(x, y))
+			label.visible = true
 		else:
 			animate_card(cards_in_set[i], 0, 1, Vector2(0,0))
+			label.visible = false
 
 func animate_card(card : Card, new_angle : float, new_scale : float, pos : Vector2) -> void:
 	var tween = get_tree().create_tween()

@@ -94,7 +94,12 @@ func middle_click_logic(result) -> void:
 		CARD_COLLISION_MASK:
 			var card_manager = result_found.get_parent()
 			card_manager.highlight_card(result_found, false)
-			Signalbus.open_compendium.emit(result_found.id_name)
+			var name = result_found.get_node("Texts/CardName").text
+			print(name)
+			Signalbus.open_compendium.emit(name)
+		BUILDING_COLLISION_MASK:
+			var name = result_found.data_instance.id_name
+			Signalbus.open_compendium.emit(name)
 
 func raycast_and_click(mask, input_type : int):
 	var space_state : PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
@@ -133,6 +138,7 @@ func topmost(result_arr):
 func _ready() -> void:
 	Signalbus.connect("open_compendium", open_compendium)
 	Signalbus.connect("close_compendium", close_compendium)
+	Signalbus.connect("change_input_mask", change_input_mask)
 
 func open_compendium(_id : String):
 	curr_mask = MASKS.get("none")
@@ -141,3 +147,6 @@ func open_compendium(_id : String):
 func close_compendium():
 	curr_mask = MASKS.get("all")
 	camera_enabled = true
+	
+func change_input_mask(mask):
+	curr_mask = mask
