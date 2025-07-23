@@ -77,7 +77,6 @@ func get_sets() -> Dictionary[String, Dictionary]:
 	
 	for cardset_name in cardsets.keys():
 		output[cardset_name] = cardsets[cardset_name].cards
-		
 	return output
 
 func get_set(n : int) -> Dictionary[String, CardSetData]:

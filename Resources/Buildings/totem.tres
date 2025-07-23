@@ -1,18 +1,16 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=9 format=3 uid="uid://douwran4e1dek"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://douwran4e1dek"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_iepjf"]
 [ext_resource type="Texture2D" uid="uid://bhre0dljx3lei" path="res://assets/entity_sprites/totem.PNG" id="2_snmql"]
-[ext_resource type="Resource" uid="uid://fbnj1ug25po" path="res://Resources/Events&Conditions/BuildingDefaultPreset.tres" id="3_ejcr4"]
 [ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_jqdf1"]
-[ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_ejcr4"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_3x5us"]
 [ext_resource type="Resource" uid="uid://swxqvknonbdu" path="res://Resources/Events&Conditions/Events/Scoring/wheat_field_scoring.tres" id="7_2x8e3"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="8_n6jvo"]
 
 [resource]
 script = ExtResource("8_n6jvo")
-layer = 1
-nonplaceable_terrain = Array[ExtResource("3_jqdf1")]([ExtResource("4_ejcr4")])
+layer = 2
+nonplaceable_terrain = Array[ExtResource("3_jqdf1")]([])
 foil_probability = 0
 preview_event = ExtResource("7_2x8e3")
 place_conditions = Array[ExtResource("5_3x5us")]([])
@@ -21,7 +19,6 @@ post_place_effects = Array[ExtResource("1_iepjf")]([])
 begin_round_effects = Array[ExtResource("1_iepjf")]([])
 end_round_effects = Array[ExtResource("1_iepjf")]([])
 destroyed_effects = Array[ExtResource("1_iepjf")]([])
-default_preset = ExtResource("3_ejcr4")
 play_conditions = Array[ExtResource("5_3x5us")]([])
 play_effects = Array[ExtResource("1_iepjf")]([])
 discard_effects = Array[ExtResource("1_iepjf")]([])

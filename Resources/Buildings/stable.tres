@@ -1,13 +1,26 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=9 format=3 uid="uid://b51xgm67ajfug"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://b51xgm67ajfug"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_5klaa"]
 [ext_resource type="Texture2D" uid="uid://dtv654jptb2hg" path="res://assets/entity_sprites/stable.PNG" id="2_tdvu1"]
 [ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_jr5al"]
-[ext_resource type="Resource" uid="uid://fbnj1ug25po" path="res://Resources/Events&Conditions/BuildingDefaultPreset.tres" id="3_o4vm3"]
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_o4vm3"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_8mtyc"]
+[ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="7_jr5al"]
 [ext_resource type="Resource" uid="uid://swxqvknonbdu" path="res://Resources/Events&Conditions/Events/Scoring/wheat_field_scoring.tres" id="7_muqc2"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="8_ccly8"]
+[ext_resource type="Script" uid="uid://c4b1tsjdr6q7r" path="res://scripts/PlaceConditions/TerrainCondition.gd" id="8_o4vm3"]
+
+[sub_resource type="Resource" id="Resource_8mtyc"]
+script = ExtResource("7_jr5al")
+layer = 1
+reminder_msg = ""
+metadata/_custom_type_script = "uid://wuau4rxg1ej4"
+
+[sub_resource type="Resource" id="Resource_yc4f7"]
+script = ExtResource("8_o4vm3")
+nonplaceable_terrain = Array[ExtResource("3_jr5al")]([ExtResource("4_o4vm3")])
+reminder_msg = ""
+metadata/_custom_type_script = "uid://c4b1tsjdr6q7r"
 
 [resource]
 script = ExtResource("8_ccly8")
@@ -15,13 +28,12 @@ layer = 1
 nonplaceable_terrain = Array[ExtResource("3_jr5al")]([ExtResource("4_o4vm3")])
 foil_probability = 0
 preview_event = ExtResource("7_muqc2")
-place_conditions = Array[ExtResource("5_8mtyc")]([])
+place_conditions = Array[ExtResource("5_8mtyc")]([SubResource("Resource_8mtyc"), SubResource("Resource_yc4f7")])
 place_effects = Array[ExtResource("1_5klaa")]([])
 post_place_effects = Array[ExtResource("1_5klaa")]([])
 begin_round_effects = Array[ExtResource("1_5klaa")]([])
 end_round_effects = Array[ExtResource("1_5klaa")]([])
 destroyed_effects = Array[ExtResource("1_5klaa")]([])
-default_preset = ExtResource("3_o4vm3")
 play_conditions = Array[ExtResource("5_8mtyc")]([])
 play_effects = Array[ExtResource("1_5klaa")]([])
 discard_effects = Array[ExtResource("1_5klaa")]([])

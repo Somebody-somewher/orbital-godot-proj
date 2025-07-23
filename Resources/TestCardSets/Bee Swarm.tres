@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://htx7alfgnkok"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_gsy0c"]
+
+[resource]
+script = ExtResource("1_gsy0c")
+set_name = "Bee Swarm"
+cards = Dictionary[String, int]({
+"bees": 2
+})
+category = 7
+rarity = 0
+aquatic = false
+sabotage = false
+is_singleplayer = true
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"
