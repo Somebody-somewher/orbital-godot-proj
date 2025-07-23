@@ -34,7 +34,7 @@ func _ready() -> void:
 	for b in buildings:
 		if b:
 			b.load_default_preset()
-			card_dict.get_or_add(b.get_id(), b)
+			card_dict[b.get_id()] = b
 
 	for aura_data in auras:
 		if aura_data:

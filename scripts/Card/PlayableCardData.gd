@@ -15,13 +15,13 @@ func load_default_preset() -> void:
 	if default_preset:
 		super.load_default_preset()
 		if play_conditions.is_empty() and !override_default:
-			play_conditions = default_preset.play_conditions
+			play_conditions = default_preset.play_conditions.duplicate()
 			
 		if play_effects.is_empty() and !override_default:
-			play_effects = default_preset.play_effects
+			play_effects = default_preset.play_effects.duplicate()
 		
 		if discard_effects.is_empty() and !override_default:
-			discard_effects = default_preset.discard_effects
+			discard_effects = default_preset.discard_effects.duplicate()
 
 func get_events_as_dict() -> Dictionary[String, Array]:
 	var output : Dictionary[String,Array] = {}
