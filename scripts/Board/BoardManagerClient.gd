@@ -56,7 +56,7 @@ func place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i = NULL_T
 		tile_pos = get_mouse_tile_pos()
 	
 	request_place_cardplaceable.rpc_id(1, placeableinst_id, tile_pos, run_on_place_events, sync) 
-	pass
+	
 
 ## Server calls this client function for actual placement clientside
 ## This is called on other clients to sync buildings together
@@ -89,6 +89,18 @@ func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vect
 		terrain_tilemap.place_building_on_tile(placeable_node, tile_pos)
 		
 	placeable_instance.client_on_place(placeable_node.destroy)
+	
+	if run_on_place_effects:
+		var terrain : String 
+		match(matrix_data.get_tile(tilemap_to_matrix(tile_pos))._terrain.get_id()):
+			"Grass" :
+				terrain = "grass"
+			"Desert" :
+				terrain = "sand"
+			"Water":
+				terrain = "water"
+		Signalbus.show_fx.emit(terrain, terrain_tilemap.get_local_centre_of_tile(tile_pos))
+		AudioManager.play_sfx(terrain)
 
 @rpc("any_peer", "call_local")
 func remove_building(tile_pos : Vector2i = NULL_TILE) -> void:

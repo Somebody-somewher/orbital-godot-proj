@@ -17,6 +17,7 @@ func back_to_menu() -> void:
 	reset_components()
 	get_tree().change_scene_to_packed(MENU)
 	curr_scene = "menu"
+	unpause_gameplay()
 
 @rpc("any_peer", "call_local")
 func start_game() -> void:

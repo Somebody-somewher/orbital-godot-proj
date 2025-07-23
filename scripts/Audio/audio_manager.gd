@@ -9,10 +9,10 @@ var bgm_stop :float
 
 var in_game_music = ["plains","forest","desert","mountain", "snow"]
 
-#does nothing currently
 @export var master_volume : float = .5
 @export var bgm_volume : float = .3
 @export var sfx_volume : float = .5
+
 
 # for stacking SFX isntances
 @export var SFX_AUDIOS : Dictionary[String, AudioData]
@@ -25,6 +25,9 @@ func change_master_volume(value : float) ->void:
 	master_volume = value
 	if bgm_stream:
 		bgm_stream.volume_db = linear_to_db(bgm_volume * master_volume)
+
+func change_sfx_volume(value : float) ->void:
+	sfx_volume = value
 
 func change_bgm_volume(value : float) ->void:
 	bgm_volume = 0.6 * value

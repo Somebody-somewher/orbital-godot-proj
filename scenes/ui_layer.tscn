@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b6dee2ixvxkik"]
+[gd_scene load_steps=14 format=3 uid="uid://b6dee2ixvxkik"]
 
 [ext_resource type="Script" uid="uid://bbbnlosaie474" path="res://scripts/GameFlow/player_ui.gd" id="1_6syxi"]
 [ext_resource type="Theme" uid="uid://igcyj7c6fdln" path="res://assets/fonts/cutey_card_theme.tres" id="2_6gmgv"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://njwdfbe6i0ko" path="res://assets/fonts/Comicy.ttf" id="4_yplav"]
 [ext_resource type="PackedScene" uid="uid://dwb51heekvc7a" path="res://scenes/Menus/disconnect_screen.tscn" id="5_qey6e"]
 [ext_resource type="PackedScene" uid="uid://c1n34pvf47rut" path="res://scenes/Menus/winner_screen.tscn" id="6_yplav"]
+[ext_resource type="PackedScene" uid="uid://b7fe4pv62a2cq" path="res://scenes/Menus/escape_menu.tscn" id="7_yplav"]
 
 [sub_resource type="Animation" id="Animation_yxlcp"]
 length = 0.001
@@ -104,15 +105,17 @@ theme_override_font_sizes/font_size = 40
 text = "Score: 0"
 
 [node name="RoundLabel" type="Label" parent="PlayerUI"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 0
-offset_left = 1397.0
+offset_left = 1283.28
 offset_top = 12.0
-offset_right = 1568.0
+offset_right = 1583.28
 offset_bottom = 56.0
 theme = ExtResource("2_6gmgv")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "Round: 1"
+horizontal_alignment = 2
 
 [node name="EndTurn" type="Button" parent="PlayerUI"]
 layout_mode = 0
@@ -203,5 +206,7 @@ libraries = {
 [node name="DisconnectScreen" parent="." instance=ExtResource("5_qey6e")]
 
 [node name="WinnerScreen" parent="." instance=ExtResource("6_yplav")]
+
+[node name="EscapeMenu" parent="." instance=ExtResource("7_yplav")]
 
 [connection signal="pressed" from="PlayerUI/EndTurn" to="PlayerUI" method="_on_end_turn_pressed"]

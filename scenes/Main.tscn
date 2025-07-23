@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cdp6pxvmemk4u"]
+[gd_scene load_steps=13 format=3 uid="uid://cdp6pxvmemk4u"]
 
 [ext_resource type="Script" uid="uid://dq7q74qaf5hj8" path="res://scripts/GameFlow/GameManager.gd" id="1_bjd11"]
 [ext_resource type="PackedScene" uid="uid://klvllydgi5tw" path="res://scenes/Game Flow/round_manager.tscn" id="2_ft6cd"]
@@ -10,10 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://bkog375sxl1lg" path="res://scenes/Compendium/compendium_container.tscn" id="10_1nqs0"]
 [ext_resource type="PackedScene" uid="uid://dqeuxtjytggp4" path="res://scenes/Menus/parallax_background.tscn" id="12_cvmbd"]
 [ext_resource type="Script" uid="uid://byit5totk5tsn" path="res://scripts/Card/Pack&Set/CardPackManagerClient.gd" id="13_cvmbd"]
-[ext_resource type="Texture2D" uid="uid://cdvtn386cwgwv" path="res://assets/backgrounds/Clouds 3/1.png" id="13_ft6cd"]
-[ext_resource type="Texture2D" uid="uid://c32secligmlfj" path="res://assets/backgrounds/Clouds 3/3.png" id="14_bb450"]
-[ext_resource type="Texture2D" uid="uid://3jv2vw2w60i7" path="res://assets/backgrounds/Clouds 3/4.png" id="15_nfivy"]
-[ext_resource type="Texture2D" uid="uid://c6roun1e7w055" path="res://assets/backgrounds/Clouds 3/5.png" id="16_1nqs0"]
 [ext_resource type="Resource" uid="uid://b2ockuqgtwo7k" path="res://Resources/ProcGen/BoardProcGenerator.tres" id="16_ft6cd"]
 [ext_resource type="PackedScene" uid="uid://bxiy7ajwus31g" path="res://scenes/Board/board_manager.tscn" id="17_bb450"]
 
@@ -65,11 +61,7 @@ BOARD_SCALE = null
 
 [node name="Background" type="CanvasLayer" parent="."]
 
-[node name="Background" parent="Background" instance=ExtResource("12_cvmbd")]
-layer1 = Array[Texture2D]([ExtResource("13_ft6cd")])
-layer2 = Array[Texture2D]([ExtResource("14_bb450")])
-layer3 = Array[Texture2D]([ExtResource("15_nfivy")])
-layer4 = Array[Texture2D]([ExtResource("16_1nqs0")])
+[node name="Background2" parent="Background" instance=ExtResource("12_cvmbd")]
 
 [editable path="UILayer"]
 [editable path="BoardManager"]

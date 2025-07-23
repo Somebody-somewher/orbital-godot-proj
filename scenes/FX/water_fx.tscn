@@ -16,6 +16,7 @@ offsets = PackedFloat32Array(0.275862, 0.586207, 0.931035)
 colors = PackedColorArray(0.639216, 0.756863, 1, 1, 1, 1, 1, 1, 0.817675, 0.940899, 0.914118, 1)
 
 [node name="WaterFX" type="Node2D"]
+scale = Vector2(2, 2)
 script = ExtResource("1_x50nm")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]

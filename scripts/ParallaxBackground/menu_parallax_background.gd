@@ -13,7 +13,7 @@ var rng = RandomNumberGenerator.new()
 @onready var sprite_4: Sprite2D = $ParallaxBackground/ParallaxLayer4/Sprite2D
 
 func _ready() -> void:
-	var index = 0
+	var index = rng.randi()%3
 	sprite_1.texture = layer1[index]
 	sprite_2.texture = layer2[index]
 	sprite_3.texture = layer3[index]
