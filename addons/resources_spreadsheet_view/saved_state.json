@@ -35,7 +35,7 @@
     },
     "res://Resources/Buildings/": {
       "begin_round_effects": {
-        "visibility": 1
+        "visibility": 1.0
       },
       "destroyed_effects": {
         "visibility": 0.0

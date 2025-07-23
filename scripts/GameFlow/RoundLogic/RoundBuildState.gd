@@ -1,7 +1,11 @@
 extends RoundState
 class_name RoundBuildState
 
+var round_count := 0
+
 func round_start() -> void:
+	round_count += 1
+	Signalbus.emit_signal("round_start", state_id, round_count)
 	Signalbus.emit_multiplayer_signal("show_round_msg", ["Build Phase!"])
 	pass
 
@@ -10,5 +14,6 @@ func round_end() -> void:
 		emit_signal("transition_to", "END")
 	else:
 		emit_signal("transition_to", next_state_ids[0])
+	Signalbus.emit_signal("round_end", state_id, round_count)
 	#super.round_end()
 	pass

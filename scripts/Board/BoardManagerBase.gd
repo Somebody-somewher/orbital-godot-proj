@@ -33,7 +33,8 @@ func set_up() -> void:
 	matrix_data = BoardMatrixData.new(BOARD_SIZE.x, BOARDS_LAYOUT)
 	
 	CardLoader.event_manager.matrix_data = matrix_data
-	Signalbus.connect("place_placeable", server_place_newplaceable)
+	Signalbus.place_placeable.connect(server_place_newplaceable)
+	Signalbus.remove_placeable.connect(server_remove_building)
 
 ## This is run by the server to supply data to all clients
 ## Signal-activated by NetworkManager "all_clients_ready"

@@ -44,8 +44,7 @@ signal mouse_enter_interactable_board_tile()
 signal mouse_enter_board()
 
 signal place_placeable(pi : PlaceableInstanceData, tile_pos : Vector2i, player_uuid : String, run_on_place_events : bool, sync : bool)
-#server_place_newplaceable(pi : PlaceableInstanceData, tile_pos : Vector2i, player_uuid : String, run_on_place_events := true, sync := true)
-
+signal remove_placeable(placeable_instance_id : String, player_uuid : String)
 
 signal board_action_result(outcome : bool)
 signal set_score_preview(tile_pos : Array[Vector2i], scores : Array[int])
