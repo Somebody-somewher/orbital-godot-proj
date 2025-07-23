@@ -60,6 +60,9 @@ spawn_node = NodePath("../CardManager")
 BORDER_DIM = Vector2i(2, 2)
 proc_gen = ExtResource("16_ft6cd")
 
+[node name="Preview" parent="BoardManager" index="0"]
+BOARD_SCALE = null
+
 [node name="Background" type="CanvasLayer" parent="."]
 
 [node name="Background" parent="Background" instance=ExtResource("12_cvmbd")]

@@ -45,7 +45,7 @@ func map_noise_to_building(noise_val : float, terrain : EnvTerrain) -> BuildingD
 	var i = 0;
 	for level in building_noise_threshold:
 		if noise_val <= level:
-			if terrain not in env_buildings[i].nonplaceable_terrain:
+			if terrain not in env_buildings[i].get_non_placeable_terrain():
 				return env_buildings[i]
 		i += 1
 			

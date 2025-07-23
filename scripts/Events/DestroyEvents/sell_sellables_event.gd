@@ -1,13 +1,25 @@
-extends BoardEvent
+extends StandardScoreEffect
 class_name TraderEvent
 
 @export var tag_to_sell : String
 @export var chance : float = 0.5
 
-func preview(_board : BoardMatrixData, _previewer : Callable, _tile_pos : Vector2i, caller : CardInstanceData) -> void:
-	pass
-
 # destroys the building, #TODO building should trigger its own OnDestroyEvents
-func trigger(_board : BoardMatrixData, _tile_pos : Vector2i, _caller : CardInstanceData) -> void:
-
+func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstanceData) -> void:
+	super.trigger(board, tile_pos, caller)
+	var tile_pos_data = aoe.get_scored_tiles(tile_pos)
+	
+	var arr : Array[BuildingInstanceData]
+	for tiledata in tile_pos_data[1]:
+		arr = tiledata.get_buildings_on_tile()
+		for building in arr:
+			if building.get_data().has_tag(tag_to_sell):
+				building.destroy()
 	pass
+
+func modifier(tile_data : BoardTile, _cum_score := 0) -> int:
+	var score := 0
+	for building in tile_data.get_buildings_on_tile():
+		if building.get_data().has_tag(tag_to_sell):
+			score += building.score #effect_buildings_score.get(building.data.id_name, 0)
+	return score

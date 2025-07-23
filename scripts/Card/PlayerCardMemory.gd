@@ -75,6 +75,10 @@ func search_hand_for(instance_id : String) -> CardInstanceData:
 			return c
 	return null
 
+func foreach_card_in_hand(c : Callable) -> void:
+	for card in hand_instances:
+		c.call(card)
+
 func remove_card_in_hand(instance_id : String) -> CardInstanceData:
 	var item = search_hand_for(instance_id)
 	if item:

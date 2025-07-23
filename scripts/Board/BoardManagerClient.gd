@@ -14,7 +14,6 @@ var boards_near_mouse : Array[bool]
 
 var player_board_ids : Array[int] 
 
-
 # Called when the node enters the scene tree for the first time.
 func set_up() -> void:	
 	super.set_up()
@@ -169,7 +168,6 @@ func _process(delta: float) -> void:
 	if curr_tile_pos != prev_tile_pos: #and matrix_data.get_boardcoords_of_tilepos(terrain_tilemap.tilemap_to_matrix(curr_tile_pos)) != []:
 		Signalbus.emit_signal("mouse_enter_interactable_board_tile")
 		prev_tile_pos = curr_tile_pos
-	
 	pass
 
 #################################### BOARD INTERACTABILITY #################################################

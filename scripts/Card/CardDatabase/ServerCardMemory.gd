@@ -4,17 +4,29 @@ class_name ServerCardMemory
 
 # Actual Card instances created/presented for each player
 func setup(sync_card_creation : Callable, create_card : Callable) -> void:
-	#if NetworkManager.is_client():
-		#local_player_memory = PlayerCardMemory.new()
-		#local_player_memory.player_uuid = PlayerManager.getCurrentPlayerUUID()
-
 	func_sync_card_creation = sync_card_creation
 	func_create_card = create_card	
+	
 	self_uuid = PlayerManager.getCurrentPlayerUUID()
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
 		var mem := PlayerCardMemory.new();\
 		mem.player_uuid = pi.getPlayerUUID();\
 		player_memory.get_or_add(pi.getPlayerUUID(), mem));
+
+func event_manager_setup(register_events : Callable, trigger_events : Callable) -> void:
+	super.event_manager_setup(register_events, trigger_events)
+	
+	#PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
+		#Signalbus.round_start.connect(func(_round_id : String, round_total : int):\
+			#player_memory[pi.getPlayerUUID()].foreach_card_in_hand(\
+				#func(cid : CardInstanceData):
+					#trigger_events.call(cid, "on_begin_round", round_total))))
+	#
+	#PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
+		#Signalbus.round_end.connect(func(_round_id : String, round_total : int):\
+			#player_memory[pi.getPlayerUUID()].foreach_card_in_hand(\
+				#func(cid : CardInstanceData):
+					#trigger_events.call(cid, "on_end_round", round_total))))
 
 @rpc("any_peer", "call_local")
 func server_record_player_cardpack_options(card_packs : Dictionary[int, Dictionary], player_uuid : String) -> void:
@@ -28,7 +40,6 @@ func record_player_cardpack_choice(cardpack_id : int, player_uuid : String) -> v
 		var peer_id = PlayerManager.getPeerID_from_UUID(player_uuid)
 		_record_player_cardpack_choice.rpc_id(peer_id, cardpack_id)
 
-
 ################################# PLAYER HAND #####################################
 @rpc("any_peer","call_local")
 func attempt_cardset_to_hand(cardpack_id : int, cardset_id : String, player_uuid : String) -> Array[String]:
@@ -37,13 +48,13 @@ func attempt_cardset_to_hand(cardpack_id : int, cardset_id : String, player_uuid
 	var string_ids : Array[String] = []
 		
 	for instance in result[0]:
-		register_events.call(instance)
+		func_register_events.call(instance)
 		string_ids.append(instance.get_id())
 	
 	# Technically this means the card enters the hand and then gets discarded immediately
 	for instance in result[1]:
-		register_events.call(instance)
-		trigger_discard_events.call(instance)
+		func_register_events.call(instance)
+		func_trigger_events.call(instance, "on_discard", [])
 	
 	Signalbus.emit_signal("confirmed_add_to_hand", string_ids, cardset_id)
 	
@@ -66,7 +77,7 @@ func search_hand_for(instance_id : String, player_uuid : String) -> CardInstance
 
 func attempt_to_use_hand_card(instance_id : String, player_uuid : String) -> CardInstanceData:
 	var instance = player_memory[player_uuid].remove_card_in_hand(instance_id)
-	trigger_play_events.call(instance)
+	func_trigger_events.call(instance)
 	
 	if !PlayerManager.amIPlayer(player_uuid):
 		var peer_id = PlayerManager.getPeerID_from_UUID(player_uuid)
@@ -76,17 +87,17 @@ func attempt_to_use_hand_card(instance_id : String, player_uuid : String) -> Car
 
 func remove_card_in_hand(instance_id : String, player_uuid : String) -> void:
 	var instance = player_memory[player_uuid].remove_card_in_hand(instance_id)
-	trigger_discard_events.call(instance)
+	func_trigger_events.call(instance, "on_discard", [])
 	
 	if !PlayerManager.amIPlayer(player_uuid):
 		var peer_id = PlayerManager.getPeerID_from_UUID(player_uuid)
 		_remove_card_in_hand.rpc_id(peer_id, instance_id)
 	
 func add_card_in_hand(instance_data : CardInstanceData, player_uuid : String) -> void:
-	register_events.call(instance_data)
+	func_register_events.call(instance_data)
 	
 	if player_memory[player_uuid].is_hand_full():
-		trigger_discard_events.call(instance_data)
+		func_trigger_events.call(instance_data, "on_discard", [])
 		return
 		
 	player_memory[player_uuid].add_card_to_hand(instance_data)
@@ -102,6 +113,9 @@ func add_card_in_hand(instance_data : CardInstanceData, player_uuid : String) ->
 func is_hand_full(player_uuid : String) -> bool:
 	return player_memory[player_uuid].is_hand_full()
 ####################################################################################
+
+
+	 
 
 #func run_for_client(player_uuid : String, server_client_c : Callable, other_client_c : Callable) -> void:
 	#if NetworkManager.is_client() and PlayerManager.amIPlayer(player_uuid):

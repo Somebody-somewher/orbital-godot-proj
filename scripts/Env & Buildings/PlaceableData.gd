@@ -27,24 +27,30 @@ func load_default_preset() -> void:
 	if default_preset:
 		super.load_default_preset()
 		
-		if place_conditions.is_empty() or override_default:
+		if place_conditions.is_empty() and !override_default:
 			place_conditions = default_preset.place_conditions
 			
-		if place_effects.is_empty() or override_default:
+		if place_effects.is_empty() and !override_default:
 			place_effects = default_preset.place_effects
 		
-		if post_place_effects.is_empty() or override_default:
+		if post_place_effects.is_empty() and !override_default:
 			post_place_effects = default_preset.post_place_effects
 		
-		if begin_round_effects.is_empty() or override_default:
+		if begin_round_effects.is_empty() and !override_default:
 			begin_round_effects = default_preset.begin_round_effects
 		
-		if end_round_effects.is_empty() or override_default:
+		if end_round_effects.is_empty() and !override_default:
 			end_round_effects = default_preset.end_round_effects
 		
-		if destroyed_effects.is_empty() or override_default:
+		if destroyed_effects.is_empty() and !override_default:
 			destroyed_effects = default_preset.destroyed_effects
 	pass
+
+func get_non_placeable_terrain() -> Array[EnvTerrain]:
+	for condition in place_conditions:
+		if condition is TerrainCondition:
+			return condition.nonplaceable_terrain
+	return []
 
 func get_events_as_dict() -> Dictionary[String, Array]:
 	var output = super.get_events_as_dict()

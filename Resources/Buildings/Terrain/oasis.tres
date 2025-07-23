@@ -1,11 +1,10 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=13 format=3 uid="uid://v447arejtkri"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://v447arejtkri"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_t6uhw"]
 [ext_resource type="Texture2D" uid="uid://b7ifesbhy642p" path="res://assets/entity_sprites/oasis.PNG" id="2_bhh2n"]
 [ext_resource type="Resource" uid="uid://fbnj1ug25po" path="res://Resources/Events&Conditions/BuildingDefaultPreset.tres" id="3_bhh2n"]
 [ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_iu7f0"]
 [ext_resource type="Resource" uid="uid://dn1afqgtyr3lp" path="res://Resources/EnvTerrain/TerrainTiles/Grass.tres" id="4_2bliw"]
-[ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="5_pv7ke"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="6_pm7a2"]
 [ext_resource type="Resource" uid="uid://bsrnk44vhb58o" path="res://Resources/Events&Conditions/Conditions/StackableCondition.tres" id="7_bhh2n"]
 [ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events&Conditions/Events/Scoring/cow_scoring.tres" id="8_iu7f0"]
@@ -21,8 +20,7 @@ metadata/_custom_type_script = "uid://c4b1tsjdr6q7r"
 [resource]
 script = ExtResource("9_hys6x")
 layer = 1
-nonplaceable_terrain = Array[ExtResource("3_iu7f0")]([ExtResource("4_2bliw"), ExtResource("5_pv7ke")])
-foil_probability = 0
+base_score = 0
 preview_event = ExtResource("8_iu7f0")
 place_conditions = Array[ExtResource("6_pm7a2")]([ExtResource("7_bhh2n"), SubResource("Resource_2bliw")])
 place_effects = Array[ExtResource("1_t6uhw")]([])

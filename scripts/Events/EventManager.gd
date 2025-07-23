@@ -1,17 +1,18 @@
 extends Node
 class_name EventManager
 
+const EventKeys : Array = ["preview", "on_play", "on_discard", \
+"on_place", "on_destroy", "post_place", "on_begin_round", "on_end_round"]
+
+const ConditionKeys : Array = ["is_placeable"]
+
 # Dependencies
 var matrix_data : BoardMatrixData
 var card_mem : CardMemory #: Dictionary[String, PlayerCardMemory]
 
-#var id_to_instances : Dictionary[String, CardInstanceData]
-
-var on_round_start_events : Array[Event]
-var on_round_start_events_dict : Dictionary[String, Event]
-
-var on_round_end_events : Array[Event]
-var on_round_end_events_dict : Dictionary[String, Event]
+# Dictionary[String, Pair[CardInstanceData, Event]] -> key is the id of the instance
+var on_round_start_events_dict : Dictionary[String, Array]
+var on_round_end_events_dict : Dictionary[String, Array]
 
 var func_get_card_data : Callable
 
@@ -20,23 +21,30 @@ var func_get_card_data : Callable
 var events_and_conditions : Dictionary[String, Dictionary]
 
 func setup_mem(mem : CardMemory, get_card_data : Callable) -> void:
-	mem.event_manager_setup(func(instance : CardInstanceData):
-		register_events.rpc(instance.get_id(), instance.get_data().get_id())
-		, trigger_play_events, trigger_discard_events)
+	mem.event_manager_setup(register_events, trigger_events)
 	card_mem = mem
-	func_get_card_data = get_card_data
+	#func_get_card_data = get_card_data
 
-@rpc("any_peer", "call_local")
-func register_events(instance_id : String, data_id : String) -> void:
-	var events_dict : Dictionary[String, Array] = func_get_card_data.call(data_id).get_events_as_dict()
-	events_and_conditions[instance_id] = events_dict
+func register_events(instance : CardInstanceData) -> void:
+	var events_dict : Dictionary[String, Array] = instance.get_data().get_events_as_dict()
+	events_and_conditions[instance.get_id()] = events_dict
 	#print(events_dict)
 	#id_to_instances[instance_id] = instance
 
 	# TODO: Make a clearer system
-	if events_dict["preview"][0] not in events_and_conditions[instance_id]["on_place"]:
-		events_and_conditions[instance_id]["on_place"].push_front(events_dict["preview"][0])
-
+	if events_dict["preview"][0] not in events_and_conditions[instance.get_id()]["on_place"]:
+		events_and_conditions[instance.get_id()]["on_place"].push_front(events_dict["preview"][0])
+	
+	if !events_dict["on_begin_round"].is_empty():
+		on_round_start_events_dict[instance.get_id()] = []
+		for event in events_dict["on_begin_round"]:
+			on_round_start_events_dict[instance.get_id()].append([event, instance])		
+	
+	if !events_dict["on_end_round"].is_empty():
+		on_round_end_events_dict[instance.get_id()] = []
+		for event in events_dict["on_end_round"]:
+			on_round_end_events_dict[instance.get_id()].append([event, instance])	
+				
 ## Remove all events related to this card instance
 func clean_events(instance : CardInstanceData) -> void:
 	events_and_conditions.erase(instance.get_id())
@@ -51,30 +59,13 @@ func preview_event(instance : CardInstanceData, previewer : Callable, tilepos : 
 	if event_to_run is BoardEvent:
 		event_to_run.preview(matrix_data, previewer, tilepos, instance)
 
-func trigger_discard_events(instance : CardInstanceData) -> void:
-	run_events(events_and_conditions[instance.get_id()]["on_discard"], instance, [])
-	pass
-	
-func trigger_play_events(instance : CardInstanceData) -> void:
-	run_events(events_and_conditions[instance.get_id()]["on_play"], instance, [])
-	pass
+func trigger_events(instance : CardInstanceData, event_id : String, params := []) -> void:
+	assert(EventKeys.has(event_id))
+	run_events(events_and_conditions[instance.get_id()][event_id], instance, params)
 
-func trigger_place_events(instance : CardInstanceData, tilepos : Vector2i) -> void:
-	#print(events_and_conditions[instance.get_id()])
-	run_events(events_and_conditions[instance.get_id()]["on_place"], instance, [tilepos])
-	
-func trigger_destroy_events(instance : CardInstanceData, tilepos : Vector2i) -> void:
-	#print(events_and_conditions[instance.get_id()])
-	run_events(events_and_conditions[instance.get_id()]["on_destroy"], instance, [tilepos])
-
-func trigger_postplace_events(instance : CardInstanceData, tilepos : Vector2i) -> void:
-	run_events(events_and_conditions[instance.get_id()]["post_place"], instance, [tilepos])
-
-func check_card_play_conditions(instance : CardInstanceData) -> bool:
-	return true
-
-func check_place_conditions(instance : CardInstanceData, tilepos : Vector2i) -> bool:
-	return run_conditions(events_and_conditions[instance.get_id()]["is_placeable"], instance, [tilepos])
+func check_conditions(instance : CardInstanceData, condition_id : String, params := []) -> bool:
+	assert(ConditionKeys.has(condition_id))
+	return run_conditions(events_and_conditions[instance.get_id()][condition_id], instance, params)
 
 #func trigger_event(instance : CardInstanceData, event_type : String, params : Array) -> void:
 	#var events_to_run : Array[Event]
@@ -106,11 +97,51 @@ func run_events(events_to_run : Array[Event], source : CardInstanceData, params 
 		elif event is CardEvent:
 			event.trigger(card_mem, source)
 
+func run_round_events(events_to_run : Array[Array]) -> void:
+	
+	for event in events_to_run:
+		event[0] 
+
+#func run_all_round_events(events_to_run : Dictionary[CardInstanceData, Event]) -> void:
+	#for instance in events_to_run.keys():
+		#if event is events_to_run[instance]:
+			#event.trigger(matrix_data, )
+
 func reset_mem() -> void:
 	card_mem.clear()
 	#id_to_instances.clear()
-	on_round_start_events.clear()
-	on_round_start_events_dict.clear()
-	on_round_end_events.clear()
-	on_round_end_events_dict.clear()
+	#on_round_start_events_dict.clear()
+	#on_round_end_events_dict.clear()
 	events_and_conditions.clear()
+
+
+#func trigger_discard_events(instance : CardInstanceData) -> void:
+	#run_events(events_and_conditions[instance.get_id()]["on_discard"], instance, [])
+	#pass
+	#
+#func trigger_play_events(instance : CardInstanceData) -> void:
+	#run_events(events_and_conditions[instance.get_id()]["on_play"], instance, [])
+	#pass
+#
+#func trigger_place_events(instance : CardInstanceData) -> void:
+	#run_events(events_and_conditions[instance.get_id()]["on_place"], instance, [tilepos])
+	#
+#func trigger_destroy_events(instance : CardInstanceData) -> void:
+	#run_events(events_and_conditions[instance.get_id()]["on_destroy"], instance, [tilepos])
+#
+#func trigger_postplace_events(instance : CardInstanceData) -> void:
+	#run_events(events_and_conditions[instance.get_id()]["post_place"], instance, [tilepos])
+#
+#func trigger_round_start_events(instance : CardInstanceData, params : Array) -> void:
+	#run_events(events_and_conditions[instance.get_id()]["on_begin_round"], instance, params[0])
+	#pass
+#
+#func trigger_round_end_events(instance : CardInstanceData, params : Array) -> void:
+	#run_events(events_and_conditions[instance.get_id()]["on_end_round"], instance, params[0])
+	#pass	
+#
+#func check_card_play_conditions(instance : CardInstanceData) -> bool:
+	#return true
+#
+#func check_place_conditions(instance : CardInstanceData, tilepos : Vector2i) -> bool:
+	#return run_conditions(events_and_conditions[instance.get_id()]["is_placeable"], instance, [tilepos])

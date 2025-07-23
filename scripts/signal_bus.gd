@@ -5,6 +5,7 @@ extends Node
 signal end_turn(player_uuid : String)
 signal round_end(round_id : String, round_total : int)
 signal round_start(round_id : String, round_total : int)
+
 signal round_timer_update(curr_time : int)
 
 # SCORE LOGIC

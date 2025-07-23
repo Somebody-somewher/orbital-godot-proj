@@ -1,14 +1,6 @@
 extends ScoreEffect
 class_name StandardScoreEffect
 
-func score_a_tile(tile_data : BoardTile, cum_score := 0) -> int:
-	var score := 0
-	for building in tile_data.get_buildings_on_tile():
-		score += effect_buildings_score.get(building.data.id_name, 0)
-	return score
-	#tile_pos_data[2].append(score)
-	
-
 # Actual code that uses the aoe to figure out which tiles should be scored, then assigns each tile a score
 func score_tiles(tile_pos : Vector2i) -> Array[Array]:
 	var score : int = 0
@@ -19,7 +11,7 @@ func score_tiles(tile_pos : Vector2i) -> Array[Array]:
 	tile_pos_data.append([])
 	# Assign a score to each tile based on its tiledata 
 	for tile_data in tile_pos_data[1]:
-		tile_pos_data[2].append(score_a_tile(tile_data))
+		tile_pos_data[2].append(modifier(tile_data))
 		
 	# Array of arrays, [[tilepos], [tiledata], [tile_score]]
 	return tile_pos_data
@@ -41,12 +33,18 @@ func preview(board : BoardMatrixData, previewer : Callable, tile_pos : Vector2i,
 func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstanceData) -> void:
 	# Checked if the scored tiles are different from the cached ones
 	var total_score : int = 0
+	
+	var data_array = score_tiles(tile_pos)
 	# recalculation of the score
-	for score in score_tiles(tile_pos)[2]:
+	for score in data_array[2]:
 		total_score += score
 			
 	Signalbus.emit_signal("add_score", total_score, caller.get_owner_uuid())
 
 # In case we need to multiply / add score based on tile / building info
-func modifier(score : int, tile_data : BoardTile):
-	return (score + addition) * multiplier
+func modifier(tile_data : BoardTile, _cum_score := 0) -> int:
+	var score := 0
+	for building in tile_data.get_buildings_on_tile():
+		score += effect_buildings_score.get(building.data.id_name, 0)
+	return score
+	#return (score + addition) * multiplier

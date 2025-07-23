@@ -1,9 +1,8 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=13 format=3 uid="uid://byak34k7swnnc"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://byak34k7swnnc"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_31itq"]
 [ext_resource type="Texture2D" uid="uid://cpvtjnxckyf67" path="res://assets/entity_sprites/shark.PNG" id="2_thguo"]
 [ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_41sfe"]
-[ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_31itq"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_4sfc5"]
 [ext_resource type="Resource" uid="uid://bsrnk44vhb58o" path="res://Resources/Events&Conditions/Conditions/StackableCondition.tres" id="6_j14qv"]
 [ext_resource type="Resource" uid="uid://dn1afqgtyr3lp" path="res://Resources/EnvTerrain/TerrainTiles/Grass.tres" id="7_4sfc5"]
@@ -21,8 +20,7 @@ metadata/_custom_type_script = "uid://c4b1tsjdr6q7r"
 [resource]
 script = ExtResource("8_f3rqf")
 layer = 1
-nonplaceable_terrain = Array[ExtResource("3_41sfe")]([ExtResource("4_31itq")])
-foil_probability = 0
+base_score = 0
 preview_event = ExtResource("7_p6prx")
 place_conditions = Array[ExtResource("5_4sfc5")]([ExtResource("6_j14qv"), SubResource("Resource_f3rqf")])
 place_effects = Array[ExtResource("1_31itq")]([])

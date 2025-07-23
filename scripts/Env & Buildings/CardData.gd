@@ -25,6 +25,9 @@ enum CATEGORY {
 
 @export var override_default : bool = false
 
+func has_tag(tag_name : String) -> bool:
+	return tags.find(tag_name) != -1
+
 func load_default_preset() -> void:
 	pass
 	

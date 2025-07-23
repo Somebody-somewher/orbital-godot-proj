@@ -9,8 +9,6 @@ class_name ScoreEffect
 var multiplier := 1.0
 var addition := 0
 
-#func score_tile
-
 # Actual code that uses the aoe to figure out which tiles should be scored, then assigns each tile a score
 func score_tiles(_tile_pos : Vector2i) -> Array[Array]:
 	return []
@@ -26,5 +24,5 @@ func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstance
 
 # TO OVERRIDE
 # In case we need to multiply / add score based on tile / building info
-func modifier(score : int, _tile_data : BoardTile):
-	return score
+func modifier(_tile_data : BoardTile, _cum_score := 0) -> int:
+	return 0
