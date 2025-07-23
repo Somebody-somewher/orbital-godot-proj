@@ -1,24 +1,40 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://511m4bwcgfkd"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://511m4bwcgfkd"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_qgp4a"]
 [ext_resource type="Texture2D" uid="uid://ct368g7nrolt5" path="res://assets/entity_sprites/cow.png" id="2_m38rd"]
-[ext_resource type="Resource" uid="uid://fbnj1ug25po" path="res://Resources/Events&Conditions/BuildingDefaultPreset.tres" id="3_i5anp"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_lpscb"]
+[ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_qgp4a"]
+[ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_i5anp"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="5_eokuo"]
 [ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events&Conditions/Events/Scoring/cow_scoring.tres" id="6_i5anp"]
+[ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="7_6apcj"]
+[ext_resource type="Script" uid="uid://cqr6jrosybp6n" path="res://scripts/PlaceConditions/LightLandTerrainCondition.gd" id="7_cr23o"]
+
+[sub_resource type="Resource" id="Resource_fgoec"]
+script = ExtResource("7_6apcj")
+layer = 1
+reminder_msg = ""
+metadata/_custom_type_script = "uid://wuau4rxg1ej4"
+
+[sub_resource type="Resource" id="Resource_6apcj"]
+script = ExtResource("7_cr23o")
+nonplaceable_terrain = Array[ExtResource("3_qgp4a")]([ExtResource("4_i5anp")])
+water_platforms = Array[String](["docks", "turtle"])
+reminder_msg = ""
+metadata/_custom_type_script = "uid://cqr6jrosybp6n"
 
 [resource]
 script = ExtResource("5_eokuo")
 layer = 1
-base_score = 0
+nonplaceable_terrain = Array[ExtResource("3_qgp4a")]([ExtResource("4_i5anp")])
+foil_probability = 0
 preview_event = ExtResource("6_i5anp")
-place_conditions = Array[ExtResource("3_lpscb")]([])
+place_conditions = Array[ExtResource("3_lpscb")]([SubResource("Resource_fgoec"), SubResource("Resource_6apcj")])
 place_effects = Array[ExtResource("1_qgp4a")]([])
 post_place_effects = Array[ExtResource("1_qgp4a")]([])
 begin_round_effects = Array[ExtResource("1_qgp4a")]([])
 end_round_effects = Array[ExtResource("1_qgp4a")]([])
 destroyed_effects = Array[ExtResource("1_qgp4a")]([])
-default_preset = ExtResource("3_i5anp")
 play_conditions = Array[ExtResource("3_lpscb")]([])
 play_effects = Array[ExtResource("1_qgp4a")]([])
 discard_effects = Array[ExtResource("1_qgp4a")]([])
