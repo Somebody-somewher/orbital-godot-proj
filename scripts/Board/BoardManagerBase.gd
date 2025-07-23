@@ -151,7 +151,7 @@ func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i,
 @rpc("any_peer", "call_local")
 func server_place_newplaceable(placeable_instance : PlaceableInstanceData, tile_pos : Vector2i, \
 	player_uuid : String, run_on_place_events := true, sync := true) -> void:
-		
+	
 	if placeable_instance and CardLoader.event_manager.check_place_conditions(placeable_instance, tilemap_to_matrix(tile_pos)):
 		_place_placeable(placeable_instance, tile_pos, run_on_place_events);
 		
@@ -168,6 +168,9 @@ func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vect
 	placeable_instance.tile_pos = tile_pos
 	
 	if run_on_place_events and multiplayer.is_server():
+		#TODO: Maybe get this out of this if
+		CardLoader.event_manager.register_board_round_events(placeable_instance)
+
 		CardLoader.event_manager.trigger_events(placeable_instance, "on_place", [tilemap_to_matrix(tile_pos)])
 	
 	matrix_data.add_placeable_to_tile(tilemap_to_matrix(tile_pos), placeable_instance)
@@ -197,18 +200,14 @@ func _create_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
 	matrix_data.add_tile(tilemap_to_matrix(tile_pos), terrain)
 
 @rpc("any_peer","call_local")
-func server_change_terrain(terrain_id : String, player_uuid : String, tile_pos : Vector2i, sync := true) -> void:
-	var remote_id := multiplayer.get_remote_sender_id()
-	_change_terrain(terrain_id, tile_pos)
-	
+func server_change_terrain(terrain_id : String, player_uuid : String, tile_pos : Vector2i, sync := true) -> void:	
 	if sync:
-		#_change_terrain.rpc(terrain_id, tile_pos)
-		PlayerManager.forEachPlayer(func(pi : PlayerInfo):
-			if pi.getPlayerId() != 1: 
-				_change_terrain.rpc_id(pi.getPlayerId(), terrain_id, tile_pos))
-	elif !PlayerManager.amIPlayer(player_uuid):
-		_change_terrain.rpc_id(\
-			PlayerManager.getPeerID_from_UUID(player_uuid), terrain_id, tile_pos)
+		_change_terrain.rpc(terrain_id, tile_pos)
+	else:
+		_change_terrain(terrain_id, tile_pos)
+		if !PlayerManager.amIPlayer(player_uuid):
+			_change_terrain.rpc_id(\
+				PlayerManager.getPeerID_from_UUID(player_uuid), terrain_id, tile_pos)
 
 ## Change terrain, data + visual
 @rpc("any_peer","call_local")
@@ -218,29 +217,43 @@ func _change_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
 
 @rpc("any_peer", "call_local")
 func server_clear_tile(tile_pos : Vector2i, player_uuid : String, run_destroy_events := true, sync := true) -> void:
-	_clear_board_tile(tile_pos, run_destroy_events)
+	#_clear_board_tile(tile_pos, run_destroy_events)
 	if sync:
-		PlayerManager.forEachPlayer(func(pi : PlayerInfo):
-			_clear_board_tile.rpc_id(pi.getPlayerId(), tile_pos, run_destroy_events))
-	elif !PlayerManager.amIPlayer(player_uuid):
-		_clear_board_tile.rpc_id(\
-			PlayerManager.getPeerID_from_UUID(player_uuid), tile_pos, run_destroy_events)
+		_clear_board_tile.rpc(tile_pos, run_destroy_events)
+	else:
+		_clear_board_tile(tile_pos, run_destroy_events)
+		if !PlayerManager.amIPlayer(player_uuid):
+			_clear_board_tile.rpc_id(\
+				PlayerManager.getPeerID_from_UUID(player_uuid), tile_pos, run_destroy_events)
 
-	#matrix_data.get_tile(tile_pos).clear_tile()
 @rpc("any_peer", "call_local")
 func _clear_board_tile(tile_pos : Vector2i, run_destroy_events := true) -> void:
 	var tile_data : BoardTile = matrix_data.get_tile(tile_pos)
-	
-	if run_destroy_events:
-		tile_data.clear_tile(CardLoader.event_manager.trigger_discard_events)
-	else:
+	if run_destroy_events and multiplayer.is_server():
 		tile_data.clear_tile(func(pi : PlaceableInstanceData):\
-			pass)
-			
-@rpc("any_peer", "call_local")
-func remove_building(tile_pos : Vector2i = NULL_TILE) -> void:
-	pass
+		CardLoader.event_manager.trigger_events(pi, "on_destroy", [tile_pos]))
+	else:
+		tile_data.clear_tile(func(pi : PlaceableInstanceData): pass)
+		
+func server_remove_building(buildinginst_id : String, player_uuid : String, run_destroy_events := true, sync := true) -> void:
+	
+	if sync:
+		_remove_building.rpc(buildinginst_id, run_destroy_events)
+	else:
+		_remove_building(buildinginst_id, run_destroy_events)
+		if !PlayerManager.amIPlayer(player_uuid):\
+			_remove_building.rpc_id(\
+			PlayerManager.getPeerID_from_UUID(player_uuid), buildinginst_id, run_destroy_events)
 
+@rpc("any_peer", "call_local")
+func _remove_building(buildinginst_id : String, run_destroy_events := true) -> void:
+	var placeable_instance : PlaceableInstanceData = matrix_data.get_placeable(buildinginst_id)
+	
+	if run_destroy_events and multiplayer.is_server():
+		CardLoader.event_manager.trigger_events(placeable_instance, "on_destroy", [placeable_instance.tile_pos])
+	
+	matrix_data.remove_placeable_on_tile(buildinginst_id)
+	
 ######################################## MISC #####################################################
 func server_check_tilepos_in_interactable(player_uuid : String, tilepos : Vector2i) -> bool:
 	for board_layout_pos in board_layout_gen.player_interactable_boards[player_uuid]:

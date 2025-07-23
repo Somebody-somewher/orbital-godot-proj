@@ -2,7 +2,7 @@ extends Node
 class_name EventManager
 
 const EventKeys : Array = ["preview", "on_play", "on_discard", \
-"on_place", "on_destroy", "post_place", "on_begin_round", "on_end_round"]
+"on_place", "on_destroy", "post_place", "board_begin_round", "board_end_round"]
 
 const ConditionKeys : Array = ["is_placeable"]
 
@@ -10,9 +10,9 @@ const ConditionKeys : Array = ["is_placeable"]
 var matrix_data : BoardMatrixData
 var card_mem : CardMemory #: Dictionary[String, PlayerCardMemory]
 
-# Dictionary[String, Pair[CardInstanceData, Event]] -> key is the id of the instance
-var on_round_start_events_dict : Dictionary[String, Array]
-var on_round_end_events_dict : Dictionary[String, Array]
+# Dictionary[String, Pair[CardInstanceData, Array[Event]]] -> key is the id of the instance
+var board_round_start_events_dict : Dictionary[String, Array]
+var board_round_end_events_dict : Dictionary[String, Array]
 
 var func_get_card_data : Callable
 
@@ -23,7 +23,20 @@ var events_and_conditions : Dictionary[String, Dictionary]
 func setup_mem(mem : CardMemory, get_card_data : Callable) -> void:
 	mem.event_manager_setup(register_events, trigger_events)
 	card_mem = mem
+	Signalbus.round_start.connect(func(round_id : String, round_total : int):\
+		run_round_events(board_round_start_events_dict))
+	Signalbus.round_end.connect(func(round_id : String, round_total : int):\
+		run_round_events(board_round_end_events_dict))
 	#func_get_card_data = get_card_data
+
+func register_board_round_events(instance : CardInstanceData) -> void:
+	assert(events_and_conditions.has(instance.get_id()))
+	
+	if !events_and_conditions[instance.get_id()]["board_begin_round"].is_empty():
+		board_round_start_events_dict[instance.get_id()] = [instance, events_and_conditions[instance.get_id()]["board_begin_round"]]
+	
+	if !events_and_conditions[instance.get_id()]["board_end_round"].is_empty():
+		board_round_end_events_dict[instance.get_id()] = [instance, events_and_conditions[instance.get_id()]["board_end_round"]]
 
 func register_events(instance : CardInstanceData) -> void:
 	var events_dict : Dictionary[String, Array] = instance.get_data().get_events_as_dict()
@@ -35,16 +48,12 @@ func register_events(instance : CardInstanceData) -> void:
 	if events_dict["preview"][0] not in events_and_conditions[instance.get_id()]["on_place"]:
 		events_and_conditions[instance.get_id()]["on_place"].push_front(events_dict["preview"][0])
 	
-	if !events_dict["on_begin_round"].is_empty():
-		on_round_start_events_dict[instance.get_id()] = []
-		for event in events_dict["on_begin_round"]:
-			on_round_start_events_dict[instance.get_id()].append([event, instance])		
-	
-	if !events_dict["on_end_round"].is_empty():
-		on_round_end_events_dict[instance.get_id()] = []
-		for event in events_dict["on_end_round"]:
-			on_round_end_events_dict[instance.get_id()].append([event, instance])	
-				
+	#if !events_dict["on_begin_round"].is_empty():
+		#on_round_start_events_dict[instance.get_id()] = [instance, events_dict["on_begin_round"]]		
+	#
+	#if !events_dict["on_end_round"].is_empty():
+		#on_round_end_events_dict[instance.get_id()] = [instance, events_dict["on_end_round"]]	
+
 ## Remove all events related to this card instance
 func clean_events(instance : CardInstanceData) -> void:
 	events_and_conditions.erase(instance.get_id())
@@ -92,16 +101,25 @@ func run_conditions(conditions_to_check : Array[Condition], source : CardInstanc
 #
 func run_events(events_to_run : Array[Event], source : CardInstanceData, params : Array) -> void:
 	for event in events_to_run:
-		if event is BoardEvent and params[0] is Vector2i:
+		run_event(event, source, params)
+
+func run_round_events(events_to_run : Dictionary[String, Array]) -> void:
+	for instance in events_to_run.keys():
+		if instance is BuildingInstanceData:
+			run_events(events_to_run[instance][1], events_to_run[instance][0], [instance.tile_pos])
+		else:
+			run_events(events_to_run[instance][1], events_to_run[instance][0], [])
+
+func run_event(event : Event, source : CardInstanceData, params : Array) -> void:
+	if event is BoardEvent:
+		if params.is_empty():
+			event.trigger(matrix_data, (source as PlaceableInstanceData).tile_pos, source)
+		elif params[0] is Vector2i:
 			event.trigger(matrix_data, params[0], source)
-		elif event is CardEvent:
-			event.trigger(card_mem, source)
-
-func run_round_events(events_to_run : Array[Array]) -> void:
-	
-	for event in events_to_run:
-		event[0] 
-
+	elif event is CardEvent:
+		event.trigger(card_mem, source)
+	elif event is BaseScoreEvent:
+		event.trigger(source)
 #func run_all_round_events(events_to_run : Dictionary[CardInstanceData, Event]) -> void:
 	#for instance in events_to_run.keys():
 		#if event is events_to_run[instance]:

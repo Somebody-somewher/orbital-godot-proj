@@ -23,12 +23,15 @@ enum CATEGORY {
 # hidden cards are not shown in compendium
 @export var hidden : bool = false
 
+@export_category("Default Events")
 @export var override_default : bool = false
+var default_processed : bool = false
 
 func has_tag(tag_name : String) -> bool:
 	return tags.find(tag_name) != -1
 
 func load_default_preset() -> void:
+	default_processed = true
 	pass
 	
 func get_events_as_dict() -> Dictionary[String, Array]:

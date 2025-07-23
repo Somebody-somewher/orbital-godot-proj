@@ -46,6 +46,14 @@ func forEachPlayer(function : Callable) -> Array[Variant]:
 	
 	return arr
 
+#func forEachClient(function : Callable) -> Array[Variant]:
+	#var arr = []
+	#for p in peerid_to_players.values():
+		#if p.getPlayerId != 1:
+			#arr.append(function.call(p))
+	#
+	#return arr
+
 @rpc("call_local", "any_peer")
 func erasePlayer(id : int) -> void:
 	if hasPlayer(id):
