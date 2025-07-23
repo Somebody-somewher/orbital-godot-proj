@@ -49,6 +49,16 @@ func get_buildings_on_tile() -> Array[BuildingInstanceData]:
 			arr.append(o)
 	return arr
 
+func get_building_on_tile(building_id : String) -> BuildingInstanceData:
+	for o in placeable_arr:
+		if o and o.get_id() == building_id:
+			return o
+	return null
+
+func foreach_building_on_tile(c : Callable) -> void:
+	for o in placeable_arr:
+		if o:
+			c.call(o)
 # for deleting buildings from tile
 func delete_from_tile(placeable_id : String) -> void:
 

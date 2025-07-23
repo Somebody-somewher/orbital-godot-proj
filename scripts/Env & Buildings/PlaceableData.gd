@@ -19,12 +19,12 @@ class_name PlaceableData
 # TODO: May lump this up into one class called EventGroup for the inheritance
 @export var place_effects : Array[Event]
 @export var post_place_effects : Array[Event]
-@export var begin_round_effects : Array[Event]
-@export var end_round_effects : Array[Event]
+@export var board_begin_round_effects : Array[Event]
+@export var board_end_round_effects : Array[Event]
 @export var destroyed_effects : Array[Event]
 
 func load_default_preset() -> void:
-	if default_preset:
+	if default_preset and !default_processed:
 		super.load_default_preset()
 		
 		if place_conditions.is_empty() and !override_default:
@@ -36,11 +36,11 @@ func load_default_preset() -> void:
 		if post_place_effects.is_empty() and !override_default:
 			post_place_effects = default_preset.post_place_effects.duplicate()
 		
-		if begin_round_effects.is_empty() and !override_default:
-			begin_round_effects = default_preset.begin_round_effects.duplicate()
+		if board_begin_round_effects.is_empty() and !override_default:
+			board_begin_round_effects = default_preset.begin_round_effects.duplicate()
 		
-		if end_round_effects.is_empty() and !override_default:
-			end_round_effects = default_preset.end_round_effects.duplicate()
+		if board_end_round_effects.is_empty() and !override_default:
+			board_end_round_effects = default_preset.end_round_effects.duplicate()
 		
 		if destroyed_effects.is_empty() and !override_default:
 			destroyed_effects = default_preset.destroyed_effects.duplicate()
@@ -58,8 +58,8 @@ func get_events_as_dict() -> Dictionary[String, Array]:
 	output['on_place'] = place_effects
 	output['on_destroy'] = destroyed_effects
 	output['post_place'] = post_place_effects
-	output['on_begin_round'] = begin_round_effects
-	output['on_end_round'] = end_round_effects
+	output['board_begin_round'] = board_begin_round_effects
+	output['board_end_round'] = board_end_round_effects
 	output['preview'] = [preview_event]
 	
 	return output

@@ -2,7 +2,6 @@ extends PlaceableInstanceData
 class_name BuildingInstanceData
 
 var num_rounds_spent_placed := 0
-var tile_pos := Vector2i(-1,-1)
 
 var score : int
 
@@ -22,7 +21,6 @@ func serialize() -> Dictionary:
 	var output = super.serialize()
 	output['foil'] = foil
 	output['rounds'] = num_rounds_spent_placed
-	output['tilepos'] = tile_pos
 	output['score'] = score
 	return output
 

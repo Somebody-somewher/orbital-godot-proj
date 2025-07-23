@@ -48,9 +48,14 @@ func add_tile(tilePos : Vector2i, terrain_env : EnvTerrain) -> void:
 ## Put a placeable on the board tile
 func add_placeable_to_tile(tilePos : Vector2i, placeable : PlaceableInstanceData) -> void:
 	board_matrix[tilePos.x][tilePos.y].add_placeable(placeable)
+	instances_on_board[placeable.get_id()] = board_matrix[tilePos.x][tilePos.y]
+
+func get_placeable(placeable_id : String) -> PlaceableInstanceData:
+	return instances_on_board[placeable_id].get_building_on_tile(placeable_id)
 
 func remove_placeable_on_tile(placeable_id : String) -> void:
 	instances_on_board[placeable_id].delete_from_tile(placeable_id)
+	instances_on_board.erase(placeable_id)
 
 ## Change the terrain on the board tile
 func change_terrain_of_tile(tilePos : Vector2i, terrain : EnvTerrain) -> void:
@@ -68,6 +73,10 @@ func for_each_tile(c : Callable, tile_positions : Array[Vector2i] = []):
 	else:
 		for pos in tile_positions:
 			c.call(board_matrix[pos.x][pos.y])
+
+func for_each_building(c : Callable) -> void:
+	for tile in instances_on_board.values():
+		tile.foreach_building_on_tile(c)
 
 func constrain_pattern_to_board(tile_pos : Vector2i, pattern_arr : Array[Vector2i], output_tile_pos : Array[Array]) -> void:
 	for i in len(pattern_arr):
