@@ -307,3 +307,7 @@ func _client_create_border_fake_tile(tid : String, tile_pos : Vector2i) -> void:
 
 func _client_create_border_fake_building(bid : String, tile_pos : Vector2i) -> void:
 	pass
+
+func reset() -> void:
+	if proc_gen:
+		proc_gen.reset()

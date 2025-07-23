@@ -17,3 +17,6 @@ func round_end() -> void:
 	Signalbus.emit_signal("round_end", state_id, round_count)
 	#super.round_end()
 	pass
+
+func reset() -> void:
+	round_count = 0

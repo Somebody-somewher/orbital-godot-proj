@@ -21,3 +21,6 @@ func get_time() -> float:
 
 func get_id() -> String:
 	return state_id
+
+func reset() -> void:
+	pass

@@ -149,3 +149,7 @@ func add_rount_count() -> bool:
 	if round_num_game_end == round_count:
 		return true
 	return false
+	
+func reset() -> void:
+	for state in round_id_lookup.values():
+		state.reset()

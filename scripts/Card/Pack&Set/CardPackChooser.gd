@@ -40,13 +40,17 @@ func player_choose_pack(player_uuid : String, packid : int) -> bool:
 		return false
 	
 	# If the player previously selected a pack, unselect it
-	packid_to_player_uuid[player_uuid_to_packid[player_uuid]] = ""
+	
+	#packid_to_player_uuid[player_uuid_to_packid[player_uuid]] = ""
 	# TODO: unselect pack visually lol
 	
 	player_uuid_to_packid[player_uuid] = packid
 	packid_to_player_uuid[packid] = player_uuid
 	
+	print(_update_pack_choosen_ui)
+	print(PlayerManager.uuid_to_players[player_uuid].getColor())
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
+		print(pi.getPlayerId());\
 		_update_pack_choosen_ui.call(pi.getPlayerId(), packid, PlayerManager.uuid_to_players[player_uuid].getColor()))
 	
 	
@@ -68,6 +72,9 @@ func finalize_pack_choices() -> void:
 		
 		_finalized_pack_choices.call(pi.getPlayerId(), player_uuid_to_packid[pi.getPlayerUUID()]))
 
+#func reset() -> void:
+	#player_uuid_to_packid.clear()
+	#packid_to_player_uuid.clear()
 #func check_all_players_select_packs() -> void:
 	#var is_check := true
 	#PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
