@@ -8,7 +8,7 @@
 
 [resource]
 script = ExtResource("8_3u7et")
-layer = 1
+layer = 4
 base_score = 0
 preview_event = ExtResource("7_i8n7r")
 place_conditions = Array[ExtResource("5_u7tsu")]([])

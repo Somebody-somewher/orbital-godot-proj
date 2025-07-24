@@ -8,7 +8,7 @@
 [ext_resource type="Resource" uid="uid://bwtyis8yhxr21" path="res://Resources/Events&Conditions/Events/Scoring/store_scoring.tres" id="5_0owbc"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_de6wx"]
 [ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="7_g7vtu"]
-[ext_resource type="Script" path="res://scripts/PlaceConditions/LightLandTerrainCondition.gd" id="7_qe1yt"]
+[ext_resource type="Script" uid="uid://cqr6jrosybp6n" path="res://scripts/PlaceConditions/LightLandTerrainCondition.gd" id="7_qe1yt"]
 
 [sub_resource type="Resource" id="Resource_0uql3"]
 script = ExtResource("7_g7vtu")

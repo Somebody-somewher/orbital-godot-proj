@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_dbtno"]
 [ext_resource type="Resource" uid="uid://c7o0kgompkfmu" path="res://Resources/Events&Conditions/Events/Scoring/rat_scoring.tres" id="5_wm4xa"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_m1uno"]
-[ext_resource type="Script" path="res://scripts/PlaceConditions/LightLandTerrainCondition.gd" id="7_dbtno"]
+[ext_resource type="Script" uid="uid://cqr6jrosybp6n" path="res://scripts/PlaceConditions/LightLandTerrainCondition.gd" id="7_dbtno"]
 [ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="7_kgtuw"]
 
 [sub_resource type="Resource" id="Resource_dbtno"]

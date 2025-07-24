@@ -14,7 +14,7 @@ metadata/_custom_type_script = "uid://esesrexa7yys"
 
 [resource]
 script = ExtResource("8_qx4m6")
-layer = 1
+layer = 4
 base_score = 0
 preview_event = ExtResource("7_xppoe")
 place_conditions = Array[ExtResource("5_irw1l")]([SubResource("Resource_cnjrj")])
