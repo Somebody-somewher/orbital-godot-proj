@@ -7,6 +7,7 @@ func _ready() -> void:
 	Signalbus.connect("open_compendium", open_book)
 
 func open_book(search_id : String = "") -> void:
+	Signalbus.pause_input.emit()
 	if search_id != "":
 		# id will always be valid (called by middle clicking cards)
 		Signalbus.show_card_information.emit(search_id)

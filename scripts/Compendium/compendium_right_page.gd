@@ -8,6 +8,9 @@ func _ready() -> void:
 	display_card("apple")
 
 func display_card(id : String) -> void:
+	var regex := RegEx.new()
+	regex.compile("[^a-zA-Z]+")
+	id =  regex.sub(id, "", true)
 	var data : CardData = CardLoader.get_card_data(id)
 	if data:
 		match data.category:

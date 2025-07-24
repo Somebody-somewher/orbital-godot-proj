@@ -23,7 +23,7 @@ var MASKS := {
 	"pack_only" : 0x00000008
 }
 
-var paused_mask
+var paused_mask := 0xFFFFFFFF
 var curr_mask := 0xFFFFFFFF
 
 func _input(event):
@@ -96,11 +96,10 @@ func middle_click_logic(result) -> void:
 			var card_manager = result_found.get_parent()
 			card_manager.highlight_card(result_found, false)
 			#TODO : Remember to fix this once id_name is running
-			var name = result_found.something
-			print(name)
+			var name = result_found.carddata_id
 			Signalbus.open_compendium.emit(name)
 		BUILDING_COLLISION_MASK:
-			var name = result_found.data_instance.id_name
+			var name = result_found.name
 			Signalbus.open_compendium.emit(name)
 
 func raycast_and_click(mask, input_type : int):
@@ -138,20 +137,14 @@ func topmost(result_arr):
 	return top
 
 func _ready() -> void:
-	Signalbus.connect("open_compendium", open_compendium)
 	Signalbus.connect("close_compendium", close_compendium)
 	Signalbus.connect("change_input_mask", change_input_mask)
 	Signalbus.connect("pause_input", pause_input)
 	Signalbus.connect("resume_input", resume_input)
 	
 
-func open_compendium(_id : String):
-	curr_mask = MASKS.get("none")
-	camera_enabled = false
-
 func close_compendium():
-	curr_mask = MASKS.get("all")
-	camera_enabled = true
+	resume_input()
 	
 func change_input_mask(mask):
 	curr_mask = mask
