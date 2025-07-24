@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_eebpi"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_2iq0u"]
 [ext_resource type="Script" uid="uid://cqr6jrosybp6n" path="res://scripts/PlaceConditions/LightLandTerrainCondition.gd" id="6_5gi35"]
-[ext_resource type="Resource" uid="uid://swxqvknonbdu" path="res://Resources/Events&Conditions/Events/Scoring/wheat_field_scoring.tres" id="7_8ul3y"]
+[ext_resource type="Resource" uid="uid://ci1g32fnst1e8" path="res://Resources/Events&Conditions/Events/Scoring/placeholder.tres" id="8_5gi35"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="8_bm3li"]
 [ext_resource type="Script" uid="uid://esesrexa7yys" path="res://scripts/PlaceConditions/NotEmptyCondition.gd" id="8_eebpi"]
 
@@ -26,7 +26,7 @@ metadata/_custom_type_script = "uid://esesrexa7yys"
 script = ExtResource("8_bm3li")
 layer = 4
 base_score = 0
-preview_event = ExtResource("7_8ul3y")
+preview_event = ExtResource("8_5gi35")
 place_conditions = Array[ExtResource("5_2iq0u")]([SubResource("Resource_ymltq"), SubResource("Resource_3yjxi")])
 place_effects = Array[ExtResource("1_5gi35")]([])
 post_place_effects = Array[ExtResource("1_5gi35")]([])

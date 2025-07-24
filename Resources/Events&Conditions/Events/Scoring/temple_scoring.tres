@@ -1,15 +1,24 @@
 [gd_resource type="Resource" script_class="StandardScoreEffect" load_steps=3 format=3 uid="uid://cr2667klwmwci"]
 
-[ext_resource type="Resource" uid="uid://bi1js42egmwds" path="res://Resources/AOE/circle.tres" id="1_dp1mb"]
+[ext_resource type="Resource" uid="uid://bqj6plgggbig8" path="res://Resources/AOE/5x5.tres" id="1_rthe1"]
 [ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/standard_score.gd" id="2_of30c"]
 
 [resource]
 script = ExtResource("2_of30c")
 effect_buildings_score = Dictionary[String, int]({
 "bar": -3,
+"bishop": 5,
 "cottage": 2,
-"obelisk": 4
+"cow": 2,
+"obelisk": 5,
+"pig": -2,
+"rat": -1,
+"rat_swarm": -2,
+"tombstone": 2,
+"trash": -2
 })
 base_score = 0
-aoe = ExtResource("1_dp1mb")
+aoe = ExtResource("1_rthe1")
+event_name = ""
+desc = ""
 metadata/_custom_type_script = "uid://dcbw4orenctn8"

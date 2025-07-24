@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="StandardScoreEffect" load_steps=3 format=3 uid="uid://swxqvknonbdu"]
 
-[ext_resource type="Resource" uid="uid://ci7hb7fl2b4jp" path="res://Resources/AOE/3x3.tres" id="1_kicpi"]
+[ext_resource type="Resource" uid="uid://hu4yh8trux8f" path="res://Resources/AOE/single_tile.tres" id="1_kdw7b"]
 [ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/standard_score.gd" id="2_o0the"]
 
 [resource]
@@ -10,11 +10,14 @@ effect_buildings_score = Dictionary[String, int]({
 "chicken": 3,
 "cow": 5,
 "farmhouse": 2,
+"forge": -5,
 "garden": 2,
-"mill": 4
+"mill": 5,
+"oasis": -5,
+"wheat": 1
 })
 base_score = 0
-aoe = ExtResource("1_kicpi")
+aoe = ExtResource("1_kdw7b")
 event_name = ""
 desc = ""
 metadata/_custom_type_script = "uid://dcbw4orenctn8"

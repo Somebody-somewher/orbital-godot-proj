@@ -1,13 +1,25 @@
 [gd_resource type="Resource" script_class="StandardScoreEffect" load_steps=3 format=3 uid="uid://oekevyc3300x"]
 
-[ext_resource type="Resource" uid="uid://blagb6rkmq7vw" path="res://Resources/AOE/med orth cross.tres" id="1_y4wy8"]
+[ext_resource type="Resource" uid="uid://bdhhnl127go2x" path="res://Resources/AOE/long orth cross.tres" id="1_43ani"]
 [ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/standard_score.gd" id="2_d55bd"]
 
 [resource]
 script = ExtResource("2_d55bd")
 effect_buildings_score = Dictionary[String, int]({
-"castle": 10
+"bar": -3,
+"belltower": 3,
+"bishop": 3,
+"cannon": 4,
+"castle": 10,
+"hobo_tent": -2,
+"hut": 2,
+"knight": 3,
+"temple": -3,
+"tower": 4,
+"wall": 3
 })
 base_score = 0
-aoe = ExtResource("1_y4wy8")
+aoe = ExtResource("1_43ani")
+event_name = ""
+desc = ""
 metadata/_custom_type_script = "uid://dcbw4orenctn8"
