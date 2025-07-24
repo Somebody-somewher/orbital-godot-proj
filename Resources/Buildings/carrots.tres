@@ -13,7 +13,6 @@
 [sub_resource type="Resource" id="Resource_xc2se"]
 script = ExtResource("6_cqpmw")
 stackable_buildings = Array[String](["garden"])
-layer = 1
 reminder_msg = ""
 metadata/_custom_type_script = "uid://pkocjdyyidcp"
 
@@ -27,8 +26,7 @@ metadata/_custom_type_script = "uid://cqr6jrosybp6n"
 [resource]
 script = ExtResource("6_bpte0")
 layer = 1
-nonplaceable_terrain = Array[ExtResource("3_cqpmw")]([ExtResource("4_xc2se")])
-foil_probability = 0
+base_score = 0
 preview_event = ExtResource("8_i3ww5")
 place_conditions = Array[ExtResource("3_3dr4x")]([SubResource("Resource_xc2se"), SubResource("Resource_bpte0")])
 place_effects = Array[ExtResource("1_cqpmw")]([])

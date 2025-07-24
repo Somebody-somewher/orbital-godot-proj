@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://bgjpmt7soeqsk"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=11 format=3 uid="uid://bgjpmt7soeqsk"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_w45bo"]
 [ext_resource type="Texture2D" uid="uid://dkfknx31kiuhc" path="res://assets/entity_sprites/whirlpool.PNG" id="2_kcqfp"]

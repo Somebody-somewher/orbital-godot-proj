@@ -13,7 +13,6 @@
 [sub_resource type="Resource" id="Resource_1r2li"]
 script = ExtResource("6_n1s3d")
 stackable_buildings = Array[String](["mountain", "rock", "cheeky_rock"])
-layer = 1
 reminder_msg = ""
 metadata/_custom_type_script = "uid://pkocjdyyidcp"
 
@@ -26,8 +25,7 @@ metadata/_custom_type_script = "uid://c4b1tsjdr6q7r"
 [resource]
 script = ExtResource("6_rpess")
 layer = 1
-nonplaceable_terrain = Array[ExtResource("3_n1s3d")]([ExtResource("4_1r2li")])
-foil_probability = 0
+base_score = 0
 preview_event = ExtResource("5_25vpq")
 place_conditions = Array[ExtResource("3_py65h")]([SubResource("Resource_1r2li"), SubResource("Resource_qg4rm")])
 place_effects = Array[ExtResource("1_n1s3d")]([])

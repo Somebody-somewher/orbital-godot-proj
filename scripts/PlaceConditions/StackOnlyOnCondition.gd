@@ -10,6 +10,6 @@ func test(board : BoardMatrixData, tile_pos : Vector2i, source : CardInstanceDat
 	var placeable_arr = board.get_tile(tile_pos).placeable_arr
 		
 	for pn in placeable_arr:
-		if pn.data.id_name in stackable_buildings:
+		if pn and pn.data.id_name in stackable_buildings:
 			return true
 	return super.test(board, tile_pos, source)

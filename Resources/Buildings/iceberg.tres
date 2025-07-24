@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=13 format=3 uid="uid://cixq5iyjv8u4h"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://cixq5iyjv8u4h"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_kels0"]
 [ext_resource type="Texture2D" uid="uid://cpaokopld4i5s" path="res://assets/entity_sprites/iceberg.PNG" id="2_3ka2k"]

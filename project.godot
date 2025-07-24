@@ -24,7 +24,7 @@ resources_spreadsheet_view/freeze_first_column=true
 [application]
 
 config/name="Carditects"
-run/main_scene="uid://dehbiymvw4gq5"
+run/main_scene="uid://cqp4qcmc1s13n"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="uid://n2jiuhsqeh1s"
 

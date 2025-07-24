@@ -16,3 +16,4 @@ category = 0
 tags = Array[String]([])
 is_aura = false
 hidden = false
+override_default = false

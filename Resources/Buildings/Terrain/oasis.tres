@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://v447arejtkri"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=11 format=3 uid="uid://v447arejtkri"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_t6uhw"]
 [ext_resource type="Texture2D" uid="uid://b7ifesbhy642p" path="res://assets/entity_sprites/oasis.PNG" id="2_bhh2n"]

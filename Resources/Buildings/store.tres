@@ -12,7 +12,6 @@
 
 [sub_resource type="Resource" id="Resource_0uql3"]
 script = ExtResource("7_g7vtu")
-layer = 1
 reminder_msg = ""
 metadata/_custom_type_script = "uid://wuau4rxg1ej4"
 
@@ -26,8 +25,7 @@ metadata/_custom_type_script = "uid://cqr6jrosybp6n"
 [resource]
 script = ExtResource("6_de6wx")
 layer = 1
-nonplaceable_terrain = Array[ExtResource("3_qe1yt")]([ExtResource("4_g7vtu")])
-foil_probability = 0
+base_score = 0
 preview_event = ExtResource("5_0owbc")
 place_conditions = Array[ExtResource("3_0t3s5")]([SubResource("Resource_0uql3"), SubResource("Resource_g7vtu")])
 place_effects = Array[ExtResource("1_qe1yt")]([])

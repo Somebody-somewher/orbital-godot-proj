@@ -14,7 +14,6 @@
 
 [sub_resource type="Resource" id="Resource_nyedt"]
 script = ExtResource("7_dwiyf")
-layer = 1
 reminder_msg = ""
 metadata/_custom_type_script = "uid://wuau4rxg1ej4"
 
@@ -29,6 +28,7 @@ script = ExtResource("5_fjwxk")
 cards = Dictionary[String, int]({
 "apple": 2
 })
+probability = Dictionary[String, int]({})
 event_name = ""
 desc = ""
 metadata/_custom_type_script = "uid://cux3jvyk6llof"
@@ -44,8 +44,7 @@ metadata/_custom_type_script = "uid://c5t7qdcdn01ia"
 resource_local_to_scene = true
 script = ExtResource("6_833t1")
 layer = 1
-nonplaceable_terrain = Array[ExtResource("3_pdcnl")]([ExtResource("4_833t1")])
-foil_probability = 0
+base_score = 0
 preview_event = ExtResource("9_833t1")
 place_conditions = Array[ExtResource("3_fjwxk")]([SubResource("Resource_nyedt"), SubResource("Resource_77qsc")])
 place_effects = Array[ExtResource("1_pdcnl")]([SubResource("Resource_kt7lp")])

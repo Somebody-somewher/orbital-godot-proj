@@ -14,6 +14,6 @@ func test(board : BoardMatrixData, tile_pos : Vector2i, source : CardInstanceDat
 
 func count_building(tile : BoardTile):
 	for pn in tile.placeable_arr:
-		if pn.data.id_name == id_name:
+		if pn and pn.data.id_name == id_name:
 			_count_current += 1
 	

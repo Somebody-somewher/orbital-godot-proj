@@ -14,6 +14,6 @@ func is_platform(board : BoardMatrixData, tile_pos : Vector2i) -> bool:
 	var placeable_arr = board.get_tile(tile_pos).placeable_arr
 		
 	for pn in placeable_arr:
-		if pn.data.id_name in water_platforms:
+		if pn and pn.data.id_name in water_platforms:
 			return true
 	return false

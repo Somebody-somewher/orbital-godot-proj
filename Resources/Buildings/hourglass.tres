@@ -1,9 +1,7 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=10 format=3 uid="uid://ngf2mtbtfxmu"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=8 format=3 uid="uid://ngf2mtbtfxmu"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_2m3i0"]
 [ext_resource type="Texture2D" uid="uid://d3xjackn3cecv" path="res://assets/entity_sprites/hourglass.PNG" id="2_0cyqb"]
-[ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_u5fx0"]
-[ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_s3eok"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_t5bdv"]
 [ext_resource type="Script" uid="uid://esesrexa7yys" path="res://scripts/PlaceConditions/NotEmptyCondition.gd" id="7_2m3i0"]
 [ext_resource type="Resource" uid="uid://swxqvknonbdu" path="res://Resources/Events&Conditions/Events/Scoring/wheat_field_scoring.tres" id="7_xbg6u"]
@@ -17,8 +15,7 @@ metadata/_custom_type_script = "uid://esesrexa7yys"
 [resource]
 script = ExtResource("8_rffli")
 layer = 1
-nonplaceable_terrain = Array[ExtResource("3_u5fx0")]([ExtResource("4_s3eok")])
-foil_probability = 0
+base_score = 0
 preview_event = ExtResource("7_xbg6u")
 place_conditions = Array[ExtResource("5_t5bdv")]([SubResource("Resource_u5fx0")])
 place_effects = Array[ExtResource("1_2m3i0")]([])
