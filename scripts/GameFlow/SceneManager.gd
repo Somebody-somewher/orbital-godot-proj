@@ -50,6 +50,5 @@ func unpause_everything() -> void:
 	is_everything_paused = false
 	_set_pause_gameplay(false)
 
-
 func _set_pause_gameplay(setting : bool) -> void:
 	is_gameplay_paused = setting

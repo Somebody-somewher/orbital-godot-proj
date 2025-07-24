@@ -40,8 +40,9 @@ position = Vector2(879, 480)
 [node name="DisconnectScreen" parent="UILayer" index="1"]
 visible = false
 
-[node name="WinnerScreen" parent="UILayer" index="2"]
+[node name="WinnerScreen" parent="UILayer" index="2" node_paths=PackedStringArray("compedium")]
 visible = false
+compedium = NodePath("../../CompendiumLayer")
 
 [node name="CompendiumLayer" type="CanvasLayer" parent="."]
 layer = 2
@@ -58,6 +59,9 @@ proc_gen = ExtResource("16_ft6cd")
 
 [node name="Preview" parent="BoardManager" index="0"]
 BOARD_SCALE = null
+
+[node name="Darken" parent="BoardManager" index="1"]
+z_index = 20
 
 [node name="Background" type="CanvasLayer" parent="."]
 

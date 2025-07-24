@@ -66,7 +66,5 @@ func reset_networking() -> void:
 func full_reset() -> void:
 	client_net = null
 	server_net = null
-	#client_net.reset_node_status()
-	#if server_net:
-		#server_net.reset_ready()
 	reset_networking()
+	$Lobby.reset_lobby()

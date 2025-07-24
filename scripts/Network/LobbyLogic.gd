@@ -16,6 +16,8 @@ var curr_status : String = ""
 var player_list_string : String = ""
 
 var ip_check = RegEx.new()
+
+var dummy_peer : OfflineMultiplayerPeer
 #var multiplayer_peer = ENetMultiplayerPeer.new()
 
 # Resources
@@ -72,12 +74,14 @@ func _connect_client(addr = "", port = ""):
 		port = _port
 	
 	print(addr, " ", port)
+	
 	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_client(addr, int(port))
 	if (error != OK):
 		curr_status = "cannot host: " + str(error)
 		return error
 		
+	dummy_peer = multiplayer.multiplayer_peer	
 	multiplayer.multiplayer_peer = peer
 	PlayerManager.declare_multiplayer()	
 	_register_player(j_name_field.text, PlayerInfo.generateUUID(j_name_field.text), multiplayer.get_unique_id())
@@ -157,17 +161,10 @@ func _on_server_disconnected():
 	
 	if SceneManager.curr_scene == "menu":
 		clear_player_list()
-		PlayerManager.reset()
 	_leave_lobby()
-	#
+	
 	SceneManager.back_to_menu()
-	var dummy_api := SceneMultiplayer.new()
-	await get_tree().create_timer(0.6).timeout 
-	dummy_api.root_path  = get_tree().get_current_scene().get_path()
-	get_tree().set_multiplayer(dummy_api)
-	
-	#get_tree().set_multiplayer(MultiplayerAPI.create_default_interface())
-	
+	reset_lobby()
 
 func on_host_pressed() -> void:
 	_create_server()
@@ -207,3 +204,11 @@ func _list_player(pi : PlayerInfo) -> void:
 func clear_player_list() -> void:
 	player_list_label.text = ""
 	h_player_list_label.text = ""
+
+func reset_lobby() -> void:
+	PlayerManager.reset()
+	multiplayer.multiplayer_peer = dummy_peer
+	#var dummy_api := SceneMultiplayer.new()
+	#await get_tree().create_timer(0.6).timeout 
+	#dummy_api.root_path  = get_tree().get_current_scene().get_path()
+	#get_tree().set_multiplayer(dummy_api)

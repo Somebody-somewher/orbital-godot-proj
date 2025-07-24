@@ -9,6 +9,7 @@ var pillars : Array[PodiumPillar]
 @onready var pillar_container: HBoxContainer = $MarginContainer/Pillars
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @export var pillar_scene : PackedScene
+@export var compedium : CanvasLayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -21,6 +22,7 @@ func _ready() -> void:
 func display(rankings : Array[String], player_scores : Dictionary[String, Dictionary]) -> void:
 	preprocess(rankings, player_scores)
 	visible = true
+	compedium.hide()
 	start_anim()
 
 # calculates and add the winner flag and target y to the players
