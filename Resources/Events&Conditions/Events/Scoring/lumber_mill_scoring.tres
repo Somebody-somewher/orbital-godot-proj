@@ -6,9 +6,10 @@
 [resource]
 script = ExtResource("2_87fm3")
 effect_buildings_score = Dictionary[String, int]({
-"beaver": 10,
+"beaver": 5,
 "forest": 3,
-"lumber_mill": -5
+"lumber_mill": -5,
+"water_wheel": 10
 })
 base_score = 0
 aoe = ExtResource("1_w8ck4")

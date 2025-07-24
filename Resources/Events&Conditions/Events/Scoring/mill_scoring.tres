@@ -9,6 +9,7 @@ effect_buildings_score = Dictionary[String, int]({
 "farmhouse": 2,
 "garden": 2,
 "silo": 5,
+"water_wheel": 10,
 "wheat_field": 5
 })
 base_score = 0
