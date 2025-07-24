@@ -36,3 +36,7 @@ func _choose_pack_ui_update(chosen_packindex : int, colour : Color) -> void:
 @rpc("any_peer","call_local")
 func finalize_pack_choices(chosen_packindex : int) -> void:
 	pass
+
+func reset() -> void:
+	if multiplayer.is_server():
+		cardpack_chooser.full_reset()

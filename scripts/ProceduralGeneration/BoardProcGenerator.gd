@@ -14,7 +14,7 @@ var has_setup : bool = false
 
 func set_up(board_size : Vector2i = Vector2i(8,8), board_num : Vector2i = Vector2i(1,1), border_width : Vector2i = Vector2i(0,0)) -> void:
 	terrain_gen.set_up(board_size, board_num, border_width)
-	
+	Signalbus.reset_scene.connect(reset)
 	# Debug check
 	assert(check_terrain_valid(terrain_gen))
 	procgen_terrain_iter = terrain_gen.generate_world() 

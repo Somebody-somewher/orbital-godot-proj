@@ -37,8 +37,7 @@ func reset_components() -> void:
 	AudioManager.stop_bgm()
 	NetworkManager.full_reset()
 	CardLoader.reset()
-	get_tree().get_root().get_node("GameManager/BoardManager").reset()
-	get_tree().get_root().get_node("GameManager/RoundManager").reset()
+	Signalbus.reset_scene.emit()
 
 
 @rpc("any_peer", "call_local")

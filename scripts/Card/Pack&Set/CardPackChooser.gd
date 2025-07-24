@@ -10,9 +10,10 @@ var _update_pack_choosen_ui : Callable
 func _init(_update_pack_choosen_ui : Callable, _finalized_pack_choices : Callable) -> void:
 	#TODO: ALSO SHOULD BE ABLE TO REMOVE THIS SINCE BY TAKING THE CARDPACKS AS INPUT
 	# FROM THE SERVER'S CARDPACK GENERATOR
-	Signalbus.connect("server_update_chooser", reset_chooser)
-	Signalbus.connect("server_pack_choosing_end", finalize_pack_choices)
-
+	Signalbus.server_update_chooser.connect(reset_chooser)
+	Signalbus.server_pack_choosing_end.connect(finalize_pack_choices)
+	Signalbus.reset_scene.connect(full_reset)
+	
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
 		player_uuid_to_packid.get_or_add(pi.getPlayerUUID(), -1))
 		
@@ -71,6 +72,10 @@ func finalize_pack_choices() -> void:
 		server_mem.record_player_cardpack_choice(player_uuid_to_packid[pi.getPlayerUUID()], pi.getPlayerUUID(), ); \
 		
 		_finalized_pack_choices.call(pi.getPlayerId(), player_uuid_to_packid[pi.getPlayerUUID()]))
+
+func full_reset() -> void:
+	Signalbus.server_update_chooser.disconnect(reset_chooser)
+	Signalbus.server_pack_choosing_end.disconnect(finalize_pack_choices)
 
 #func reset() -> void:
 	#player_uuid_to_packid.clear()
