@@ -45,8 +45,8 @@ func _attempt_cardset_to_hand(cardpack_id : int, cardset_id : String, cardinstan
 	assert(len(result[0]) == len(cardinstanceids_to_add))
 	
 	for index in range(len(result[0])):
-		func_register_events.call(result[0])
-		assert(result[0][index].get_id() == cardinstanceids_to_add)
+		func_register_events.call(result[0][index])
+		assert(result[0][index].get_id() == cardinstanceids_to_add[index])
 	
 	Signalbus.confirmed_add_to_hand.emit(cardinstanceids_to_add, cardset_id)
 

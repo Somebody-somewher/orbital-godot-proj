@@ -58,21 +58,21 @@ func _create_server():
 	_register_player(h_name_field.text, PlayerInfo.generateUUID(h_name_field.text), multiplayer.get_unique_id())
 
 	
-func _connect_client(addr = "", port = ""):
-	var peer = ENetMultiplayerPeer.new()
-	
+func _connect_client(addr = "", port = ""):	
 	# TODO: Please implement error handling? 
 	if addr == "":
-		if !ip_check.search(addr):
-			curr_status = "INVALID IP"
-			printerr(curr_status)
-			return
 		addr = _ip
+	
+	if !ip_check.search(addr):
+		curr_status = "INVALID IP"
+		printerr(curr_status)
+		return
 	
 	if port == "":
 		port = _port
 	
 	print(addr, " ", port)
+	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_client(addr, int(port))
 	if (error != OK):
 		curr_status = "cannot host: " + str(error)
@@ -108,13 +108,14 @@ func _on_peer_connected(id : int)  -> void:
 	# Note that the server's peer id will always be 1
 	curr_status = "Player Connected " + str(id)
 	print(curr_status)
-	var player_name : String
+	var player_name : String = PlayerManager.getCurrentPlayerName()
 	# When a peer connects, each already-connected peer sends their info to the new peer
 	# Likewise each connected peer receives only the new peer's data
-	if id == 1:
-		player_name = j_name_field.text
-	else:
-		player_name = h_name_field.text
+	#if id == 1:
+		#player_name = j_name_field.text
+	#else:
+		#player_name = h_name_field.text
+	
 	_register_player.rpc(player_name, PlayerInfo.generateUUID(player_name))
 	
 @rpc("any_peer", "reliable")
@@ -134,8 +135,8 @@ func _on_peer_disconnected(id : int)  -> void:
 	
 	if SceneManager.curr_scene == "menu":
 		PlayerManager.erasePlayer(id)
-		clear_player_list()
 		list_all_players()
+		
 	print(curr_status)
 
 # For sending info frm client -> server

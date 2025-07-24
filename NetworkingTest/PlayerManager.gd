@@ -59,12 +59,14 @@ func erasePlayer(id : int) -> void:
 	if hasPlayer(id):
 		uuid_to_players.erase(peerid_to_players[id].getPlayerUUID())
 		peerid_to_players.erase(id)
+		color_index -= 1
 
 @rpc("call_local", "any_peer")
 func erasePlayerbyUUID(uuid : String) -> void:
 	if hasPlayerUUID(uuid):
 		peerid_to_players.erase(uuid_to_players[uuid].getPlayerId())
 		uuid_to_players.erase(uuid)
+		color_index -= 1
 	
 @rpc("call_local", "any_peer")
 func clearPlayers() -> void:

@@ -6,7 +6,7 @@ static var is_everything_paused := false
 @export var MENU : PackedScene = preload("res://scenes/Main Menu/main_menu.tscn")
 @export var GAME : PackedScene = preload("res://scenes/Main.tscn")
 
-var curr_scene : String
+var curr_scene : String = "menu"
 
 func _ready() -> void:
 	Signalbus.server_create_packs.connect(pause_gameplay)

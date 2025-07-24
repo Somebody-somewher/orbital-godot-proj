@@ -49,7 +49,7 @@ func default_assign_board_to_player(player : PlayerInfo) -> void:
 	player_interactable_boards.get_or_add(player.getPlayerUUID(), [curr_player_board])
 	used_boards.append(curr_player_board)
 	
-	if curr_player_board.x > BOARDS_LAYOUT.x:
+	if curr_player_board.x >= BOARDS_LAYOUT.x:
 		curr_player_board.y += 1
 		curr_player_board.x = 1
 	else:
