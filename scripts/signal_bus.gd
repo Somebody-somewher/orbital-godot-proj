@@ -8,14 +8,17 @@ signal round_start(round_id : String, round_total : int)
 
 signal round_timer_update(curr_time : int)
 
-# SCORE LOGIC
+signal end_game(winner_uuid : String, player_scores : Dictionary[String, Dictionary])
+signal reset_scene()
+
+####################### SCORE LOGIC ############################
 signal add_score(score_to_add : int, player_uuid : String)
 signal update_score_ui(score : int)
 
 # sends to board to spawn card
 signal spawn_card(id : String, pos : Vector2)
 
-# CARDPACK
+########################## CARDPACK ###############################
 signal server_create_packs()
 signal create_pack(packs_of_cards : Array)
 
@@ -27,7 +30,7 @@ signal choose_pack(pack_index : int)
 
 signal server_pack_choosing_end()
 
-# Hand_related
+########################## HAND RELATED ###############################
 signal confirmed_add_to_hand(cards : Array[String])
 signal remove_from_hand(card : CardInstanceData)
 signal add_to_hand(card : Card)
@@ -76,13 +79,11 @@ func emit_multiplayer_signal(signal_to_call : String, args : Array):
 signal show_error_msg(msg : String)
 signal show_round_msg(msg : String)
 
-signal end_game(winner_uuid : String, player_scores : Dictionary[String, Dictionary])
-
 # FX
 signal show_fx(id : String, pos : Vector2)
 signal show_point_fx(score : int, pos : Vector2)
 
-
+#INPUT
 signal change_input_mask(mask)
 signal pause_input
 signal resume_input
