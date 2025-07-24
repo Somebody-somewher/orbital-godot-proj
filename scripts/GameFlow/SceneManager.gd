@@ -15,20 +15,29 @@ func _ready() -> void:
 @rpc("any_peer", "call_local")
 func back_to_menu() -> void:
 	reset_components()
+	#get_tree().current_scene.free()
+	#var a = GAME.instantiate()
+	#get_tree().root.add_child(a)
+	#get_tree().current_scene = a
 	get_tree().change_scene_to_packed(MENU)
 	curr_scene = "menu"
 	unpause_gameplay()
 
 @rpc("any_peer", "call_local")
 func start_game() -> void:
+	#get_tree().current_scene.free()
+	#var a = GAME.instantiate()
+	#get_tree().root.add_child(a)
+	#get_tree().current_scene = a
 	get_tree().change_scene_to_packed(GAME)
 	curr_scene = "game"
-
 func reset_components() -> void:
 	PlayerManager.reset()
 	AudioManager.stop_bgm()
 	NetworkManager.full_reset()
 	CardLoader.reset()
+	get_tree().get_root().get_node("GameManager/BoardManager").reset()
+	get_tree().get_root().get_node("GameManager/RoundManager").reset()
 
 @rpc("any_peer", "call_local")
 func pause_gameplay() -> void:

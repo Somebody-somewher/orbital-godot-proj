@@ -51,3 +51,7 @@ func map_noise_to_building(noise_val : float, terrain : EnvTerrain) -> BuildingD
 			
 	return null
 	
+func reset() -> void:
+	super.reset()
+	_terrain_iterator = null
+	buildings_placed.clear()

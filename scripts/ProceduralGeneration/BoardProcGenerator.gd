@@ -53,3 +53,8 @@ func check_terrain_valid(terrain_gen : TerrainGenerator) -> bool:
 		if !env_map.checkEnvExists(t.get_id()):
 			return false
 	return true
+	
+	func reset() -> void:
+	has_setup = false
+	terrain_gen.reset()
+	building_gen.reset()

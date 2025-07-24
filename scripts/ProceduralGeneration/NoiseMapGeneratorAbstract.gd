@@ -15,7 +15,7 @@ var _border_width : Vector2i
 
 # Call this to start the proc_gen (can be called multiple times without error)
 func set_up(board_size : Vector2i = Vector2i(8,8), board_num : Vector2i = Vector2i(1,1), border_width : Vector2i = Vector2i(0,0), seedz : int = -1) -> void:
-	randomize()
+	#randomize()
 	
 	_board_size = board_size
 	_board_num_width_height = board_num
@@ -61,3 +61,7 @@ func generate_world() -> ProcGenBoardIterator:
 # TO OVERRIDE
 func make_matrix() -> Array:
 	return []
+
+func reset() -> void:
+	noise_highlight_texture = null
+	cache.clear()

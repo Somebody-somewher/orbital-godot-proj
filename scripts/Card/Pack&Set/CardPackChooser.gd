@@ -40,9 +40,9 @@ func player_choose_pack(player_uuid : String, packid : int) -> bool:
 		return false
 	
 	# If the player previously selected a pack, unselect it
-	packid_to_player_uuid[player_uuid_to_packid[player_uuid]] = ""
+	#packid_to_player_uuid[player_uuid_to_packid[player_uuid]] = ""
 	# TODO: unselect pack visually lol
-	
+		
 	player_uuid_to_packid[player_uuid] = packid
 	packid_to_player_uuid[packid] = player_uuid
 	
@@ -67,6 +67,10 @@ func finalize_pack_choices() -> void:
 		server_mem.record_player_cardpack_choice(player_uuid_to_packid[pi.getPlayerUUID()], pi.getPlayerUUID(), ); \
 		
 		_finalized_pack_choices.call(pi.getPlayerId(), player_uuid_to_packid[pi.getPlayerUUID()]))
+
+#func reset() -> void:
+	#player_uuid_to_packid.clear()
+	#packid_to_player_uuid.clear()
 
 #func check_all_players_select_packs() -> void:
 	#var is_check := true
