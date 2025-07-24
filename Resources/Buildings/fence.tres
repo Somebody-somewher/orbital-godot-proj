@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=15 format=3 uid="uid://71ehgup3ocpe"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=16 format=3 uid="uid://71ehgup3ocpe"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_fadw5"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="2_ig4p1"]
@@ -11,6 +11,7 @@
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="8_1tugu"]
 [ext_resource type="Script" uid="uid://c4b1tsjdr6q7r" path="res://scripts/PlaceConditions/TerrainCondition.gd" id="9_7qneq"]
 [ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/standard_score.gd" id="10_nshbx"]
+[ext_resource type="Resource" uid="uid://hu4yh8trux8f" path="res://Resources/AOE/single_tile.tres" id="10_rvni8"]
 
 [sub_resource type="Resource" id="Resource_h2tmb"]
 script = ExtResource("6_nshbx")
@@ -33,6 +34,7 @@ effect_buildings_score = Dictionary[String, int]({
 "pig": 3
 })
 base_score = 0
+aoe = ExtResource("10_rvni8")
 event_name = ""
 desc = ""
 metadata/_custom_type_script = "uid://dcbw4orenctn8"
