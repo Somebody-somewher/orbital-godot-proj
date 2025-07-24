@@ -1,30 +1,27 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=9 format=3 uid="uid://xy6i5jr1flkq"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://xy6i5jr1flkq"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_sqdvp"]
 [ext_resource type="Texture2D" uid="uid://cp4ye1lxh4701" path="res://assets/entity_sprites/rat_king.PNG" id="2_wirky"]
 [ext_resource type="Resource" uid="uid://fbnj1ug25po" path="res://Resources/Events&Conditions/BuildingDefaultPreset.tres" id="3_8m835"]
-[ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_sqdvp"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_wkjp3"]
-[ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_8m835"]
 [ext_resource type="Resource" uid="uid://bjmpphwwcgrlg" path="res://Resources/Events&Conditions/Events/Scoring/rat_king_scoring.tres" id="5_wirky"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_wrdxa"]
 
 [resource]
 script = ExtResource("6_wrdxa")
 layer = 1
-nonplaceable_terrain = Array[ExtResource("3_sqdvp")]([ExtResource("4_8m835")])
-foil_probability = 0
+base_score = 0
 preview_event = ExtResource("5_wirky")
 place_conditions = Array[ExtResource("3_wkjp3")]([])
 place_effects = Array[ExtResource("1_sqdvp")]([])
 post_place_effects = Array[ExtResource("1_sqdvp")]([])
-begin_round_effects = Array[ExtResource("1_sqdvp")]([])
-end_round_effects = Array[ExtResource("1_sqdvp")]([])
+board_begin_round_effects = Array[ExtResource("1_sqdvp")]([])
+board_end_round_effects = Array[ExtResource("1_sqdvp")]([])
 destroyed_effects = Array[ExtResource("1_sqdvp")]([])
-default_preset = ExtResource("3_8m835")
 play_conditions = Array[ExtResource("3_wkjp3")]([])
 play_effects = Array[ExtResource("1_sqdvp")]([])
 discard_effects = Array[ExtResource("1_sqdvp")]([])
+default_preset = ExtResource("3_8m835")
 id_name = "rat_king"
 display_name = "Rat King"
 card_sprite = ExtResource("2_wirky")

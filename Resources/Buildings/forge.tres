@@ -1,10 +1,8 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=10 format=3 uid="uid://diweaatjmmvgx"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=8 format=3 uid="uid://diweaatjmmvgx"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_7xrat"]
 [ext_resource type="Texture2D" uid="uid://822wr20pyubh" path="res://assets/entity_sprites/forge.PNG" id="2_aubra"]
 [ext_resource type="Resource" uid="uid://fbnj1ug25po" path="res://Resources/Events&Conditions/BuildingDefaultPreset.tres" id="3_hwhtx"]
-[ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_ifjqx"]
-[ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_hwhtx"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_edb72"]
 [ext_resource type="Resource" uid="uid://bsrnk44vhb58o" path="res://Resources/Events&Conditions/Conditions/StackableCondition.tres" id="6_qpylj"]
 [ext_resource type="Resource" uid="uid://swxqvknonbdu" path="res://Resources/Events&Conditions/Events/Scoring/wheat_field_scoring.tres" id="7_i6y5e"]
@@ -13,19 +11,18 @@
 [resource]
 script = ExtResource("8_lnw2q")
 layer = 1
-nonplaceable_terrain = Array[ExtResource("3_ifjqx")]([ExtResource("4_hwhtx")])
-foil_probability = 0
+base_score = 0
 preview_event = ExtResource("7_i6y5e")
 place_conditions = Array[ExtResource("5_edb72")]([ExtResource("6_qpylj")])
 place_effects = Array[ExtResource("1_7xrat")]([])
 post_place_effects = Array[ExtResource("1_7xrat")]([])
-begin_round_effects = Array[ExtResource("1_7xrat")]([])
-end_round_effects = Array[ExtResource("1_7xrat")]([])
+board_begin_round_effects = Array[ExtResource("1_7xrat")]([])
+board_end_round_effects = Array[ExtResource("1_7xrat")]([])
 destroyed_effects = Array[ExtResource("1_7xrat")]([])
-default_preset = ExtResource("3_hwhtx")
 play_conditions = Array[ExtResource("5_edb72")]([])
 play_effects = Array[ExtResource("1_7xrat")]([])
 discard_effects = Array[ExtResource("1_7xrat")]([])
+default_preset = ExtResource("3_hwhtx")
 id_name = "forge"
 display_name = "Forge"
 card_sprite = ExtResource("2_aubra")
@@ -35,4 +32,5 @@ category = 8
 tags = Array[String](["Fire"])
 is_aura = false
 hidden = false
+override_default = false
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

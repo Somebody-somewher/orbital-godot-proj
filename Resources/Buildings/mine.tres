@@ -1,30 +1,27 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=9 format=3 uid="uid://dtbclqpl1ddl1"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://dtbclqpl1ddl1"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_n1s3d"]
 [ext_resource type="Texture2D" uid="uid://daqcqd2xya2my" path="res://assets/entity_sprites/mine.PNG" id="2_25vpq"]
 [ext_resource type="Resource" uid="uid://fbnj1ug25po" path="res://Resources/Events&Conditions/BuildingDefaultPreset.tres" id="3_1r2li"]
-[ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_n1s3d"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_py65h"]
-[ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_1r2li"]
 [ext_resource type="Resource" uid="uid://c0ouls6omx0x8" path="res://Resources/Events&Conditions/Events/Scoring/mine_scoring.tres" id="5_25vpq"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_rpess"]
 
 [resource]
 script = ExtResource("6_rpess")
 layer = 1
-nonplaceable_terrain = Array[ExtResource("3_n1s3d")]([ExtResource("4_1r2li")])
-foil_probability = 0
+base_score = 0
 preview_event = ExtResource("5_25vpq")
 place_conditions = Array[ExtResource("3_py65h")]([])
 place_effects = Array[ExtResource("1_n1s3d")]([])
 post_place_effects = Array[ExtResource("1_n1s3d")]([])
-begin_round_effects = Array[ExtResource("1_n1s3d")]([])
-end_round_effects = Array[ExtResource("1_n1s3d")]([])
+board_begin_round_effects = Array[ExtResource("1_n1s3d")]([])
+board_end_round_effects = Array[ExtResource("1_n1s3d")]([])
 destroyed_effects = Array[ExtResource("1_n1s3d")]([])
-default_preset = ExtResource("3_1r2li")
 play_conditions = Array[ExtResource("3_py65h")]([])
 play_effects = Array[ExtResource("1_n1s3d")]([])
 discard_effects = Array[ExtResource("1_n1s3d")]([])
+default_preset = ExtResource("3_1r2li")
 id_name = "mine"
 display_name = "Mine"
 card_sprite = ExtResource("2_25vpq")
