@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=15 format=3 uid="uid://8atgjh2alon7"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=13 format=3 uid="uid://8atgjh2alon7"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_4kf4u"]
 [ext_resource type="Texture2D" uid="uid://bx4d6jb2wrjkv" path="res://assets/entity_sprites/wreckage.PNG" id="2_fofu7"]
@@ -10,14 +10,7 @@
 [ext_resource type="Resource" uid="uid://dn1afqgtyr3lp" path="res://Resources/EnvTerrain/TerrainTiles/Grass.tres" id="8_5vjho"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="8_t85xa"]
 [ext_resource type="Resource" uid="uid://dctu4sqtncbb3" path="res://Resources/EnvTerrain/TerrainTiles/Desert.tres" id="9_nt1iy"]
-[ext_resource type="Script" uid="uid://bd2mjgin8x4se" path="res://scripts/Events/ScoreScripts/single_time_score_debug.gd" id="10_5vjho"]
 [ext_resource type="Script" uid="uid://c4b1tsjdr6q7r" path="res://scripts/PlaceConditions/TerrainCondition.gd" id="10_t6pnf"]
-
-[sub_resource type="Resource" id="Resource_5vjho"]
-script = ExtResource("10_5vjho")
-event_name = ""
-desc = ""
-metadata/_custom_type_script = "uid://bd2mjgin8x4se"
 
 [sub_resource type="Resource" id="Resource_t85xa"]
 script = ExtResource("10_t6pnf")
@@ -33,13 +26,13 @@ preview_event = ExtResource("7_t6pnf")
 place_conditions = Array[ExtResource("5_5vjho")]([ExtResource("6_nt1iy"), SubResource("Resource_t85xa")])
 place_effects = Array[ExtResource("1_4kf4u")]([])
 post_place_effects = Array[ExtResource("1_4kf4u")]([])
-begin_round_effects = Array[ExtResource("1_4kf4u")]([SubResource("Resource_5vjho")])
-end_round_effects = Array[ExtResource("1_4kf4u")]([])
+board_begin_round_effects = Array[ExtResource("1_4kf4u")]([])
+board_end_round_effects = Array[ExtResource("1_4kf4u")]([])
 destroyed_effects = Array[ExtResource("1_4kf4u")]([])
-default_preset = ExtResource("3_jy0hc")
 play_conditions = Array[ExtResource("5_5vjho")]([])
 play_effects = Array[ExtResource("1_4kf4u")]([])
 discard_effects = Array[ExtResource("1_4kf4u")]([])
+default_preset = ExtResource("3_jy0hc")
 id_name = "wreckage"
 display_name = "Wreckage"
 card_sprite = ExtResource("2_fofu7")
