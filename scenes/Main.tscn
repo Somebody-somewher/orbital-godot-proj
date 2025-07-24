@@ -54,7 +54,6 @@ script = ExtResource("13_cvmbd")
 spawn_node = NodePath("../CardManager")
 
 [node name="BoardManager" parent="." instance=ExtResource("17_bb450")]
-BORDER_DIM = Vector2i(2, 2)
 proc_gen = ExtResource("16_ft6cd")
 
 [node name="Preview" parent="BoardManager" index="0"]

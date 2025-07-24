@@ -14,6 +14,7 @@
 script = ExtResource("3_hwj0r")
 tag_to_sell = "sellable"
 chance = 0.5
+trigger_scoring = false
 effect_buildings_score = Dictionary[String, int]({})
 base_score = 0
 aoe = ExtResource("2_sceiy")
@@ -31,6 +32,7 @@ metadata/_custom_type_script = "uid://c4b1tsjdr6q7r"
 script = ExtResource("3_hwj0r")
 tag_to_sell = "sellable"
 chance = 0.5
+trigger_scoring = false
 effect_buildings_score = Dictionary[String, int]({})
 base_score = 0
 aoe = ExtResource("2_sceiy")

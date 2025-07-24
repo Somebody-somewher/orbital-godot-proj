@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=9 format=3 uid="uid://bf2edmjertmcq"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=10 format=3 uid="uid://bf2edmjertmcq"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_72uld"]
 [ext_resource type="Texture2D" uid="uid://hakuh4rbnh7j" path="res://assets/entity_sprites/bees.PNG" id="2_dvun3"]
 [ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/standard_score.gd" id="5_fxqkw"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_rqdj5"]
+[ext_resource type="Resource" uid="uid://duwyfru3v1ktu" path="res://Resources/AOE/small orth cross.tres" id="5_yj53s"]
 [ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="7_72uld"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="8_dtdrm"]
 
@@ -21,6 +22,7 @@ effect_buildings_score = Dictionary[String, int]({
 "lotus": 3
 })
 base_score = 0
+aoe = ExtResource("5_yj53s")
 event_name = ""
 desc = ""
 metadata/_custom_type_script = "uid://dcbw4orenctn8"

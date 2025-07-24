@@ -15,6 +15,7 @@
 script = ExtResource("2_g7vtu")
 tag_to_sell = ""
 chance = 0.5
+trigger_scoring = false
 effect_buildings_score = Dictionary[String, int]({})
 base_score = 0
 event_name = ""
