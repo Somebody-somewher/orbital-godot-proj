@@ -17,8 +17,8 @@ metadata/_custom_type_script = "uid://wuau4rxg1ej4"
 
 [sub_resource type="Resource" id="Resource_5r6b1"]
 script = ExtResource("7_wp63a")
-nonplaceable_terrain = Array[ExtResource("3_wp63a")]([ExtResource("4_5r6b1")])
 water_platforms = Array[String](["turtle"])
+nonplaceable_terrain = Array[ExtResource("3_wp63a")]([ExtResource("4_5r6b1")])
 reminder_msg = ""
 metadata/_custom_type_script = "uid://qk704iue41mu"
 

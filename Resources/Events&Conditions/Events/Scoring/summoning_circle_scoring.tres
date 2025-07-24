@@ -8,4 +8,6 @@ script = ExtResource("2_a8ply")
 effect_buildings_score = Dictionary[String, int]({})
 base_score = 0
 aoe = ExtResource("1_rslym")
+event_name = ""
+desc = ""
 metadata/_custom_type_script = "uid://dcbw4orenctn8"
