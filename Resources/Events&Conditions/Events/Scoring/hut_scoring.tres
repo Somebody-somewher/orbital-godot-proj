@@ -13,6 +13,4 @@ effect_buildings_score = Dictionary[String, int]({
 })
 base_score = 0
 aoe = ExtResource("1_kvi7u")
-event_name = ""
-desc = ""
 metadata/_custom_type_script = "uid://dcbw4orenctn8"

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dkfknx31kiuhc" path="res://assets/entity_sprites/whirlpool.PNG" id="2_kcqfp"]
 [ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_jc5y1"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_7xvku"]
+[ext_resource type="Resource" uid="uid://bsrnk44vhb58o" path="res://Resources/Events&Conditions/Conditions/StackableCondition.tres" id="6_1w6de"]
 [ext_resource type="Resource" uid="uid://dn1afqgtyr3lp" path="res://Resources/EnvTerrain/TerrainTiles/Grass.tres" id="7_7xvku"]
 [ext_resource type="Resource" uid="uid://swxqvknonbdu" path="res://Resources/Events&Conditions/Events/Scoring/wheat_field_scoring.tres" id="7_j67mt"]
 [ext_resource type="Resource" uid="uid://dctu4sqtncbb3" path="res://Resources/EnvTerrain/TerrainTiles/Desert.tres" id="8_1w6de"]
@@ -21,7 +22,7 @@ script = ExtResource("8_g02qw")
 layer = 1
 base_score = 0
 preview_event = ExtResource("7_j67mt")
-place_conditions = Array[ExtResource("5_7xvku")]([SubResource("Resource_g02qw")])
+place_conditions = Array[ExtResource("5_7xvku")]([ExtResource("6_1w6de"), SubResource("Resource_g02qw")])
 place_effects = Array[ExtResource("1_w45bo")]([])
 post_place_effects = Array[ExtResource("1_w45bo")]([])
 board_begin_round_effects = Array[ExtResource("1_w45bo")]([])

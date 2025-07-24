@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://8atgjh2alon7"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=13 format=3 uid="uid://8atgjh2alon7"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_4kf4u"]
 [ext_resource type="Texture2D" uid="uid://bx4d6jb2wrjkv" path="res://assets/entity_sprites/wreckage.PNG" id="2_fofu7"]
+[ext_resource type="Resource" uid="uid://fbnj1ug25po" path="res://Resources/Events&Conditions/BuildingDefaultPreset.tres" id="3_jy0hc"]
 [ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_r842k"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_5vjho"]
 [ext_resource type="Resource" uid="uid://bsrnk44vhb58o" path="res://Resources/Events&Conditions/Conditions/StackableCondition.tres" id="6_nt1iy"]
@@ -20,18 +21,18 @@ metadata/_custom_type_script = "uid://c4b1tsjdr6q7r"
 [resource]
 script = ExtResource("8_t85xa")
 layer = 1
-nonplaceable_terrain = Array[ExtResource("3_r842k")]([])
-foil_probability = 0
+base_score = 0
 preview_event = ExtResource("7_t6pnf")
 place_conditions = Array[ExtResource("5_5vjho")]([ExtResource("6_nt1iy"), SubResource("Resource_t85xa")])
 place_effects = Array[ExtResource("1_4kf4u")]([])
 post_place_effects = Array[ExtResource("1_4kf4u")]([])
-begin_round_effects = Array[ExtResource("1_4kf4u")]([])
-end_round_effects = Array[ExtResource("1_4kf4u")]([])
+board_begin_round_effects = Array[ExtResource("1_4kf4u")]([])
+board_end_round_effects = Array[ExtResource("1_4kf4u")]([])
 destroyed_effects = Array[ExtResource("1_4kf4u")]([])
 play_conditions = Array[ExtResource("5_5vjho")]([])
 play_effects = Array[ExtResource("1_4kf4u")]([])
 discard_effects = Array[ExtResource("1_4kf4u")]([])
+default_preset = ExtResource("3_jy0hc")
 id_name = "wreckage"
 display_name = "Wreckage"
 card_sprite = ExtResource("2_fofu7")

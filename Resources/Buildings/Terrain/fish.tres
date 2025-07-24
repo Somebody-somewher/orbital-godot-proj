@@ -20,14 +20,13 @@ metadata/_custom_type_script = "uid://c4b1tsjdr6q7r"
 [resource]
 script = ExtResource("6_dea2g")
 layer = 1
-nonplaceable_terrain = Array[ExtResource("3_dh3nx")]([ExtResource("8_yfhxk"), ExtResource("7_ggbka")])
-foil_probability = 0
+base_score = 0
 preview_event = ExtResource("7_lpw4o")
 place_conditions = Array[ExtResource("3_ge8fs")]([ExtResource("6_txocj"), SubResource("Resource_5j75d")])
 place_effects = Array[ExtResource("1_dh3nx")]([])
 post_place_effects = Array[ExtResource("1_dh3nx")]([])
-begin_round_effects = Array[ExtResource("1_dh3nx")]([])
-end_round_effects = Array[ExtResource("1_dh3nx")]([])
+board_begin_round_effects = Array[ExtResource("1_dh3nx")]([])
+board_end_round_effects = Array[ExtResource("1_dh3nx")]([])
 destroyed_effects = Array[ExtResource("1_dh3nx")]([])
 play_conditions = Array[ExtResource("3_ge8fs")]([])
 play_effects = Array[ExtResource("1_dh3nx")]([])
