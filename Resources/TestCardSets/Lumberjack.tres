@@ -6,8 +6,8 @@
 script = ExtResource("1_acaq6")
 set_name = "Lumberjack"
 cards = Dictionary[String, int]({
-"forest": 3,
-"lumber_mill": 1
+"demolish": 1,
+"wildfire": 1
 })
 category = 8
 rarity = 0

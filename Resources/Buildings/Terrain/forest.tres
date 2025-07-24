@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=14 format=3 uid="uid://dsqu3wnhxngey"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=15 format=3 uid="uid://dsqu3wnhxngey"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_amgrt"]
 [ext_resource type="Texture2D" uid="uid://k1s1uvel4pr7" path="res://assets/entity_sprites/forest.png" id="2_v4u2l"]
@@ -10,6 +10,18 @@
 [ext_resource type="Script" uid="uid://cux3jvyk6llof" path="res://scripts/Events/AddCardEvents/create_cards_event.gd" id="8_3gq4d"]
 [ext_resource type="Script" uid="uid://c4b1tsjdr6q7r" path="res://scripts/PlaceConditions/TerrainCondition.gd" id="8_el3bj"]
 [ext_resource type="Resource" uid="uid://ci1g32fnst1e8" path="res://Resources/Events&Conditions/Events/Scoring/placeholder.tres" id="9_el3bj"]
+
+[sub_resource type="Resource" id="Resource_gsr26"]
+script = ExtResource("8_3gq4d")
+cards = Dictionary[String, int]({
+"apple": 1
+})
+probability = Dictionary[String, int]({
+"apple": 1
+})
+event_name = ""
+desc = ""
+metadata/_custom_type_script = "uid://cux3jvyk6llof"
 
 [sub_resource type="Resource" id="Resource_njyo5"]
 script = ExtResource("7_3gq4d")
@@ -44,7 +56,7 @@ place_effects = Array[ExtResource("1_amgrt")]([SubResource("Resource_el3bj")])
 post_place_effects = Array[ExtResource("1_amgrt")]([])
 board_begin_round_effects = Array[ExtResource("1_amgrt")]([])
 board_end_round_effects = Array[ExtResource("1_amgrt")]([])
-destroyed_effects = Array[ExtResource("1_amgrt")]([])
+destroyed_effects = Array[ExtResource("1_amgrt")]([SubResource("Resource_gsr26")])
 play_conditions = Array[ExtResource("3_6g3n0")]([])
 play_effects = Array[ExtResource("1_amgrt")]([])
 discard_effects = Array[ExtResource("1_amgrt")]([])

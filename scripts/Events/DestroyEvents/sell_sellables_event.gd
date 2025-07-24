@@ -18,7 +18,7 @@ func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstance
 		for building in arr:
 			if building.get_data().has_tag(tag_to_sell):
 				Signalbus.remove_placeable.emit(building.get_id(), caller.get_owner_uuid())
-				#Signalbus.add_score.emit(building.get_data().base_score, caller.get_owner_uuid())
+				Signalbus.add_score.emit(building.get_data().base_score, caller.get_owner_uuid())
 	pass
 
 func modifier(tile_data : BoardTile, _cum_score := 0) -> int:

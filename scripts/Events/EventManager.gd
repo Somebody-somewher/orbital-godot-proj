@@ -70,7 +70,8 @@ func preview_event(instance : CardInstanceData, previewer : Callable, tilepos : 
 
 func trigger_events(instance : CardInstanceData, event_id : String, params := []) -> void:
 	assert(EventKeys.has(event_id))
-	run_events(events_and_conditions[instance.get_id()][event_id], instance, params)
+	if events_and_conditions.has(instance.get_id()):
+		run_events(events_and_conditions[instance.get_id()][event_id], instance, params)
 
 func check_conditions(instance : CardInstanceData, condition_id : String, params := []) -> bool:
 	assert(ConditionKeys.has(condition_id))
