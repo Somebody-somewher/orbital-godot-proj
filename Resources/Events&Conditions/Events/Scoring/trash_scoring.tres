@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="StandardScoreEffect" load_steps=3 format=3 uid="uid://c5l7gfjeu8gyw"]
 
-[ext_resource type="Resource" uid="uid://ci7hb7fl2b4jp" path="res://Resources/AOE/3x3.tres" id="1_7qhyj"]
+[ext_resource type="Resource" uid="uid://duwyfru3v1ktu" path="res://Resources/AOE/small orth cross.tres" id="1_m1t8y"]
 [ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/standard_score.gd" id="2_27vs3"]
 
 [resource]
@@ -10,11 +10,12 @@ effect_buildings_score = Dictionary[String, int]({
 "cottage": -2,
 "pig": 2,
 "rat": 1,
-"rat_swarm": 3,
-"statue": -1
+"rat_king": 5,
+"rat_swarm": 4,
+"turtle": -4
 })
 base_score = 0
-aoe = ExtResource("1_7qhyj")
+aoe = ExtResource("1_m1t8y")
 event_name = ""
 desc = ""
 metadata/_custom_type_script = "uid://dcbw4orenctn8"

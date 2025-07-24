@@ -6,10 +6,11 @@
 [resource]
 script = ExtResource("2_32dn3")
 effect_buildings_score = Dictionary[String, int]({
-"carrots": 2,
-"cow": 10,
+"carrots": 1,
+"cow": 3,
 "farmhouse": 5,
-"flower": 2,
+"flower": 1,
+"temple": 2,
 "wheat_field": 3
 })
 base_score = 0

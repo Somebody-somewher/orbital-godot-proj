@@ -39,8 +39,8 @@ metadata/__load_path__ = "res://Resources/Events/Scoring/placeholder.tres"
 [resource]
 script = ExtResource("4_amgrt")
 layer = 1
-base_score = 0
-preview_event = SubResource("Resource_6g3n0")
+base_score = 1
+preview_event = SubResource("Resource_el3bj")
 place_conditions = Array[ExtResource("3_6g3n0")]([SubResource("Resource_njyo5"), SubResource("Resource_gjb6g")])
 place_effects = Array[ExtResource("1_amgrt")]([SubResource("Resource_el3bj")])
 post_place_effects = Array[ExtResource("1_amgrt")]([])

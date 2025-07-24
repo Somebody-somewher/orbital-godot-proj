@@ -5,8 +5,11 @@
 
 [resource]
 script = ExtResource("2_a8ply")
-effect_buildings_score = Dictionary[String, int]({})
-base_score = 0
+effect_buildings_score = Dictionary[String, int]({
+"obelisk": 2,
+"temple": -4
+})
+base_score = 3
 aoe = ExtResource("1_rslym")
 event_name = ""
 desc = ""

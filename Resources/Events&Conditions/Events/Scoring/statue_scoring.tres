@@ -1,17 +1,18 @@
 [gd_resource type="Resource" script_class="StandardScoreEffect" load_steps=3 format=3 uid="uid://dpmbyv2sjqqps"]
 
-[ext_resource type="Resource" uid="uid://bw4fr7b37hpod" path="res://Resources/AOE/med diamond.tres" id="1_vrgg4"]
+[ext_resource type="Resource" uid="uid://bi1js42egmwds" path="res://Resources/AOE/circle.tres" id="1_vpugr"]
 [ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/standard_score.gd" id="2_gi10y"]
 
 [resource]
 script = ExtResource("2_gi10y")
 effect_buildings_score = Dictionary[String, int]({
+"bell_tower": 3,
 "castle": 5,
 "fountain": 2,
 "temple": 5
 })
-base_score = 0
-aoe = ExtResource("1_vrgg4")
+base_score = 10
+aoe = ExtResource("1_vpugr")
 event_name = ""
 desc = ""
 metadata/_custom_type_script = "uid://dcbw4orenctn8"

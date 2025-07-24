@@ -1,17 +1,17 @@
 [gd_resource type="Resource" script_class="StandardScoreEffect" load_steps=3 format=3 uid="uid://c4ogromnspq8r"]
 
-[ext_resource type="Resource" uid="uid://b3dfyxlx2g04x" path="res://Resources/AOE/5x5 checkerboard.tres" id="1_7cutd"]
+[ext_resource type="Resource" uid="uid://ci7hb7fl2b4jp" path="res://Resources/AOE/3x3.tres" id="1_cmdyj"]
 [ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/standard_score.gd" id="2_miaaf"]
 
 [resource]
 script = ExtResource("2_miaaf")
 effect_buildings_score = Dictionary[String, int]({
-"bank": 2,
 "circus": 3,
-"market": 4
+"market": 2,
+"stable": 4
 })
 base_score = 0
-aoe = ExtResource("1_7cutd")
+aoe = ExtResource("1_cmdyj")
 event_name = ""
 desc = ""
 metadata/_custom_type_script = "uid://dcbw4orenctn8"

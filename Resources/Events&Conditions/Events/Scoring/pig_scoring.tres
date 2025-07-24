@@ -8,6 +8,12 @@ script = ExtResource("2_wicrn")
 effect_buildings_score = Dictionary[String, int]({
 "carrots": 4,
 "farmhouse": 2,
+"fence": 2,
+"hut": 1,
+"oasis": 3,
+"pig": 1,
+"temple": -3,
+"tombstone": -1,
 "trash": 2,
 "well": -2
 })

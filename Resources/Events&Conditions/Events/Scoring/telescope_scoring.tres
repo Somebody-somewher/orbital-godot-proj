@@ -6,8 +6,14 @@
 [resource]
 script = ExtResource("2_3ogls")
 effect_buildings_score = Dictionary[String, int]({
-"scryers_tent": -3,
-"summoning_stones": 3
+"island": 2,
+"kraken": 3,
+"lighthouse": 3,
+"obelisk": 2,
+"observatory": 10,
+"pyramids": 3,
+"scryers_tent": -2,
+"summoning_stones": 4
 })
 base_score = 0
 aoe = ExtResource("1_h44ib")
