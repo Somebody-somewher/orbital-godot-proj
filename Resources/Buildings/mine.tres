@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_py65h"]
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_1r2li"]
 [ext_resource type="Resource" uid="uid://c0ouls6omx0x8" path="res://Resources/Events&Conditions/Events/Scoring/mine_scoring.tres" id="5_25vpq"]
-[ext_resource type="Script" uid="uid://pkocjdyyidcp" path="res://scripts/PlaceConditions/StackOnlyOnCondition.gd" id="6_n1s3d"]
+[ext_resource type="Script" path="res://scripts/PlaceConditions/StackOnlyOnCondition.gd" id="6_n1s3d"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_rpess"]
 [ext_resource type="Script" uid="uid://c4b1tsjdr6q7r" path="res://scripts/PlaceConditions/TerrainCondition.gd" id="8_rpess"]
 
@@ -30,8 +30,8 @@ preview_event = ExtResource("5_25vpq")
 place_conditions = Array[ExtResource("3_py65h")]([SubResource("Resource_1r2li"), SubResource("Resource_qg4rm")])
 place_effects = Array[ExtResource("1_n1s3d")]([])
 post_place_effects = Array[ExtResource("1_n1s3d")]([])
-begin_round_effects = Array[ExtResource("1_n1s3d")]([])
-end_round_effects = Array[ExtResource("1_n1s3d")]([])
+board_begin_round_effects = Array[ExtResource("1_n1s3d")]([])
+board_end_round_effects = Array[ExtResource("1_n1s3d")]([])
 destroyed_effects = Array[ExtResource("1_n1s3d")]([])
 play_conditions = Array[ExtResource("3_py65h")]([])
 play_effects = Array[ExtResource("1_n1s3d")]([])
