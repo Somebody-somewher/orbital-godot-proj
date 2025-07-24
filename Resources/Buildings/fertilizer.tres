@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=8 format=3 uid="uid://oqmaxi0srvql"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://oqmaxi0srvql"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_0stqh"]
 [ext_resource type="Texture2D" uid="uid://cusq3behahdi0" path="res://assets/entity_sprites/fertilizer.PNG" id="2_1n6fk"]
+[ext_resource type="Script" uid="uid://c5t7qdcdn01ia" path="res://scripts/Events/DestroyEvents/destroy_self_event.gd" id="5_1n6fk"]
+[ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/standard_score.gd" id="5_laup8"]
+[ext_resource type="Resource" uid="uid://hu4yh8trux8f" path="res://Resources/AOE/single_tile.tres" id="5_nglte"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_rltnb"]
 [ext_resource type="Script" uid="uid://esesrexa7yys" path="res://scripts/PlaceConditions/NotEmptyCondition.gd" id="7_0stqh"]
-[ext_resource type="Resource" uid="uid://swxqvknonbdu" path="res://Resources/Events&Conditions/Events/Scoring/wheat_field_scoring.tres" id="7_od1my"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="8_phvag"]
 
 [sub_resource type="Resource" id="Resource_835ka"]
@@ -12,14 +14,34 @@ script = ExtResource("7_0stqh")
 reminder_msg = ""
 metadata/_custom_type_script = "uid://esesrexa7yys"
 
+[sub_resource type="Resource" id="Resource_0stqh"]
+script = ExtResource("5_1n6fk")
+event_name = ""
+desc = ""
+metadata/_custom_type_script = "uid://c5t7qdcdn01ia"
+
+[sub_resource type="Resource" id="Resource_nglte"]
+script = ExtResource("5_laup8")
+effect_buildings_score = Dictionary[String, int]({
+"carrots": 3,
+"garden": 5,
+"tomato": 3,
+"wheat_field": 3
+})
+base_score = 0
+aoe = ExtResource("5_nglte")
+event_name = ""
+desc = ""
+metadata/_custom_type_script = "uid://dcbw4orenctn8"
+
 [resource]
 script = ExtResource("8_phvag")
 layer = 4
 base_score = 0
-preview_event = ExtResource("7_od1my")
+preview_event = SubResource("Resource_nglte")
 place_conditions = Array[ExtResource("5_rltnb")]([SubResource("Resource_835ka")])
 place_effects = Array[ExtResource("1_0stqh")]([])
-post_place_effects = Array[ExtResource("1_0stqh")]([])
+post_place_effects = Array[ExtResource("1_0stqh")]([SubResource("Resource_0stqh")])
 board_begin_round_effects = Array[ExtResource("1_0stqh")]([])
 board_end_round_effects = Array[ExtResource("1_0stqh")]([])
 destroyed_effects = Array[ExtResource("1_0stqh")]([])

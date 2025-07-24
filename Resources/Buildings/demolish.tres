@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=8 format=3 uid="uid://bu5a3fkjopyeg"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=10 format=3 uid="uid://bu5a3fkjopyeg"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_uaa05"]
 [ext_resource type="Texture2D" uid="uid://diem6kyayugyp" path="res://assets/entity_sprites/demolish.PNG" id="2_4syx0"]
+[ext_resource type="Resource" uid="uid://ci1g32fnst1e8" path="res://Resources/Events&Conditions/Events/Scoring/placeholder.tres" id="5_0juk0"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_irw1l"]
+[ext_resource type="Script" uid="uid://c5t7qdcdn01ia" path="res://scripts/Events/DestroyEvents/destroy_self_event.gd" id="5_uaa05"]
 [ext_resource type="Script" uid="uid://esesrexa7yys" path="res://scripts/PlaceConditions/NotEmptyCondition.gd" id="6_4syx0"]
-[ext_resource type="Resource" uid="uid://swxqvknonbdu" path="res://Resources/Events&Conditions/Events/Scoring/wheat_field_scoring.tres" id="7_xppoe"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="8_qx4m6"]
 
 [sub_resource type="Resource" id="Resource_cnjrj"]
@@ -12,14 +13,20 @@ script = ExtResource("6_4syx0")
 reminder_msg = ""
 metadata/_custom_type_script = "uid://esesrexa7yys"
 
+[sub_resource type="Resource" id="Resource_4syx0"]
+script = ExtResource("5_uaa05")
+event_name = ""
+desc = ""
+metadata/_custom_type_script = "uid://c5t7qdcdn01ia"
+
 [resource]
 script = ExtResource("8_qx4m6")
 layer = 4
 base_score = 0
-preview_event = ExtResource("7_xppoe")
+preview_event = ExtResource("5_0juk0")
 place_conditions = Array[ExtResource("5_irw1l")]([SubResource("Resource_cnjrj")])
 place_effects = Array[ExtResource("1_uaa05")]([])
-post_place_effects = Array[ExtResource("1_uaa05")]([])
+post_place_effects = Array[ExtResource("1_uaa05")]([SubResource("Resource_4syx0")])
 board_begin_round_effects = Array[ExtResource("1_uaa05")]([])
 board_end_round_effects = Array[ExtResource("1_uaa05")]([])
 destroyed_effects = Array[ExtResource("1_uaa05")]([])

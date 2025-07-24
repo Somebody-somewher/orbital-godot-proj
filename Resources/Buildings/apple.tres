@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_ja64q"]
 [ext_resource type="Script" uid="uid://cqr6jrosybp6n" path="res://scripts/PlaceConditions/LightLandTerrainCondition.gd" id="7_7pddj"]
 [ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="7_ja64q"]
-[ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events&Conditions/Events/Scoring/cow_scoring.tres" id="7_lycw7"]
+[ext_resource type="Resource" uid="uid://ci1g32fnst1e8" path="res://Resources/Events&Conditions/Events/Scoring/placeholder.tres" id="8_lycw7"]
 
 [sub_resource type="Resource" id="Resource_uqjpx"]
 script = ExtResource("7_ja64q")
@@ -17,7 +17,7 @@ metadata/_custom_type_script = "uid://wuau4rxg1ej4"
 
 [sub_resource type="Resource" id="Resource_ja64q"]
 script = ExtResource("7_7pddj")
-water_platforms = Array[String](["docks", "lilypad", "turtle"])
+water_platforms = Array[String](["dock", "lilypad", "turtle"])
 nonplaceable_terrain = Array[ExtResource("3_lycw7")]([ExtResource("4_7pddj")])
 reminder_msg = ""
 metadata/_custom_type_script = "uid://cqr6jrosybp6n"
@@ -25,8 +25,8 @@ metadata/_custom_type_script = "uid://cqr6jrosybp6n"
 [resource]
 script = ExtResource("6_ja64q")
 layer = 1
-base_score = 0
-preview_event = ExtResource("7_lycw7")
+base_score = 3
+preview_event = ExtResource("8_lycw7")
 place_conditions = Array[ExtResource("3_2exna")]([SubResource("Resource_uqjpx"), SubResource("Resource_ja64q")])
 place_effects = Array[ExtResource("1_2exna")]([])
 post_place_effects = Array[ExtResource("1_2exna")]([])

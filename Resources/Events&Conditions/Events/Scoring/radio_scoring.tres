@@ -1,11 +1,20 @@
 [gd_resource type="Resource" script_class="StandardScoreEffect" load_steps=3 format=3 uid="uid://lg2tpa3ddwsr"]
 
-[ext_resource type="Resource" uid="uid://be3viu88jgymx" path="res://Resources/AOE/ring.tres" id="1_36p0t"]
+[ext_resource type="Resource" uid="uid://ci7hb7fl2b4jp" path="res://Resources/AOE/3x3.tres" id="1_07o4d"]
 [ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/standard_score.gd" id="2_k06w6"]
 
 [resource]
 script = ExtResource("2_k06w6")
-effect_buildings_score = Dictionary[String, int]({})
+effect_buildings_score = Dictionary[String, int]({
+"bar": 5,
+"cottage": 2,
+"hobo_tent": 1,
+"hut": 1,
+"lighthouse": 5,
+"observatory": 5
+})
 base_score = 0
-aoe = ExtResource("1_36p0t")
+aoe = ExtResource("1_07o4d")
+event_name = ""
+desc = ""
 metadata/_custom_type_script = "uid://dcbw4orenctn8"

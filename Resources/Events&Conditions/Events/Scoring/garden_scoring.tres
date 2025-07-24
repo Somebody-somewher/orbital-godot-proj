@@ -6,9 +6,19 @@
 [resource]
 script = ExtResource("2_auuey")
 effect_buildings_score = Dictionary[String, int]({
+"beaver": -3,
+"bees": 3,
 "carrots": 4,
+"cow": -3,
 "farmhouse": 2,
+"flies": -2,
+"market": 3,
+"pig": -2,
+"rat": -2,
+"rat_king": -5,
+"rat_swarm": -3,
 "silo": 5,
+"tomato": 4,
 "wheat_field": 4
 })
 base_score = 0

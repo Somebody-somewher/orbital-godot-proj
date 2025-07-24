@@ -1,13 +1,20 @@
 [gd_resource type="Resource" script_class="StandardScoreEffect" load_steps=3 format=3 uid="uid://c3lkjxpneu7dh"]
 
-[ext_resource type="Resource" uid="uid://be3viu88jgymx" path="res://Resources/AOE/ring.tres" id="1_8xmwl"]
+[ext_resource type="Resource" uid="uid://bpel0f7dd0nx5" path="res://Resources/AOE/queen.tres" id="1_73rof"]
 [ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/standard_score.gd" id="2_cbqgo"]
 
 [resource]
 script = ExtResource("2_cbqgo")
 effect_buildings_score = Dictionary[String, int]({
-"sailboat": 10
+"dock": 2,
+"island": 5,
+"kraken": 3,
+"merchant_ship": 3,
+"sailboat": 2,
+"siren": 3
 })
 base_score = 0
-aoe = ExtResource("1_8xmwl")
+aoe = ExtResource("1_73rof")
+event_name = ""
+desc = ""
 metadata/_custom_type_script = "uid://dcbw4orenctn8"

@@ -6,7 +6,7 @@
 script = ExtResource("1_7blhr")
 set_name = "Harbor"
 cards = Dictionary[String, int]({
-"dock": 1,
+"dock": 2,
 "merchant_ship": 1
 })
 category = 1

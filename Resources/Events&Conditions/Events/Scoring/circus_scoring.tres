@@ -9,8 +9,11 @@ effect_buildings_score = Dictionary[String, int]({
 "castle": 10,
 "cottage": 5,
 "scryer_tent": 5,
-"statue": 2
+"statue": 2,
+"wagon": 2
 })
 base_score = 0
 aoe = ExtResource("1_ejenp")
+event_name = ""
+desc = ""
 metadata/_custom_type_script = "uid://dcbw4orenctn8"

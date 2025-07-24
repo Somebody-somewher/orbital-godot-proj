@@ -9,7 +9,12 @@ effect_buildings_score = Dictionary[String, int]({
 "bar": 3,
 "bellltower": 3,
 "campfire": 5,
-"hut": 2
+"hut": 2,
+"rat": -1,
+"rat_king": -10,
+"rat_swarm": -3,
+"trash": -3,
+"well": 2
 })
 base_score = 0
 aoe = ExtResource("1_kvi7u")

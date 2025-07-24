@@ -8,8 +8,14 @@ script = ExtResource("2_r3lsn")
 effect_buildings_score = Dictionary[String, int]({
 "belltower": 2,
 "castle": 5,
+"circus": 4,
 "cottage": 5,
 "farmhouse": 2,
+"fountain": 4,
+"rat": -1,
+"rat_king": -5,
+"rat_swarm": -3,
+"temple": 3,
 "well": 5
 })
 base_score = 0

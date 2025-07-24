@@ -10,10 +10,16 @@ effect_buildings_score = Dictionary[String, int]({
 "chicken": 2,
 "cow": 5,
 "garden": 2,
+"market": 2,
 "pig": 2,
+"rat": -1,
+"rat_king": -5,
+"rat_swarm": -3,
 "silo": 5,
 "wheat_field": 2
 })
 base_score = 0
 aoe = ExtResource("1_f0paj")
+event_name = ""
+desc = ""
 metadata/_custom_type_script = "uid://dcbw4orenctn8"
