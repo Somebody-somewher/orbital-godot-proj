@@ -9,7 +9,7 @@ var is_server_client : bool = true
 
 # A stupid check to see if whether we are starting from the multiplayer lobby
 # If we aren't then the default is that each debug instance is a separate game
-@export var is_debug : bool = false
+@export var is_debug : bool = true
 
 # If sync is finished, we can start normal gameplay-interactivity like camera
 var is_sync_fin : bool = false

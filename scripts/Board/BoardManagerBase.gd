@@ -114,6 +114,9 @@ func _create_terrain_building(building_id: Array[String], tilepos: Array[Vector2
 func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i, run_on_place_events := true, sync := true) -> void:
 	var remote_id : int = multiplayer.get_remote_sender_id()
 	var server_mem : ServerCardMemory = (CardLoader.card_mem as ServerCardMemory)
+	
+	var tile_pos_matrix := tilemap_to_matrix(tile_pos)
+	
 	var check := server_interactability_check(remote_id, tile_pos, func() -> bool:
 		# Get the carddata instance stored separately on server and client CardLoader
 		var placeable_instance : PlaceableInstanceData = server_mem.search_hand_for(\
@@ -121,7 +124,7 @@ func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i,
 		
 		# Check on server side if the placeable can be place
 		if placeable_instance and \
-			CardLoader.event_manager.check_conditions(placeable_instance, "is_placeable", [tilemap_to_matrix(tile_pos)]):
+			CardLoader.event_manager.check_conditions(placeable_instance, "is_placeable", [tile_pos_matrix]):
 			
 			# Place on serverside
 			_place_placeable(placeable_instance, tile_pos, run_on_place_events);\
@@ -133,7 +136,7 @@ func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i,
 			# Otherwise ensure the client creates its own copy
 			if sync:
 				_client_sync_placeable.rpc(placeable_instance.serialize(),\
-					tile_pos, PlayerManager.getUUID_from_PeerID(remote_id))
+						tile_pos, PlayerManager.getUUID_from_PeerID(remote_id))
 			else:
 				_client_sync_placeable.rpc_id(remote_id, placeableinst_id,\
 					 tile_pos, PlayerManager.getUUID_from_PeerID(remote_id))
@@ -166,18 +169,20 @@ func server_place_newplaceable(placeable_instance : PlaceableInstanceData, tile_
 ## Run by server + requesting client
 @rpc("any_peer", "call_local")
 func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vector2i, run_on_place_events := true) -> void:
-	placeable_instance.tile_pos = tile_pos
+	var tile_pos_matrix := tilemap_to_matrix(tile_pos)
+
+	placeable_instance.tile_pos = tile_pos_matrix
 	
 	if run_on_place_events and multiplayer.is_server():
 		#TODO: Maybe get this out of this if
 		CardLoader.event_manager.register_board_round_events(placeable_instance)
 
-		CardLoader.event_manager.trigger_events(placeable_instance, "on_place", [tilemap_to_matrix(tile_pos)])
+		CardLoader.event_manager.trigger_events(placeable_instance, "on_place", [tile_pos_matrix])
 	
-	matrix_data.add_placeable_to_tile(tilemap_to_matrix(tile_pos), placeable_instance)
+	matrix_data.add_placeable_to_tile(tile_pos_matrix, placeable_instance)
 
 	if run_on_place_events and multiplayer.is_server():
-		CardLoader.event_manager.trigger_events(placeable_instance, "post_place", [tilemap_to_matrix(tile_pos)])
+		CardLoader.event_manager.trigger_events(placeable_instance, "post_place", [tile_pos_matrix])
 		
 ################################# TERRAIN MODIFICATION ##########################################
 #@rpc("any_peer","call_local")
