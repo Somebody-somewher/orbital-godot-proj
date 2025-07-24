@@ -84,7 +84,6 @@ func create_data_instance(data_id : String, attribute_number : int = 0, instance
 			instance_id = gen_values[0]
 		else:
 			instance_id = card_attribute_gen.generate_instance_id(data_id)
-	
 	var data : CardData = card_dict[data_id]
 	var instance_data : CardInstanceData 
 	
