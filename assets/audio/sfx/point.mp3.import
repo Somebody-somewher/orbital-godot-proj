@@ -3,11 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://cqmejtirtt5pb"
-valid=false
+path="res://.godot/imported/point.mp3-a9a39c9004a3fea1e1512f8e5ae5356b.mp3str"
 
 [deps]
 
 source_file="res://assets/audio/sfx/point.mp3"
+dest_files=["res://.godot/imported/point.mp3-a9a39c9004a3fea1e1512f8e5ae5356b.mp3str"]
 
 [params]
 

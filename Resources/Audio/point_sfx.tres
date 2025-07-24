@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AudioData" load_steps=3 format=3 uid="uid://680xyw8iugd5"]
+
+[ext_resource type="Script" uid="uid://cats7srje6wix" path="res://scripts/Audio/AudioData.gd" id="1_om3hj"]
+[ext_resource type="AudioStream" uid="uid://cqmejtirtt5pb" path="res://assets/audio/sfx/point.mp3" id="2_hvcga"]
+
+[resource]
+script = ExtResource("1_om3hj")
+group_name = "point"
+variations = Array[AudioStream]([ExtResource("2_hvcga")])
+default = null
