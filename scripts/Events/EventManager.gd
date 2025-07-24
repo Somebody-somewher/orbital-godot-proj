@@ -127,6 +127,8 @@ func run_event(event : Event, source : CardInstanceData, params : Array) -> void
 
 func reset_mem() -> void:
 	#card_mem.clear()
+	matrix_data = null
+	card_mem = null
 	board_round_start_events_dict.clear()
 	board_round_end_events_dict.clear()
 	events_and_conditions.clear()

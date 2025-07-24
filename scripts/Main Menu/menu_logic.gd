@@ -8,7 +8,7 @@ const MENU_HANDS = {
 	"main_menu" : ["singleplayer", "multiplayer", "settings", "exit"],
 	"singleplayer" : ["back", "start_game"],
 	"multiplayer" : ["back", "host", "join"],
-	"multihost" : ["back", "start_game"],
+	"multihost" : ["back"],
 	"multijoin" : ["back"],
 	"settings" : ["back"]
 }
@@ -100,6 +100,8 @@ func multiplayer_host(id : String) -> String:
 func multiplayer_join(id : String) -> String:
 	match id:
 		"back":
+			multiplayer.multiplayer_peer = null
+			PlayerManager.clearPlayers()
 			multijoin_back.emit()
 	return "multiplayer"
 

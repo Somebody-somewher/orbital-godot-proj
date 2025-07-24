@@ -15,6 +15,7 @@ var _port : int = 8910
 var curr_status : String = ""
 var player_list_string : String = ""
 
+var ip_check = RegEx.new()
 #var multiplayer_peer = ENetMultiplayerPeer.new()
 
 # Resources
@@ -31,6 +32,8 @@ func _ready():
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
 	multiplayer.connection_failed.connect(_on_connection_failed)
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
+
+	ip_check.compile(r"^(\d{1,3}\.){3}\d{1,3}$")
 
 func set_up_host(h_name_field : TextEdit, h_player_list_label : Label) -> void:
 	self.h_name_field = h_name_field
@@ -60,6 +63,10 @@ func _connect_client(addr = "", port = ""):
 	
 	# TODO: Please implement error handling? 
 	if addr == "":
+		if !ip_check.search(addr):
+			curr_status = "INVALID IP"
+			printerr(curr_status)
+			return
 		addr = _ip
 	
 	if port == "":
@@ -125,6 +132,10 @@ func _on_peer_disconnected(id : int)  -> void:
 	#PlayerManager.erasePlayer(id)
 	curr_status = "Player Disconnected " + str(id)
 	
+	if SceneManager.curr_scene == "menu":
+		PlayerManager.erasePlayer(id)
+		clear_player_list()
+		list_all_players()
 	print(curr_status)
 
 # For sending info frm client -> server
@@ -161,6 +172,7 @@ func on_host_pressed() -> void:
 	_create_server()
 	curr_status = "Awaiting players!"
 	print(h_name_field.text + " is waiting for Players! .o.")
+	get_tree().root.get_node("MainMenu/MenuLogic").spawn_card("start_game")
 	pass # Replace with function body.
 
 func on_join_pressed() -> void:

@@ -15,25 +15,19 @@ func _ready() -> void:
 @rpc("any_peer", "call_local")
 func back_to_menu() -> void:
 	reset_components()
-	#get_tree().current_scene.free()
-	#var a = GAME.instantiate()
-	#get_tree().root.add_child(a)
-	#get_tree().current_scene = a
 	get_tree().change_scene_to_packed(MENU)
 	curr_scene = "menu"
 	unpause_gameplay()
 
 @rpc("any_peer", "call_local")
 func start_game() -> void:
-	#get_tree().current_scene.free()
-	#var a = GAME.instantiate()
-	#get_tree().root.add_child(a)
-	#get_tree().current_scene = a
 	get_tree().change_scene_to_packed(GAME)
 	curr_scene = "game"
+	
 func reset_components() -> void:
 	PlayerManager.reset()
 	AudioManager.stop_bgm()
+	unpause_everything()
 	NetworkManager.full_reset()
 	CardLoader.reset()
 	Signalbus.reset_scene.emit()
@@ -50,6 +44,12 @@ func unpause_gameplay() -> void:
 func pause_everything() -> void:
 	is_everything_paused = true
 	_set_pause_gameplay(true)
+
+@rpc("any_peer", "call_local")
+func unpause_everything() -> void:
+	is_everything_paused = false
+	_set_pause_gameplay(false)
+
 
 func _set_pause_gameplay(setting : bool) -> void:
 	is_gameplay_paused = setting

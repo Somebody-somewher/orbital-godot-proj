@@ -76,6 +76,6 @@ func set_is_poll_first(value : bool) -> void:
 # Must end is true if the game must end and we need to find the "closest" winning player
 func query_for_winner(must_end : bool) -> void:
 	if game_can_end or must_end:
-		emit_signal("game_end", ranking[0], player_scores)
+		emit_signal("game_end", ranking, player_scores)
 		
 	

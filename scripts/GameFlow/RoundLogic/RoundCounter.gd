@@ -10,14 +10,10 @@ class_name RoundCounter
 @export var initial_round : RoundState
 var curr_round : RoundState
 
-#@export var round_grp : ResourceGroup
-#var possible_rounds : Array[RoundState]
 
 # If all players indicated that they have ended their turn
 # End the round prematurely
 @export var players_ready : Dictionary[String, bool] = {}
-#var round_id : String = ""
-var round_count : int = 1
 
 # Prevent glitch where player can press the end turn button when round is already ending
 var is_round_ending := false
@@ -33,7 +29,6 @@ var pause_timer : bool = false
 
 
 @export var round_id_lookup : Dictionary[String, RoundState]
-
 
 @export var end_game_wait := 25.0
 
@@ -71,7 +66,6 @@ func set_up(settings : Dictionary) -> void:
 
 	for round in round_id_lookup.values():
 		round.connect("transition_to", start_round)
-		round.update_round_count = add_rount_count
 	
 	#round_grp.load_all_into(possible_rounds)
 	NetworkManager.connect("all_clients_ready", start_round_manager)
@@ -143,12 +137,6 @@ func end_game(rankings : Array[String], player_scores : Dictionary[String, Dicti
 		await get_tree().create_timer(end_game_wait).timeout
 		SceneManager.back_to_menu.rpc()
 	pass
-	
-func add_rount_count() -> bool:
-	round_count += 1
-	if round_num_game_end == round_count:
-		return true
-	return false
 
 func reset() -> void:
 	for state in round_id_lookup.values():

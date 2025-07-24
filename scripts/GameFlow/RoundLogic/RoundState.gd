@@ -2,7 +2,6 @@ extends Resource
 class_name RoundState
 
 signal transition_to
-var update_round_count : Callable
 
 @export var next_state_ids : Array[String]
 

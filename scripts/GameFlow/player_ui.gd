@@ -41,7 +41,8 @@ func _update_round_label(round_id : String, round_total : int) -> void:
 	round_label.text = "Round: " + str(round_id)
 
 func _on_end_turn_pressed() -> void:
-	Signalbus.emit_signal("end_turn", PlayerManager.getUUID_from_PeerID(multiplayer.get_unique_id()))
+	Signalbus.emit_multiplayer_signal.rpc_id(1, \
+	"end_turn", [PlayerManager.getUUID_from_PeerID(multiplayer.get_unique_id())])
 	pass # Replace with function body.
 
 func show_error_msg(msg : String) -> void:
