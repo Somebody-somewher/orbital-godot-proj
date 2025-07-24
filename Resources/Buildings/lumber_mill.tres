@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_dlvg1"]
 [ext_resource type="Resource" uid="uid://d1440mswfb5l7" path="res://Resources/Events&Conditions/Events/Scoring/lumber_mill_scoring.tres" id="5_655yj"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_cwisb"]
-[ext_resource type="Script" path="res://scripts/PlaceConditions/LightLandTerrainCondition.gd" id="7_0woec"]
+[ext_resource type="Script" uid="uid://cqr6jrosybp6n" path="res://scripts/PlaceConditions/LightLandTerrainCondition.gd" id="7_0woec"]
 [ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="7_dlvg1"]
 
 [sub_resource type="Resource" id="Resource_sqelu"]

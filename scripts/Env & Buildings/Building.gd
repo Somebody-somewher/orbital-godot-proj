@@ -23,8 +23,8 @@ static func new_building_frm_data(data_inst : BuildingInstanceData) -> Building:
 	var ret_building : Building = building_scene.instantiate()
 	ret_building.data_instance = data_inst
 	ret_building.get_node("EntityImage").texture = data_inst.get_data().card_sprite
-	#if data_inst.foil:
-		#ret_building.material = foil_mat
+	if data_inst.foil:
+		ret_building.get_node("shiny particles").emitting = true
 	ret_building.z_index = 1
 	ret_building.name = data_inst.get_id()
 	return ret_building

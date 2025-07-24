@@ -16,7 +16,7 @@ var curr_round : RoundState
 # If all players indicated that they have ended their turn
 # End the round prematurely
 @export var players_ready : Dictionary[String, bool] = {}
-var round_id : String = ""
+#var round_id : String = ""
 var round_count : int = 1
 
 # Prevent glitch where player can press the end turn button when round is already ending
@@ -101,7 +101,7 @@ func _player_end_turn(player_uuid : String):
 func end_round() -> void:
 	pause_timer = true
 	score_manager.set_is_poll_first(true)
-	Signalbus.emit_signal("round_end", round_id, round_count)
+	#Signalbus.emit_signal("round_end", round_id, round_count)
 	is_round_ending = true
 	curr_round.round_end()
 	score_manager.set_is_poll_first(false)
@@ -123,7 +123,7 @@ func start_round(round_id : String) -> void:
 	
 	reset_timer()
 	
-	Signalbus.emit_signal("round_start", round_id, round_count)
+	#Signalbus.emit_signal("round_start", round_id, round_count)
 	score_manager.set_is_poll_first(true)
 	curr_round.round_start()
 	score_manager.set_is_poll_first(false)

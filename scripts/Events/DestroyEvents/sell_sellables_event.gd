@@ -14,7 +14,7 @@ func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstance
 		arr = tiledata.get_buildings_on_tile()
 		for building in arr:
 			if building.get_data().has_tag(tag_to_sell):
-				building.destroy()
+				Signalbus.remove_placeable.emit(building.get_id(), caller.get_owner_uuid())
 	pass
 
 func modifier(tile_data : BoardTile, _cum_score := 0) -> int:
