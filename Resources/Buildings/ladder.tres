@@ -1,33 +1,42 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=9 format=3 uid="uid://d1sqyblfs35l6"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://d1sqyblfs35l6"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_m5wa1"]
 [ext_resource type="Texture2D" uid="uid://c8guvug1x74j8" path="res://assets/entity_sprites/ladder.PNG" id="2_phb4n"]
-[ext_resource type="Resource" uid="uid://fbnj1ug25po" path="res://Resources/Events&Conditions/BuildingDefaultPreset.tres" id="3_1p70f"]
+[ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_m5wa1"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_phb4n"]
+[ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_1p70f"]
 [ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events&Conditions/Events/Scoring/cow_scoring.tres" id="5_1p70f"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_lll1r"]
 [ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="7_m5wa1"]
+[ext_resource type="Script" uid="uid://lu6hi4n44bfy" path="res://scripts/PlaceConditions/StackOnSomeCondition.gd" id="8_1p70f"]
 
 [sub_resource type="Resource" id="Resource_1p70f"]
 script = ExtResource("7_m5wa1")
+layer = 2
 reminder_msg = ""
 metadata/_custom_type_script = "uid://wuau4rxg1ej4"
+
+[sub_resource type="Resource" id="Resource_lll1r"]
+script = ExtResource("8_1p70f")
+stackable_buildings = Array[String](["forest", "fruit_tree", "cottage"])
+reminder_msg = ""
+metadata/_custom_type_script = "uid://lu6hi4n44bfy"
 
 [resource]
 script = ExtResource("6_lll1r")
 layer = 2
-base_score = 0
+nonplaceable_terrain = Array[ExtResource("3_m5wa1")]([ExtResource("4_1p70f")])
+foil_probability = 0
 preview_event = ExtResource("5_1p70f")
-place_conditions = Array[ExtResource("3_phb4n")]([SubResource("Resource_1p70f")])
+place_conditions = Array[ExtResource("3_phb4n")]([SubResource("Resource_1p70f"), SubResource("Resource_lll1r")])
 place_effects = Array[ExtResource("1_m5wa1")]([])
 post_place_effects = Array[ExtResource("1_m5wa1")]([])
-board_begin_round_effects = Array[ExtResource("1_m5wa1")]([])
-board_end_round_effects = Array[ExtResource("1_m5wa1")]([])
+begin_round_effects = Array[ExtResource("1_m5wa1")]([])
+end_round_effects = Array[ExtResource("1_m5wa1")]([])
 destroyed_effects = Array[ExtResource("1_m5wa1")]([])
 play_conditions = Array[ExtResource("3_phb4n")]([])
 play_effects = Array[ExtResource("1_m5wa1")]([])
 discard_effects = Array[ExtResource("1_m5wa1")]([])
-default_preset = ExtResource("3_1p70f")
 id_name = "ladder"
 display_name = "Ladder"
 card_sprite = ExtResource("2_phb4n")

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_72uld"]
 [ext_resource type="Texture2D" uid="uid://hakuh4rbnh7j" path="res://assets/entity_sprites/bees.PNG" id="2_dvun3"]
-[ext_resource type="Resource" uid="uid://fbnj1ug25po" path="res://Resources/Events&Conditions/BuildingDefaultPreset.tres" id="3_0vfrf"]
+[ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_wavji"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_rqdj5"]
 [ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="7_72uld"]
 [ext_resource type="Resource" uid="uid://swxqvknonbdu" path="res://Resources/Events&Conditions/Events/Scoring/wheat_field_scoring.tres" id="8_bflus"]
@@ -10,24 +10,25 @@
 
 [sub_resource type="Resource" id="Resource_wavji"]
 script = ExtResource("7_72uld")
+layer = 3
 reminder_msg = ""
 metadata/_custom_type_script = "uid://wuau4rxg1ej4"
 
 [resource]
 script = ExtResource("8_dtdrm")
-layer = 2
-base_score = 0
+layer = 3
+nonplaceable_terrain = Array[ExtResource("3_wavji")]([])
+foil_probability = 0
 preview_event = ExtResource("8_bflus")
 place_conditions = Array[ExtResource("5_rqdj5")]([SubResource("Resource_wavji")])
 place_effects = Array[ExtResource("1_72uld")]([])
 post_place_effects = Array[ExtResource("1_72uld")]([])
-board_begin_round_effects = Array[ExtResource("1_72uld")]([])
-board_end_round_effects = Array[ExtResource("1_72uld")]([])
+begin_round_effects = Array[ExtResource("1_72uld")]([])
+end_round_effects = Array[ExtResource("1_72uld")]([])
 destroyed_effects = Array[ExtResource("1_72uld")]([])
 play_conditions = Array[ExtResource("5_rqdj5")]([])
 play_effects = Array[ExtResource("1_72uld")]([])
 discard_effects = Array[ExtResource("1_72uld")]([])
-default_preset = ExtResource("3_0vfrf")
 id_name = "bees"
 display_name = "Bees"
 card_sprite = ExtResource("2_dvun3")

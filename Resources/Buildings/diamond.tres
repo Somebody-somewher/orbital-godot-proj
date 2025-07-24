@@ -1,12 +1,27 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=8 format=3 uid="uid://856fae4ujicn"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://856fae4ujicn"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_fbuqd"]
 [ext_resource type="Texture2D" uid="uid://d1xgdwbnvprwl" path="res://assets/entity_sprites/diamond.PNG" id="2_p6arp"]
 [ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_qts2i"]
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_1wuoc"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_rsyko"]
+[ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="6_p6arp"]
 [ext_resource type="Resource" uid="uid://swxqvknonbdu" path="res://Resources/Events&Conditions/Events/Scoring/wheat_field_scoring.tres" id="7_6gjdu"]
+[ext_resource type="Script" uid="uid://cqr6jrosybp6n" path="res://scripts/PlaceConditions/LightLandTerrainCondition.gd" id="7_wr717"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="8_2njv6"]
+
+[sub_resource type="Resource" id="Resource_wr717"]
+script = ExtResource("6_p6arp")
+layer = 1
+reminder_msg = ""
+metadata/_custom_type_script = "uid://wuau4rxg1ej4"
+
+[sub_resource type="Resource" id="Resource_qts2i"]
+script = ExtResource("7_wr717")
+nonplaceable_terrain = Array[ExtResource("3_qts2i")]([ExtResource("4_1wuoc")])
+water_platforms = Array[String](["docks", "lilypad", "turtle"])
+reminder_msg = ""
+metadata/_custom_type_script = "uid://cqr6jrosybp6n"
 
 [resource]
 script = ExtResource("8_2njv6")
@@ -14,7 +29,7 @@ layer = 1
 nonplaceable_terrain = Array[ExtResource("3_qts2i")]([ExtResource("4_1wuoc")])
 foil_probability = 0
 preview_event = ExtResource("7_6gjdu")
-place_conditions = Array[ExtResource("5_rsyko")]([])
+place_conditions = Array[ExtResource("5_rsyko")]([SubResource("Resource_wr717"), SubResource("Resource_qts2i")])
 place_effects = Array[ExtResource("1_fbuqd")]([])
 post_place_effects = Array[ExtResource("1_fbuqd")]([])
 begin_round_effects = Array[ExtResource("1_fbuqd")]([])

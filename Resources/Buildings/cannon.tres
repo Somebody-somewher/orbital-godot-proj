@@ -1,27 +1,43 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://yand8w0sftmy"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://yand8w0sftmy"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_g2ag7"]
 [ext_resource type="Texture2D" uid="uid://cyxumyliw33iu" path="res://assets/entity_sprites/cannon.PNG" id="2_eolt2"]
+[ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_g2ag7"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_h2yxn"]
-[ext_resource type="Resource" uid="uid://fbnj1ug25po" path="res://Resources/Events&Conditions/BuildingDefaultPreset.tres" id="3_yluwk"]
+[ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_yluwk"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_ri5d0"]
+[ext_resource type="Script" uid="uid://cqr6jrosybp6n" path="res://scripts/PlaceConditions/LightLandTerrainCondition.gd" id="7_g2ag7"]
+[ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="7_yluwk"]
 [ext_resource type="Resource" uid="uid://d16nje3eqxn5a" path="res://Resources/Events&Conditions/Events/Scoring/cannon_scoring.tres" id="8_fvxrl"]
+
+[sub_resource type="Resource" id="Resource_fvxrl"]
+script = ExtResource("7_yluwk")
+layer = 1
+reminder_msg = ""
+metadata/_custom_type_script = "uid://wuau4rxg1ej4"
+
+[sub_resource type="Resource" id="Resource_yluwk"]
+script = ExtResource("7_g2ag7")
+nonplaceable_terrain = Array[ExtResource("3_g2ag7")]([ExtResource("4_yluwk")])
+water_platforms = Array[String](["docks", "turtle"])
+reminder_msg = ""
+metadata/_custom_type_script = "uid://cqr6jrosybp6n"
 
 [resource]
 script = ExtResource("6_ri5d0")
 layer = 1
-base_score = 0
+nonplaceable_terrain = Array[ExtResource("3_g2ag7")]([ExtResource("4_yluwk")])
+foil_probability = 0
 preview_event = ExtResource("8_fvxrl")
-place_conditions = Array[ExtResource("3_h2yxn")]([])
+place_conditions = Array[ExtResource("3_h2yxn")]([SubResource("Resource_fvxrl"), SubResource("Resource_yluwk")])
 place_effects = Array[ExtResource("1_g2ag7")]([])
 post_place_effects = Array[ExtResource("1_g2ag7")]([])
-board_begin_round_effects = Array[ExtResource("1_g2ag7")]([])
-board_end_round_effects = Array[ExtResource("1_g2ag7")]([])
+begin_round_effects = Array[ExtResource("1_g2ag7")]([])
+end_round_effects = Array[ExtResource("1_g2ag7")]([])
 destroyed_effects = Array[ExtResource("1_g2ag7")]([])
 play_conditions = Array[ExtResource("3_h2yxn")]([])
 play_effects = Array[ExtResource("1_g2ag7")]([])
 discard_effects = Array[ExtResource("1_g2ag7")]([])
-default_preset = ExtResource("3_yluwk")
 id_name = "cannon"
 display_name = "Cannon"
 card_sprite = ExtResource("2_eolt2")

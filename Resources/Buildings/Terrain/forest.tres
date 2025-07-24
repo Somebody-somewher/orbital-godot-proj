@@ -1,23 +1,26 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=9 format=3 uid="uid://dsqu3wnhxngey"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=13 format=3 uid="uid://dsqu3wnhxngey"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_amgrt"]
 [ext_resource type="Texture2D" uid="uid://k1s1uvel4pr7" path="res://assets/entity_sprites/forest.png" id="2_v4u2l"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_6g3n0"]
-[ext_resource type="Resource" uid="uid://fbnj1ug25po" path="res://Resources/Events&Conditions/BuildingDefaultPreset.tres" id="3_mf2va"]
+[ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_amgrt"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="4_amgrt"]
-[ext_resource type="Script" uid="uid://cux3jvyk6llof" path="res://scripts/Events/AddCardEvents/create_cards_event.gd" id="7_mf2va"]
+[ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_mf2va"]
+[ext_resource type="Resource" uid="uid://dctu4sqtncbb3" path="res://Resources/EnvTerrain/TerrainTiles/Desert.tres" id="6_el3bj"]
+[ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="7_3gq4d"]
+[ext_resource type="Script" uid="uid://c4b1tsjdr6q7r" path="res://scripts/PlaceConditions/TerrainCondition.gd" id="8_el3bj"]
 
-[sub_resource type="Resource" id="Resource_mf2va"]
-script = ExtResource("7_mf2va")
-cards = Dictionary[String, int]({
-"apple": 1
-})
-probability = Dictionary[String, int]({
-"apple": 80
-})
-event_name = ""
-desc = ""
-metadata/_custom_type_script = "uid://cux3jvyk6llof"
+[sub_resource type="Resource" id="Resource_njyo5"]
+script = ExtResource("7_3gq4d")
+layer = 1
+reminder_msg = ""
+metadata/_custom_type_script = "uid://wuau4rxg1ej4"
+
+[sub_resource type="Resource" id="Resource_gjb6g"]
+script = ExtResource("8_el3bj")
+nonplaceable_terrain = Array[ExtResource("3_amgrt")]([ExtResource("4_mf2va")])
+reminder_msg = ""
+metadata/_custom_type_script = "uid://c4b1tsjdr6q7r"
 
 [sub_resource type="Resource" id="Resource_6g3n0"]
 metadata/__load_path__ = "res://Resources/Events/Scoring/placeholder.tres"
@@ -25,18 +28,18 @@ metadata/__load_path__ = "res://Resources/Events/Scoring/placeholder.tres"
 [resource]
 script = ExtResource("4_amgrt")
 layer = 1
-base_score = 0
+nonplaceable_terrain = Array[ExtResource("3_amgrt")]([ExtResource("4_mf2va"), ExtResource("6_el3bj")])
+foil_probability = 0
 preview_event = SubResource("Resource_6g3n0")
-place_conditions = Array[ExtResource("3_6g3n0")]([])
-place_effects = Array[ExtResource("1_amgrt")]([SubResource("Resource_mf2va")])
+place_conditions = Array[ExtResource("3_6g3n0")]([SubResource("Resource_njyo5"), SubResource("Resource_gjb6g")])
+place_effects = Array[ExtResource("1_amgrt")]([])
 post_place_effects = Array[ExtResource("1_amgrt")]([])
-board_begin_round_effects = Array[ExtResource("1_amgrt")]([])
-board_end_round_effects = Array[ExtResource("1_amgrt")]([])
+begin_round_effects = Array[ExtResource("1_amgrt")]([])
+end_round_effects = Array[ExtResource("1_amgrt")]([])
 destroyed_effects = Array[ExtResource("1_amgrt")]([])
 play_conditions = Array[ExtResource("3_6g3n0")]([])
 play_effects = Array[ExtResource("1_amgrt")]([])
 discard_effects = Array[ExtResource("1_amgrt")]([])
-default_preset = ExtResource("3_mf2va")
 id_name = "forest"
 display_name = "forest"
 card_sprite = ExtResource("2_v4u2l")

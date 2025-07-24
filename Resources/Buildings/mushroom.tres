@@ -1,38 +1,43 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=13 format=3 uid="uid://degmn805k1jlu"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://degmn805k1jlu"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_qqp8e"]
 [ext_resource type="Texture2D" uid="uid://bhfhp1xwdevvi" path="res://assets/entity_sprites/mushroom.PNG" id="2_3asfb"]
-[ext_resource type="Resource" uid="uid://fbnj1ug25po" path="res://Resources/Events&Conditions/BuildingDefaultPreset.tres" id="3_igop6"]
 [ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_qqp8e"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_xwcnf"]
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_igop6"]
-[ext_resource type="Resource" uid="uid://bsrnk44vhb58o" path="res://Resources/Events&Conditions/Conditions/StackableCondition.tres" id="4_qqp8e"]
 [ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events&Conditions/Events/Scoring/cow_scoring.tres" id="5_igop6"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_7csj3"]
-[ext_resource type="Resource" uid="uid://dctu4sqtncbb3" path="res://Resources/EnvTerrain/TerrainTiles/Desert.tres" id="8_7csj3"]
+[ext_resource type="Script" uid="uid://cqr6jrosybp6n" path="res://scripts/PlaceConditions/LightLandTerrainCondition.gd" id="7_qqp8e"]
 [ext_resource type="Script" uid="uid://c4b1tsjdr6q7r" path="res://scripts/PlaceConditions/TerrainCondition.gd" id="9_koy8d"]
 
 [sub_resource type="Resource" id="Resource_1gh5l"]
 script = ExtResource("9_koy8d")
-nonplaceable_terrain = Array[ExtResource("3_qqp8e")]([ExtResource("8_7csj3"), ExtResource("4_igop6")])
+nonplaceable_terrain = Array[ExtResource("3_qqp8e")]([ExtResource("4_igop6")])
 reminder_msg = ""
 metadata/_custom_type_script = "uid://c4b1tsjdr6q7r"
 
+[sub_resource type="Resource" id="Resource_igop6"]
+script = ExtResource("7_qqp8e")
+nonplaceable_terrain = Array[ExtResource("3_qqp8e")]([ExtResource("4_igop6")])
+water_platforms = Array[String](["turtle"])
+reminder_msg = ""
+metadata/_custom_type_script = "uid://cqr6jrosybp6n"
+
 [resource]
 script = ExtResource("6_7csj3")
-layer = 1
-base_score = 0
+layer = 2
+nonplaceable_terrain = Array[ExtResource("3_qqp8e")]([ExtResource("4_igop6")])
+foil_probability = 0
 preview_event = ExtResource("5_igop6")
-place_conditions = Array[ExtResource("3_xwcnf")]([ExtResource("4_qqp8e"), SubResource("Resource_1gh5l")])
+place_conditions = Array[ExtResource("3_xwcnf")]([SubResource("Resource_1gh5l"), SubResource("Resource_igop6")])
 place_effects = Array[ExtResource("1_qqp8e")]([])
 post_place_effects = Array[ExtResource("1_qqp8e")]([])
-board_begin_round_effects = Array[ExtResource("1_qqp8e")]([])
-board_end_round_effects = Array[ExtResource("1_qqp8e")]([])
+begin_round_effects = Array[ExtResource("1_qqp8e")]([])
+end_round_effects = Array[ExtResource("1_qqp8e")]([])
 destroyed_effects = Array[ExtResource("1_qqp8e")]([])
 play_conditions = Array[ExtResource("3_xwcnf")]([])
 play_effects = Array[ExtResource("1_qqp8e")]([])
 discard_effects = Array[ExtResource("1_qqp8e")]([])
-default_preset = ExtResource("3_igop6")
 id_name = "mushroom"
 display_name = "Mushroom"
 card_sprite = ExtResource("2_3asfb")
