@@ -12,7 +12,7 @@ func set_up_settings(settings : Dictionary) -> void:
 	pass
 
 func _ready() -> void:
-	AudioManager.play_bgm("plains")
+	AudioManager.play_bgm("random")
 	AudioManager.next_bgm = "random"
 
 	CardLoader.setup()

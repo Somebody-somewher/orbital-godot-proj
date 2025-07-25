@@ -154,11 +154,10 @@ func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i,
 ## Event code is in charge of making sure 
 @rpc("any_peer", "call_local")
 func server_place_newplaceable(placeable_instance : PlaceableInstanceData, tile_pos : Vector2i, \
-	player_uuid : String, run_on_place_events := true, sync := true) -> void:
+	player_uuid : String,  run_on_place_events := true, sync := true) -> void:
 	
-	if placeable_instance and CardLoader.event_manager.check_place_conditions(placeable_instance, tilemap_to_matrix(tile_pos)):
-		_place_placeable(placeable_instance, tile_pos, run_on_place_events);
-		
+	if placeable_instance:
+		_place_placeable(placeable_instance, matrix_to_tilepos(tile_pos), run_on_place_events);
 		if sync:
 			_client_sync_placeable.rpc(placeable_instance.serialize(), tile_pos)
 		else:
@@ -242,7 +241,6 @@ func _clear_board_tile(tile_pos : Vector2i, run_destroy_events := true) -> void:
 		tile_data.clear_tile(func(pi : PlaceableInstanceData): pass)
 		
 func server_remove_building(buildinginst_id : String, player_uuid : String, run_destroy_events := true, sync := true) -> void:
-	
 	if sync:
 		_remove_building.rpc(buildinginst_id, run_destroy_events)
 	else:

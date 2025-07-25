@@ -81,9 +81,12 @@ func for_each_building(c : Callable) -> void:
 func constrain_pattern_to_board(tile_pos : Vector2i, pattern_arr : Array[Vector2i], output_tile_pos : Array[Array]) -> void:
 	for i in len(pattern_arr):
 		var true_tile = pattern_arr[i] + tile_pos
-		if true_tile == true_tile.clamp(boards_coords[0][0], boards_coords[len(boards_coords) - 1][1]):
+		if _tile_on_board(true_tile):
 			output_tile_pos[0].append(true_tile)
 			output_tile_pos[1].append(get_tile(true_tile))
+
+func _tile_on_board(pos : Vector2i) -> bool:
+	return pos == pos.clamp(boards_coords[0][0], boards_coords[len(boards_coords) - 1][1])
 
 func search_matrix_readonly(c : Callable):
 	c.call(board_matrix)

@@ -46,7 +46,7 @@ signal get_tile_pos_from_AOE(tile_pos : Vector2i, aoe_tiles : Array[Vector2i], b
 signal mouse_enter_interactable_board_tile()
 signal mouse_enter_board()
 
-signal place_placeable(pi : PlaceableInstanceData, tile_pos : Vector2i, player_uuid : String, run_on_place_events : bool, sync : bool)
+signal place_placeable(pi : String, tile_pos : Vector2i, player_uuid : String, run_on_place_events : bool, sync : bool)
 
 signal remove_placeable(placeable_instance_id : String, player_uuid : String)
 
