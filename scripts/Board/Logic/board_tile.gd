@@ -66,6 +66,7 @@ func delete_from_tile(placeable_id : String) -> void:
 		if placeable_arr[index] and placeable_arr[index].get_id() == placeable_id:
 			placeable_arr[index].destroy()
 			placeable_arr[index] = null
+			return
 
 func clear_tile(on_destroy_trigger : Callable) -> void:
 	for index in len(placeable_arr):

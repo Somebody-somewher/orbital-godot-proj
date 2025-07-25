@@ -16,7 +16,7 @@ var instances_on_board : Dictionary[String, BoardTile]
 
 # Initialize 2d array matrix
 func _init(board_size : int, boards_layout : Vector2i) -> void:
-	Signalbus.connect("get_tile_pos_from_AOE",constrain_pattern_to_board)
+	Signalbus.get_tile_pos_from_AOE.connect(constrain_pattern_to_board)
 	_board_size = board_size
 	_boards_layout = boards_layout
 	
@@ -134,3 +134,6 @@ func set_board_interactable(boardlayout_pos : Vector2i) -> Array:
 	var index : int = boardlayout_pos.x + (boardlayout_pos.y - 1) * _boards_layout.x - 1
 	interactable[index] = true
 	return boards_coords[index]
+
+func reset() -> void:
+	Signalbus.get_tile_pos_from_AOE.disconnect(constrain_pattern_to_board)

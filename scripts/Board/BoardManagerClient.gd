@@ -81,7 +81,6 @@ func _client_sync_placeable(placeable_serialized : Dictionary, tile_pos : Vector
 
 ## Create a buildindg on a given tilepos, data (from server) + visual (mostly this code in client)
 func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vector2i, run_on_place_effects := true) -> void:
-	super._place_placeable(placeable_instance, tile_pos, run_on_place_effects)
 	var placeable_node : PlaceableNode
 	
 	if placeable_instance is BuildingInstanceData:
@@ -89,6 +88,8 @@ func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vect
 		terrain_tilemap.place_building_on_tile(placeable_node, tile_pos)
 		
 	placeable_instance.client_on_place(placeable_node.destroy)
+	
+	super._place_placeable(placeable_instance, tile_pos, run_on_place_effects)
 	
 	if run_on_place_effects:
 		var terrain : String 
