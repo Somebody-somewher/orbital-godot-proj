@@ -1,19 +1,26 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=6 format=3 uid="uid://cfcmpte8ypxtp"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=8 format=3 uid="uid://cfcmpte8ypxtp"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_jadtm"]
 [ext_resource type="Texture2D" uid="uid://cwa7om05d8qgb" path="res://assets/entity_sprites/goodie_bag.PNG" id="2_lvduv"]
+[ext_resource type="Resource" uid="uid://ci1g32fnst1e8" path="res://Resources/Events&Conditions/Events/Scoring/placeholder.tres" id="4_2a3uy"]
+[ext_resource type="Script" uid="uid://c5t7qdcdn01ia" path="res://scripts/Events/DestroyEvents/destroy_self_event.gd" id="4_wjo1o"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_u7tsu"]
-[ext_resource type="Resource" uid="uid://swxqvknonbdu" path="res://Resources/Events&Conditions/Events/Scoring/wheat_field_scoring.tres" id="7_i8n7r"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="8_3u7et"]
+
+[sub_resource type="Resource" id="Resource_jbhw6"]
+script = ExtResource("4_wjo1o")
+event_name = ""
+desc = ""
+metadata/_custom_type_script = "uid://c5t7qdcdn01ia"
 
 [resource]
 script = ExtResource("8_3u7et")
 layer = 4
 base_score = 0
-preview_event = ExtResource("7_i8n7r")
+preview_event = ExtResource("4_2a3uy")
 place_conditions = Array[ExtResource("5_u7tsu")]([])
 place_effects = Array[ExtResource("1_jadtm")]([])
-post_place_effects = Array[ExtResource("1_jadtm")]([])
+post_place_effects = Array[ExtResource("1_jadtm")]([SubResource("Resource_jbhw6")])
 board_begin_round_effects = Array[ExtResource("1_jadtm")]([])
 board_end_round_effects = Array[ExtResource("1_jadtm")]([])
 destroyed_effects = Array[ExtResource("1_jadtm")]([])

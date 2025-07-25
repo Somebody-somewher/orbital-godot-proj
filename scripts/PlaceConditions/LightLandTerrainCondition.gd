@@ -2,7 +2,7 @@ extends TerrainCondition
 class_name LightLandTerrainCondition
 
 #@export var nonplaceable_terrain : Array[EnvTerrain] = [preload("res://Resources/EnvTerrain/TerrainTiles/Water.tres")]
-@export var water_platforms : Array[String] = ["docks", "lilypad", "turtle"]
+@export var water_platforms : Array[String] = ["dock", "lilypad", "turtle"]
 
 func test(board : BoardMatrixData, tile_pos : Vector2i, source : CardInstanceData) -> bool:
 	var current_tile_terrain : EnvTerrain = board.get_tile(tile_pos).get_terrain()

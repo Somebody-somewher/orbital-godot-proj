@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://c1cu34fya1h74"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=14 format=3 uid="uid://c1cu34fya1h74"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_ftxdv"]
 [ext_resource type="Texture2D" uid="uid://bsm2sktw6m8j3" path="res://assets/entity_sprites/flower.png" id="2_2o7g5"]
@@ -8,6 +8,8 @@
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_stlc5"]
 [ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="7_lejil"]
 [ext_resource type="Script" uid="uid://cqr6jrosybp6n" path="res://scripts/PlaceConditions/LightLandTerrainCondition.gd" id="7_stlc5"]
+[ext_resource type="Resource" uid="uid://hu4yh8trux8f" path="res://Resources/AOE/single_tile.tres" id="8_h3qof"]
+[ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/standard_score.gd" id="9_j7ip4"]
 
 [sub_resource type="Resource" id="Resource_j7ip4"]
 script = ExtResource("7_lejil")
@@ -21,14 +23,23 @@ nonplaceable_terrain = Array[ExtResource("3_ftxdv")]([ExtResource("4_stlc5")])
 reminder_msg = ""
 metadata/_custom_type_script = "uid://cqr6jrosybp6n"
 
-[sub_resource type="Resource" id="Resource_u5qik"]
-metadata/__load_path__ = "res://Resources/Events/Scoring/placeholder.tres"
+[sub_resource type="Resource" id="Resource_1r50h"]
+script = ExtResource("9_j7ip4")
+effect_buildings_score = Dictionary[String, int]({
+"bees": 2,
+"cow": 1
+})
+base_score = 0
+aoe = ExtResource("8_h3qof")
+event_name = ""
+desc = ""
+metadata/_custom_type_script = "uid://dcbw4orenctn8"
 
 [resource]
 script = ExtResource("4_ftxdv")
 layer = 2
 base_score = 0
-preview_event = SubResource("Resource_u5qik")
+preview_event = SubResource("Resource_1r50h")
 place_conditions = Array[ExtResource("3_u5qik")]([SubResource("Resource_j7ip4"), SubResource("Resource_lejil")])
 place_effects = Array[ExtResource("1_ftxdv")]([])
 post_place_effects = Array[ExtResource("1_ftxdv")]([])

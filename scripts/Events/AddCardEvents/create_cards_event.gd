@@ -9,7 +9,7 @@ class_name CreateCardEvent
 func trigger(card_mem : ServerCardMemory, caller : CardInstanceData) -> void:
 	for key in cards.keys():
 		for no in range(cards[key]):
-			if !probability.has(key) or randi_range(0,100) >= probability[key]: 
+			if !probability.has(key) or randi_range(0,100) <= probability[key]: 
 				var instance = CardLoader.create_data_instance(key, -1)
 				instance.set_owner_uuid(caller.get_owner_uuid())
 				card_mem.add_card_in_hand(instance, caller.get_owner_uuid())

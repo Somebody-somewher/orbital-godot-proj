@@ -7,9 +7,16 @@
 script = ExtResource("2_7wtig")
 effect_buildings_score = Dictionary[String, int]({
 "cottage": 3,
+"farmhouse": 2,
 "fountain": 4,
-"hut": 2
+"hobo_tent": 2,
+"hut": 3,
+"outpost": 3,
+"stable": 3,
+"water_tower": 5
 })
 base_score = 0
 aoe = ExtResource("1_nttvo")
+event_name = ""
+desc = ""
 metadata/_custom_type_script = "uid://dcbw4orenctn8"

@@ -4,9 +4,12 @@ class_name TraderEvent
 @export var tag_to_sell : String
 @export var chance : float = 0.5
 
+@export var trigger_scoring : bool = false
+
 # destroys the building, #TODO building should trigger its own OnDestroyEvents
 func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstanceData) -> void:
-	super.trigger(board, tile_pos, caller)
+	if trigger_scoring:
+		super.trigger(board, tile_pos, caller)
 	var tile_pos_data = aoe.get_scored_tiles(tile_pos)
 	
 	var arr : Array[BuildingInstanceData]
@@ -15,6 +18,7 @@ func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstance
 		for building in arr:
 			if building.get_data().has_tag(tag_to_sell):
 				Signalbus.remove_placeable.emit(building.get_id(), caller.get_owner_uuid())
+				Signalbus.add_score.emit(building.get_data().base_score, caller.get_owner_uuid())
 	pass
 
 func modifier(tile_data : BoardTile, _cum_score := 0) -> int:

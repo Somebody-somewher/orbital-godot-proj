@@ -35,7 +35,6 @@ metadata/_custom_type_script = "uid://cux3jvyk6llof"
 
 [sub_resource type="Resource" id="Resource_fjwxk"]
 script = ExtResource("6_fjwxk")
-attractor = ""
 event_name = ""
 desc = ""
 metadata/_custom_type_script = "uid://c5t7qdcdn01ia"

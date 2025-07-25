@@ -75,7 +75,11 @@ func clear_tile(on_destroy_trigger : Callable) -> void:
 			placeable_arr[index] = null
 	
 
-
+func is_empty():
+	for i in placeable_arr:
+		if i != null:
+			return false
+	return true
 #func redraw() -> void:
 	#for placeable in placeable_arr:
 		#placeable.global_position = _global_board_pos

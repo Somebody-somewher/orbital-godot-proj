@@ -6,9 +6,9 @@
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_4sfc5"]
 [ext_resource type="Resource" uid="uid://bsrnk44vhb58o" path="res://Resources/Events&Conditions/Conditions/StackableCondition.tres" id="6_j14qv"]
 [ext_resource type="Resource" uid="uid://dn1afqgtyr3lp" path="res://Resources/EnvTerrain/TerrainTiles/Grass.tres" id="7_4sfc5"]
-[ext_resource type="Resource" uid="uid://swxqvknonbdu" path="res://Resources/Events&Conditions/Events/Scoring/wheat_field_scoring.tres" id="7_p6prx"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="8_f3rqf"]
 [ext_resource type="Resource" uid="uid://dctu4sqtncbb3" path="res://Resources/EnvTerrain/TerrainTiles/Desert.tres" id="8_j14qv"]
+[ext_resource type="Resource" uid="uid://ci1g32fnst1e8" path="res://Resources/Events&Conditions/Events/Scoring/placeholder.tres" id="9_41sfe"]
 [ext_resource type="Script" uid="uid://c4b1tsjdr6q7r" path="res://scripts/PlaceConditions/TerrainCondition.gd" id="9_p6prx"]
 
 [sub_resource type="Resource" id="Resource_f3rqf"]
@@ -21,7 +21,7 @@ metadata/_custom_type_script = "uid://c4b1tsjdr6q7r"
 script = ExtResource("8_f3rqf")
 layer = 1
 base_score = 0
-preview_event = ExtResource("7_p6prx")
+preview_event = ExtResource("9_41sfe")
 place_conditions = Array[ExtResource("5_4sfc5")]([ExtResource("6_j14qv"), SubResource("Resource_f3rqf")])
 place_effects = Array[ExtResource("1_31itq")]([])
 post_place_effects = Array[ExtResource("1_31itq")]([])

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dqeuxtjytggp4"]
+[gd_scene load_steps=18 format=3 uid="uid://dqeuxtjytggp4"]
 
 [ext_resource type="Script" uid="uid://0puieb5gjtoe" path="res://scripts/ParallaxBackground/menu_parallax_background.gd" id="1_a65ti"]
 [ext_resource type="Texture2D" uid="uid://cdvtn386cwgwv" path="res://assets/backgrounds/Clouds 3/1.png" id="2_putph"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://c6roun1e7w055" path="res://assets/backgrounds/Clouds 3/5.png" id="11_yqyia"]
 [ext_resource type="Texture2D" uid="uid://dmo1mdx5ybrkg" path="res://assets/backgrounds/Clouds 2/4.png" id="12_2l4mo"]
 [ext_resource type="Texture2D" uid="uid://d2o6fmavoq14w" path="res://assets/backgrounds/Clouds 1/4.png" id="13_b6jns"]
+[ext_resource type="Script" uid="uid://dqj0s4rhxfhvk" path="res://scripts/ParallaxBackground/parallax_layer.gd" id="14_putph"]
 
 [sub_resource type="GDScript" id="GDScript_jo2uk"]
 script/source = "extends ParallaxLayer
@@ -58,7 +59,9 @@ transform = Transform2D(2.78, 0, 0, 2.78, 800, 450)
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0, 0)
-motion_mirroring = Vector2(1600, 0)
+motion_mirroring = Vector2(567, 0)
+script = ExtResource("14_putph")
+SPEED = -5
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
 texture = ExtResource("2_putph")

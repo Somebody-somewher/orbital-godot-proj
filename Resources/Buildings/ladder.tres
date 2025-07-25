@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_m5wa1"]
 [ext_resource type="Texture2D" uid="uid://c8guvug1x74j8" path="res://assets/entity_sprites/ladder.PNG" id="2_phb4n"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_phb4n"]
-[ext_resource type="Resource" uid="uid://ba0e7i5133fnn" path="res://Resources/Events&Conditions/Events/Scoring/cow_scoring.tres" id="5_1p70f"]
+[ext_resource type="Resource" uid="uid://ci1g32fnst1e8" path="res://Resources/Events&Conditions/Events/Scoring/placeholder.tres" id="6_jm0h2"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_lll1r"]
 [ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="7_m5wa1"]
 [ext_resource type="Script" uid="uid://lu6hi4n44bfy" path="res://scripts/PlaceConditions/StackOnSomeCondition.gd" id="8_1p70f"]
@@ -23,7 +23,7 @@ metadata/_custom_type_script = "uid://lu6hi4n44bfy"
 script = ExtResource("6_lll1r")
 layer = 2
 base_score = 0
-preview_event = ExtResource("5_1p70f")
+preview_event = ExtResource("6_jm0h2")
 place_conditions = Array[ExtResource("3_phb4n")]([SubResource("Resource_1p70f"), SubResource("Resource_lll1r")])
 place_effects = Array[ExtResource("1_m5wa1")]([])
 post_place_effects = Array[ExtResource("1_m5wa1")]([])

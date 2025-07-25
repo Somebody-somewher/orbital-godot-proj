@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CardSetData" load_steps=2 format=3 uid="uid://b42kbeh7bhcq4"]
+
+[ext_resource type="Script" uid="uid://bs6cynon1r4yq" path="res://scripts/Card/Pack&Set/cardset_data.gd" id="1_acaq6"]
+
+[resource]
+script = ExtResource("1_acaq6")
+set_name = "Lumberjack"
+cards = Dictionary[String, int]({
+"demolish": 1,
+"wildfire": 1
+})
+category = 8
+rarity = 0
+aquatic = false
+sabotage = false
+is_singleplayer = true
+metadata/_custom_type_script = "uid://bs6cynon1r4yq"
