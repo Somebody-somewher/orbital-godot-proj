@@ -41,7 +41,8 @@ SceneManager="*res://scripts/GameFlow/SceneManager.gd"
 
 window/size/viewport_width=1600
 window/size/viewport_height=900
-window/stretch/mode="viewport"
+window/size/resizable=false
+window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
@@ -68,3 +69,4 @@ escape={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true

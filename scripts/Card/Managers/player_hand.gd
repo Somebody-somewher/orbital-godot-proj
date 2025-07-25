@@ -15,7 +15,8 @@ var hand_arr : Array[Card] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	og_screen_size = get_viewport().size
+	og_screen_size = Vector2(1600,900)#get_viewport().size
+	
 	Signalbus.connect("add_to_hand", add_card_to_hand)
 
 #func add_cards_to_hand(cards : Array[Card]) -> void:

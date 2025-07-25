@@ -6,7 +6,7 @@ extends Camera2D
 
 var cam_enabled = true
 
-var screen_size : Vector2
+var screen_size : Vector2 = Vector2(1600,900)
 var camera_dragged := false
 var drag_offset := Vector2.ZERO
 var mouse_initial := Vector2.ZERO
@@ -19,8 +19,7 @@ const ZOOM_RATE := 8.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	screen_size = get_viewport().size
-	position = player_hand.position + screen_size/2
+	centre()
 
 #for zooming only
 func _physics_process(delta: float) -> void:
@@ -82,3 +81,7 @@ func restrict_camera_to_board() -> Vector2:
 		return new_vec.normalized() * 3
 	else:
 		return new_vec
+
+func centre():
+	position = screen_size/2
+	position = Vector2(1600,900)/2
