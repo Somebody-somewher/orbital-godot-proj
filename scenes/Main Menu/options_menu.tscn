@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bapjcj4rxrxaj"]
+[gd_scene load_steps=30 format=3 uid="uid://bapjcj4rxrxaj"]
 
 [ext_resource type="Script" uid="uid://c057jbxetj07s" path="res://scripts/Main Menu/options_menu.gd" id="1_1d4sf"]
 [ext_resource type="FontFile" uid="uid://bw124sa6qjoe5" path="res://assets/fonts/Pixel Game.otf" id="1_1t40g"]
@@ -7,10 +7,14 @@
 [ext_resource type="StyleBox" uid="uid://wwxkjlermjyr" path="res://shader/tab_selected.tres" id="5_ng41s"]
 [ext_resource type="StyleBox" uid="uid://bwwdbs88vfrrs" path="res://shader/tab_unselected.tres" id="6_fh8x6"]
 [ext_resource type="StyleBox" uid="uid://djajkbveub13x" path="res://shader/tab_hover.tres" id="7_0pi02"]
+[ext_resource type="Texture2D" uid="uid://belg6ajtukhb0" path="res://assets/misc_sprites/mouse_left.png" id="7_16krt"]
 [ext_resource type="Theme" uid="uid://b1iiejjh6n8br" path="res://shader/option_label.tres" id="7_t0wva"]
 [ext_resource type="StyleBox" uid="uid://dy5mgthdnoj4v" path="res://shader/slider_right.tres" id="8_psx7d"]
 [ext_resource type="Texture2D" uid="uid://bcqwv18qvcd8i" path="res://shader/empty_img.tres" id="8_sn7sk"]
+[ext_resource type="Texture2D" uid="uid://dyni7jd2adptv" path="res://assets/misc_sprites/mouse_right.png" id="9_03hrx"]
 [ext_resource type="StyleBox" uid="uid://b5fugh2mkpmer" path="res://shader/slider_left.tres" id="9_ta0xq"]
+[ext_resource type="Texture2D" uid="uid://cp817npj5fmen" path="res://assets/misc_sprites/mouse_middle.png" id="10_03hrx"]
+[ext_resource type="Texture2D" uid="uid://cm2ihb3rpuosp" path="res://assets/misc_sprites/keyboard_escape.png" id="11_03hrx"]
 [ext_resource type="StyleBox" uid="uid://7h5h2anuij77" path="res://shader/checkbox_pressed_hover.tres" id="11_rq10v"]
 [ext_resource type="StyleBox" uid="uid://bi46thjlrf4y6" path="res://shader/checkbox_hover.tres" id="12_1svf5"]
 [ext_resource type="StyleBox" uid="uid://1cxawgy4e87i" path="res://shader/checkbox_pressed.tres" id="13_sn7sk"]
@@ -283,14 +287,14 @@ tab_alignment = 2
 current_tab = 1
 tab_focus_mode = 0
 
-[node name="Control" type="TabBar" parent="SettingsTabs/LeftTab/TabContainer"]
+[node name="Controls" type="TabBar" parent="SettingsTabs/LeftTab/TabContainer"]
 visible = false
 layout_mode = 2
 mouse_filter = 1
 tab_alignment = 1
 metadata/_tab_index = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/LeftTab/TabContainer/Control"]
+[node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/LeftTab/TabContainer/Controls"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -302,9 +306,77 @@ theme_override_constants/margin_top = 48
 theme_override_constants/margin_right = 48
 theme_override_constants/margin_bottom = 48
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Control/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Controls/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 75
+theme_override_constants/separation = 20
+
+[node name="MasterBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Controls/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 17
+
+[node name="TextureRect" type="TextureRect" parent="SettingsTabs/LeftTab/TabContainer/Controls/MarginContainer/VBoxContainer/MasterBox"]
+layout_mode = 2
+texture = ExtResource("7_16krt")
+expand_mode = 2
+
+[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Controls/MarginContainer/VBoxContainer/MasterBox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("7_t0wva")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "- Start dragging card/pack"
+
+[node name="MasterBox4" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Controls/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 17
+
+[node name="TextureRect" type="TextureRect" parent="SettingsTabs/LeftTab/TabContainer/Controls/MarginContainer/VBoxContainer/MasterBox4"]
+layout_mode = 2
+texture = ExtResource("9_03hrx")
+expand_mode = 2
+
+[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Controls/MarginContainer/VBoxContainer/MasterBox4"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("7_t0wva")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "- Open pack/stop dragging card"
+
+[node name="MasterBox2" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Controls/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 17
+
+[node name="TextureRect" type="TextureRect" parent="SettingsTabs/LeftTab/TabContainer/Controls/MarginContainer/VBoxContainer/MasterBox2"]
+layout_mode = 2
+texture = ExtResource("10_03hrx")
+expand_mode = 2
+
+[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Controls/MarginContainer/VBoxContainer/MasterBox2"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("7_t0wva")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "- Get info on card/building"
+
+[node name="MasterBox3" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Controls/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 17
+
+[node name="TextureRect" type="TextureRect" parent="SettingsTabs/LeftTab/TabContainer/Controls/MarginContainer/VBoxContainer/MasterBox3"]
+layout_mode = 2
+texture = ExtResource("11_03hrx")
+expand_mode = 2
+
+[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Controls/MarginContainer/VBoxContainer/MasterBox3"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("7_t0wva")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "- In-game menu"
 
 [node name="Sound" type="TabBar" parent="SettingsTabs/LeftTab/TabContainer"]
 layout_mode = 2

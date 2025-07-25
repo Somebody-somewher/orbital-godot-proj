@@ -1,7 +1,7 @@
-[gd_scene load_steps=27 format=3 uid="uid://b7fe4pv62a2cq"]
+[gd_scene load_steps=31 format=3 uid="uid://b7fe4pv62a2cq"]
 
 [ext_resource type="Script" uid="uid://dpur8t861v1lt" path="res://scripts/Menus/escape_menu.gd" id="1_sf2sm"]
-[ext_resource type="PackedScene" uid="uid://dehbiymvw4gq5" path="res://scenes/Main Menu/main_menu.tscn" id="2_dhntg"]
+[ext_resource type="PackedScene" uid="uid://cqp4qcmc1s13n" path="res://scenes/Main Menu/main_menu.tscn" id="2_dhntg"]
 [ext_resource type="FontFile" uid="uid://v66tkdbnak7b" path="res://assets/fonts/friendlyscribbles.ttf" id="2_pv1w6"]
 [ext_resource type="StyleBox" uid="uid://btig115l18rn6" path="res://shader/option_panel.tres" id="3_dhntg"]
 [ext_resource type="StyleBox" uid="uid://wwxkjlermjyr" path="res://shader/tab_selected.tres" id="4_8gdtp"]
@@ -13,6 +13,10 @@
 [ext_resource type="Texture2D" uid="uid://bcqwv18qvcd8i" path="res://shader/empty_img.tres" id="10_8crqi"]
 [ext_resource type="StyleBox" uid="uid://dy5mgthdnoj4v" path="res://shader/slider_right.tres" id="11_y7uqh"]
 [ext_resource type="StyleBox" uid="uid://b5fugh2mkpmer" path="res://shader/slider_left.tres" id="12_g84nb"]
+[ext_resource type="Texture2D" uid="uid://belg6ajtukhb0" path="res://assets/misc_sprites/mouse_left.png" id="14_xbsns"]
+[ext_resource type="Texture2D" uid="uid://dyni7jd2adptv" path="res://assets/misc_sprites/mouse_right.png" id="15_28qvr"]
+[ext_resource type="Texture2D" uid="uid://cp817npj5fmen" path="res://assets/misc_sprites/mouse_middle.png" id="16_65jpa"]
+[ext_resource type="Texture2D" uid="uid://cm2ihb3rpuosp" path="res://assets/misc_sprites/keyboard_escape.png" id="17_vckhb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_auam4"]
 content_margin_left = 24.0
@@ -112,46 +116,6 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 1)
 
-[sub_resource type="Animation" id="Animation_sf2sm"]
-resource_name = "open"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("LeftTab:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(2.07053, 0.353553),
-"update": 0,
-"values": [Vector2(-500, 0), Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("TextureRect:self_modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(0.5, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="Animation" id="Animation_pv1w6"]
 length = 0.001
 tracks/0/type = "value"
@@ -231,6 +195,46 @@ tracks/2/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_sf2sm"]
+resource_name = "open"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LeftTab:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(2.07053, 0.353553),
+"update": 0,
+"values": [Vector2(-500, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TextureRect:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pv1w6"]
 _data = {
 &"RESET": SubResource("Animation_pv1w6"),
@@ -279,7 +283,7 @@ theme_override_styles/panel = ExtResource("3_dhntg")
 theme_override_styles/tab_selected = ExtResource("4_8gdtp")
 theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_auam4")
 theme_override_styles/tab_unselected = ExtResource("5_w66ui")
-tab_alignment = 2
+tab_alignment = 1
 current_tab = 0
 tab_focus_mode = 0
 
@@ -505,6 +509,100 @@ layout_mode = 2
 theme = ExtResource("9_vckhb")
 theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
 text = "50"
+
+[node name="Help" type="TabBar" parent="LeftTab/TabContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 1
+tab_alignment = 1
+metadata/_tab_index = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="LeftTab/TabContainer/Help"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 48
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LeftTab/TabContainer/Help/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="MasterBox" type="HBoxContainer" parent="LeftTab/TabContainer/Help/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 17
+
+[node name="TextureRect" type="TextureRect" parent="LeftTab/TabContainer/Help/MarginContainer/VBoxContainer/MasterBox"]
+layout_mode = 2
+texture = ExtResource("14_xbsns")
+expand_mode = 2
+
+[node name="Label2" type="Label" parent="LeftTab/TabContainer/Help/MarginContainer/VBoxContainer/MasterBox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("9_vckhb")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "Start dragging 
+card/pack"
+
+[node name="MasterBox4" type="HBoxContainer" parent="LeftTab/TabContainer/Help/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 17
+
+[node name="TextureRect" type="TextureRect" parent="LeftTab/TabContainer/Help/MarginContainer/VBoxContainer/MasterBox4"]
+layout_mode = 2
+texture = ExtResource("15_28qvr")
+expand_mode = 2
+
+[node name="Label2" type="Label" parent="LeftTab/TabContainer/Help/MarginContainer/VBoxContainer/MasterBox4"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("9_vckhb")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "Open pack/stop
+dragging card"
+
+[node name="MasterBox2" type="HBoxContainer" parent="LeftTab/TabContainer/Help/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 17
+
+[node name="TextureRect" type="TextureRect" parent="LeftTab/TabContainer/Help/MarginContainer/VBoxContainer/MasterBox2"]
+layout_mode = 2
+texture = ExtResource("16_65jpa")
+expand_mode = 2
+
+[node name="Label2" type="Label" parent="LeftTab/TabContainer/Help/MarginContainer/VBoxContainer/MasterBox2"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("9_vckhb")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "Get info on 
+card/building"
+
+[node name="MasterBox3" type="HBoxContainer" parent="LeftTab/TabContainer/Help/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 17
+
+[node name="TextureRect" type="TextureRect" parent="LeftTab/TabContainer/Help/MarginContainer/VBoxContainer/MasterBox3"]
+layout_mode = 2
+texture = ExtResource("17_vckhb")
+expand_mode = 2
+
+[node name="Label2" type="Label" parent="LeftTab/TabContainer/Help/MarginContainer/VBoxContainer/MasterBox3"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("9_vckhb")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "Open/close menu"
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1

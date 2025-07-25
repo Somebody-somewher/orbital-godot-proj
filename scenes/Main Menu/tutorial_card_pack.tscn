@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://iv3w3pu8flf7" path="res://scenes/Card/card_pack.tscn" id="1_6ttvf"]
 [ext_resource type="Script" uid="uid://bcpbmavb3hrg1" path="res://scripts/Main Menu/menu_pack.gd" id="3_sidds"]
 [ext_resource type="Texture2D" uid="uid://cfrwwxlom3fqo" path="res://assets/card_packs/menu_pack.png" id="4_3vpdm"]
-[ext_resource type="Texture2D" uid="uid://tfue8yahjm1" path="res://assets/misc_sprites/mouse_neutral.png" id="5_p267w"]
-[ext_resource type="Texture2D" uid="uid://b2im0mpr43dxu" path="res://assets/misc_sprites/mouse_right.png" id="6_c85uj"]
+[ext_resource type="Texture2D" uid="uid://2rjvt0ab3whb" path="res://assets/misc_sprites/mouse_neutral.png" id="5_p267w"]
+[ext_resource type="Texture2D" uid="uid://dyni7jd2adptv" path="res://assets/misc_sprites/mouse_right.png" id="6_c85uj"]
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_5lrws"]
 input_name = "texture"
@@ -275,14 +275,15 @@ _data = {
 material = SubResource("ShaderMaterial_a5pst")
 script = ExtResource("3_sidds")
 
-[node name="Sprite2D" parent="." index="1"]
+[node name="Sprite2D" parent="." index="2"]
 texture = ExtResource("4_3vpdm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="4"]
 rotation = 0.000363512
+scale = Vector2(1.725, 1.725)
 sprite_frames = SubResource("SpriteFrames_dhuel")
 frame_progress = 0.628395
-offset = Vector2(0, 129.87)
+offset = Vector2(0, 69.175)
 
 [node name="MouseFade" type="AnimationPlayer" parent="AnimatedSprite2D" index="0"]
 libraries = {

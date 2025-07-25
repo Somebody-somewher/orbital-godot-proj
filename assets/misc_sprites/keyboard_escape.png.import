@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyni7jd2adptv"
-path="res://.godot/imported/mouse_right.png-8b8fb90f2bf74ccb0e6c60b9734c59ef.ctex"
+uid="uid://cm2ihb3rpuosp"
+path="res://.godot/imported/keyboard_escape.png-287e5b4338ee23fbd1777fb531d2ee4b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/misc_sprites/mouse_right.png"
-dest_files=["res://.godot/imported/mouse_right.png-8b8fb90f2bf74ccb0e6c60b9734c59ef.ctex"]
+source_file="res://assets/misc_sprites/keyboard_escape.png"
+dest_files=["res://.godot/imported/keyboard_escape.png-287e5b4338ee23fbd1777fb531d2ee4b.ctex"]
 
 [params]
 
