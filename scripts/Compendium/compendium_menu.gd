@@ -11,6 +11,7 @@ func open_book(search_id : String = "") -> void:
 	if search_id != "":
 		# id will always be valid (called by middle clicking cards)
 		Signalbus.show_card_information.emit(search_id)
+	AudioManager.play_sfx("page")
 	$AnimationPlayer.play("enter_scene")
 
 func close_book() -> void:

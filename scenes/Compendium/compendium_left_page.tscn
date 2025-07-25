@@ -27,11 +27,13 @@ script = ExtResource("1_hd657")
 [node name="SearchBar" type="LineEdit" parent="."]
 layout_mode = 2
 theme_override_colors/font_placeholder_color = Color(0.584314, 0.513726, 0.380392, 1)
+theme_override_colors/font_outline_color = Color(0.584314, 0.513726, 0.380392, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("1_aswkd")
 theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxFlat_q68in")
+placeholder_text = "Search..."
 
 [node name="ToolTip" type="Label" parent="."]
 layout_mode = 2

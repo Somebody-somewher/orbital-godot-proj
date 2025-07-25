@@ -93,7 +93,7 @@ func remove_card_in_hand(instance_id : String, player_uuid : String) -> void:
 		var peer_id = PlayerManager.getPeerID_from_UUID(player_uuid)
 		_remove_card_in_hand.rpc_id(peer_id, instance_id)
 	
-func add_card_in_hand(instance_data : CardInstanceData, player_uuid : String) -> void:
+func add_card_in_hand(instance_data : CardInstanceData, player_uuid : String, pos : Vector2 = Vector2.ZERO) -> void:
 	func_register_events.call(instance_data)
 	
 	if player_memory[player_uuid].is_hand_full():
@@ -107,6 +107,7 @@ func add_card_in_hand(instance_data : CardInstanceData, player_uuid : String) ->
 		_add_card_in_hand.rpc_id(peer_id, instance_data.serialize())
 	else:
 		var card : Card = func_create_card.call(instance_data)
+		card.position = pos
 		Signalbus.register_to_cardmanager.emit(card)
 		Signalbus.add_to_hand.emit(card)
 		

@@ -170,7 +170,8 @@ func on_host_pressed() -> void:
 	_create_server()
 	curr_status = "Awaiting players!"
 	print(h_name_field.text + " is waiting for Players! .o.")
-	get_tree().root.get_node("MainMenu/MenuLogic").spawn_card("start_game")
+	if get_tree().root.get_node("MainMenu/PlayerHand").hand_arr.size() < 2:
+		get_tree().root.get_node("MainMenu/MenuLogic").spawn_card("start_game")
 	pass # Replace with function body.
 
 func on_join_pressed() -> void:

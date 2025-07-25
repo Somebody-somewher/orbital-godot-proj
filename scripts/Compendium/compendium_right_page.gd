@@ -9,7 +9,7 @@ func _ready() -> void:
 
 func display_card(id : String) -> void:
 	var regex := RegEx.new()
-	regex.compile("[^a-zA-Z]+")
+	regex.compile("[^a-zA-Z_]+")
 	id =  regex.sub(id, "", true)
 	var data : CardData = CardLoader.get_card_data(id)
 	if data:

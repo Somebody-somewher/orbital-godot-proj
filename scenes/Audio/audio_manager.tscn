@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cyka8ysyph1xg"]
+[gd_scene load_steps=20 format=3 uid="uid://cyka8ysyph1xg"]
 
 [ext_resource type="Script" uid="uid://brc8yf4w711qw" path="res://scripts/Audio/audio_manager.gd" id="1_yxyf6"]
 [ext_resource type="AudioStream" uid="uid://x5qh1o7cv2t2" path="res://assets/audio/bgm/theme_plains.ogg" id="2_8fcqh"]
@@ -17,6 +17,7 @@
 [ext_resource type="Resource" uid="uid://dfntpybf8cls3" path="res://Resources/Audio/card_tear_sfx.tres" id="9_qdupe"]
 [ext_resource type="Resource" uid="uid://dgwkvgrtnwnuk" path="res://Resources/Audio/card_swipe_sfx.tres" id="10_oj3bt"]
 [ext_resource type="Resource" uid="uid://680xyw8iugd5" path="res://Resources/Audio/point_sfx.tres" id="11_7ucqt"]
+[ext_resource type="Resource" uid="uid://bv1oo7pe8pvk3" path="res://Resources/Audio/page_sfx.tres" id="12_cmggu"]
 [ext_resource type="AudioStream" uid="uid://0gjua3aqaepp" path="res://assets/audio/bgm/menu_theme.wav" id="17_nit56"]
 
 [node name="audioManager" type="Node2D"]
@@ -27,6 +28,7 @@ SFX_AUDIOS = Dictionary[String, ExtResource("2_m00wg")]({
 "dirt": ExtResource("7_vetfx"),
 "grass": ExtResource("3_nit56"),
 "gravel": ExtResource("6_dbfxl"),
+"page": ExtResource("12_cmggu"),
 "point": ExtResource("11_7ucqt"),
 "sand": ExtResource("5_cmggu"),
 "swipe": ExtResource("10_oj3bt"),

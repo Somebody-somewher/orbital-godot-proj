@@ -118,7 +118,10 @@ func run_event(event : Event, source : CardInstanceData, params : Array) -> void
 		elif params[0] is Vector2i:
 			event.trigger(matrix_data, params[0], source)
 	elif event is CardEvent:
-		event.trigger(card_mem, source)
+		if (source as PlaceableInstanceData).tile_pos:
+			event.trigger(card_mem, source, (source as PlaceableInstanceData).tile_pos)
+		else:
+			event.trigger(card_mem, source)
 	elif event is BaseScoreEvent:
 		event.trigger(source)
 #func run_all_round_events(events_to_run : Dictionary[CardInstanceData, Event]) -> void:

@@ -13,7 +13,7 @@
 [ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/standard_score.gd" id="10_nshbx"]
 [ext_resource type="Resource" uid="uid://hu4yh8trux8f" path="res://Resources/AOE/single_tile.tres" id="10_rvni8"]
 
-[sub_resource type="Resource" id="Resource_h2tmb"]
+[sub_resource type="Resource" id="Resource_1tugu"]
 script = ExtResource("6_nshbx")
 reminder_msg = ""
 metadata/_custom_type_script = "uid://wuau4rxg1ej4"
@@ -41,10 +41,10 @@ metadata/_custom_type_script = "uid://dcbw4orenctn8"
 
 [resource]
 script = ExtResource("3_4ulyb")
-layer = 1
+layer = 2
 base_score = 2
 preview_event = SubResource("Resource_rvni8")
-place_conditions = Array[ExtResource("2_ig4p1")]([SubResource("Resource_h2tmb"), SubResource("Resource_vhsr0")])
+place_conditions = Array[ExtResource("2_ig4p1")]([SubResource("Resource_1tugu"), SubResource("Resource_vhsr0")])
 place_effects = Array[ExtResource("1_fadw5")]([ExtResource("6_mby5v")])
 post_place_effects = Array[ExtResource("1_fadw5")]([])
 board_begin_round_effects = Array[ExtResource("1_fadw5")]([])

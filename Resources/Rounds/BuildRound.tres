@@ -7,5 +7,5 @@ script = ExtResource("1_53dov")
 max_round_count = -1
 next_state_ids = Array[String](["pick_pack"])
 state_id = "build"
-time = 30.0
+time = 50.0
 metadata/_custom_type_script = "uid://k4v6c6j1tnxc"

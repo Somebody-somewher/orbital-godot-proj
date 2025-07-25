@@ -33,6 +33,7 @@ var dissolve_value = 1
 var enable_3d = false
 
 func _ready() -> void:
+	global_position = Vector2(550, 450)
 	buttons.visible = false
 	get_node("AnimationPlayer").play("fall animation")
 

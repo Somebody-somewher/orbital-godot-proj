@@ -6,9 +6,7 @@
 script = ExtResource("1_pyqa5")
 set_name = "Outpost"
 cards = Dictionary[String, int]({
-"outpost": 1,
-"wagon": 2,
-"water_tower": 1
+"bush": 2
 })
 category = 3
 rarity = 3
