@@ -25,7 +25,8 @@ func start_game() -> void:
 	curr_scene = "game"
 	
 func reset_components() -> void:
-	PlayerManager.reset()
+	if PlayerManager.is_multiplayer:
+		PlayerManager.reset()
 	AudioManager.stop_bgm()
 	unpause_everything()
 	NetworkManager.full_reset()

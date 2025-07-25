@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_53dov")
+max_round_count = -1
 next_state_ids = Array[String](["pick_pack"])
 state_id = "build"
 time = 30.0

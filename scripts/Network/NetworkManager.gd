@@ -67,4 +67,5 @@ func full_reset() -> void:
 	client_net = null
 	server_net = null
 	reset_networking()
-	$Lobby.reset_lobby()
+	if PlayerManager.is_multiplayer:
+		$Lobby.reset_lobby()
