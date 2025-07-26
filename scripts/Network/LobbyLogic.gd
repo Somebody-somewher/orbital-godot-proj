@@ -17,7 +17,6 @@ var player_list_string : String = ""
 
 var ip_check = RegEx.new()
 
-var dummy_peer : OfflineMultiplayerPeer
 #var multiplayer_peer = ENetMultiplayerPeer.new()
 
 # Resources
@@ -81,7 +80,6 @@ func _connect_client(addr = "", port = ""):
 		curr_status = "cannot host: " + str(error)
 		return error
 		
-	dummy_peer = multiplayer.multiplayer_peer	
 	multiplayer.multiplayer_peer = peer
 	PlayerManager.declare_multiplayer()	
 	_register_player(j_name_field.text, PlayerInfo.generateUUID(j_name_field.text), multiplayer.get_unique_id())
@@ -208,7 +206,7 @@ func clear_player_list() -> void:
 
 func reset_lobby() -> void:
 	PlayerManager.reset()
-	multiplayer.multiplayer_peer = dummy_peer
+	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new() #dummy_peer
 	#var dummy_api := SceneMultiplayer.new()
 	#await get_tree().create_timer(0.6).timeout 
 	#dummy_api.root_path  = get_tree().get_current_scene().get_path()
