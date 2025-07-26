@@ -21,13 +21,13 @@ func _on_stay_pressed() -> void:
 	sure_box.visible = false
 
 ######### SOUND OPTIONS CODE ##################
-@onready var master_label: Label = $LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/MasterBox/Label2
-@onready var music_label: Label = $LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/MusicBox/Label2
-@onready var sfx_label: Label = $LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/SFXBox/Label2
+@onready var master_label: Label = $LeftTab/TabContainer/Settings/MarginContainer/VBoxContainer/MasterBox/Label2
+@onready var music_label: Label = $LeftTab/TabContainer/Settings/MarginContainer/VBoxContainer/MusicBox/Label2
+@onready var sfx_label: Label = $LeftTab/TabContainer/Settings/MarginContainer/VBoxContainer/SFXBox/Label2
 
-@onready var master_slider: HSlider = $LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/MasterBox/HSlider
-@onready var music_slider: HSlider = $LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/MusicBox/HSlider
-@onready var sfx_slider: HSlider = $LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/SFXBox/HSlider
+@onready var master_slider: HSlider = $LeftTab/TabContainer/Settings/MarginContainer/VBoxContainer/MasterBox/HSlider
+@onready var music_slider: HSlider = $LeftTab/TabContainer/Settings/MarginContainer/VBoxContainer/MusicBox/HSlider
+@onready var sfx_slider: HSlider = $LeftTab/TabContainer/Settings/MarginContainer/VBoxContainer/SFXBox/HSlider
 
 func _on_music_slider_value_changed(value: float) -> void:
 	music_label.text = str(int(value))
@@ -49,7 +49,6 @@ func sync_vol_sliders():
 	music_slider.value = AudioManager.bgm_volume * 100 / 0.6
 	sfx_slider.value = AudioManager.sfx_volume * 100
 	
-	fullscreen_button.button_pressed = DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN
 
 ########## GRAPHICS OPTIONS #######################
 @onready var fullscreen_button: Button = $LeftTab/TabContainer/Settings/MarginContainer/VBoxContainer/FullscreenBox/Button
@@ -74,7 +73,8 @@ func close_menu() -> void:
 	
 
 func open_menu() ->void:
-	open_state = true
+	open_state = true	
+	fullscreen_button.button_pressed = DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN
 	sure_box.visible = false
 	animation_player.play("open")
 	Signalbus.pause_input.emit()
