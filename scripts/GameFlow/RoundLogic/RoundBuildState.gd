@@ -12,12 +12,13 @@ func round_start() -> void:
 
 func round_end() -> void:
 	if max_round_count != -1 and round_count >= max_round_count:
-		emit_signal("transition_to", "END")
+		transition_to.emit("END")
 	else:
-		emit_signal("transition_to", next_state_ids[0])
+		transition_to.emit(next_state_ids[0])
 	#super.round_end()
-	Signalbus.emit_signal("round_end", state_id, round_count)
+	Signalbus.round_end.emit(state_id, round_count)
 	pass
 
 func reset() -> void:
+	
 	round_count = 0

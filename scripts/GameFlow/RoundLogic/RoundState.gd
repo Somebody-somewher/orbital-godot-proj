@@ -12,7 +12,7 @@ func round_start() -> void:
 	pass
 
 func round_end() -> void:
-	emit_signal("transition_to", next_state_ids[0])
+	transition_to.emit(next_state_ids[0])
 	pass
 
 func get_time() -> float:

@@ -14,9 +14,11 @@ func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstance
 		if board._tile_on_board(new_spot) and CardLoader.event_manager.check_conditions(
 			caller, "is_placeable", [new_spot]):
 				available.append(new_spot)
-
+	
 	if !available.is_empty():
 		var new_spot = available.pick_random()
+		
+		print("MOVE ", tile_pos , " " ,new_spot)
 		Signalbus.remove_placeable.emit(caller.get_id(), caller.get_owner_uuid())
 		Signalbus.place_placeable.emit(caller, new_spot, caller.get_owner_uuid(), rescore_when_move)
 		Signalbus.add_score.emit(move_bonus, caller.get_owner_uuid())

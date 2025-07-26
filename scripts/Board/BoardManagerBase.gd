@@ -140,6 +140,9 @@ func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i,
 			else:
 				_client_sync_placeable.rpc_id(remote_id, placeableinst_id,\
 					 tile_pos, PlayerManager.getUUID_from_PeerID(remote_id))
+					
+			if run_on_place_events and multiplayer.is_server():
+				CardLoader.event_manager.trigger_events(placeable_instance, "post_place", [tile_pos])
 			return true;
 		else:
 			return false;)
@@ -153,16 +156,17 @@ func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i,
 ## Used by Events to create new placeables
 ## Event code is in charge of making sure 
 @rpc("any_peer", "call_local")
-func server_place_newplaceable(placeable_instance : PlaceableInstanceData, tile_pos : Vector2i, \
+func server_place_newplaceable(placeable_instance : PlaceableInstanceData, matrix_tile_pos : Vector2i, \
 	player_uuid : String,  run_on_place_events := true, sync := true) -> void:
+	var tilemap_tilepos := matrix_to_tilepos(matrix_tile_pos)
 	
 	if placeable_instance:
-		_place_placeable(placeable_instance, matrix_to_tilepos(tile_pos));
+		_place_placeable(placeable_instance, tilemap_tilepos);
 		if sync:
-			_client_sync_placeable.rpc(placeable_instance.serialize(), tile_pos, player_uuid)
+			_client_sync_placeable.rpc(placeable_instance.serialize(), tilemap_tilepos, player_uuid)
 		else:
 			_client_sync_placeable.rpc_id(\
-				PlayerManager.getPeerID_from_UUID(player_uuid), placeable_instance.serialize(), tile_pos, player_uuid)
+				PlayerManager.getPeerID_from_UUID(player_uuid), placeable_instance.serialize(), tilemap_tilepos, player_uuid)
 
 ## Create a building on a given tilepos, data + visual (clientside)
 ## Run by server + requesting client
@@ -177,9 +181,6 @@ func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vect
 		CardLoader.event_manager.trigger_events(placeable_instance, "on_place", [tile_pos_matrix])
 	
 	matrix_data.add_placeable_to_tile(tile_pos_matrix, placeable_instance)
-
-	if run_on_place_events and multiplayer.is_server():
-		CardLoader.event_manager.trigger_events(placeable_instance, "post_place", [tile_pos_matrix])
 		
 ################################# TERRAIN MODIFICATION ##########################################
 #@rpc("any_peer","call_local")
@@ -239,7 +240,6 @@ func _clear_board_tile(tile_pos : Vector2i, run_destroy_events := true) -> void:
 		tile_data.clear_tile(func(pi : PlaceableInstanceData): pass)
 		
 func server_remove_building(buildinginst_id : String, player_uuid : String, run_destroy_events := true, sync := true) -> void:
-	print_debug("Multiplayer removed thing: ", multiplayer.get_unique_id(), buildinginst_id, player_uuid)
 	if sync:
 		_remove_building.rpc(buildinginst_id, run_destroy_events)
 	else:
@@ -250,7 +250,8 @@ func server_remove_building(buildinginst_id : String, player_uuid : String, run_
 
 @rpc("any_peer", "call_local")
 func _remove_building(buildinginst_id : String, run_destroy_events := true) -> void:
-	
+	#print_debug("Multiplayer removed thing: ", multiplayer.get_unique_id(), " ", buildinginst_id)
+
 	var placeable_instance : PlaceableInstanceData = matrix_data.get_placeable(buildinginst_id)
 	
 	if !placeable_instance:

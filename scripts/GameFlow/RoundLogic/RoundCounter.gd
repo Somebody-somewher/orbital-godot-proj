@@ -53,6 +53,7 @@ var pause_timer : bool = false
 
 func set_up(settings : Dictionary) -> void:
 	Signalbus.end_turn.connect(_player_end_turn)
+	Signalbus.reset_scene.connect(reset)
 	curr_timer = initial_round.get_time()
 	prev_s = int(curr_timer)
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo):\
@@ -62,10 +63,10 @@ func set_up(settings : Dictionary) -> void:
 		round_num_game_end = settings['win_rounds']
 	
 	score_manager = ScoreManager.new(settings)
-	score_manager.connect("game_end", end_game)
+	score_manager.game_end.connect(end_game)
 
 	for round in round_id_lookup.values():
-		round.connect("transition_to", start_round)
+		round.transition_to.connect(start_round)
 	
 	#round_grp.load_all_into(possible_rounds)
 	NetworkManager.connect("all_clients_ready", start_round_manager)
@@ -139,5 +140,7 @@ func end_game(rankings : Array[String], player_scores : Dictionary[String, Dicti
 	pass
 
 func reset() -> void:
+	score_manager.game_end.disconnect(end_game)
 	for state in round_id_lookup.values():
 		state.reset()
+		state.transition_to.disconnect(start_round)

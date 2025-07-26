@@ -23,11 +23,17 @@ var events_and_conditions : Dictionary[String, Dictionary]
 func setup_mem(mem : CardMemory, get_card_data : Callable) -> void:
 	mem.event_manager_setup(register_events, trigger_events)
 	card_mem = mem
-	Signalbus.round_start.connect(func(round_id : String, round_total : int):\
-		run_round_events(board_round_start_events_dict))
-	Signalbus.round_end.connect(func(round_id : String, round_total : int):\
-		run_round_events(board_round_end_events_dict))
+	Signalbus.round_start.connect(run_board_start_events)
+	Signalbus.round_end.connect(run_board_end_events)
 	#func_get_card_data = get_card_data
+
+func run_board_start_events(round_id : String, round_total : int) -> void:
+	print_debug(round_total)
+	run_round_events(board_round_start_events_dict)
+
+func run_board_end_events(round_id : String, round_total : int) -> void:
+	print_debug(round_total)
+	run_round_events(board_round_end_events_dict)
 
 func register_board_round_events(instance : CardInstanceData) -> void:
 	assert(events_and_conditions.has(instance.get_id()))
@@ -55,8 +61,15 @@ func register_events(instance : CardInstanceData) -> void:
 		#on_round_end_events_dict[instance.get_id()] = [instance, events_dict["on_end_round"]]	
 
 ## Remove all events related to this card instance
-func clean_events(instance : CardInstanceData) -> void:
-	events_and_conditions.erase(instance.get_id())
+func clean_events(instance : CardInstanceData, events_to_remove : Array) -> void:
+	if events_to_remove.is_empty():
+		events_and_conditions[instance.get_id()].clear()
+	
+	#for e
+	#
+	#events_and_conditions[instance.get_id()]["board_begin_round"] 
+	#events_and_conditions.erase(instance.get_id())
+	
 	pass
 
 @rpc("any_peer", "call_local")
@@ -137,6 +150,8 @@ func reset_mem() -> void:
 	board_round_start_events_dict.clear()
 	board_round_end_events_dict.clear()
 	events_and_conditions.clear()
+	Signalbus.round_start.disconnect(run_board_start_events)
+	Signalbus.round_start.disconnect(run_board_end_events)
 
 
 #func trigger_discard_events(instance : CardInstanceData) -> void:
