@@ -48,6 +48,18 @@ func sync_vol_sliders():
 	master_slider.value = AudioManager.master_volume * 100
 	music_slider.value = AudioManager.bgm_volume * 100 / 0.6
 	sfx_slider.value = AudioManager.sfx_volume * 100
+	
+	fullscreen_button.button_pressed = DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN
+
+########## GRAPHICS OPTIONS #######################
+@onready var fullscreen_button: Button = $LeftTab/TabContainer/Settings/MarginContainer/VBoxContainer/FullscreenBox/Button
+
+
+func _on_fullscreen_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

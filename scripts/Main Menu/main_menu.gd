@@ -43,7 +43,8 @@ func connect_signals() -> void:
 	menu_logic.multijoin_back.connect(on_close_join)
 
 func on_open_settings() -> void:
-	options_menu.sync_vol_sliders()
+	options_menu.sync_settings()
+	
 	title_menu.animate(false)
 	options_menu.animate(true)
 
