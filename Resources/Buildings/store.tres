@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=14 format=3 uid="uid://bklhbf6fca5pe"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=15 format=3 uid="uid://bklhbf6fca5pe"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_qe1yt"]
 [ext_resource type="Texture2D" uid="uid://cmjkydg2tn62q" path="res://assets/entity_sprites/store.PNG" id="2_0owbc"]
+[ext_resource type="Resource" uid="uid://ci7hb7fl2b4jp" path="res://Resources/AOE/3x3.tres" id="2_de6wx"]
 [ext_resource type="Script" uid="uid://dc1ykqm2nuhpe" path="res://scripts/Events/DestroyEvents/sell_sellables_event.gd" id="2_g7vtu"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_0t3s5"]
 [ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_qe1yt"]
@@ -13,11 +14,12 @@
 
 [sub_resource type="Resource" id="Resource_de6wx"]
 script = ExtResource("2_g7vtu")
-tag_to_sell = ""
+tag_to_sell = "sellable"
 chance = 0.5
 trigger_scoring = false
 effect_buildings_score = Dictionary[String, int]({})
 base_score = 0
+aoe = ExtResource("2_de6wx")
 event_name = ""
 desc = ""
 metadata/_custom_type_script = "uid://dc1ykqm2nuhpe"

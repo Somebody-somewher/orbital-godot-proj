@@ -1,21 +1,20 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=13 format=3 uid="uid://bf2edmjertmcq"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://bf2edmjertmcq"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_72uld"]
 [ext_resource type="Script" uid="uid://iup0ngpp22s0" path="res://scripts/Events/MoveEvents/move_adj_event.gd" id="2_72uld"]
 [ext_resource type="Texture2D" uid="uid://hakuh4rbnh7j" path="res://assets/entity_sprites/bees.PNG" id="2_dvun3"]
-[ext_resource type="Resource" uid="uid://ci7hb7fl2b4jp" path="res://Resources/AOE/3x3.tres" id="2_wavji"]
 [ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/standard_score.gd" id="5_fxqkw"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_rqdj5"]
 [ext_resource type="Resource" uid="uid://duwyfru3v1ktu" path="res://Resources/AOE/small orth cross.tres" id="5_yj53s"]
 [ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="7_72uld"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="8_dtdrm"]
 
-[sub_resource type="Resource" id="Resource_0vfrf"]
+[sub_resource type="Resource" id="Resource_dvun3"]
 script = ExtResource("2_72uld")
 directions = Array[Vector2i]([Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)])
 move_bonus = 0
 rescore_when_move = false
-aoe = ExtResource("2_wavji")
+aoe = ExtResource("5_yj53s")
 event_name = ""
 desc = ""
 metadata/_custom_type_script = "uid://iup0ngpp22s0"
@@ -48,7 +47,7 @@ place_conditions = Array[ExtResource("5_rqdj5")]([SubResource("Resource_wavji")]
 place_effects = Array[ExtResource("1_72uld")]([])
 post_place_effects = Array[ExtResource("1_72uld")]([])
 board_begin_round_effects = Array[ExtResource("1_72uld")]([])
-board_end_round_effects = Array[ExtResource("1_72uld")]([SubResource("Resource_0vfrf")])
+board_end_round_effects = Array[ExtResource("1_72uld")]([SubResource("Resource_dvun3")])
 destroyed_effects = Array[ExtResource("1_72uld")]([])
 play_conditions = Array[ExtResource("5_rqdj5")]([])
 play_effects = Array[ExtResource("1_72uld")]([])
