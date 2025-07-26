@@ -136,6 +136,17 @@
         "visibility": 0.0
       }
     },
+    "res://Resources/Buildings/mine/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
     "res://Resources/CardSet/": {
       "metadata/_custom_type_script": {
         "visibility": 0.0
@@ -218,7 +229,8 @@
     "res://Resources/Events/Building/",
     "res://Resources/Building/",
     "res://Resources/",
-    "res://Resources/Auras/"
+    "res://Resources/Auras/",
+    "res://Resources/Buildings/mine/"
   ],
   "table_functions": {
     "filter": [

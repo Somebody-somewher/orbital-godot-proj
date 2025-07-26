@@ -157,14 +157,14 @@ func server_place_newplaceable(placeable_instance : PlaceableInstanceData, tile_
 	player_uuid : String,  run_on_place_events := true, sync := true) -> void:
 	
 	if placeable_instance:
-		_place_placeable(placeable_instance, matrix_to_tilepos(tile_pos), run_on_place_events);
+		_place_placeable(placeable_instance, matrix_to_tilepos(tile_pos));
 		if sync:
-			_client_sync_placeable.rpc(placeable_instance.serialize(), tile_pos)
+			_client_sync_placeable.rpc(placeable_instance.serialize(), tile_pos, player_uuid)
 		else:
 			_client_sync_placeable.rpc_id(\
-				PlayerManager.getPeerID_from_UUID(player_uuid), placeable_instance.serialize(), tile_pos)
+				PlayerManager.getPeerID_from_UUID(player_uuid), placeable_instance.serialize(), tile_pos, player_uuid)
 
-## Create a building on a given tilepos, data + visual
+## Create a building on a given tilepos, data + visual (clientside)
 ## Run by server + requesting client
 @rpc("any_peer", "call_local")
 func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vector2i, run_on_place_events := true) -> void:
@@ -173,9 +173,7 @@ func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vect
 	placeable_instance.tile_pos = tile_pos_matrix
 	
 	if run_on_place_events and multiplayer.is_server():
-		#TODO: Maybe get this out of this if
 		CardLoader.event_manager.register_board_round_events(placeable_instance)
-
 		CardLoader.event_manager.trigger_events(placeable_instance, "on_place", [tile_pos_matrix])
 	
 	matrix_data.add_placeable_to_tile(tile_pos_matrix, placeable_instance)
@@ -241,6 +239,7 @@ func _clear_board_tile(tile_pos : Vector2i, run_destroy_events := true) -> void:
 		tile_data.clear_tile(func(pi : PlaceableInstanceData): pass)
 		
 func server_remove_building(buildinginst_id : String, player_uuid : String, run_destroy_events := true, sync := true) -> void:
+	print_debug("Multiplayer removed thing: ", multiplayer.get_unique_id(), buildinginst_id, player_uuid)
 	if sync:
 		_remove_building.rpc(buildinginst_id, run_destroy_events)
 	else:
@@ -251,7 +250,12 @@ func server_remove_building(buildinginst_id : String, player_uuid : String, run_
 
 @rpc("any_peer", "call_local")
 func _remove_building(buildinginst_id : String, run_destroy_events := true) -> void:
+	
 	var placeable_instance : PlaceableInstanceData = matrix_data.get_placeable(buildinginst_id)
+	
+	if !placeable_instance:
+		printerr("Likely server has deleted the instance before client even added it lol")
+		printerr("Decide how to handle this later")
 	
 	if run_destroy_events and multiplayer.is_server():
 		CardLoader.event_manager.trigger_events(placeable_instance, "on_destroy", [placeable_instance.tile_pos])

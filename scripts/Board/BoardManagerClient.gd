@@ -62,6 +62,7 @@ func place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i = NULL_T
 ## This is called on other clients to sync buildings together
 @rpc("any_peer","call_local")
 func _client_sync_placeable(placeable_serialized : Dictionary, tile_pos : Vector2i, requester_uuid : String) -> void:
+	print_debug("Multiplayer placed thing: ", multiplayer.get_unique_id(), placeable_serialized['instance_id'], tile_pos, requester_uuid)
 	# The server already placed the placeable since it had to validate the code
 	var requester_check := PlayerManager.amIPlayer(requester_uuid)
 	if multiplayer.is_server():

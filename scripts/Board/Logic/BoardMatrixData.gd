@@ -51,11 +51,19 @@ func add_placeable_to_tile(tilePos : Vector2i, placeable : PlaceableInstanceData
 	instances_on_board[placeable.get_id()] = board_matrix[tilePos.x][tilePos.y]
 
 func get_placeable(placeable_id : String) -> PlaceableInstanceData:
-	return instances_on_board[placeable_id].get_building_on_tile(placeable_id)
-
+	if instances_on_board.has(placeable_id):
+		return instances_on_board[placeable_id].get_building_on_tile(placeable_id)
+	else:
+		return null
+		
 func remove_placeable_on_tile(placeable_id : String) -> void:
-	instances_on_board[placeable_id].delete_from_tile(placeable_id)
-	instances_on_board.erase(placeable_id)
+	
+	if instances_on_board.has(placeable_id):
+		instances_on_board[placeable_id].delete_from_tile(placeable_id)
+		instances_on_board.erase(placeable_id)
+	else:
+		printerr("Likely server has deleted the instance before client even added it lol")
+		printerr("Decide how to handle this later")
 
 ## Change the terrain on the board tile
 func change_terrain_of_tile(tilePos : Vector2i, terrain : EnvTerrain) -> void:
