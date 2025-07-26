@@ -90,18 +90,18 @@ func _leave_lobby():
 	multiplayer.multiplayer_peer = null
 	
 
-func menu_leave_lobby():
-	PlayerManager.erasePlayer.rpc(multiplayer.get_unique_id())
-	
-	list_all_players.rpc()
-	await get_tree().create_timer(0.5).timeout 
-	multiplayer.multiplayer_peer = null
-	
-	if player_list_label:
-		player_list_label.text = ""
-	
-	if h_player_list_label:
-		h_player_list_label.text = ""	
+#func menu_leave_lobby():
+	#PlayerManager.erasePlayer.rpc(multiplayer.get_unique_id())
+	#
+	#list_all_players.rpc()
+	#await get_tree().create_timer(0.5).timeout 
+	#multiplayer.multiplayer_peer = null
+	#
+	#if player_list_label:
+		#player_list_label.text = ""
+	#
+	#if h_player_list_label:
+		#h_player_list_label.text = ""	
 
 # This signal is emitted with the newly connected peer's ID on each other peer 
 # (inclusive of the server, which is also a peer) 
@@ -111,12 +111,6 @@ func _on_peer_connected(id : int)  -> void:
 	curr_status = "Player Connected " + str(id)
 	print(curr_status)
 	var player_name : String = PlayerManager.getCurrentPlayerName()
-	# When a peer connects, each already-connected peer sends their info to the new peer
-	# Likewise each connected peer receives only the new peer's data
-	#if id == 1:
-		#player_name = j_name_field.text
-	#else:
-		#player_name = h_name_field.text
 	
 	_register_player.rpc(player_name, PlayerInfo.generateUUID(player_name))
 	
@@ -176,18 +170,6 @@ func on_join_pressed() -> void:
 	_connect_client(ip_addr_field.text, port_field.text)
 	pass # Replace with function body.
 
-#func _on_start_button_down() -> void:
-	#startGame.rpc()
-	#pass # Replace with function body.
-
-#TODO: Change this
-#@rpc("any_peer", "call_local")
-#func startGame():
-	#NetworkManager.set_up()
-	#var scene = gameScene.instantiate()
-	#get_tree().root.add_child(scene)
-	#self.hide()
-
 @rpc("any_peer", "call_local")
 func list_all_players() -> void:
 	player_list_string = ""
@@ -207,7 +189,3 @@ func clear_player_list() -> void:
 func reset_lobby() -> void:
 	PlayerManager.reset()
 	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new() #dummy_peer
-	#var dummy_api := SceneMultiplayer.new()
-	#await get_tree().create_timer(0.6).timeout 
-	#dummy_api.root_path  = get_tree().get_current_scene().get_path()
-	#get_tree().set_multiplayer(dummy_api)
