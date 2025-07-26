@@ -13,7 +13,7 @@
 script = ExtResource("2_72uld")
 directions = Array[Vector2i]([Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)])
 move_bonus = 0
-rescore_when_move = false
+rescore_when_move = true
 aoe = ExtResource("5_yj53s")
 event_name = ""
 desc = ""
@@ -29,8 +29,8 @@ script = ExtResource("5_fxqkw")
 effect_buildings_score = Dictionary[String, int]({
 "flowers": 1,
 "garden": 1,
-"hive": 2,
-"lotus": 3
+"hive": 1,
+"lotus": 2
 })
 base_score = 0
 aoe = ExtResource("5_yj53s")
