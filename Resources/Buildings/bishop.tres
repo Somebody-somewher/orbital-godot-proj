@@ -29,8 +29,8 @@ effect_buildings_score = Dictionary[String, int]({
 "bar": -5,
 "castle": 5,
 "knight": 3,
-"obelisk": 2,
-"temple": 5,
+"obelisk": 3,
+"temple": 6,
 "tombstone": 1,
 "tower": 4
 })

@@ -15,7 +15,7 @@
 
 [sub_resource type="Resource" id="Resource_nedni"]
 script = ExtResource("3_qmca6")
-score_per_round = 1
+score_per_round = 3
 effect_buildings_score = Dictionary[String, int]({})
 base_score = 0
 aoe = ExtResource("2_0tr5q")
@@ -39,6 +39,8 @@ script = ExtResource("8_otbdh")
 effect_buildings_score = Dictionary[String, int]({
 "cottage": 1,
 "market": 1,
+"merchant": 2,
+"outpost": 2,
 "statue": 1,
 "store": 2
 })
@@ -65,7 +67,7 @@ discard_effects = Array[ExtResource("1_nn3os")]([])
 id_name = "bank"
 display_name = "Bank"
 card_sprite = ExtResource("2_crayo")
-desc = "Gains interest over rounds. Bring your treasure here."
+desc = "Generates score over rounds. Scores with housing and traders."
 flavor = "\"Capitalism in my cozy game? But of course\""
 category = 1
 tags = Array[String]([])
