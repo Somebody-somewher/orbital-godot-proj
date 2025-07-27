@@ -18,7 +18,7 @@ var cardpack_inventory : Dictionary[int, Dictionary] = {}
 
 # Is an array in case the card position is impt
 var hand_instances : Array[CardInstanceData] = []
-var default_maxhandsize := 7
+var default_maxhandsize := 12
 
 # Called during CardPack Generation
 func record_cardpack_options(card_packs : Dictionary[int, Dictionary]) -> void:

@@ -98,7 +98,7 @@ func _slice_cardset_in_cardpack(cardpack : Dictionary, truncate_size : int) -> D
 	var sliced_pack : Dictionary
 	var keys := cardpack.keys()
 		
-	while count < truncate_size and count < keys.size() - 1:
+	while count < truncate_size and count < keys.size():
 		sliced_pack[keys[count]] = cardpack[keys[count]]
 		count += 1
 	

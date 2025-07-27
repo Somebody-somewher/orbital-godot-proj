@@ -123,6 +123,7 @@ func run_round_events(events_to_run : Dictionary[String, Array]) -> void:
 			run_events(events_to_run[instance][1], events_to_run[instance][0], [instance.tile_pos])
 		else:
 			run_events(events_to_run[instance][1], events_to_run[instance][0], [])
+		await get_tree().create_timer(.5).timeout
 
 func run_event(event : Event, source : CardInstanceData, params : Array) -> void:
 	if event is BoardEvent:
