@@ -26,6 +26,10 @@ var foiled = false
 var is_placeable = false
 var carddata_id : String
 
+@onready var discard_pulse: AnimationPlayer = $DiscardPulse
+@onready var flip_animation: AnimationPlayer = $FlipAnimation
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if foiled:
@@ -88,6 +92,13 @@ func swap_to_effect(_scale_by: Vector2) -> void:
 #called by cardmanager when highlighting
 func highlight_card(_on : bool, _tweening : Tween) -> void :
 	pass
+
+func card_pulse(on : bool) -> void :
+	if on:
+		discard_pulse.play("pulse")
+	else:
+		discard_pulse.stop()
+		
 ######################################################################
 
 func _on_area_2d_mouse_entered() -> void:
@@ -97,10 +108,10 @@ func _on_area_2d_mouse_exited() -> void:
 	emit_signal("mouse_off", self)
 
 func card_flip_to_entity() -> void:
-	get_node("FlipAnimation").play("card_flip_to_entity")
+	flip_animation.play("card_flip_to_entity")
 
 func entity_flip_to_card() -> void:
-	get_node("FlipAnimation").play("entity_flip_to_card")
+	flip_animation.play("entity_flip_to_card")
 
 func get_data_instance_id() -> String:
 	return cardinstance_dataid

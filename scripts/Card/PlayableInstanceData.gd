@@ -30,13 +30,3 @@ static func deserialize(serialized_obj : Dictionary, carddata : CardData) -> Pla
 
 
 	 #CardLoader.get_card_data(serialized_obj['data_id'])
-
-#func preview(board : BoardMatrixData, previewer : Callable, tile_pos : Vector2i) -> void:
-	#return preview_event.preview(board, previewer, tile_pos)
-	
-	
-#func placeable(board : BoardMatrixData, pos : Vector2i) -> bool:
-	#for condition in place_conditions:
-		#if !condition.test(board, pos):
-			#return false
-	#return true

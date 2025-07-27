@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://8dgw8wdiub72"]
+[gd_scene load_steps=15 format=3 uid="uid://8dgw8wdiub72"]
 
 [ext_resource type="Material" uid="uid://ksmv4aeywfvu" path="res://shader/Foil/foil_mat.tres" id="1_dqohr"]
 [ext_resource type="Material" uid="uid://bdqhj2lkh8o40" path="res://shader/Foil/foil_dissolve mat.tres" id="1_ietu0"]
@@ -208,6 +208,44 @@ _data = {
 &"entity_flip_to_card": SubResource("Animation_qf083")
 }
 
+[sub_resource type="Animation" id="Animation_ietu0"]
+resource_name = "pulse"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/dissolve_value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.966667, 2),
+"transitions": PackedFloat32Array(0.420448, 1.86607, 1),
+"update": 0,
+"values": [1.0, 0.733, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_bl3jj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/dissolve_value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gqthy"]
+_data = {
+&"RESET": SubResource("Animation_bl3jj"),
+&"pulse": SubResource("Animation_ietu0")
+}
+
 [node name="Card" type="Node2D"]
 material = ExtResource("1_ietu0")
 script = ExtResource("1_mck3k")
@@ -256,6 +294,11 @@ text = "Description"
 [node name="FlipAnimation" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_dqwud")
+}
+
+[node name="DiscardPulse" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_gqthy")
 }
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
