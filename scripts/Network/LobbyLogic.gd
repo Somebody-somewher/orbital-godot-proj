@@ -89,7 +89,6 @@ func _leave_lobby():
 	multiplayer.multiplayer_peer.close()
 	multiplayer.multiplayer_peer = null
 	
-
 #func menu_leave_lobby():
 	#PlayerManager.erasePlayer.rpc(multiplayer.get_unique_id())
 	#
@@ -149,11 +148,11 @@ func _on_connection_failed() -> void:
 func _on_server_disconnected():
 	Signalbus.emit_signal("notif_msg", "The server has died X.X")
 	print("Server ded X.X")
-	PlayerManager.clearPlayers()
+	#PlayerManager.clearPlayers()
 	
 	if SceneManager.curr_scene == "menu":
 		clear_player_list()
-	_leave_lobby()
+	#_leave_lobby()
 	
 	SceneManager.back_to_menu()
 	reset_lobby()
@@ -183,9 +182,16 @@ func _list_player(pi : PlayerInfo) -> void:
 
 #@rpc("any_peer", "call_local")
 func clear_player_list() -> void:
-	player_list_label.text = ""
-	h_player_list_label.text = ""
+	if player_list_label:
+		player_list_label.text = ""
+	
+	if h_player_list_label:
+		h_player_list_label.text = ""
 
-func reset_lobby() -> void:
+func reset_lobby() -> void:	
+	
+	clear_player_list()
+	_leave_lobby()
+	
 	PlayerManager.reset()
 	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new() #dummy_peer

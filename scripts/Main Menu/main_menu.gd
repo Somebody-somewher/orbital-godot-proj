@@ -76,7 +76,7 @@ func on_open_host():
 func on_close_host():
 	multiplayer_menu.animate(true)
 	multi_host_menu.animate(false)
-	NetworkManager.get_node("Lobby").menu_leave_lobby()
+	#NetworkManager.get_node("Lobby").menu_leave_lobby()
 
 func on_open_join():
 	multi_join_menu.sync_vol_sliders()
@@ -86,7 +86,7 @@ func on_open_join():
 func on_close_join():
 	multiplayer_menu.animate(true)
 	multi_join_menu.animate(false)
-	NetworkManager.get_node("Lobby").menu_leave_lobby()
+	#NetworkManager.get_node("Lobby").menu_leave_lobby()
 
 func on_start_multiplayer():
 	initialize_game.rpc(multi_host_menu.get_game_settings())
