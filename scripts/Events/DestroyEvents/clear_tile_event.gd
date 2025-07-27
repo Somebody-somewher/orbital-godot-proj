@@ -1,10 +1,12 @@
-#extends BoardEvent
-#class_name ClearTileEvent
-#
-#
-#func preview(board : BoardMatrixData, previewer : Callable, tile_pos : Vector2i) -> void:
-	#pass
-#
-## destroys the tile, can be chained with place event to simulate a sabotage landing and squishing a tile
-#func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : Node2D) -> void:
-	#board.get_tile(tile_pos).clear_tile()
+extends BoardEvent
+class_name ClearTileEvent
+
+func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstanceData) -> void:
+	var tile_pos_data = aoe.get_scored_tiles(tile_pos)
+	
+	var arr : Array[BuildingInstanceData]
+	#for tiledata in tile_pos_data[1]:
+	for i in range(tile_pos_data[1].size()):
+		arr = tile_pos_data[1][i].get_buildings_on_tile()
+		for building in arr:
+			Signalbus.remove_placeable.emit(building.get_id(), caller.get_owner_uuid())

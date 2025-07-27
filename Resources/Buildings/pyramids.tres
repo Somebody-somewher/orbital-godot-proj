@@ -24,7 +24,8 @@ effect_buildings_score = Dictionary[String, int]({
 "cactus": 2,
 "oasis": 4,
 "obelisk": 4,
-"temple": 3
+"temple": 3,
+"tombstone": 3
 })
 base_score = 0
 aoe = ExtResource("9_66vuc")

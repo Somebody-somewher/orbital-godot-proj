@@ -38,8 +38,10 @@ func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstance
 	# recalculation of the score
 	for score in data_array[2]:
 		total_score += score
-			
-	Signalbus.emit_signal("add_score", total_score, caller.get_owner_uuid())
+	
+	if total_score > 0:
+		Signalbus.emit_signal("add_score", total_score, caller.get_owner_uuid())
+		Signalbus.call_point_fx.emit(total_score, tile_pos, caller.get_owner_uuid())
 
 # In case we need to multiply / add score based on tile / building info
 func modifier(tile_data : BoardTile, _cum_score := 0) -> int:

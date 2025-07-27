@@ -11,6 +11,7 @@ effect_buildings_score = Dictionary[String, int]({
 "cow": 5,
 "garden": 2,
 "market": 2,
+"meteorite": 3,
 "pig": 2,
 "rat": -1,
 "rat_king": -5,

@@ -7,7 +7,6 @@ class_name FXManager
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Signalbus.connect("show_fx", show_fx)
-	Signalbus.connect("show_point_fx", show_point_fx)
 
 #displays the fx on the board at pos
 func show_fx(id : String, pos : Vector2):

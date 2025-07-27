@@ -27,8 +27,6 @@ func _ready() -> void:
 	if is_debug:
 		set_up()
 	
-	#if "HostNetworking" != get_tree().current_scene.name:
-		#set_up()
 	pass
 
 func set_up() -> void:

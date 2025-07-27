@@ -37,7 +37,8 @@ func receive_init_data(board_size : Vector2i, board_layout : Vector2i, border_di
 
 func _ready() -> void:
 	super._ready()
-	NetworkManager.mark_client_ready(self.name)	
+	NetworkManager.mark_client_ready(self.name)
+	Signalbus.call_point_fx.connect(_clientside_display_point_fx)
 
 ######################################## PROCGEN ##############################################
 @rpc("any_peer","call_local")
@@ -84,7 +85,7 @@ func _client_sync_placeable(placeable_serialized : Dictionary, tile_pos : Vector
 func _place_placeable(placeable_instance: PlaceableInstanceData, tile_pos : Vector2i, run_on_place_effects := true) -> void:
 	var placeable_node : PlaceableNode
 	
-	print_debug("Oof: ", multiplayer.get_unique_id(), " ", placeable_instance.get_id(), " ", tile_pos)
+	#print_debug("Oof: ", multiplayer.get_unique_id(), " ", placeable_instance.get_id(), " ", tile_pos)
 
 	if placeable_instance is BuildingInstanceData:
 		placeable_node = Building.new_building_frm_data(placeable_instance as BuildingInstanceData)
@@ -210,3 +211,6 @@ func get_board_coords() -> Array[Vector2]:
 func _on_board_failed_action_by_server() -> void:
 	Signalbus.emit_signal("board_action_result", false)
 	
+func _clientside_display_point_fx(score : int, tile_pos : Vector2i, player_uuid: String) -> void:
+	if player_uuid == PlayerManager.getCurrentPlayerUUID():
+		get_node("Building_Manager").show_point_fx(score, terrain_tilemap.get_local_centre_of_tile(matrix_to_tilepos(tile_pos)))

@@ -3,7 +3,7 @@ class_name CardSetAllocator
 
 
 
-const DEFAULT_NUM_OPTIONS = 2
+const DEFAULT_NUM_OPTIONS = 4
 const MAX_OPTIONS_PER_PACK = 4
 var num_packs_to_gen : int
 var num_options_per_player : Dictionary[String, int]

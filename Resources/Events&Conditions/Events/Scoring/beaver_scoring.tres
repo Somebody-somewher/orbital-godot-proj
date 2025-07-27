@@ -7,7 +7,7 @@
 script = ExtResource("2_ijqbi")
 effect_buildings_score = Dictionary[String, int]({
 "beaver": 4,
-"forest": 2,
+"hut": 2,
 "lumber_mill": 5
 })
 base_score = 0

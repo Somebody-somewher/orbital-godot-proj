@@ -17,7 +17,6 @@ var player_list_string : String = ""
 
 var ip_check = RegEx.new()
 
-var dummy_peer : OfflineMultiplayerPeer
 #var multiplayer_peer = ENetMultiplayerPeer.new()
 
 # Resources
@@ -81,7 +80,6 @@ func _connect_client(addr = "", port = ""):
 		curr_status = "cannot host: " + str(error)
 		return error
 		
-	dummy_peer = multiplayer.multiplayer_peer	
 	multiplayer.multiplayer_peer = peer
 	PlayerManager.declare_multiplayer()	
 	_register_player(j_name_field.text, PlayerInfo.generateUUID(j_name_field.text), multiplayer.get_unique_id())
@@ -91,19 +89,18 @@ func _leave_lobby():
 	multiplayer.multiplayer_peer.close()
 	multiplayer.multiplayer_peer = null
 	
-
-func menu_leave_lobby():
-	PlayerManager.erasePlayer.rpc(multiplayer.get_unique_id())
-	
-	list_all_players.rpc()
-	await get_tree().create_timer(0.5).timeout 
-	multiplayer.multiplayer_peer = null
-	
-	if player_list_label:
-		player_list_label.text = ""
-	
-	if h_player_list_label:
-		h_player_list_label.text = ""	
+#func menu_leave_lobby():
+	#PlayerManager.erasePlayer.rpc(multiplayer.get_unique_id())
+	#
+	#list_all_players.rpc()
+	#await get_tree().create_timer(0.5).timeout 
+	#multiplayer.multiplayer_peer = null
+	#
+	#if player_list_label:
+		#player_list_label.text = ""
+	#
+	#if h_player_list_label:
+		#h_player_list_label.text = ""	
 
 # This signal is emitted with the newly connected peer's ID on each other peer 
 # (inclusive of the server, which is also a peer) 
@@ -113,12 +110,6 @@ func _on_peer_connected(id : int)  -> void:
 	curr_status = "Player Connected " + str(id)
 	print(curr_status)
 	var player_name : String = PlayerManager.getCurrentPlayerName()
-	# When a peer connects, each already-connected peer sends their info to the new peer
-	# Likewise each connected peer receives only the new peer's data
-	#if id == 1:
-		#player_name = j_name_field.text
-	#else:
-		#player_name = h_name_field.text
 	
 	_register_player.rpc(player_name, PlayerInfo.generateUUID(player_name))
 	
@@ -157,11 +148,11 @@ func _on_connection_failed() -> void:
 func _on_server_disconnected():
 	Signalbus.emit_signal("notif_msg", "The server has died X.X")
 	print("Server ded X.X")
-	PlayerManager.clearPlayers()
+	#PlayerManager.clearPlayers()
 	
 	if SceneManager.curr_scene == "menu":
 		clear_player_list()
-	_leave_lobby()
+	#_leave_lobby()
 	
 	SceneManager.back_to_menu()
 	reset_lobby()
@@ -178,18 +169,6 @@ func on_join_pressed() -> void:
 	_connect_client(ip_addr_field.text, port_field.text)
 	pass # Replace with function body.
 
-#func _on_start_button_down() -> void:
-	#startGame.rpc()
-	#pass # Replace with function body.
-
-#TODO: Change this
-#@rpc("any_peer", "call_local")
-#func startGame():
-	#NetworkManager.set_up()
-	#var scene = gameScene.instantiate()
-	#get_tree().root.add_child(scene)
-	#self.hide()
-
 @rpc("any_peer", "call_local")
 func list_all_players() -> void:
 	player_list_string = ""
@@ -203,13 +182,16 @@ func _list_player(pi : PlayerInfo) -> void:
 
 #@rpc("any_peer", "call_local")
 func clear_player_list() -> void:
-	player_list_label.text = ""
-	h_player_list_label.text = ""
+	if player_list_label:
+		player_list_label.text = ""
+	
+	if h_player_list_label:
+		h_player_list_label.text = ""
 
-func reset_lobby() -> void:
+func reset_lobby() -> void:	
+	
+	clear_player_list()
+	_leave_lobby()
+	
 	PlayerManager.reset()
-	multiplayer.multiplayer_peer = dummy_peer
-	#var dummy_api := SceneMultiplayer.new()
-	#await get_tree().create_timer(0.6).timeout 
-	#dummy_api.root_path  = get_tree().get_current_scene().get_path()
-	#get_tree().set_multiplayer(dummy_api)
+	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new() #dummy_peer

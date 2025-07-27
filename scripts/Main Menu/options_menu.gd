@@ -31,12 +31,16 @@ func _on_master_slider_value_changed(value: float) -> void:
 	master_label.text = str(int(value))
 	AudioManager.change_master_volume(value/100)
 
-func sync_vol_sliders():
+func sync_settings():
 	master_slider.value = AudioManager.master_volume * 100
 	music_slider.value = AudioManager.bgm_volume * 100 / 0.6
 	sfx_slider.value = AudioManager.sfx_volume * 100
+	
+	fullscreen_button.button_pressed = DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN
 
 ########## GRAPHICS OPTIONS #######################
+@onready var fullscreen_button: Button = $SettingsTabs/RightTab/TabContainer/Graphics/MarginContainer/VBoxContainer/FullscreenBox/Button
+
 
 func _on_fullscreen_toggled(toggled_on: bool) -> void:
 	if toggled_on:

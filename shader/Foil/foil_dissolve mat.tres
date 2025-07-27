@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dwfea5crud5qh" path="res://shader/Foil/rainbow_gradient_1d.tres" id="2_2xnia"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_j4ao5"]
+offset = Vector3(-26.67, -106.67, 0)
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b3b0l"]
 noise = SubResource("FastNoiseLite_j4ao5")

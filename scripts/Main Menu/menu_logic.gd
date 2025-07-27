@@ -91,6 +91,7 @@ func multiplayer_state(id : String) -> String:
 func multiplayer_host(id : String) -> String:
 	match id:
 		"back":
+			NetworkManager.get_node("Lobby").reset_lobby()
 			multihost_back.emit()
 		"start_game":
 			NetworkManager.set_up()
@@ -100,8 +101,7 @@ func multiplayer_host(id : String) -> String:
 func multiplayer_join(id : String) -> String:
 	match id:
 		"back":
-			multiplayer.multiplayer_peer = null
-			PlayerManager.clearPlayers()
+			NetworkManager.get_node("Lobby").reset_lobby()
 			multijoin_back.emit()
 	return "multiplayer"
 

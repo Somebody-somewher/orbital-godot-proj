@@ -18,7 +18,7 @@ func _on_search_bar_text_changed(new_text: String) -> void:
 			i.show()
 		return
 	for i in items:
-		if new_text.to_upper() in i.search_name.to_upper():
+		if  new_text.to_upper() in i.search_name.to_upper() or i.in_tags(new_text.to_lower()):
 			i.show()
 		else:
 			i.hide()

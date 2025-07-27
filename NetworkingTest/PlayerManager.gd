@@ -30,6 +30,11 @@ func hasPlayerUUID(player_uuid : String) -> bool:
 func addPlayer(uuid : String, peer_id : int, player_name : String) -> void:
 	var player_info : PlayerInfo = PlayerInfo.new(uuid, peer_id, player_name, player_colors[color_index])
 	color_index += 1
+	
+	# Stupid fix for MS3 jic
+	if color_index >= 5:
+		color_index = 4
+		
 	peerid_to_players.get_or_add(peer_id, player_info)
 	uuid_to_players.get_or_add(uuid, player_info)
 
@@ -60,6 +65,10 @@ func erasePlayer(id : int) -> void:
 		uuid_to_players.erase(peerid_to_players[id].getPlayerUUID())
 		peerid_to_players.erase(id)
 		color_index -= 1
+		
+	# Stupid fix for MS3 jic
+	if color_index < 0:
+		color_index = 0
 
 @rpc("call_local", "any_peer")
 func erasePlayerbyUUID(uuid : String) -> void:
@@ -67,12 +76,16 @@ func erasePlayerbyUUID(uuid : String) -> void:
 		peerid_to_players.erase(uuid_to_players[uuid].getPlayerId())
 		uuid_to_players.erase(uuid)
 		color_index -= 1
+		
+	if color_index < 0:
+		color_index = 0
 	
 @rpc("call_local", "any_peer")
 func clearPlayers() -> void:
 	peerid_to_players.clear()
 	uuid_to_players.clear()
-	
+	color_index = 0
+
 func getNumPlayers() -> int:
 	return peerid_to_players.size()
 
@@ -102,6 +115,5 @@ func isServer(peer_uuid : String) -> bool:
 
 func reset() -> void:
 	clearPlayers()
-	color_index = 0
 	is_multiplayer = false
 	addPlayer("PlaceholderPlayerUUID", multiplayer.get_unique_id(), "PlaceholderPlayer")

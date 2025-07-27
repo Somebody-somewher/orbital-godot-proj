@@ -18,7 +18,7 @@ var cardpack_inventory : Dictionary[int, Dictionary] = {}
 
 # Is an array in case the card position is impt
 var hand_instances : Array[CardInstanceData] = []
-var default_maxhandsize := 10
+var default_maxhandsize := 12
 
 # Called during CardPack Generation
 func record_cardpack_options(card_packs : Dictionary[int, Dictionary]) -> void:
@@ -60,7 +60,6 @@ func attempt_cardset_to_hand(cardpack_id : int, cardset_id : String, remove_pack
 			added_card_instances.append(cards_in_set[i])	
 		else:
 			discarded_card_instances.append(cards_in_set[i])
-			#trigger_discard_events.call(cards_in_set[i])
 	
 	if remove_pack_after:
 		cardpack_inventory.erase(cardpack_id)
@@ -109,6 +108,9 @@ func get_max_hand_size() -> int:
 
 func is_hand_full() -> bool:
 	return len(hand_instances) == default_maxhandsize
+
+func is_hand_over() -> bool:
+	return len(hand_instances) >= default_maxhandsize
 
 # NOTE: need to have a serialize function for card instance data as well
 #func serialize() -> Dictionary

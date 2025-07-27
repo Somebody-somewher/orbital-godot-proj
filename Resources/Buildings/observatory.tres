@@ -26,6 +26,7 @@ metadata/_custom_type_script = "uid://qk704iue41mu"
 [sub_resource type="Resource" id="Resource_alrbs"]
 script = ExtResource("9_6wt4g")
 effect_buildings_score = Dictionary[String, int]({
+"meteorite": 10,
 "radio": 5,
 "telescope": 5
 })
