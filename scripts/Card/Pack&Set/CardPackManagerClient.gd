@@ -16,7 +16,6 @@ func _ready() -> void:
 
 @rpc("any_peer","call_local")
 func create_pack(packs : Dictionary[int, Dictionary]) -> void:
-	#print(packs, PlayerManager.getCurrentPlayerUUID())
 	var card_pack : CardPack
 	var pack_ids := packs.keys()
 	var pack_contents := packs.values()
@@ -25,7 +24,7 @@ func create_pack(packs : Dictionary[int, Dictionary]) -> void:
 	
 	for pack_id in packs.keys():
 		card_pack = CardPack.new_pack(packs[pack_id], pack_id)
-		card_pack.set_position(Vector2i(0,0))
+		#card_pack.set_position(Vector2i(0,0))
 		spawn_node.add_child(card_pack)
 		card_pack_nodes[pack_id] = card_pack
 

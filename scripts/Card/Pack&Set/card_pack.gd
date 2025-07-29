@@ -132,6 +132,7 @@ func select_option(set_option : CardSet) -> void:
 				destroy_pack()
 
 func destroy_pack() -> void:
+	dissolving = true
 	for cardset in pack_arr:
 		cardset.get_node("Area2D/CollisionShape2D").disabled = true
 		cardset.dissolve_set()

@@ -55,13 +55,13 @@ func attempt_cardset_to_hand(cardpack_id : int, cardset_id : String, player_uuid
 	for instance in result[1]:
 		func_register_events.call(instance)
 		func_trigger_events.call(instance, "on_discard", [])
-	
-	Signalbus.emit_signal("confirmed_add_to_hand", string_ids, cardset_id)
-	
+		
 	if !PlayerManager.amIPlayer(player_uuid):
 		var peer_id = PlayerManager.getPeerID_from_UUID(player_uuid)
 		_attempt_cardset_to_hand.rpc_id(peer_id, cardpack_id, cardset_id, string_ids)
-
+	else:
+		Signalbus.confirmed_add_to_hand.emit(string_ids, cardset_id)
+		
 	return string_ids
 
 #func append_to_player_hand(player_uuid : String, card_set : Array[int], add_to_hand : Callable) -> bool:
