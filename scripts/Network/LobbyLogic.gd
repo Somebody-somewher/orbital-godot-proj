@@ -60,7 +60,8 @@ func _create_server():
 
 	
 func _connect_client(addr = "", port = ""):	
-	# TODO: Please implement error handling? 
+	var port_num : int
+	
 	if addr == "":
 		addr = _ip
 	
@@ -71,6 +72,9 @@ func _connect_client(addr = "", port = ""):
 	
 	if port == "":
 		port = _port
+	else:
+		if typeof(port) != TYPE_INT:
+			return
 	
 	print(addr, " ", port)
 	

@@ -27,19 +27,38 @@ static var NULL_TILE = Vector2i(-1,-1)
 var board_layout_gen : BoardLayout
 ##############################################################
 
+func server_setup(board_settings : Dictionary):
+	# Server setup code
+	if multiplayer.is_server():
+		BOARD_SIZE = Vector2i(board_settings["board_size"], board_settings["board_size"])
+		
+		# Signal telling server that all clients are ready to receive info
+		
+		board_layout_gen = BoardLayout.new(func(player_id : int, boards : Array): \
+			client_set_interactable_board.rpc_id(player_id, boards))
+		
+		BOARDS_LAYOUT = board_layout_gen.get_board_layout(PlayerManager.getNumPlayers())
+		if proc_gen != null:
+			proc_gen.set_up(BOARD_SIZE, BOARDS_LAYOUT, BORDER_DIM)
+		
+		Signalbus.place_placeable.connect(server_place_newplaceable)
+		Signalbus.remove_placeable.connect(server_remove_building)
+		NetworkManager.server_net.mark_server_component_ready("BoardManager")
+
 # Called when the node enters the scene tree for the first time.
-func set_up() -> void:	
-	# Actual Board Data, contains all playable boards 
-	matrix_data = BoardMatrixData.new(BOARD_SIZE.x, BOARDS_LAYOUT)
+func set_up(board_size : Vector2i, board_layout : Vector2i) -> void:
+	BOARD_SIZE = board_size
+	BOARDS_LAYOUT = board_layout
 	
+	# Actual Board Data, contains all playable boards 
+	matrix_data = BoardMatrixData.new(BOARD_SIZE.x, BOARDS_LAYOUT)	
 	CardLoader.event_manager.matrix_data = matrix_data
-	Signalbus.place_placeable.connect(server_place_newplaceable)
-	Signalbus.remove_placeable.connect(server_remove_building)
 
 ## This is run by the server to supply data to all clients
 ## Signal-activated by NetworkManager "all_clients_ready"
 func init_clients() -> void:
-	receive_init_data.rpc(BOARD_SIZE, BOARDS_LAYOUT, BORDER_DIM)
+	set_up.rpc(BOARD_SIZE, BOARDS_LAYOUT)
+	client_terrain_setup.rpc()
 	procgen_init(func(tid : String, tile_pos : Vector2i): _create_terrain.rpc(tid, tile_pos) \
 	, func(tid : String, tile_pos : Vector2i): _client_create_border_fake_tile.rpc(tid, tile_pos) \
 	, create_terrain_building \
@@ -49,6 +68,7 @@ func init_clients() -> void:
 	# This is to mark the client as synced up
 	NetworkManager.mark_client_ready.rpc(self.name)
 
+## Server-specific function
 func procgen_init(create_terrain : Callable, create_border_tile : Callable,\
 		 create_building : Callable, create_fake_building : Callable) -> void:
 	if proc_gen != null:
@@ -58,23 +78,14 @@ func procgen_init(create_terrain : Callable, create_border_tile : Callable,\
 		proc_gen.generate_actual_buildings(create_building)
 		proc_gen.generate_border(create_border_tile, create_fake_building)
 	else:
-		
 		var placeholder_id = env_map.getPlaceholderTile().get_id()
 		for x in range(BOARD_SIZE.x * BOARDS_LAYOUT.x):
 			for y in range(BOARD_SIZE.y * BOARDS_LAYOUT.y):
 				create_terrain.call(placeholder_id, Vector2i(x,y))
 
 func _ready() -> void:
-	# Server setup code
-	if multiplayer.is_server():
-		# Signal telling server that all clients are ready to receive info
-		NetworkManager.connect("all_clients_ready", init_clients)
-		board_layout_gen = BoardLayout.new(func(player_id : int, boards : Array): \
-			client_set_interactable_board.rpc_id(player_id, boards))
-		
-		BOARDS_LAYOUT = board_layout_gen.get_board_layout(PlayerManager.getNumPlayers())
-		if proc_gen != null:
-			proc_gen.set_up(BOARD_SIZE, BOARDS_LAYOUT, BORDER_DIM)
+	NetworkManager.all_clients_ready.connect(init_clients)
+	pass
 
 ############################### INITIAL PROCGEN FUNCTIONS ####################################
 @rpc("any_peer", "call_local")
@@ -217,7 +228,7 @@ func server_change_terrain(terrain_id : String, player_uuid : String, tile_pos :
 @rpc("any_peer","call_local")
 func _change_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
 	var terrain : EnvTerrain = env_map.getTileDatabyId(terrain_id)
-	matrix_data.change_terrain_of_tile(tile_pos, terrain)
+	matrix_data.change_terrain_of_tile(tilemap_to_matrix(tile_pos), terrain)
 
 @rpc("any_peer", "call_local")
 func server_clear_tile(tile_pos : Vector2i, player_uuid : String, run_destroy_events := true, sync := true) -> void:
@@ -289,7 +300,7 @@ func tilemap_to_matrix(tilemap_pos : Vector2i) -> Vector2i:
 func matrix_to_tilepos(matrix_pos : Vector2i) -> Vector2i:
 	return BORDER_DIM + matrix_pos
 ######################### CLIENT DUMMY FUNCTIONS TO OVERRIDE ################################
-func receive_init_data(board_size : Vector2i, board_layout : Vector2i, border_dim : Vector2i) -> void:
+func client_set_up(board_size : Vector2i, board_layout : Vector2i) -> void:
 	pass
 
 func _client_create_terrain_building(data_instance : PlaceableInstanceData) -> void:
@@ -314,6 +325,9 @@ func _client_create_border_fake_tile(tid : String, tile_pos : Vector2i) -> void:
 	pass
 
 func _client_create_border_fake_building(bid : String, tile_pos : Vector2i) -> void:
+	pass
+
+func client_terrain_setup() -> void:
 	pass
 
 func reset() -> void:

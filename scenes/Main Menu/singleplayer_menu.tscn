@@ -200,7 +200,7 @@ _data = {
 &"exit": SubResource("Animation_c2ct2")
 }
 
-[node name="SingleplayerMenu" type="Control" node_paths=PackedStringArray("rounds_label", "scores_label", "spawnable_label")]
+[node name="SingleplayerMenu" type="Control" node_paths=PackedStringArray("rounds_label", "rounds_hslider", "scores_label", "score_hslider", "button_8", "button_16", "button_32", "spawnable_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -210,8 +210,12 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_bfwdx")
 rounds_label = NodePath("SettingsTabs/LeftTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/RoundsBox/Label2")
+rounds_hslider = NodePath("SettingsTabs/LeftTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/RoundsBox/HSlider")
 scores_label = NodePath("SettingsTabs/LeftTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/ScoresBox/Label2")
-board_size_grp = ExtResource("19_bfwdx")
+score_hslider = NodePath("SettingsTabs/LeftTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/ScoresBox/HSlider")
+button_8 = NodePath("SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/8")
+button_16 = NodePath("SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/16")
+button_32 = NodePath("SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/32")
 spawnable_label = NodePath("SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/SpawnableBox/Label2")
 
 [node name="Title" type="Control" parent="."]
@@ -571,7 +575,6 @@ theme_override_styles/hover = ExtResource("15_0siaj")
 theme_override_styles/pressed = ExtResource("11_cix3r")
 theme_override_styles/normal = ExtResource("11_ijl44")
 toggle_mode = true
-button_group = ExtResource("19_bfwdx")
 text = "16x16"
 
 [node name="32" type="Button" parent="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer"]
@@ -589,7 +592,6 @@ theme_override_styles/hover = ExtResource("15_0siaj")
 theme_override_styles/pressed = ExtResource("11_cix3r")
 theme_override_styles/normal = ExtResource("11_ijl44")
 toggle_mode = true
-button_group = ExtResource("19_bfwdx")
 text = "32x32"
 
 [node name="TerrainBox" type="HBoxContainer" parent="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer"]

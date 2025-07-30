@@ -3,15 +3,27 @@ class_name GameSettingMenuTab
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	interpret_round_slider(rounds_hslider.value)
+	score = int(min_score + score_hslider.value * 10)
+	
+	board_size_grp = ButtonGroup.new()
+	button_8.button_group = board_size_grp
+	button_16.button_group = board_size_grp
+	button_32.button_group = board_size_grp
 	pass
 
 ######### WIN CONDITIONS CODE ##################
 @export var rounds_label : Label
-var no_rounds : int = 2
+@export var rounds_hslider : Slider
+var min_rounds : int = 2
+var no_rounds : int = -1
 var inf_rounds: bool = false
 func _on_round_slider_value_changed(value: float) -> void:
 	no_rounds = int(value * 0.49 + 2)
 	rounds_label.text = str(no_rounds)
+	interpret_round_slider(value)
+
+func interpret_round_slider(value : int) -> void:
 	if value == 100:
 		inf_rounds = true
 		rounds_label.text = "infinity"
@@ -19,9 +31,10 @@ func _on_round_slider_value_changed(value: float) -> void:
 	else:
 		inf_rounds = false
 
-@export var scores_label: Label 
+@export var scores_label: Label
+@export var score_hslider : Slider
 var min_score : int = 100 # if == 0, means no aura selection rounds
-var score = 0
+var score = min_score
 func _on_score_slider_value_changed(value: float) -> void:
 	score = min_score
 	score = int(min_score + value * 10)
@@ -31,51 +44,12 @@ func _on_score_slider_value_changed(value: float) -> void:
 		score = -1
 		scores_label.text = "infinity"
 
-
-#@onready var aura_freq_label: Label = $SettingsTabs/RightTab/TabContainer/Rounds/MarginContainer/VBoxContainer/AuraFeqBox/Label2
-#var aura_freq : int = 1 # if == 0, means no aura selection rounds
-#func _on_aura_freq_slider_value_changed(value: float) -> void:
-	#aura_freq = int(value * 0.1)
-	#if aura_freq == 0:
-		#aura_freq_label.text = "never"
-	#elif aura_freq == 1:
-		#aura_freq_label.text = "/round"
-	#else:
-		#aura_freq_label.text = "/" + str(aura_freq) + " rnds"
-#
-#@onready var sabo_label: Label = $SettingsTabs/RightTab/TabContainer/Rounds/MarginContainer/VBoxContainer/SaboBox/Label2
-#var sabotage : bool = true
-#func _on_sabo_button_toggled(toggled_on: bool) -> void:
-	#sabotage = toggled_on
-	#if toggled_on:
-		#sabo_label.text = "On"
-	#else:
-		#sabo_label.text = "Off"
-######### DIFFICULTY OPTIONS CODE ##################
-
-#func number_slider_scale(value : float, label : Label) -> float:
-	#var final_val : float
-	#if value == 0:
-		#final_val = 0.25
-	#elif value <= 20:
-		#final_val = 0.5
-	#elif value <= 40:
-		#final_val = 0.75
-	#elif value <= 60:
-		#final_val = 1
-	#elif value <= 80:
-		#final_val = 2
-	#elif value < 100:
-		#final_val = 4
-	#else:
-		#final_val = 8
-	#label.text = str(final_val) + "x"
-	#if value > 40:
-		#label.text = str(int(final_val)) + "x"
-	#return final_val
-#
 ########## GENERATION OPTIONS CODE ##################
-@export var board_size_grp : ButtonGroup
+@export var button_8 : BaseButton
+@export var button_16 : BaseButton
+@export var button_32 : BaseButton
+var board_size_grp : ButtonGroup
+#@export var board_size_grp : ButtonGroup
 var board_size : int = 8
 
 func _what_board_size():
@@ -96,7 +70,7 @@ var terrain_types : Dictionary[String, bool] = {"grass" : true, "water" : true,"
 
 func _on_terrain_toggled(toggled_on: bool, terrain: String) -> void:
 	terrain_types.set(terrain, toggled_on)
-#
+
 @export var spawnable_label: Label
 var spawnables : bool = true
 
