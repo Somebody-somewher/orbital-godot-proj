@@ -62,14 +62,29 @@ func _what_board_size():
 		"32":
 			return 32
 #
-func board_size_changed():
-	board_size = _what_board_size()
+#func board_size_changed():
+	#board_size = _what_board_size()
  
 # Alternatively use envmapping to get default then each entry make a button
-var terrain_types : Dictionary[String, bool] = {"grass" : true, "water" : true,"sand" : true}
+var terrain_types : Dictionary[String, bool] = {"Grass" : true, "Desert" : true, "Water" : true}
 
-func _on_terrain_toggled(toggled_on: bool, terrain: String) -> void:
-	terrain_types.set(terrain, toggled_on)
+func _on_grass_toggled(toggled_on: bool) -> void:
+	terrain_types["Grass"] = toggled_on
+
+func _on_water_toggled(toggled_on: bool) -> void:
+	terrain_types["Water"] = toggled_on
+	pass # Replace with function body.
+
+func _on_sand_toggled(toggled_on: bool) -> void:
+	terrain_types["Desert"] = toggled_on
+	pass # Replace with function body.
+
+var terrain_grp : ButtonGroup
+func _on_terrain_toggled(toggled_on: bool) -> void:
+	var pressed = terrain_grp.get_pressed_button()
+	print(pressed)
+	#var button := get_called_instance() as Button
+	#terrain_types.set(terrain, toggled_on)
 
 @export var spawnable_label: Label
 var spawnables : bool = true
@@ -81,12 +96,23 @@ func _on_spawnables_button_toggled(toggled_on: bool) -> void:
 	else:
 		spawnable_label.text = "Off"
 
+@export var terrain_mapping : EnvTerrainMapping
 # As a dict in case we need to rpc this later
 func get_game_settings() -> Dictionary:
 	var dict_output : Dictionary = {}
 	dict_output["win_rounds"] = no_rounds
 	dict_output["win_score"] = score
-	dict_output["board_size"] = board_size
-	dict_output['terrain_types'] = terrain_types
-	dict_output['terrain_spawnables'] = spawnables
+	dict_output["board_size"] = _what_board_size()
+	
+	var terrain_output = []
+	for terrain in terrain_types:
+		if terrain_types[terrain]:
+			terrain_output.append(terrain_mapping.getTileDatabyId(terrain))
+	
+	dict_output['procgen'] = {}
+	dict_output['procgen']["terrain_types"] = terrain_output
+	
+	if !spawnables:
+		dict_output['procgen']['terrain_spawnables'] = spawnables
+	
 	return dict_output

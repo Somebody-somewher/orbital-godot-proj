@@ -1,6 +1,7 @@
-[gd_scene load_steps=26 format=3 uid="uid://iyr4rtumvwwp"]
+[gd_scene load_steps=27 format=3 uid="uid://iyr4rtumvwwp"]
 
 [ext_resource type="Script" uid="uid://cagyed81d5p1q" path="res://scripts/Main Menu/multi_host_menu.gd" id="1_6lyo1"]
+[ext_resource type="Resource" uid="uid://doq3nosdirb1v" path="res://Resources/EnvTerrain/TestEnvTerrainMapping.tres" id="2_fovai"]
 [ext_resource type="ButtonGroup" uid="uid://dggq5rjphxq68" path="res://Resources/MainMenu Resources/board_size_buttons.tres" id="2_hywa0"]
 [ext_resource type="FontFile" uid="uid://bw124sa6qjoe5" path="res://assets/fonts/Pixel Game.otf" id="3_fovai"]
 [ext_resource type="FontFile" uid="uid://v66tkdbnak7b" path="res://assets/fonts/friendlyscribbles.ttf" id="4_ydwhv"]
@@ -200,7 +201,7 @@ _data = {
 &"exit": SubResource("Animation_c2ct2")
 }
 
-[node name="HostMenu" type="Control" node_paths=PackedStringArray("name_textbox", "players_list", "rounds_label", "scores_label", "spawnable_label")]
+[node name="HostMenu" type="Control" node_paths=PackedStringArray("name_textbox", "players_list", "rounds_label", "rounds_hslider", "scores_label", "score_hslider", "button_8", "button_16", "button_32", "spawnable_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -212,9 +213,14 @@ script = ExtResource("1_6lyo1")
 name_textbox = NodePath("SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/NameBox/TextEdit")
 players_list = NodePath("SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/PlayersBox/ScrollContainer/Playerlist")
 rounds_label = NodePath("SettingsTabs/RightTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/RoundsBox/Label2")
+rounds_hslider = NodePath("SettingsTabs/RightTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/RoundsBox/HSlider")
 scores_label = NodePath("SettingsTabs/RightTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/ScoresBox/Label2")
-board_size_grp = ExtResource("2_hywa0")
+score_hslider = NodePath("SettingsTabs/RightTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/ScoresBox/HSlider")
+button_8 = NodePath("SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/8")
+button_16 = NodePath("SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/16")
+button_32 = NodePath("SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/32")
 spawnable_label = NodePath("SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/SpawnableBox/Label2")
+terrain_mapping = ExtResource("2_fovai")
 
 [node name="Title" type="Control" parent="."]
 z_index = 1
@@ -952,4 +958,7 @@ libraries = {
 [connection signal="pressed" from="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/8" to="." method="board_size_changed"]
 [connection signal="pressed" from="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/16" to="." method="board_size_changed"]
 [connection signal="pressed" from="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/32" to="." method="board_size_changed"]
+[connection signal="toggled" from="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/TerrainBox/HBoxContainer/grass" to="." method="_on_grass_toggled"]
+[connection signal="toggled" from="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/TerrainBox/HBoxContainer/water" to="." method="_on_water_toggled"]
+[connection signal="toggled" from="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/TerrainBox/HBoxContainer/sand" to="." method="_on_sand_toggled"]
 [connection signal="toggled" from="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/SpawnableBox/Button" to="." method="_on_spawnables_button_toggled"]

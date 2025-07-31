@@ -38,7 +38,14 @@ func server_setup(board_settings : Dictionary):
 			client_set_interactable_board.rpc_id(player_id, boards))
 		
 		BOARDS_LAYOUT = board_layout_gen.get_board_layout(PlayerManager.getNumPlayers())
-		if proc_gen != null:
+		
+		if board_settings.has("procgen"):
+			var copy_terrain_gen = null
+			var copy_building_gen = null
+			if proc_gen != null:
+				proc_gen = proc_gen.duplicate(true)
+			proc_gen.set_up(BOARD_SIZE, BOARDS_LAYOUT, BORDER_DIM, board_settings)
+		else:
 			proc_gen.set_up(BOARD_SIZE, BOARDS_LAYOUT, BORDER_DIM)
 		
 		Signalbus.place_placeable.connect(server_place_newplaceable)
@@ -58,7 +65,6 @@ func set_up(board_size : Vector2i, board_layout : Vector2i) -> void:
 ## Signal-activated by NetworkManager "all_clients_ready"
 func init_clients() -> void:
 	set_up.rpc(BOARD_SIZE, BOARDS_LAYOUT)
-	client_terrain_setup.rpc()
 	procgen_init(func(tid : String, tile_pos : Vector2i): _create_terrain.rpc(tid, tile_pos) \
 	, func(tid : String, tile_pos : Vector2i): _client_create_border_fake_tile.rpc(tid, tile_pos) \
 	, create_terrain_building \
@@ -70,13 +76,18 @@ func init_clients() -> void:
 
 ## Server-specific function
 func procgen_init(create_terrain : Callable, create_border_tile : Callable,\
-		 create_building : Callable, create_fake_building : Callable) -> void:
+		 create_building : Callable, create_fake_building : Callable, settings : Dictionary = {}) -> void:
+	
+	#proc_gen.set_up(BOARD_SIZE, BOARDS_LAYOUT, BORDER_DIM)
+	
 	if proc_gen != null:
+			
 		# Procedural Generation setup
 		for i in range(BOARDS_LAYOUT.x * BOARDS_LAYOUT.y):
-				proc_gen.generate_board(create_terrain, i)
+			proc_gen.generate_board(create_terrain, i)
 		proc_gen.generate_actual_buildings(create_building)
 		proc_gen.generate_border(create_border_tile, create_fake_building)
+		
 	else:
 		var placeholder_id = env_map.getPlaceholderTile().get_id()
 		for x in range(BOARD_SIZE.x * BOARDS_LAYOUT.x):
@@ -325,9 +336,6 @@ func _client_create_border_fake_tile(tid : String, tile_pos : Vector2i) -> void:
 	pass
 
 func _client_create_border_fake_building(bid : String, tile_pos : Vector2i) -> void:
-	pass
-
-func client_terrain_setup() -> void:
 	pass
 
 func reset() -> void:

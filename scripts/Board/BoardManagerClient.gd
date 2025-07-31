@@ -21,10 +21,6 @@ func set_up(board_size : Vector2i, board_layout : Vector2i) -> void:
 
 	# Array of booleans to check which boards are being hovered over by mouse
 	boards_near_mouse.resize(BOARDS_LAYOUT.x * BOARDS_LAYOUT.y)
-		
-	# Tilemaps setup
-@rpc("any_peer", "call_local")
-func client_terrain_setup() -> void:
 	var playable_area = matrix_data.get_playable_area_coords()
 	terrain_tilemap.set_up(object, BORDER_DIM, playable_area)	
 	terrain_underlayer.set_up(object, BORDER_DIM, playable_area)	

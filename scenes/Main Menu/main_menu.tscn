@@ -273,13 +273,8 @@ button_group = SubResource("ButtonGroup_bqibv")
 layout_mode = 1
 mouse_filter = 1
 
-[node name="HostMenu" parent="Menus" node_paths=PackedStringArray("rounds_hslider", "score_hslider", "button_8", "button_16", "button_32") instance=ExtResource("10_xlgyj")]
+[node name="HostMenu" parent="Menus" instance=ExtResource("10_xlgyj")]
 layout_mode = 1
-rounds_hslider = NodePath("SettingsTabs/RightTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/RoundsBox/HSlider")
-score_hslider = NodePath("SettingsTabs/RightTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/ScoresBox/HSlider")
-button_8 = NodePath("SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/8")
-button_16 = NodePath("SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/16")
-button_32 = NodePath("SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/32")
 
 [node name="HSlider" parent="Menus/HostMenu/SettingsTabs/LeftTab/TabContainer/Rounds/MarginContainer/VBoxContainer/RoundsBox" index="1"]
 value = 100.0
