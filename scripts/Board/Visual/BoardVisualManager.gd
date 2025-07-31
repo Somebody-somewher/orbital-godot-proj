@@ -29,6 +29,7 @@ func set_up(parent : Node2D, border_dim : Vector2i, playable_area_coords : Array
 	shade_area(playable_area_coords[0], playable_area_coords[1])
 	viewable_area_coords = [matrix_to_tilepos(playable_area_coords[0]) * TILE_SIZE,\
 		matrix_to_tilepos(playable_area_coords[1]) * TILE_SIZE]
+	CardLoader.board_centre = (viewable_area_coords[0] + viewable_area_coords[1] + TILE_SIZE * Vector2.ONE)/2
 
 func create_terrain_tile(terrain_id : String, tile_pos : Vector2i) -> void:
 	change_terrain_tile(terrain_id, tile_pos)

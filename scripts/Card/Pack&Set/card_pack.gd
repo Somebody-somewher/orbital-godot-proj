@@ -33,7 +33,8 @@ var dissolve_value = 1
 var enable_3d = false
 
 func _ready() -> void:
-	global_position = Vector2(550, 450)
+	var rng = RandomNumberGenerator.new()
+	global_position = CardLoader.board_centre + Vector2(rng.randi_range(-100,100), rng.randi_range(-100,100))
 	buttons.visible = false
 	get_node("AnimationPlayer").play("fall animation")
 

@@ -26,6 +26,8 @@ var card_mem : CardMemory
 #var building_card_scene: PackedScene = preload("res://scenes/Card/building_card.tscn")
 var aura_card_scene: PackedScene = preload("res://scenes/Card/aura_card.tscn")
 
+var board_centre : Vector2 = Vector2(0,0)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Load all buildings data 
