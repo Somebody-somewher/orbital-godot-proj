@@ -96,6 +96,30 @@ func _on_spawnables_button_toggled(toggled_on: bool) -> void:
 	else:
 		spawnable_label.text = "Off"
 
+@export var build_phase_time_text: Label
+@export var build_phase_time_slider : Slider
+@export var max_build_phase_time_text := 120
+var build_phase_time : int = 45 # if == 0, means no aura selection rounds
+func _on_buildtime_slider_value_changed(value: float) -> void:
+	build_phase_time = value
+	build_phase_time_text.text = str(build_phase_time)
+
+	if value == max_build_phase_time_text + 1:
+		build_phase_time = -1
+		build_phase_time_text.text = "infinity"
+		
+@export var packchoose_phase_time_text: Label
+@export var packchoose_phase_time_slider : Slider
+@export var max_packchoose_phase_time_text := 80
+var packchoose_phase_time : int = 20 # if == 0, means no aura selection rounds
+func _on_packchoose_slider_value_changed(value: float) -> void:
+	packchoose_phase_time = value
+	packchoose_phase_time_text.text = str(packchoose_phase_time)
+
+	if value == max_packchoose_phase_time_text + 1:
+		packchoose_phase_time = -1
+		packchoose_phase_time_text.text = "infinity"
+
 @export var terrain_mapping : EnvTerrainMapping
 # As a dict in case we need to rpc this later
 func get_game_settings() -> Dictionary:
@@ -114,5 +138,8 @@ func get_game_settings() -> Dictionary:
 	
 	if !spawnables:
 		dict_output['procgen']['terrain_spawnables'] = spawnables
+	
+	dict_output['build_time'] = build_phase_time
+	dict_output['pickpack_time'] = packchoose_phase_time
 	
 	return dict_output

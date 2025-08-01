@@ -48,6 +48,13 @@ func set_up(settings : Dictionary) -> void:
 	score_manager.game_end.connect(end_game)
 
 	for round in round_id_lookup.values():
+		
+		if round.state_id == "build" and settings.has("build_time"):
+			round.time = settings["build_time"]
+			
+		if round.state_id == "pick_pack" and settings.has("pickpack_time"):
+			round.time = settings["pickpack_time"]
+			
 		round.transition_to.connect(start_round)
 	
 	#round_grp.load_all_into(possible_rounds)

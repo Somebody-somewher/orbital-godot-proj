@@ -201,7 +201,7 @@ _data = {
 &"exit": SubResource("Animation_c2ct2")
 }
 
-[node name="SingleplayerMenu" type="Control" node_paths=PackedStringArray("rounds_label", "rounds_hslider", "scores_label", "score_hslider", "button_8", "button_16", "button_32", "spawnable_label")]
+[node name="SingleplayerMenu" type="Control" node_paths=PackedStringArray("rounds_label", "rounds_hslider", "scores_label", "score_hslider", "button_8", "button_16", "button_32", "spawnable_label", "build_phase_time_text", "build_phase_time_slider", "packchoose_phase_time_text", "packchoose_phase_time_slider")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -218,6 +218,10 @@ button_8 = NodePath("SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer
 button_16 = NodePath("SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/16")
 button_32 = NodePath("SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/32")
 spawnable_label = NodePath("SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/SpawnableBox/Label2")
+build_phase_time_text = NodePath("SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/BuildTimeBox2/Label2")
+build_phase_time_slider = NodePath("SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/BuildTimeBox2/HSlider")
+packchoose_phase_time_text = NodePath("SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/PackChooseTimeBox/Label2")
+packchoose_phase_time_slider = NodePath("SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/PackChooseTimeBox/HSlider")
 terrain_mapping = ExtResource("2_fmuj4")
 
 [node name="Title" type="Control" parent="."]
@@ -290,10 +294,11 @@ theme_override_styles/tab_selected = ExtResource("4_eix2q")
 theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_ginu3")
 theme_override_styles/tab_unselected = ExtResource("5_oavt6")
 tab_alignment = 2
-current_tab = 0
+current_tab = 1
 tab_focus_mode = 0
 
 [node name="Win Conditions" type="TabBar" parent="SettingsTabs/LeftTab/TabContainer"]
+visible = false
 layout_mode = 2
 tab_alignment = 1
 metadata/_tab_index = 0
@@ -378,14 +383,13 @@ theme = ExtResource("8_5uwyh")
 theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
 text = "100"
 
-[node name="Difficulty" type="TabBar" parent="SettingsTabs/LeftTab/TabContainer"]
-visible = false
+[node name="Timer Settings" type="TabBar" parent="SettingsTabs/LeftTab/TabContainer"]
 layout_mode = 2
 mouse_filter = 1
 tab_alignment = 1
 metadata/_tab_index = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/LeftTab/TabContainer/Difficulty"]
+[node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/LeftTab/TabContainer/Timer Settings"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -397,24 +401,24 @@ theme_override_constants/margin_top = 48
 theme_override_constants/margin_right = 48
 theme_override_constants/margin_bottom = 48
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 75
 
-[node name="PointScaleBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer"]
-visible = false
+[node name="PackChooseTimeBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 17
 
-[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer/PointScaleBox"]
+[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/PackChooseTimeBox"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme = ExtResource("8_5uwyh")
 theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
-text = "Point scaling:"
+text = "Card Pack Choosing 
+Phase Timing:"
 
-[node name="HSlider" type="HSlider" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer/PointScaleBox"]
+[node name="HSlider" type="HSlider" parent="SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/PackChooseTimeBox"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_vertical = 4
@@ -425,31 +429,32 @@ theme_override_icons/grabber_disabled = ExtResource("8_0siaj")
 theme_override_styles/slider = ExtResource("9_ginu3")
 theme_override_styles/grabber_area = ExtResource("9_8kmo1")
 theme_override_styles/grabber_area_highlight = ExtResource("9_8kmo1")
-value = 50.0
+min_value = 5.0
+max_value = 81.0
+value = 45.0
 
-[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer/PointScaleBox"]
+[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/PackChooseTimeBox"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("8_5uwyh")
 theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
-text = "1x"
+text = "50"
 
-[node name="ThreshholdBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer"]
-visible = false
+[node name="BuildTimeBox2" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 17
 
-[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer/ThreshholdBox"]
+[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/BuildTimeBox2"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 theme = ExtResource("8_5uwyh")
 theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
-text = "Point Goal
-Scaling:"
+text = "Build Time 
+Phase Choosing:"
 
-[node name="HSlider" type="HSlider" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer/ThreshholdBox"]
+[node name="HSlider" type="HSlider" parent="SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/BuildTimeBox2"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_vertical = 4
@@ -460,14 +465,16 @@ theme_override_icons/grabber_disabled = ExtResource("8_0siaj")
 theme_override_styles/slider = ExtResource("9_ginu3")
 theme_override_styles/grabber_area = ExtResource("9_8kmo1")
 theme_override_styles/grabber_area_highlight = ExtResource("9_8kmo1")
-value = 50.0
+min_value = 5.0
+max_value = 121.0
+value = 45.0
 
-[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer/ThreshholdBox"]
+[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/BuildTimeBox2"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("8_5uwyh")
 theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
-text = "1x"
+text = "45"
 
 [node name="RightTab" type="Control" parent="SettingsTabs"]
 z_index = 2
@@ -729,8 +736,8 @@ libraries = {
 
 [connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/RoundsBox/HSlider" to="." method="_on_round_slider_value_changed"]
 [connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/ScoresBox/HSlider" to="." method="_on_score_slider_value_changed"]
-[connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer/PointScaleBox/HSlider" to="." method="_on_pnt_scale_slider_value_changed"]
-[connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Difficulty/MarginContainer/VBoxContainer/ThreshholdBox/HSlider" to="." method="_on_goal_slider_value_changed"]
+[connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/PackChooseTimeBox/HSlider" to="." method="_on_packchoose_slider_value_changed"]
+[connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/BuildTimeBox2/HSlider" to="." method="_on_buildtime_slider_value_changed"]
 [connection signal="pressed" from="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/8" to="." method="board_size_changed"]
 [connection signal="pressed" from="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/16" to="." method="board_size_changed"]
 [connection signal="pressed" from="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/32" to="." method="board_size_changed"]

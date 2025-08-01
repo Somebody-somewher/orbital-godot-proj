@@ -201,7 +201,7 @@ _data = {
 &"exit": SubResource("Animation_c2ct2")
 }
 
-[node name="HostMenu" type="Control" node_paths=PackedStringArray("name_textbox", "players_list", "rounds_label", "rounds_hslider", "scores_label", "score_hslider", "button_8", "button_16", "button_32", "spawnable_label")]
+[node name="HostMenu" type="Control" node_paths=PackedStringArray("name_textbox", "players_list", "rounds_label", "rounds_hslider", "scores_label", "score_hslider", "button_8", "button_16", "button_32", "spawnable_label", "build_phase_time_text", "build_phase_time_slider", "packchoose_phase_time_text", "packchoose_phase_time_slider")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -220,6 +220,10 @@ button_8 = NodePath("SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer
 button_16 = NodePath("SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/16")
 button_32 = NodePath("SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/32")
 spawnable_label = NodePath("SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/SpawnableBox/Label2")
+build_phase_time_text = NodePath("SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/BuildTimeBox2/Label2")
+build_phase_time_slider = NodePath("SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/BuildTimeBox2/HSlider")
+packchoose_phase_time_text = NodePath("SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/PackChooseTimeBox/Label2")
+packchoose_phase_time_slider = NodePath("SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/PackChooseTimeBox/HSlider")
 terrain_mapping = ExtResource("2_fovai")
 
 [node name="Title" type="Control" parent="."]
@@ -391,125 +395,11 @@ layout_mode = 2
 theme = ExtResource("8_fag7y")
 theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
 
-[node name="Rounds" type="TabBar" parent="SettingsTabs/LeftTab/TabContainer"]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/LeftTab/TabContainer/Rounds"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 48
-theme_override_constants/margin_top = 48
-theme_override_constants/margin_right = 48
-theme_override_constants/margin_bottom = 48
-
-[node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Rounds/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 75
-
-[node name="RoundsBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Rounds/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 17
-
-[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Rounds/MarginContainer/VBoxContainer/RoundsBox"]
-custom_minimum_size = Vector2(180, 0)
-layout_mode = 2
-theme = ExtResource("8_fag7y")
-theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
-text = "No. of 
-Rounds:"
-
-[node name="HSlider" type="HSlider" parent="SettingsTabs/LeftTab/TabContainer/Rounds/MarginContainer/VBoxContainer/RoundsBox"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_vertical = 4
-focus_mode = 0
-theme_override_icons/grabber = ExtResource("9_vdv7x")
-theme_override_icons/grabber_highlight = ExtResource("9_vdv7x")
-theme_override_icons/grabber_disabled = ExtResource("9_vdv7x")
-theme_override_styles/slider = ExtResource("10_8d3tp")
-theme_override_styles/grabber_area = ExtResource("11_bmhkf")
-theme_override_styles/grabber_area_highlight = ExtResource("11_bmhkf")
-
-[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Rounds/MarginContainer/VBoxContainer/RoundsBox"]
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-theme = ExtResource("8_fag7y")
-theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
-text = "2"
-
-[node name="AuraFeqBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Rounds/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 17
-
-[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Rounds/MarginContainer/VBoxContainer/AuraFeqBox"]
-custom_minimum_size = Vector2(180, 0)
-layout_mode = 2
-theme = ExtResource("8_fag7y")
-theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
-text = "Aura freq:"
-
-[node name="HSlider" type="HSlider" parent="SettingsTabs/LeftTab/TabContainer/Rounds/MarginContainer/VBoxContainer/AuraFeqBox"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_vertical = 4
-focus_mode = 0
-theme_override_icons/grabber = ExtResource("9_vdv7x")
-theme_override_icons/grabber_highlight = ExtResource("9_vdv7x")
-theme_override_icons/grabber_disabled = ExtResource("9_vdv7x")
-theme_override_styles/slider = ExtResource("10_8d3tp")
-theme_override_styles/grabber_area = ExtResource("11_bmhkf")
-theme_override_styles/grabber_area_highlight = ExtResource("11_bmhkf")
-
-[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Rounds/MarginContainer/VBoxContainer/AuraFeqBox"]
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-theme = ExtResource("8_fag7y")
-theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
-text = "never"
-
-[node name="SaboBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Rounds/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 16
-
-[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Rounds/MarginContainer/VBoxContainer/SaboBox"]
-custom_minimum_size = Vector2(180, 0)
-layout_mode = 2
-size_flags_horizontal = 8
-theme = ExtResource("8_fag7y")
-theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
-text = "Sabotages:"
-
-[node name="Button" type="Button" parent="SettingsTabs/LeftTab/TabContainer/Rounds/MarginContainer/VBoxContainer/SaboBox"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-focus_mode = 0
-theme_override_styles/hover_pressed = ExtResource("12_s7a5j")
-theme_override_styles/hover = ExtResource("13_1pr4h")
-theme_override_styles/pressed = ExtResource("14_ml4pl")
-theme_override_styles/normal = ExtResource("15_fi13q")
-toggle_mode = true
-
-[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Rounds/MarginContainer/VBoxContainer/SaboBox"]
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-theme = ExtResource("8_fag7y")
-theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
-text = "Off"
-
 [node name="Sound" type="TabBar" parent="SettingsTabs/LeftTab/TabContainer"]
 visible = false
 layout_mode = 2
 tab_alignment = 1
-metadata/_tab_index = 2
+metadata/_tab_index = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/LeftTab/TabContainer/Sound"]
 layout_mode = 1
@@ -622,6 +512,100 @@ layout_mode = 2
 theme = ExtResource("8_fag7y")
 theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
 text = "50"
+
+[node name="Timer Settings" type="TabBar" parent="SettingsTabs/LeftTab/TabContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 1
+tab_alignment = 1
+metadata/_tab_index = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsTabs/LeftTab/TabContainer/Timer Settings"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 75
+
+[node name="PackChooseTimeBox" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 17
+
+[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/PackChooseTimeBox"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme = ExtResource("8_fag7y")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "Card Pack Choosing 
+Phase Timing:"
+
+[node name="HSlider" type="HSlider" parent="SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/PackChooseTimeBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_icons/grabber = ExtResource("9_vdv7x")
+theme_override_icons/grabber_highlight = ExtResource("9_vdv7x")
+theme_override_icons/grabber_disabled = ExtResource("9_vdv7x")
+theme_override_styles/slider = ExtResource("10_8d3tp")
+theme_override_styles/grabber_area = ExtResource("11_bmhkf")
+theme_override_styles/grabber_area_highlight = ExtResource("11_bmhkf")
+min_value = 5.0
+max_value = 81.0
+value = 45.0
+
+[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/PackChooseTimeBox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("8_fag7y")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "50"
+
+[node name="BuildTimeBox2" type="HBoxContainer" parent="SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 17
+
+[node name="Label" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/BuildTimeBox2"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("8_fag7y")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "Build Time 
+Phase Choosing:"
+
+[node name="HSlider" type="HSlider" parent="SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/BuildTimeBox2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_icons/grabber = ExtResource("9_vdv7x")
+theme_override_icons/grabber_highlight = ExtResource("9_vdv7x")
+theme_override_icons/grabber_disabled = ExtResource("9_vdv7x")
+theme_override_styles/slider = ExtResource("10_8d3tp")
+theme_override_styles/grabber_area = ExtResource("11_bmhkf")
+theme_override_styles/grabber_area_highlight = ExtResource("11_bmhkf")
+min_value = 5.0
+max_value = 121.0
+value = 45.0
+
+[node name="Label2" type="Label" parent="SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/BuildTimeBox2"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("8_fag7y")
+theme_override_colors/font_color = Color(0.968627, 0.905882, 0.745098, 1)
+text = "45"
 
 [node name="RightTab" type="Control" parent="SettingsTabs"]
 z_index = 2
@@ -947,14 +931,13 @@ libraries = {
 }
 
 [connection signal="pressed" from="SettingsTabs/LeftTab/TabContainer/Hosting/MarginContainer/VBoxContainer/HostButtons/host" to="." method="_on_host_pressed"]
-[connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Rounds/MarginContainer/VBoxContainer/RoundsBox/HSlider" to="." method="_on_round_slider_value_changed"]
-[connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Rounds/MarginContainer/VBoxContainer/AuraFeqBox/HSlider" to="." method="_on_aura_freq_slider_value_changed"]
-[connection signal="toggled" from="SettingsTabs/LeftTab/TabContainer/Rounds/MarginContainer/VBoxContainer/SaboBox/Button" to="." method="_on_sabo_button_toggled"]
 [connection signal="drag_ended" from="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/MasterBox/HSlider" to="." method="_on_sfx_slider_drag_ended"]
 [connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/MasterBox/HSlider" to="." method="_on_master_slider_value_changed"]
 [connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/MusicBox/HSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="drag_ended" from="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/SFXBox/HSlider" to="." method="_on_sfx_slider_drag_ended"]
 [connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/SFXBox/HSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/PackChooseTimeBox/HSlider" to="." method="_on_packchoose_slider_value_changed"]
+[connection signal="value_changed" from="SettingsTabs/LeftTab/TabContainer/Timer Settings/MarginContainer/VBoxContainer/BuildTimeBox2/HSlider" to="." method="_on_buildtime_slider_value_changed"]
 [connection signal="pressed" from="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/8" to="." method="board_size_changed"]
 [connection signal="pressed" from="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/16" to="." method="board_size_changed"]
 [connection signal="pressed" from="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer/32" to="." method="board_size_changed"]
