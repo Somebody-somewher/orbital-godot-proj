@@ -276,9 +276,6 @@ mouse_filter = 1
 [node name="HostMenu" parent="Menus" instance=ExtResource("10_xlgyj")]
 layout_mode = 1
 
-[node name="TabContainer" parent="Menus/HostMenu/SettingsTabs/RightTab" index="0"]
-current_tab = 1
-
 [node name="8" parent="Menus/HostMenu/SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer" index="0"]
 button_group = SubResource("ButtonGroup_x2k7b")
 
@@ -287,12 +284,6 @@ button_group = SubResource("ButtonGroup_x2k7b")
 
 [node name="32" parent="Menus/HostMenu/SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer" index="2"]
 button_group = SubResource("ButtonGroup_x2k7b")
-
-[node name="Win Conditions" parent="Menus/HostMenu/SettingsTabs/RightTab/TabContainer" index="2"]
-visible = true
-
-[node name="Timer Settings" parent="Menus/HostMenu/SettingsTabs/RightTab/TabContainer" index="3"]
-visible = false
 
 [node name="JoinMenu" parent="Menus" instance=ExtResource("11_bqibv")]
 layout_mode = 1
