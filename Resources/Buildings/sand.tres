@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://ccu0e5mtopkfo"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=14 format=3 uid="uid://ccu0e5mtopkfo"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_n7f6k"]
 [ext_resource type="Texture2D" uid="uid://dkirf5siv7y8n" path="res://assets/entity_sprites/sand.PNG" id="2_n7f6k"]
@@ -6,9 +6,10 @@
 [ext_resource type="Resource" uid="uid://dctu4sqtncbb3" path="res://Resources/EnvTerrain/TerrainTiles/Desert.tres" id="4_n7f6k"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_vv6uy"]
 [ext_resource type="Script" uid="uid://c4b1tsjdr6q7r" path="res://scripts/PlaceConditions/TerrainCondition.gd" id="6_n7f6k"]
-[ext_resource type="Resource" uid="uid://ci1g32fnst1e8" path="res://Resources/Events&Conditions/Events/Scoring/placeholder.tres" id="7_n7f6k"]
 [ext_resource type="Script" uid="uid://c5t7qdcdn01ia" path="res://scripts/Events/DestroyEvents/destroy_self_event.gd" id="7_yyslt"]
+[ext_resource type="Resource" uid="uid://hu4yh8trux8f" path="res://Resources/AOE/single_tile.tres" id="8_miye2"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="8_pqfjc"]
+[ext_resource type="Script" uid="uid://bxqoaqhdsj777" path="res://scripts/Events/change_terrain_event.gd" id="9_w05l2"]
 
 [sub_resource type="Resource" id="Resource_yyslt"]
 script = ExtResource("6_n7f6k")
@@ -22,11 +23,19 @@ event_name = ""
 desc = ""
 metadata/_custom_type_script = "uid://c5t7qdcdn01ia"
 
+[sub_resource type="Resource" id="Resource_vv6uy"]
+script = ExtResource("9_w05l2")
+terrain = ExtResource("4_n7f6k")
+aoe = ExtResource("8_miye2")
+event_name = ""
+desc = ""
+metadata/_custom_type_script = "uid://bxqoaqhdsj777"
+
 [resource]
 script = ExtResource("8_pqfjc")
 layer = 4
 base_score = 0
-preview_event = ExtResource("7_n7f6k")
+preview_event = SubResource("Resource_vv6uy")
 place_conditions = Array[ExtResource("5_vv6uy")]([SubResource("Resource_yyslt")])
 place_effects = Array[ExtResource("1_n7f6k")]([])
 post_place_effects = Array[ExtResource("1_n7f6k")]([SubResource("Resource_miye2")])

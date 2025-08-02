@@ -26,15 +26,6 @@ func set_up(board_size : Vector2i, board_layout : Vector2i) -> void:
 	terrain_underlayer.set_up(object, BORDER_DIM, playable_area)	
 	previewer_tilemap.set_up(object, BORDER_DIM, playable_area, client_interactability_check)
 	
-## Params supplied by server, called by all clients
-#@rpc("any_peer", "call_local")
-#func receive_init_data(board_size : Vector2i, board_layout : Vector2i, border_dim : Vector2i) -> void:
-	#BOARD_SIZE = board_size
-	#BOARDS_LAYOUT = board_layout
-	#BORDER_DIM = border_dim
-	#set_up()
-	#pass
-
 func _ready() -> void:
 	super._ready()
 	NetworkManager.mark_client_ready(self.name)

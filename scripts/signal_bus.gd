@@ -47,7 +47,7 @@ signal mouse_enter_interactable_board_tile()
 signal mouse_enter_board()
 
 signal place_placeable(pi : String, tile_pos : Vector2i, player_uuid : String, run_on_place_events : bool, sync : bool)
-
+signal change_terrain(terrain_id : String, player_uuid : String, tile_pos : Vector2i)
 signal remove_placeable(placeable_instance_id : String, player_uuid : String)
 
 

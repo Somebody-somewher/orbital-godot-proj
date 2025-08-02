@@ -1,243 +1,243 @@
 {
   "column_properties": {
-	"res://Resources/": {
-	  "metadata/_custom_type_script": {
-		"visibility": 0.0
-	  },
-	  "resource_local_to_scene": {
-		"visibility": 0.0
-	  },
-	  "resource_name": {
-		"visibility": 0.0
-	  }
-	},
-	"res://Resources/AOE/": {
-	  "metadata/_custom_type_script": {
-		"visibility": 0.0
-	  },
-	  "resource_local_to_scene": {
-		"visibility": 0.0
-	  },
-	  "resource_name": {
-		"visibility": 0.0
-	  }
-	},
-	"res://Resources/Auras/": {
-	  "metadata/_custom_type_script": {
-		"visibility": 0.0
-	  },
-	  "resource_local_to_scene": {
-		"visibility": 0.0
-	  },
-	  "resource_name": {
-		"visibility": 0.0
-	  }
-	},
-	"res://Resources/Building/": {
-	  "metadata/_custom_type_script": {
-		"visibility": 0.0
-	  },
-	  "resource_local_to_scene": {
-		"visibility": 0.0
-	  },
-	  "resource_name": {
-		"visibility": 0.0
-	  }
-	},
-	"res://Resources/BuildingData/": {
-	  "metadata/_custom_type_script": {
-		"visibility": 0.0
-	  },
-	  "resource_local_to_scene": {
-		"visibility": 0.0
-	  },
-	  "resource_name": {
-		"visibility": 0.0
-	  }
-	},
-	"res://Resources/Buildings/": {
-	  "begin_round_effects": {
-		"visibility": 1.0
-	  },
-	  "destroyed_effects": {
-		"visibility": 0.0
-	  },
-	  "end_round_effects": {
-		"visibility": 0.0
-	  },
-	  "metadata/_custom_type_script": {
-		"visibility": 0.0
-	  },
-	  "place_effects": {
-		"visibility": 1.0
-	  },
-	  "post_place_effects": {
-		"visibility": 0.0
-	  },
-	  "resource_local_to_scene": {
-		"visibility": 0.0
-	  },
-	  "resource_name": {
-		"visibility": 0.0
-	  }
-	},
-	"res://Resources/Buildings/BuildingData/": {
-	  "metadata/_custom_type_script": {
-		"visibility": 0.0
-	  },
-	  "resource_local_to_scene": {
-		"visibility": 0.0
-	  },
-	  "resource_name": {
-		"visibility": 0.0
-	  }
-	},
-	"res://Resources/Buildings/BuildingData/Terrain/": {
-	  "metadata/_custom_type_script": {
-		"visibility": 0.0
-	  },
-	  "resource_local_to_scene": {
-		"visibility": 0.0
-	  },
-	  "resource_name": {
-		"visibility": 0.0
-	  }
-	},
-	"res://Resources/Buildings/CardSetData/": {
-	  "metadata/_custom_type_script": {
-		"visibility": 0.0
-	  },
-	  "resource_local_to_scene": {
-		"visibility": 0.0
-	  },
-	  "resource_name": {
-		"visibility": 0.0
-	  }
-	},
-	"res://Resources/Buildings/MainMenu/": {
-	  "metadata/_custom_type_script": {
-		"visibility": 0.0
-	  },
-	  "resource_local_to_scene": {
-		"visibility": 0.0
-	  },
-	  "resource_name": {
-		"visibility": 0.0
-	  }
-	},
-	"res://Resources/Buildings/Terrain/": {
-	  "metadata/_custom_type_script": {
-		"visibility": 0.0
-	  },
-	  "resource_local_to_scene": {
-		"visibility": 0.0
-	  },
-	  "resource_name": {
-		"visibility": 0.0
-	  }
-	},
-	"res://Resources/Buildings/mine/": {
-	  "metadata/_custom_type_script": {
-		"visibility": 0.0
-	  },
-	  "resource_local_to_scene": {
-		"visibility": 0.0
-	  },
-	  "resource_name": {
-		"visibility": 0.0
-	  }
-	},
-	"res://Resources/CardSet/": {
-	  "metadata/_custom_type_script": {
-		"visibility": 0.0
-	  },
-	  "resource_local_to_scene": {
-		"visibility": 0.0
-	  },
-	  "resource_name": {
-		"visibility": 0.0
-	  }
-	},
-	"res://Resources/CardSetData/": {
-	  "metadata/_custom_type_script": {
-		"visibility": 0.0
-	  },
-	  "resource_local_to_scene": {
-		"visibility": 0.0
-	  },
-	  "resource_name": {
-		"visibility": 0.0
-	  }
-	},
-	"res://Resources/Events/": {
-	  "metadata/_custom_type_script": {
-		"visibility": 0.0
-	  },
-	  "resource_local_to_scene": {
-		"visibility": 0.0
-	  },
-	  "resource_name": {
-		"visibility": 0.0
-	  }
-	},
-	"res://Resources/Events/Building/": {
-	  "metadata/_custom_type_script": {
-		"visibility": 0.0
-	  },
-	  "resource_local_to_scene": {
-		"visibility": 0.0
-	  },
-	  "resource_name": {
-		"visibility": 0.0
-	  }
-	},
-	"res://Resources/Events/Buildings/": {
-	  "metadata/_custom_type_script": {
-		"visibility": 0.0
-	  },
-	  "resource_local_to_scene": {
-		"visibility": 0.0
-	  },
-	  "resource_name": {
-		"visibility": 0.0
-	  }
-	},
-	"res://Resources/Events/Scoring/": {
-	  "metadata/_custom_type_script": {
-		"visibility": 0.0
-	  },
-	  "resource_local_to_scene": {
-		"visibility": 0.0
-	  },
-	  "resource_name": {
-		"visibility": 0.0
-	  }
-	}
+    "res://Resources/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/AOE/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/Auras/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/Building/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/BuildingData/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/Buildings/": {
+      "begin_round_effects": {
+        "visibility": 1.0
+      },
+      "destroyed_effects": {
+        "visibility": 0.0
+      },
+      "end_round_effects": {
+        "visibility": 0.0
+      },
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "place_effects": {
+        "visibility": 1.0
+      },
+      "post_place_effects": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/Buildings/BuildingData/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/Buildings/BuildingData/Terrain/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/Buildings/CardSetData/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/Buildings/MainMenu/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/Buildings/Terrain/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/Buildings/mine/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/CardSet/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/CardSetData/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/Events/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/Events/Building/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/Events/Buildings/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    },
+    "res://Resources/Events/Scoring/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0.0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0.0
+      },
+      "resource_name": {
+        "visibility": 0.0
+      }
+    }
   },
   "recent_paths": [
-	"res://Resources/AOE/",
-	"res://Resources/Buildings/BuildingData/Terrain/",
-	"res://Resources/Buildings/CardSetData/",
-	"res://Resources/CardSetData/",
-	"res://Resources/Buildings/",
-	"res://Resources/Events/",
-	"res://Resources/CardSet/",
-	"res://Resources/Buildings/MainMenu/",
-	"res://Resources/Buildings/Terrain/",
-	"res://Resources/Events/Scoring/",
-	"res://Resources/Events/Buildings/",
-	"res://Resources/Events/Building/",
-	"res://Resources/Building/",
-	"res://Resources/",
-	"res://Resources/Auras/",
-	"res://Resources/Buildings/mine/"
+    "res://Resources/AOE/",
+    "res://Resources/Buildings/BuildingData/Terrain/",
+    "res://Resources/Buildings/CardSetData/",
+    "res://Resources/CardSetData/",
+    "res://Resources/Buildings/",
+    "res://Resources/Events/",
+    "res://Resources/CardSet/",
+    "res://Resources/Buildings/MainMenu/",
+    "res://Resources/Buildings/Terrain/",
+    "res://Resources/Events/Scoring/",
+    "res://Resources/Events/Buildings/",
+    "res://Resources/Events/Building/",
+    "res://Resources/Building/",
+    "res://Resources/",
+    "res://Resources/Auras/",
+    "res://Resources/Buildings/mine/"
   ],
   "table_functions": {
-	"filter": [
-	  "return true"
-	],
-	"process": [
-	  "return value"
-	]
+    "filter": [
+      "return true"
+    ],
+    "process": [
+      "return value"
+    ]
   }
 }
