@@ -61,15 +61,10 @@ func register_events(instance : CardInstanceData) -> void:
 		#on_round_end_events_dict[instance.get_id()] = [instance, events_dict["on_end_round"]]	
 
 ## Remove all events related to this card instance
-func clean_events(instance : CardInstanceData, events_to_remove : Array) -> void:
-	if events_to_remove.is_empty():
-		events_and_conditions[instance.get_id()].clear()
-	
-	#for e
-	#
-	#events_and_conditions[instance.get_id()]["board_begin_round"] 
-	#events_and_conditions.erase(instance.get_id())
-	
+func clean_events(instance : CardInstanceData) -> void:
+	events_and_conditions.erase(instance.get_id())
+	board_round_start_events_dict.erase(instance.get_id())
+	board_round_end_events_dict.erase(instance.get_id())
 	pass
 
 @rpc("any_peer", "call_local")
@@ -90,22 +85,6 @@ func check_conditions(instance : CardInstanceData, condition_id : String, params
 	assert(ConditionKeys.has(condition_id))
 	return run_conditions(events_and_conditions[instance.get_id()][condition_id], instance, params)
 
-#func trigger_event(instance : CardInstanceData, event_type : String, params : Array) -> void:
-	#var events_to_run : Array[Event]
-	#events_to_run.assign(events[instance.get_id()][event_type])
-	#
-	#run_events(events_to_run, params)
-#
-#func check_condition(instance : CardInstanceData, condition_name : String, params : Array) -> bool:
-	#var conditions_to_run : Array[Condition]
-	#conditions_to_run.assign(events[instance.get_id()][condition_name])
-	#return run_conditions(conditions_to_run, params)
-	#pass
-#
-## Remove all events related to this card instance
-#func clean_events(instance : CardInstanceData) -> void:
-	#pass
-#
 func run_conditions(conditions_to_check : Array[Condition], source : CardInstanceData, params : Array) -> bool:
 	for condition in conditions_to_check:
 		if condition is BoardCondition and params[0] is Vector2i:
@@ -155,35 +134,3 @@ func reset_mem() -> void:
 	events_and_conditions.clear()
 	Signalbus.round_start.disconnect(run_board_start_events)
 	Signalbus.round_start.disconnect(run_board_end_events)
-
-
-#func trigger_discard_events(instance : CardInstanceData) -> void:
-	#run_events(events_and_conditions[instance.get_id()]["on_discard"], instance, [])
-	#pass
-	#
-#func trigger_play_events(instance : CardInstanceData) -> void:
-	#run_events(events_and_conditions[instance.get_id()]["on_play"], instance, [])
-	#pass
-#
-#func trigger_place_events(instance : CardInstanceData) -> void:
-	#run_events(events_and_conditions[instance.get_id()]["on_place"], instance, [tilepos])
-	#
-#func trigger_destroy_events(instance : CardInstanceData) -> void:
-	#run_events(events_and_conditions[instance.get_id()]["on_destroy"], instance, [tilepos])
-#
-#func trigger_postplace_events(instance : CardInstanceData) -> void:
-	#run_events(events_and_conditions[instance.get_id()]["post_place"], instance, [tilepos])
-#
-#func trigger_round_start_events(instance : CardInstanceData, params : Array) -> void:
-	#run_events(events_and_conditions[instance.get_id()]["on_begin_round"], instance, params[0])
-	#pass
-#
-#func trigger_round_end_events(instance : CardInstanceData, params : Array) -> void:
-	#run_events(events_and_conditions[instance.get_id()]["on_end_round"], instance, params[0])
-	#pass	
-#
-#func check_card_play_conditions(instance : CardInstanceData) -> bool:
-	#return true
-#
-#func check_place_conditions(instance : CardInstanceData, tilepos : Vector2i) -> bool:
-	#return run_conditions(events_and_conditions[instance.get_id()]["is_placeable"], instance, [tilepos])

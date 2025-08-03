@@ -2,17 +2,17 @@ extends NoiseMapGeneratorAbstract
 class_name TerrainGenerator
 
 ## Values should be sorted in ascending order otherwise noise check die
-@export var terrain_noise_threshold : Array[float]
-@export var terrains : Array[EnvTerrain]
+#@export var terrain_noise_threshold : Array[float]
+#@export var terrains : Array[EnvTerrain]
 
 @export var post_processors : Array = [ProcGenPostProcessTerrainInterface]
 
 # Fills the Matrix with Terrains
 func make_matrix() -> Array:
 	# ERROR HANDLING
-	assert(terrains.size() != 0 && terrain_noise_threshold.size() != 0)
-	assert(terrains.size() >= terrain_noise_threshold.size())
-	if terrains.size() > terrain_noise_threshold.size():
+	assert(_items.size() != 0 && noise_threshold.size() != 0)
+	assert(_items.size() >= noise_threshold.size())
+	if _items.size() > noise_threshold.size():
 		printerr("Some Terrain tiles will not be generated")
 	
 	var matrix = Array()
@@ -36,10 +36,10 @@ func map_noise_to_terrain(noise_val : float) -> EnvTerrain:
 	var i = 0;
 	# Noise Range tends to be frm -0.6 - 0.7 for Simplex
 	# Mapping each cell to terrain-data based off noisemap
-	for level in terrain_noise_threshold:
+	for level in noise_threshold:
 		if noise_val <= level:
-			return terrains[i]
+			return _items[i]
 		i += 1
 			
 	printerr("ProcGen cannot map noise to Terrain ID, noise_val:", noise_val)
-	return terrains[0] 
+	return _items[0] 

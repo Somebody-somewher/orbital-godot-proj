@@ -42,7 +42,7 @@ func mark_server_component_ready(component_name : String) -> void:
 func attempt_signal() -> void:
 	if all_clients_ready and false not in server_components.values():
 		reset_ready()
-		NetworkManager.emit_signal("all_clients_ready")
+		NetworkManager.all_clients_ready.emit()
 
 
 func reset_ready() -> void:

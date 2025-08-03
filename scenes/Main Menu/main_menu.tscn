@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cqp4qcmc1s13n"]
+[gd_scene load_steps=28 format=3 uid="uid://cqp4qcmc1s13n"]
 
 [ext_resource type="Script" uid="uid://baxm1vpvlaqw2" path="res://scripts/Main Menu/main_menu.gd" id="1_bnuun"]
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/Managers/player_hand.gd" id="2_bso06"]
@@ -20,9 +20,7 @@
 [ext_resource type="Script" uid="uid://dcoeqccwxg41y" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrainMapping.gd" id="16_xpnd4"]
 [ext_resource type="PackedScene" uid="uid://dqeuxtjytggp4" path="res://scenes/Menus/parallax_background.tscn" id="19_bqibv"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_bnuun"]
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_xlgyj"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_bqibv"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_x2k7b"]
 
@@ -255,7 +253,21 @@ layout_mode = 1
 
 [node name="SingleplayerMenu" parent="Menus" instance=ExtResource("8_jo2uk")]
 layout_mode = 1
-board_size_grp = SubResource("ButtonGroup_bnuun")
+
+[node name="HSlider" parent="Menus/SingleplayerMenu/SettingsTabs/LeftTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/RoundsBox" index="1"]
+value = 100.0
+
+[node name="Label2" parent="Menus/SingleplayerMenu/SettingsTabs/LeftTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/RoundsBox" index="2"]
+text = "infinity"
+
+[node name="8" parent="Menus/SingleplayerMenu/SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer" index="0"]
+button_group = SubResource("ButtonGroup_bqibv")
+
+[node name="16" parent="Menus/SingleplayerMenu/SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer" index="1"]
+button_group = SubResource("ButtonGroup_bqibv")
+
+[node name="32" parent="Menus/SingleplayerMenu/SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer" index="2"]
+button_group = SubResource("ButtonGroup_bqibv")
 
 [node name="MultiplayerMenu" parent="Menus" instance=ExtResource("9_bso06")]
 layout_mode = 1
@@ -263,7 +275,6 @@ mouse_filter = 1
 
 [node name="HostMenu" parent="Menus" instance=ExtResource("10_xlgyj")]
 layout_mode = 1
-board_size_grp = SubResource("ButtonGroup_xlgyj")
 
 [node name="8" parent="Menus/HostMenu/SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/BoardSizeBox/HBoxContainer" index="0"]
 button_group = SubResource("ButtonGroup_x2k7b")
@@ -312,6 +323,7 @@ one_shot = true
 
 [connection signal="timeout" from="BoardManager/Timer" to="BoardManager" method="_on_timer_timeout"]
 
+[editable path="Menus/SingleplayerMenu"]
 [editable path="Menus/HostMenu"]
 [editable path="Menus/JoinMenu"]
 [editable path="BoardManager"]

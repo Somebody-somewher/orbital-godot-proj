@@ -32,24 +32,6 @@ var pause_timer : bool = false
 
 @export var end_game_wait := 25.0
 
-# Called when the node enters the scene tree for the first time.
-#func _ready() -> void:
-	#Signalbus.end_turn.connect(_player_end_turn)
-	#curr_timer = initial_round.get_time()
-	#prev_s = int(curr_timer)
-	#PlayerManager.forEachPlayer(func(pi : PlayerInfo):\
-		#players_ready[pi.getPlayerUUID()] = false)
-	#
-	#score_manager = ScoreManager.new()
-	#score_manager.connect("game_end", end_game)
-#
-	#for round in round_id_lookup.values():
-		#round.connect("transition_to", start_round)
-	#
-	##round_grp.load_all_into(possible_rounds)
-	#NetworkManager.connect("all_clients_ready", start_round_manager)
-	#NetworkManager.server_net.mark_server_component_ready(self.name)
-# Called when the node enters the scene tree for the first time.
 
 func set_up(settings : Dictionary) -> void:
 	Signalbus.end_turn.connect(_player_end_turn)
@@ -66,6 +48,13 @@ func set_up(settings : Dictionary) -> void:
 	score_manager.game_end.connect(end_game)
 
 	for round in round_id_lookup.values():
+		
+		if round.state_id == "build" and settings.has("build_time"):
+			round.time = settings["build_time"]
+			
+		if round.state_id == "pick_pack" and settings.has("pickpack_time"):
+			round.time = settings["pickpack_time"]
+			
 		round.transition_to.connect(start_round)
 	
 	#round_grp.load_all_into(possible_rounds)

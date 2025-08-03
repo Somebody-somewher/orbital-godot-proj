@@ -91,17 +91,14 @@ func multiplayer_state(id : String) -> String:
 func multiplayer_host(id : String) -> String:
 	match id:
 		"back":
-			NetworkManager.get_node("Lobby").reset_lobby()
 			multihost_back.emit()
 		"start_game":
-			NetworkManager.set_up()
 			start_multiplayer_game.emit()
 	return "multiplayer"
 
 func multiplayer_join(id : String) -> String:
 	match id:
 		"back":
-			NetworkManager.get_node("Lobby").reset_lobby()
 			multijoin_back.emit()
 	return "multiplayer"
 

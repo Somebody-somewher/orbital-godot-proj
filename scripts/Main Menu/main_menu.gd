@@ -74,6 +74,7 @@ func on_open_host():
 	multi_host_menu.animate(true)
 
 func on_close_host():
+	NetworkManager.get_node("Lobby").reset_lobby()
 	multiplayer_menu.animate(true)
 	multi_host_menu.animate(false)
 	#NetworkManager.get_node("Lobby").menu_leave_lobby()
@@ -84,11 +85,13 @@ func on_open_join():
 	multi_join_menu.animate(true)
 
 func on_close_join():
+	NetworkManager.get_node("Lobby").reset_lobby()
 	multiplayer_menu.animate(true)
 	multi_join_menu.animate(false)
-	#NetworkManager.get_node("Lobby").menu_leave_lobby()
+	
 
 func on_start_multiplayer():
+	NetworkManager.set_up()
 	initialize_game.rpc(multi_host_menu.get_game_settings())
 
 func on_start_singleplayer() -> void:
@@ -100,4 +103,4 @@ func on_exit_game() -> void:
 @rpc("any_peer", "call_local")
 func initialize_game(settings : Dictionary) -> void:
 	NetworkManager.set_up()
-	SceneManager.start_game()
+	SceneManager.start_game(settings)
