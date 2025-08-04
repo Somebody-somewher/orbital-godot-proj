@@ -81,7 +81,7 @@ signal show_round_msg(msg : String)
 
 # FX
 signal show_fx(id : String, pos : Vector2)
-signal call_point_fx(score : int, tile_pos : Vector2i, player_uuid : String)
+signal call_point_fx(score : int, tile_pos : Vector2i, player_uuid : String, end_tile_pos : Vector2i)
 #INPUT
 signal change_input_mask(mask)
 signal pause_input

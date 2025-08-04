@@ -23,5 +23,5 @@ func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstance
 		Signalbus.place_placeable.emit(caller, new_spot, caller.get_owner_uuid(), rescore_when_move)
 		if move_bonus > 0:
 			Signalbus.add_score.emit(move_bonus, caller.get_owner_uuid())
-			Signalbus.call_point_fx.emit(move_bonus, new_spot, caller.get_owner_uuid())
+			Signalbus.call_point_fx.emit(move_bonus, new_spot, caller.get_owner_uuid(), new_spot)
 	

@@ -189,6 +189,6 @@ func get_board_coords() -> Array[Vector2]:
 func _on_board_failed_action_by_server() -> void:
 	Signalbus.emit_signal("board_action_result", false)
 	
-func _clientside_display_point_fx(score : int, tile_pos : Vector2i, player_uuid: String) -> void:
+func _clientside_display_point_fx(score : int, tile_pos : Vector2i, player_uuid: String, end_tile_pos : Vector2i) -> void:
 	if player_uuid == PlayerManager.getCurrentPlayerUUID():
-		get_node("Building_Manager").show_point_fx(score, terrain_tilemap.get_local_centre_of_tile(matrix_to_tilepos(tile_pos)))
+		get_node("Building_Manager").show_point_fx(score, terrain_tilemap.get_local_centre_of_tile(matrix_to_tilepos(tile_pos)), terrain_tilemap.get_local_centre_of_tile(matrix_to_tilepos(end_tile_pos)))

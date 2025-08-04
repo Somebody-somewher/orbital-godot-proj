@@ -22,7 +22,7 @@ func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstance
 				var sell_score = building.get_data().base_score
 				if sell_score > 0:
 					Signalbus.add_score.emit(sell_score, caller.get_owner_uuid())
-					Signalbus.call_point_fx.emit(sell_score, tile_pos_data[0][i], caller.get_owner_uuid())
+					Signalbus.call_point_fx.emit(sell_score, tile_pos_data[0][i], caller.get_owner_uuid(), tile_pos)
 	pass
 
 func modifier(tile_data : BoardTile, _cum_score := 0) -> int:
