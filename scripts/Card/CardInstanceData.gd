@@ -35,5 +35,13 @@ static func deserialize(serialized_obj : Dictionary, _data : CardData) -> CardIn
 	instance.resync(serialized_obj)
 	return instance	
 
+func is_playable(phase : String) -> bool:
+	var category := get_data().category
+	if phase == "sabo" and category != CardData.CATEGORY.Sabotage:
+		return false
+	#elif phase == "build" and category == CardData.CATEGORY.Sabotage:
+		#return false
+	return true
+
 func _to_string() -> String:
 	return data_instance_id + " " + owner_uuid

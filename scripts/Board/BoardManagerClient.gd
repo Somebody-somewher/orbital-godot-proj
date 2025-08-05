@@ -167,16 +167,22 @@ func _process(delta: float) -> void:
 
 #################################### BOARD INTERACTABILITY #################################################
 @rpc("any_peer","call_local")
-func client_set_interactable_board(boards: Array) -> void:
+func client_set_interactable_board(interactable_boards: Array, all_boards : Array) -> void:
 	var board_coords 
-	for b in boards:
-		board_coords = matrix_data.set_board_interactable(b)
-		terrain_tilemap.unshade_area(board_coords[0] \
-			, board_coords[1])
+	for b in all_boards:
+		if b in interactable_boards:
+			board_coords = matrix_data.set_board_interactable(b)
+			terrain_tilemap.unshade_area(board_coords[0] \
+				, board_coords[1])
+		else:
+			board_coords = matrix_data.set_board_interactable(b, false)
+			terrain_tilemap.shade_area(board_coords[0] \
+				, board_coords[1])	
 
-func client_interactability_check(tile_pos : Vector2i, upon_success : Callable) -> bool:
+func client_interactability_check(cardinstance : CardInstanceData, tile_pos : Vector2i, upon_success : Callable) -> bool:
 	if tile_pos != NULL_TILE and !SceneManager.is_gameplay_paused and\
-		!matrix_data.get_interactable_boardcoords_of_tilepos(tilemap_to_matrix(tile_pos)).is_empty():
+		!matrix_data.get_interactable_boardcoords_of_tilepos(tilemap_to_matrix(tile_pos)).is_empty()\
+		and cardinstance.is_playable((get_tree().current_scene as GameManager).phase):
 		return upon_success.call()
 	else:
 		return false

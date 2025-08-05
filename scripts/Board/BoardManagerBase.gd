@@ -34,8 +34,8 @@ func server_setup(board_settings : Dictionary):
 		
 		# Signal telling server that all clients are ready to receive info
 		
-		board_layout_gen = BoardLayout.new(func(player_id : int, boards : Array): \
-			client_set_interactable_board.rpc_id(player_id, boards))
+		board_layout_gen = BoardLayout.new(func(player_id : int, interactable_boards : Array, all_boards : Array): \
+			client_set_interactable_board.rpc_id(player_id, interactable_boards, all_boards))
 		
 		BOARDS_LAYOUT = board_layout_gen.get_board_layout(PlayerManager.getNumPlayers())
 		
@@ -70,7 +70,7 @@ func init_clients() -> void:
 	, func(tid : String, tile_pos : Vector2i): _client_create_border_fake_tile.rpc(tid, tile_pos) \
 	, create_terrain_building \
 	, func(bid : String, tile_pos : Vector2i): _client_create_border_fake_building.rpc(bid, tile_pos))
-	board_layout_gen.set_ui_interactable()
+	board_layout_gen.set_interactable("")
 	
 	# This is to mark the client as synced up
 	NetworkManager.mark_client_ready.rpc(self.name)
@@ -139,15 +139,18 @@ func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i,
 	var server_mem : ServerCardMemory = (CardLoader.card_mem as ServerCardMemory)
 	
 	var tile_pos_matrix := tilemap_to_matrix(tile_pos)
-	
-	var check := server_interactability_check(remote_id, tile_pos, func() -> bool:
-		# Get the carddata instance stored separately on server and client CardLoader
-		var placeable_instance : PlaceableInstanceData = server_mem.search_hand_for(\
+
+	var placeable_instance : PlaceableInstanceData = server_mem.search_hand_for(\
 			placeableinst_id, PlayerManager.getUUID_from_PeerID(remote_id));\
+	
+	var check := server_interactability_check(placeable_instance, remote_id, tile_pos, func() -> bool:
+		# Get the carddata instance stored separately on server and client CardLoader
+		#var placeable_instance : PlaceableInstanceData = server_mem.search_hand_for(\
+			#placeableinst_id, PlayerManager.getUUID_from_PeerID(remote_id));\
 		
 		# Check on server side if the placeable can be place
-		if placeable_instance and \
-			CardLoader.event_manager.check_conditions(placeable_instance, "is_placeable", [tile_pos_matrix]):
+		if placeable_instance and CardLoader.event_manager.check_conditions(\
+			placeable_instance, "is_placeable", [tile_pos_matrix]):
 			
 			# Place on serverside
 			_place_placeable(placeable_instance, tile_pos, run_on_place_events);\
@@ -174,7 +177,6 @@ func request_place_cardplaceable(placeableinst_id : String, tile_pos : Vector2i,
 	# We also dont run a function on client if the event is unsuccessful 
 	if !check:
 		_on_board_failed_action_by_server.rpc_id(remote_id)
-		#update_client_check_status(remote_id, check)
 
 ## Used by Events to create new placeables
 ## Event code is in charge of making sure 
@@ -277,8 +279,10 @@ func server_check_tilepos_in_interactable(player_uuid : String, tilepos : Vector
 			return true
 	return false
 
-func server_interactability_check(remote_id : int, tile_pos : Vector2i, upon_success : Callable) -> bool:
-	if tile_pos != NULL_TILE and !SceneManager.is_gameplay_paused and server_check_tilepos_in_interactable(PlayerManager.getUUID_from_PeerID(remote_id),\
+
+func server_interactability_check(cardinstance : CardInstanceData, remote_id : int, tile_pos : Vector2i, upon_success : Callable) -> bool:
+	if tile_pos != NULL_TILE and !SceneManager.is_gameplay_paused and cardinstance.is_playable((get_tree().current_scene as GameManager).phase)\
+		and server_check_tilepos_in_interactable(PlayerManager.getUUID_from_PeerID(remote_id),\
 		tilemap_to_matrix(tile_pos)):
 		return upon_success.call()
 	else:
@@ -314,7 +318,7 @@ func _on_board_failed_action_by_server() -> void:
 	pass
 
 @rpc("any_peer", "call_local")
-func client_set_interactable_board(boards: Array) -> void:
+func client_set_interactable_board(interactable_boards: Array, all_boards : Array) -> void:
 	pass
 
 func _client_create_border_fake_tile(tid : String, tile_pos : Vector2i) -> void:
@@ -326,3 +330,4 @@ func _client_create_border_fake_building(bid : String, tile_pos : Vector2i) -> v
 func reset() -> void:
 	if proc_gen:
 		proc_gen.reset()
+	board_layout_gen.reset()

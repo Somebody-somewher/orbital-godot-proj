@@ -10,7 +10,6 @@ class_name RoundCounter
 @export var initial_round : RoundState
 var curr_round : RoundState
 
-
 # If all players indicated that they have ended their turn
 # End the round prematurely
 @export var players_ready : Dictionary[String, bool] = {}
@@ -27,11 +26,9 @@ var curr_timer : float = 0.0
 var prev_s : int
 var pause_timer : bool = false
 
-
 @export var round_id_lookup : Dictionary[String, RoundState]
 
 @export var end_game_wait := 25.0
-
 
 func set_up(settings : Dictionary) -> void:
 	Signalbus.end_turn.connect(_player_end_turn)
@@ -91,7 +88,6 @@ func end_round() -> void:
 	score_manager.set_is_poll_first(false)
 	score_manager.query_for_winner(false)
 
-# In the actual game this will be called by gameplay manager after all end_of_round effects occur?
 func start_round(round_id : String) -> void:
 	
 	if round_id == "END":
@@ -99,6 +95,7 @@ func start_round(round_id : String) -> void:
 		return
 	
 	curr_round = round_id_lookup[round_id]
+	(get_parent() as GameManager).set_phase.rpc(curr_round.get_id())
 	
 	for key in players_ready.keys():
 		players_ready[key] = false	

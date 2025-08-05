@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="RoundSaboState" load_steps=2 format=3 uid="uid://dsx8biaaeq5r2"]
+
+[ext_resource type="Script" uid="uid://c7bvlqcwb0qlx" path="res://scripts/GameFlow/RoundLogic/RoundSaboState.gd" id="1_f55qc"]
+
+[resource]
+script = ExtResource("1_f55qc")
+next_state_ids = Array[String](["pick_pack"])
+state_id = "sabo"
+time = 30.0
+metadata/_custom_type_script = "uid://c7bvlqcwb0qlx"

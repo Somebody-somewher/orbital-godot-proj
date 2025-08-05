@@ -28,11 +28,9 @@ func setup_mem(mem : CardMemory, get_card_data : Callable) -> void:
 	#func_get_card_data = get_card_data
 
 func run_board_start_events(round_id : String, round_total : int) -> void:
-	print_debug(round_total)
 	run_round_events(board_round_start_events_dict)
 
 func run_board_end_events(round_id : String, round_total : int) -> void:
-	print_debug(round_total)
 	run_round_events(board_round_end_events_dict)
 
 func register_board_round_events(instance : CardInstanceData) -> void:
@@ -54,12 +52,6 @@ func register_events(instance : CardInstanceData) -> void:
 	if events_dict["preview"][0] not in events_and_conditions[instance.get_id()]["on_place"]:
 		events_and_conditions[instance.get_id()]["on_place"].push_front(events_dict["preview"][0])
 	
-	#if !events_dict["on_begin_round"].is_empty():
-		#on_round_start_events_dict[instance.get_id()] = [instance, events_dict["on_begin_round"]]		
-	#
-	#if !events_dict["on_end_round"].is_empty():
-		#on_round_end_events_dict[instance.get_id()] = [instance, events_dict["on_end_round"]]	
-
 ## Remove all events related to this card instance
 func clean_events(instance : CardInstanceData) -> void:
 	events_and_conditions.erase(instance.get_id())
@@ -117,10 +109,6 @@ func run_event(event : Event, source : CardInstanceData, params : Array) -> void
 			event.trigger(card_mem, source)
 	elif event is BaseScoreEvent:
 		event.trigger(source)
-#func run_all_round_events(events_to_run : Dictionary[CardInstanceData, Event]) -> void:
-	#for instance in events_to_run.keys():
-		#if event is events_to_run[instance]:
-			#event.trigger(matrix_data, )
 
 func reset_mem() -> void:
 	#card_mem.clear()
