@@ -47,7 +47,6 @@ func in_tags(str : String) -> bool:
 	return false
 
 func debug_create_card(id_name) -> void:
-	print("CHECK TIME ", temp_click_count)
 	if temp_click_count >= debug_click_spawn:
 		var instance = CardLoader.create_data_instance(id_name, -1)
 		var player_uuid := PlayerManager.getCurrentPlayerUUID()
