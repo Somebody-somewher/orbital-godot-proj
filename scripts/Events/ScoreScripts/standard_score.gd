@@ -39,7 +39,7 @@ func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstance
 	for score in data_array[2]:
 		total_score += score
 	
-	if total_score > 0:
+	if total_score != 0:
 		Signalbus.emit_signal("add_score", total_score, caller.get_owner_uuid())
 		Signalbus.call_point_fx.emit(total_score, tile_pos, caller.get_owner_uuid(), tile_pos)
 

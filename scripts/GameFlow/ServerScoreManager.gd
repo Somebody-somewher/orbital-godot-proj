@@ -29,6 +29,9 @@ func _init(settings : Dictionary) -> void:
 	
 	if settings.has('win_medals'):
 		self.end_medals = settings["win_medals"]
+		
+	if settings.has('win_score'):
+		self.end_score = settings["win_score"]
 	
 func adjust_score(score_to_add : int, player_uuid : String) -> void:
 	#print("SCOREMANAGER: ", player_uuid, " ", score_to_add)

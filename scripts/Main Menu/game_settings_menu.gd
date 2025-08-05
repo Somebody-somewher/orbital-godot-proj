@@ -141,5 +141,5 @@ func get_game_settings() -> Dictionary:
 	
 	dict_output['build_time'] = build_phase_time
 	dict_output['pickpack_time'] = packchoose_phase_time
-	
+	print(dict_output)
 	return dict_output
