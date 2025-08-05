@@ -885,6 +885,7 @@ theme_override_icons/grabber_disabled = ExtResource("9_vdv7x")
 theme_override_styles/slider = ExtResource("10_8d3tp")
 theme_override_styles/grabber_area = ExtResource("11_bmhkf")
 theme_override_styles/grabber_area_highlight = ExtResource("11_bmhkf")
+value = 100.0
 
 [node name="Label2" type="Label" parent="SettingsTabs/RightTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/RoundsBox"]
 custom_minimum_size = Vector2(50, 0)
@@ -945,3 +946,5 @@ libraries = {
 [connection signal="toggled" from="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/TerrainBox/HBoxContainer/water" to="." method="_on_water_toggled"]
 [connection signal="toggled" from="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/TerrainBox/HBoxContainer/sand" to="." method="_on_sand_toggled"]
 [connection signal="toggled" from="SettingsTabs/RightTab/TabContainer/BoardGen/MarginContainer/VBoxContainer/SpawnableBox/Button" to="." method="_on_spawnables_button_toggled"]
+[connection signal="value_changed" from="SettingsTabs/RightTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/RoundsBox/HSlider" to="." method="_on_round_slider_value_changed"]
+[connection signal="value_changed" from="SettingsTabs/RightTab/TabContainer/Win Conditions/MarginContainer/VBoxContainer/ScoresBox/HSlider" to="." method="_on_score_slider_value_changed"]
