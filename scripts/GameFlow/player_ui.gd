@@ -38,7 +38,7 @@ func _update_timer_ui(time : int) -> void:
 	round_timer_label.text = "Time: " + str(time)
 
 func _update_round_label(round_id : String, round_total : int) -> void:
-	round_label.text = "Round: " + str(round_id)
+	round_label.text = "Round: " + str(round_total)
 
 func _on_end_turn_pressed() -> void:
 	Signalbus.emit_multiplayer_signal.rpc_id(1, \
