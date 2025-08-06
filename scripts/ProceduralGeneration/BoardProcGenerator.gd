@@ -14,7 +14,6 @@ var has_setup : bool = false
 
 func set_up(board_size : Vector2i = Vector2i(8,8), board_num : Vector2i = Vector2i(1,1),\
 	 border_width : Vector2i = Vector2i(0,0), settings : Dictionary = {}) -> void:
-	
 	Signalbus.reset_scene.connect(reset)
 	if settings.has("procgen") and settings["procgen"].has("terrain_types"):
 		terrain_gen.set_up(board_size, board_num, border_width, settings["procgen"]["terrain_types"])

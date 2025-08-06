@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://d2ge0mle8odwm"]
+
+[ext_resource type="Script" uid="uid://bg3a3qbvmfshq" path="res://scripts/Tutorial/tutorial_round_manager.gd" id="1_68duu"]
+[ext_resource type="Script" uid="uid://d4g6mmx7ry5hb" path="res://scripts/GameFlow/RoundLogic/RoundState.gd" id="2_3t4bo"]
+[ext_resource type="Resource" uid="uid://bpxbgyo3a0vug" path="res://Resources/Rounds/PickPackRound.tres" id="2_coid1"]
+[ext_resource type="Script" uid="uid://k4v6c6j1tnxc" path="res://scripts/GameFlow/RoundLogic/RoundBuildState.gd" id="3_coid1"]
+
+[sub_resource type="Resource" id="Resource_3t4bo"]
+script = ExtResource("3_coid1")
+max_round_count = -1
+next_state_ids = Array[String](["build"])
+state_id = "build"
+time = 10000.0
+metadata/_custom_type_script = "uid://k4v6c6j1tnxc"
+
+[node name="RoundManager" type="Node"]
+script = ExtResource("1_68duu")
+initial_round = ExtResource("2_coid1")
+round_id_lookup = Dictionary[String, ExtResource("2_3t4bo")]({
+"build": SubResource("Resource_3t4bo"),
+"pick_pack": ExtResource("2_coid1")
+})
+end_game_wait = 5.0

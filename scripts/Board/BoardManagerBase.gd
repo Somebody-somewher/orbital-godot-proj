@@ -247,6 +247,7 @@ func _clear_board_tile(tile_pos : Vector2i, run_destroy_events := true) -> void:
 		tile_data.clear_tile(func(pi : PlaceableInstanceData): pass)
 		
 func server_remove_building(buildinginst_id : String, player_uuid : String, run_destroy_events := true, sync := true) -> void:
+	
 	if sync:
 		_remove_building.rpc(buildinginst_id, run_destroy_events)
 	else:
@@ -259,14 +260,14 @@ func server_remove_building(buildinginst_id : String, player_uuid : String, run_
 func _remove_building(buildinginst_id : String, run_destroy_events := true) -> void:
 	#print_debug("Multiplayer removed thing: ", multiplayer.get_unique_id(), " ", buildinginst_id)
 	var placeable_instance : PlaceableInstanceData = matrix_data.get_placeable(buildinginst_id)
-	
+
 	if !placeable_instance:
 		printerr("Likely server has deleted the instance before client even added it lol")
 		printerr("Decide how to handle this later")
 	
-		if run_destroy_events and multiplayer.is_server():
-			CardLoader.event_manager.trigger_events(placeable_instance, "on_destroy", [placeable_instance.tile_pos])
-		CardLoader.event_manager.clean_events(placeable_instance)
+	if run_destroy_events and multiplayer.is_server():
+		CardLoader.event_manager.trigger_events(placeable_instance, "on_destroy", [placeable_instance.tile_pos])
+	CardLoader.event_manager.clean_events(placeable_instance)
 		
 	matrix_data.remove_placeable_on_tile(buildinginst_id)
 	

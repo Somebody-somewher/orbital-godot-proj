@@ -113,6 +113,7 @@ _data = {
 }
 
 [node name="PointPopup" type="Node2D"]
+visible = false
 z_index = 500
 z_as_relative = false
 script = ExtResource("1_ydw7w")

@@ -16,6 +16,7 @@
 [node name="GameManager" type="Node"]
 script = ExtResource("1_bjd11")
 round_manager = ExtResource("2_ft6cd")
+settings = null
 
 [node name="CardManager" type="Node2D" parent="." node_paths=PackedStringArray("board_ref", "player_hand_ref", "input_manager_ref", "preview_board_ref")]
 script = ExtResource("3_jlsqs")
@@ -36,6 +37,9 @@ script = ExtResource("5_lhr70")
 position = Vector2(879, 480)
 
 [node name="UILayer" parent="." instance=ExtResource("9_3p2gp")]
+
+[node name="PlayerUI" parent="UILayer" index="0"]
+metadata/_edit_use_anchors_ = true
 
 [node name="DisconnectScreen" parent="UILayer" index="1"]
 visible = false

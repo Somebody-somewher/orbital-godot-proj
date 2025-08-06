@@ -24,7 +24,7 @@
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_x2k7b"]
 
-[sub_resource type="Shader" id="Shader_xpnd4"]
+[sub_resource type="Shader" id="Shader_bqibv"]
 code = "shader_type canvas_item;
 
 group_uniforms code_set_parameters;
@@ -184,20 +184,20 @@ void fragment() {
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_j4ao5"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b3b0l"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cmu3j"]
 noise = SubResource("FastNoiseLite_j4ao5")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_b3b0l"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pmi5y"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kbvpp"]
 noise = SubResource("FastNoiseLite_b3b0l")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xlgyj"]
 resource_local_to_scene = true
-shader = SubResource("Shader_xpnd4")
+shader = SubResource("Shader_bqibv")
 shader_parameter/mouse_position = Vector2(0, 0)
 shader_parameter/sprite_position = Vector2(0, 0)
-shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_b3b0l")
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_cmu3j")
 shader_parameter/dissolve_value = 1.0
 shader_parameter/burn_color = Color(0, 0, 0, 1)
 shader_parameter/fov = 90.0
@@ -214,7 +214,7 @@ shader_parameter/normal_strength = 0.1
 shader_parameter/effect_alpha_mult = 0.0
 shader_parameter/direction = 0.5
 shader_parameter/gradient = ExtResource("12_bso06")
-shader_parameter/normal_map = SubResource("NoiseTexture2D_pmi5y")
+shader_parameter/normal_map = SubResource("NoiseTexture2D_kbvpp")
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3

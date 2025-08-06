@@ -89,3 +89,7 @@ signal resume_input
 
 # EventManager
 #signal trigger_effect(bid : BuildingInstanceData, effect_type : Sting)
+
+#Tutorial
+signal reset_tutorial
+signal pass_tutorial_stage

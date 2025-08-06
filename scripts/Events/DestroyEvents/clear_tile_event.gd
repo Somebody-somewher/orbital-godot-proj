@@ -3,7 +3,6 @@ class_name ClearTileEvent
 
 func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstanceData) -> void:
 	var tile_pos_data = aoe.get_scored_tiles(tile_pos)
-	
 	var arr : Array[BuildingInstanceData]
 	#for tiledata in tile_pos_data[1]:
 	for i in range(tile_pos_data[1].size()):

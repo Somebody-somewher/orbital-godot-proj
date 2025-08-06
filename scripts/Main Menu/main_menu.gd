@@ -41,6 +41,7 @@ func connect_signals() -> void:
 	menu_logic.start_multiplayer_game.connect(on_start_multiplayer)
 	menu_logic.multijoin_open.connect(on_open_join)
 	menu_logic.multijoin_back.connect(on_close_join)
+	menu_logic.start_tutorial.connect(on_start_tutorial)
 
 func on_open_settings() -> void:
 	options_menu.sync_settings()
@@ -97,6 +98,9 @@ func on_start_multiplayer():
 func on_start_singleplayer() -> void:
 	initialize_game(singleplayer_menu.get_game_settings())
 
+func on_start_tutorial() -> void:
+	initialize_tutorial()
+
 func on_exit_game() -> void:
 	get_tree().quit()
 
@@ -104,3 +108,8 @@ func on_exit_game() -> void:
 func initialize_game(settings : Dictionary) -> void:
 	NetworkManager.set_up()
 	SceneManager.start_game(settings)
+
+@rpc("any_peer", "call_local")
+func initialize_tutorial() -> void:
+	NetworkManager.set_up()
+	SceneManager.start_tutorial()

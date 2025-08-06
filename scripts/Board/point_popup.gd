@@ -14,7 +14,10 @@ func _ready() -> void:
 	position = start_pos + Vector2(0, -50)
 	if !end_pos:
 		end_pos = start_pos
-	label.text = "+" + str(points)
+	if points < 0:
+		label.text = str(points)
+	else:
+		label.text = "+" + str(points)
 	animation_player.play("pop")
 	await get_tree().create_timer(.6).timeout
 	var tweening = get_tree().create_tween()

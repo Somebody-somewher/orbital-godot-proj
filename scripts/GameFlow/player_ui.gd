@@ -55,4 +55,5 @@ func show_round_msg(msg : String) -> void:
 
 func _input(event):
 	if Input.is_action_just_pressed("escape"):
+		Signalbus.close_compendium.emit()
 		escape_menu.toggle()

@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=8 format=3 uid="uid://dnhosh24ibjit"]
+
+[ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_5cecw"]
+[ext_resource type="Texture2D" uid="uid://dajjwe5q0ox20" path="res://assets/entity_sprites/cute_dummy.png" id="2_5cecw"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_x3j7n"]
+[ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="4_cax14"]
+[ext_resource type="Resource" uid="uid://co5t8yoldc0dc" path="res://Resources/Events&Conditions/Events/Scoring/single_tile_dummy.tres" id="5_1h5rf"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_1xc4t"]
+
+[sub_resource type="Resource" id="Resource_7xiv1"]
+script = ExtResource("4_cax14")
+reminder_msg = ""
+metadata/_custom_type_script = "uid://wuau4rxg1ej4"
+
+[resource]
+script = ExtResource("6_1xc4t")
+layer = 1
+base_score = 0
+preview_event = ExtResource("5_1h5rf")
+place_conditions = Array[ExtResource("3_x3j7n")]([SubResource("Resource_7xiv1")])
+place_effects = Array[ExtResource("1_5cecw")]([])
+post_place_effects = Array[ExtResource("1_5cecw")]([])
+board_begin_round_effects = Array[ExtResource("1_5cecw")]([])
+board_end_round_effects = Array[ExtResource("1_5cecw")]([])
+destroyed_effects = Array[ExtResource("1_5cecw")]([])
+play_conditions = Array[ExtResource("3_x3j7n")]([])
+play_effects = Array[ExtResource("1_5cecw")]([])
+discard_effects = Array[ExtResource("1_5cecw")]([])
+id_name = "tutorial"
+display_name = "tutorial"
+card_sprite = ExtResource("2_5cecw")
+desc = ""
+flavor = ""
+category = 0
+tags = Array[String]([])
+is_aura = false
+hidden = true
+override_default = false
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"
