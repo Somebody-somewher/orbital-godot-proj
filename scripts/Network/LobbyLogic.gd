@@ -17,8 +17,6 @@ var player_list_string : String = ""
 
 var ip_check = RegEx.new()
 
-#var multiplayer_peer = ENetMultiplayerPeer.new()
-
 # Resources
 # Following this tutorial mainly: 
 # https://www.youtube.com/watch?v=e0JLO_5UgQo
@@ -197,5 +195,5 @@ func reset_lobby() -> void:
 	clear_player_list()
 	_leave_lobby()
 	
-	PlayerManager.reset()
 	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new() #dummy_peer
+	PlayerManager.reset()

@@ -1,6 +1,7 @@
 extends Object
 class_name BoardLayout
 
+signal set_player_interactable_tiles 
 
 var BOARDS_LAYOUT : Vector2i
 
@@ -17,13 +18,10 @@ var player_interactable_boards : Dictionary[String, Array]
 # Boards currently in use by players
 var used_boards : Array
 
-var _set_interactable_func : Callable
-
 var starting_player_board : Vector2i = Vector2i(1,1)
 var curr_player_board : Vector2i = starting_player_board
 
-func _init(set_interactable_func : Callable) -> void:
-	_set_interactable_func = set_interactable_func
+func _init() -> void:
 	Signalbus.set_interactable_board_state.connect(set_interactable)
 	
 func get_board_layout(num_players : int) -> Vector2i:
@@ -69,9 +67,11 @@ func set_interactable(state_id : String) -> void:
 
 func set_layout_interactable() -> void:
 	for player_uuid in player_interactable_boards.keys():
-		_set_interactable_func.call(\
-			PlayerManager.getPeerID_from_UUID(player_uuid), \
-				player_interactable_boards[player_uuid], used_boards)	
+		set_player_interactable_tiles.emit(PlayerManager.getPeerID_from_UUID(player_uuid), \
+			player_interactable_boards[player_uuid], used_boards)
+		#_set_interactable_func.call(\
+			#PlayerManager.getPeerID_from_UUID(player_uuid), \
+				#player_interactable_boards[player_uuid], used_boards)	
 
 func reset() -> void:
 	Signalbus.set_interactable_board_state.disconnect(set_interactable)

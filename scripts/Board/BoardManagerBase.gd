@@ -34,8 +34,12 @@ func server_setup(board_settings : Dictionary):
 		
 		# Signal telling server that all clients are ready to receive info
 		
-		board_layout_gen = BoardLayout.new(func(player_id : int, interactable_boards : Array, all_boards : Array): \
-			client_set_interactable_board.rpc_id(player_id, interactable_boards, all_boards))
+		board_layout_gen = BoardLayout.new()
+		
+		board_layout_gen.set_player_interactable_tiles.connect(
+			func(player_id : int, interactable_boards : Array, all_boards : Array):
+				client_set_interactable_board.rpc_id(player_id, interactable_boards, all_boards)
+		)
 		
 		BOARDS_LAYOUT = board_layout_gen.get_board_layout(PlayerManager.getNumPlayers())
 		
@@ -330,4 +334,7 @@ func _client_create_border_fake_building(bid : String, tile_pos : Vector2i) -> v
 func reset() -> void:
 	if proc_gen:
 		proc_gen.reset()
+	proc_gen = null
 	board_layout_gen.reset()
+	board_layout_gen = null
+	proc_gen = null
