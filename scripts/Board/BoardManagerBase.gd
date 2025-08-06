@@ -268,7 +268,7 @@ func _remove_building(buildinginst_id : String, run_destroy_events := true) -> v
 	
 		if run_destroy_events and multiplayer.is_server():
 			CardLoader.event_manager.trigger_events(placeable_instance, "on_destroy", [placeable_instance.tile_pos])
-		CardLoader.event_manager.clean_events(placeable_instance)
+		CardLoader.event_manager.clean_events.rpc(placeable_instance)
 		
 	matrix_data.remove_placeable_on_tile(buildinginst_id)
 	

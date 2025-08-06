@@ -53,6 +53,7 @@ func register_events(instance : CardInstanceData) -> void:
 		events_and_conditions[instance.get_id()]["on_place"].push_front(events_dict["preview"][0])
 	
 ## Remove all events related to this card instance
+@rpc("any_peer", "call_local")
 func clean_events(instance : CardInstanceData) -> void:
 	events_and_conditions.erase(instance.get_id())
 	board_round_start_events_dict.erase(instance.get_id())
