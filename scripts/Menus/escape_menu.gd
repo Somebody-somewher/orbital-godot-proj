@@ -1,6 +1,7 @@
 extends Control
 class_name EscapeMenu
 
+var enabled := true
 var open_state : bool = false
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
@@ -64,6 +65,10 @@ func _on_fullscreen_toggled(toggled_on: bool) -> void:
 func _ready() -> void:
 	sync_vol_sliders()
 	sure_box.visible = false
+	Signalbus.enable_escape.connect(set_enable)
+
+func set_enable(on : bool):
+	enabled = on
 
 func close_menu() -> void:
 	open_state = false
@@ -73,11 +78,14 @@ func close_menu() -> void:
 	
 
 func open_menu() ->void:
+	if !enabled:
+		return
 	open_state = true	
 	fullscreen_button.button_pressed = DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN
 	sure_box.visible = false
 	animation_player.play("open")
 	Signalbus.pause_input.emit()
+	Signalbus.tut_escape_menu_opened.emit()
 
 func toggle() -> void:
 	if open_state:

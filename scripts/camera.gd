@@ -53,7 +53,6 @@ func _process(_delta: float) -> void:
 		player_hand.snap_to_hand_pos()
 
 func start_camera_drag() -> void:
-	print("raa")
 	card_manager.hover_enabled = false
 	drag_offset = get_global_mouse_position()
 	mouse_initial = get_viewport().get_mouse_position()

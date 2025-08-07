@@ -41,10 +41,12 @@ func adjust_score(score_to_add : int, player_uuid : String) -> void:
 		,[player_scores[player_uuid]["score"]])
 	check_if_end(player_uuid, player_scores[player_uuid]["score"], player_scores[player_uuid]["medals"])
 
-func get_player_score(score_to_set : int, player_uuid : String) -> void:
+func set_player_score(score_to_set : int, player_uuid : String) -> void:
 	player_scores[player_uuid]["score"] = score_to_set
+	Signalbus.emit_multiplayer_signal.rpc_id(PlayerManager.getPeerID_from_UUID(player_uuid), "update_score_ui"\
+		,[player_scores[player_uuid]["score"]])
 
-func set_player_score(player_uuid : String) -> int:
+func get_player_score(player_uuid : String) -> int:
 	return player_scores[player_uuid]["score"]
 
 # This runs if a player hits winning conditions within the Build Phase (but not start or end of round)

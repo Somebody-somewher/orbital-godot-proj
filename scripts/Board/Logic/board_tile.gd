@@ -59,6 +59,7 @@ func foreach_building_on_tile(c : Callable) -> void:
 	for o in placeable_arr:
 		if o:
 			c.call(o)
+
 # for deleting buildings from tile
 func delete_from_tile(placeable_id : String) -> void:
 

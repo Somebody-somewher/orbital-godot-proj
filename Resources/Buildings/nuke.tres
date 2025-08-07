@@ -1,0 +1,59 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=13 format=3 uid="uid://c1y7ejbgsc0xx"]
+
+[ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_ardwl"]
+[ext_resource type="Texture2D" uid="uid://dc0jtojn8aj6g" path="res://assets/entity_sprites/bomb.PNG" id="2_a3f33"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_k8i0c"]
+[ext_resource type="Resource" uid="uid://duwyfru3v1ktu" path="res://Resources/AOE/small orth cross.tres" id="5_8tusi"]
+[ext_resource type="Resource" uid="uid://ci7hb7fl2b4jp" path="res://Resources/AOE/3x3.tres" id="5_a3f33"]
+[ext_resource type="Script" uid="uid://bf3fbxrk2db7d" path="res://scripts/Events/DestroyEvents/clear_tile_event.gd" id="6_r3xcq"]
+[ext_resource type="Script" uid="uid://c5t7qdcdn01ia" path="res://scripts/Events/DestroyEvents/destroy_self_event.gd" id="7_h400j"]
+[ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/standard_score.gd" id="8_3etp5"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="9_hgbfu"]
+
+[sub_resource type="Resource" id="Resource_fxnfk"]
+script = ExtResource("6_r3xcq")
+aoe = ExtResource("5_a3f33")
+event_name = ""
+desc = ""
+metadata/_custom_type_script = "uid://bf3fbxrk2db7d"
+
+[sub_resource type="Resource" id="Resource_x5qbf"]
+script = ExtResource("7_h400j")
+event_name = ""
+desc = ""
+metadata/_custom_type_script = "uid://c5t7qdcdn01ia"
+
+[sub_resource type="Resource" id="Resource_skqab"]
+script = ExtResource("8_3etp5")
+effect_buildings_score = Dictionary[String, int]({})
+base_score = 0
+aoe = ExtResource("5_8tusi")
+event_name = ""
+desc = ""
+metadata/_custom_type_script = "uid://dcbw4orenctn8"
+
+[resource]
+script = ExtResource("9_hgbfu")
+layer = 4
+base_score = 0
+preview_event = SubResource("Resource_skqab")
+place_conditions = Array[ExtResource("3_k8i0c")]([])
+place_effects = Array[ExtResource("1_ardwl")]([SubResource("Resource_fxnfk")])
+post_place_effects = Array[ExtResource("1_ardwl")]([SubResource("Resource_x5qbf")])
+board_begin_round_effects = Array[ExtResource("1_ardwl")]([])
+board_end_round_effects = Array[ExtResource("1_ardwl")]([])
+destroyed_effects = Array[ExtResource("1_ardwl")]([])
+play_conditions = Array[ExtResource("3_k8i0c")]([])
+play_effects = Array[ExtResource("1_ardwl")]([])
+discard_effects = Array[ExtResource("1_ardwl")]([])
+id_name = "nuke"
+display_name = "nuke"
+card_sprite = ExtResource("2_a3f33")
+desc = "Blows up an area of buildings."
+flavor = "\"You never look back at explosions\""
+category = 0
+tags = Array[String](["mineral", "hazard"])
+is_aura = false
+hidden = true
+override_default = false
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"

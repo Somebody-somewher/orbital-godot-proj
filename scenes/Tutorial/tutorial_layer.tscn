@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cxs3uuln8m4ai"]
+[gd_scene load_steps=22 format=3 uid="uid://cxs3uuln8m4ai"]
 
 [ext_resource type="Script" uid="uid://cw0bgfblk3hpl" path="res://scripts/Tutorial/tutorial_overlay.gd" id="1_x81rx"]
 [ext_resource type="Texture2D" uid="uid://bqsg4o6554cgi" path="res://assets/misc_sprites/tut_moo.png" id="2_ki36y"]
@@ -176,6 +176,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.6, 0.545)]
+}
 
 [sub_resource type="Animation" id="Animation_b1nj1"]
 resource_name = "enter"
@@ -245,9 +257,38 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_x81rx"]
+resource_name = "bounce"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0980716, 0.2),
+"transitions": PackedFloat32Array(0.68302, 1.56917, 1),
+"update": 0,
+"values": [Vector2(248.955, 600.305), Vector2(248.955, 577.775), Vector2(248.955, 600.305)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(0.594604, 1.68179, 1),
+"update": 0,
+"values": [Vector2(0.6, 0.6), Vector2(0.6, 0.64), Vector2(0.6, 0.6)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0agjb"]
 _data = {
 &"RESET": SubResource("Animation_ajeao"),
+&"bounce": SubResource("Animation_x81rx"),
 &"enter": SubResource("Animation_b1nj1"),
 &"exit": SubResource("Animation_2qmln")
 }
@@ -332,7 +373,7 @@ texture = SubResource("GradientTexture2D_xb3tr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TutorialOverlay"]
 position = Vector2(248.955, 600.305)
-scale = Vector2(0.6, 0.6)
+scale = Vector2(0.6, 0.545)
 texture = ExtResource("2_ki36y")
 flip_h = true
 
@@ -405,7 +446,7 @@ theme_override_colors/font_color = Color(0, 0.196078, 0.2, 1)
 theme_override_fonts/font = ExtResource("5_n7lif")
 theme_override_font_sizes/font_size = 35
 text = " Hello, test test test reallly long  Hello, test test test reallly long  Hello, test test test reallly long  Hello, test test test reallly long  Hello, test test test reallly long "
-autowrap_mode = 1
+autowrap_mode = 2
 visible_characters = 0
 visible_ratio = 0.0
 

@@ -23,6 +23,7 @@ func open_book(search_id : String = "") -> void:
 func close_book() -> void:
 	if !open_state:
 		return
+	Signalbus.tut_close_compendium.emit()
 	$AnimationPlayer.play("exit_scene")
 	open_state = false
 

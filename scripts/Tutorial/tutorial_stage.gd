@@ -4,25 +4,33 @@ class_name Tutorial
 @export var round_manager : PackedScene
 @export var settings : Dictionary
 
+var round_manager_instance :TutRoundCounter
 
+
+@onready var player_hand: PlayerHand = $PlayerHand
+@onready var tutorial_card_pack: TutorialPack = $CardManager/TutorialCardPack
 @onready var tutorial_dialogue: Control = $TutorialLayer/TutorialOverlay
+@onready var board_manager: TutorialBoard = $BoardManager
+
+var curr_stage := TUT_STAGE.PackOpen
+var player_uuid
 
 enum TUT_STAGE { 
-	PackOpen, PackOpenHighlight, PackOpenPost, UITeach, Compendium, 
-	Combo, RoundEnd, Traders, Terrain, Destroy, End}
+	PackOpen, UITeach, Compendium, 
+	Combo, RoundEnd, Traders, Terrain, Destroy, End, PackOpenHighlight, PackOpenPost}
 
 const TUT_HANDS = {
 	TUT_STAGE.PackOpen : ["reset", "next"],
-	TUT_STAGE.UITeach : ["reset", "next"],
+	TUT_STAGE.UITeach : ["reset"],
 	TUT_STAGE.Compendium : ["reset", "cow"],
-	TUT_STAGE.Combo : ["reset", "chicken", "wheat"],
+	TUT_STAGE.Combo : ["reset", "chicken", "wheat_field"],
 	TUT_STAGE.RoundEnd : ["reset", "wagon", "bank"],
 	TUT_STAGE.Traders : ["reset", "store", "berry", "apple", "coconut"],
 	TUT_STAGE.Terrain : ["reset", "shovel", "lilypad", "frog"],
 	TUT_STAGE.Destroy : ["reset", "bomb"]
 }
 
-const TUT_DIALOGUE = {
+const TUT_DIALOGUE : Dictionary[int, Array] = {
 	TUT_STAGE.PackOpen : 
 		["Hi! Welcome Carditect, to the first step in curating your own little world!", 
 		"See that Card Pack? Right click it and click the check mark to select it."],
@@ -33,10 +41,10 @@ const TUT_DIALOGUE = {
 	TUT_STAGE.PackOpenPost : 
 		["Look, you got two cards! Your hand will be displayed at the bottom of the screen.", 
 		"Drag a card onto the board to play it, if you wish to cancel, right click while dragging.",
-		"Play next to proceed, or reset if you want a recap!"],
+		"Play 'Next' to proceed, or 'Reset' if you want a recap!"],
 	TUT_STAGE.UITeach : [
 		"Your score is displayed on the top left, you want this to be as high as possible!", 
-		"The top right is which round it currently is. In a real game, the bottom right would show the timer.",
+		"The top right shows which round it is. In a real game, the bottom right would display the timer.",
 		"Press ESC at any point in time to pull up the menu. Open the menu to progress!"],
 	TUT_STAGE.Compendium : [
 		"The compendium is a useful to to learn about new cards, click the book mark to open it.",
@@ -72,33 +80,101 @@ func setup(settings : Dictionary) -> void:
 	CardLoader.setup()
 	
 	if multiplayer.is_server():
-		var round_manager_instance : TutRoundCounter = round_manager.instantiate()
+		round_manager_instance = round_manager.instantiate()
 		round_manager_instance.set_up(settings)
 		add_child(round_manager_instance)
 		get_node("BoardManager").server_setup(settings)
 	get_node("Camera2D").cam_enabled = false
+	load_stage(TUT_STAGE.PackOpen)
+	player_uuid = PlayerManager.getCurrentPlayerUUID()
 
 func _ready() -> void:
 	get_node("UILayer/PlayerUI/RoundTimerLabel").visible = false
 	get_node("Camera2D").cam_enabled = false
 	get_node("InputManager").camera_enabled = false
+	Signalbus.tut_pack_selected.connect(pack_selected)
+	Signalbus.server_pack_choosing_end.connect(pack_opened)
+	Signalbus.tut_escape_menu_opened.connect(escape_menu_opened)
+	Signalbus.tut_close_compendium.connect(compendium_viewed)
+	Signalbus.reset_tutorial.connect(reload_stage)
+	Signalbus.next_tutorial_stage.connect(pass_stage)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
+func reload_stage():
+	reset_stage()
+	load_stage(curr_stage)
+
+func pass_stage():
+	if(curr_stage == TUT_STAGE.Destroy):
+		#play end dialogue and quit to menu
+		return
+	reset_stage()
+	await get_tree().create_timer(.1).timeout
+	load_stage(curr_stage + 1)
+
 #clear board, clear hand and respawn card pack with correct cards
 func reset_stage():
-	pass
+	player_hand.discard_hand()
+	await destroy_stage()
+	reset_round_counter()
+	tutorial_card_pack.regenerate()
 
 #set up board to stage no, enable tooltips
 func load_stage(no : int):
+	curr_stage = no
+	tutorial_card_pack.cards = TUT_HANDS[no]
+	match no:
+		TUT_STAGE.PackOpen:
+			pass
+		TUT_STAGE.UITeach:
+			pass
+		TUT_STAGE.Compendium:
+			place_on_tut_board("bees", Vector2i(0,0))
+			place_on_tut_board("castle", Vector2i(1,1))
+			place_on_tut_board("diamond", Vector2i(2,2))
+			pass
+		TUT_STAGE.Combo:
+			pass
+		TUT_STAGE.RoundEnd:
+			pass
+		TUT_STAGE.Traders:
+			pass
+		TUT_STAGE.Terrain:
+			pass
+		TUT_STAGE.Destroy:
+			place_on_tut_board("dummy", Vector2i(1,1))
+	
+	tutorial_dialogue.start_dialogue(TUT_DIALOGUE.get(no))
+
+func pack_selected():
+	if curr_stage == TUT_STAGE.PackOpen:
+		tutorial_dialogue.start_dialogue(TUT_DIALOGUE.get(TUT_STAGE.PackOpenHighlight))
+
+func pack_opened():
+	if curr_stage == TUT_STAGE.PackOpen:
+		tutorial_dialogue.start_dialogue(TUT_DIALOGUE.get(TUT_STAGE.PackOpenPost))
+	
+func escape_menu_opened():
+	print(curr_stage)
+	if curr_stage == TUT_STAGE.UITeach:
+		tutorial_card_pack.create_tut_card("next")
+	
+func compendium_viewed():
+	if curr_stage == TUT_STAGE.Compendium:
+		tutorial_card_pack.create_tut_card("next")
+
+func destroy_stage():
+	board_manager.matrix_data.clear_board()
+
+func reset_round_counter():
+	round_manager_instance.score_manager.set_player_score(0, player_uuid)
 	pass
 
-func create_tut_card(id_name) -> void:
-	var instance = CardLoader.create_data_instance(id_name, -1)
-	var player_uuid := PlayerManager.getCurrentPlayerUUID()
-	instance.set_owner_uuid(player_uuid)
-	var pos = Vector2((0 + 0.5) * 113, (0 + 0.5) * 113)
-	(CardLoader.card_mem as ServerCardMemory).add_card_in_hand(instance, player_uuid, pos)
+func place_on_tut_board(card_name : String, pos : Vector2i, run_on_place : bool = false):
+	var data = CardLoader.create_data_instance(card_name, -1)
+	(CardLoader.card_mem as ServerCardMemory).func_register_events.call(data)
+	board_manager._place_placeable(data, pos, false)
 	

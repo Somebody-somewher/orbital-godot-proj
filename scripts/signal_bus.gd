@@ -87,12 +87,16 @@ signal call_point_fx(score : int, tile_pos : Vector2i, player_uuid : String, end
 signal change_input_mask(mask)
 signal pause_input
 signal resume_input
+signal enable_escape(on : bool)
 
 # EventManager
 #signal trigger_effect(bid : BuildingInstanceData, effect_type : Sting)
 
 # Tutorial
-signal spawn_tut_hand
 signal reset_tutorial
 signal pass_tutorial_stage
 signal next_tutorial_stage
+
+signal tut_pack_selected
+signal tut_escape_menu_opened
+signal tut_close_compendium
