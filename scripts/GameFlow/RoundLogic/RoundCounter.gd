@@ -64,12 +64,17 @@ func start_round_manager():
 	start_round(initial_round.get_id())
 
 func _process(delta: float) -> void:
+	if curr_timer == -1:
+		pause_timer = true
+		Signalbus.round_timer_update.emit(-1)
+	else:
+		pause_timer = false
 	
 	if !pause_timer:
 		curr_timer -= delta
 		if int(curr_timer) != prev_s:
 			prev_s = int(curr_timer)
-			Signalbus.emit_signal("round_timer_update", prev_s)
+			Signalbus.round_timer_update.emit(prev_s)
 
 		if curr_timer < 0.0:
 			end_round()
@@ -127,6 +132,8 @@ func end_game(rankings : Array[String], player_scores : Dictionary[String, Dicti
 
 func reset() -> void:
 	score_manager.game_end.disconnect(end_game)
+	score_manager.reset()
 	for state in round_id_lookup.values():
 		state.reset()
 		state.transition_to.disconnect(start_round)
+	score_manager = null

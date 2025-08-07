@@ -60,6 +60,9 @@ func _create_server():
 func _connect_client(addr = "", port = ""):	
 	var port_num : int
 	
+	if SceneManager.curr_scene == "menu" and multiplayer.multiplayer_peer is ENetMultiplayerPeer:
+		return
+	
 	if addr == "":
 		addr = _ip
 	
