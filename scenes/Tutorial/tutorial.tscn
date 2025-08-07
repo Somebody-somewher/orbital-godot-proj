@@ -203,9 +203,13 @@ shader_parameter/normal_map = SubResource("NoiseTexture2D_pmi5y")
 script = ExtResource("1_47qos")
 round_manager = ExtResource("2_65ljl")
 
-[node name="CardManager" type="Node2D" parent="."]
+[node name="CardManager" type="Node2D" parent="." node_paths=PackedStringArray("board_ref", "player_hand_ref", "input_manager_ref", "preview_board_ref")]
 z_index = 4
 script = ExtResource("3_lm6f3")
+board_ref = NodePath("../BoardManager")
+player_hand_ref = NodePath("../PlayerHand")
+input_manager_ref = NodePath("../InputManager")
+preview_board_ref = NodePath("../BoardManager/Preview")
 
 [node name="TutorialCardPack" parent="CardManager" instance=ExtResource("4_51jmb")]
 z_index = 10
