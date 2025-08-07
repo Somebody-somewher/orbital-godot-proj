@@ -28,11 +28,11 @@ func setup_mem(mem : CardMemory, get_card_data : Callable) -> void:
 	#func_get_card_data = get_card_data
 
 func run_board_start_events(round_id : String, round_total : int) -> void:
-	print_debug(round_total)
+	#print_debug(round_total)
 	run_round_events(board_round_start_events_dict)
 
 func run_board_end_events(round_id : String, round_total : int) -> void:
-	print_debug(round_total)
+	#print_debug(round_total)
 	run_round_events(board_round_end_events_dict)
 
 func register_board_round_events(instance : CardInstanceData) -> void:

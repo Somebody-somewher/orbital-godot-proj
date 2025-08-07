@@ -196,10 +196,6 @@ func _clientside_display_point_fx(score : int, tile_pos : Vector2i, player_uuid:
 		get_node("Building_Manager").show_point_fx(score, terrain_tilemap.get_local_centre_of_tile(matrix_to_tilepos(tile_pos)), terrain_tilemap.get_local_centre_of_tile(matrix_to_tilepos(end_tile_pos)))
 
 func _set_board_corners() -> void:
-	terrain_tilemap.set_cell(Vector2i(0,0), 0, Vector2i(0,4), 0)
-	terrain_tilemap.set_cell(Vector2i(0,2), 0, Vector2i(0,2), 0)
-	terrain_tilemap.set_cell(Vector2i(2,0), 0, Vector2i(0,5), 0)
-	terrain_tilemap.set_cell(Vector2i(2,2), 0, Vector2i(0,3), 0)
 	terrain_underlayer.set_cell(Vector2i(0,2), 0, Vector2i(1,2), 1)
+	terrain_underlayer.set_cell(Vector2i(1,2), 0, Vector2i(1,0), 1)
 	terrain_underlayer.set_cell(Vector2i(2,2), 0, Vector2i(1,3), 1)
-	terrain_tilemap.set_cell(Vector2i(0,2), 0, Vector2i(0,2), 0)

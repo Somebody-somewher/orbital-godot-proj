@@ -13,12 +13,12 @@
 
 [node name="BoardManager" type="Node2D" node_paths=PackedStringArray("terrain_tilemap", "terrain_underlayer", "previewer_tilemap", "object")]
 script = ExtResource("1_8obqj")
+BORDER_DIM = Vector2i(1, 1)
+env_map = ExtResource("3_vgsob")
 terrain_tilemap = NodePath("TerrainActual")
 terrain_underlayer = NodePath("TerrainBelow")
 previewer_tilemap = NodePath("Preview")
 object = NodePath("Building_Manager")
-BORDER_DIM = Vector2i(1, 1)
-env_map = ExtResource("3_vgsob")
 
 [node name="Preview" type="TileMapLayer" parent="." node_paths=PackedStringArray("ghost_image", "object")]
 script = ExtResource("2_k6d4x")

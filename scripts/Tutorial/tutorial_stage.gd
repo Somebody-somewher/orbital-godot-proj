@@ -9,14 +9,14 @@ enum TUT_STAGE {
 	Combo, RoundEnd, Traders, Terrain, Destroy}
 
 const TUT_HANDS = {
-	0 : ["reset", "next"],
-	1 : ["reset", "next"],
-	2 : ["reset", "cow"],
-	3 : ["reset", "chicken", "wheat"],
-	4 : ["reset", "wagon"],
-	5 : ["reset", "store", "berry", "berry"],
-	6 : ["reset", "shovel", "lilypad", "frog"],
-	7 : ["reset", "bomb"]
+	TUT_STAGE.PackOpen : ["reset", "next"],
+	TUT_STAGE.UITeach : ["reset", "next"],
+	TUT_STAGE.Compendium : ["reset", "cow"],
+	TUT_STAGE.Combo : ["reset", "chicken", "wheat"],
+	TUT_STAGE.RoundEnd : ["reset", "wagon"],
+	TUT_STAGE.Traders : ["reset", "store", "berry", "berry"],
+	TUT_STAGE.Terrain : ["reset", "shovel", "lilypad", "frog"],
+	TUT_STAGE.Destroy : ["reset", "bomb"]
 }
 # Called when the node enters the scene tree for the first time.
 func setup(settings : Dictionary) -> void:
@@ -32,11 +32,8 @@ func setup(settings : Dictionary) -> void:
 		get_node("BoardManager").server_setup(settings)
 	get_node("Camera2D").cam_enabled = false
 
-#func _ready() -> void:
-	#AudioManager.play_bgm("random")
-	#AudioManager.next_bgm = "random"
-	#CardLoader.setup()
-	#NetworkManager.set_up()
+func _ready() -> void:
+	get_node("UILayer/PlayerUI/RoundTimerLabel").visible = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=11 format=3 uid="uid://dk7iio2goxfk"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=9 format=3 uid="uid://dk7iio2goxfk"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_ogg8s"]
 [ext_resource type="Texture2D" uid="uid://dajjwe5q0ox20" path="res://assets/entity_sprites/cute_dummy.png" id="2_ek4gq"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="3_e61nv"]
 [ext_resource type="Script" uid="uid://b6kk3al23pvjh" path="res://scripts/Events/TutorialEvents/pass_tutorial_event.gd" id="3_jppyh"]
 [ext_resource type="Resource" uid="uid://ci7hb7fl2b4jp" path="res://Resources/AOE/3x3.tres" id="3_ogg8s"]
-[ext_resource type="Script" uid="uid://cyhr3511fq2oa" path="res://scripts/Events/AddCardEvents/produce_cards_event.gd" id="5_l1q4c"]
 [ext_resource type="Resource" uid="uid://ci1g32fnst1e8" path="res://Resources/Events&Conditions/Events/Scoring/placeholder.tres" id="6_l1q4c"]
 
 [sub_resource type="Resource" id="Resource_ogg8s"]
@@ -15,17 +14,6 @@ aoe = ExtResource("3_ogg8s")
 event_name = ""
 desc = ""
 metadata/_custom_type_script = "uid://b6kk3al23pvjh"
-
-[sub_resource type="Resource" id="Resource_3r4so"]
-script = ExtResource("5_l1q4c")
-cards = Dictionary[String, int]({
-"apple": 1
-})
-probability = Dictionary[String, int]({})
-aoe = ExtResource("3_ogg8s")
-event_name = ""
-desc = ""
-metadata/_custom_type_script = "uid://cyhr3511fq2oa"
 
 [resource]
 script = ExtResource("3_e61nv")
@@ -37,7 +25,7 @@ place_effects = Array[ExtResource("1_ogg8s")]([])
 post_place_effects = Array[ExtResource("1_ogg8s")]([])
 board_begin_round_effects = Array[ExtResource("1_ogg8s")]([])
 board_end_round_effects = Array[ExtResource("1_ogg8s")]([])
-destroyed_effects = Array[ExtResource("1_ogg8s")]([SubResource("Resource_ogg8s"), SubResource("Resource_3r4so")])
+destroyed_effects = Array[ExtResource("1_ogg8s")]([SubResource("Resource_ogg8s")])
 play_conditions = Array[ExtResource("2_evjhv")]([])
 play_effects = Array[ExtResource("1_ogg8s")]([])
 discard_effects = Array[ExtResource("1_ogg8s")]([])
@@ -49,6 +37,6 @@ flavor = ""
 category = 0
 tags = Array[String]([])
 is_aura = false
-hidden = false
+hidden = true
 override_default = false
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

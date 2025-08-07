@@ -1,0 +1,62 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=15 format=3 uid="uid://vdbd2uoftio4"]
+
+[ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_0cqhq"]
+[ext_resource type="Texture2D" uid="uid://cbi364e0rkv8n" path="res://assets/entity_sprites/reset.png" id="2_fgx6o"]
+[ext_resource type="Resource" uid="uid://ci7hb7fl2b4jp" path="res://Resources/AOE/3x3.tres" id="3_csigd"]
+[ext_resource type="Script" uid="uid://b6kk3al23pvjh" path="res://scripts/Events/TutorialEvents/pass_tutorial_event.gd" id="4_fgx6o"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_sbl31"]
+[ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="6_sbl31"]
+[ext_resource type="Resource" uid="uid://ci1g32fnst1e8" path="res://Resources/Events&Conditions/Events/Scoring/placeholder.tres" id="6_uweyc"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="7_c3l0f"]
+[ext_resource type="Script" uid="uid://haydg864opjb" path="res://scripts/Events/TutorialEvents/reset_tutorial_event.gd" id="7_uweyc"]
+[ext_resource type="Script" uid="uid://c5t7qdcdn01ia" path="res://scripts/Events/DestroyEvents/destroy_self_event.gd" id="8_c3l0f"]
+
+[sub_resource type="Resource" id="Resource_ogg8s"]
+script = ExtResource("4_fgx6o")
+aoe = ExtResource("3_csigd")
+event_name = ""
+desc = ""
+metadata/_custom_type_script = "uid://b6kk3al23pvjh"
+
+[sub_resource type="Resource" id="Resource_vtlmx"]
+script = ExtResource("6_sbl31")
+reminder_msg = ""
+metadata/_custom_type_script = "uid://wuau4rxg1ej4"
+
+[sub_resource type="Resource" id="Resource_rbftt"]
+script = ExtResource("7_uweyc")
+event_name = ""
+desc = ""
+metadata/_custom_type_script = "uid://haydg864opjb"
+
+[sub_resource type="Resource" id="Resource_qhsg8"]
+script = ExtResource("8_c3l0f")
+event_name = ""
+desc = ""
+metadata/_custom_type_script = "uid://c5t7qdcdn01ia"
+
+[resource]
+script = ExtResource("7_c3l0f")
+layer = 1
+base_score = 0
+preview_event = ExtResource("6_uweyc")
+place_conditions = Array[ExtResource("5_sbl31")]([SubResource("Resource_vtlmx")])
+place_effects = Array[ExtResource("1_0cqhq")]([SubResource("Resource_rbftt")])
+post_place_effects = Array[ExtResource("1_0cqhq")]([SubResource("Resource_qhsg8")])
+board_begin_round_effects = Array[ExtResource("1_0cqhq")]([])
+board_end_round_effects = Array[ExtResource("1_0cqhq")]([])
+destroyed_effects = Array[ExtResource("1_0cqhq")]([SubResource("Resource_ogg8s")])
+play_conditions = Array[ExtResource("5_sbl31")]([])
+play_effects = Array[ExtResource("1_0cqhq")]([])
+discard_effects = Array[ExtResource("1_0cqhq")]([])
+id_name = "reset"
+display_name = "reset"
+card_sprite = ExtResource("2_fgx6o")
+desc = ""
+flavor = ""
+category = 9
+tags = Array[String]([])
+is_aura = false
+hidden = true
+override_default = false
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"
