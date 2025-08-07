@@ -3,7 +3,7 @@ class_name CardPackBare
 
 #@export var pack_sets : Array[Array]##array of sets
 @export var pack_sets : Dictionary[String, Array]
-
+@onready var outline : Sprite2D = $Outline
 @export var prepack_sets : Array[CardSetData]
 
 var pack_arr = []
@@ -69,6 +69,12 @@ func _on_area_2d_mouse_entered() -> void:
 	
 func _on_area_2d_mouse_exited() -> void:
 	highlight_pack(false)
+
+func set_outline_color(colour : Color) -> void:
+	sprite_ref.material.set_shader_parameter("outline_color", colour)
+
+func outline_pack(on : bool) -> void:
+	outline.visible = on
 
 func highlight_pack(on : bool) -> void:
 	var tween = get_tree().create_tween()

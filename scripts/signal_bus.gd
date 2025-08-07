@@ -82,7 +82,8 @@ signal show_round_msg(msg : String)
 # FX
 signal show_fx(id : String, pos : Vector2)
 signal call_point_fx(score : int, tile_pos : Vector2i, player_uuid : String, end_tile_pos : Vector2i)
-#INPUT
+
+# INPUT
 signal change_input_mask(mask)
 signal pause_input
 signal resume_input
@@ -91,6 +92,7 @@ signal resume_input
 #signal trigger_effect(bid : BuildingInstanceData, effect_type : Sting)
 
 # Tutorial
+signal spawn_tut_hand
 signal reset_tutorial
 signal pass_tutorial_stage
 signal next_tutorial_stage

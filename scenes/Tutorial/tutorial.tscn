@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cat2yn23qik81"]
+[gd_scene load_steps=36 format=3 uid="uid://cat2yn23qik81"]
 
 [ext_resource type="Script" uid="uid://betlgtm44vmvx" path="res://scripts/Tutorial/tutorial_stage.gd" id="1_47qos"]
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/Managers/player_hand.gd" id="1_uqt8d"]
@@ -8,15 +8,18 @@
 [ext_resource type="PackedScene" uid="uid://b43u6wsxnq4ai" path="res://scenes/Game Flow/input_manager.tscn" id="2_kd1hv"]
 [ext_resource type="Script" uid="uid://cep46bfjthrc7" path="res://scripts/Card/Managers/card_manager.gd" id="3_jwrhq"]
 [ext_resource type="PackedScene" uid="uid://dyaq4288p4ik4" path="res://scenes/Main Menu/tutorial_card_pack.tscn" id="4_51jmb"]
-[ext_resource type="Texture2D" uid="uid://dwfea5crud5qh" path="res://shader/Foil/rainbow_gradient_1d.tres" id="5_uqt8d"]
 [ext_resource type="Script" uid="uid://c5fouuecjsld6" path="res://scripts/camera.gd" id="6_kd1hv"]
-[ext_resource type="Script" uid="uid://dpo5x20r4bc0m" path="res://scripts/Tutorial/tutorial_card_pack.gd" id="8_65ljl"]
+[ext_resource type="Texture2D" uid="uid://bqsg4o6554cgi" path="res://assets/misc_sprites/tut_moo.png" id="8_65ljl"]
+[ext_resource type="Script" uid="uid://cw0bgfblk3hpl" path="res://scripts/Tutorial/tutorial_overlay.gd" id="8_xb3tr"]
+[ext_resource type="FontFile" uid="uid://v66tkdbnak7b" path="res://assets/fonts/friendlyscribbles.ttf" id="9_47qos"]
+[ext_resource type="Texture2D" uid="uid://belg6ajtukhb0" path="res://assets/misc_sprites/mouse_left.png" id="9_irfan"]
 [ext_resource type="PackedScene" uid="uid://b6dee2ixvxkik" path="res://scenes/ui_layer.tscn" id="9_lm6f3"]
+[ext_resource type="Script" uid="uid://br6kqohpv607o" path="res://scripts/Tutorial/tutorial_textbox.gd" id="9_xb3tr"]
 [ext_resource type="PackedScene" uid="uid://bxiy7ajwus31g" path="res://scenes/Board/board_manager.tscn" id="12_65ljl"]
 [ext_resource type="Script" uid="uid://w3vrbs0mi25t" path="res://scripts/Tutorial/tutorial_board.gd" id="13_65ljl"]
 [ext_resource type="Resource" uid="uid://b2ockuqgtwo7k" path="res://Resources/ProcGen/BoardProcGenerator.tres" id="16_irfan"]
 
-[sub_resource type="Shader" id="Shader_xpnd4"]
+[sub_resource type="Shader" id="Shader_u2vrp"]
 code = "shader_type canvas_item;
 
 group_uniforms code_set_parameters;
@@ -30,13 +33,8 @@ uniform vec4 burn_color: source_color;
 group_uniforms _3D_Perspective;
 uniform float fov : hint_range(1, 179) = 90;
 uniform bool cull_back = true;
-//uniform float y_rot : hint_range(-180, 180) = 0.0; From original shader -- https://godotshaders.com/shader/2d-perspective/
-//uniform float x_rot : hint_range(-180, 180) = 0.0;
-//Amount to inset the image by, a higher value means the image is smaller but less likely to go outside of the \"bounds\" of the original sprite size.
 uniform float inset : hint_range(0, 1) = 0.0;
-//Max tilt. 2 means the sprite goes all the way to one side, and the plane is parrelel to the 2d camera.
 uniform float max_tilt : hint_range(0,2.0) = 1.0;
-//the Max distance from the center of the sprite that results in the max tilt.
 uniform float max_distance = 500.0;
 
 varying flat vec2 o;
@@ -54,7 +52,7 @@ uniform float effect_alpha_mult : hint_range(0,1) = 1.0;
 uniform float direction : hint_range(0,1.0) = 0.5;
 
 uniform sampler2D foil_mask;
-uniform sampler2D gradient;
+uniform vec3 outline_color : source_color;
 uniform sampler2D noise;
 uniform sampler2D normal_map;
 
@@ -158,10 +156,7 @@ void fragment() {
 
 	vec4 noise_tex = texture(noise,adjusted_uv);
 
-	vec2 gradiant_sample = vec2((0.25+(normal.y*direction*2.0-normal.x*(1.0-direction)*2.0)/2.0+(uv.y*direction+uv.x*(1.0-direction))/2.0), 0.0);
-	gradiant_sample += vec2(magnitude,0.0) * scroll;
-	gradiant_sample = mod((gradiant_sample+adjusted_uv * period),1.0);
-	vec4 gradient_tex = texture(gradient, gradiant_sample);
+	vec4 gradient_tex = vec4(outline_color,1);
 	float strength = effect_alpha_mult * mask.r * texture_similarity;
 
 	float burn_threshold = smoothstep(noise_texture.x, noise_texture.x, dissolve_value);
@@ -174,19 +169,19 @@ void fragment() {
 	//COLOR.a *= threshold;
 }"
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_47qos"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_j4ao5"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b3b0l"]
-noise = SubResource("FastNoiseLite_47qos")
+noise = SubResource("FastNoiseLite_j4ao5")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_irfan"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_b3b0l"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pmi5y"]
-noise = SubResource("FastNoiseLite_irfan")
+noise = SubResource("FastNoiseLite_b3b0l")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xb3tr"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w1rjx"]
 resource_local_to_scene = true
-shader = SubResource("Shader_xpnd4")
+shader = SubResource("Shader_u2vrp")
 shader_parameter/mouse_position = Vector2(0, 0)
 shader_parameter/sprite_position = Vector2(0, 0)
 shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_b3b0l")
@@ -197,16 +192,226 @@ shader_parameter/cull_back = true
 shader_parameter/inset = 0.0
 shader_parameter/max_tilt = 0.035
 shader_parameter/max_distance = 500.0
-shader_parameter/foilcolor = Color(0, 0, 0, 1)
+shader_parameter/foilcolor = Color(1, 0, 0, 1)
 shader_parameter/threshold = 0.2
 shader_parameter/fuzziness = 0.1
 shader_parameter/period = 2.0
 shader_parameter/scroll = 4.0
 shader_parameter/normal_strength = 0.1
-shader_parameter/effect_alpha_mult = 0.0
+shader_parameter/effect_alpha_mult = 1.0
 shader_parameter/direction = 0.5
-shader_parameter/gradient = ExtResource("5_uqt8d")
+shader_parameter/outline_color = Color(0.913725, 0.784314, 0.309804, 1)
 shader_parameter/normal_map = SubResource("NoiseTexture2D_pmi5y")
+
+[sub_resource type="Gradient" id="Gradient_irfan"]
+colors = PackedColorArray(0.321569, 0.54902, 0.729412, 1, 0.321569, 0.54902, 0.729412, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xb3tr"]
+gradient = SubResource("Gradient_irfan")
+fill_from = Vector2(0.478632, 1)
+fill_to = Vector2(0.482906, 0.448718)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fwjnt"]
+bg_color = Color(0, 0.778775, 0.71613, 1)
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(9.62615e-08, 0.566954, 0.688749, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="Animation" id="Animation_irfan"]
+resource_name = "popup"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Textbox:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.378929, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Textbox:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_xb3tr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Textbox:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Textbox:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_fwjnt"]
+resource_name = "fade"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Textbox:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 2.73208),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2qmln"]
+_data = {
+&"RESET": SubResource("Animation_xb3tr"),
+&"fade": SubResource("Animation_fwjnt"),
+&"popup": SubResource("Animation_irfan")
+}
+
+[sub_resource type="Animation" id="Animation_b1nj1"]
+resource_name = "enter"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.176867, 0.2),
+"transitions": PackedFloat32Array(1.68179, 0.637281, 1),
+"update": 0,
+"values": [Vector2(-300, 650), Vector2(249.72, 555.775), Vector2(248.955, 600.305)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(2.07053, 1),
+"update": 0,
+"values": [-0.364774, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TextureRect:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ajeao"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(248.955, 600.305)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TextureRect:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2qmln"]
+resource_name = "exit"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.149283),
+"transitions": PackedFloat32Array(1.31951, 1),
+"update": 0,
+"values": [Vector2(248.955, 600.305), Vector2(-300, 600.305)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0agjb"]
+_data = {
+&"RESET": SubResource("Animation_ajeao"),
+&"enter": SubResource("Animation_b1nj1"),
+&"exit": SubResource("Animation_2qmln")
+}
 
 [node name="Tutorial" type="Node2D"]
 script = ExtResource("1_47qos")
@@ -220,9 +425,8 @@ input_manager_ref = NodePath("../InputManager")
 preview_board_ref = NodePath("../BoardManager/Preview")
 
 [node name="TutorialCardPack" parent="CardManager" instance=ExtResource("4_51jmb")]
-material = SubResource("ShaderMaterial_xb3tr")
-position = Vector2(378.725, 233.18)
-script = ExtResource("8_65ljl")
+material = SubResource("ShaderMaterial_w1rjx")
+position = Vector2(1086.46, 450)
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("board")]
 script = ExtResource("6_kd1hv")
@@ -234,6 +438,117 @@ script = ExtResource("1_uqt8d")
 
 [node name="InputManager" parent="." instance=ExtResource("2_kd1hv")]
 position = Vector2(879, 480)
+
+[node name="TutorialLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="TutorialOverlay" type="Control" parent="TutorialLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_xb3tr")
+
+[node name="TextureRect" type="TextureRect" parent="TutorialLayer/TutorialOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_xb3tr")
+
+[node name="Node2D" type="Node2D" parent="TutorialLayer/TutorialOverlay"]
+
+[node name="Sprite2D" type="Sprite2D" parent="TutorialLayer/TutorialOverlay"]
+position = Vector2(248.955, 600.305)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("8_65ljl")
+flip_h = true
+
+[node name="Textbox" type="Node2D" parent="TutorialLayer/TutorialOverlay"]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(500, 661.82)
+script = ExtResource("9_xb3tr")
+
+[node name="Panel" type="Panel" parent="TutorialLayer/TutorialOverlay/Textbox"]
+custom_minimum_size = Vector2(1000, 200)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_fwjnt")
+
+[node name="Control" type="Control" parent="TutorialLayer/TutorialOverlay/Textbox/Panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -940.0
+offset_top = -140.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TutorialLayer/TutorialOverlay/Textbox/Panel/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -273.74
+offset_top = -75.44
+offset_right = -15.74
+offset_bottom = -11.44
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = -5
+
+[node name="TextureRect" type="TextureRect" parent="TutorialLayer/TutorialOverlay/Textbox/Panel/Control/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("9_irfan")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="TutorialLayer/TutorialOverlay/Textbox/Panel/Control/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_47qos")
+theme_override_font_sizes/font_size = 20
+text = "Left-click to continue"
+
+[node name="MarginContainer" type="MarginContainer" parent="TutorialLayer/TutorialOverlay/Textbox/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="Label" type="Label" parent="TutorialLayer/TutorialOverlay/Textbox/Panel/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0.196078, 0.2, 1)
+theme_override_fonts/font = ExtResource("9_47qos")
+theme_override_font_sizes/font_size = 35
+text = " Hello, test test test reallly long  Hello, test test test reallly long  Hello, test test test reallly long  Hello, test test test reallly long  Hello, test test test reallly long "
+autowrap_mode = 2
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="TextAnim" type="AnimationPlayer" parent="TutorialLayer/TutorialOverlay"]
+libraries = {
+&"": SubResource("AnimationLibrary_2qmln")
+}
+
+[node name="CowAnim" type="AnimationPlayer" parent="TutorialLayer/TutorialOverlay"]
+libraries = {
+&"": SubResource("AnimationLibrary_0agjb")
+}
 
 [node name="UILayer" parent="." instance=ExtResource("9_lm6f3")]
 
@@ -267,6 +582,7 @@ z_index = 20
 [node name="Background" type="CanvasLayer" parent="."]
 
 [node name="Background2" parent="Background" instance=ExtResource("2_43fa4")]
+position = Vector2(109, 79)
 
 [editable path="UILayer"]
 [editable path="BoardManager"]

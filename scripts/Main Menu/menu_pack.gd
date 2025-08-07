@@ -14,6 +14,7 @@ var mouse_tut = get_node("AnimatedSprite2D")
 var animation = get_node("AnimationPlayer")
 
 @onready var mouse_animation: AnimationPlayer = $AnimatedSprite2D/MouseFade
+@onready var buttons: Control = $Buttons
 
 func _ready() -> void:
 	super._ready()

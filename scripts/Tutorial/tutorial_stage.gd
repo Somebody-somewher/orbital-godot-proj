@@ -53,3 +53,4 @@ func create_tut_card(id_name) -> void:
 	instance.set_owner_uuid(player_uuid)
 	var pos = Vector2((0 + 0.5) * 113, (0 + 0.5) * 113)
 	(CardLoader.card_mem as ServerCardMemory).add_card_in_hand(instance, player_uuid, pos)
+	
