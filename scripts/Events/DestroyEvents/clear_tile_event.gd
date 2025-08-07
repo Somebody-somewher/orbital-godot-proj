@@ -8,4 +8,4 @@ func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstance
 	for i in range(tile_pos_data[1].size()):
 		arr = tile_pos_data[1][i].get_buildings_on_tile()
 		for building in arr:
-			Signalbus.remove_placeable.emit(building.get_id(), caller.get_owner_uuid())
+			Signalbus.remove_placeable.emit(building.get_id(), caller.get_owner_uuid(), true)

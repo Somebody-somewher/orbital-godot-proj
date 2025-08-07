@@ -4,16 +4,16 @@
 [ext_resource type="Texture2D" uid="uid://dajjwe5q0ox20" path="res://assets/entity_sprites/cute_dummy.png" id="2_ek4gq"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="2_evjhv"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="3_e61nv"]
-[ext_resource type="Script" uid="uid://b6kk3al23pvjh" path="res://scripts/Events/TutorialEvents/pass_tutorial_event.gd" id="3_jppyh"]
 [ext_resource type="Resource" uid="uid://ci7hb7fl2b4jp" path="res://Resources/AOE/3x3.tres" id="3_ogg8s"]
+[ext_resource type="Script" uid="uid://c0sro8ayo13hy" path="res://scripts/Events/TutorialEvents/next_tutorial_event.gd" id="4_ogg8s"]
 [ext_resource type="Resource" uid="uid://ci1g32fnst1e8" path="res://Resources/Events&Conditions/Events/Scoring/placeholder.tres" id="6_l1q4c"]
 
-[sub_resource type="Resource" id="Resource_ogg8s"]
-script = ExtResource("3_jppyh")
+[sub_resource type="Resource" id="Resource_l1q4c"]
+script = ExtResource("4_ogg8s")
 aoe = ExtResource("3_ogg8s")
 event_name = ""
 desc = ""
-metadata/_custom_type_script = "uid://b6kk3al23pvjh"
+metadata/_custom_type_script = "uid://c0sro8ayo13hy"
 
 [resource]
 script = ExtResource("3_e61nv")
@@ -25,7 +25,7 @@ place_effects = Array[ExtResource("1_ogg8s")]([])
 post_place_effects = Array[ExtResource("1_ogg8s")]([])
 board_begin_round_effects = Array[ExtResource("1_ogg8s")]([])
 board_end_round_effects = Array[ExtResource("1_ogg8s")]([])
-destroyed_effects = Array[ExtResource("1_ogg8s")]([SubResource("Resource_ogg8s")])
+destroyed_effects = Array[ExtResource("1_ogg8s")]([SubResource("Resource_l1q4c")])
 play_conditions = Array[ExtResource("2_evjhv")]([])
 play_effects = Array[ExtResource("1_ogg8s")]([])
 discard_effects = Array[ExtResource("1_ogg8s")]([])
@@ -37,6 +37,6 @@ flavor = ""
 category = 0
 tags = Array[String]([])
 is_aura = false
-hidden = true
+hidden = false
 override_default = false
 metadata/_custom_type_script = "uid://c1vqf0odnqwir"

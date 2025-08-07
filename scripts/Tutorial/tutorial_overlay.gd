@@ -25,8 +25,6 @@ func _process(delta: float) -> void:
 
 func _input(event):
 	if !in_dialogue:
-		#if Input.is_action_just_pressed("escape"):
-			#start_dialogue(["reeaaelelllt longreeaaelelllt longreeaaelelllt longreeaaelelllt longreeaaelelllt long 1","2","3","reeaaelelllt longreeaaelelllt longreeaaelelllt long14","5","6","7","8","9","0","1"])
 		return
 	if Input.is_action_just_pressed("leftMouseClick"):
 		show_text()

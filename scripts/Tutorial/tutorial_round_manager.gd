@@ -113,8 +113,14 @@ func end_game(rankings : Array[String], player_scores : Dictionary[String, Dicti
 		SceneManager.back_to_menu.rpc()
 	pass
 
+func round_counter_reset():
+	for state in round_id_lookup.values():
+		state.reset()
+	start_round("pick_pack")
+
 func reset() -> void:
 	score_manager.game_end.disconnect(end_game)
 	for state in round_id_lookup.values():
 		state.reset()
 		state.transition_to.disconnect(start_round)
+	

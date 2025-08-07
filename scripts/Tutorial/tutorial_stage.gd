@@ -11,8 +11,11 @@ var round_manager_instance :TutRoundCounter
 @onready var tutorial_card_pack: TutorialPack = $CardManager/TutorialCardPack
 @onready var tutorial_dialogue: Control = $TutorialLayer/TutorialOverlay
 @onready var board_manager: TutorialBoard = $BoardManager
+@onready var end_turn_button : Button = $UILayer/PlayerUI/EndTurn
 
 var curr_stage := TUT_STAGE.PackOpen
+# so that the next stage card is only created once
+var can_create_next := false
 var player_uuid
 
 enum TUT_STAGE { 
@@ -98,6 +101,7 @@ func _ready() -> void:
 	Signalbus.tut_close_compendium.connect(compendium_viewed)
 	Signalbus.reset_tutorial.connect(reload_stage)
 	Signalbus.next_tutorial_stage.connect(pass_stage)
+	Signalbus.update_score_ui.connect(check_score)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -109,7 +113,9 @@ func reload_stage():
 
 func pass_stage():
 	if(curr_stage == TUT_STAGE.Destroy):
-		#play end dialogue and quit to menu
+		tutorial_dialogue.start_dialogue(TUT_DIALOGUE.get(TUT_STAGE.End))
+		await get_tree().create_timer(5).timeout
+		SceneManager.back_to_menu()
 		return
 	reset_stage()
 	await get_tree().create_timer(.1).timeout
@@ -117,31 +123,37 @@ func pass_stage():
 
 #clear board, clear hand and respawn card pack with correct cards
 func reset_stage():
+	if curr_stage == TUT_STAGE.Terrain:
+		for i in range(3):
+			for j in range(3):
+				board_manager._change_terrain("Grass", Vector2i(i,j))
 	player_hand.discard_hand()
-	await destroy_stage()
+	destroy_stage()
+	await get_tree().create_timer(.1).timeout
 	reset_round_counter()
 	tutorial_card_pack.regenerate()
 
 #set up board to stage no, enable tooltips
 func load_stage(no : int):
+	end_turn_button.visible = false
+	can_create_next = true
 	curr_stage = no
 	tutorial_card_pack.cards = TUT_HANDS[no]
 	match no:
 		TUT_STAGE.PackOpen:
-			pass
+			can_create_next = false
 		TUT_STAGE.UITeach:
 			pass
 		TUT_STAGE.Compendium:
 			place_on_tut_board("bees", Vector2i(0,0))
 			place_on_tut_board("castle", Vector2i(1,1))
 			place_on_tut_board("diamond", Vector2i(2,2))
-			pass
 		TUT_STAGE.Combo:
 			pass
 		TUT_STAGE.RoundEnd:
-			pass
+			end_turn_button.visible = true
 		TUT_STAGE.Traders:
-			pass
+			end_turn_button.visible = true
 		TUT_STAGE.Terrain:
 			pass
 		TUT_STAGE.Destroy:
@@ -150,28 +162,50 @@ func load_stage(no : int):
 	tutorial_dialogue.start_dialogue(TUT_DIALOGUE.get(no))
 
 func pack_selected():
-	if curr_stage == TUT_STAGE.PackOpen:
+	if curr_stage == TUT_STAGE.PackOpen and can_create_next:
 		tutorial_dialogue.start_dialogue(TUT_DIALOGUE.get(TUT_STAGE.PackOpenHighlight))
 
 func pack_opened():
-	if curr_stage == TUT_STAGE.PackOpen:
+	if curr_stage == TUT_STAGE.PackOpen and can_create_next:
 		tutorial_dialogue.start_dialogue(TUT_DIALOGUE.get(TUT_STAGE.PackOpenPost))
 	
 func escape_menu_opened():
-	print(curr_stage)
-	if curr_stage == TUT_STAGE.UITeach:
+	if curr_stage == TUT_STAGE.UITeach and can_create_next:
 		tutorial_card_pack.create_tut_card("next")
+		can_create_next = false
 	
 func compendium_viewed():
-	if curr_stage == TUT_STAGE.Compendium:
+	if curr_stage == TUT_STAGE.Compendium and can_create_next:
 		tutorial_card_pack.create_tut_card("next")
+		can_create_next = false
+
+func check_score(score : int):
+	if !can_create_next:
+		return
+	if curr_stage == TUT_STAGE.Combo and score >= 3:
+		pass
+	elif curr_stage == TUT_STAGE.RoundEnd and score >= 5:
+		pass
+	elif curr_stage == TUT_STAGE.Traders and score >= 7:
+		pass
+	elif curr_stage == TUT_STAGE.Terrain and score >= 2:
+		pass
+	else:
+		return
+	tutorial_card_pack.create_tut_card("next")
+	can_create_next = false
+	end_turn_button.visible = false
 
 func destroy_stage():
 	board_manager.matrix_data.clear_board()
 
 func reset_round_counter():
+	round_manager_instance.round_counter_reset()
 	round_manager_instance.score_manager.set_player_score(0, player_uuid)
 	pass
+	
+func create_next_card():
+	tutorial_card_pack.create_tut_card("next")
 
 func place_on_tut_board(card_name : String, pos : Vector2i, run_on_place : bool = false):
 	var data = CardLoader.create_data_instance(card_name, -1)
