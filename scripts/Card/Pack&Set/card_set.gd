@@ -54,12 +54,13 @@ func _shift_to_hand(cards : Array[String], set_id : String) -> void:
 		return 
 	
 	for card_id in cards:
-		for card_in_set in cards_in_set:			
-			if card_id in card_in_set.get_data_instance_id():
-				cards_in_set.erase(card_in_set)
-				Signalbus.emit_signal("register_to_cardmanager", card_in_set)
-				Signalbus.emit_signal("add_to_hand", card_in_set)
-			break			
+		for card_in_set in cards_in_set:
+			if card_in_set:
+				if card_id in card_in_set.get_data_instance_id():
+					cards_in_set.erase(card_in_set)
+					Signalbus.emit_signal("register_to_cardmanager", card_in_set)
+					Signalbus.emit_signal("add_to_hand", card_in_set)
+				break			
 	
 	for remainder in cards_in_set:
 		remainder.dissolve_card()

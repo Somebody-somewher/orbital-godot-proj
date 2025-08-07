@@ -38,9 +38,6 @@ position = Vector2(879, 480)
 
 [node name="UILayer" parent="." instance=ExtResource("9_3p2gp")]
 
-[node name="RoundLabel" parent="UILayer/PlayerUI" index="1"]
-visible = false
-
 [node name="DisconnectScreen" parent="UILayer" index="1"]
 visible = false
 

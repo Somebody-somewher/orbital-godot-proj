@@ -169,9 +169,9 @@ func _process(delta: float) -> void:
 
 #################################### BOARD INTERACTABILITY #################################################
 @rpc("any_peer","call_local")
-func client_set_interactable_board(boards: Array) -> void:
+func client_set_interactable_board(interactable_boards: Array, all_boards : Array) -> void:
 	var board_coords 
-	for b in boards:
+	for b in interactable_boards:
 		board_coords = matrix_data.set_board_interactable(b)
 		terrain_tilemap.unshade_area(board_coords[0] \
 			, board_coords[1])
