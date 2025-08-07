@@ -9,6 +9,7 @@ var lobby : LobbyLogic
 func _ready() -> void:
 	lobby = NetworkManager.get_node("Lobby")
 	lobby.set_up_host(name_textbox, players_list)
+	super._ready()
 
 ######### SOUND OPTIONS CODE ##################
 @onready var master_label: Label = $SettingsTabs/LeftTab/TabContainer/Sound/MarginContainer/VBoxContainer/MasterBox/Label2

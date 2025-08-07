@@ -6,20 +6,22 @@ class_name GameManager
 
 @export var round_manager : PackedScene
 @export var settings : Dictionary
+var phase : String
 
-func set_up_settings(settings : Dictionary) -> void:
+func setup(settings : Dictionary) -> void:
 	self.settings = settings
-	pass
-
-func _ready() -> void:
 	AudioManager.play_bgm("random")
 	AudioManager.next_bgm = "random"
-
 	CardLoader.setup()
+	
 	if multiplayer.is_server():
 		var round_manager_instance : RoundCounter = round_manager.instantiate()
-		if settings != null:
-			round_manager_instance.set_up(settings)
+		round_manager_instance.set_up(settings)
 		add_child(round_manager_instance)
+		get_node("BoardManager").server_setup(settings)
+
+@rpc("any_peer","call_local")
+func set_phase(phase_id : String) -> void:
+	phase = phase_id
 	
 	

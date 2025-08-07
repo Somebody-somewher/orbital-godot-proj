@@ -140,10 +140,10 @@ func layout_to_boardcoords(boardlayout_pos : Vector2i) -> Array[Vector2i]:
 
 ######################################################################################
 
-func set_board_interactable(boardlayout_pos : Vector2i) -> Array:
+func set_board_interactable(boardlayout_pos : Vector2i, on_off := true) -> Array:
 	assert(boardlayout_pos.x <= _boards_layout.x and boardlayout_pos.y <= _boards_layout.y)
 	var index : int = boardlayout_pos.x + (boardlayout_pos.y - 1) * _boards_layout.x - 1
-	interactable[index] = true
+	interactable[index] = on_off
 	return boards_coords[index]
 
 func reset() -> void:

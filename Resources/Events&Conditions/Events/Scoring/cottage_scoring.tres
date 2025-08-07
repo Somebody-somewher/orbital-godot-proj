@@ -16,6 +16,7 @@ effect_buildings_score = Dictionary[String, int]({
 "rat_king": -5,
 "rat_swarm": -3,
 "temple": 3,
+"trash": -5,
 "well": 5
 })
 base_score = 0

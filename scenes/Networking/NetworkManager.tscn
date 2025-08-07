@@ -9,6 +9,7 @@ client_components = Dictionary[String, bool]({
 "BoardManager": false
 })
 server_components = Dictionary[String, bool]({
+"BoardManager": false,
 "RoundManager": false
 })
 

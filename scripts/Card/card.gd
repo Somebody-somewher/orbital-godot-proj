@@ -6,6 +6,7 @@ signal mouse_off
 
 @export var card_image : Texture2D
 var cardinstance_dataid : String
+
 #for constructor
 static var card_scene: PackedScene = load("res://scenes/Card/Card.tscn")
 

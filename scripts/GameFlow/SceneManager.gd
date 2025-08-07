@@ -20,8 +20,12 @@ func back_to_menu() -> void:
 	unpause_gameplay()
 
 @rpc("any_peer", "call_local")
-func start_game() -> void:
-	get_tree().change_scene_to_packed(GAME)
+func start_game(settings : Dictionary = {}) -> void:
+	await get_tree().change_scene_to_packed(GAME)
+	#if !settings.is_empty():
+	await get_tree().process_frame  # Wait for scene change to start
+	await get_tree().process_frame  # Wait for scene fully initialized
+	(get_tree().current_scene as GameManager).setup(settings)
 	curr_scene = "game"
 	
 func reset_components() -> void:

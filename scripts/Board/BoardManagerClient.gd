@@ -15,26 +15,17 @@ var boards_near_mouse : Array[bool]
 var player_board_ids : Array[int] 
 
 # Called when the node enters the scene tree for the first time.
-func set_up() -> void:	
-	super.set_up()
+@rpc("any_peer", "call_local")
+func set_up(board_size : Vector2i, board_layout : Vector2i) -> void:	
+	super.set_up(board_size, board_layout)
+
 	# Array of booleans to check which boards are being hovered over by mouse
 	boards_near_mouse.resize(BOARDS_LAYOUT.x * BOARDS_LAYOUT.y)
-		
-	# Tilemaps setup
 	var playable_area = matrix_data.get_playable_area_coords()
 	terrain_tilemap.set_up(object, BORDER_DIM, playable_area)	
 	terrain_underlayer.set_up(object, BORDER_DIM, playable_area)	
 	previewer_tilemap.set_up(object, BORDER_DIM, playable_area, client_interactability_check)
 	
-## Params supplied by server, called by all clients
-@rpc("any_peer", "call_local")
-func receive_init_data(board_size : Vector2i, board_layout : Vector2i, border_dim : Vector2i) -> void:
-	BOARD_SIZE = board_size
-	BOARDS_LAYOUT = board_layout
-	BORDER_DIM = border_dim
-	set_up()
-	pass
-
 func _ready() -> void:
 	super._ready()
 	NetworkManager.mark_client_ready(self.name)
@@ -112,25 +103,12 @@ func remove_building(tile_pos : Vector2i = NULL_TILE) -> void:
 	pass
 
 ################################# TERRAIN MODIFICATION ##########################################
-#@rpc("any_peer","call_local")
-#func create_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
-	#if tile_pos == NULL_TILE:
-		#tile_pos = get_mouse_tile_pos()
-		#
-	#request_create_terrain.rpc_id(1, terrain_id, tile_pos)
 
 @rpc("any_peer","call_local")
 func _create_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
 	super._create_terrain(terrain_id, tile_pos)
 	terrain_tilemap.change_terrain_tile(terrain_id, tile_pos)
 	terrain_underlayer.change_terrain_tile(tile_pos)
-
-#@rpc("any_peer","call_local")
-#func change_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
-	#if tile_pos == NULL_TILE:
-		#tile_pos = get_mouse_tile_pos()
-	#
-	#terrain_tilemap.change_terrain_tile(terrain_id, tile_pos)
 
 @rpc("any_peer","call_local")
 func _change_terrain(terrain_id : String, tile_pos : Vector2i) -> void:
@@ -189,16 +167,22 @@ func _process(delta: float) -> void:
 
 #################################### BOARD INTERACTABILITY #################################################
 @rpc("any_peer","call_local")
-func client_set_interactable_board(boards: Array) -> void:
+func client_set_interactable_board(interactable_boards: Array, all_boards : Array) -> void:
 	var board_coords 
-	for b in boards:
-		board_coords = matrix_data.set_board_interactable(b)
-		terrain_tilemap.unshade_area(board_coords[0] \
-			, board_coords[1])
+	for b in all_boards:
+		if b in interactable_boards:
+			board_coords = matrix_data.set_board_interactable(b)
+			terrain_tilemap.unshade_area(board_coords[0] \
+				, board_coords[1])
+		else:
+			board_coords = matrix_data.set_board_interactable(b, false)
+			terrain_tilemap.shade_area(board_coords[0] \
+				, board_coords[1])	
 
-func client_interactability_check(tile_pos : Vector2i, upon_success : Callable) -> bool:
+func client_interactability_check(cardinstance : CardInstanceData, tile_pos : Vector2i, upon_success : Callable) -> bool:
 	if tile_pos != NULL_TILE and !SceneManager.is_gameplay_paused and\
-		!matrix_data.get_interactable_boardcoords_of_tilepos(tilemap_to_matrix(tile_pos)).is_empty():
+		!matrix_data.get_interactable_boardcoords_of_tilepos(tilemap_to_matrix(tile_pos)).is_empty()\
+		and cardinstance.is_playable((get_tree().current_scene as GameManager).phase):
 		return upon_success.call()
 	else:
 		return false

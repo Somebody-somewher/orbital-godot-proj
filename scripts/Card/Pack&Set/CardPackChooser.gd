@@ -37,19 +37,15 @@ func player_choose_pack(player_uuid : String, packid : int) -> bool:
 	if player_uuid_to_packid[player_uuid] != -1:
 		return false
 	
-	if packid not in  packid_to_player_uuid.keys():
+	if packid not in packid_to_player_uuid.keys():
 		return false
-	
-	# If the player previously selected a pack, unselect it
-	#packid_to_player_uuid[player_uuid_to_packid[player_uuid]] = ""
-	# TODO: unselect pack visually lol
 		
 	player_uuid_to_packid[player_uuid] = packid
 	packid_to_player_uuid[packid] = player_uuid
 	
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo): \
-		_update_pack_choosen_ui.call(pi.getPlayerId(), packid, PlayerManager.uuid_to_players[player_uuid].getColor()))
-	
+		_update_pack_choosen_ui.call(pi.getPlayerId(), packid, player_uuid,\
+			 PlayerManager.uuid_to_players[player_uuid].getColor()))
 	
 	Signalbus.emit_signal("end_turn", player_uuid)
 	return true

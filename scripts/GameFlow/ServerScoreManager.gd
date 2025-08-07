@@ -22,13 +22,16 @@ func _init(settings : Dictionary) -> void:
 		player_scores[pi.getPlayerUUID()] = {"score" : 0, "medals" : []}
 		ranking.append(pi.getPlayerUUID()) )
 		
-	Signalbus.connect("add_score", adjust_score)
+	Signalbus.add_score.connect(adjust_score)
 	
 	if settings.has('win_rounds'):
 		self.end_score = settings["win_rounds"]
 	
 	if settings.has('win_medals'):
 		self.end_medals = settings["win_medals"]
+		
+	if settings.has('win_score'):
+		self.end_score = settings["win_score"]
 	
 func adjust_score(score_to_add : int, player_uuid : String) -> void:
 	#print("SCOREMANAGER: ", player_uuid, " ", score_to_add)
@@ -76,6 +79,8 @@ func set_is_poll_first(value : bool) -> void:
 # Must end is true if the game must end and we need to find the "closest" winning player
 func query_for_winner(must_end : bool) -> void:
 	if game_can_end or must_end:
-		emit_signal("game_end", ranking, player_scores)
-		
+		game_end.emit(ranking, player_scores)
+
+func reset() -> void:
+	Signalbus.add_score.disconnect(adjust_score)
 	

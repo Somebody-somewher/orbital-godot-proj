@@ -35,7 +35,10 @@ func _update_score(score : int) -> void:
 ### ROUND RELATED ###	
 @rpc("any_peer", "call_local")
 func _update_timer_ui(time : int) -> void:
-	round_timer_label.text = "Time: " + str(time)
+	if time == -1:
+		round_timer_label.text = "Time: inf"
+	else:
+		round_timer_label.text = "Time: " + str(time)
 
 func _update_round_label(round_id : String, round_total : int) -> void:
 	round_label.text = "Round: " + str(round_id)
