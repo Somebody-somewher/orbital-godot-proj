@@ -13,7 +13,6 @@ var player_hand = get_tree().root.get_node("MainMenu/PlayerHand")
 
 func _ready() -> void:
 	super._ready()
-	enable_3d = true
 	set_outline_color(Color.ORANGE)
 	animated_sprite_2d.visible = false
 

@@ -84,6 +84,8 @@ func _on_area_2d_mouse_exited() -> void:
 
 # fans out cards
 func highlight_set(on : bool) -> void:
+	if SceneManager.is_everything_paused:
+		return
 	for i in range(cards_in_set.size()):
 		if on:
 			var fan_angle = clamp(cards_in_set.size() * 0.2, 0, PI/2)

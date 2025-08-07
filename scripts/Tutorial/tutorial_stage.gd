@@ -4,6 +4,9 @@ class_name Tutorial
 @export var round_manager : PackedScene
 @export var settings : Dictionary
 
+
+@onready var tutorial_dialogue: Control = $TutorialLayer/TutorialOverlay
+
 enum TUT_STAGE { 
 	PackOpen, UITeach, Compendium, 
 	Combo, RoundEnd, Traders, Terrain, Destroy}
@@ -34,6 +37,8 @@ func setup(settings : Dictionary) -> void:
 
 func _ready() -> void:
 	get_node("UILayer/PlayerUI/RoundTimerLabel").visible = false
+	get_node("Camera2D").cam_enabled = false
+	get_node("InputManager").camera_enabled = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

@@ -202,6 +202,8 @@ func card_hover_if_able():
 #
 ## highlight or unhighlight card depending on second argument
 func highlight_card(card : Card, hovering : bool):
+	if SceneManager.is_everything_paused:
+		return
 	if hovering:
 		card.enable_3d = true
 		card.z_index += 10

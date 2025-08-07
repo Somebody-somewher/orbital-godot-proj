@@ -160,6 +160,8 @@ func _on_area_2d_mouse_exited() -> void:
 	highlight_pack(false)
 
 func highlight_pack(on : bool) -> void:
+	if SceneManager.is_everything_paused:
+		return
 	var tween = get_tree().create_tween()
 	enable_3d = on
 	if on:

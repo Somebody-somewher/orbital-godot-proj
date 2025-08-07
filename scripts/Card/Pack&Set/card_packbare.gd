@@ -77,6 +77,8 @@ func outline_pack(on : bool) -> void:
 	outline.visible = on
 
 func highlight_pack(on : bool) -> void:
+	if SceneManager.is_everything_paused:
+		return
 	var tween = get_tree().create_tween()
 	enable_3d = on
 	if on:

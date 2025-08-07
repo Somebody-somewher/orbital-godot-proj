@@ -8,17 +8,17 @@ var tweening : Tween
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	set_process(false)
-
+	pass
+	
 func display_text(str : String):
 	tooltip.visible = false
 	#preexisting tween from previous text
-	if tweening.is_running():
+	if tweening and tweening.is_running():
 		tweening.kill()
 	label.visible_characters = 0
 	label.text = str
 	
 	tweening = get_tree().create_tween()
-	tweening.parallel().tween_property(label, "visible_characters", 0, str.length())
+	tweening.parallel().tween_property(label, "visible_characters", str.length(), 0.3)
 	await tweening.finished
 	tooltip.visible = true
