@@ -1,8 +1,5 @@
-extends Node
+extends GameManager
 class_name Tutorial
-
-@export var round_manager : PackedScene
-@export var settings : Dictionary
 
 var round_manager_instance :TutRoundCounter
 

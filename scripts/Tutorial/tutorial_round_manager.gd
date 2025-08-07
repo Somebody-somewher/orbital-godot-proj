@@ -87,6 +87,7 @@ func start_round(round_id : String) -> void:
 		return
 	
 	curr_round = round_id_lookup[round_id]
+	(get_parent() as GameManager).set_phase.rpc(curr_round.get_id())
 	
 	for key in players_ready.keys():
 		players_ready[key] = false	

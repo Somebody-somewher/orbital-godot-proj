@@ -17,7 +17,10 @@ func round_end() -> void:
 		if round_count % 2 == 1:
 			transition_to.emit(next_state_ids[0])
 		else:
-			transition_to.emit(next_state_ids[1])
+			if next_state_ids.size() >= 2:
+				transition_to.emit(next_state_ids[1])
+			else:
+				transition_to.emit(next_state_ids[0])
 			
 	#super.round_end()
 	Signalbus.round_end.emit(state_id, round_count)

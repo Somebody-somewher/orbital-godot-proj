@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cat2yn23qik81"]
+[gd_scene load_steps=23 format=3 uid="uid://cat2yn23qik81"]
 
 [ext_resource type="Script" uid="uid://betlgtm44vmvx" path="res://scripts/Tutorial/tutorial_stage.gd" id="1_47qos"]
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/Managers/player_hand.gd" id="1_uqt8d"]
@@ -6,13 +6,15 @@
 [ext_resource type="PackedScene" uid="uid://dqeuxtjytggp4" path="res://scenes/Menus/parallax_background.tscn" id="2_43fa4"]
 [ext_resource type="PackedScene" uid="uid://d2ge0mle8odwm" path="res://scenes/Tutorial/tutorial_round_manager.tscn" id="2_65ljl"]
 [ext_resource type="PackedScene" uid="uid://b43u6wsxnq4ai" path="res://scenes/Game Flow/input_manager.tscn" id="2_kd1hv"]
-[ext_resource type="Script" uid="uid://0jvdkuue1v6n" path="res://scripts/Tutorial/tut_card_manager.gd" id="3_lm6f3"]
+[ext_resource type="Script" path="res://scripts/Tutorial/tut_card_manager.gd" id="3_lm6f3"]
 [ext_resource type="PackedScene" uid="uid://dyaq4288p4ik4" path="res://scenes/Main Menu/tutorial_card_pack.tscn" id="4_51jmb"]
 [ext_resource type="Script" uid="uid://c5fouuecjsld6" path="res://scripts/camera.gd" id="6_kd1hv"]
 [ext_resource type="PackedScene" uid="uid://cxs3uuln8m4ai" path="res://scenes/Tutorial/tutorial_layer.tscn" id="8_lm6f3"]
 [ext_resource type="PackedScene" uid="uid://b6dee2ixvxkik" path="res://scenes/ui_layer.tscn" id="9_lm6f3"]
 [ext_resource type="PackedScene" uid="uid://bxiy7ajwus31g" path="res://scenes/Board/board_manager.tscn" id="12_65ljl"]
 [ext_resource type="Script" uid="uid://w3vrbs0mi25t" path="res://scripts/Tutorial/tutorial_board.gd" id="13_65ljl"]
+[ext_resource type="TileSet" uid="uid://cwvj828htdyfb" path="res://Resources/EnvTerrain/EnvTerrainTileset.tres" id="14_47qos"]
+[ext_resource type="Script" uid="uid://d0uo64xc2oil1" path="res://scripts/Tutorial/TutorialBoardPreviewer.gd" id="14_65ljl"]
 [ext_resource type="Resource" uid="uid://b2ockuqgtwo7k" path="res://Resources/ProcGen/BoardProcGenerator.tres" id="16_irfan"]
 
 [sub_resource type="Shader" id="Shader_u2vrp"]
@@ -253,7 +255,8 @@ BORDER_DIM = Vector2i(0, 0)
 proc_gen = ExtResource("16_irfan")
 
 [node name="Preview" parent="BoardManager" index="0"]
-BOARD_SCALE = null
+tile_set = ExtResource("14_47qos")
+script = ExtResource("14_65ljl")
 
 [node name="Darken" parent="BoardManager" index="1"]
 z_index = 20
