@@ -67,8 +67,6 @@ func _process(delta: float) -> void:
 	if curr_timer == -1:
 		pause_timer = true
 		Signalbus.round_timer_update.emit(-1)
-	else:
-		pause_timer = false
 	
 	if !pause_timer:
 		curr_timer -= delta
