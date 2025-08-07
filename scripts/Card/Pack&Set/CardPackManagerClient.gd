@@ -31,23 +31,24 @@ func create_pack(packs : Dictionary[int, Dictionary]) -> void:
 # Client-facing function rpc'd by Server
 # Initiated when any player chooses a pack
 @rpc("any_peer","call_local")
-func _choose_pack_ui_update(chosen_packid : int, colour : Color) -> void:
-	var cardpack : CardPack = card_pack_nodes[chosen_packid]
+func _choose_pack_ui_update(chosen_packid : int, owner_uuid : String, colour : Color) -> void:
+	var cardpack : CardPack = card_pack_nodes[chosen_packid]	
+	cardpack.pack_chosen_update(owner_uuid, colour)
 	
-	#CardLoader.cardpack_gen.update_local_cardpack_choice(chosen_packindex, cardpack.get_id())
+	# TODO: Temp code for Splashdown
+	if PlayerManager.amIPlayer(owner_uuid):
+		for cp in card_pack_nodes.values():
+			cp.is_chosen = true
 	
-	cardpack.pack_chosen_update(colour)
-	# Need a delay probably between deleting the pack and doing this action
 
 @rpc("any_peer","call_local")
 func finalize_pack_choices(pack_id : int) -> void:
-	
 	# Remove all remaining packs
 	var temp : CardPack
 	var to_erase : Array[int]
 	
 	for id in card_pack_nodes.keys():
-		if id != pack_id:
+		if id != pack_id and !PlayerManager.amIPlayer(card_pack_nodes[id].get_owner_uuid()):
 			to_erase.append(id)
 		else:
 			card_pack_nodes[id].set_cardset_interactable(remove_pack)
@@ -64,10 +65,8 @@ func finalize_pack_choices(pack_id : int) -> void:
 # Needed cuz the pack has to remove the reference to itself in the array
 func remove_pack(pack_id : int) -> void:
 	var temp : CardPack
-	print(card_pack_nodes)
 	card_pack_nodes[pack_id].destroy_pack()
 	card_pack_nodes.erase(pack_id)
-
 
 	#var card_pack = CardPack.new_pack(sets)
 	#card_pack.set_position(Vector2i(0,0))

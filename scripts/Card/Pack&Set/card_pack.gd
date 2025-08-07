@@ -13,6 +13,7 @@ var pack_arr = []
 var choices := 1
 
 var is_chosen : bool
+var _owner_uuid : String
 var are_sets_choosable : bool
 
 var pack_id : int
@@ -41,13 +42,6 @@ func _ready() -> void:
 func set_cardset_interactable(remove_self : Callable) -> void:
 	is_cardsets_interactable = true
 	self.remove_self = remove_self
-
-# factory constructor
-#static func new_pack(setdata : Array[CardSetData]) -> CardPack:
-	#var return_pack : CardPack = card_pack.instantiate()
-	#return_pack.pack_sets = setdata
-	#return_pack.z_index = 50
-	#return return_pack
 
 # func new_pack(setdata : Dictionary[String, Array], pack_id : int) -> CardPack:
 static func new_pack(setdata : Dictionary, pack_id : int) -> CardPack:
@@ -91,7 +85,15 @@ func choose_or_open() -> bool:
 	else:
 		select_pack()
 	return false
-	
+
+func pack_chosen_update(owner_uuid : String, colour_to_update : Color) -> void:
+	# Show indication pack was chosen
+	_owner_uuid = owner_uuid
+	set_outline_color(colour_to_update)
+	outline_pack(true)
+	is_chosen = true
+	pass
+
 func open_pack() -> void:
 	self.get_node("Area2D/CollisionShape2D").disabled = true
 	get_node("AnimationPlayer").play("shake")
@@ -146,12 +148,6 @@ func set_outline_color(colour : Color) -> void:
 func outline_pack(on : bool) -> void:
 	outline.visible = on
 
-func pack_chosen_update(colour_to_update : Color) -> void:
-	# Show indication pack was chosen
-	set_outline_color(colour_to_update)
-	outline_pack(true)
-	is_chosen = true
-	pass
 
 func _on_area_2d_mouse_entered() -> void:
 	highlight_pack(true)
@@ -171,6 +167,9 @@ func highlight_pack(on : bool) -> void:
 		
 func get_id() -> int:
 	return pack_id
+
+func get_owner_uuid() -> String:
+	return _owner_uuid
 
 func make_sets_choosable() -> void:
 	are_sets_choosable = true

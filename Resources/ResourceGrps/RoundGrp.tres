@@ -7,5 +7,5 @@ script = ExtResource("1_nddkp")
 base_folder = "res://Resources/Rounds"
 includes = Array[String](["**.tres"])
 excludes = Array[String]([])
-paths = Array[String](["res://Resources/Rounds/BuildRound.tres", "res://Resources/Rounds/PickPackRound.tres"])
+paths = Array[String](["res://Resources/Rounds/BuildRound.tres", "res://Resources/Rounds/PickPackRound.tres", "res://Resources/Rounds/SaboRound.tres"])
 metadata/_custom_type_script = "uid://c8qc3g5w3svt1"

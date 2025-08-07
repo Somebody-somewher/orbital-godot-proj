@@ -48,7 +48,7 @@ func preview_placement(placeableinstance_id : String, tile_pos : Vector2i = NULL
 		
 	var placeable_instance : PlaceableInstanceData = CardLoader.card_mem.local_search_hand_for(placeableinstance_id)
 	if placeable_instance:
-		interactability_check.call(tile_pos, func():
+		interactability_check.call(placeable_instance, tile_pos, func():
 			if CardLoader.event_manager.check_conditions(placeable_instance, "is_placeable", [tilemap_to_matrix(tile_pos)]):
 				CardLoader.event_manager.preview_event(placeable_instance, _set_preview, tilemap_to_matrix(tile_pos));\
 				place_ghost(placeable_instance.get_data(), tile_pos);\

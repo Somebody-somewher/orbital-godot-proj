@@ -147,10 +147,13 @@ func connect_card_signals(card : Card):
 
 # Following functions for dragged Card interations with board
 # they are only called when board_ref != null and card is being dragged
-
 func card_flip_if_near_board() -> void:
 	if !SceneManager.is_gameplay_paused:
-		if !card_flipped and board_ref.is_mouse_near_interactable_board():
+		if !card_flipped and board_ref.is_mouse_near_interactable_board()\
+		# Absolutely horrible check but not willing to change too much just right before splashdown
+			and (!CardLoader.card_mem or CardLoader.card_mem.local_search_hand_for(\
+				card_dragged.get_data_instance_id()).is_playable((get_tree().current_scene as GameManager).phase)):
+				
 			card_flipped = true
 			card_dragged.card_flip_to_entity()
 		if card_flipped and !board_ref.is_mouse_near_interactable_board():

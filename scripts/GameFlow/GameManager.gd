@@ -6,6 +6,7 @@ class_name GameManager
 
 @export var round_manager : PackedScene
 @export var settings : Dictionary
+var phase : String
 
 func setup(settings : Dictionary) -> void:
 	self.settings = settings
@@ -19,7 +20,8 @@ func setup(settings : Dictionary) -> void:
 		add_child(round_manager_instance)
 		get_node("BoardManager").server_setup(settings)
 
-#func _ready() -> void:
-
+@rpc("any_peer","call_local")
+func set_phase(phase_id : String) -> void:
+	phase = phase_id
 	
 	

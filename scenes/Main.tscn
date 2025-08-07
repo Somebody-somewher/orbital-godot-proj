@@ -38,8 +38,8 @@ position = Vector2(879, 480)
 
 [node name="UILayer" parent="." instance=ExtResource("9_3p2gp")]
 
-[node name="PlayerUI" parent="UILayer" index="0"]
-metadata/_edit_use_anchors_ = true
+[node name="RoundLabel" parent="UILayer/PlayerUI" index="1"]
+visible = false
 
 [node name="DisconnectScreen" parent="UILayer" index="1"]
 visible = false
@@ -59,9 +59,6 @@ spawn_node = NodePath("../CardManager")
 
 [node name="BoardManager" parent="." instance=ExtResource("17_bb450")]
 proc_gen = ExtResource("16_ft6cd")
-
-[node name="Preview" parent="BoardManager" index="0"]
-BOARD_SCALE = null
 
 [node name="Darken" parent="BoardManager" index="1"]
 z_index = 20

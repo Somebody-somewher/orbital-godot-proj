@@ -39,12 +39,17 @@ signal register_to_cardmanager(card : Card)
 
 ################ BOARD ################
 #signal run_func_on_board(c : Callable)
+
+# BOARD UI
+signal mouse_enter_interactable_board_tile()
+signal mouse_enter_board()
+signal set_score_preview(tile_pos : Array[Vector2i], scores : Array[int])
+
+# BOARD BEHAVIOUR 
 signal get_matrix_data()
 
 # Supply board_tile_positions_data with [[tile_pos], [tile_data]]  
 signal get_tile_pos_from_AOE(tile_pos : Vector2i, aoe_tiles : Array[Vector2i], board_tile_positions_data : Array[Vector2i])
-signal mouse_enter_interactable_board_tile()
-signal mouse_enter_board()
 
 signal place_placeable(pi : String, tile_pos : Vector2i, player_uuid : String, run_on_place_events : bool, sync : bool)
 signal change_terrain(terrain_id : String, player_uuid : String, tile_pos : Vector2i)
@@ -52,7 +57,9 @@ signal remove_placeable(placeable_instance_id : String, player_uuid : String, ru
 
 
 signal board_action_result(outcome : bool)
-signal set_score_preview(tile_pos : Array[Vector2i], scores : Array[int])
+
+signal set_interactable_board_state(state_id : String)
+
 
 ################ COMPENDIUM ############################
 signal show_card_information(card_id : String)

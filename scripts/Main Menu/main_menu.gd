@@ -96,6 +96,7 @@ func on_start_multiplayer():
 	initialize_game.rpc(multi_host_menu.get_game_settings())
 
 func on_start_singleplayer() -> void:
+	print(multiplayer.get_unique_id())
 	initialize_game(singleplayer_menu.get_game_settings())
 
 func on_start_tutorial() -> void:

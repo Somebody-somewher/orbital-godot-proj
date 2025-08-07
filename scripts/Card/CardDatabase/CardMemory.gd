@@ -64,6 +64,7 @@ func _add_card_in_hand(instance_deserialized_data : Dictionary) -> void:
 	# Instance handling
 	var instance : CardInstanceData = func_sync_card_creation.call(instance_deserialized_data)
 	func_register_events.call(instance)
+	player_memory[self_uuid].add_card_to_hand(instance)
 	
 	# UI Card handling
 	var card : Card = func_create_card.call(instance)
