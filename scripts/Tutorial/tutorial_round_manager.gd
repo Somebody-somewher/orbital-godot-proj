@@ -43,9 +43,6 @@ func set_up(settings : Dictionary) -> void:
 	PlayerManager.forEachPlayer(func(pi : PlayerInfo):\
 		players_ready[pi.getPlayerUUID()] = false)
 	
-	if settings.has('win_rounds'):
-		round_num_game_end = settings['win_rounds']
-	
 	score_manager = ScoreManager.new(settings)
 	score_manager.game_end.connect(end_game)
 
