@@ -55,6 +55,7 @@ func server_setup(board_settings : Dictionary):
 		Signalbus.place_placeable.connect(server_place_newplaceable)
 		Signalbus.remove_placeable.connect(server_remove_building)
 		Signalbus.change_terrain.connect(server_change_terrain)
+		Signalbus.reset_scene.connect(reset)
 		NetworkManager.server_net.mark_server_component_ready("BoardManager")
 
 # Called when the node enters the scene tree for the first time.
@@ -334,7 +335,9 @@ func _client_create_border_fake_building(bid : String, tile_pos : Vector2i) -> v
 func reset() -> void:
 	if proc_gen:
 		proc_gen.reset()
-	proc_gen = null
-	board_layout_gen.reset()
+	
+	if board_layout_gen:
+		board_layout_gen.reset()
+	
 	board_layout_gen = null
 	proc_gen = null
