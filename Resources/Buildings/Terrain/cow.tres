@@ -40,7 +40,9 @@ id_name = "cow"
 display_name = "Cow"
 card_sprite = ExtResource("2_m38rd")
 desc = "Fenceable, and earns more points near wheat."
-flavor = ""
+flavor = "Cow goes \"moo\", frog goes \"croak\"
+And the elephant goes \"toot\"
+What does the fox say?"
 category = 4
 tags = Array[String](["animal", "farmable"])
 is_aura = false

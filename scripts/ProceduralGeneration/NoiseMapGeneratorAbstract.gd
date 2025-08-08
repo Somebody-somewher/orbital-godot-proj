@@ -83,7 +83,7 @@ func generate_noise_texture(freq : float = 0.0583, noise_seed : int = -1) -> Noi
 	noise_texture.set_noise(noise)
 	return noise_texture
 
-func post_process(procgen_iterator : ProcGenBoardIterator) -> void:
+func post_process(_procgen_iterator : ProcGenBoardIterator) -> void:
 	pass
 
 func generate_world() -> ProcGenBoardIterator:

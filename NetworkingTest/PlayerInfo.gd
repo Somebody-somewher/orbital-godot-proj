@@ -28,6 +28,6 @@ func getPlayerUUID() -> String:
 func getColor() -> Color:
 	return pColour
 
-static func generateUUID(pName : String) -> String:
+static func generateUUID(p_name : String) -> String:
 	var hardware_id := OS.get_unique_id()
-	return (pName + "|" + hardware_id).sha256_text()
+	return (p_name + "|" + hardware_id).sha256_text()

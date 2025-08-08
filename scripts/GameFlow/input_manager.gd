@@ -15,6 +15,7 @@ enum InputType {LEFT_CLICK, RIGHT_CLICK, MIDDLE_CLICK}
 
 @onready var camera_ref: Camera2D = $"../Camera2D"
 var camera_enabled := true
+var prev_camera_state := true
 
 var MASKS := {
 	"none" : 0x00000000,
@@ -95,11 +96,11 @@ func middle_click_logic(result) -> void:
 			var card_manager = result_found.get_parent()
 			card_manager.highlight_card(result_found, false)
 			#TODO : Remember to fix this once id_name is running
-			var name = result_found.carddata_id
-			Signalbus.open_compendium.emit(name)
+			var card_name = result_found.carddata_id
+			Signalbus.open_compendium.emit(card_name)
 		BUILDING_COLLISION_MASK:
-			var name = result_found.name
-			Signalbus.open_compendium.emit(name)
+			var card_name = result_found.name
+			Signalbus.open_compendium.emit(card_name)
 
 func raycast_and_click(mask, input_type : int):
 	var space_state : PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
@@ -149,6 +150,7 @@ func change_input_mask(mask):
 	curr_mask = mask
 
 func pause_input():
+	prev_camera_state = camera_enabled
 	camera_enabled = false
 	
 	if curr_mask != MASKS.get("none"):
@@ -158,4 +160,4 @@ func pause_input():
 
 func resume_input():
 	curr_mask = paused_mask
-	camera_enabled = true
+	camera_enabled = prev_camera_state

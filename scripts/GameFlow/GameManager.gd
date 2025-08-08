@@ -8,8 +8,8 @@ class_name GameManager
 @export var settings : Dictionary
 var phase : String
 
-func setup(settings : Dictionary) -> void:
-	self.settings = settings
+func setup(in_settings : Dictionary) -> void:
+	self.settings = in_settings
 	AudioManager.play_bgm("random")
 	AudioManager.next_bgm = "random"
 	CardLoader.setup()

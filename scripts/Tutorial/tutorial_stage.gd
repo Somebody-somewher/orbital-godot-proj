@@ -75,8 +75,8 @@ const TUT_DIALOGUE : Dictionary[int, Array] = {
 # Called when the node enters the scene tree for the first time.
 func setup(settings : Dictionary) -> void:
 	self.settings = settings
-	AudioManager.play_bgm("random")
-	AudioManager.next_bgm = "random"
+	AudioManager.play_bgm("menu")
+	AudioManager.next_bgm = "menu"
 	CardLoader.setup()
 	
 	if multiplayer.is_server():
@@ -92,6 +92,7 @@ func _ready() -> void:
 	get_node("UILayer/PlayerUI/RoundTimerLabel").visible = false
 	get_node("Camera2D").cam_enabled = false
 	get_node("InputManager").camera_enabled = false
+	get_node("InputManager").prev_camera_state = false
 	Signalbus.tut_pack_selected.connect(pack_selected)
 	Signalbus.server_pack_choosing_end.connect(pack_opened)
 	Signalbus.tut_escape_menu_opened.connect(escape_menu_opened)
@@ -139,6 +140,7 @@ func load_stage(no : int):
 	match no:
 		TUT_STAGE.PackOpen:
 			can_create_next = false
+			AudioManager.play_sfx("moo", randf_range(.7,1))
 		TUT_STAGE.UITeach:
 			pass
 		TUT_STAGE.Compendium:
@@ -159,11 +161,11 @@ func load_stage(no : int):
 	tutorial_dialogue.start_dialogue(TUT_DIALOGUE.get(no))
 
 func pack_selected():
-	if curr_stage == TUT_STAGE.PackOpen and can_create_next:
+	if curr_stage == TUT_STAGE.PackOpen:
 		tutorial_dialogue.start_dialogue(TUT_DIALOGUE.get(TUT_STAGE.PackOpenHighlight))
 
 func pack_opened():
-	if curr_stage == TUT_STAGE.PackOpen and can_create_next:
+	if curr_stage == TUT_STAGE.PackOpen:
 		tutorial_dialogue.start_dialogue(TUT_DIALOGUE.get(TUT_STAGE.PackOpenPost))
 	
 func escape_menu_opened():

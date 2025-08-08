@@ -11,7 +11,7 @@ func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstance
 	if trigger_scoring:
 		super.trigger(board, tile_pos, caller)
 	var tile_pos_data = aoe.get_scored_tiles(tile_pos)
-	
+	var total_sell_score = 0
 	var arr : Array[BuildingInstanceData]
 	#for tiledata in tile_pos_data[1]:
 	for i in range(tile_pos_data[1].size()):
@@ -20,9 +20,11 @@ func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstance
 			if building.get_data().has_tag(tag_to_sell):
 				Signalbus.remove_placeable.emit(building.get_id(), caller.get_owner_uuid(), true)
 				var sell_score = building.get_data().base_score
+				total_sell_score += sell_score
 				if sell_score > 0:
-					Signalbus.add_score.emit(sell_score, caller.get_owner_uuid())
 					Signalbus.call_point_fx.emit(sell_score, tile_pos_data[0][i], caller.get_owner_uuid(), tile_pos)
+	if total_sell_score > 0:
+					Signalbus.add_score.emit(total_sell_score, caller.get_owner_uuid())
 	pass
 
 func modifier(tile_data : BoardTile, _cum_score := 0) -> int:

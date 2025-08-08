@@ -51,8 +51,8 @@ func _attempt_cardset_to_hand(cardpack_id : int, cardset_id : String, cardinstan
 	Signalbus.confirmed_add_to_hand.emit(cardinstanceids_to_add, cardset_id)
 
 @rpc("any_peer", "call_local")
-func _attempt_to_use_hand_card(instance_id : String, player_uuid : String) -> void:
-	var result = player_memory[self_uuid].remove_card_in_hand(instance_id)
+func _attempt_to_use_hand_card(instance_id : String, _player_uuid : String) -> void:
+	var _result = player_memory[self_uuid].remove_card_in_hand(instance_id)
 
 # May not necessarily be discard 
 @rpc("any_peer", "call_local")
@@ -75,11 +75,11 @@ func _add_card_in_hand(instance_deserialized_data : Dictionary) -> void:
 	#return player_memory
 
 @rpc("any_peer", "call_local")
-func server_record_player_cardpack_options(card_packs : Dictionary[int, Dictionary], player_uuid : String) -> void:
+func server_record_player_cardpack_options(_card_packs : Dictionary[int, Dictionary], _player_uuid : String) -> void:
 	print_debug("This shouldn't trigger 1 :<")
 
 @rpc("any_peer", "call_local")
-func attempt_cardset_to_hand(cardpack_id : int, cardset_id : String, player_uuid : String) -> Array[String]:
+func attempt_cardset_to_hand(_cardpack_id : int, _cardset_id : String, _player_uuid : String) -> Array[String]:
 	print_debug("This shouldn't trigger 2 :<")
 	return ["This should have been overriden! :<"]
 #func append_to_player_hand(player_uuid : String, card_set : Array[int], add_to_hand : Callable) -> bool:

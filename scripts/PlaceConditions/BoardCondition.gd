@@ -3,5 +3,5 @@ class_name BoardCondition
 
 var aoe : AOE
 
-func test(board : BoardMatrixData, _tile_pos : Vector2i, source : CardInstanceData) -> bool:
+func test(_board : BoardMatrixData, _tile_pos : Vector2i, _source : CardInstanceData) -> bool:
 	return return_bool

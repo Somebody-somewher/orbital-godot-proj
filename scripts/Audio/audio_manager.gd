@@ -20,6 +20,12 @@ var in_game_music = ["plains","forest","desert","mountain", "snow"]
 
 # for controlling volume of alot of stacking sfx
 var current_instances = 0
+# for seeing if should increase pitch of point sfx
+var time_since_point_sfx := 0.0
+var no_of_point_sfx := 0
+
+func _ready() -> void:
+	Signalbus.connect("add_score", play_point_sfx)
 
 func change_master_volume(value : float) ->void:
 	master_volume = value
@@ -57,6 +63,27 @@ func play_sfx(audio_name : String, pitch : float = 1.0, from_position : float = 
 	instance.volume_db = linear_to_db(sfx_volume  * master_volume) - current_instances
 	instance.finished.connect(func(): current_instances -= 1)
 	get_node("SFX").add_child(instance)
+
+func play_point_sfx(_score_to_add : int, player_uuid : String) -> void:
+	if PlayerManager.getCurrentPlayerUUID() != player_uuid:
+		return
+	
+	if time_since_point_sfx > 1:
+		no_of_point_sfx = 1
+	else:
+		no_of_point_sfx += 1
+		
+	var instance : SFXInstance = sfx_instance_scene.instantiate()
+	instance.stream = SFX_AUDIOS.get("point").get_default()
+	instance.pitch_scale = min((no_of_point_sfx+ 5) * .1, 3)
+	instance.volume_db = linear_to_db(sfx_volume  * master_volume)
+	instance.finished.connect(func(): current_instances -= 1)
+	get_node("SFX").add_child(instance)
+	time_since_point_sfx = 0
+
+func _process(delta: float) -> void:
+	time_since_point_sfx += delta
+	
 
 #queues bmg to play after current loop
 func queue_bgm(audio_name : String) -> void:

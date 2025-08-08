@@ -2,9 +2,9 @@ extends CardPackBare
 class_name TutorialPack
 
 @onready
-var card_manager = get_tree().root.get_node("MainMenu/CardManager")
+var card_manager = get_parent()
 @onready
-var player_hand = get_tree().root.get_node("MainMenu/PlayerHand")
+var player_hand = get_tree().root.get_node("Tutorial/PlayerHand")
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 @onready var mouse_animation: AnimationPlayer = $AnimatedSprite2D/MouseFade

@@ -52,8 +52,8 @@ func generate_border(terrain_create : Callable, building_create : Callable) -> v
 	if procgen_building_iter != null:
 		procgen_building_iter.foreach_border(building_create)
 
-func check_terrain_valid(terrain_gen : TerrainGenerator) -> bool:
-	for t in terrain_gen._items:
+func check_terrain_valid(_terrain_gen : TerrainGenerator) -> bool:
+	for t in _terrain_gen._items:
 		if !env_map.checkEnvExists(t.get_id()):
 			return false
 	return true

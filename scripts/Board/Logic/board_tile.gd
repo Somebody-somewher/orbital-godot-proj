@@ -7,7 +7,7 @@ const max_layers : int = 4
 
 # See if we want to store it as a Resource or some other data later
 var _terrain : EnvTerrain
-var _global_board_pos : Vector2
+#var _global_board_pos : Vector2
 
 signal display_score(score : int)
 signal hide_score(score : int)

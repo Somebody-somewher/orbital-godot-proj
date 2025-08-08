@@ -3,7 +3,7 @@ class_name GameSettingMenuTab
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	interpret_round_slider(rounds_hslider.value)
+	interpret_round_slider(int(rounds_hslider.value))
 	score = int(min_score + score_hslider.value * 10)
 	
 	board_size_grp = ButtonGroup.new()
@@ -21,7 +21,7 @@ var inf_rounds: bool = false
 func _on_round_slider_value_changed(value: float) -> void:
 	no_rounds = int(value * 0.49 + 2)
 	rounds_label.text = str(no_rounds)
-	interpret_round_slider(value)
+	interpret_round_slider(int(value))
 
 func interpret_round_slider(value : int) -> void:
 	if value == 100:
@@ -101,7 +101,7 @@ func _on_spawnables_button_toggled(toggled_on: bool) -> void:
 @export var max_build_phase_time_text := 120
 var build_phase_time : int = 45 # if == 0, means no aura selection rounds
 func _on_buildtime_slider_value_changed(value: float) -> void:
-	build_phase_time = value
+	build_phase_time = int(value)
 	build_phase_time_text.text = str(build_phase_time)
 
 	if value == max_build_phase_time_text + 1:
@@ -113,7 +113,7 @@ func _on_buildtime_slider_value_changed(value: float) -> void:
 @export var max_packchoose_phase_time_text := 80
 var packchoose_phase_time : int = 20 # if == 0, means no aura selection rounds
 func _on_packchoose_slider_value_changed(value: float) -> void:
-	packchoose_phase_time = value
+	packchoose_phase_time = int(value)
 	packchoose_phase_time_text.text = str(packchoose_phase_time)
 
 	if value == max_packchoose_phase_time_text + 1:

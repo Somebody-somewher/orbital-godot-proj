@@ -50,7 +50,7 @@ func get_player_score(player_uuid : String) -> int:
 	return player_scores[player_uuid]["score"]
 
 # This runs if a player hits winning conditions within the Build Phase (but not start or end of round)
-func check_if_end(player_uuid : String, updated_score : int, updated_medals : Array) -> void:
+func check_if_end(_player_uuid : String, updated_score : int, updated_medals : Array) -> void:
 	if (end_score != -1 and updated_score >= end_score) or \
 		end_medals != -1 and updated_medals.size() >= end_medals:
 			

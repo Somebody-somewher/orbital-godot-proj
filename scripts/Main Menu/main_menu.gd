@@ -19,6 +19,7 @@ func _ready() -> void:
 	singleplayer_menu.visible = false
 	multiplayer_menu.visible = false
 	input_manager.camera_enabled = false
+	input_manager.prev_camera_state = false
 	multi_host_menu.visible = false
 	multi_join_menu.visible = false	
 	camera_2d.cam_enabled = false
