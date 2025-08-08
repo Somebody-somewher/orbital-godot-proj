@@ -10,4 +10,4 @@ class_name PassiveScoreEffect
 #
 func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstanceData) -> void:
 	Signalbus.emit_signal("add_score", score_per_round, caller.get_owner_uuid())
-	Signalbus.call_point_fx.emit(score_per_round, tile_pos, caller.get_owner_uuid())
+	Signalbus.call_point_fx.emit(score_per_round, tile_pos, caller.get_owner_uuid(), tile_pos)

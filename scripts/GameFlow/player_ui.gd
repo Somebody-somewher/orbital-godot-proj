@@ -14,6 +14,9 @@ extends Control
 
 @onready var escape_menu: EscapeMenu = $"../EscapeMenu"
 
+# so that players dont spam end turn
+var can_end_turn := true
+
 func _ready() -> void:
 	Signalbus.connect("round_timer_update", func(time : int):
 		_update_timer_ui.rpc(time))
@@ -41,12 +44,16 @@ func _update_timer_ui(time : int) -> void:
 		round_timer_label.text = "Time: " + str(time)
 
 func _update_round_label(round_id : String, round_total : int) -> void:
-	round_label.text = "Round: " + str(round_id)
+	round_label.text = "Round: " + str(round_total)
 
 func _on_end_turn_pressed() -> void:
+	if !can_end_turn:
+		return
 	Signalbus.emit_multiplayer_signal.rpc_id(1, \
 	"end_turn", [PlayerManager.getUUID_from_PeerID(multiplayer.get_unique_id())])
-	pass # Replace with function body.
+	can_end_turn= false
+	await get_tree().create_timer(1).timeout
+	can_end_turn= true
 
 func show_error_msg(msg : String) -> void:
 	error_msg.text = msg
@@ -58,4 +65,5 @@ func show_round_msg(msg : String) -> void:
 
 func _input(event):
 	if Input.is_action_just_pressed("escape"):
+		Signalbus.close_compendium.emit()
 		escape_menu.toggle()

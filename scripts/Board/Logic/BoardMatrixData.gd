@@ -65,6 +65,12 @@ func remove_placeable_on_tile(placeable_id : String) -> void:
 		printerr("Likely server has deleted the instance before client even added it lol")
 		printerr("Decide how to handle this later")
 
+func clear_board() -> void:
+	for instance in instances_on_board:
+		instances_on_board[instance].delete_from_tile(instance)
+	for instance in instances_on_board:
+		instances_on_board.erase(instance)
+
 ## Change the terrain on the board tile
 func change_terrain_of_tile(tilePos : Vector2i, terrain : EnvTerrain) -> void:
 	board_matrix[tilePos.x][tilePos.y].change_terrain(terrain)

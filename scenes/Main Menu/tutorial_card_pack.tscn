@@ -1,7 +1,7 @@
 [gd_scene load_steps=28 format=3 uid="uid://dyaq4288p4ik4"]
 
 [ext_resource type="PackedScene" uid="uid://iv3w3pu8flf7" path="res://scenes/Card/card_pack.tscn" id="1_6ttvf"]
-[ext_resource type="Script" uid="uid://bcpbmavb3hrg1" path="res://scripts/Main Menu/menu_pack.gd" id="3_sidds"]
+[ext_resource type="Script" uid="uid://dpo5x20r4bc0m" path="res://scripts/Tutorial/tutorial_card_pack.gd" id="2_2iytd"]
 [ext_resource type="Texture2D" uid="uid://cfrwwxlom3fqo" path="res://assets/card_packs/menu_pack.png" id="4_3vpdm"]
 [ext_resource type="Texture2D" uid="uid://2rjvt0ab3whb" path="res://assets/misc_sprites/mouse_neutral.png" id="5_p267w"]
 [ext_resource type="Texture2D" uid="uid://dyni7jd2adptv" path="res://assets/misc_sprites/mouse_right.png" id="6_c85uj"]
@@ -273,7 +273,7 @@ _data = {
 
 [node name="TutorialCardPack" instance=ExtResource("1_6ttvf")]
 material = SubResource("ShaderMaterial_a5pst")
-script = ExtResource("3_sidds")
+script = ExtResource("2_2iytd")
 
 [node name="Sprite2D" parent="." index="2"]
 texture = ExtResource("4_3vpdm")

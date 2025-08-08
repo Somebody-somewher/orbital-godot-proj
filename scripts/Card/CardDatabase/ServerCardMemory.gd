@@ -110,7 +110,8 @@ func add_card_in_hand(instance_data : CardInstanceData, player_uuid : String, po
 		card.position = pos
 		Signalbus.register_to_cardmanager.emit(card)
 		Signalbus.add_to_hand.emit(card)
-		
+	
+
 func is_hand_full(player_uuid : String) -> bool:
 	return player_memory[player_uuid].is_hand_full()
 ####################################################################################

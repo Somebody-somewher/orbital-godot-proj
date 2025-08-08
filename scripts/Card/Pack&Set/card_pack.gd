@@ -34,7 +34,8 @@ var dissolve_value = 1
 var enable_3d = false
 
 func _ready() -> void:
-	global_position = Vector2(550, 450)
+	var rng = RandomNumberGenerator.new()
+	global_position = CardLoader.board_centre + Vector2(rng.randi_range(-100,100), rng.randi_range(-100,100))
 	buttons.visible = false
 	get_node("AnimationPlayer").play("fall animation")
 
@@ -155,6 +156,8 @@ func _on_area_2d_mouse_exited() -> void:
 	highlight_pack(false)
 
 func highlight_pack(on : bool) -> void:
+	if SceneManager.is_everything_paused:
+		return
 	var tween = get_tree().create_tween()
 	enable_3d = on
 	if on:

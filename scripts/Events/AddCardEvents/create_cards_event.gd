@@ -5,7 +5,6 @@ class_name CreateCardEvent
 @export var cards: Dictionary[String, int]
 @export var probability : Dictionary[String, int]
 
-# destroys the building, #TODO building should trigger its own OnDestroyEvents
 func trigger(card_mem : ServerCardMemory, caller : CardInstanceData, pos := Vector2.ZERO) -> void:
 	for key in cards.keys():
 		for no in range(cards[key]):

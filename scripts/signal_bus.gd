@@ -53,7 +53,9 @@ signal get_tile_pos_from_AOE(tile_pos : Vector2i, aoe_tiles : Array[Vector2i], b
 
 signal place_placeable(pi : String, tile_pos : Vector2i, player_uuid : String, run_on_place_events : bool, sync : bool)
 signal change_terrain(terrain_id : String, player_uuid : String, tile_pos : Vector2i)
-signal remove_placeable(placeable_instance_id : String, player_uuid : String)
+signal remove_placeable(placeable_instance_id : String, player_uuid : String, run_destroy : bool)
+
+
 signal board_action_result(outcome : bool)
 
 signal set_interactable_board_state(state_id : String)
@@ -86,11 +88,22 @@ signal show_round_msg(msg : String)
 
 # FX
 signal show_fx(id : String, pos : Vector2)
-signal call_point_fx(score : int, tile_pos : Vector2i, player_uuid : String)
-#INPUT
+signal call_point_fx(score : int, tile_pos : Vector2i, player_uuid : String, end_tile_pos : Vector2i)
+
+# INPUT
 signal change_input_mask(mask)
 signal pause_input
 signal resume_input
+signal enable_escape(on : bool)
 
 # EventManager
 #signal trigger_effect(bid : BuildingInstanceData, effect_type : Sting)
+
+# Tutorial
+signal reset_tutorial
+signal pass_tutorial_stage
+signal next_tutorial_stage
+
+signal tut_pack_selected
+signal tut_escape_menu_opened
+signal tut_close_compendium

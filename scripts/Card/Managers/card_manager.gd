@@ -38,7 +38,7 @@ func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	
 	# Have to do this stupid check cuz GDScript has no interface
-	assert(board_ref is BoardManagerClient or board_ref is MenuBoard)
+	assert(board_ref is BoardManagerClient or board_ref is MenuBoard or board_ref is TutorialBoard)
 	
 
 func _process(_delta: float) -> void:
@@ -205,6 +205,8 @@ func card_hover_if_able():
 #
 ## highlight or unhighlight card depending on second argument
 func highlight_card(card : Card, hovering : bool):
+	if SceneManager.is_everything_paused:
+		return
 	if hovering:
 		card.enable_3d = true
 		card.z_index += 10

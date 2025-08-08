@@ -5,7 +5,7 @@ class_name MenuLogic
 @onready var player_hand_ref: Node2D = $"../PlayerHand"
 
 const MENU_HANDS = {
-	"main_menu" : ["singleplayer", "multiplayer", "settings", "exit"],
+	"main_menu" : ["tutorial", "singleplayer", "multiplayer", "settings", "exit"],
 	"singleplayer" : ["back", "start_game"],
 	"multiplayer" : ["back", "host", "join"],
 	"multihost" : ["back"],
@@ -23,6 +23,7 @@ var STATES = {
 }
 
 signal setting_menu_open
+signal start_tutorial
 signal setting_menu_exit
 signal singleplayer_open
 signal singleplayer_back
@@ -53,6 +54,8 @@ func main_menu(id : String) -> String:
 			"main_menu"
 		"settings":
 			setting_menu_open.emit()
+		"tutorial":
+			start_tutorial.emit()
 		"singleplayer":
 			singleplayer_open.emit()
 		"multiplayer":

@@ -1,0 +1,270 @@
+[gd_scene load_steps=23 format=3 uid="uid://cat2yn23qik81"]
+
+[ext_resource type="Script" uid="uid://betlgtm44vmvx" path="res://scripts/Tutorial/tutorial_stage.gd" id="1_47qos"]
+[ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/Managers/player_hand.gd" id="1_uqt8d"]
+[ext_resource type="PackedScene" uid="uid://bkog375sxl1lg" path="res://scenes/Compendium/compendium_container.tscn" id="1_xio1g"]
+[ext_resource type="PackedScene" uid="uid://dqeuxtjytggp4" path="res://scenes/Menus/parallax_background.tscn" id="2_43fa4"]
+[ext_resource type="PackedScene" uid="uid://d2ge0mle8odwm" path="res://scenes/Tutorial/tutorial_round_manager.tscn" id="2_65ljl"]
+[ext_resource type="PackedScene" uid="uid://b43u6wsxnq4ai" path="res://scenes/Game Flow/input_manager.tscn" id="2_kd1hv"]
+[ext_resource type="Script" path="res://scripts/Tutorial/tut_card_manager.gd" id="3_lm6f3"]
+[ext_resource type="PackedScene" uid="uid://dyaq4288p4ik4" path="res://scenes/Main Menu/tutorial_card_pack.tscn" id="4_51jmb"]
+[ext_resource type="Script" uid="uid://c5fouuecjsld6" path="res://scripts/camera.gd" id="6_kd1hv"]
+[ext_resource type="PackedScene" uid="uid://cxs3uuln8m4ai" path="res://scenes/Tutorial/tutorial_layer.tscn" id="8_lm6f3"]
+[ext_resource type="PackedScene" uid="uid://b6dee2ixvxkik" path="res://scenes/ui_layer.tscn" id="9_lm6f3"]
+[ext_resource type="PackedScene" uid="uid://bxiy7ajwus31g" path="res://scenes/Board/board_manager.tscn" id="12_65ljl"]
+[ext_resource type="Script" uid="uid://w3vrbs0mi25t" path="res://scripts/Tutorial/tutorial_board.gd" id="13_65ljl"]
+[ext_resource type="TileSet" uid="uid://cwvj828htdyfb" path="res://Resources/EnvTerrain/EnvTerrainTileset.tres" id="14_47qos"]
+[ext_resource type="Script" uid="uid://d0uo64xc2oil1" path="res://scripts/Tutorial/TutorialBoardPreviewer.gd" id="14_65ljl"]
+[ext_resource type="Resource" uid="uid://b2ockuqgtwo7k" path="res://Resources/ProcGen/BoardProcGenerator.tres" id="16_irfan"]
+
+[sub_resource type="Shader" id="Shader_u2vrp"]
+code = "shader_type canvas_item;
+
+group_uniforms code_set_parameters;
+uniform vec2 mouse_position;
+uniform vec2 sprite_position;
+
+uniform sampler2D dissolve_texture : source_color;
+uniform float dissolve_value : hint_range(0,1);
+uniform vec4 burn_color: source_color;
+
+group_uniforms _3D_Perspective;
+uniform float fov : hint_range(1, 179) = 90;
+uniform bool cull_back = true;
+uniform float inset : hint_range(0, 1) = 0.0;
+uniform float max_tilt : hint_range(0,2.0) = 1.0;
+uniform float max_distance = 500.0;
+
+varying flat vec2 o;
+varying vec3 p;
+
+group_uniforms foil_uniforms;
+//The color of the foil.
+uniform vec3 foilcolor : source_color;
+uniform float threshold : hint_range(0.0, 2.0, 0.1) = 0.1 ;
+uniform float fuzziness : hint_range(0.0,1.0,.01) = 0.1;
+uniform float period = 1;
+uniform float scroll = 1;
+uniform float normal_strength = .1;
+uniform float effect_alpha_mult : hint_range(0,1) = 1.0;
+uniform float direction : hint_range(0,1.0) = 0.5;
+
+uniform sampler2D foil_mask;
+uniform vec3 outline_color : source_color;
+uniform sampler2D noise;
+uniform sampler2D normal_map;
+
+varying smooth vec2 direction_to;
+varying smooth vec2 passthrough;
+
+float inverse_lerp(float v, float a, float b){
+	return (v - a) / (b - a);
+}
+
+float color_mask(vec3 mask, vec3 color, float mask_threshold, float mask_fuzziness){
+	float d = distance(mask,color);
+	return clamp(1.0 - smoothstep(mask_threshold,mask_threshold + mask_fuzziness, d),0.0,1.0);
+}
+
+mat2 rotate2d(float _angle){
+    return mat2(vec2(cos(_angle),-sin(_angle)),vec2(sin(_angle),cos(_angle)));
+}
+
+vec3 rotate_vector(vec3 v, float angleX, float angleY, float magnitude) {
+	// Create rotation matrices for X and Y axes.
+	mat3 rotX = mat3(
+		vec3(1.0, 0.0, 0.0),
+		vec3(0.0, cos(angleX), -sin(angleX)),
+		vec3(0.0, sin(angleX), cos(angleX))
+	);
+	mat3 rotY = mat3(
+		vec3(cos(angleY), 0.0, sin(angleY)),
+		vec3(0.0, 1.0, 0.0),
+		vec3(-sin(angleY), 0.0, cos(angleY))
+	);
+	// Combine the rotations. Order matters! Y then X is common.
+	mat3 combinedRotation = rotX * rotY; // Apply Y rotation first, then X.
+	// Rotate the vector.
+	vec3 rotatedVector = combinedRotation * v;
+	// Apply magnitude
+	rotatedVector = normalize(rotatedVector) * magnitude;
+	return rotatedVector;
+}
+
+void vertex(){
+	direction_to = mouse_position - sprite_position;
+	float d = length( direction_to );
+	float magnitude = min( max_tilt , d / max_distance);
+	float angle = atan(direction_to.x,direction_to.y);
+	float x_rota = abs(angle) / PI;
+	float y_rota = abs(atan(direction_to.y,direction_to.x)) / PI;
+
+	float sin_b = sin( (-y_rota + .5) * magnitude * (PI / 2.0) );
+	float cos_b = cos( (-y_rota + .5) * magnitude * (PI / 2.0) );
+	float sin_c = sin( (x_rota - .5) * magnitude * (PI / 2.0) );
+	float cos_c = cos( (x_rota - .5) * magnitude * (PI / 2.0) );
+
+	mat3 inv_rot_mat;
+	inv_rot_mat[0][0] = cos_b;
+	inv_rot_mat[0][1] = 0.0;
+	inv_rot_mat[0][2] = -sin_b;
+
+	inv_rot_mat[1][0] = sin_b * sin_c;
+	inv_rot_mat[1][1] = cos_c;
+	inv_rot_mat[1][2] = cos_b * sin_c;
+
+	inv_rot_mat[2][0] = sin_b * cos_c;
+	inv_rot_mat[2][1] = -sin_c;
+	inv_rot_mat[2][2] = cos_b * cos_c;
+
+
+	float t = tan(fov / 360.0 * PI);
+	p = inv_rot_mat * vec3((UV - 0.5), 0.5 / t);
+	float v = (0.5 / t) + 0.5;
+	p.xy *= v * inv_rot_mat[2].z;
+	o = v * inv_rot_mat[2].xy;
+
+	VERTEX += (UV - 0.5) / TEXTURE_PIXEL_SIZE * t * (1.0 - inset);
+}
+
+void fragment() {
+	//culls the back somehow
+	if (cull_back && p.z <= 0.0) discard;
+	//get the UV from based on the tilt from the vertex function
+	vec2 uv = (p.xy / p.z).xy - o;
+	vec2 adjusted_uv = uv + 0.5;
+	//get the color texture
+	vec4 albedo_tex = texture(TEXTURE, adjusted_uv);
+	COLOR = albedo_tex;
+
+	vec4 mask = texture(foil_mask,adjusted_uv);
+	float texture_similarity = color_mask(foilcolor,albedo_tex.rgb,threshold,fuzziness);
+
+	vec4 noise_texture = texture(dissolve_texture, UV);
+
+	float d = length( direction_to );
+	float magnitude = min( max_tilt , d / max_distance);
+	float angle = atan(direction_to.x,direction_to.y);
+	float x_rota = abs(angle) / PI;
+	float y_rota = abs(atan(direction_to.y,direction_to.x)) / PI;
+
+	vec3 normal_map_tex = texture(normal_map,adjusted_uv).rgb * 2.0 - 1.0;
+	vec3 normal = rotate_vector(vec3(1.0,1.0,1.0),x_rota,y_rota,magnitude * magnitude);
+	normal = rotate_vector(normal,normal_map_tex.x, normal_map_tex.y, length(normal_map_tex)) * normal_strength;
+
+	vec4 noise_tex = texture(noise,adjusted_uv);
+
+	vec4 gradient_tex = vec4(outline_color,1);
+	float strength = effect_alpha_mult * mask.r * texture_similarity;
+
+	float burn_threshold = smoothstep(noise_texture.x, noise_texture.x, dissolve_value);
+	float border = smoothstep(noise_texture.x, noise_texture.x, dissolve_value);
+
+	COLOR.rgb = mix(albedo_tex.rgb, gradient_tex.rgb*(noise_tex.rgb*2.0), strength);//(effect_alpha_mult-length(albedo_tex))*gradient_tex.a*effect_alpha_mult);
+	COLOR.a *= burn_threshold;
+	COLOR.a *= step(max(abs(uv.x), abs(uv.y)), 0.5);
+	COLOR.rgb = mix(burn_color.rgb, COLOR.rgb, border);
+	//COLOR.a *= threshold;
+}"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_j4ao5"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b3b0l"]
+noise = SubResource("FastNoiseLite_j4ao5")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_b3b0l"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pmi5y"]
+noise = SubResource("FastNoiseLite_b3b0l")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w1rjx"]
+resource_local_to_scene = true
+shader = SubResource("Shader_u2vrp")
+shader_parameter/mouse_position = Vector2(0, 0)
+shader_parameter/sprite_position = Vector2(0, 0)
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_b3b0l")
+shader_parameter/dissolve_value = 1.0
+shader_parameter/burn_color = Color(0, 0, 0, 1)
+shader_parameter/fov = 90.0
+shader_parameter/cull_back = true
+shader_parameter/inset = 0.0
+shader_parameter/max_tilt = 0.035
+shader_parameter/max_distance = 500.0
+shader_parameter/foilcolor = Color(1, 0, 0, 1)
+shader_parameter/threshold = 0.2
+shader_parameter/fuzziness = 0.1
+shader_parameter/period = 2.0
+shader_parameter/scroll = 4.0
+shader_parameter/normal_strength = 0.1
+shader_parameter/effect_alpha_mult = 1.0
+shader_parameter/direction = 0.5
+shader_parameter/outline_color = Color(0.913725, 0.784314, 0.309804, 1)
+shader_parameter/normal_map = SubResource("NoiseTexture2D_pmi5y")
+
+[node name="Tutorial" type="Node2D"]
+script = ExtResource("1_47qos")
+round_manager = ExtResource("2_65ljl")
+
+[node name="CardManager" type="Node2D" parent="." node_paths=PackedStringArray("board_ref", "player_hand_ref", "input_manager_ref", "preview_board_ref")]
+z_index = 4
+script = ExtResource("3_lm6f3")
+board_ref = NodePath("../BoardManager")
+player_hand_ref = NodePath("../PlayerHand")
+input_manager_ref = NodePath("../InputManager")
+preview_board_ref = NodePath("../BoardManager/Preview")
+
+[node name="TutorialCardPack" parent="CardManager" instance=ExtResource("4_51jmb")]
+z_index = 10
+material = SubResource("ShaderMaterial_w1rjx")
+position = Vector2(1086.46, 450)
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("board")]
+script = ExtResource("6_kd1hv")
+board = NodePath("../BoardManager")
+
+[node name="PlayerHand" type="Node2D" parent="."]
+z_index = 1
+script = ExtResource("1_uqt8d")
+
+[node name="InputManager" parent="." instance=ExtResource("2_kd1hv")]
+position = Vector2(879, 480)
+
+[node name="TutorialLayer" parent="." instance=ExtResource("8_lm6f3")]
+
+[node name="UILayer" parent="." instance=ExtResource("9_lm6f3")]
+
+[node name="PlayerUI" parent="UILayer" index="0"]
+metadata/_edit_use_anchors_ = true
+
+[node name="DisconnectScreen" parent="UILayer" index="1"]
+visible = false
+
+[node name="WinnerScreen" parent="UILayer" index="2"]
+visible = false
+
+[node name="CompendiumLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="CompendiumContainer" parent="CompendiumLayer" instance=ExtResource("1_xio1g")]
+
+[node name="BoardManager" parent="." instance=ExtResource("12_65ljl")]
+script = ExtResource("13_65ljl")
+BOARD_SIZE = Vector2i(3, 3)
+BOARDS_LAYOUT = Vector2i(1, 1)
+BORDER_DIM = Vector2i(0, 0)
+proc_gen = ExtResource("16_irfan")
+
+[node name="Preview" parent="BoardManager" index="0"]
+tile_set = ExtResource("14_47qos")
+script = ExtResource("14_65ljl")
+
+[node name="Darken" parent="BoardManager" index="1"]
+z_index = 20
+
+[node name="Background" type="CanvasLayer" parent="."]
+
+[node name="Background2" parent="Background" instance=ExtResource("2_43fa4")]
+position = Vector2(109, 79)
+
+[editable path="UILayer"]
+[editable path="BoardManager"]

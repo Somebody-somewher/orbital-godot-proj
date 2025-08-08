@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cdp6pxvmemk4u"]
+[gd_scene load_steps=14 format=3 uid="uid://cdp6pxvmemk4u"]
 
 [ext_resource type="Script" uid="uid://dq7q74qaf5hj8" path="res://scripts/GameFlow/GameManager.gd" id="1_bjd11"]
 [ext_resource type="PackedScene" uid="uid://klvllydgi5tw" path="res://scenes/Game Flow/round_manager.tscn" id="2_ft6cd"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b6dee2ixvxkik" path="res://scenes/ui_layer.tscn" id="9_3p2gp"]
 [ext_resource type="PackedScene" uid="uid://bkog375sxl1lg" path="res://scenes/Compendium/compendium_container.tscn" id="10_1nqs0"]
 [ext_resource type="PackedScene" uid="uid://dqeuxtjytggp4" path="res://scenes/Menus/parallax_background.tscn" id="12_cvmbd"]
+[ext_resource type="TileSet" uid="uid://cwvj828htdyfb" path="res://Resources/EnvTerrain/EnvTerrainTileset.tres" id="12_qmy6f"]
 [ext_resource type="Script" uid="uid://byit5totk5tsn" path="res://scripts/Card/Pack&Set/CardPackManagerClient.gd" id="13_cvmbd"]
 [ext_resource type="Resource" uid="uid://b2ockuqgtwo7k" path="res://Resources/ProcGen/BoardProcGenerator.tres" id="16_ft6cd"]
 [ext_resource type="PackedScene" uid="uid://bxiy7ajwus31g" path="res://scenes/Board/board_manager.tscn" id="17_bb450"]
@@ -37,9 +38,6 @@ position = Vector2(879, 480)
 
 [node name="UILayer" parent="." instance=ExtResource("9_3p2gp")]
 
-[node name="RoundLabel" parent="UILayer/PlayerUI" index="1"]
-visible = false
-
 [node name="DisconnectScreen" parent="UILayer" index="1"]
 visible = false
 
@@ -58,6 +56,9 @@ spawn_node = NodePath("../CardManager")
 
 [node name="BoardManager" parent="." instance=ExtResource("17_bb450")]
 proc_gen = ExtResource("16_ft6cd")
+
+[node name="Preview" parent="BoardManager" index="0"]
+tile_set = ExtResource("12_qmy6f")
 
 [node name="Darken" parent="BoardManager" index="1"]
 z_index = 20

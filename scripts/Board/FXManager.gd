@@ -14,8 +14,9 @@ func show_fx(id : String, pos : Vector2):
 	fx_scene.start_pos = pos
 	add_child(fx_scene)
 
-func show_point_fx(score : int, pos : Vector2):
+func show_point_fx(score : int, pos : Vector2, end_pos : Vector2):
 	var fx_scene = point_fx.instantiate()
 	fx_scene.start_pos = pos
+	fx_scene.end_pos = end_pos
 	fx_scene.points = score
 	add_child(fx_scene)

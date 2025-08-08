@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cqp4qcmc1s13n"]
+[gd_scene load_steps=29 format=3 uid="uid://cqp4qcmc1s13n"]
 
 [ext_resource type="Script" uid="uid://baxm1vpvlaqw2" path="res://scripts/Main Menu/main_menu.gd" id="1_bnuun"]
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/Managers/player_hand.gd" id="2_bso06"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dyaq4288p4ik4" path="res://scenes/Main Menu/tutorial_card_pack.tscn" id="11_26fkh"]
 [ext_resource type="PackedScene" uid="uid://do48ita2qa5w3" path="res://scenes/Main Menu/multi_join.tscn" id="11_bqibv"]
 [ext_resource type="Texture2D" uid="uid://dwfea5crud5qh" path="res://shader/Foil/rainbow_gradient_1d.tres" id="12_bso06"]
+[ext_resource type="Script" uid="uid://bcpbmavb3hrg1" path="res://scripts/Main Menu/menu_pack.gd" id="14_cmu3j"]
 [ext_resource type="Script" uid="uid://c5fouuecjsld6" path="res://scripts/camera.gd" id="14_mdse0"]
 [ext_resource type="Script" uid="uid://ch4khga0srdee" path="res://scripts/Board/Visual/MenuBoardPreviewerTilemap.gd" id="15_bnuun"]
 [ext_resource type="PackedScene" uid="uid://bxiy7ajwus31g" path="res://scenes/Board/board_manager.tscn" id="15_fa6rk"]
@@ -24,7 +25,7 @@
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_x2k7b"]
 
-[sub_resource type="Shader" id="Shader_xpnd4"]
+[sub_resource type="Shader" id="Shader_bqibv"]
 code = "shader_type canvas_item;
 
 group_uniforms code_set_parameters;
@@ -184,20 +185,20 @@ void fragment() {
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_j4ao5"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b3b0l"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cmu3j"]
 noise = SubResource("FastNoiseLite_j4ao5")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_b3b0l"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pmi5y"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kbvpp"]
 noise = SubResource("FastNoiseLite_b3b0l")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xlgyj"]
 resource_local_to_scene = true
-shader = SubResource("Shader_xpnd4")
+shader = SubResource("Shader_bqibv")
 shader_parameter/mouse_position = Vector2(0, 0)
 shader_parameter/sprite_position = Vector2(0, 0)
-shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_b3b0l")
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_cmu3j")
 shader_parameter/dissolve_value = 1.0
 shader_parameter/burn_color = Color(0, 0, 0, 1)
 shader_parameter/fov = 90.0
@@ -214,7 +215,7 @@ shader_parameter/normal_strength = 0.1
 shader_parameter/effect_alpha_mult = 0.0
 shader_parameter/direction = 0.5
 shader_parameter/gradient = ExtResource("12_bso06")
-shader_parameter/normal_map = SubResource("NoiseTexture2D_pmi5y")
+shader_parameter/normal_map = SubResource("NoiseTexture2D_kbvpp")
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -299,6 +300,7 @@ preview_board_ref = NodePath("../BoardManager/Preview")
 [node name="TutorialCardPack" parent="CardManager" instance=ExtResource("11_26fkh")]
 material = SubResource("ShaderMaterial_xlgyj")
 position = Vector2(378.725, 233.18)
+script = ExtResource("14_cmu3j")
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("board")]
 position = Vector2(200, 500)

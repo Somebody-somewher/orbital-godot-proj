@@ -2,7 +2,7 @@ extends Camera2D
 
 @export var board: BoardManagerClient
 @onready var player_hand: PlayerHand = $"../PlayerHand"
-@onready var card_manager: CardManager = $"../CardManager"
+@onready var card_manager = $"../CardManager"
 
 var cam_enabled = true
 

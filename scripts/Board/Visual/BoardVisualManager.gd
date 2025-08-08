@@ -1,6 +1,9 @@
 extends BoardTileMapLayer
 class_name BoardVisualManager
 
+#extra just for tutorial board
+@export var borderless := false
+
 var fake_building_colouration : Color
 
 var placeables_placed : Dictionary[Vector2i, Dictionary]
@@ -25,10 +28,15 @@ func _ready() -> void:
 
 func set_up(parent : Node2D, border_dim : Vector2i, playable_area_coords : Array[Vector2i]) -> void:
 	super._set_up(parent, border_dim)
+	
+	if border_dim == Vector2i.ZERO:
+		borderless = true
+		
 	border_coords = [playable_area_coords[0], playable_area_coords[1] + Vector2i(2,2)]
 	shade_area(playable_area_coords[0], playable_area_coords[1])
 	viewable_area_coords = [matrix_to_tilepos(playable_area_coords[0]) * TILE_SIZE,\
 		matrix_to_tilepos(playable_area_coords[1]) * TILE_SIZE]
+	CardLoader.board_centre = (viewable_area_coords[0] + viewable_area_coords[1] + TILE_SIZE * Vector2.ONE)/2
 
 func create_terrain_tile(terrain_id : String, tile_pos : Vector2i) -> void:
 	change_terrain_tile(terrain_id, tile_pos)
@@ -42,6 +50,18 @@ func change_terrain_tile(terrain_id : String, tile_pos : Vector2i) -> void:
 		darken_tile += 1
 	
 	var tile = env_map.getTilePosbyEnv(terrain_id)
+	
+	if borderless:
+		if tile_pos.x == 0:
+			if tile_pos.y == 2:
+				tile += Vector2i(0,2)
+			if tile_pos.y == 0:
+				tile += Vector2i(0,4)
+		if tile_pos.x == 2:
+			if tile_pos.y == 2:
+				tile += Vector2i(0,3)
+			if tile_pos.y == 0:
+				tile += Vector2i(0,5)
 	
 	set_cell(tile_pos, 0, tile, darken_tile)
 

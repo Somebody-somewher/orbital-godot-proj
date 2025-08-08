@@ -1,20 +1,13 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://dgjlbq8bdgon8"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=11 format=3 uid="uid://dgjlbq8bdgon8"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_3xfe3"]
 [ext_resource type="Texture2D" uid="uid://bgpa4leimbu6r" path="res://assets/entity_sprites/shovel.PNG" id="2_hbhk3"]
-[ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_03jlu"]
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_4gd6s"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_34k7x"]
 [ext_resource type="Script" uid="uid://c5t7qdcdn01ia" path="res://scripts/Events/DestroyEvents/destroy_self_event.gd" id="7_03jlu"]
-[ext_resource type="Script" uid="uid://c4b1tsjdr6q7r" path="res://scripts/PlaceConditions/TerrainCondition.gd" id="7_3xfe3"]
-[ext_resource type="Resource" uid="uid://ci1g32fnst1e8" path="res://Resources/Events&Conditions/Events/Scoring/placeholder.tres" id="7_hbhk3"]
+[ext_resource type="Resource" uid="uid://duwyfru3v1ktu" path="res://Resources/AOE/small orth cross.tres" id="8_03jlu"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="8_se1ps"]
-
-[sub_resource type="Resource" id="Resource_03jlu"]
-script = ExtResource("7_3xfe3")
-nonplaceable_terrain = Array[ExtResource("3_03jlu")]([ExtResource("4_4gd6s")])
-reminder_msg = ""
-metadata/_custom_type_script = "uid://c4b1tsjdr6q7r"
+[ext_resource type="Script" uid="uid://bxqoaqhdsj777" path="res://scripts/Events/change_terrain_event.gd" id="9_4gd6s"]
 
 [sub_resource type="Resource" id="Resource_4gd6s"]
 script = ExtResource("7_03jlu")
@@ -22,12 +15,20 @@ event_name = ""
 desc = ""
 metadata/_custom_type_script = "uid://c5t7qdcdn01ia"
 
+[sub_resource type="Resource" id="Resource_34k7x"]
+script = ExtResource("9_4gd6s")
+terrain = ExtResource("4_4gd6s")
+aoe = ExtResource("8_03jlu")
+event_name = ""
+desc = ""
+metadata/_custom_type_script = "uid://bxqoaqhdsj777"
+
 [resource]
 script = ExtResource("8_se1ps")
 layer = 4
 base_score = 0
-preview_event = ExtResource("7_hbhk3")
-place_conditions = Array[ExtResource("5_34k7x")]([SubResource("Resource_03jlu")])
+preview_event = SubResource("Resource_34k7x")
+place_conditions = Array[ExtResource("5_34k7x")]([])
 place_effects = Array[ExtResource("1_3xfe3")]([])
 post_place_effects = Array[ExtResource("1_3xfe3")]([SubResource("Resource_4gd6s")])
 board_begin_round_effects = Array[ExtResource("1_3xfe3")]([])

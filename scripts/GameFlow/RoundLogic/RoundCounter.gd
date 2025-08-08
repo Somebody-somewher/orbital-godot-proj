@@ -21,6 +21,7 @@ var round_num_game_end : int = -1
 var score_manager : ScoreManager
 var is_game_ended := false
 
+
 # Timer-related
 var curr_timer : float = 0.0
 var prev_s : int

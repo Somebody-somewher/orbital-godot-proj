@@ -113,12 +113,12 @@ _data = {
 }
 
 [node name="PointPopup" type="Node2D"]
+visible = false
 z_index = 500
 z_as_relative = false
 script = ExtResource("1_ydw7w")
 
 [node name="Node2D" type="Node2D" parent="."]
-modulate = Color(1, 1, 1, 0)
 
 [node name="Label" type="Label" parent="Node2D"]
 custom_minimum_size = Vector2(50, 50)
