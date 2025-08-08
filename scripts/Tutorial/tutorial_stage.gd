@@ -43,8 +43,8 @@ const TUT_DIALOGUE : Dictionary[int, Array] = {
 		"Drag a card onto the board to play it, if you wish to cancel, right click while dragging.",
 		"Play 'Next' to proceed, or 'Reset' if you want a recap!"],
 	TUT_STAGE.UITeach : [
-		"Your score is displayed on the top left, you want this to be as high as possible!", 
-		"The top right shows which round it is. In a real game, the bottom right would display the timer.",
+		"Your score is displayed on the TOP LEFT, you want this to be as high as possible!", 
+		"The TOP RIGHT shows which round it is. In a real game, the bottom right would display the timer.",
 		"Press ESC at any point in time to pull up the menu. Open the menu to progress!"],
 	TUT_STAGE.Compendium : [
 		"The compendium is a useful to to learn about new cards, click the book mark to open it.",
@@ -54,8 +54,8 @@ const TUT_DIALOGUE : Dictionary[int, Array] = {
 		"When you are hovering a card, you can see how many points placing cards will earn you.", 
 		"Earn 3 points to progress. Note that cards have different range of effects!"],
 	TUT_STAGE.RoundEnd : [
-		"For the level I will provide you with a Round End button, which you will also get in Singleplayer",
-		"In multiplayer, the round ends when the round timer is up.",
+		"For this stage I will provide you with a Round End button at the BOTTOM RIGHT, which you will also get in Singleplayer",
+		"In multiplayer, the round ends only when the round timer is up.",
 		"Some card have special effects each round. Using the cards provided, try to earn 5 points!"],
 	TUT_STAGE.Traders : [
 		"Traders are special cards that can sell other cards.", 
@@ -100,6 +100,7 @@ func _ready() -> void:
 	Signalbus.reset_tutorial.connect(reload_stage)
 	Signalbus.next_tutorial_stage.connect(pass_stage)
 	Signalbus.update_score_ui.connect(check_score)
+	Signalbus.end_tut.connect(end_tut)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -112,8 +113,7 @@ func reload_stage():
 func pass_stage():
 	if(curr_stage == TUT_STAGE.Destroy):
 		tutorial_dialogue.start_dialogue(TUT_DIALOGUE.get(TUT_STAGE.End))
-		await get_tree().create_timer(5).timeout
-		SceneManager.back_to_menu()
+		tutorial_card_pack.create_tut_card("back_menu")
 		return
 	reset_stage()
 	await get_tree().create_timer(.1).timeout
@@ -211,3 +211,6 @@ func place_on_tut_board(card_name : String, pos : Vector2i, run_on_place : bool 
 	(CardLoader.card_mem as ServerCardMemory).func_register_events.call(data)
 	board_manager._place_placeable(data, pos, false)
 	
+func end_tut():
+	await get_tree().create_timer(.2).timeout
+	SceneManager.tut_back_to_menu()

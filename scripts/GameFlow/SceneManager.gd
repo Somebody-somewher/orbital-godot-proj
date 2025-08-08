@@ -20,6 +20,15 @@ func back_to_menu() -> void:
 	curr_scene = "menu"
 	unpause_gameplay()
 
+func tut_back_to_menu() -> void:
+	NetworkManager.full_reset()
+	CardLoader.reset()
+	Signalbus.reset_scene.emit()
+	get_tree().change_scene_to_packed(MENU)
+	unpause_everything()
+	unpause_gameplay()
+	curr_scene = "menu"
+
 @rpc("any_peer", "call_local")
 func start_game(settings : Dictionary = {}) -> void:
 	await get_tree().change_scene_to_packed(GAME)

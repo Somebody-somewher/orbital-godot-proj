@@ -17,6 +17,7 @@ var in_game_music = ["plains","forest","desert","mountain", "snow"]
 # for stacking SFX isntances
 @export var SFX_AUDIOS : Dictionary[String, AudioData]
 @export var sfx_instance_scene: PackedScene
+@export var voice_sfx_scene : PackedScene
 
 # for controlling volume of alot of stacking sfx
 var current_instances = 0
@@ -64,6 +65,11 @@ func play_sfx(audio_name : String, pitch : float = 1.0, from_position : float = 
 	instance.finished.connect(func(): current_instances -= 1)
 	get_node("SFX").add_child(instance)
 
+func play_voice_sfx() -> void:
+	var instance : VoiceSFX = voice_sfx_scene.instantiate()
+	instance.volume_db = linear_to_db(sfx_volume  * master_volume) - current_instances
+	get_node("SFX").add_child(instance)
+
 func play_point_sfx(_score_to_add : int, player_uuid : String) -> void:
 	if PlayerManager.getCurrentPlayerUUID() != player_uuid:
 		return
@@ -78,7 +84,7 @@ func play_point_sfx(_score_to_add : int, player_uuid : String) -> void:
 	instance.pitch_scale = min((no_of_point_sfx+ 5) * .1, 3)
 	instance.volume_db = linear_to_db(sfx_volume  * master_volume)
 	instance.finished.connect(func(): current_instances -= 1)
-	get_node("SFX").add_child(instance)
+	get_node("VoiceSFX").add_child(instance)
 	time_since_point_sfx = 0
 
 func _process(delta: float) -> void:
@@ -102,3 +108,14 @@ func stop_bgm() -> void:
 func resume_bgm() -> void:
 	bgm_stream.play()
 	bgm_stream.seek(bgm_stop)
+
+func talk(times : int):
+	var children = get_node("VoiceSFX").get_children()
+	for child in children:
+		child.free()
+	for i in range(times):
+		play_voice_sfx()
+		await get_tree().create_timer(.15).timeout
+
+func _on_timer_timeout() -> void:
+	play_voice_sfx()

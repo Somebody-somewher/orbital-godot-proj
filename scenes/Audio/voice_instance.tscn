@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbeopqbld6ew4"]
+
+[ext_resource type="AudioStream" uid="uid://bkjv83oan50gn" path="res://assets/audio/sfx/short_moo.wav" id="1_aj78s"]
+[ext_resource type="Script" uid="uid://cll346ogcm3t3" path="res://scripts/Audio/voice_SFX.gd" id="2_xhdrv"]
+
+[node name="VoiceSFX" type="AudioStreamPlayer"]
+stream = ExtResource("1_aj78s")
+script = ExtResource("2_xhdrv")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

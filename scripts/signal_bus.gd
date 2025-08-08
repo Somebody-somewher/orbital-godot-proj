@@ -103,6 +103,7 @@ signal enable_escape(on : bool)
 signal reset_tutorial
 signal pass_tutorial_stage
 signal next_tutorial_stage
+signal end_tut
 
 signal tut_pack_selected
 signal tut_escape_menu_opened

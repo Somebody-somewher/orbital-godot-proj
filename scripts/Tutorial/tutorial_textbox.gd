@@ -18,6 +18,7 @@ func display_text(str : String):
 	label.visible_characters = 0
 	label.text = str
 	
+	AudioManager.talk(str.length()/20)
 	tweening = get_tree().create_tween()
 	tweening.parallel().tween_property(label, "visible_characters", str.length(), 0.3)
 	await tweening.finished

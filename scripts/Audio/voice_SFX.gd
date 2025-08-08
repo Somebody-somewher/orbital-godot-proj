@@ -1,11 +1,10 @@
 extends AudioStreamPlayer
-class_name SFXInstance
-
-var from_position := 0.0
+class_name VoiceSFX
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	play(from_position)
+	pitch_scale = randf_range(.9, 1.1)
+	play()
 
 
 func _on_finished() -> void:

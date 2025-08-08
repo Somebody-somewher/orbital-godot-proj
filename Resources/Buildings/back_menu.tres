@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=13 format=3 uid="uid://cdh0a4knp6qmy"]
+
+[ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_vr62s"]
+[ext_resource type="Texture2D" uid="uid://bhvlx0hfrae18" path="res://assets/entity_sprites/exit.PNG" id="2_vr62s"]
+[ext_resource type="Resource" uid="uid://ci7hb7fl2b4jp" path="res://Resources/AOE/3x3.tres" id="3_bs32m"]
+[ext_resource type="Script" uid="uid://b6kk3al23pvjh" path="res://scripts/Events/TutorialEvents/pass_tutorial_event.gd" id="4_1exq1"]
+[ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_p4qqm"]
+[ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="6_hfhjp"]
+[ext_resource type="Script" uid="uid://cu3armej4ddgv" path="res://scripts/Events/TutorialEvents/end_tutorial_event.gd" id="7_vr62s"]
+[ext_resource type="Resource" uid="uid://ci1g32fnst1e8" path="res://Resources/Events&Conditions/Events/Scoring/placeholder.tres" id="9_2gfv4"]
+[ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="10_tmc5n"]
+
+[sub_resource type="Resource" id="Resource_ogg8s"]
+script = ExtResource("4_1exq1")
+aoe = ExtResource("3_bs32m")
+event_name = ""
+desc = ""
+metadata/_custom_type_script = "uid://b6kk3al23pvjh"
+
+[sub_resource type="Resource" id="Resource_vr62s"]
+script = ExtResource("6_hfhjp")
+reminder_msg = ""
+metadata/_custom_type_script = "uid://wuau4rxg1ej4"
+
+[sub_resource type="Resource" id="Resource_265ua"]
+script = ExtResource("7_vr62s")
+aoe = ExtResource("3_bs32m")
+event_name = ""
+desc = ""
+metadata/_custom_type_script = "uid://cu3armej4ddgv"
+
+[resource]
+script = ExtResource("10_tmc5n")
+layer = 1
+base_score = 0
+preview_event = ExtResource("9_2gfv4")
+place_conditions = Array[ExtResource("5_p4qqm")]([SubResource("Resource_vr62s")])
+place_effects = Array[ExtResource("1_vr62s")]([SubResource("Resource_265ua")])
+post_place_effects = Array[ExtResource("1_vr62s")]([])
+board_begin_round_effects = Array[ExtResource("1_vr62s")]([])
+board_end_round_effects = Array[ExtResource("1_vr62s")]([])
+destroyed_effects = Array[ExtResource("1_vr62s")]([SubResource("Resource_ogg8s")])
+play_conditions = Array[ExtResource("5_p4qqm")]([])
+play_effects = Array[ExtResource("1_vr62s")]([])
+discard_effects = Array[ExtResource("1_vr62s")]([])
+id_name = "back_menu"
+display_name = "Leave"
+card_sprite = ExtResource("2_vr62s")
+desc = "Should not be able to be spawned outside of tutorial."
+flavor = ""
+category = 9
+tags = Array[String]([])
+is_aura = false
+hidden = true
+override_default = false
+metadata/_custom_type_script = "uid://c1vqf0odnqwir"
