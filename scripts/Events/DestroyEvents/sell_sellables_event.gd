@@ -25,7 +25,7 @@ func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstance
 					Signalbus.call_point_fx.emit(sell_score, tile_pos_data[0][i], caller.get_owner_uuid(), tile_pos)
 	if total_sell_score > 0:
 					Signalbus.add_score.emit(total_sell_score, caller.get_owner_uuid())
-	pass
+
 
 func modifier(tile_data : BoardTile, _cum_score := 0) -> int:
 	var score := 0

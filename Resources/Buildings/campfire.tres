@@ -1,14 +1,25 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://dbayfvyek736t"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=15 format=3 uid="uid://dbayfvyek736t"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_1g4gg"]
 [ext_resource type="Texture2D" uid="uid://dgsdmfrwve5sg" path="res://assets/entity_sprites/campfire.PNG" id="2_fpllq"]
+[ext_resource type="Resource" uid="uid://ci7hb7fl2b4jp" path="res://Resources/AOE/3x3.tres" id="2_vjtv1"]
 [ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_1g4gg"]
+[ext_resource type="Script" uid="uid://duslp0dcfi5l5" path="res://scripts/Events/DestroyEvents/destroy_specific_event.gd" id="3_p5mu0"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_t35f3"]
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_0sn3c"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_vjtv1"]
 [ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="7_0sn3c"]
 [ext_resource type="Resource" uid="uid://dfnh5gxqmjwj1" path="res://Resources/Events&Conditions/Events/Scoring/campfire_scoring.tres" id="8_p5mu0"]
 [ext_resource type="Script" uid="uid://c4b1tsjdr6q7r" path="res://scripts/PlaceConditions/TerrainCondition.gd" id="8_vjtv1"]
+
+[sub_resource type="Resource" id="Resource_o14mr"]
+script = ExtResource("3_p5mu0")
+targets = Array[String](["trash"])
+chance = 0.5
+aoe = ExtResource("2_vjtv1")
+event_name = ""
+desc = ""
+metadata/_custom_type_script = "uid://duslp0dcfi5l5"
 
 [sub_resource type="Resource" id="Resource_p5mu0"]
 script = ExtResource("7_0sn3c")
@@ -30,7 +41,7 @@ place_conditions = Array[ExtResource("3_t35f3")]([SubResource("Resource_p5mu0"),
 place_effects = Array[ExtResource("1_1g4gg")]([])
 post_place_effects = Array[ExtResource("1_1g4gg")]([])
 board_begin_round_effects = Array[ExtResource("1_1g4gg")]([])
-board_end_round_effects = Array[ExtResource("1_1g4gg")]([])
+board_end_round_effects = Array[ExtResource("1_1g4gg")]([SubResource("Resource_o14mr")])
 destroyed_effects = Array[ExtResource("1_1g4gg")]([])
 play_conditions = Array[ExtResource("3_t35f3")]([])
 play_effects = Array[ExtResource("1_1g4gg")]([])
@@ -38,7 +49,7 @@ discard_effects = Array[ExtResource("1_1g4gg")]([])
 id_name = "campfire"
 display_name = "Campfire"
 card_sprite = ExtResource("2_fpllq")
-desc = "Cozy place for the homeless and primitive"
+desc = "Cozy place for the homeless and primitive. Small chance to burn adjacent trash at the end of rounds."
 flavor = "\"Who brought marshmallows\""
 category = 3
 tags = Array[String](["fire"])

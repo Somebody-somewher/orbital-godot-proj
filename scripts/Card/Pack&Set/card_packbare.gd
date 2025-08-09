@@ -35,7 +35,7 @@ func _ready() -> void:
 static func new_pack(setdata : Dictionary, pack_id : int) -> CardPack:
 	var return_pack : CardPack = card_pack.instantiate()
 	return_pack.pack_sets.assign(setdata)
-	return_pack.z_index = 50
+	return_pack.z_index = 1000
 	return_pack.pack_id = pack_id
 	return return_pack
 

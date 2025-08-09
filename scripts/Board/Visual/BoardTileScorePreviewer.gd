@@ -26,7 +26,7 @@ func add_tile_label(global_tile_pos : Vector2) -> Label:
 	score_label.set("theme_override_colors/font_color", Color.WHITE)
 	score_label.set("theme_override_font_sizes/font_size",30)
 	score_label.set("theme_override_constants/outline_size",7)
-	score_label.z_index = 9
+	score_label.z_index = 900
 	score_label.visible = false
 	label_parent.add_child(score_label)
 	score_label.global_position = global_tile_pos - score_label.size/2 + Vector2(0,-50)

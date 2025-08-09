@@ -13,6 +13,3 @@ func trigger(card_mem : ServerCardMemory, caller : CardInstanceData, pos := Vect
 				instance.set_owner_uuid(caller.get_owner_uuid())
 				pos = Vector2((pos.x + 0.5) * 113, (pos.y + 0.5) * 113)
 				card_mem.add_card_in_hand(instance, caller.get_owner_uuid(), pos)
-
-			#Signalbus.emit_signal("spawn_card", key, Vector2i(0,0))
-			#board.get_global_tile_pos(tile_pos)

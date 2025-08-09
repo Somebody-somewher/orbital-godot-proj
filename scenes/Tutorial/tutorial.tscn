@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cat2yn23qik81"]
+[gd_scene load_steps=23 format=3 uid="uid://2ksue6x08xgm"]
 
 [ext_resource type="Script" uid="uid://betlgtm44vmvx" path="res://scripts/Tutorial/tutorial_stage.gd" id="1_47qos"]
 [ext_resource type="Script" uid="uid://dcaf113x8c28p" path="res://scripts/Card/Managers/player_hand.gd" id="1_uqt8d"]

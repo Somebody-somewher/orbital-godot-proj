@@ -1,14 +1,8 @@
-#extends ScoreEffect
-#class_name SingleTimeScoreEffect
-#
-#@export var score_given : int
-#
-##deletes self to generate the score
-#
-## Actual code that uses the aoe to figure out which tiles should be scored, then assigns each tile a score
-#func score_tiles(_tile_pos : Vector2i) -> Array[Array]:
-	#return []
-#
-#
-#func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : Node2D) -> void:
-	#pass
+extends ScoreEffect
+class_name SingleTimeScoreEvent
+
+@export var score_given : int
+
+func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstanceData) -> void:
+	Signalbus.call_point_fx.emit(score_given, tile_pos, caller.get_owner_uuid(), tile_pos)
+	Signalbus.add_score.emit(score_given, caller.get_owner_uuid())

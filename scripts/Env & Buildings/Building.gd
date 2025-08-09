@@ -25,6 +25,6 @@ static func new_building_frm_data(data_inst : BuildingInstanceData) -> Building:
 	ret_building.get_node("EntityImage").texture = data_inst.get_data().card_sprite
 	if data_inst.foil:
 		ret_building.get_node("shiny particles").emitting = true
-	ret_building.z_index = 1
+	ret_building.z_index = data_inst.get_data().layer
 	ret_building.name = data_inst.get_id()
 	return ret_building

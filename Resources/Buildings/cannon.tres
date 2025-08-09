@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://yand8w0sftmy"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=15 format=3 uid="uid://yand8w0sftmy"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_g2ag7"]
 [ext_resource type="Texture2D" uid="uid://cyxumyliw33iu" path="res://assets/entity_sprites/cannon.PNG" id="2_eolt2"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://cqr6jrosybp6n" path="res://scripts/PlaceConditions/LightLandTerrainCondition.gd" id="7_g2ag7"]
 [ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="7_yluwk"]
 [ext_resource type="Resource" uid="uid://d16nje3eqxn5a" path="res://Resources/Events&Conditions/Events/Scoring/cannon_scoring.tres" id="8_fvxrl"]
+[ext_resource type="Resource" uid="uid://be3viu88jgymx" path="res://Resources/AOE/ring.tres" id="8_ri5d0"]
+[ext_resource type="Script" uid="uid://cfgtijyricn3e" path="res://scripts/Events/DestroyEvents/destroy_tag.gd" id="8_yluwk"]
 
 [sub_resource type="Resource" id="Resource_fvxrl"]
 script = ExtResource("7_yluwk")
@@ -22,13 +24,24 @@ nonplaceable_terrain = Array[ExtResource("3_g2ag7")]([ExtResource("4_yluwk")])
 reminder_msg = ""
 metadata/_custom_type_script = "uid://cqr6jrosybp6n"
 
+[sub_resource type="Resource" id="Resource_ri5d0"]
+script = ExtResource("8_yluwk")
+tag_to_destroy = "threat"
+chance = 1.0
+effect_buildings_score = Dictionary[String, int]({})
+base_score = 0
+aoe = ExtResource("8_ri5d0")
+event_name = ""
+desc = ""
+metadata/_custom_type_script = "uid://cfgtijyricn3e"
+
 [resource]
 script = ExtResource("6_ri5d0")
 layer = 1
 base_score = 0
 preview_event = ExtResource("8_fvxrl")
 place_conditions = Array[ExtResource("3_h2yxn")]([SubResource("Resource_fvxrl"), SubResource("Resource_yluwk")])
-place_effects = Array[ExtResource("1_g2ag7")]([])
+place_effects = Array[ExtResource("1_g2ag7")]([SubResource("Resource_ri5d0")])
 post_place_effects = Array[ExtResource("1_g2ag7")]([])
 board_begin_round_effects = Array[ExtResource("1_g2ag7")]([])
 board_end_round_effects = Array[ExtResource("1_g2ag7")]([])
@@ -39,7 +52,7 @@ discard_effects = Array[ExtResource("1_g2ag7")]([])
 id_name = "cannon"
 display_name = "Cannon"
 card_sprite = ExtResource("2_eolt2")
-desc = "Defends places of interest. Has a chance to destroy threats in range (like kraken or pirates)."
+desc = "Defends places of interest. Has a high chance to destroy threats in range (like kraken or pirates)."
 flavor = "\"Be careful not to lose a finger\""
 category = 5
 tags = Array[String](["military", "warding"])

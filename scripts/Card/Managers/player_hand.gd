@@ -92,7 +92,7 @@ func animate_card_to_pos(card, new_pos) -> void:
 # resets the card z to fan nicely
 func redraw_z() -> void:
 	for i in range(hand_arr.size()):
-		hand_arr[i].z_index = 50 + i*2
+		hand_arr[i].z_index = 1000 + i*2
 
 func clamp_pos_to_screen(new_x, new_y):
 	var screen_size = og_screen_size/zoom_var

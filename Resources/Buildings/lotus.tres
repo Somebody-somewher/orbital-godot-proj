@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=10 format=3 uid="uid://bqomt4pwcixli"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://bqomt4pwcixli"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_cyxoy"]
 [ext_resource type="Texture2D" uid="uid://bouexy46iwty0" path="res://assets/entity_sprites/lotus.PNG" id="2_xsndr"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_cyxoy"]
 [ext_resource type="Resource" uid="uid://ci7hb7fl2b4jp" path="res://Resources/AOE/3x3.tres" id="5_bawhn"]
+[ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="5_cyxoy"]
 [ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/standard_score.gd" id="5_xsndr"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_6r3sw"]
 [ext_resource type="Script" uid="uid://lu6hi4n44bfy" path="res://scripts/PlaceConditions/StackOnSomeCondition.gd" id="6_cyxoy"]
@@ -13,6 +14,11 @@ script = ExtResource("6_cyxoy")
 stackable_buildings = Array[String](["lilypad", "turtle"])
 reminder_msg = ""
 metadata/_custom_type_script = "uid://lu6hi4n44bfy"
+
+[sub_resource type="Resource" id="Resource_foy7g"]
+script = ExtResource("5_cyxoy")
+reminder_msg = ""
+metadata/_custom_type_script = "uid://wuau4rxg1ej4"
 
 [sub_resource type="Resource" id="Resource_bawhn"]
 script = ExtResource("5_xsndr")
@@ -31,7 +37,7 @@ script = ExtResource("6_6r3sw")
 layer = 1
 base_score = 0
 preview_event = SubResource("Resource_bawhn")
-place_conditions = Array[ExtResource("3_cyxoy")]([SubResource("Resource_jy5mo")])
+place_conditions = Array[ExtResource("3_cyxoy")]([SubResource("Resource_jy5mo"), SubResource("Resource_foy7g")])
 place_effects = Array[ExtResource("1_cyxoy")]([])
 post_place_effects = Array[ExtResource("1_cyxoy")]([])
 board_begin_round_effects = Array[ExtResource("1_cyxoy")]([])

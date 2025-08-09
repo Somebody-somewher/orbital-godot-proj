@@ -91,7 +91,7 @@ func change_border_terrain_tile(terrain_id : String, tile_pos : Vector2i) -> voi
 func place_building_on_tile(building: Building, tile_pos : Vector2i) -> void:
 	if building != null:
 		object.add_child(building)
-		building.z_index = tile_pos.y
+		building.z_index = building.z_index + tile_pos.y * 4
 		building.position = get_local_centre_of_tile(tile_pos)
 		building.get_node("JiggleAnimation").play("jiggle")
 		
@@ -117,7 +117,7 @@ func place_fake_building(building_id: String, tile_pos : Vector2i) -> void:
 	fake_placeable.set_texture(data.card_sprite)
 	fake_placeable.set_modulate(fake_building_colouration)
 	object.add_child(fake_placeable)
-	fake_placeable.z_index = tile_pos.y
+	fake_placeable.z_index = tile_pos.y * 5
 	fake_placeable.position = get_local_centre_of_tile(tile_pos)
 
 func unshade_area(start_coords : Vector2i, end_coords : Vector2i) -> void:

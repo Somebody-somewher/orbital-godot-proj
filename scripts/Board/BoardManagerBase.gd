@@ -271,6 +271,7 @@ func _remove_building(buildinginst_id : String, run_destroy_events := true) -> v
 	if !placeable_instance:
 		printerr("Likely server has deleted the instance before client even added it lol")
 		printerr("Decide how to handle this later")
+		return
 	
 	if run_destroy_events and multiplayer.is_server():
 		CardLoader.event_manager.trigger_events(placeable_instance, "on_destroy", [placeable_instance.tile_pos])
