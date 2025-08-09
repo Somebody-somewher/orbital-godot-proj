@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=11 format=3 uid="uid://bdtidiumnoyar"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=14 format=3 uid="uid://bdtidiumnoyar"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_kwp5o"]
 [ext_resource type="Texture2D" uid="uid://b7c4li2tc3h5i" path="res://assets/entity_sprites/flies.PNG" id="2_mvprs"]
@@ -7,7 +7,9 @@
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_xxylv"]
 [ext_resource type="Resource" uid="uid://ci1g32fnst1e8" path="res://Resources/Events&Conditions/Events/Scoring/placeholder.tres" id="5_mvprs"]
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_kj3s8"]
+[ext_resource type="Resource" uid="uid://duwyfru3v1ktu" path="res://Resources/AOE/small orth cross.tres" id="7_8fnbk"]
 [ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="7_kwp5o"]
+[ext_resource type="Script" uid="uid://cfgtijyricn3e" path="res://scripts/Events/DestroyEvents/destroy_tag.gd" id="8_kj3s8"]
 
 [sub_resource type="Resource" id="Resource_kj3s8"]
 script = ExtResource("3_kwp5o")
@@ -24,13 +26,24 @@ script = ExtResource("7_kwp5o")
 reminder_msg = ""
 metadata/_custom_type_script = "uid://wuau4rxg1ej4"
 
+[sub_resource type="Resource" id="Resource_8b4oh"]
+script = ExtResource("8_kj3s8")
+tag_to_destroy = "fruit"
+chance = 0.5
+effect_buildings_score = Dictionary[String, int]({})
+base_score = 0
+aoe = ExtResource("7_8fnbk")
+event_name = ""
+desc = ""
+metadata/_custom_type_script = "uid://cfgtijyricn3e"
+
 [resource]
 script = ExtResource("6_kj3s8")
 layer = 2
 base_score = 0
 preview_event = ExtResource("5_mvprs")
 place_conditions = Array[ExtResource("3_xxylv")]([SubResource("Resource_8fnbk")])
-place_effects = Array[ExtResource("1_kwp5o")]([])
+place_effects = Array[ExtResource("1_kwp5o")]([SubResource("Resource_8b4oh")])
 post_place_effects = Array[ExtResource("1_kwp5o")]([])
 board_begin_round_effects = Array[ExtResource("1_kwp5o")]([])
 board_end_round_effects = Array[ExtResource("1_kwp5o")]([SubResource("Resource_kj3s8")])

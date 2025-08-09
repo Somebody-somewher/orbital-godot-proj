@@ -12,7 +12,7 @@ effect_buildings_score = Dictionary[String, int]({
 "castle": 10,
 "cottage": 4,
 "hut": 3,
-"statue": 3
+"statue": 5
 })
 base_score = 0
 aoe = ExtResource("1_ecglv")

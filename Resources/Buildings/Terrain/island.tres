@@ -19,7 +19,7 @@ cards = Dictionary[String, int]({
 "coconut": 1
 })
 probability = Dictionary[String, int]({
-"coconut": 40
+"coconut": 50
 })
 event_name = ""
 desc = ""

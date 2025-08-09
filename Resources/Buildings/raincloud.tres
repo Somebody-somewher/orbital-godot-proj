@@ -31,6 +31,7 @@ effect_buildings_score = Dictionary[String, int]({
 "bar": -3,
 "bush": 2,
 "carrots": 2,
+"circus": -2,
 "fruit_tree": 2,
 "garden": 2,
 "tomato": 2,

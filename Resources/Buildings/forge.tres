@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=16 format=3 uid="uid://diweaatjmmvgx"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=18 format=3 uid="uid://diweaatjmmvgx"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_7xrat"]
 [ext_resource type="Texture2D" uid="uid://822wr20pyubh" path="res://assets/entity_sprites/forge.PNG" id="2_aubra"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_ifjqx"]
 [ext_resource type="Script" uid="uid://chfwpl5o8bdu0" path="res://scripts/Events/ScoreScripts/score_per_existing.gd" id="3_qpylj"]
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_hwhtx"]
+[ext_resource type="Script" uid="uid://dc1ykqm2nuhpe" path="res://scripts/Events/DestroyEvents/sell_sellables_event.gd" id="4_qpylj"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="5_edb72"]
 [ext_resource type="Resource" uid="uid://bsrnk44vhb58o" path="res://Resources/Events&Conditions/Conditions/StackableCondition.tres" id="6_qpylj"]
 [ext_resource type="Resource" uid="uid://be3viu88jgymx" path="res://Resources/AOE/ring.tres" id="8_hwhtx"]
@@ -24,6 +25,18 @@ aoe = ExtResource("2_edb72")
 event_name = ""
 desc = ""
 metadata/_custom_type_script = "uid://chfwpl5o8bdu0"
+
+[sub_resource type="Resource" id="Resource_lnw2q"]
+script = ExtResource("4_qpylj")
+tag_to_sell = "mineral"
+chance = 0.6
+trigger_scoring = false
+effect_buildings_score = Dictionary[String, int]({})
+base_score = 0
+aoe = ExtResource("2_edb72")
+event_name = ""
+desc = ""
+metadata/_custom_type_script = "uid://dc1ykqm2nuhpe"
 
 [sub_resource type="Resource" id="Resource_hwhtx"]
 script = ExtResource("8_ifjqx")
@@ -53,7 +66,7 @@ place_conditions = Array[ExtResource("5_edb72")]([ExtResource("6_qpylj"), SubRes
 place_effects = Array[ExtResource("1_7xrat")]([])
 post_place_effects = Array[ExtResource("1_7xrat")]([])
 board_begin_round_effects = Array[ExtResource("1_7xrat")]([])
-board_end_round_effects = Array[ExtResource("1_7xrat")]([SubResource("Resource_i6y5e")])
+board_end_round_effects = Array[ExtResource("1_7xrat")]([SubResource("Resource_i6y5e"), SubResource("Resource_lnw2q")])
 destroyed_effects = Array[ExtResource("1_7xrat")]([])
 play_conditions = Array[ExtResource("5_edb72")]([])
 play_effects = Array[ExtResource("1_7xrat")]([])

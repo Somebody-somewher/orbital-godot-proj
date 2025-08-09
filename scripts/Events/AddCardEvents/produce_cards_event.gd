@@ -13,5 +13,4 @@ func trigger(board : BoardMatrixData, tile_pos : Vector2i, caller : CardInstance
 				var instance = CardLoader.create_data_instance(key, -1)
 				instance.set_owner_uuid(caller.get_owner_uuid())
 				var pos = Vector2(800, 450)
-				print(pos)
 				(CardLoader.card_mem as ServerCardMemory).add_card_in_hand(instance, caller.get_owner_uuid(), pos)

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=14 format=3 uid="uid://bluk7lf8r3hoh"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=15 format=3 uid="uid://bluk7lf8r3hoh"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_qvitu"]
 [ext_resource type="Texture2D" uid="uid://cmxtroc1ge4cw" path="res://assets/entity_sprites/fruit_tree.PNG" id="2_kvby8"]
@@ -12,6 +12,18 @@
 [ext_resource type="Script" uid="uid://c4b1tsjdr6q7r" path="res://scripts/PlaceConditions/TerrainCondition.gd" id="9_cwf6u"]
 [ext_resource type="Script" uid="uid://cux3jvyk6llof" path="res://scripts/Events/AddCardEvents/create_cards_event.gd" id="9_icx1h"]
 
+[sub_resource type="Resource" id="Resource_icx1h"]
+script = ExtResource("9_icx1h")
+cards = Dictionary[String, int]({
+"apple": 1
+})
+probability = Dictionary[String, int]({
+"apple": 60
+})
+event_name = ""
+desc = ""
+metadata/_custom_type_script = "uid://cux3jvyk6llof"
+
 [sub_resource type="Resource" id="Resource_jafr0"]
 script = ExtResource("9_cwf6u")
 nonplaceable_terrain = Array[ExtResource("3_i8k6q")]([ExtResource("4_qvitu"), ExtResource("6_cwf6u")])
@@ -21,7 +33,7 @@ metadata/_custom_type_script = "uid://c4b1tsjdr6q7r"
 [sub_resource type="Resource" id="Resource_cwf6u"]
 script = ExtResource("9_icx1h")
 cards = Dictionary[String, int]({
-"apple": 2
+"apple": 1
 })
 probability = Dictionary[String, int]({})
 event_name = ""
@@ -37,7 +49,7 @@ place_conditions = Array[ExtResource("3_m0dlk")]([ExtResource("4_eeg1n"), SubRes
 place_effects = Array[ExtResource("1_qvitu")]([SubResource("Resource_cwf6u")])
 post_place_effects = Array[ExtResource("1_qvitu")]([])
 board_begin_round_effects = Array[ExtResource("1_qvitu")]([])
-board_end_round_effects = Array[ExtResource("1_qvitu")]([])
+board_end_round_effects = Array[ExtResource("1_qvitu")]([SubResource("Resource_icx1h")])
 destroyed_effects = Array[ExtResource("1_qvitu")]([])
 play_conditions = Array[ExtResource("3_m0dlk")]([])
 play_effects = Array[ExtResource("1_qvitu")]([])
@@ -45,7 +57,7 @@ discard_effects = Array[ExtResource("1_qvitu")]([])
 id_name = "fruit_tree"
 display_name = "Fruit Tree"
 card_sprite = ExtResource("2_kvby8")
-desc = "Chance to produce apple cards."
+desc = "Chance to produce apple cards on placing and at round end."
 flavor = "\"Apple season all year round.\""
 category = 7
 tags = Array[String](["producer"])

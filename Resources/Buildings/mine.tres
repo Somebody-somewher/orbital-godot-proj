@@ -14,10 +14,12 @@
 [sub_resource type="Resource" id="Resource_rpess"]
 script = ExtResource("2_1r2li")
 cards = Dictionary[String, int]({
-"diamond": 1
+"diamond": 1,
+"rock": 1
 })
 probability = Dictionary[String, int]({
-"diamond": 5
+"diamond": 5,
+"rock": 10
 })
 event_name = ""
 desc = ""
