@@ -94,11 +94,15 @@ func on_close_join():
 
 func on_start_multiplayer():
 	NetworkManager.set_up()
-	initialize_game.rpc(multi_host_menu.get_game_settings())
+	var settings = multi_host_menu.get_game_settings()
+	settings["is_singleplayer"] = false
+	initialize_game.rpc(settings)
 
 func on_start_singleplayer() -> void:
-	print(multiplayer.get_unique_id())
-	initialize_game(singleplayer_menu.get_game_settings())
+	#print(multiplayer.get_unique_id())
+	var settings = singleplayer_menu.get_game_settings()
+	settings["is_singleplayer"] = true
+	initialize_game(settings)
 
 func on_start_tutorial() -> void:
 	initialize_tutorial()
