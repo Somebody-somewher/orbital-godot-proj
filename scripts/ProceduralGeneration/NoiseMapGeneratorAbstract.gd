@@ -38,7 +38,7 @@ func generate_weights(array_items : Array, min_val := -0.6, max_val := 0.7, skew
 	
 	#noise_threshold.assign(weights.slice(0, len(weights) - 2))
 	noise_threshold.assign(weights)
-	print(weights)
+	#print(weights)
 	
 # Call this to start the proc_gen (can be called multiple times without error)
 func set_up(board_size : Vector2i = Vector2i(8,8), board_num : Vector2i = Vector2i(1,1), \

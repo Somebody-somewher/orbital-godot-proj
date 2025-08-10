@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=14 format=3 uid="uid://degmn805k1jlu"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=18 format=3 uid="uid://degmn805k1jlu"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_qqp8e"]
 [ext_resource type="Texture2D" uid="uid://bhfhp1xwdevvi" path="res://assets/entity_sprites/mushroom.PNG" id="2_3asfb"]
+[ext_resource type="Script" uid="uid://dvauw8v58qmdy" path="res://scripts/Events/MoveEvents/propogate_event.gd" id="3_7csj3"]
 [ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_qqp8e"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_xwcnf"]
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_igop6"]
@@ -10,6 +11,16 @@
 [ext_resource type="Resource" uid="uid://hu4yh8trux8f" path="res://Resources/AOE/single_tile.tres" id="8_igop6"]
 [ext_resource type="Script" uid="uid://dcbw4orenctn8" path="res://scripts/Events/ScoreScripts/standard_score.gd" id="8_qqp8e"]
 [ext_resource type="Script" uid="uid://c4b1tsjdr6q7r" path="res://scripts/PlaceConditions/TerrainCondition.gd" id="9_koy8d"]
+[ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="10_koy8d"]
+
+[sub_resource type="Resource" id="Resource_koy8d"]
+script = ExtResource("3_7csj3")
+directions = Array[Vector2i]([Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)])
+chance = 0.1
+aoe = ExtResource("8_igop6")
+event_name = ""
+desc = ""
+metadata/_custom_type_script = "uid://dvauw8v58qmdy"
 
 [sub_resource type="Resource" id="Resource_1gh5l"]
 script = ExtResource("9_koy8d")
@@ -23,6 +34,11 @@ water_platforms = Array[String](["turtle"])
 nonplaceable_terrain = Array[ExtResource("3_qqp8e")]([ExtResource("4_igop6")])
 reminder_msg = ""
 metadata/_custom_type_script = "uid://cqr6jrosybp6n"
+
+[sub_resource type="Resource" id="Resource_36b2r"]
+script = ExtResource("10_koy8d")
+reminder_msg = ""
+metadata/_custom_type_script = "uid://wuau4rxg1ej4"
 
 [sub_resource type="Resource" id="Resource_7csj3"]
 script = ExtResource("8_qqp8e")
@@ -45,11 +61,11 @@ script = ExtResource("6_7csj3")
 layer = 2
 base_score = 2
 preview_event = SubResource("Resource_7csj3")
-place_conditions = Array[ExtResource("3_xwcnf")]([SubResource("Resource_1gh5l"), SubResource("Resource_igop6")])
+place_conditions = Array[ExtResource("3_xwcnf")]([SubResource("Resource_1gh5l"), SubResource("Resource_igop6"), SubResource("Resource_36b2r")])
 place_effects = Array[ExtResource("1_qqp8e")]([])
 post_place_effects = Array[ExtResource("1_qqp8e")]([])
 board_begin_round_effects = Array[ExtResource("1_qqp8e")]([])
-board_end_round_effects = Array[ExtResource("1_qqp8e")]([])
+board_end_round_effects = Array[ExtResource("1_qqp8e")]([SubResource("Resource_koy8d")])
 destroyed_effects = Array[ExtResource("1_qqp8e")]([])
 play_conditions = Array[ExtResource("3_xwcnf")]([])
 play_effects = Array[ExtResource("1_qqp8e")]([])
@@ -57,7 +73,7 @@ discard_effects = Array[ExtResource("1_qqp8e")]([])
 id_name = "mushroom"
 display_name = "Mushroom"
 card_sprite = ExtResource("2_3asfb")
-desc = "Could be sold for points or brewed for more points. Chance to spread to nearby tiles."
+desc = "Could be sold for points or brewed for more points. Small chance to spread to nearby tiles."
 flavor = "\"You won't grow big if you eat it, just get a really bad stomach ache\""
 category = 7
 tags = Array[String](["producer", "sellable"])

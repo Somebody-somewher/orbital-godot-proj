@@ -82,7 +82,6 @@ func _on_sand_toggled(toggled_on: bool) -> void:
 var terrain_grp : ButtonGroup
 func _on_terrain_toggled(toggled_on: bool) -> void:
 	var pressed = terrain_grp.get_pressed_button()
-	print(pressed)
 	#var button := get_called_instance() as Button
 	#terrain_types.set(terrain, toggled_on)
 
@@ -141,5 +140,4 @@ func get_game_settings() -> Dictionary:
 	
 	dict_output['build_time'] = build_phase_time
 	dict_output['pickpack_time'] = packchoose_phase_time
-	print(dict_output)
 	return dict_output

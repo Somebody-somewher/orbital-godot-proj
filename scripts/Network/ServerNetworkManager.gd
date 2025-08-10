@@ -21,7 +21,7 @@ func mark_player_as_ready(multiplayer_id : int) -> void:
 		count += 1 
 		players_ready[multiplayer_id] = true
 	
-	print("READY COUNT ", count, " ", players_ready)
+	## print("READY COUNT ", count, " ", players_ready)
 	
 	# All clients ready signal is to check all client nodes are loaded in
 	# Before server sends data

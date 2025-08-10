@@ -68,12 +68,12 @@ func play_sfx(audio_name : String, pitch : float = 1.0, from_position : float = 
 func play_voice_sfx() -> void:
 	var instance : VoiceSFX = voice_sfx_scene.instantiate()
 	instance.volume_db = linear_to_db(sfx_volume  * master_volume) - current_instances
-	get_node("SFX").add_child(instance)
+	get_node("VoiceSFX").add_child(instance)
 
 func play_point_sfx(_score_to_add : int, player_uuid : String) -> void:
 	if PlayerManager.getCurrentPlayerUUID() != player_uuid:
 		return
-	
+	current_instances += 1
 	if time_since_point_sfx > 1:
 		no_of_point_sfx = 1
 	else:
@@ -84,7 +84,7 @@ func play_point_sfx(_score_to_add : int, player_uuid : String) -> void:
 	instance.pitch_scale = min((no_of_point_sfx+ 5) * .1, 3)
 	instance.volume_db = linear_to_db(sfx_volume  * master_volume)
 	instance.finished.connect(func(): current_instances -= 1)
-	get_node("VoiceSFX").add_child(instance)
+	get_node("SFX").add_child(instance)
 	time_since_point_sfx = 0
 
 func _process(delta: float) -> void:

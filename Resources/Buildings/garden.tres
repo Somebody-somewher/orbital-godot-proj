@@ -1,7 +1,9 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=12 format=3 uid="uid://h1xkpeyo0rrj"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=15 format=3 uid="uid://h1xkpeyo0rrj"]
 
 [ext_resource type="Script" uid="uid://dcw572231uxuu" path="res://scripts/Events/Event.gd" id="1_taies"]
+[ext_resource type="Resource" uid="uid://ci7hb7fl2b4jp" path="res://Resources/AOE/3x3.tres" id="2_ivyhu"]
 [ext_resource type="Texture2D" uid="uid://vc0befr5lg7g" path="res://assets/entity_sprites/garden.PNG" id="2_y0mtm"]
+[ext_resource type="Script" uid="uid://br77falx6qke2" path="res://scripts/Events/AddCardEvents/duplicate_tag_event.gd" id="3_ivyhu"]
 [ext_resource type="Script" uid="uid://ss4on0i63mh8" path="res://scripts/PlaceConditions/Condition.gd" id="3_pvf5b"]
 [ext_resource type="Script" uid="uid://cfj1u165lx7jl" path="res://scripts/Env & Buildings/EnvTerrain/EnvTerrain.gd" id="3_taies"]
 [ext_resource type="Resource" uid="uid://pxsa1td76bvc" path="res://Resources/EnvTerrain/TerrainTiles/Water.tres" id="4_wnx6k"]
@@ -9,6 +11,17 @@
 [ext_resource type="Script" uid="uid://c1vqf0odnqwir" path="res://scripts/Env & Buildings/BuildingData/BuildingData.gd" id="6_ivyhu"]
 [ext_resource type="Script" uid="uid://wuau4rxg1ej4" path="res://scripts/PlaceConditions/StackableCondition.gd" id="7_wnx6k"]
 [ext_resource type="Script" uid="uid://c4b1tsjdr6q7r" path="res://scripts/PlaceConditions/TerrainCondition.gd" id="8_ivyhu"]
+
+[sub_resource type="Resource" id="Resource_22m5b"]
+script = ExtResource("3_ivyhu")
+tag_to_dupe = "produce"
+chance = 0.2
+effect_buildings_score = Dictionary[String, int]({})
+base_score = 0
+aoe = ExtResource("2_ivyhu")
+event_name = ""
+desc = ""
+metadata/_custom_type_script = "uid://br77falx6qke2"
 
 [sub_resource type="Resource" id="Resource_dwqnk"]
 script = ExtResource("7_wnx6k")
@@ -30,7 +43,7 @@ place_conditions = Array[ExtResource("3_pvf5b")]([SubResource("Resource_dwqnk"),
 place_effects = Array[ExtResource("1_taies")]([])
 post_place_effects = Array[ExtResource("1_taies")]([])
 board_begin_round_effects = Array[ExtResource("1_taies")]([])
-board_end_round_effects = Array[ExtResource("1_taies")]([])
+board_end_round_effects = Array[ExtResource("1_taies")]([SubResource("Resource_22m5b")])
 destroyed_effects = Array[ExtResource("1_taies")]([])
 play_conditions = Array[ExtResource("3_pvf5b")]([])
 play_effects = Array[ExtResource("1_taies")]([])
@@ -38,7 +51,7 @@ discard_effects = Array[ExtResource("1_taies")]([])
 id_name = "garden"
 display_name = "Garden"
 card_sprite = ExtResource("2_y0mtm")
-desc = "Chance to duplicate produce cards in it's area at the end of the turn."
+desc = "Chance to duplicate produce cards in its area at the end of the turn."
 flavor = "\"Sustainable food for one\""
 category = 4
 tags = Array[String](["processor"])
