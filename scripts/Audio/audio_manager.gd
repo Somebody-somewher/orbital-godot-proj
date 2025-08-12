@@ -81,7 +81,8 @@ func play_point_sfx(_score_to_add : int, player_uuid : String) -> void:
 		
 	var instance : SFXInstance = sfx_instance_scene.instantiate()
 	instance.stream = SFX_AUDIOS.get("point").get_default()
-	instance.pitch_scale = min((no_of_point_sfx+ 5) * .1, 3)
+	
+	instance.pitch_scale = min(pow(1.5,no_of_point_sfx - 3), 3)
 	instance.volume_db = linear_to_db(sfx_volume  * master_volume)
 	instance.finished.connect(func(): current_instances -= 1)
 	get_node("SFX").add_child(instance)
