@@ -67,7 +67,7 @@ func play_sfx(audio_name : String, pitch : float = 1.0, from_position : float = 
 
 func play_voice_sfx() -> void:
 	var instance : VoiceSFX = voice_sfx_scene.instantiate()
-	instance.volume_db = linear_to_db(sfx_volume  * master_volume) - current_instances
+	instance.volume_db = linear_to_db(sfx_volume  * master_volume * 2)
 	get_node("VoiceSFX").add_child(instance)
 
 func play_point_sfx(_score_to_add : int, player_uuid : String) -> void:
