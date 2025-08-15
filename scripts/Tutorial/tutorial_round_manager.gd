@@ -121,7 +121,10 @@ func round_counter_reset():
 
 func reset() -> void:
 	score_manager.game_end.disconnect(end_game)
+	score_manager.reset()
 	for state in round_id_lookup.values():
 		state.reset()
 		state.transition_to.disconnect(start_round)
+	score_manager = null
+
 	

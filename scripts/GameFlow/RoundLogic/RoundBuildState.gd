@@ -14,7 +14,7 @@ func round_end() -> void:
 	if max_round_count != -1 and round_count >= max_round_count:
 		transition_to.emit("END")
 	else:
-		if round_count % 2 == 1:
+		if round_count % 2 == 1 or !PlayerManager.is_multiplayer:
 			transition_to.emit(next_state_ids[0])
 		else:
 			if next_state_ids.size() >= 2:

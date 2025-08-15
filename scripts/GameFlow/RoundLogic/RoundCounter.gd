@@ -27,9 +27,6 @@ var curr_timer : float = 0.0
 var prev_s : int
 var pause_timer : bool = false
 
-#for skipping sabotage rounds
-var is_singleplayer := false
-
 @export var round_id_lookup : Dictionary[String, RoundState]
 
 @export var end_game_wait := 25.0
@@ -44,9 +41,6 @@ func set_up(settings : Dictionary) -> void:
 	
 	if settings.has('win_rounds'):
 		round_num_game_end = settings['win_rounds']
-	
-	if settings.has('is_singleplayer'):
-		is_singleplayer = settings['is_singleplayer']
 	
 	score_manager = ScoreManager.new(settings)
 	score_manager.game_end.connect(end_game)
@@ -103,10 +97,6 @@ func start_round(round_id : String) -> void:
 	if round_id == "END":
 		score_manager.query_for_winner(true)
 		return
-	
-	# hardcoded for skipping sabo in singleplayer
-	if is_singleplayer and round_id == "sabo":
-		round_id = "build"
 	
 	curr_round = round_id_lookup[round_id]
 	(get_parent() as GameManager).set_phase.rpc(curr_round.get_id())
