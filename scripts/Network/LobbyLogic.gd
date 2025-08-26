@@ -74,7 +74,8 @@ func _connect_client(addr = "", port = ""):
 	if port == "":
 		port = _port
 	else:
-		if typeof(port) != TYPE_INT:
+		if !port.is_valid_int():
+			printerr("NOT VALID INT")
 			return
 	
 	print(addr, " ", port)
